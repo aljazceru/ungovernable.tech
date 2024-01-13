@@ -35,3 +35,5 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Trusted execution environment](https://en.wikipedia.org/wiki/Trusted_execution_environment)
 - [Confidential Containers](https://github.com/confidential-containers/)
 - [Firecracker-microvm](https://firecracker-microvm.github.io/)
+- [Confidential computing](https://en.wikipedia.org/wiki/Confidential_computing)
+- [KMata containers](https://katacontainers.io/)
