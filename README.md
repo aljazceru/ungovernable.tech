@@ -12,7 +12,6 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 ## Use cases
 - providing sensitive data as RAG to an LLM
 - analyzing confidential data
--  
 
 ## Currnet high level thinking
 1) Deploy a new confidential container for each job
