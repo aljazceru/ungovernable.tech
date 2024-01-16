@@ -39,3 +39,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [KMata containers](https://katacontainers.io/)
 - [awesome-zama](https://github.com/zama-ai/awesome-zama)
 - [zama.ai](https://www.zama.ai/)
+- [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
