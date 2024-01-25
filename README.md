@@ -51,3 +51,5 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Generic Key Broker System for CoCo](https://github.com/confidential-containers/confidential-containers/issues/68)
 - [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
 - [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
+- [Constellation - Always encrypted kubernetes](https://github.com/edgelesssys/constellation?tab=readme-ov-file)
+- [Garmine Shielded Containers](https://github.com/gramineproject/gsc)
