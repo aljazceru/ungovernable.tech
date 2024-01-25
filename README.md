@@ -30,8 +30,9 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 6) Destroy the VM
 
 ## Potential issues
-- [confidential containers](https://github.com/confidential-containers/confidential-containers/) don't support attestation yet
-- you need an attestation service running in a trusted env to be able to ensure confidentiality 
+- [confidential containers](https://github.com/confidential-containers/confidential-containers/) don't (fully) support attestation yet
+- you need an attestation service running in a trusted env to be able to ensure confidentiality
+- GCP doesn't support Confidential nodes with GPUs
 
 ## Reading materials:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
