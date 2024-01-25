@@ -48,3 +48,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Trusted Execution Environment Provisioning (TEEP) Architecture](https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19)
 - [CoCo attestation proposal KBS / AS](https://github.com/confidential-containers/confidential-containers/issues/119)
 - [Generic Key Broker System for CoCo](https://github.com/confidential-containers/confidential-containers/issues/68)
+- [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
