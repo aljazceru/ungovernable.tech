@@ -29,6 +29,9 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
    - deliver the result to the user over secure channel
 6) Destroy the VM
 
+## Potential issues
+- [confidential containers](https://github.com/confidential-containers/confidential-containers/) don't support attestation yet
+- you need an attestation service running in a trusted env to be able to ensure confidentiality 
 
 ## Reading materials:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
@@ -40,3 +43,7 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [awesome-zama](https://github.com/zama-ai/awesome-zama)
 - [zama.ai](https://www.zama.ai/)
 - [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
+- [Remote attestation Procedures Architecture](https://ietf-rats-wg.github.io/architecture/draft-ietf-rats-architecture.html)
+- [Trusted Execution Environment Provisioning (TEEP) Architecture](https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19)
+- [CoCo attestation proposal KBS / AS](https://github.com/confidential-containers/confidential-containers/issues/119)
+- [Generic Key Broker System for CoCo](https://github.com/confidential-containers/confidential-containers/issues/68)
