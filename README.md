@@ -33,6 +33,7 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [confidential containers](https://github.com/confidential-containers/confidential-containers/) don't (fully) support attestation yet
 - you need an attestation service running in a trusted env to be able to ensure confidentiality
 - GCP doesn't support Confidential nodes with GPUs
+- GPU enclaves only possible on H100 + AMD SEV 
 
 ## Reading materials:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
@@ -49,3 +50,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [CoCo attestation proposal KBS / AS](https://github.com/confidential-containers/confidential-containers/issues/119)
 - [Generic Key Broker System for CoCo](https://github.com/confidential-containers/confidential-containers/issues/68)
 - [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
+- [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
