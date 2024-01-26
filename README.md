@@ -55,3 +55,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Garmine Shielded Containers](https://github.com/gramineproject/gsc)
 - [Confidential containers in kubernetes](https://archive.is/u1vhR)
 - [Garmine library OS - run applications in enclaves](https://github.com/gramineproject/gramine/tree/master?tab=readme-ov-file)
+- [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
