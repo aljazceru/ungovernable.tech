@@ -41,7 +41,7 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Confidential Containers](https://github.com/confidential-containers/)
 - [Firecracker-microvm](https://firecracker-microvm.github.io/)
 - [Confidential computing](https://en.wikipedia.org/wiki/Confidential_computing)
-- [KMata containers](https://katacontainers.io/)
+- [Kata containers](https://katacontainers.io/)
 - [awesome-zama](https://github.com/zama-ai/awesome-zama)
 - [zama.ai](https://www.zama.ai/)
 - [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
