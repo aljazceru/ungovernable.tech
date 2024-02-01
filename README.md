@@ -58,3 +58,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
 - [COCONUT Secure VM Service Module](https://github.com/coconut-svsm/svsm)
 - [enclavie](https://github.com/enclaive)
+- [List of SGX supported Intel CPUs](https://www.intel.com/content/www/us/en/architecture-and-technology/software-guard-extensions-processors.html)
