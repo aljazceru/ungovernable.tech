@@ -1,6 +1,6 @@
 ### prereqs
 ```
-git clone https://github.com/gramineproject/gsc.
+git clone https://github.com/gramineproject/gsc.git
 apt install python3-pip
 pip install docker
 ```
