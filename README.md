@@ -59,3 +59,4 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [COCONUT Secure VM Service Module](https://github.com/coconut-svsm/svsm)
 - [enclavie](https://github.com/enclaive)
 - [List of SGX supported Intel CPUs](https://www.intel.com/content/www/us/en/architecture-and-technology/software-guard-extensions-processors.html)
+- [List of SGX hardware](https://github.com/ayeks/SGX-hardware)
