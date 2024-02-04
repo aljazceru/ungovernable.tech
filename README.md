@@ -35,6 +35,10 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - GCP doesn't support Confidential nodes with GPUs
 - GPU enclaves only possible on H100 + AMD SEV 
 
+## Demos
+1) [SEC-01 first demo](./simple-test/README.md) - "something works"
+
+
 ## Reading materials:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
 - [Trusted execution environment](https://en.wikipedia.org/wiki/Trusted_execution_environment)
