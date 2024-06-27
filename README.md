@@ -37,4 +37,4 @@ I wanted to create a PoC of confidential computing over nostr, I didn't end up f
 - [General overview of AMD SEV-SNP and Intel TDX](https://sys.cs.fau.de/extern/lehre/ws22/akss/material/amd-sev-intel-tdx.pdf)
 
 
-  For any suggestions or comments submit a PR/open an issue or send smoke signals over nostr to [aljaz@nostr.si(]https://nostr.at/aljaz@nostr.si)
+  For any suggestions or comments submit a PR/open an issue or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
