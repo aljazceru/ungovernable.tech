@@ -65,6 +65,7 @@ Ideally for maximum privacy you'd push the entire VM to the provider but that ca
 - [List of SGX supported Intel CPUs](https://www.intel.com/content/www/us/en/architecture-and-technology/software-guard-extensions-processors.html)
 - [List of SGX hardware](https://github.com/ayeks/SGX-hardware)
 - [Secure Multi-Party Computation Without Agreement](https://eprint.iacr.org/2002/040.pdf)
+- [SGX Secure Enclaves in Practice: Security and Crypto Review](https://www.youtube.com/watch?v=0ZVFy4Qsryc)
 
 
   For any suggestions or comments submit a PR/open an issue or send smoke signals over nostr to [aljaz@nostr.si(]https://nostr.at/aljaz@nostr.si)
