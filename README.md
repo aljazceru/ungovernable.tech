@@ -3,9 +3,10 @@ Welcome to Ungovernable Tech. This started as a landing page for [my](https://no
 
 ## Confidential computing
 
-### ConfidentialDVM
+### [ConfidentialDVM](./ConfidentialDVM)
 I wanted to create a PoC of confidential computing over nostr, I didn't end up finishing it but the notes about that experiment are [here](ConfidentailDVM.md). 
 
+## [Confidential Computing in the Cloud](./ConfidentialComputingOnCloud.md)
 
 ### Reading materials about confidential computing:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
