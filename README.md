@@ -1,4 +1,4 @@
-Welcome to Ungovernable Tech. This started as a landing page for [my](https://nostr.at/aljaz@nostr.si) notes about research I was doing during the [Sovereing Engineering Cohort](https://sovereignengineering.io/) but I've decided to make it more structured and make it a bookmark page for all my research into freedom enabling technology.
+Welcome to Ungovernable Tech. This started as a landing page for [my](https://nostr.at/aljaz@nostr.si) notes about research I was doing during the [Sovereign Engineering Cohort](https://sovereignengineering.io/) but I've decided to make it more structured and make it a bookmark page for all my research into freedom enabling technology.
 
 
 ## Confidential computing
