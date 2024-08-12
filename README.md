@@ -1,4 +1,4 @@
-Welcome to Ungovernable Tech. This started as a landing page for [my](https://nostr.at/aljaz@nostr.si) notes about research I was doing during the [Sovereign Engineering Cohort](https://sovereignengineering.io/) but I've decided to make it more structured and make it a bookmark page for all my research into freedom enabling technology.
+Welcome to Ungovernable Tech. This started as a landing page for [my](https://nostr.at/aljaz@nostr.si) notes about research I was doing during the [Sovereing Engineering Cohort](https://sovereignengineering.io/) but I've decided to make it more structured and make it a bookmark page for all my research into freedom enabling technology.
 
 
 ## Confidential computing
@@ -36,6 +36,9 @@ I wanted to create a PoC of confidential computing over nostr, I didn't end up f
 - [Secure Multi-Party Computation Without Agreement](https://eprint.iacr.org/2002/040.pdf)
 - [SGX Secure Enclaves in Practice: Security and Crypto Review](https://www.youtube.com/watch?v=0ZVFy4Qsryc)
 - [General overview of AMD SEV-SNP and Intel TDX](https://sys.cs.fau.de/extern/lehre/ws22/akss/material/amd-sev-intel-tdx.pdf)
+
+
+## Decentralized  DNS
 
 
   For any suggestions or comments submit a PR/open an issue or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
