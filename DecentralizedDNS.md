@@ -6,6 +6,3 @@ DHT based public key dns
 
 ETH based ens system
 https://ens.domains/
-
-
-#dns #decentralization 
