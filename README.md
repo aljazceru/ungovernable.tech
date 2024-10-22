@@ -8,7 +8,14 @@ I wanted to create a PoC of confidential computing over nostr, I didn't end up f
 
 ### [Confidential Computing in the Cloud](./ConfidentialComputingOnCloud.md)
 
-### Reading materials about confidential computing:
+#### Confidential computing on GPUs
+- [continuum](https://docs.edgeless.systems/continuum)
+- [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
+- [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
+- [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
+- [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
+
+### Confidential computing on CPUs:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
 - [Trusted execution environment](https://en.wikipedia.org/wiki/Trusted_execution_environment)
 - [Confidential Containers](https://github.com/confidential-containers/)
@@ -17,18 +24,14 @@ I wanted to create a PoC of confidential computing over nostr, I didn't end up f
 - [Kata containers](https://katacontainers.io/)
 - [awesome-zama](https://github.com/zama-ai/awesome-zama)
 - [zama.ai](https://www.zama.ai/)
-- [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
 - [Remote attestation Procedures Architecture](https://ietf-rats-wg.github.io/architecture/draft-ietf-rats-architecture.html)
 - [Trusted Execution Environment Provisioning (TEEP) Architecture](https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19)
 - [CoCo attestation proposal KBS / AS](https://github.com/confidential-containers/confidential-containers/issues/119)
 - [Generic Key Broker System for CoCo](https://github.com/confidential-containers/confidential-containers/issues/68)
-- [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
-- [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
 - [Constellation - Always encrypted kubernetes](https://github.com/edgelesssys/constellation?tab=readme-ov-file)
 - [Garmine Shielded Containers](https://github.com/gramineproject/gsc)
 - [Confidential containers in kubernetes](https://archive.is/u1vhR)
 - [Garmine library OS - run applications in enclaves](https://github.com/gramineproject/gramine/tree/master?tab=readme-ov-file)
-- [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
 - [COCONUT Secure VM Service Module](https://github.com/coconut-svsm/svsm)
 - [enclavie](https://github.com/enclaive)
 - [List of SGX supported Intel CPUs](https://www.intel.com/content/www/us/en/architecture-and-technology/software-guard-extensions-processors.html)
