@@ -58,4 +58,4 @@ Fighting tyranny with math. Every company or individual is one court order away 
 
 
 
-  For any suggestions or comments submit a PR/open an issue or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
+  For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
