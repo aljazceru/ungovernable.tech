@@ -1,5 +1,5 @@
 ### Research 
-[Full Homomorphic Encryption resources)(https://fhe.org/resources/) - tons of FHE resources
+[Full Homomorphic Encryption resources](https://fhe.org/resources/) - tons of FHE resources
 
 [Dark market implementation with FHE](https://www.zama.ai/post/dark-market-tfhe-rs) 
 
