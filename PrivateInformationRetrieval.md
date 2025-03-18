@@ -1,3 +1,12 @@
+
+## Implementations 
+
+[FastPIR](https://github.com/ishtiyaque/FastPIR) - An efficient computational private information retrieval (CPIR) library  in C++
+
+[SimplePIR](https://github.com/ahenzinger/simplepir) - One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval
+
+[private-search](https://github.com/exo-explore/private-search/) - Private Web Search for Local LLMs
+
 ## Academic Papers and Surveys
 [Spiral: Fast, High-Rate Single-Server PIR via FHE Composition](https://eprint.iacr.org/2022/368)
 
@@ -15,20 +24,13 @@
 
 [Private Information Retrieval with Access Control](https://dspace.mit.edu/handle/1721.1/151392) - Presents Pirac, a novel framework for access control in PIR that restricts database record access to authorized users while maintaining privacy.
 
-## Implementations and Technical Resources
-
 [Stanford PIR Library](https://crypto.stanford.edu/pir-library/) - The first publicly available implementation of best-known protocols for PIR/SPIR and related problems, supporting BigInteger lists and Maps.
-
-[One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval](https://github.com/ahenzinger/simplepir)
 
 [Piano: Extremely Simple, Single-Server PIR](https://www.cs.cmu.edu/~csd-phd-blog/2024/piano-private-information-retrieval/) - A 2024 article describing a simple approach to single-server Private Information Retrieval.
 
-[Private Information Retrieval in Large Scale Data Repositories](https://ishtiyaque.github.io/files/VLDB_2023_Tutorial.pdf) - A tutorial addressing how clients can privately retrieve values corresponding to given keys or locations in large public data repositories[.
+[Private Information Retrieval in Large Scale Data Repositories](https://ishtiyaque.github.io/files/VLDB_2023_Tutorial.pdf) - A tutorial addressing how clients can privately retrieve values corresponding to given keys or locations in large public data repositories.
 
-## Educational Resources
+[Private Web Search with Tiptoe](https://people.csail.mit.edu/nickolai/papers/henzinger-tiptoe.pdf)
 
-[Private Information Retrieval Applications](https://www.restack.io/p/information-retrieval-answer-private-information-retrieval-applications-cat-ai) - Explores technical aspects and applications of PIR in the context of information retrieval, explaining key concepts like homomorphic encryption[^4].
 
-[UMD Private Information Retrieval Resources](https://www.cs.umd.edu/~gasarch/TOPICS/pir/pir.html) - A collection of links to papers on various aspects of PIR, including information-theoretic PIR, computational PIR, and variants[
 
-[PIR Basic Documentation](https://www.cs.umd.edu/~gasarch/TOPICS/pir/first.pdf) - Provides fundamental definitions and concepts of Private Information Retrieval schemes, including privacy requirements and reconstruction functions[.
