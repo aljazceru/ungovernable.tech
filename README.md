@@ -1,5 +1,3 @@
-Welcome to Ungovernable Tech. This started as a landing page for [my](https://nostr.at/aljaz@nostr.si) notes about research I was doing during the [Sovereing Engineering Cohort](https://sovereignengineering.io/) but I've decided to make it more structured and make it a bookmark page for all my research into freedom enabling technology.  Most topics are far from comprehensively covered but I'm slowly adding resources to it. 
-
 Categories below are none-exhaustive list of building blocks for a better, more decentralized internet that enables freedom from survaillance capitalism and governmental overreach. It focuses on topics I think don't get enough attention nowaday and skips the ones with plenty like bitcoin and artificial intelligence.
 
 
