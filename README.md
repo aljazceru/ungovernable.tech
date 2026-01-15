@@ -2,7 +2,7 @@ Categories below are none-exhaustive list of building blocks for a better, more 
 
 
 ## [Confidential Computing](./ConfidentialComputing.md)
-Confidential computing enables a whole new paradigm. On one hand it removes a lot of the trust requirements needed while at the same time enablesm cheaper infrastructure. 
+Confidential computing enables a whole new paradigm. On one hand it removes a lot of the trust requirements needed while at the same time enables cheaper infrastructure. 
 
 ## [Decentralized  DNS](./DecentralizedDNS.md)
 We are building all kinds of cool decentralized systems but keep forgetting that majority of them still relay on DNS which is very prone to seizure and manipulation. 
