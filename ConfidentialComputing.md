@@ -31,6 +31,12 @@
 - [General overview of AMD SEV-SNP and Intel TDX](https://sys.cs.fau.de/extern/lehre/ws22/akss/material/amd-sev-intel-tdx.pdf)
 - [Occlum](https://github.com/occlum/occlum)
 - [awesome-confidential-computing](https://github.com/bpradipt/awesome-confidential-computing)
+- [Fraunhofer-AISEC/cmc](https://github.com/Fraunhofer-AISEC/cmc) - Remote attestation for Trusted and Confidential Computing platforms (TPM, AMD SEV-SNP, Intel SGX/TDX)
+- [inclavare-containers/TNG](https://github.com/inclavare-containers/TNG) - Trusted Network Gateway: A tool for establishing secure communication tunnels in confidential computing
+- [Phala-Network/phala-cloud](https://github.com/Phala-Network/phala-cloud) - Confidential Computing native cloud platform
+- [ultravioletrs/cocos](https://github.com/ultravioletrs/cocos) - Cocos AI - Confidential Computing System for AI
+- [NVIDIA/nvtrust](https://github.com/NVIDIA/nvtrust) - Ancillary open source software to support confidential computing on NVIDIA GPUs
+- [flashbots/flashbots-images](https://github.com/flashbots/flashbots-images) - Reproducible hardened Linux images for confidential computing and safe MEV
 
 #### Confidential computing in the cloud 
 ##### Azure 
