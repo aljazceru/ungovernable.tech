@@ -22,4 +22,8 @@
 
 [The Transparent data encryption in PostgreSQL - Highgo Software Inc.](https://www.highgo.ca/2019/09/30/the-transparent-data-encryption-in-postgresql/)
 
-[tfhe-rs](https://github.com/zama-ai/tfhe-rs) - TFHE-rs: A Pure Rust implementation of the TFHE Scheme for Boolean and Integer Arithmetics Over Encrypted Data. 
+[tfhe-rs](https://github.com/zama-ai/tfhe-rs) - TFHE-rs: A Pure Rust implementation of the TFHE Scheme for Boolean and Integer Arithmetics Over Encrypted Data.
+
+[wgxli/simple-fhe](https://github.com/wgxli/simple-fhe) - A dead-simple library for full homomorphic encryption (FHE) in Python
+
+[hung-ngm/fhe-darkpool](https://github.com/hung-ngm/fhe-darkpool) - Test implementation of dark pool using Full Homomorphic Encryption (FHE) 

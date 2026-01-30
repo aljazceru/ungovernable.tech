@@ -1,11 +1,13 @@
 
-## Implementations 
+## Implementations
 
 [FastPIR](https://github.com/ishtiyaque/FastPIR) - An efficient computational private information retrieval (CPIR) library  in C++
 
 [SimplePIR](https://github.com/ahenzinger/simplepir) - One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval
 
 [private-search](https://github.com/exo-explore/private-search/) - Private Web Search for Local LLMs
+
+[secretflow/psi](https://github.com/secretflow/psi) - Private Set Intersection (PSI) and Private Information Retrieval (PIR) from SecretFlow
 
 ## Academic Papers and Surveys
 [Spiral: Fast, High-Rate Single-Server PIR via FHE Composition](https://eprint.iacr.org/2022/368)
