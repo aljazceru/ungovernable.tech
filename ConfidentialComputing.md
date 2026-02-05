@@ -5,6 +5,13 @@
 - [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
 - [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
 
+#### New Projects (Feb 2026)
+- [spdm-rs](https://github.com/ccc-spdm-tools/spdm-rs) - Rust implementation of DMTF SPDM, IDE_KM, and TDISP protocols for TEE-I/O in Confidential Computing. Facilitates direct device assignment for Trusted Execution Environment I/O with GPU TEEs and Confidential Virtual Machines.
+- [Identra](https://github.com/IdentraHQ/identra) - Confidential AI memory layer and single-sign-on (SSO) platform. Built with Rust, Tauri v2, AWS Nitro Enclaves, and Next.js. Local-first, edge-compute, and privacy-preserving identity and memory vault for AI interactions.
+- [ConfidentialML](https://github.com/UnplugCharger/confidential) - Private XGBoost inference service built with EGo (Intel SGX). Solves the dual privacy problem where neither model owner nor data owner wants to trust the other with their sensitive assets.
+- [GoShip](https://github.com/guilhermebr/goship) - Go-based, self-hosted VM-centric application control plane designed for Confidential Computing. VM-first isolation with explicit virtualization, built on KVM/QEMU/Libvirt, and ready for SEV-SNP, TDX, and attestation workflows.
+- [WeTEE](https://github.com/wetee-dao/contract) - Decentralized application deployment platform integrated with a Trusted Execution Environment (TEE). Consists of blockchain networks and multiple confidential computing clusters for efficient decentralized confidential computing solutions.
+
 #### Confidential computing on CPUs:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
 - [Trusted execution environment](https://en.wikipedia.org/wiki/Trusted_execution_environment)

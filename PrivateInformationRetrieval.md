@@ -1,6 +1,8 @@
 
 ## Implementations
 
+[Tor-Search-MCP](https://github.com/BigBang142/Tor-Search-MCP) - Model Context Protocol server utilizing Tor for anonymous web searches and private information retrieval for LLMs. Enables privacy-preserving information access without exposing client queries or responses.
+
 [FastPIR](https://github.com/ishtiyaque/FastPIR) - An efficient computational private information retrieval (CPIR) library  in C++
 
 [SimplePIR](https://github.com/ahenzinger/simplepir) - One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval
