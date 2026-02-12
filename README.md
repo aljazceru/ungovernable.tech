@@ -16,5 +16,14 @@ In a world where your private information is not for sale and your attention is 
 ## [Private Information Retrieval](./PrivateInformationRetrieval.md)
 Fighting tyranny with math. Every company or individual is one court order away from needing to decide how long they are willing to spend behind bars for not sharing the data with the government. Designing systems that are default private and cryptographically sound makes sure you have nothing to share with them.
 
+## [Decentralized Platforms](./DecentralizedPlatforms.md)
+Fully decentralized platforms that transform how we build and interact with applications. These systems eliminate reliance on centralized infrastructure, giving users true digital independence and enabling developers to create interoperable, censorship-resistant services.
+
+## [Self-Sovereign Identity](./SelfSovereignIdentity.md)
+Take back control of your digital identity. Self-sovereign identity puts you in charge of your credentials and personal data, eliminating dependence on centralized identity providers. Build systems where privacy is the default and individuals truly own their digital presence.
+
+## [Privacy-First Applications](./PrivacyFirstApplications.md)
+Practical alternatives to surveillance-based services. These end-to-end encrypted applications prove that privacy and usability aren't mutually exclusive. From cloud storage to password managers, these tools put user sovereignty first without sacrificing features.
+
 
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)

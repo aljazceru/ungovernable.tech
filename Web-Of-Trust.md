@@ -15,3 +15,5 @@
 
 [0xchat-app](https://github.com/0xchat-app/0xchat-app) - Security-focused chat application built on Nostr. Leverages Nostr's decentralized protocol for censorship-resistant, end-to-end encrypted communication.
 
+[kukuri](https://github.com/KingYoSun/kukuri) - Fully decentralized, topic-first social app built on Nostr, iroh-gossip, and BitTorrent Mainline DHT. A Tauri desktop application that enables topic-based social sharing without relying on central servers. Uses iroh-gossip for fast event distribution and DHT-based discovery for peer connectivity, with Nostr-compatible events as the data model. Monorepo includes desktop app (React + Tauri) and community node services for P2P bootstrap/relay functionality.
+
