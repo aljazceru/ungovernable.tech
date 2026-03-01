@@ -16,5 +16,8 @@ In a world where your private information is not for sale and your attention is 
 ## [Private Information Retrieval](./PrivateInformationRetrieval.md)
 Fighting tyranny with math. Every company or individual is one court order away from needing to decide how long they are willing to spend behind bars for not sharing the data with the government. Designing systems that are default private and cryptographically sound makes sure you have nothing to share with them.
 
+## [Off-Grid Networks](./OffGridNetworks.md)
+When the internet goes down or is censored, mesh networks and delay-tolerant protocols keep communications alive. LoRa, Reticulum, and similar technologies enable off-grid, decentralized connectivity.
+
 
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
