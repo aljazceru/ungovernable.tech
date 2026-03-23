@@ -12,6 +12,8 @@
 
 ### Libraries and Tools
 
+[google/heir](https://github.com/google/heir) - A compiler for homomorphic encryption from Google, enabling automatic compilation of programs to work on encrypted data
+
 [OpenFHE](https://paperswithcode.com/paper/openfhe-open-source-fully-homomorphic) - A comprehensive open-source FHE software library incorporating design ideas from prior FHE projects like PALISADE, HElib, and HEAAN. OpenFHE includes features like automatic maintenance operations and hardware acceleration support through a standard Hardware Abstraction Layer (HAL).
 
 [TFHE Library by Inpher](https://inpher.io/tfhe-library/) - One of the world's fastest open-source Fully Homomorphic Encryption libraries, maintained by Inpher's team with contributions from leading universities and privacy-first enterprises worldwide. The library implements the scheme described in the best paper from IACR's Asiacrypt 2016 conference.
@@ -26,4 +28,10 @@
 
 [wgxli/simple-fhe](https://github.com/wgxli/simple-fhe) - A dead-simple library for full homomorphic encryption (FHE) in Python
 
-[hung-ngm/fhe-darkpool](https://github.com/hung-ngm/fhe-darkpool) - Test implementation of dark pool using Full Homomorphic Encryption (FHE) 
+[hung-ngm/fhe-darkpool](https://github.com/hung-ngm/fhe-darkpool) - Test implementation of dark pool using Full Homomorphic Encryption (FHE)
+
+[FeanorTheElf/fheanor](https://github.com/FeanorTheElf/fheanor) - A modular library for designing and optimising homomorphic encryption schemes
+
+[cipherflow-fhe/latti-ai](https://github.com/cipherflow-fhe/latti-ai) - Framework for performing AI model inference on encrypted data using FHE
+
+[danieleschmidt/homomorphic-llm-proxy](https://github.com/danieleschmidt/homomorphic-llm-proxy) - GPU-accelerated gateway for FHE of LLM inference — process prompts on untrusted cloud infrastructure while maintaining complete privacy

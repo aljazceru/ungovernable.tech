@@ -4,10 +4,16 @@
 - [Meshtastic firmware](https://github.com/meshtastic/firmware)
 - [MeshTastic Android](https://github.com/meshtastic/Meshtastic-Android)
 - [Ripple](https://github.com/ripple-lib/ripple) - experimental LoRa mesh networking
+- [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
+- [Yeraze/meshmonitor](https://github.com/Yeraze/meshmonitor) - Web tool for monitoring Meshtastic node deployments over TCP/HTTP (386 stars)
+- [Slofi/overmesh](https://github.com/Slofi/overmesh) - Self-hosted Meshtastic dashboard with node map, chat, bot, offline maps, and Mesh Sense
 
 #### Reticulum Stack
 - [Reticulum](https://reticulum.network/) - self-configuring, encrypted mesh networking stack
 - [Reticulum GitHub](https://github.com/markqvist/Reticulum)
+- [liamcottle/reticulum-meshchat](https://github.com/liamcottle/reticulum-meshchat) - Simple mesh network communications app powered by Reticulum (944 stars)
+- [BeechatNetworkSystemsLtd/rns-vpn-rs](https://github.com/BeechatNetworkSystemsLtd/rns-vpn-rs) - VPN over Reticulum mesh network (Rust)
+- [DanBeard/RETCON](https://github.com/DanBeard/RETCON) - Streamlined, deployment-focused solution for Reticulum mesh networking
 - [NomadNet](https://github.com/markqvist/NomadNet) - encrypted communications network built on Reticulum
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
 - [LXMF](https://github.com/markqvist/LXMF) - secure, distributed messaging protocol
@@ -26,6 +32,9 @@
 #### Overlay Mesh Networks
 - [Yggdrasil](https://yggdrasil-network.github.io/) - overlay network implementing a greedy routing scheme
 - [Yggdrasil GitHub](https://github.com/yggdrasil-network/yggdrasil-go)
+- [Revertron/Yggdrasil-ng](https://github.com/Revertron/Yggdrasil-ng) - Yggdrasil Network rewritten in Rust
+- [Mimir-IM/MimirForAndroid](https://github.com/Mimir-IM/MimirForAndroid) - True P2P messenger on top of Yggdrasil Network (132 stars)
+- [JB-SelfCompany/Tyr](https://github.com/JB-SelfCompany/Tyr) - True P2P Email on top of Yggdrasil Network for Android (299 stars)
 - [cjdns](https://github.com/cjdelisle/cjdns) - encrypted IPv6 mesh network
 - [Hyperboria](https://hyperboria.net/) - cjdns-based mesh network
 

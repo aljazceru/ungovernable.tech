@@ -37,8 +37,17 @@
 - [ultravioletrs/cocos](https://github.com/ultravioletrs/cocos) - Cocos AI - Confidential Computing System for AI
 - [NVIDIA/nvtrust](https://github.com/NVIDIA/nvtrust) - Ancillary open source software to support confidential computing on NVIDIA GPUs
 - [flashbots/flashbots-images](https://github.com/flashbots/flashbots-images) - Reproducible hardened Linux images for confidential computing and safe MEV
+- [edgelesssys/marblerun](https://github.com/edgelesssys/marblerun) - Control plane for confidential computing: deploy, scale, and verify confidential microservices on vanilla Kubernetes
+- [ccc-spdm-tools/spdm-rs](https://github.com/ccc-spdm-tools/spdm-rs) - Rust implementation of the DMTF SPDM protocol for Confidential Computing device attestation
+- [ccc-certifier-framework/certifier-framework-for-confidential-computing](https://github.com/ccc-certifier-framework/certifier-framework-for-confidential-computing) - Multi-vendor confidential computing certifier framework with policy-driven trust management
+- [automata-network/amd-sev-snp-attestation-sdk](https://github.com/automata-network/amd-sev-snp-attestation-sdk) - AMD SEV-SNP attestation SDK: generate attestation reports and ZK proofs verifiable on-chain
+- [automata-network/tdx-attestation-sdk](https://github.com/automata-network/tdx-attestation-sdk) - Intel TDX attestation SDK: generate TDX quotes and ZK proofs verifiable on-chain
+- [gramineproject/gramine-tdx](https://github.com/gramineproject/gramine-tdx) - Gramine library OS with experimental Intel TDX support for multi-process applications
+- [riscv/riscv-smmtt](https://github.com/riscv/riscv-smmtt) - RISC-V privilege ISA extensions for Supervisor Domain isolation (confidential computing, fault isolation)
+- [google/cc-device-plugin](https://github.com/google/cc-device-plugin) - Kubernetes device plugin exposing Confidential Computing devices in GKE clusters
+- [IntelLabs/tdx-workload-attestation](https://github.com/IntelLabs/tdx-workload-attestation) - Library for attesting VM workloads inside Intel TDX environments
 
-#### Confidential computing in the cloud 
+#### Confidential computing in the cloud
 ##### Azure 
 - how to deploy with cli https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-enclave-nodes-aks-get-started
 - gramine aks azure https://github.com/gramineproject/contrib/tree/master/Examples/aks-attestation
