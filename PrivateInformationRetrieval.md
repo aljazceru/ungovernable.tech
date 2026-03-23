@@ -9,6 +9,10 @@
 
 [secretflow/psi](https://github.com/secretflow/psi) - Private Set Intersection (PSI) and Private Information Retrieval (PIR) from SecretFlow
 
+[vt-asaplab/pirex](https://github.com/vt-asaplab/pirex) - Client-Efficient Private Information Retrieval (PETS 2025)
+
+[ahenzinger/finite-diffs-pir](https://github.com/ahenzinger/finite-diffs-pir) - Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)
+
 ## Academic Papers and Surveys
 [Spiral: Fast, High-Rate Single-Server PIR via FHE Composition](https://eprint.iacr.org/2022/368)
 

@@ -6,3 +6,9 @@ DHT based public key dns
 
 ETH based ens system
 https://ens.domains/
+
+Cardano based DNS
+[blinklabs-io/dns-contracts](https://github.com/blinklabs-io/dns-contracts) - Decentralized DNS service and marketplace contracts on Cardano
+
+Mesh network naming
+[zhoreeq/meshname](https://github.com/zhoreeq/meshname) - Universal naming system for all IPv6-based mesh networks (CJDNS, Yggdrasil)
