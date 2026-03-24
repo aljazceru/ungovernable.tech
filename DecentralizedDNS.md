@@ -12,3 +12,6 @@ Cardano based DNS
 
 Mesh network naming
 [zhoreeq/meshname](https://github.com/zhoreeq/meshname) - Universal naming system for all IPv6-based mesh networks (CJDNS, Yggdrasil)
+
+[sec-6 decentralized DNS Nostr](https://github.com/ethicnology/sec-6-decentralized-dns-nostr) - Decentralized DNS resolution of Nostr identities using Namecoin and BitNames Drivechain (BIP300/BIP301)
+[near-dns](https://github.com/frol/near-dns) - Demo of using NEAR blockchain as a storage layer for decentralized DNS records

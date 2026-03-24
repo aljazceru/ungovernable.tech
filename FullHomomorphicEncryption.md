@@ -34,4 +34,8 @@
 
 [cipherflow-fhe/latti-ai](https://github.com/cipherflow-fhe/latti-ai) - Framework for performing AI model inference on encrypted data using FHE
 
-[danieleschmidt/homomorphic-llm-proxy](https://github.com/danieleschmidt/homomorphic-llm-proxy) - GPU-accelerated gateway for FHE of LLM inference — process prompts on untrusted cloud infrastructure while maintaining complete privacy
+- [danieleschmidt/homomorphic-llm-proxy](https://github.com/danieleschmidt/homomorphic-llm-proxy) - GPU-accelerated gateway for FHE of LLM inference — process prompts on untrusted cloud infrastructure while maintaining complete privacy
+- [zama-ai/fhevm](https://github.com/zama-ai/fhevm)![stars](https://img.shields.io/github/stars/zama-ai/fhevm.svg?style=social) - Full-stack framework for integrating Fully Homomorphic Encryption with blockchain applications
+- [HapPhi/h33-bfv32](https://github.com/HapPhi/h33-bfv32) - Open source 32-bit BFV fully homomorphic encryption — ARM NEON optimized for embedded devices
+- [Isuruzenith/CipherSpend](https://github.com/Isuruzenith/CipherSpend) - Uses CKKS homomorphic encryption (Microsoft SEAL) so servers can perform math on encrypted values without seeing raw amounts
+- [TiffanyYongNgikChee/grpc-he-benchmark](https://github.com/TiffanyYongNgikChee/grpc-he-benchmark) - Benchmark framework for evaluating the performance of homomorphic encryption libraries in distributed systems

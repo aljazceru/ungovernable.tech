@@ -7,6 +7,7 @@
 - [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
 - [Yeraze/meshmonitor](https://github.com/Yeraze/meshmonitor) - Web tool for monitoring Meshtastic node deployments over TCP/HTTP (386 stars)
 - [Slofi/overmesh](https://github.com/Slofi/overmesh) - Self-hosted Meshtastic dashboard with node map, chat, bot, offline maps, and Mesh Sense
+- [Infinite-Grok/rhi-codec](https://github.com/Infinite-Grok/rhi-codec) - Polychromatic per-element character-grid image/video codec achieving 2.3 KB photos over LoRa for Reticulum mesh networks
 
 #### Reticulum Stack
 - [Reticulum](https://reticulum.network/) - self-configuring, encrypted mesh networking stack
@@ -18,6 +19,11 @@
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
 - [LXMF](https://github.com/markqvist/LXMF) - secure, distributed messaging protocol
 - [RNode](https://github.com/markqvist/RNode_Firmware) - open LoRa radio hardware
+- [x3ps/rns-over-email](https://github.com/x3ps/rns-over-email) - Email transport bridge for Reticulum mesh networking via IMAP/SMTP as a rnsd PipeInterface
+- [styrene-lab/styrened](https://github.com/styrene-lab/styrened) - Daemon, library, and TUI for Reticulum mesh networks: identity, LXMF messaging, device discovery, fleet provisioning
+- [AkitaEngineering/Akita-WAIS](https://github.com/AkitaEngineering/Akita-WAIS) - Decentralized Wide Area Information Server for the Reticulum network: discover, browse, and retrieve files across the mesh
+- [ratspeak/lrgp-py](https://github.com/ratspeak/lrgp-py) - Lightweight Reticulum Gaming Protocol for multiplayer games over LXMF/Reticulum mesh networks (Python)
+- [sombratito/RNETSIM](https://github.com/sombratito/RNETSIM) - Docker-based simulation of heterogeneous Reticulum mesh networks with real-time visualization and bandwidth shaping
 
 #### MeshCore
 - [MeshCore](https://github.com/ajmcquilkin/meshcore) - Meshtastic-like mesh networking for T-Deck, T-Watch, and other ESP32 devices

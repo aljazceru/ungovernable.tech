@@ -13,6 +13,8 @@
 
 [ahenzinger/finite-diffs-pir](https://github.com/ahenzinger/finite-diffs-pir) - Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)
 
+[valargroup/vote-nullifier-pir](https://github.com/valargroup/vote-nullifier-pir) - Private Information Retrieval (PIR) system for Zcash nullifier non-membership proofs
+
 ## Academic Papers and Surveys
 [Spiral: Fast, High-Rate Single-Server PIR via FHE Composition](https://eprint.iacr.org/2022/368)
 
@@ -37,6 +39,10 @@
 [Private Information Retrieval in Large Scale Data Repositories](https://ishtiyaque.github.io/files/VLDB_2023_Tutorial.pdf) - A tutorial addressing how clients can privately retrieve values corresponding to given keys or locations in large public data repositories.
 
 [Private Web Search with Tiptoe](https://people.csail.mit.edu/nickolai/papers/henzinger-tiptoe.pdf)
+
+[PIR-DSN](https://github.com/BDS-SDU/PIR-DSN) - A Decentralized Storage Network Supporting Private Information Retrieval (INFOCOM 2026)
+
+[RotMUX-PIR](https://github.com/Apurba-Debnath/RotMUX-PIR) - Simple but Efficient Single-Server Private Information Retrieval Protocol
 
 
 

@@ -1,6 +1,7 @@
 #### Confidential computing on GPUs
 - [continuum](https://docs.edgeless.systems/continuum)
 - [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
+- [Lunal](https://github.com/lunal-dev/home) - AI confidential compute platform running workloads in hardware-encrypted TEEs with cryptographic verification
 - [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
 - [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
 - [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
@@ -46,6 +47,8 @@
 - [riscv/riscv-smmtt](https://github.com/riscv/riscv-smmtt) - RISC-V privilege ISA extensions for Supervisor Domain isolation (confidential computing, fault isolation)
 - [google/cc-device-plugin](https://github.com/google/cc-device-plugin) - Kubernetes device plugin exposing Confidential Computing devices in GKE clusters
 - [IntelLabs/tdx-workload-attestation](https://github.com/IntelLabs/tdx-workload-attestation) - Library for attesting VM workloads inside Intel TDX environments
+- [IBM Hyper Protect contract-go](https://github.com/ibm-hyper-protect/contract-go) - Go library for IBM Hyper Protect confidential computing contracts
+- [DevOps Defender](https://github.com/devopsdefender/dd) - Confidential Computing Platform for securing CI/CD pipelines in enclaves
 
 #### Confidential computing in the cloud
 ##### Azure 
