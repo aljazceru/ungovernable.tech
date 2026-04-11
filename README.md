@@ -19,5 +19,20 @@ Fighting tyranny with math. Every company or individual is one court order away 
 ## [Off-Grid Networks](./OffGridNetworks.md)
 When the internet goes down or is censored, mesh networks and delay-tolerant protocols keep communications alive. LoRa, Reticulum, and similar technologies enable off-grid, decentralized connectivity.
 
+## [Lightning Network & DLCs](./LightningNetwork.md)
+The Lightning Network enables instant, low-cost Bitcoin payments through payment channels. Discreet Log Contracts (DLCs) extend Lightning with oracle-based conditional payments, enabling Bitcoin-native derivatives without trusted third parties.
+
+## [Nostr](./Nostr.md)
+A minimalist, censorship-resistant social protocol built on cryptographic keys and relay servers. Nostr's simplicity and extensibility through NIPs has created a thriving ecosystem of clients, relays, and applications.
+
+## [Liquid Network](./LiquidNetwork.md)
+Blockstream's Bitcoin sidechain with Confidential Transactions (Bulletproofs) hiding amounts and asset types. Enables fast 1-minute blocks, issued assets, and larger confidential transfers complementary to Lightning.
+
+## [CoinJoin & Bitcoin Privacy](./CoinJoin.md)
+Bitcoin transaction privacy techniques where multiple parties merge transactions to break chain analysis. Covers Wasabi, JoinMarket, Payjoin, and the evolving landscape of on-chain privacy tools.
+
+## [Atomic Swaps](./AtomicSwaps.md)
+Trustless cross-chain cryptocurrency exchange using Hash Time-Locked Contracts and adaptor signatures. Enables decentralized trading without custodians, with improving privacy via scriptless scripts.
+
 
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
