@@ -34,5 +34,13 @@ Bitcoin transaction privacy techniques where multiple parties merge transactions
 ## [Atomic Swaps](./AtomicSwaps.md)
 Trustless cross-chain cryptocurrency exchange using Hash Time-Locked Contracts and adaptor signatures. Enables decentralized trading without custodians, with improving privacy via scriptless scripts.
 
+## [Encrypted Messaging](./EncryptedMessaging.md)
+End-to-end encrypted messaging protocols and metadata-resistant communication. Covers Signal Protocol, Matrix, MLS (RFC 9420), SimpleX, Cwtch, and modern encryption tools replacing GPG.
+
+## [Post-Quantum Cryptography](./PostQuantumCryptography.md)
+Quantum-resistant cryptographic algorithms standardized by NIST: ML-KEM, ML-DSA, SLH-DSA, and FN-DSA. Open source implementations, hybrid key exchange for TLS, and migration guidance.
+
+## [Self-Sovereign Identity](./SelfSovereignIdentity.md)
+Decentralized identity systems: W3C DIDs, Verifiable Credentials, decentralized PKI, and zero-knowledge identity proofs. Identity without intermediaries.
 
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)

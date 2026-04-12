@@ -9,3 +9,11 @@
 ### GPG Web of Trust
 - [mricon/wotmate](https://github.com/mricon/wotmate) - Web of trust grapher and analyzer (40 stars)
 
+### Modern OpenPGP
+- [Sequoia PGP](https://sequoia-pgp.org/) - Modern, safe OpenPGP implementation in Rust
+- [OpenPGP.js](https://github.com/openpgpjs/openpgpjs) - JavaScript OpenPGP implementation (maintained by Proton, RFC 9580)
+- [Gopenpgp](https://github.com/ProtonMail/gopenpgp) - High-level Go wrapper for OpenPGP encryption and signing
+- [rPGP](https://github.com/rpgp/rpgp) - OpenPGP implementation in pure Rust
+- [age](https://github.com/FiloSottile/age) - Modern file encryption replacing GPG for most use cases (Go)
+- [minisign](https://github.com/jedisct1/minisign) - Minimalistic file signing and verification tool
+
