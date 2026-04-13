@@ -15,6 +15,9 @@
 - [Silent Payments (BIP 352)](https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki) - Reusable payment codes without address reuse
 - [BIP 47: Reusable Payment Codes](https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki) - Payment codes for static payment addresses
 
+- [Sparrow Wallet](https://github.com/sparrowwallet/sparrow) - Desktop Bitcoin wallet focused on security, privacy, and coin control
+- [Ashigaru](https://ashigaru.rs/) - Open-source privacy-first Bitcoin wallet forked from Samourai Wallet (Tor-only)
+
 #### Privacy Research
 - [Bitcoin Privacy wiki](https://en.bitcoin.it/wiki/Privacy) - Comprehensive Bitcoin privacy guide
 - [An Analysis of Non-Deterministic Wallets](https://bitcointalk.org/index.php?topic=3229539.0) - Address clustering and privacy leakage

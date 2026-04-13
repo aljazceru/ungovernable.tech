@@ -38,5 +38,9 @@
 
 [Private Web Search with Tiptoe](https://people.csail.mit.edu/nickolai/papers/henzinger-tiptoe.pdf)
 
+[GPIR: Enabling Practical PIR with GPUs](https://arxiv.org/html/2604.04696v1) - GPU-accelerated private information retrieval achieving practical performance (2026)
+
+[Incremental Single-Server PIR](https://eprint.iacr.org/2026/030) - Extends incremental preprocessing to single-server PIR for efficient updates (2026)
+
 
 

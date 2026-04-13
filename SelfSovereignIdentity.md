@@ -7,6 +7,8 @@
 
 #### Verifiable Credentials
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) - Standard for cryptographically verifiable digital credentials
+- [W3C VC Data Model v2.1](https://www.w3.org/news/2026/first-public-working-draft-verifiable-credentials-data-model-v2-1/) - Latest working draft extending the VC standard (2026)
+- [OpenID4VP / OpenID4VCI](https://openid.net/openid-for-verifiable-credential-self-certification-to-launch-feb-2026/) - OpenID standards for verifiable presentations and credential issuance
 - [Microsoft Decentralized Identity](https://github.com/microsoft/Decentralized-Identity-and-Verifiable-Credentials) - Reference implementations and documentation for DID/VC
 - [Dock](https://www.dock.io/) - Self-sovereign identity platform for creating DIDs and Verifiable Credentials
 

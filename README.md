@@ -43,4 +43,10 @@ Quantum-resistant cryptographic algorithms standardized by NIST: ML-KEM, ML-DSA,
 ## [Self-Sovereign Identity](./SelfSovereignIdentity.md)
 Decentralized identity systems: W3C DIDs, Verifiable Credentials, decentralized PKI, and zero-knowledge identity proofs. Identity without intermediaries.
 
+## [Mix Networks & Anonymous Routing](./MixNetworks.md)
+Network-level anonymity through mix networks, onion routing, and noise-generating protocols. Tor, I2P, Nym mixnet, and censorship circumvention tools.
+
+## [Zero-Knowledge Proofs](./ZeroKnowledgeProofs.md)
+Cryptographic proofs that verify statements without revealing underlying data. ZK rollups, privacy-preserving smart contracts, ZK identity, and proof systems (SNARKs, STARKs, Bulletproofs).
+
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)

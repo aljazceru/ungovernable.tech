@@ -46,6 +46,8 @@
 - [riscv/riscv-smmtt](https://github.com/riscv/riscv-smmtt) - RISC-V privilege ISA extensions for Supervisor Domain isolation (confidential computing, fault isolation)
 - [google/cc-device-plugin](https://github.com/google/cc-device-plugin) - Kubernetes device plugin exposing Confidential Computing devices in GKE clusters
 - [IntelLabs/tdx-workload-attestation](https://github.com/IntelLabs/tdx-workload-attestation) - Library for attesting VM workloads inside Intel TDX environments
+- [Keystone Enclave](https://github.com/keystone-enclave/keystone) - Open-source TEE framework for RISC-V processors with customizable secure enclaves
+- [intel/confidential-computing.tee.dcap.qvl](https://github.com/intel/confidential-computing.tee.dcap.qvl) - Intel TEE DCAP Quote Verification Library for ECDSA-based attestation
 
 #### Confidential computing in the cloud
 ##### Azure 

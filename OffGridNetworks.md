@@ -48,8 +48,10 @@
 #### Hardware & Radios
 - [Heltec LoRa boards](https://heltec.org/project-category/lora/)
 - [TTGO LoRa boards](https://www.lilygo.cc/products/lora32)
-- [RAK WisBlock](https://www.rakwireless.com/en-us/products/wisblock) - modular LoRa hardware
-- [MeshCom](https://meshcom.org/) - amateur radio mesh networking
+- [RAK WisBlock](https://www.rakwireless.com/en-us/products/wisblock) - Modular LoRa hardware
+- [MeshCom](https://meshcom.org/) - Amateur radio mesh networking
+- [SpecFive Spectre](https://specfive.com/) - Android LoRa mesh phone with Meshtastic integration
+- [RAK WisMesh Pocket](https://www.rakwireless.com/en-us/products/wismesh) - Pre-built Meshtastic handheld devices with solar repeater options
 
 #### Resources
 - [Meshtastic documentation](https://meshtastic.org/docs/)

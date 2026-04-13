@@ -1,4 +1,6 @@
-### Research 
+### Libraries and Tools
+
+### Research
 [Full Homomorphic Encryption resources](https://fhe.org/resources/) - tons of FHE resources
 
 [Dark market implementation with FHE](https://www.zama.ai/post/dark-market-tfhe-rs) 
@@ -35,3 +37,9 @@
 [cipherflow-fhe/latti-ai](https://github.com/cipherflow-fhe/latti-ai) - Framework for performing AI model inference on encrypted data using FHE
 
 [danieleschmidt/homomorphic-llm-proxy](https://github.com/danieleschmidt/homomorphic-llm-proxy) - GPU-accelerated gateway for FHE of LLM inference — process prompts on untrusted cloud infrastructure while maintaining complete privacy
+
+[Lattigo](https://github.com/tuneinsight/lattigo) - Open-source lattice-based homomorphic encryption library in Go, maintained by Tune Insight (originally EPFL)
+
+[OpenFHE](https://github.com/openfheorg/openfhe-development) - Comprehensive open-source FHE library supporting all major schemes (BGV, BFV, CKKS, FHEW, TFHE) with hardware acceleration HAL
+
+[Fhenix Confidential Contracts](https://github.com/FhenixProtocol/fhenix-confidential-contracts) - Solidity smart contracts for confidential ERC-20 tokens using FHE on the Fhenix L2 network

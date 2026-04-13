@@ -11,6 +11,7 @@
 
 #### Cross-Chain Infrastructure
 - [COMIT Network](https://github.com/comit-network) - COMIT — an open protocol for trustless cross-chain trading
+- [DCRDEX / Bison Wallet](https://github.com/decred/dcrdex) - Decentralized exchange powered by atomic swaps with no KYC, no fees
 - [Thorchain](https://thorchain.org/) - Cross-chain liquidity protocol (AMM-based, not atomic swap)
 - [Lightning Labs Loop](https://github.com/lightninglabs/loop) - Submarine swaps between on-chain and Lightning
 - [xmr-btc-swap](https://github.com/comit-network/xmr-btc-swap) - Trustless Monero-Bitcoin atomic swap

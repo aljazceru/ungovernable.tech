@@ -9,7 +9,9 @@
 - [Lightning Loop](https://github.com/lightninglabs/loop) - Non-custodial submarine swaps between Lightning and on-chain
 - [Lightning Pool](https://github.com/lightninglabs/pool) - Marketplace for Lightning channel leases
 - [Mutiny Wallet](https://github.com/MutinyWallet/mutiny-node) - Tiny Lightning node that runs in the browser via WASM
-- [phinx](https://github.com/phinxLink/phinx) - Lightning node in a web extension
+- [Phoenix](https://phoenix.acinq.co/) - Self-custodial Lightning wallet with BOLT 12 support
+- [BOLT 12 Tracker](https://bolt12.org/) - Track BOLT 12 adoption across wallets and Lightning implementations
+- [Twelve Cash](https://twelve.cash/) - BOLT 12 offers with human-readable usernames via DNS for Core Lightning
 
 #### Discreet Log Contracts (DLCs)
 - [DLC.spec](https://github.com/discreetlogcontracts/dlcspecs) - Discreet Log Contracts specification
