@@ -15,6 +15,7 @@
 #### Mix Networks
 - [Nym](https://nym.com/) - Decentralized noise-generating mixnet providing network-level anonymity
 - [NymVPN](https://github.com/nymtech/nym-vpn-client) - Cross-platform VPN application leveraging Nym's 5-hop mixnet for traffic privacy
+- [NymVPN vs VPNs vs Tor vs I2P vs dVPNs](https://nym.com/blog/nymvpn-v-vpns-v-tor-v-i2p-v-dvpns) - Detailed comparison of anonymity solutions
 - [Katzenpost](https://katzenpost.network/) - Mix network research project and protocol specification
 - [Katzenpost Mix Spec](https://katzenpost.network/docs/specs/mixspec.html) - Formal mix network protocol specification
 

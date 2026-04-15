@@ -23,6 +23,13 @@
 - [zkPass](https://zkpass.io/) - Privacy-preserving identity verification using ZK proofs and TLS
 - [anon-aadhaar](https://github.com/anon-aadhaar/anon-aadhaar) - ZK protocol to prove possession of Aadhaar (Indian ID) without revealing identity
 
+#### ZK Frameworks & Libraries
+- [OpenZeppelin ZK](https://www.openzeppelin.com/zkp) - Secure circuit design and ZK implementation auditing
+- [Awesome MPC](https://github.com/rdragos/awesome-mpc) - Curated list of multi-party computation resources
+- [ZK Framework Survey](https://arxiv.org/html/2502.07063v1) - Quantitative benchmarks and developer guide for choosing ZK frameworks
+- [Rumble Fish ZK Projects](https://www.rumblefish.dev/blog/post/top-zk-projects-2025/) - Top ZK projects reshaping blockchain in 2025
+
 #### Resources
 - [Awesome Zero-Knowledge Proofs](https://github.com/matter-labs/awesome-zero-knowledge-proofs) - Curated list of ZKP implementations, libraries, and educational resources
 - [ZK learning resources from 0xPARC](https://learn.0xparc.org/) - Educational materials for learning ZK cryptography
+- [Understanding zk-SNARKs: Research to Practice](https://eprint.iacr.org/2025/172.pdf) - Comprehensive walk-through for practitioners focusing on usability and library selection

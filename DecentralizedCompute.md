@@ -3,8 +3,11 @@ Existing projects in this space:
 - [gputopia.ai](https://gputopia.ai/)
 - [akash.network](https://akash.network)
 - [rendernetwork](https://rendernetwork.com/)
+- [Akash 2025 Year in Review](https://akash.network/blog/akash-2025-year-in-review/) - Major AI inference deployments, Morpheus Compute Network integration
+- [State of Akash Q3 2025](https://messari.io/report/state-of-akash-q3-2025) - Network fundamentals, Starcluster and AkashML developments
+- [Dispersed.com](https://financefeeds.com/how-decentralized-gpu-marketplaces-like-akash-and-render-solve-the-ai-compute-crisis/) - AI compute subnet launched December 2025
 - [hsdljahdl/cocoon](https://github.com/hsdljahdl/cocoon) - Enable secure AI inference on TON while earning cryptocurrency with COCOON's decentralized compute network for models and GPU services
 - [hpp-io/noosphere-sdk](https://github.com/hpp-io/noosphere-sdk) - Noosphere SDK enables you to build and run compute agents that participate in the Noosphere decentralized compute network
 - [TimeleapLabs/tlp-contracts](https://github.com/TimeleapLabs/tlp-contracts) - Solidity smart contracts for Timeleap's decentralized compute marketplace with EIP712 signature authorization
 - [CipherKuma/AgentPay](https://github.com/CipherKuma/AgentPay) - Decentralized compute marketplace where AI agents pay for GPU/inference services via x402 micropayments
-- [REChain-Network-Solutions/DeCub](https://github.com/REChain-Network-Solutions/DeCub) - DeCub (Decentralized Compute Platform) is a decentralized distributed compute and storage platform using a hybrid consensus model (local RAFT + global Byzantine Fault Tolerance) plus gossip, object storage, and cryptographic proofs
+- [REChain-Network-Solutions/DeCub](https://github.com/REChain-Network-Solutions/DeCub) - DeCub (Decentralized Compute Platform) is a decentralized distributed compute and storage platform using a hybrid consensus model

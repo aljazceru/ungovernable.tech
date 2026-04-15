@@ -4,6 +4,9 @@
 - [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)
 - [Building GPU TEEs using CPU Secure Enclaves with GEVisor](https://dl.acm.org/doi/pdf/10.1145/3620678.3624659)
 - [Heterogeneous Isolated Execution for Commodity GPUs](https://insujang.github.io/assets/pdf/hix_slides.pdf)
+- [Evaluating DeepSeek in Confidential Computing](https://arxiv.org/html/2502.11347v1) - Analyzing TEE impact on LLM inference efficiency
+- [GPU Travelling for Confidential Collaborative Training](https://dl.acm.org/doi/10.1145/3719027.3765029) - Using confidential GPUs for privacy-preserving ML training
+- [Red Hat: Enhancing AI inference security with confidential computing](https://next.redhat.com/2025/10/23/enhancing-ai-inference-security-with-confidential-computing-a-path-to-private-data-inference-with-proprietary-llms/) - Extending TEE boundary to GPUs
 
 #### Confidential computing on CPUs:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
