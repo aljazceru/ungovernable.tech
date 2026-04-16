@@ -11,6 +11,8 @@
 - [OpenID4VP / OpenID4VCI](https://openid.net/openid-for-verifiable-credential-self-certification-to-launch-feb-2026/) - OpenID standards for verifiable presentations and credential issuance
 - [Microsoft Decentralized Identity](https://github.com/microsoft/Decentralized-Identity-and-Verifiable-Credentials) - Reference implementations and documentation for DID/VC
 - [Dock](https://www.dock.io/) - Self-sovereign identity platform for creating DIDs and Verifiable Credentials
+- [Decentralized Identity Foundation](https://identity.foundation/) - Open ecosystem for decentralized identity standards and interoperability
+- [did-jwt-vc](https://github.com/decentralized-identity/did-jwt-vc) - Create and verify W3C Verifiable Credentials JWTs
 
 #### Decentralized PKI
 - [DPKI Overview](https://hackernoon.com/decentralized-public-key-infrastructure-dpki-what-is-it-and-why-does-it-matter-babee9d88579) - Decentralized PKI: replacing Certificate Authorities with blockchain-based trust

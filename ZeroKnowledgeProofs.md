@@ -28,8 +28,11 @@
 - [Awesome MPC](https://github.com/rdragos/awesome-mpc) - Curated list of multi-party computation resources
 - [ZK Framework Survey](https://arxiv.org/html/2502.07063v1) - Quantitative benchmarks and developer guide for choosing ZK frameworks
 - [Rumble Fish ZK Projects](https://www.rumblefish.dev/blog/post/top-zk-projects-2025/) - Top ZK projects reshaping blockchain in 2025
+- [Understanding zk-SNARKs: Research to Practice](https://eprint.iacr.org/2025/172.pdf) - Comprehensive walk-through for practitioners focusing on usability and library selection
+
+#### Hardware & Trusted Execution
+- [MPC-Circuits](https://github.com/geometryresearch/mpc-circuits) - Hardware-accelerated ZK for secure multi-party computation
 
 #### Resources
 - [Awesome Zero-Knowledge Proofs](https://github.com/matter-labs/awesome-zero-knowledge-proofs) - Curated list of ZKP implementations, libraries, and educational resources
 - [ZK learning resources from 0xPARC](https://learn.0xparc.org/) - Educational materials for learning ZK cryptography
-- [Understanding zk-SNARKs: Research to Practice](https://eprint.iacr.org/2025/172.pdf) - Comprehensive walk-through for practitioners focusing on usability and library selection

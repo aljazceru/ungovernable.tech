@@ -29,6 +29,10 @@
 - [Secure Scuttlebutt](https://ssbc.github.io/scuttlebutt-protocol-guide/) - P2P gossip protocol
 - [Manyverse](https://www.manyver.se/) - social network using SSB
 
+#### Bluetooth Mesh Messaging
+- [Bitchat](https://github.com/permissionlesstech/bitchat) - decentralized peer-to-peer messaging over Bluetooth mesh + Nostr (dual transport)
+- [BitChat Wikipedia](https://en.wikipedia.org/wiki/BitChat) - overview of Bluetooth mesh chat protocols
+
 #### Overlay Mesh Networks
 - [Yggdrasil](https://yggdrasil-network.github.io/) - overlay network implementing a greedy routing scheme
 - [Yggdrasil GitHub](https://github.com/yggdrasil-network/yggdrasil-go)
