@@ -7,6 +7,7 @@
 - [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
 - [Yeraze/meshmonitor](https://github.com/Yeraze/meshmonitor) - Web tool for monitoring Meshtastic node deployments over TCP/HTTP (386 stars)
 - [Slofi/overmesh](https://github.com/Slofi/overmesh) - Self-hosted Meshtastic dashboard with node map, chat, bot, offline maps, and Mesh Sense
+- [Wio Tracker 1110](https://www.seeedstudio.com/blog/2024/07/04/introducing-wio-tracker-1110-dev-kit-for-meshtastic-building-open-source-off-grid-decentralized-and-free-lora-mesh-network/) - Dev kit for Meshtastic with GPS, solar charging
 
 #### Reticulum Stack
 - [Reticulum](https://reticulum.network/) - self-configuring, encrypted mesh networking stack

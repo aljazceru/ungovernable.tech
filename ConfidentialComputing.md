@@ -52,6 +52,13 @@
 - [Keystone Enclave](https://github.com/keystone-enclave/keystone) - Open-source TEE framework for RISC-V processors with customizable secure enclaves
 - [intel/confidential-computing.tee.dcap.qvl](https://github.com/intel/confidential-computing.tee.dcap.qvl) - Intel TEE DCAP Quote Verification Library for ECDSA-based attestation
 
+#### Oblivious RAM & Encrypted Storage
+- [Oblivious Labs](https://www.obliviouslabs.com/) - Open source ORAM implementations used by Signal for private contact discovery
+- [obliviouslabs/oram](https://github.com/obliviouslabs/oram) - Oblivious key-value store based on Circuit ORAM
+- [obliviouslabs/benchmarks](https://github.com/obliviouslabs/benchmarks) - ORAM benchmarks comparing Signal and Meta implementations
+- [mobilecoinfoundation/mc-oblivious](https://github.com/mobilecoinfoundation/mc-oblivious) - ORAM libraries for secure enclave applications
+- [facebook/oram](https://github.com/facebook/oram) - Oblivious RAM implementation for secure enclave applications
+
 #### Confidential computing in the cloud
 ##### Azure 
 - how to deploy with cli https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-enclave-nodes-aks-get-started

@@ -33,6 +33,13 @@
 #### Hardware & Trusted Execution
 - [MPC-Circuits](https://github.com/geometryresearch/mpc-circuits) - Hardware-accelerated ZK for secure multi-party computation
 
+#### Zero-Knowledge Virtual Machines (zkVM)
+- [RISC Zero](https://github.com/risc0/risc0) - Zero-knowledge verifiable general computing platform emulating RISC-V (17K stars)
+- [Jolt](https://github.com/a16z/jolt) - a16z's fast, extensible RISC-V zkVM using sumcheck and lookup arguments
+- [Nexus zkVM](https://github.com/nexus-xyz/nexus-zkvm) - Modular, prover-optimized zkVM written in Rust (3.5K stars)
+- [SP1](https://github.com/succinctlabs/sp1) - Succinct's zkVM achieving real-time Ethereum proving (4.5K stars)
+- [awesome-zkvm](https://github.com/rkdud007/awesome-zkvm) - Curated list of zkVM projects and resources
+
 #### Resources
 - [Awesome Zero-Knowledge Proofs](https://github.com/matter-labs/awesome-zero-knowledge-proofs) - Curated list of ZKP implementations, libraries, and educational resources
 - [ZK learning resources from 0xPARC](https://learn.0xparc.org/) - Educational materials for learning ZK cryptography
