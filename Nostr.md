@@ -5,6 +5,7 @@
 - [nostr-tools](https://github.com/nbd-wtf/nostr-tools) - JavaScript library for building Nostr clients
 - [nostr-rs](https://github.com/rust-nostr/nostr) - Rust Nostr library with FFI bindings
 - [nostr-sdk](https://github.com/rust-nostr/nostr-sdk) - High-level SDK for building Nostr applications in Rust/Python/JS
+- [nostr.how](https://nostr.how/zh/the-protocol) - Comprehensive Chinese documentation on Nostr protocol
 
 #### Nostr Clients
 - [Damus](https://damus.io/) - iOS Nostr client (Swift)
@@ -34,3 +35,6 @@
 - [NIP-19](https://github.com/nostr-protocol/nips/blob/master/19.md) - bech32-encoded entities (nsec, npub, note, nprofile, nevent)
 - [NIP-26](https://github.com/nostr-protocol/nips/blob/master/26.md) - Delegated event signing
 - [NIP-46](https://github.com/nostr-protocol/nips/blob/master/46.md) - Nostr Connect — remote signing for multi-device
+
+#### Nostr vs ATProto
+- [Nostr vs ATProto Comparison](https://biggo.com.tw/news/nostr-atproto-developer-comparison) - Developer comparison between Nostr and Bluesky's ATProto protocol

@@ -51,6 +51,9 @@
 - [IntelLabs/tdx-workload-attestation](https://github.com/IntelLabs/tdx-workload-attestation) - Library for attesting VM workloads inside Intel TDX environments
 - [Keystone Enclave](https://github.com/keystone-enclave/keystone) - Open-source TEE framework for RISC-V processors with customizable secure enclaves
 - [intel/confidential-computing.tee.dcap.qvl](https://github.com/intel/confidential-computing.tee.dcap.qvl) - Intel TEE DCAP Quote Verification Library for ECDSA-based attestation
+- [Intel TDX on IBM Cloud Frankfurt](https://community.ibm.com/community/user/blogs/meryl-veramonti/2025/10/14/intel-tdx-frankfurt) - Intel TDX now available on IBM Cloud in Frankfurt (October 2025)
+- [Google Cloud Confidential Computing TDX](https://cloud.google.com/blog/products/identity-security/from-clicks-to-clusters-confidential-computing-expands-with-intel-tdx) - GKE nodes, Confidential Space, and GPU support for TDX
+- [Intel SGX/TDX URL Migration (Nov 2025)](https://github.com/intel/confidential-computing.sgx/discussions/1093) - SGX repositories moving to intel/confidential-computing prefix
 
 #### Oblivious RAM & Encrypted Storage
 - [Oblivious Labs](https://www.obliviouslabs.com/) - Open source ORAM implementations used by Signal for private contact discovery

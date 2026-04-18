@@ -43,3 +43,8 @@
 [OpenFHE](https://github.com/openfheorg/openfhe-development) - Comprehensive open-source FHE library supporting all major schemes (BGV, BFV, CKKS, FHEW, TFHE) with hardware acceleration HAL
 
 [Fhenix Confidential Contracts](https://github.com/FhenixProtocol/fhenix-confidential-contracts) - Solidity smart contracts for confidential ERC-20 tokens using FHE on the Fhenix L2 network
+
+#### FHE Ecosystem Updates
+- [Zama $57M Series B](https://x.com/cxmrondlls/status/1978506404400136611) - Zama raised $57M B轮融资,估值超过$1B for FHE blockchain applications
+- [Mind Network FHE A2A](https://cn.tradingview.com/news/panews:4ada7974fe3f9:0/) - Mind Network联合Zama推出首个基于FHE的A2A隐私解决方案,x402协议
+- [FHE for Blockchain Privacy](https://finance.sina.com.cn/blockchain/roll/2025-12-05/doc-infzueru9730390.shtml) - Zama CEO访谈:FHE如何重塑区块链隐私,与ZK和MPC的对比

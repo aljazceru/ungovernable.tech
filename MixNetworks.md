@@ -5,6 +5,8 @@
 - [Tor Pluggable Transports](https://tb-manual.torproject.org/circumvention/) - Censorship circumvention via obfs4, snowflake, and meek bridges
 - [Snowflake](https://snowflake.torproject.org/) - WebRTC-based pluggable transport for Tor censorship resistance
 - [Tor2web](https://tor2web.org/) - Access .onion services from a regular browser (trade-off: no anonymity)
+- [Onion-Location](https://community.torproject.org/onion-services/onion-location/) - HTTP header for revealing .onion sites via regular browsers
+- [Tor Network Documentation](https://tb-manual.torproject.org/) - Comprehensive manual for using Tor effectively
 
 #### I2P (Invisible Internet Project)
 - [I2P](https://geti2p.net/) - Fully decentralized, self-organizing overlay network for anonymous communication

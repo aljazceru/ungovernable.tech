@@ -1,8 +1,10 @@
 #### Lightning Network
 - [Lightning Network](https://lightning.network/) - Bitcoin Layer-2 payment channel network for instant off-chain transactions
 - [Lightning Labs](https://lightninglabs.com/) - Company building Lightning infrastructure (LND, Loop, Pool, Taproot Assets)
+- [LND v0.20](https://lightning.engineering/posts/2025-12-03-lnd-0.20-launch/) - Latest LND release with sqlite/postgres channel graph, enhanced gossip rate limits (December 2025)
 - [Core Lightning (CLN)](https://github.com/ElementsProject/lightning) - Blockstream's Lightning implementation in C
 - [LND](https://github.com/lightningnetwork/lnd) - Lightning Network Daemon by Lightning Labs
+- [Eclair](https://github.com/ACINQ/eclair) - ACINQ's Scala Lightning implementation
 - [LDK](https://github.com/lightningdevkit/rust-lightning) - Lightning Development Kit — modular library for building Lightning nodes
 - [BOLT Specifications](https://github.com/lightning/bolts) - Basis of Lightning Technology protocol specifications
 - [BOLT 12: Offers](https://github.com/lightning/bolts/blob/master/xx-offer-encoding.md) - Recurring payments, refunds, and more flexible invoiceless payment flows
@@ -12,6 +14,7 @@
 - [Phoenix](https://phoenix.acinq.co/) - Self-custodial Lightning wallet with BOLT 12 support
 - [BOLT 12 Tracker](https://bolt12.org/) - Track BOLT 12 adoption across wallets and Lightning implementations
 - [Twelve Cash](https://twelve.cash/) - BOLT 12 offers with human-readable usernames via DNS for Core Lightning
+- [Lightning Node Comparison](https://www.spark.money/tools/lightning-node-comparison) - Detailed comparison of LND vs CLN vs LDK vs Eclair
 
 #### Discreet Log Contracts (DLCs)
 - [DLC.spec](https://github.com/discreetlogcontracts/dlcspecs) - Discreet Log Contracts specification

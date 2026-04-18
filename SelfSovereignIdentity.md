@@ -4,6 +4,7 @@
 - [did:key Method](https://w3c-ccg.github.io/did-key-spec/) - Simple DID method based on expanding a cryptographic public key into a DID Document
 - [Microsoft ION](https://github.com/decentralized-identity/ion) - Decentralized DID network built on Bitcoin (Sidetree protocol)
 - [did:web Method](https://w3c-ccg.github.io/did-method-web/) - DID method using web domains for DID Document resolution
+- [did:ethr Method](https://github.com/uport-project/ethr-did-resolver) - Ethereum-based DID method for blockchain identity
 
 #### Verifiable Credentials
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) - Standard for cryptographically verifiable digital credentials
@@ -23,6 +24,7 @@
 - [ZK Identity](https://github.com/0xPolygonID) - Polygon ID — zero-knowledge identity protocol for privacy-preserving verification
 - [anon-aadhaar](https://github.com/anon-aadhaar/anon-aadhaar) - ZK protocol to prove possession of Aadhaar (Indian ID) without revealing identity
 - [World ID](https://worldcoin.org/world-id) - Privacy-preserving proof of personhood via iris biometrics with ZK proofs
+- [EUDI Wallet](https://european-digital-identity.eu/) - European Digital Identity Wallet under eIDAS 2.0 regulation (2026)
 
 #### Nostr-Based Identity
 - [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) - DNS-based identifier mapping for Nostr keys
