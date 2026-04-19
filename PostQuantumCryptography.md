@@ -8,6 +8,7 @@
 #### Open Source Implementations
 - [liboqs](https://github.com/open-quantum-safe/liboqs) - C library for quantum-safe cryptographic algorithms (Open Quantum Safe project)
 - [PQClean](https://github.com/pqclean/PQClean) - Clean, portable, reference implementations of post-quantum schemes
+- [PQ Code Package](https://github.com/pq-code-package) - Maintained successor to PQClean for NIST-standardized PQC schemes
 - [Open Quantum Safe](https://openquantumsafe.org/) - Project integrating PQC into TLS, SSH, and other protocols via liboqs
 - [pqcrystals/kyber](https://github.com/pq-crystals/kyber) - Reference implementation of ML-KEM (Kyber)
 - [pqcrystals/dilithium](https://github.com/pq-crystals/dilithium) - Reference implementation of ML-DSA (Dilithium)
