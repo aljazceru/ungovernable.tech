@@ -10,7 +10,10 @@
 - [Scroll](https://scroll.io/) - Bytecode-level compatible ZK rollup for Ethereum using proof of correctness
 - [Polygon zkEVM](https://github.com/0xPolygonHermez/zkevm-rom) - Open-source ZK rollup offering EVM equivalence
 - [Starknet](https://starknet.io/) - Layer-2 network using STARK proofs for scalable dApp computation
+- [Starknet 2025 Review](https://www.starknet.io/blog/starknet-2025-year-in-review/) - BTC staking, BTCFi, and privacy developments
 - [Mina Protocol](https://minaprotocol.com/) - Minimal-blockchain using recursive SNARKs to maintain a constant 22KB chain
+- [Taiko](https://taiko.xyz/) - Fully decentralized Ethereum-equivalent ZK rollup with zero code changes for Ethereum dApps
+- [Taiko Shasta Upgrade](https://coinmarketcap.com/cmc-ai/taiko/latest-updates/) - April 2026 upgrade with up to 22x lower costs for block proposers
 
 #### Privacy-Focused ZK
 - [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup enabling private smart contracts on Ethereum

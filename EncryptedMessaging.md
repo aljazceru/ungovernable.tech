@@ -22,8 +22,12 @@
 #### Metadata-Resistant Messaging
 - [SimpleX Chat](https://github.com/simplex-chat/simplex-chat) - First messaging network operating without user identifiers of any kind
 - [SimpleX Messaging Protocol](https://github.com/simplex-chat/simplexmq/blob/stable/protocol/simplex-messaging.md) - Transport-agnostic protocol for distributed secure unidirectional messaging
+- [SimpleX v6.4.1](https://simplex.chat/blog/) - July 2025 release with contact management and group protection features
+- [SimpleX Security Audit](https://simplex.chat/blog/20241014-simplex-network-v6-1-security-review-better-calls-user-experience.html) - Trail of Bits cryptographic design review for v6.1
 - [Cwtch](https://docs.cwtch.im/) - Decentralized, metadata-resistant messaging over Tor v3 onion services
 - [Briar](https://briarproject.org/) - Peer-to-peer encrypted messaging via Tor, Bluetooth, and WiFi
+- [Briar Desktop 0.6.0-beta](https://briarproject.org/) - Beta desktop client for secure P2P messaging
+- [Briar 1.5.17](https://briarproject.org/) - Latest release (March 2026) with improved connectivity
 
 #### Modern Encryption Tools
 - [age](https://github.com/FiloSottile/age) - Simple, modern file encryption tool (Go) — a GPG replacement
