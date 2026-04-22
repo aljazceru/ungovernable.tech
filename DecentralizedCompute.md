@@ -4,6 +4,7 @@ Existing projects in this space:
 - [akash.network](https://akash.network)
 - [rendernetwork](https://rendernetwork.com/)
 - [Akash 2025 Year in Review](https://akash.network/blog/akash-2025-year-in-review/) - Major AI inference deployments, Morpheus Compute Network integration
+- [State of Akash Q4 2025](https://messari.io/report/state-of-akash-q4-2025) - GPU usage declined 46% QoQ, Mainnet 14 upgrade, AkashML launch
 - [State of Akash Q3 2025](https://messari.io/report/state-of-akash-q3-2025) - Network fundamentals, Starcluster and AkashML developments
 - [Dispersed.com](https://financefeeds.com/how-decentralized-gpu-marketplaces-like-akash-and-render-solve-the-ai-compute-crisis/) - AI compute subnet launched December 2025
 - [hsdljahdl/cocoon](https://github.com/hsdljahdl/cocoon) - Enable secure AI inference on TON while earning cryptocurrency with COCOON's decentralized compute network for models and GPU services

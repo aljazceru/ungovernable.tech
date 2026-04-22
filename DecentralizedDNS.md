@@ -15,5 +15,10 @@ Cardano based DNS
 - [Handshake GitHub](https://github.com/handshake-org/hsd) - Node implementation and protocol specs
 - [Bob Wallet](https://bobwallet.io/) - GUI wallet for Handshake name management
 
+#### Namecoin
+- [Namecoin](https://www.namecoin.org/) - Experimental decentralized DNS and identity using Bitcoin infrastructure
+- [Namecoin Post-Quantum TLS](https://www.namecoin.org/) - Research on PQ-resistant Namecoin TLS implementation (2025-2026)
+- [Namecoin FOSDEM 2026](https://www.namecoin.org/) - Upcoming FOSDEM 2026 presentation
+
 #### Mesh network naming
 - [zhoreeq/meshname](https://github.com/zhoreeq/meshname) - Universal naming system for all IPv6-based mesh networks (CJDNS, Yggdrasil)

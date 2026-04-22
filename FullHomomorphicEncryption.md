@@ -45,10 +45,12 @@
 [Fhenix Confidential Contracts](https://github.com/FhenixProtocol/fhenix-confidential-contracts) - Solidity smart contracts for confidential ERC-20 tokens using FHE on the Fhenix L2 network
 
 #### FHE Ecosystem Updates
-- [Zama $57M Series B](https://x.com/cxmrondlls/status/1978506404400136611) - Zama raised $57M B轮融资,估值超过$1B for FHE blockchain applications
+- [Zama $57M Series B](https://x.com/cxmrondlls/status/1978506404400136611) - Zama raised $57M B轮融资,估值超过$1B for FHE区块链应用
 - [Zama Confidential Blockchain Protocol](https://www.zama.org/post/announcing-the-zama-confidential-blockchain-protocol) - Mainnet launch December 2025 for confidential smart contracts on any L1/L2
 - [Zama Confidential USDT Transfers](https://www.kucoin.com/news/articles/fhe-in-2026-computing-on-encrypted-data-and-the-projects-making-private-blockchains-a-reality) - First confidential USDT transfers on mainnet
 - [ZAMA Token Launch](https://phemex.com/academy/what-is-zama) - ZAMA token launched February 2026 for protocol fees, staking, and operator incentives
 - [Mind Network FHE A2A](https://cn.tradingview.com/news/panews:4ada7974fe3f9:0/) - Mind Network联合Zama推出首个基于FHE的A2A隐私解决方案,x402协议
 - [Inco Network](https://blockeden.xyz/blog/2026/01/05/zama-protocol/) - Confidentiality-as-a-service using Zama's fhEVM for existing chains
 - [FHE for Blockchain Privacy](https://finance.sina.com.cn/blockchain/roll/2025-12-05/doc-infzueru9730390.shtml) - Zama CEO访谈:FHE如何重塑区块链隐私,与ZK和MPC的对比
+- [OpenZeppelin Zama Networks](https://www.openzeppelin.com/networks/zama) - OpenZeppelin audited smart contracts for Zama FHEVM
+- [Zama T-REX Ledger Integration](https://cryptorank.io/news/feed/521c5-zama-rwa-privacy-trex-ledger) - FHE-powered RWA tokenization for institutional finance

@@ -14,6 +14,7 @@
 - [Mina Protocol](https://minaprotocol.com/) - Minimal-blockchain using recursive SNARKs to maintain a constant 22KB chain
 - [Taiko](https://taiko.xyz/) - Fully decentralized Ethereum-equivalent ZK rollup with zero code changes for Ethereum dApps
 - [Taiko Shasta Upgrade](https://coinmarketcap.com/cmc-ai/taiko/latest-updates/) - April 2026 upgrade with up to 22x lower costs for block proposers
+- [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup with private smart contracts using Noir language
 
 #### Privacy-Focused ZK
 - [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup enabling private smart contracts on Ethereum
@@ -32,6 +33,7 @@
 - [ZK Framework Survey](https://arxiv.org/html/2502.07063v1) - Quantitative benchmarks and developer guide for choosing ZK frameworks
 - [Rumble Fish ZK Projects](https://www.rumblefish.dev/blog/post/top-zk-projects-2025/) - Top ZK projects reshaping blockchain in 2025
 - [Understanding zk-SNARKs: Research to Practice](https://eprint.iacr.org/2025/172.pdf) - Comprehensive walk-through for practitioners focusing on usability and library selection
+- [Top Zero-Knowledge ZK Projects 2026](https://coincodex.com/article/77574/best-zero-knowledge-crypto/) - Top ZK crypto projects by market cap
 
 #### Hardware & Trusted Execution
 - [MPC-Circuits](https://github.com/geometryresearch/mpc-circuits) - Hardware-accelerated ZK for secure multi-party computation

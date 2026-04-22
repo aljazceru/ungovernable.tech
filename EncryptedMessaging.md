@@ -5,6 +5,7 @@
 - [X3DH Key Agreement](https://signal.org/docs/specifications/x3dh/) - Extended Triple Diffie-Hellman for establishing shared secrets
 - [x3dh-ratchet](https://github.com/ekkolon/x3dh-ratchet) - Crypto primitives based on the Signal Protocol for secure async messaging
 - [2key-ratchet](https://github.com/PeculiarVentures/2key-ratchet) - Double Ratchet and X3DH implementation in JavaScript
+- [Signal SPQR Post-Quantum Ratchet](https://csrc.nist.gov/csrc/media/events/2025/sixth-pqc-standardization-conference/post-quantum%20ratcheting%20for%20signal.pdf) - Sparse Post-Quantum Ratchet (SPQR) integrating ML-KEM (2025)
 
 #### Matrix Protocol
 - [Matrix.org](https://matrix.org/) - Open protocol for decentralized, federated real-time communication

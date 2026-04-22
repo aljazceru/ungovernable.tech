@@ -42,5 +42,9 @@
 
 [Incremental Single-Server PIR](https://eprint.iacr.org/2026/030) - Extends incremental preprocessing to single-server PIR for efficient updates (2026)
 
+[NewtonPIR: Communication Efficient Single-Server PIR](https://dl.acm.org/doi/abs/10.1007/978-981-95-7072-0_30) - PETS 2025 paper on efficient single-server PIR
+
+[Information-Theoretic Random-Index PIR](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcsITC.2025.5) - ITC 2025 paper on IT-PIR
+
 
 
