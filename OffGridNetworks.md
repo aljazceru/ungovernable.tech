@@ -20,6 +20,9 @@
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
 - [LXMF](https://github.com/markqvist/LXMF) - secure, distributed messaging protocol
 - [RNode](https://github.com/markqvist/RNode_Firmware) - open LoRa radio hardware
+- [Columba](https://columba.network/) - normie-friendly Android messaging and voice app for Reticulum (Bluetooth, WiFi, LoRa)
+- [Columba GitHub](https://github.com/torlando-tech/columba) - Android LXMF/LXST client using Reticulum
+- [RMAP](https://rmap.world/v3/) - Reticulum network worldwide mapping and mesh visualization tool (March 2025)
 
 #### MeshCore
 - [MeshCore](https://github.com/ajmcquilkin/meshcore) - Meshtastic-like mesh networking for T-Deck, T-Watch, and other ESP32 devices

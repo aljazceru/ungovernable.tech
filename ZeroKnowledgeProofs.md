@@ -15,6 +15,8 @@
 - [Taiko](https://taiko.xyz/) - Fully decentralized Ethereum-equivalent ZK rollup with zero code changes for Ethereum dApps
 - [Taiko Shasta Upgrade](https://coinmarketcap.com/cmc-ai/taiko/latest-updates/) - April 2026 upgrade with up to 22x lower costs for block proposers
 - [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup with private smart contracts using Noir language
+- [Linea](https://linea.build/) - ConsenSys zkEVM L2 rollup with EVM-equivalence and native ETH yield (September 2025 token)
+- [Manta Network](https://manta.network/) - Modular ZK rollup with Universal Circuits for privacy-preserving applications
 
 #### Privacy-Focused ZK
 - [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup enabling private smart contracts on Ethereum
