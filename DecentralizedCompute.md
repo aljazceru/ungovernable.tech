@@ -2,6 +2,7 @@ Existing projects in this space:
 - [golem.network](https://www.golem.network/)
 - [gputopia.ai](https://gputopia.ai/)
 - [akash.network](https://akash.network)
+- [io.net](https://io.net/blog/decentralized-computing) - Decentralized computing architecture and cost comparison (2025)
 - [rendernetwork](https://rendernetwork.com/)
 - [Akash 2025 Year in Review](https://akash.network/blog/akash-2025-year-in-review/) - Major AI inference deployments, Morpheus Compute Network integration
 - [State of Akash Q4 2025](https://messari.io/report/state-of-akash-q4-2025) - GPU usage declined 46% QoQ, Mainnet 14 upgrade, AkashML launch

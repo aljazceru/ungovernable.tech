@@ -28,6 +28,7 @@
 - [Polygon ID](https://github.com/0xPolygonID) - ZK identity protocol for privacy-preserving verification on blockchain
 - [zkPass](https://zkpass.io/) - Privacy-preserving identity verification using ZK proofs and TLS
 - [anon-aadhaar](https://github.com/anon-aadhaar/anon-aadhaar) - ZK protocol to prove possession of Aadhaar (Indian ID) without revealing identity
+- [Dock Wallet](https://www.dock.io/post/self-sovereign-identity) - Self-sovereign identity platform guide (2026)
 
 #### ZK Frameworks & Libraries
 - [OpenZeppelin ZK](https://www.openzeppelin.com/zkp) - Secure circuit design and ZK implementation auditing

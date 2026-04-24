@@ -2,7 +2,8 @@
 - [Meshtastic](https://meshtastic.org/) - open source, off-grid, decentralized mesh network using LoRa
 - [Meshtastic GitHub](https://github.com/meshtastic)
 - [Meshtastic firmware](https://github.com/meshtastic/firmware)
-- [MeshTastic Android](https://github.com/meshtastic/Meshtastic-Android)
+- [Meshtastic Android](https://github.com/meshtastic/Meshtastic-Android)
+- [Meshtastic 2025 Beginner Guide](https://www.seeedstudio.com/blog/2025/07/10/meshtastic-off-grid-mesh-network/) - Comprehensive guide for building off-grid mesh networks
 - [Ripple](https://github.com/ripple-lib/ripple) - experimental LoRa mesh networking
 - [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
 - [Yeraze/meshmonitor](https://github.com/Yeraze/meshmonitor) - Web tool for monitoring Meshtastic node deployments over TCP/HTTP (386 stars)

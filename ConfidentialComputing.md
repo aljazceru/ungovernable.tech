@@ -1,5 +1,6 @@
 #### Confidential computing on GPUs
 - [TEE.Fail Side-Channel Attack](https://thehackernews.com/2025/10/new-teefail-side-channel-attack.html) - Extracts secrets from Intel SGX/TDX and AMD SEV-SNP with Ciphertext Hiding (October 2025)
+- [Phala Confidential Computing Trends 2025](https://phala.com/learn/confidential-computing-trends-2025) - Gartner predicts 60% of enterprises will evaluate TEE by year-end, GPU TEE for AI workloads matures (2025)
 - [continuum](https://docs.edgeless.systems/continuum)
 - [confidential AI from GPU enclaves](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
 - [Nvidia confidential computing deployment guide](https://docs.nvidia.com/confidential-computing-deployment-guide.pdf)

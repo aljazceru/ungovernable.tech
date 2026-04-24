@@ -40,6 +40,8 @@
 
 [GPIR: Enabling Practical PIR with GPUs](https://arxiv.org/html/2604.04696v1) - GPU-accelerated private information retrieval achieving practical performance (2026)
 
+[Mk-PIR: Multi-Keyword Private Information Retrieval](https://eprint.iacr.org/2025/1695) - Enables private conjunctive queries with multiple keywords (IACR 2025)
+
 [Incremental Single-Server PIR](https://eprint.iacr.org/2026/030) - Extends incremental preprocessing to single-server PIR for efficient updates (2026)
 
 [NewtonPIR: Communication Efficient Single-Server PIR](https://dl.acm.org/doi/abs/10.1007/978-981-95-7072-0_30) - PETS 2025 paper on efficient single-server PIR

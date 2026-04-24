@@ -14,6 +14,7 @@ Cardano based DNS
 - [Handshake](https://handshake.org/) - Decentralized, permissionless naming protocol replacing Certificate Authorities
 - [Handshake GitHub](https://github.com/handshake-org/hsd) - Node implementation and protocol specs
 - [Bob Wallet](https://bobwallet.io/) - GUI wallet for Handshake name management
+- [Handshake DNS Replacement Guide](https://decentralizers.com/2025/12/02/handshake-dns-replacement-guide/) - 10-step guide to replacing DNS with Handshake (December 2025)
 
 #### Namecoin
 - [Namecoin](https://www.namecoin.org/) - Experimental decentralized DNS and identity using Bitcoin infrastructure

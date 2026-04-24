@@ -18,6 +18,8 @@
 
 [OpenFHE](https://paperswithcode.com/paper/openfhe-open-source-fully-homomorphic) - A comprehensive open-source FHE software library incorporating design ideas from prior FHE projects like PALISADE, HElib, and HEAAN. OpenFHE includes features like automatic maintenance operations and hardware acceleration support through a standard Hardware Abstraction Layer (HAL).
 
+[OpenFHE v2.0](https://dl.acm.org/doi/10.1145/3560827.3563379) - Major December 2025 update with improved performance and new features (ACM TOPS 2025)
+
 [TFHE Library by Inpher](https://inpher.io/tfhe-library/) - One of the world's fastest open-source Fully Homomorphic Encryption libraries, maintained by Inpher's team with contributions from leading universities and privacy-first enterprises worldwide. The library implements the scheme described in the best paper from IACR's Asiacrypt 2016 conference.
 
 [TenSEAL](https://sefiks.com/2023/04/10/a-step-by-step-fully-homomorphic-encryption-example-with-tenseal-in-python/) - A practical FHE library for Python that allows performing both addition and multiplication on encrypted data. Unlike partially homomorphic encryption algorithms like RSA, ElGamal, or Paillier, TenSEAL offers fully homomorphic capabilities for real-world applications.

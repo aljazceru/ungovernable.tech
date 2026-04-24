@@ -22,6 +22,7 @@
 #### Mix Networks
 - [Nym](https://nym.com/) - Decentralized noise-generating mixnet providing network-level anonymity
 - [NymVPN](https://github.com/nymtech/nym-vpn-client) - Cross-platform VPN application leveraging Nym's 5-hop mixnet for traffic privacy
+- [NymVPN v2026.7](https://nym.com/blog/nymvpn.v2026.7) - Split tunneling (beta), post-quantum Lewes protocol, improved macOS authentication (April 2026)
 - [NymVPN vs VPNs vs Tor vs I2P vs dVPNs](https://nym.com/blog/nymvpn-v-vpns-v-tor-v-i2p-v-dvpns) - Detailed comparison of anonymity solutions
 - [Nym NEAR Integration](https://www.theblock.co/post/260369/nym-privacy-protections-near-ecosystem) - Nym mixnet privacy for NEAR blockchain ecosystem
 - [Nym 2026 Roadmap](https://nym.com/blog/nym-roadmap-2026) - Plans for enhanced censorship resistance and privacy features
