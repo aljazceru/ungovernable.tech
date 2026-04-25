@@ -53,7 +53,6 @@ export default defineConfig({
         cat('Decentralized DNS', 'decentralized-dns'),
         cat('Decentralized Compute', 'decentralized-compute'),
         cat('Off-Grid Networks', 'off-grid-networks'),
-        cat('Financial Sovereignty', 'financial-sovereignty'),
         cat('Encrypted Messaging', 'encrypted-messaging'),
         cat('Mix Networks', 'mix-networks'),
         cat('Zero Knowledge', 'zero-knowledge'),

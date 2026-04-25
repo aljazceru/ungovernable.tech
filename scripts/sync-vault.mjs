@@ -55,8 +55,12 @@ function fileToSlug(name) {
     .replace(/^-+|-+$/g, '');
 }
 
-// Folders we skip entirely
-const SKIP_DIRS = new Set(['Templates', 'Sources', '.obsidian', '.trash']);
+// Folders we skip entirely. To temporarily hide a section without touching
+// the vault, add the folder name here.
+const SKIP_DIRS = new Set([
+  'Templates', 'Sources', '.obsidian', '.trash',
+  '06-Financial-Sovereignty', // hidden for now
+]);
 // Files we skip by basename
 const SKIP_FILES = new Set([
   'README.md',
