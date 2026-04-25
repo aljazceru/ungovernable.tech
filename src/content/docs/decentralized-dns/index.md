@@ -139,45 +139,18 @@ The name *is* a public key. No blockchain, no registrar, just cryptographic iden
 
 #### PKARR (Public-Key-Addressable Resource Records)
 
-Names are Ed25519 public keys. The DHT (Mainline / BitTorrent) stores signed DNS records under each key. No blockchain. Used in Pubky and Slashtags.
+Names are Ed25519 public keys. Signed DNS records are published to the BitTorrent Mainline DHT (around 10M nodes) under each key's hash. No blockchain, no registrar, no fees. Used in Pubky and Slashtags. See [PKARR](/decentralized-dns/pkarr) for the deep dive.
 
 | Feature | Detail |
 |---------|--------|
 | Registry | Mainline DHT (~10M nodes) |
-| TLD | .pk, custom |
+| TLD | None (key is the name); pkdns bridges via configurable TLD |
 | Cost | Free (DHT storage) |
-| Resolution | pkdns, resolvers |
+| Resolution | pkdns, native PKARR resolvers |
 | Crypto | Ed25519 signing |
 | Governance | None (protocol only) |
 
-How it works:
-
-```
-1. Generate Ed25519 keypair
-2. Create DNS records (TXT, A, AAAA, etc.)
-3. Sign records with private key
-4. Publish to DHT under key hash
-5. Anyone resolves by looking up your public key hash
-```
-
-The name is the public key:
-
-- `npub1...` style naming.
-- Self-authenticating (the name proves ownership).
-- No renewal fees.
-- No seizure path without the key.
-
-2025-2026:
-
-- Pubky became the primary implementation.
-- pkdns: production DNS server resolving PKARR.
-- Growing self-sovereign-identity tooling.
-
-Resources:
-
-- [pubky/pkarr GitHub](https://github.com/pubky/pkarr)
-- [pubky/pkdns GitHub](https://github.com/pubky/pkdns)
-- [docs.pubky.org](https://docs.pubky.org)
+Strengths: self-authenticating, free, no chain, no seizure path. Trade-offs: no human-readable names without a layer on top, DHT churn requires periodic republication, lookup observability is low. See [PKARR](/decentralized-dns/pkarr) for the full threat model and composition patterns.
 
 #### Nostr NIP-05
 
