@@ -9,38 +9,38 @@ tags:
   - "confidential-computing"
   - "hardware"
 ---
-*Detailed technical analysis of Trusted Execution Environment architectures*
+*Detailed technical analysis of the major Trusted Execution Environment architectures.*
 
 ---
 
-## Executive Summary
+## Summary
 
-Confidential Computing protects data **while it is being processed** — the final gap in the data lifecycle. At its core is the **Trusted Execution Environment (TEE)**, a secure hardware enclave that isolates sensitive computations from the rest of the system (OS, hypervisor, cloud provider).
+Confidential computing protects data while it is being processed. That is the gap left after at-rest and in-transit encryption. The mechanism is the Trusted Execution Environment (TEE): a hardware enclave that isolates a computation from the rest of the system (OS, hypervisor, cloud provider).
 
-This document provides deep technical analysis of major TEE technologies.
+This document walks through the major TEE designs in technical detail.
 
 ---
 
-## 1. The Problem: Data in Use
+## 1. The problem: data in use
 
 Traditional encryption protects data in two states:
-- **At rest**: Storage encryption (AES-256, LUKS, TDE)
-- **In transit**: TLS/SSL for network communication
+- At rest: storage encryption (AES-256, LUKS, TDE).
+- In transit: TLS/SSL on the network.
 
-The gap: **Data in use** — while being processed by CPU instructions — has historically been plaintext in RAM. This exposes sensitive workloads to:
-- Malicious cloud providers or hypervisors
-- Row hammer, cold boot attacks
-- Malicious insiders with physical access
-- Software vulnerabilities in the host OS
+The gap is data in use. While the CPU is working on it, plaintext sits in RAM. That exposes sensitive workloads to:
+- Malicious cloud providers or hypervisors.
+- Row hammer and cold-boot attacks.
+- Malicious insiders with physical access.
+- Software vulnerabilities in the host OS.
 
-Confidential Computing addresses this by creating hardware-protected enclaves where data decrypts only for authorized code executing within the TEE.
+Confidential computing addresses this by creating hardware-protected enclaves where data is decrypted only for authorized code running inside the TEE.
 
 ---
 
 ## 2. Intel Software Guard Extensions (SGX)
 
 ### Overview
-Intel SGX is the **original** modern confidential computing technology, introduced in 2015 with 6th Generation Core processors (Skylake). It provides **fine-grained enclave protection** at the application level.
+Intel SGX is the first modern confidential-computing technology, introduced in 2015 with 6th-Generation Core processors (Skylake). It provides fine-grained enclave protection at the application level.
 
 ### Architecture
 
@@ -77,7 +77,7 @@ Intel SGX is the **original** modern confidential computing technology, introduc
 └─────────────────────────────────────────────────────┘
 ```
 
-### Key Components
+### Key components
 
 | Component | Description |
 |-----------|-------------|
@@ -89,39 +89,39 @@ Intel SGX is the **original** modern confidential computing technology, introduc
 | **REPORT Key** | Key for generating attestation reports |
 | **SEAL Key** | Key for encrypting data to persist outside enclave |
 
-### New CPU Instructions
+### New CPU instructions
 
-- **EINIT**: Initialize and launch an enclave
-- **EENTER**: Transfer control into the enclave
-- **EEXIT**: Exit the enclave
-- **EADD**: Add pages to an enclave
-- **EEXTEND**: Extend enclave measurement (256-byte chunks)
-- **EREMOVE**: Remove pages from enclave
-- **EGETKEY**: Derive sealing/attestation keys
-- **EREPORT**: Create attestation report for another enclave
+- `EINIT`: initialize and launch an enclave.
+- `EENTER`: transfer control into the enclave.
+- `EEXIT`: exit the enclave.
+- `EADD`: add pages to an enclave.
+- `EEXTEND`: extend the enclave measurement (256-byte chunks).
+- `EREMOVE`: remove pages from the enclave.
+- `EGETKEY`: derive sealing or attestation keys.
+- `EREPORT`: create an attestation report for another enclave.
 
-### Security Properties
+### Security properties
 
-- **Memory encryption**: EPC contents encrypted by MEE using keys burned into CPU
-- **Access control**: CPU blocks all memory access to EPC except from enclave in enclave mode
-- **Isolation**: Even privileged software (OS, hypervisor, SMM) cannot read enclave memory
-- **Attestation**: Remote parties can verify the enclave's identity via signed reports
+- Memory encryption: EPC contents are encrypted by the MEE using keys burned into the CPU.
+- Access control: the CPU blocks all memory access to EPC except from an enclave running in enclave mode.
+- Isolation: even privileged software (OS, hypervisor, SMM) cannot read enclave memory.
+- Attestation: remote parties can verify the enclave's identity via signed reports.
 
 ### Limitations
 
-- **Small enclave size**: EPC limited to ~256MB on most CPUs (128MB max)
-- **No virtualization**: SGX doesn't support running a full OS; application-level only
-- **Page swap limitations**: EPC pages can be swapped but require special handling
-- **Attack surface**: Smaller attack surface than VM-level solutions, but fewer features
-- **Side-channel vulnerabilities**: Spectre, L1TF, Foreshadow attacks
+- Small enclave size: EPC is limited to roughly 256MB on most CPUs (128MB max).
+- No virtualization: SGX cannot run a full OS; application-level only.
+- Page swap limitations: EPC pages can be swapped but require special handling.
+- Attack surface: smaller than VM-level solutions but with fewer features.
+- Side-channel vulnerabilities: Spectre, L1TF, Foreshadow attacks.
 
-### Use Cases
+### Use cases
 
-- Cryptographic key management
-- Secure authentication
-- Database query processing on sensitive data
-- AI model inference on private data
-- Blockchain privacy (transaction validation)
+- Cryptographic key management.
+- Secure authentication.
+- Database query processing on sensitive data.
+- AI model inference on private data.
+- Blockchain privacy (transaction validation).
 
 ---
 
@@ -129,16 +129,16 @@ Intel SGX is the **original** modern confidential computing technology, introduc
 
 ### Evolution
 
-AMD's confidential computing evolved through three generations:
+AMD's confidential computing has gone through several generations:
 
-| Generation | Year | Feature |
-|-------------|------|---------|
-| **SEV** | 2016 | Memory encryption for VMs |
-| **SEV-ES** | 2017 | Encrypted register state |
-| **SEV-SNP** | 2021 | Secure Nested Paging (integrity protection) |
-| **SEV-SNP ME** | 2024 | Memory Encryption (guest management) |
+| Generation | Year (first ship) | Feature |
+|-------------|-------------------|---------|
+| **SEV** | 2017 (Naples / Zen 1) | Memory encryption per VM |
+| **SEV-ES** | 2019 (Rome / Zen 2) | + Encrypted register state |
+| **SEV-SNP** | 2021 (Milan / Zen 3) | + Secure Nested Paging (integrity protection via RMP) |
+| **SEV-SNP Ciphertext Hiding** | 2024 (Turin / Zen 5) | Hides ciphertext from hypervisor reads (defense vs CipherLeaks-style attacks) |
 
-### SEV Architecture
+### SEV architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -173,40 +173,40 @@ AMD's confidential computing evolved through three generations:
 | **Malicious hypervisor** | Partial | Partial | ✓ |
 | **Side-channel protection** | — | — | ✓ |
 
-### SEV-SNP Security Properties
+### SEV-SNP security properties
 
-1. **Confidentiality**: Each VM has a unique encryption key; hypervisor cannot read VM memory
-2. **Integrity**: RAPL (Reverse Address Physical Lookaside) prevents memory remapping attacks
-3. **Attestation**: SNP provides hardware-attested launch certificates
-4. **Migration**: Supports secure live migration between hosts
+1. Confidentiality: each VM has a unique encryption key; the hypervisor cannot read VM memory.
+2. Integrity: the RMP (Reverse Map Table) prevents memory remapping attacks. The hypervisor cannot remap a guest physical page to a different host page without invalidating the integrity check.
+3. Attestation: SNP provides hardware-attested launch certificates.
+4. Migration: supports secure live migration between hosts.
 
 ### Advantages over SGX
 
-- **Full VM isolation**: Can run entire operating systems
-- **Larger workloads**: No enclave size limits
-- **Standard virtualization**: Works with KVM, VMware, Hyper-V
-- **Multi-vCPU support**: Scales across multiple cores
+- Full VM isolation: can run entire operating systems.
+- Larger workloads: no enclave size limits.
+- Standard virtualization: works with KVM, VMware, Hyper-V.
+- Multi-vCPU support: scales across multiple cores.
 
 ### Limitations
 
-- **AMD-only**: Only available on EPYC processors (Zen 2+)
-- **Hypervisor trust**: Assumes hypervisor cooperation (though SNP mitigates)
-- **Performance overhead**: ~1-5% latency for encrypted memory operations
-- **Live migration**: More complex than non-confidential VMs
+- AMD-only: only available on EPYC processors (Zen 2+).
+- Hypervisor trust: assumes hypervisor cooperation (though SNP mitigates).
+- Performance overhead: ~1-5% latency for encrypted memory operations.
+- Live migration: more complex than non-confidential VMs.
 
 ---
 
 ## 4. Intel Trust Domain Extensions (TDX)
 
 ### Overview
-Intel TDX is the successor to SGX, introduced in 2022 to provide VM-level confidential computing. It's designed for cloud environments requiring full OS isolation.
+Intel TDX, introduced in 2022, provides VM-level confidential computing. It is designed for cloud environments that need full OS isolation, complementing rather than replacing SGX.
 
-### Key Features
+### Features
 
-- **Confidential VMs**: Full virtual machines with encrypted memory
-- **TDX Module**: New CPU mode for managing confidential VMs
-- **TD-Shield**: Memory encryption and isolation
-- **Flexibility**: Supports both enumerated and flex-attestation
+- Confidential VMs: full virtual machines with encrypted memory.
+- TDX Module: a new CPU mode for managing confidential VMs.
+- TD-Shield: memory encryption and isolation.
+- Flexibility: supports both enumerated and flex-attestation.
 
 ### Architecture
 
@@ -245,9 +245,9 @@ Intel TDX is the successor to SGX, introduced in 2022 to provide VM-level confid
 
 ### Overview
 
-Arm CCA, introduced with Armv9-A architecture (2021), builds on TrustZone while enabling **Realm** execution — a new security world for confidential computing.
+Arm CCA, introduced with the Armv9-A architecture (2021), builds on TrustZone and adds Realm execution: a new security world for confidential computing.
 
-### TrustZone -> CCA Evolution
+### TrustZone -> CCA evolution
 
 ```
 TrustZone (Armv8):
@@ -269,7 +269,7 @@ Armv9 CCA:
 └─────────────────────────────────────┘
 ```
 
-### Key Components
+### Key components
 
 | Component | Description |
 |-----------|-------------|
@@ -279,23 +279,23 @@ Armv9 CCA:
 | **Realm(world)** | New physical address space inaccessible to NS/Secure worlds |
 | **GPA (Granule Protection Analog)** | Hardware mechanism protecting Realm memory |
 
-### Security Model
+### Security model
 
-- **Realm Management Monitor (RMM)**: Small TCB firmware that mediates all Realm operations
-- **Hyp switch**: Hypervisor requests become RMM calls rather than direct hardware access
-- **Dynamic allocation**: Realms can grow/shrink memory dynamically
-- **Attestation**: RMM provides secure attestation of Realm state
+- Realm Management Monitor (RMM): small TCB firmware that mediates all Realm operations.
+- Hyp switch: hypervisor requests become RMM calls rather than direct hardware access.
+- Dynamic allocation: Realms can grow and shrink memory dynamically.
+- Attestation: RMM provides secure attestation of Realm state.
 
 ### Advantages
 
-- **Full VM support**: Runs entire OSes in Realms
-- **Hardware-verified monitor**: RMM in verified ARM assembly
-- **Performance**: Uses VHE (Virtualization Host Extension) for minimal overhead
-- **Ecosystem leverage**: Builds on TrustZone ecosystem
+- Full VM support: runs entire OSes in Realms.
+- Hardware-verified monitor: RMM in verified ARM assembly.
+- Performance: uses VHE (Virtualization Host Extension) for minimal overhead.
+- Ecosystem: builds on the TrustZone ecosystem.
 
 ---
 
-## 6. Comprehensive Comparison Matrix
+## 6. Comparison matrix
 
 | Feature | Intel SGX | AMD SEV-SNP | Intel TDX | Arm CCA |
 |---------|-----------|------------|-----------|--------|
@@ -305,13 +305,13 @@ Armv9 CCA:
 | **Multi-tenancy** | Multiple enclaves | Multiple VMs | Multiple VMs | Multiple Realms |
 | **Full OS Support** | No | Yes | Yes | Yes |
 | **Encryption Key** | Per-enclave | Per-VM | Per-VM | Per-Realm |
-| **Integrity Protection** | MEE | RAPL | Yes | GPA |
-| **Attestation** | Local/Remote | SNP reports | Remote | RMM attestation |
-| **Processor** | Intel (6th gen+) | AMD EPYC (Zen 2+) | Intel (4th gen+) | Armv9 (C1+) |
+| **Integrity Protection** | MEE | RMP (SEV-SNP) | TD-MR (TDX) | RMM attestation |
+| **Attestation** | Local/Remote | SNP reports | TD quote | RMM attestation |
+| **Processor** | Intel (6th gen Skylake+; client-deprecated 11th gen) | SEV: Zen 1+ (Naples 2017); SEV-SNP: Zen 3+ (Milan 2021) | Intel 5th gen Xeon (Emerald Rapids GA) | Armv9 (C1+) |
 | **Performance Overhead** | 1-10% | 1-5% | 1-5% | 1-3% |
 | **Cloud Support** | Azure, GCP | AWS, Azure, GCP | GCP, Azure | Coming |
 
-### When to Use Each
+### When to use each
 
 | Use Case | Recommended TEE |
 |----------|-----------------|
@@ -326,30 +326,32 @@ Armv9 CCA:
 
 ---
 
-## 7. Cloud Provider Offerings
+## 7. Cloud provider offerings
 
 ### AWS Nitro Enclaves
 
-- Uses Nitro hypervisor (custom)
-- Provides isolated execution environments
-- VPC-attached encrypted containers
-- No dedicated hardware TEE; relies on Nitro security model
+- Uses the Nitro hypervisor (custom).
+- Provides isolated execution environments.
+- VPC-attached encrypted containers.
+- No dedicated hardware TEE; relies on the Nitro security model.
 
 ### Azure Confidential Computing
 
-- **Intel SGX**: DCsv2, DCdsv2 VMs
-- **AMD SEV-SNP**: DCasv5, DCadsv5 VMs
-- **Intel TDX**: DCasv5 series
-- **Attestation**: Azure Attestation service
+- Intel SGX: DCsv2, DCsv3, DCdsv2 VMs.
+- AMD SEV-SNP: DCasv5 / ECasv5 / DCadsv5 series.
+- Intel TDX: DCesv5 / ECesv5 series (distinct from the SEV-SNP DCasv5).
+- Attestation: Microsoft Azure Attestation (MAA).
 
 ### Google Cloud Confidential VMs
 
-- **AMD SEV-SNP**: C2D VMs
-- **Intel TDX**: C2D VMs (confidential)
-- **Confidential Space**: Container-based enclaves
-- **Privacy-based encryption**: Customer-managed keys
+- AMD SEV (legacy): N2D, C2D.
+- AMD SEV-SNP: N2D (Milan, GA June 2024) and newer.
+- Intel TDX: C3 (Sapphire Rapids), preview/GA depending on region.
+- NVIDIA H100 CC: A3 Confidential (preview as of late 2025).
+- Confidential Space: container-based enclaves.
+- Customer-managed encryption keys with Cloud KMS.
 
-### Comparison Matrix
+### Comparison matrix
 
 | Provider | SGX | SEV-SNP | TDX | Arm CCA |
 |----------|-----|--------|--------|-------|
@@ -359,9 +361,9 @@ Armv9 CCA:
 
 ---
 
-## 8. Attack Surface & Mitigations
+## 8. Attack surface and mitigations
 
-### Known Attacks
+### Known attacks
 
 | Attack | Target | Mitigation |
 |--------|--------|------------|
@@ -373,54 +375,54 @@ Armv9 CCA:
 | **Cold boot attacks** | All | Memory encryption at rest |
 | **Firmware attacks** | All | TCB verification, measured boot |
 
-### Defense Layers
+### Defense layers
 
-1. **Hardware root of trust**: Keys burned into CPU
-2. **Secure boot chain**: Verify firmware before execution
-3. **Attestation**: Prove TCB state to remote parties
-4. **Encryption**: All data at rest inside TEE
-5. **Isolation**: No direct hardware access from untrusted software
+1. Hardware root of trust: keys burned into the CPU.
+2. Secure boot chain: verify firmware before execution.
+3. Attestation: prove TCB state to remote parties.
+4. Encryption: all data at rest inside the TEE.
+5. Isolation: no direct hardware access from untrusted software.
 
-### Best Practices
+### Best practices
 
-- Use latest TEE generation (SEV-SNP > TDX > SGX)
-- Keep TCB updated
-- Use multiple TEE generations together (defense in depth)
-- Implement constant-time code to prevent timing attacks
-
----
-
-## 9. Implementation Considerations
-
-### For Developers
-
-1. **Choose your TEE**: SGX for fine-grained, SEV/TDX/CCA for full VMs
-2. **Minimize TCB**: Only put sensitive code in enclave
-3. **Design for attestation**: Plan how to verify enclave identity
-4. **Handle secrets carefully**: Never log or expose secrets
-5. **Test side-channel resistance**: Use constant-time patterns
-6. **Use library OS**: Gramine, Occlum for running unmodified apps
-
-### For Infrastructure
-
-1. **Hardware selection**: Ensure CPU supports required TEE
-2. **Firmware updates**: Keep CPU microcode current
-3. **Secure boot**: Enable measured/verified boot
-4. **Key management**: Use hardware-backed key storage
-5. **Monitoring**: Log TEE operations for audit
-6. **Attestation service**: Set up RA service for verification
-
-### Recommended Frameworks
-
-- **Gramine**: Library OS for running unmodified apps in SGX
-- **Occlum**: Memory-safe OS for SGX enclaves
-- **Kata Containers**: VM-based containers with TEE
-- **Confidential Containers (CoCo)**: Kubernetes integration
-- **Marblerun**: CoCo orchestrator for Kubernetes
+- Use the latest TEE generation (SEV-SNP > TDX > SGX).
+- Keep TCB updated.
+- Combine multiple TEE generations for defense in depth.
+- Use constant-time code to prevent timing attacks.
 
 ---
 
-## 10. Further Reading
+## 9. Implementation considerations
+
+### For developers
+
+1. Pick a TEE: SGX for fine-grained, SEV/TDX/CCA for full VMs.
+2. Minimize TCB: only put sensitive code in the enclave.
+3. Design for attestation: plan how to verify enclave identity.
+4. Handle secrets carefully: never log or expose them.
+5. Test side-channel resistance: use constant-time patterns.
+6. Use a library OS (Gramine, Occlum) for running unmodified apps.
+
+### For infrastructure
+
+1. Hardware selection: ensure the CPU supports the required TEE.
+2. Firmware updates: keep CPU microcode current.
+3. Secure boot: enable measured/verified boot.
+4. Key management: use hardware-backed key storage.
+5. Monitoring: log TEE operations for audit.
+6. Attestation service: set up remote-attestation services for verification.
+
+### Recommended frameworks
+
+- Gramine: library OS for running unmodified apps in SGX.
+- Occlum: memory-safe OS for SGX enclaves.
+- Kata Containers: VM-based containers with TEE.
+- Confidential Containers (CoCo): Kubernetes integration.
+- Marblerun: CoCo orchestrator for Kubernetes.
+
+---
+
+## 10. Further reading
 
 - [Confidential Computing Consortium](https://confidentialcomputing.io)
 - [Intel SGX Developer Guide](https://software.intel.com/sgx)

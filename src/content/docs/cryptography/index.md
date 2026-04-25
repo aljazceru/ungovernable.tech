@@ -25,6 +25,11 @@ PIR lets a client fetch record `i` without the server learning `i` — useful fo
 
 Decentralized trust models — OpenPGP WoT and Nostr social-graph WoT.
 
+### Deep Dives
+
+- [Multi-Party Computation](/cryptography/multi-party-computation) — joint computation across mutually distrusting parties; FROST, GG20, threshold cryptography.
+- [FHE Bootstrapping and Verification](/cryptography/fhe-bootstrapping-and-verification) — bootstrapping techniques and the vFHE / FHE-in-TEE composition story.
+
 ### Cross-section overviews
 
 These topics live in their own sections but are cryptography-adjacent:

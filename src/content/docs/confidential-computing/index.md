@@ -9,45 +9,44 @@ tags:
   - "cryptography"
 sidebar: {"label":"Overview","order":0}
 ---
-## Overview
+## Summary
 
-**Confidential Computing** — powered by Trusted Execution Environments (TEEs) — enables a fundamental shift: data remains encrypted not just at rest and in transit, but **during computation**. Traditional encryption protects data at rest (full-disk encryption) and in transit (TLS), but leaves data exposed in memory where it's processed. TEEs solve this by creating isolated enclaves within the CPU that even the operating system, hypervisor, and cloud provider cannot access.
+Confidential computing keeps data encrypted while it is being processed, not only at rest and in transit. Disk encryption protects bytes on the platter; TLS protects bytes on the wire. Both leave plaintext sitting in DRAM where the CPU works on it. Trusted Execution Environments (TEEs) close that gap by carving out memory regions the OS, the hypervisor, and the cloud operator cannot read.
 
-The primary use cases include:
-- **Privacy-preserving cloud AI** — running inference on encrypted model inputs
-- **Multi-party computation** — parties can contribute data without seeing each other's inputs
-- **Blockchain oracles** — attested off-chain computation for smart contracts
-- **Securing keys** — private keys never leave the hardware enclave
-
----
-
-## Historical Context
-
-### Early Enclaves (2006-2015)
-
-The concept of hardware-backed security enclaves began with:
-- **Intel SGX (Software Guard Extensions)** — introduced in 2015 with Skylake processors, allowed applications to create secure enclaves within user space
-- **ARM TrustZone** — earlier TEE technology focused on mobile devices
-
-### Cloud Confidential Computing (2017-Present)
-
-The cloud providers began offering enclave services:
-- **AWS Nitro Enclaves** (2019) — Nitro-based isolated environments
-- **Azure Confidential Computing** (2017) — SGX-based VMs
-- **GCP Confidential VMs** (2020) — AMD SEV-based VMs
-
-### Modern Era (2020-Present)
-
-- **AMD SEV-SNP** (2020) — Secure Nested Paging for stronger isolation
-- **Intel TDX** (2022) — Trust Domain Extensions for virtualization
-- **NVIDIA Confidential Computing** (2023) — GPU enclaves
-- **Cloud Native Confidential Computing (CoCo)** — Kubernetes integration
+Common uses:
+- Privacy-preserving cloud AI: inference on inputs the operator never sees in plaintext.
+- Multi-party computation: each party contributes data without exposing it to the others.
+- Blockchain oracles: attested off-chain computation feeding smart contracts.
+- Key handling: private keys never leave the enclave.
 
 ---
 
-## How TEEs Work
+## Historical context
 
-### The Trust Model
+### Early enclaves (2006–2015)
+
+- Intel SGX (Software Guard Extensions) shipped with Skylake in 2015 and let user-space applications create encrypted enclaves.
+- ARM TrustZone, an earlier mobile-focused TEE, predates SGX by several years.
+
+### Cloud confidential computing (2017 onward)
+
+The major clouds started offering enclave-backed services:
+- AWS Nitro Enclaves (2019): Nitro-based isolated environments.
+- Azure Confidential Computing (2017): SGX-based VMs.
+- GCP Confidential VMs (2020): AMD SEV-based VMs.
+
+### Modern era (2020 onward)
+
+- AMD SEV-SNP (2020): Secure Nested Paging adds integrity to memory encryption.
+- Intel TDX (2022): Trust Domain Extensions for VM-level confidentiality.
+- NVIDIA Confidential Computing (2023): GPU enclaves.
+- Cloud Native Confidential Computing (CoCo): Kubernetes integration.
+
+---
+
+## How TEEs work
+
+### Trust model
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -71,105 +70,107 @@ The cloud providers began offering enclave services:
 └─────────────────────────────────────────────────────────┘
 ```
 
-Key properties:
-- **Isolation** — Enclave memory is encrypted and isolated from all other software
-- **Attestation** — Remote parties can verify the enclave's identity and code hash
-- **Sealing** — Data can be sealed (encrypted) so only the same enclave can decrypt it
+Three properties matter:
+- Isolation: enclave memory is encrypted and walled off from all other software.
+- Attestation: remote parties can verify the enclave's identity and code hash.
+- Sealing: data can be encrypted so only the same enclave can decrypt it later.
 
-### Attestation Process
+### Attestation process
 
-1. **Local Attestation** — Enclave proves its identity to another enclave on the same platform
-2. **Remote Attestation** — Enclave proves its identity to a remote party via quotes signed by the hardware
+1. Local attestation: an enclave proves its identity to another enclave on the same platform.
+2. Remote attestation: an enclave proves its identity to a remote party using quotes signed by the hardware.
 
-The quote contains:
-- Measurement (hash) of the enclave code
-- Platform TCB (Trusted Computing Base) version
-- Signatures from the hardware attestation key
-
----
-
-## TEE Technologies Comparison
-
-| Technology | Vendor | Launch Year | Target | Isolation Level |
-|------------|--------|-------------|--------|----------------|
-| **Intel SGX** | Intel | 2015 | Consumer/Cloud | Process-level |
-| **AMD SEV-ES** | AMD | 2017 | Cloud | VM-level |
-| **AMD SEV-SNP** | AMD | 2020 | Cloud | VM-level + migration |
-| **Intel TDX** | Intel | 2022 | Cloud | VM-level |
-| **ARM TrustZone** | ARM | 2009+ | Mobile | Secure world |
-| **NVIDIA CC** | NVIDIA | 2023 | GPU | GPU enclaves |
+A quote contains:
+- A measurement (hash) of the enclave code.
+- The platform TCB (Trusted Computing Base) version.
+- Signatures from the hardware attestation key.
 
 ---
 
-## Major Implementations
+## TEE technologies compared
+
+| Technology | Vendor | First ship | Target | Isolation Level |
+|------------|--------|------------|--------|----------------|
+| **Intel SGX** | Intel | 2015 (Skylake) | Consumer/Cloud | Process-level |
+| **AMD SEV** | AMD | 2017 (Naples) | Cloud | VM-level (memory only) |
+| **AMD SEV-ES** | AMD | 2019 (Rome) | Cloud | + Encrypted register state |
+| **AMD SEV-SNP** | AMD | 2021 (Milan) | Cloud | + Integrity (RMP) + migration |
+| **Intel TDX** | Intel | 2024 (Emerald Rapids GA; limited 4th-gen SKUs earlier) | Cloud | VM-level |
+| **ARM CCA** | ARM | 2023 (Armv9 silicon shipping) | Cloud / mobile | Realm |
+| **ARM TrustZone** | ARM | 2009+ | Mobile | Secure world (legacy TEE) |
+| **NVIDIA H100 CC** | NVIDIA | 2023 (preview) → 2024 (GA, CUDA 12.4 / r550) | GPU | GPU TEE |
+
+---
+
+## Major implementations
 
 ### Intel SGX
 
-- **Overview**: Most mature TEE, available in consumer CPUs and cloud
-- **Pros**: Well-documented, multiple cloud providers support
-- **Cons**: Vulnerable to side-channel attacks (Spectre, L1TF)
-- **Cloud Support**: Azure DCsv2, GCP C2D, Alibaba ECS
-- **Libraries**: [Occlum](https://github.com/occlum/occlum), [Graminer](https://github.com/gramineproject/gramine)
+- Process-level TEE. SGX1 since 2015 Skylake, SGX2 (DCAP / EDMM) on server-class chips. Client-class SGX was deprecated starting with 11th-gen consumer CPUs in 2021; it lives on in Xeon SP for confidential workloads.
+- Pros: smallest TCB of the production TEEs, mature attestation tooling, per-process isolation.
+- Cons: a long catalog of side-channel breaks (Foreshadow / L1TF, ÆPIC Leak, ZenBleed-class issues). Treat it as legacy for new VM-scale workloads; prefer TDX.
+- Cloud support: Azure DCsv2/DCsv3 (GA), Alibaba Cloud ECS ebmre6p, IBM Cloud (legacy). GCP and AWS never shipped public SGX SKUs.
+- Libraries: [Occlum](https://github.com/occlum/occlum), [Gramine](https://github.com/gramineproject/gramine).
 
 ### AMD SEV-SNP
 
-- **Overview**: VM-level TEE; stronger guarantees than SEV/SEV-ES (integrity + replay protection via the SP RMP)
-- **Pros**: Mature, broad cloud availability, live migration support, no class of side-channel breaks comparable to SGX's enclave hijacks (CacheWarp and Hertzbleed notwithstanding)
-- **Cons**: You still trust AMD's PSP; firmware updates rotate the TCB
-- **Cloud Support**: Azure DCasv5/ECasv5, GCP Confidential VMs (N2D, C3D), AWS M7a/C7a/R7a (since 2023), OCI E5
-- **Note**: AWS *Nitro Enclaves* are a separate Nitro-hypervisor isolation primitive — not a CPU TEE in the SEV/TDX sense, and cannot do remote attestation against an AMD/Intel root.
-- **Reference**: [AMD SEV-SNP Overview](https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf)
+- VM-level TEE with stronger guarantees than SEV/SEV-ES (integrity and replay protection via the SP RMP).
+- Pros: mature, broad cloud availability, live migration support, no class of side-channel breaks comparable to SGX's enclave hijacks (CacheWarp and Hertzbleed aside).
+- Cons: you still trust AMD's PSP; firmware updates rotate the TCB.
+- Cloud support: Azure DCasv5/ECasv5, GCP Confidential VMs (N2D, C3D), AWS M7a/C7a/R7a (since 2023), OCI E5.
+- Note: AWS Nitro Enclaves are a separate Nitro-hypervisor isolation primitive, not a CPU TEE in the SEV/TDX sense, and cannot do remote attestation against an AMD/Intel root.
+- Reference: [AMD SEV-SNP Overview](https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf).
 
 ### Intel TDX
 
-- **Overview**: Virtualization-based TEE — VM-level confidential computing, complementary to (not replacing) SGX
-- **Pros**: VM-level isolation with smaller per-tenant TCB than SGX, supports unmodified guest OS
-- **Cons**: Newer; class of speculative-execution issues being discovered (e.g., TDXDown 2024)
-- **Cloud Support**: Azure DCesv5/ECesv5, GCP Confidential VMs (C3), Alibaba g8i
+- Virtualization-based TEE. VM-level confidential computing, complementary to SGX rather than replacing it.
+- Pros: VM-level isolation with a smaller per-tenant TCB than SGX, supports unmodified guest OS.
+- Cons: newer; speculative-execution issues are still being found (for example TDXDown 2024).
+- Cloud support: Azure DCesv5/ECesv5, GCP Confidential VMs (C3), Alibaba g8i.
 
 ### Confidential Containers (CoCo)
 
-- **Overview**: Cloud-native framework for running containers in TEEs
-- **Key Projects**:
-  - [Confidential Containers](https://github.com/confidential-containers/) — Kubernetes operator
-  - [Kata Containers](https://katacontainers.io/) — VM-based containers
-  - [Marblerun](https://github.com/edgelesssys/marblerun) — CoCo orchestrator
+- Cloud-native framework for running containers in TEEs.
+- Key projects:
+  - [Confidential Containers](https://github.com/confidential-containers/): Kubernetes operator.
+  - [Kata Containers](https://katacontainers.io/): VM-based containers.
+  - [Marblerun](https://github.com/edgelesssys/marblerun): CoCo orchestrator.
 
 ### Confidential AI
 
-- [Gramine](https://github.com/gramineproject/gramine) — Library OS for running unmodified apps in enclaves
-- [Enclaive](https://github.com/enclaive) — Framework for building confidential apps
-- [Phala Network](https://github.com/Phala-Network/phala-cloud) — Decentralized confidential cloud
+- [Gramine](https://github.com/gramineproject/gramine): library OS for running unmodified apps in enclaves.
+- [Enclaive](https://github.com/enclaive): framework for building confidential apps.
+- [Phala Network](https://github.com/Phala-Network/phala-cloud): decentralized confidential cloud.
 
 ---
 
-## Use Cases
+## Use cases
 
-### 1. Private Inference
+### 1. Private inference
 
-Run ML inference on encrypted inputs — the model never sees the raw data.
+Run ML inference on encrypted inputs. The model never sees the raw data.
 
-Example: [ Blyss Blog: Confidential AI](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves)
+Example: [Blyss Blog: Confidential AI](https://blog.blyss.dev/confidential-ai-from-gpu-enclaves).
 
-### 2. Multi-Party Data Analysis
+### 2. Multi-party data analysis
 
-Multiple parties can contribute data to a joint computation without revealing their inputs to each other.
+Multiple parties contribute data to a joint computation without revealing their inputs to each other.
 
-### 3. Blockchain Oracles
+### 3. Blockchain oracles
 
-Attested computation for smart contracts — the oracle runs in a TEE and the result is cryptographically attested.
+Attested computation for smart contracts. The oracle runs in a TEE and the result is cryptographically attested.
 
-### 4. Key Management
+### 4. Key management
 
-Private keys never leave the hardware — signing operations happen inside the enclave.
+Private keys never leave the hardware. Signing happens inside the enclave.
 
-### 5. Confidential Databases
+### 5. Confidential databases
 
-Query encrypted databases without decrypting the data — uses enclaves combined with FHE or secure enclaves.
+Query encrypted databases without decrypting the data, using enclaves combined with FHE or secure enclaves.
 
 ---
 
-## Evidence at a Glance
+## Evidence at a glance
 
 | Use Case | Maturity | Evidence |
 |----------|----------|----------|
@@ -184,46 +185,46 @@ Query encrypted databases without decrypting the data — uses enclaves combined
 
 ### Strengths
 
-- **Hardware-backed security** — Stronger than software-only solutions
-- **Performance** — Near-native speed (unlike FHE which is 10,000x slower)
-- **Compatibility** — Can run existing code with minimal modification
-- **Verified boot chain** — From hardware root of trust
+- Hardware-backed: stronger than software-only isolation.
+- Performance: near-native, unlike FHE which is roughly 10,000x slower.
+- Compatibility: existing code can run with minimal modification.
+- Verified boot chain rooted in hardware.
 
 ### Limitations
 
-- **Side-channel risks** — SGX has had multiple side-channel vulnerabilities
-- **Trust in CPU vendor** — You're trusting Intel/AMD/NVIDIA
-- **Key escrow risk** — Vendor might have recovery keys
-- **Limited secure memory** — SGX enclaves have limited EPC (Enclave Page Cache)
-- **Attestation complexity** — Setting up remote attestation is non-trivial
+- Side-channel risk: SGX in particular has had multiple side-channel vulnerabilities.
+- Vendor trust: you trust Intel, AMD, or NVIDIA.
+- Key escrow risk: the vendor may have recovery keys.
+- Limited secure memory: SGX enclaves have a limited Enclave Page Cache (EPC).
+- Attestation complexity: setting up remote attestation is not trivial.
 
 ---
 
-## Attack Surface
+## Attack surface
 
-### Physical Attacks
+### Physical attacks
 
-- Microprobing (hard, requires lab equipment)
-- Fault injection (voltage glitching)
-- EM emissions analysis
+- Microprobing (hard, lab equipment required).
+- Fault injection (voltage glitching).
+- EM emissions analysis.
 
-### Side-Channel Attacks
+### Side-channel attacks
 
-- Cache timing attacks
-- Speculative execution (Spectre variants)
-- Page fault attacks
+- Cache timing attacks.
+- Speculative execution (Spectre variants).
+- Page fault attacks.
 
-### Software Attacks
+### Software attacks
 
-- OS/kernel compromise
-- Hypervisor escape
-- Supply chain attacks
+- OS or kernel compromise.
+- Hypervisor escape.
+- Supply chain attacks.
 
 ### Mitigation
 
-- Use latest TEE generation (SEV-SNP > TDX > SGX)
-- Keep TCB updated
-- Use multiple TEE generations together (defense in depth)
+- Use the latest TEE generation (SEV-SNP > TDX > SGX).
+- Keep TCB updated.
+- Combine multiple TEE generations for defense in depth.
 
 ---
 
@@ -237,3 +238,4 @@ Query encrypted databases without decrypting the data — uses enclaves combined
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
 - [Private-LLM-Inference-Patterns](/confidential-computing/private-llm-inference-patterns)
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption) — Combines with FHE for stronger guarantees
+

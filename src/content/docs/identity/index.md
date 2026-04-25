@@ -9,27 +9,27 @@ tags:
   - "sybil-resistance"
 sidebar: {"label":"Overview","order":0}
 ---
-*Identity rooted in cryptographic keys rather than institutional verification — where pseudonymity is a feature, not a bug, and reputation emerges from behavior, not credentials.*
+*Identity rooted in cryptographic keys rather than institutional verification. Pseudonymity is treated as a feature, and reputation comes from behavior rather than credentials.*
 
 ---
 
-## Why It Matters
+## Why it matters
 
-The legacy identity model requires verification through institutions — governments, banks, social platforms — each of which can freeze, revoke, or expose your identity. Key-based pseudonymous identity inverts this: your identity *is* your keypair, and reputation accumulates through action, not approval.
+The legacy identity model relies on verification through institutions (governments, banks, social platforms). Each can freeze, revoke, or expose your identity. Key-based pseudonymous identity inverts this: the identity is the keypair, and reputation accumulates through action, not approval.
 
-This model is fundamental to:
-- **Censorship-resistant communication** (Nostr, encrypted messaging)
-- **Sybil-resistant governance** (DAO voting, airdrop distribution)
-- **Privacy-preserving access** (age gates, content filters without identity)
-- **Self-sovereign reputation** (no platform can delete your history)
+This model is the basis for:
+- Censorship-resistant communication (Nostr, encrypted messaging)
+- Sybil-resistant governance (DAO voting, airdrop distribution)
+- Privacy-preserving access (age gates, content filters without identity)
+- Self-sovereign reputation (no platform can delete your history)
 
 ---
 
-## Core Primitives
+## Core primitives
 
-### Key-Based Identity
+### Key-based identity
 
-Instead of username/password or OAuth, your identity is a cryptographic keypair:
+Instead of a username/password or OAuth, the identity is a cryptographic keypair:
 
 | Format | Purpose | Example |
 |--------|---------|---------|
@@ -37,11 +37,11 @@ Instead of username/password or OAuth, your identity is a cryptographic keypair:
 | **hex pubkey** | Raw format | `32-character hex string` |
 | **did:key** | Self-contained DID | `did:key:z6Mk...` |
 
-The private key (`nsec`) signs messages; the public key (`npub`) identifies you. Lose the private key = lose the identity. No recovery, no reset.
+The private key (`nsec`) signs messages; the public key (`npub`) identifies you. Lose the private key and the identity is gone. There is no recovery and no reset.
 
-### Nostr Identity Model
+### Nostr identity model
 
-Nostr (Notes and Other Stuff Transmitted by Relays) pioneered modern key-based identity:
+Nostr (Notes and Other Stuff Transmitted by Relays) was the first widely deployed key-based identity:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -55,13 +55,13 @@ Nostr (Notes and Other Stuff Transmitted by Relays) pioneered modern key-based i
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Properties:**
-- No email, phone, or identity document required
-- No central server owns your account
-- No "terms of service" that can ban you
-- Your identity persists as long as you hold the key
+Properties:
+- No email, phone, or identity document required.
+- No central server owns the account.
+- No terms of service that can ban you.
+- The identity persists as long as the key does.
 
-### NIP-05: Human-Readable Verification
+### NIP-05: human-readable verification
 
 Raw keys are unwieldy. NIP-05 maps public keys to human-readable identifiers:
 
@@ -77,16 +77,16 @@ GET /.well-known/nostr.json?npub=npub1...
 }
 ```
 
-Now `alice@domain.com` = your public key. This provides:
-- **Verification** — clients confirm the key owns the domain
-- **Spoofing resistance** — can't fake the mapping without domain control
-- **Lightning addresses** — `alice@domain.com` = lnurl1... payment
+Now `alice@domain.com` resolves to the public key. This gives:
+- Verification: clients confirm the key owns the domain.
+- Spoofing resistance: the mapping cannot be faked without domain control.
+- Lightning addresses: `alice@domain.com` doubles as an `lnurl1...` payment endpoint.
 
 ---
 
-## Pseudonymity Patterns
+## Pseudonymity patterns
 
-### The Pseudonymity Spectrum
+### The pseudonymity spectrum
 
 | Level | Description | Example |
 |-------|-------------|---------|
@@ -96,9 +96,9 @@ Now `alice@domain.com` = your public key. This provides:
 | **Named-pseudo** | Persistent handle, real name optional | `@alice` on Nostr |
 | **Real-named** | Keys linked to legal identity | Worldcoin, government VC |
 
-### Multiple Identities
+### Multiple identities
 
-Sophisticated users maintain separate keypairs for different contexts:
+Sophisticated users keep separate keypairs for different contexts:
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -112,28 +112,28 @@ Sophisticated users maintain separate keypairs for different contexts:
 └─────────────────────────────────────────────────────┘
 ```
 
-Each identity is independent — no link between them unless you choose to correlate.
+Each identity is independent. There is no link between them unless the user chooses to correlate.
 
 Tools for managing multiple identities:
-- **nostr-crypt** — encrypted key storage
-- **GnuPG + SSH agent** — key management
-- **Hardware wallets** — cold storage for main identity
+- nostr-crypt for encrypted key storage.
+- GnuPG with the SSH agent for key management.
+- Hardware wallets for cold storage of the main identity.
 
-### AI Agent Identity
+### AI agent identity
 
-Emerging pattern: AI agents get their own Nostr identity:
+A pattern that has emerged: AI agents get their own Nostr identity.
 
-- **Keychat Agent** — each AI agent has sovereign pubkey
-- **ZK-Dev** (ETHGlobal 2025) — prove code contributions without revealing identity
-- **Agent authentication** — delegatable signing (NIP-26) from human to agent
+- **Keychat Agent** gives each AI agent a sovereign pubkey.
+- **ZK-Dev** (ETHGlobal 2025) proves code contributions without revealing identity.
+- **Agent authentication** uses NIP-26 to delegate signing from a human to an agent.
 
 ---
 
-## Reputation Systems
+## Reputation systems
 
-### Trust Scoring in Nostr
+### Trust scoring in Nostr
 
-Nostr implements reputation through the **follow graph**:
+Nostr implements reputation through the follow graph:
 
 ```
 Your follows ──────────► First degree (trusted)
@@ -143,7 +143,7 @@ Your follows ──────────► First degree (trusted)
            └──► ... ───────► Nth degree (diminishing trust)
 ```
 
-**Scoring approaches:**
+Scoring approaches:
 
 | Method | Description |
 |--------|-------------|
@@ -153,17 +153,17 @@ Your follows ──────────► First degree (trusted)
 | **Proof of Work** | Zap (Lightning payments) as reputation signal |
 | **Muted list propagation** | Block lists propagate through network |
 
-### Trust Metrics
+### Trust metrics
 
-**Nostr WoT** tools (nostr-wot GitHub):
-- Dijkstra path-finding for trust scores
-- BFS for reachability
-- Local clustering for community detection
+Nostr WoT tools (nostr-wot on GitHub):
+- Dijkstra path-finding for trust scores.
+- BFS for reachability.
+- Local clustering for community detection.
 
-**Proof of Usefulness** (2023+):
-- Measures trust through *actual network activity*
-- Combines social graph + Lightning zaps + engagement
-- Addresses Sybil attacks in pure graph-based trust
+Proof of Usefulness (2023+):
+- Measures trust through actual network activity.
+- Combines social graph, Lightning zaps, and engagement.
+- Targets Sybil attacks against pure graph-based trust.
 
 ### Reputation beyond Nostr
 
@@ -176,11 +176,11 @@ Your follows ──────────► First degree (trusted)
 
 ---
 
-## Proof of Personhood
+## Proof of personhood
 
-When pseudonymity isn't enough — when you need "one human, one vote" — proof of personhood systems provide Sybil resistance:
+When pseudonymity is not enough and the goal is "one human, one vote", proof-of-personhood systems provide Sybil resistance.
 
-### Active Systems
+### Active systems
 
 | Project | Method | Controversy |
 |---------|--------|-------------|
@@ -189,13 +189,13 @@ When pseudonymity isn't enough — when you need "one human, one vote" — proof
 | **Proof of Humanity** | Video submission + KYC + community voting | Centralized KYC, human review |
 | **BrightID** | Social graph verification (no biometrics) | Relies on existing verified humans |
 
-### ZK-Based Approaches
+### ZK-based approaches
 
-Emerging research combines ZK proofs with minimal verification:
+Recent research combines ZK proofs with minimal verification:
 
-- **Semaphore** — proof of membership in a set without revealing which
-- **Rarimo** — ZK over government IDs, prove "I have a passport" without ID number
-- **Anon Aadhaar** — prove Indian Aadhaar holder without revealing number
+- **Semaphore** proves membership in a set without revealing which member.
+- **Rarimo** runs ZK over government IDs to prove "I have a passport" without the ID number.
+- **Anon Aadhaar** proves Indian Aadhaar holdership without revealing the number.
 
 ### Trade-offs
 
@@ -208,64 +208,65 @@ Emerging research combines ZK proofs with minimal verification:
 
 ---
 
-## Attack Vectors and Mitigations
+## Attack vectors and mitigations
 
-### Key Compromise
+### Key compromise
 
-- **Attack:** Private key stolen or lost
-- **Mitigation:** Hardware wallet, multi-sig (experimental), social recovery (emerging)
+- **Attack:** Private key stolen or lost.
+- **Mitigation:** Hardware wallet, multi-sig (experimental), social recovery (emerging).
 
-### Sybil Attack
+### Sybil attack
 
-- **Attack:** Create many fake identities to manipulate reputation
-- **Mitigation:** Proof of personhood, proof of work/zaps, path-length thresholds
+- **Attack:** Create many fake identities to manipulate reputation.
+- **Mitigation:** Proof of personhood, proof of work or zaps, path-length thresholds.
 
-### Reputation Farming
+### Reputation farming
 
-- **Attack:** Pump reputation through sybil then dump
-- **Mitigation:** Temporal weighting (older follows = more weight), crosslinking requirements
+- **Attack:** Pump reputation through Sybils, then dump.
+- **Mitigation:** Temporal weighting (older follows weigh more), crosslinking requirements.
 
-### Domain Hijacking
+### Domain hijacking
 
-- **Attack:** Compromise domain to redirect NIP-05 mappings
-- **Mitigation:** DNSSEC, client-side key pinning
+- **Attack:** Compromise a domain to redirect NIP-05 mappings.
+- **Mitigation:** DNSSEC, client-side key pinning.
 
-### Linkage Attacks
+### Linkage attacks
 
-- **Attack:** Correlate multiple pseudonyms to de-anonymize
-- **Mitigation:** Pairwise DIDs, onion routing, avoiding fingerprintable behavior
+- **Attack:** Correlate multiple pseudonyms to de-anonymize.
+- **Mitigation:** Pairwise DIDs, onion routing, avoiding fingerprintable behavior.
 
 ---
 
-## Relation to Other Topics
+## Relation to other topics
 
-### Confidential Computing
+### Confidential computing
 
-- TEE-backed credentials can bind to Nostr keys
-- Attestation as "proof of personhood" without biometrics
-- Private LLM endpoints with key-based identity + TEE verification
+- TEE-backed credentials can bind to Nostr keys.
+- Attestation can stand in for proof of personhood without biometrics.
+- Private LLM endpoints can use key-based identity plus TEE verification.
 
-### Web of Trust
+### Web of trust
 
-- Nostr follow graph *is* an implicit WoT
-- NIP-26 delegation = trust propagation
-- Trust scoring algorithms (nostr-wot) apply WoT concepts
+- The Nostr follow graph is an implicit WoT.
+- NIP-26 delegation is a form of trust propagation.
+- Trust scoring algorithms (nostr-wot) apply WoT concepts.
 
 ### Decentralized DNS
 
-- NIP-05 uses DNS for verification
-- ENS names can link to Nostr keys
-- `.onion` + Nostr = self-authenticating, censorship-resistant identity
+- NIP-05 uses DNS for verification.
+- ENS names can link to Nostr keys.
+- A `.onion` address plus Nostr produces a self-authenticating, censorship-resistant identity.
 
-### Encrypted Messaging
+### Encrypted messaging
 
-- Nostr DMs use NIP-04 (encrypted with recipient pubkey)
-- Key-based identity enables E2EE without prior handshake
-- PGP keys can link to Nostr (cross-identity verification)
+- Nostr DMs went from NIP-04 (legacy, deprecated for metadata leakage) to NIP-44 (modern cipher) to **NIP-17 with NIP-59 gift-wrap (current)** for metadata protection. See [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive).
+- Key-based identity enables E2EE without a prior handshake.
+- PGP keys can link to Nostr for cross-identity verification.
+- For groups: see [Marmot Protocol](/encrypted-messaging/marmot-protocol) (MLS over Nostr).
 
 ---
 
-## Evidence at a Glance
+## Evidence at a glance
 
 | Implementation | Type | Maturity | Status |
 |---------------|------|----------|--------|
@@ -279,7 +280,7 @@ Emerging research combines ZK proofs with minimal verification:
 
 ---
 
-## Related Files
+## Related files
 
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — Formal DID/VC systems
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust) — Trust graph algorithms, OpenPGP WoT
@@ -290,7 +291,7 @@ Emerging research combines ZK proofs with minimal verification:
 
 ---
 
-## Primary Sources
+## Primary sources
 
 - Nostr Protocol: `nostr-protocol.org`, GitHub `nostr-protocol/nips`
 - NIP-05 Specification: `nips.nostr.com/05`
@@ -299,3 +300,4 @@ Emerging research combines ZK proofs with minimal verification:
 - Worldcoin: `worldcoin.org`
 - BrightID: `brightid.org`
 - Blockchain Commons Pseudonymity Guide: `github.com/BlockchainCommons/Pseudonymity-Guide`
+

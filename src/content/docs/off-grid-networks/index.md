@@ -11,118 +11,123 @@ tags:
   - "yggdrasil"
 sidebar: {"label":"Overview","order":0}
 ---
-## Overview
+## What this covers
 
-**Off-Grid Networks** are communication systems designed to operate independently of the traditional internet. They enable connectivity when:
-- The internet is censored or shut down
-- Infrastructure is destroyed (disaster, war)
-- You need true operational security without any internet dependency
-- You want to reduce your digital footprint
+Off-grid networks are communication systems that work without depending on the public internet. They are useful when:
 
-The key technologies include **mesh networking** (device-to-device direct communication), **LoRa radio** (long-range, low-power), **delay-tolerant protocols** (for intermittent connectivity), and **overlay networks** (encrypted tunnels over existing infrastructure).
+- The internet is censored or shut down.
+- Infrastructure is destroyed by disaster or war.
+- Operational security requires no internet path.
+- The goal is to reduce a digital footprint.
 
----
-
-## Historical Context
-
-### Early Mesh Networks (1980s-2000s)
-
-Mesh networking research began in military and academic contexts:
-- **DARPA Packet Radio Research** (1970s-80s) — Precursors to modern mesh
-- **IEEE 802.11s** (2007) — WiFi mesh standard
-- **Serval Project** (2012) — Phone-to-phone mesh over WiFi
-
-### The Modern Mesh Revolution (2019-Present)
-
-- **Meshtastic** (2019) — Open-source LoRa mesh, explosion of adoption
-- **Reticulum** (2022) — Markqvist's secure mesh stack
-- **Yggdrasil** (2020) — Modern overlay network
-
-### Key Drivers
-
-1. **Censorship** — Internet shutdowns as political tool
-2. **Privacy** — Desire to avoid internet dependency
-3. **Disaster Resilience** — Hurricanes, earthquakes, war
-4. **Sovereignty** — Building alternatives to corporate infrastructure
+The main building blocks are mesh networking (devices talking directly to one another), LoRa radio (long-range and low-power), delay-tolerant protocols (for intermittent links), and overlay networks (encrypted tunnels that ride on whatever transport is available).
 
 ---
 
-## Technology Categories
+## Background
 
-### 1. LoRa Mesh Networks
+### Early mesh networks (1980s-2000s)
 
-**LoRa** (Long Range) is a proprietary radio modulation scheme using chirp spread spectrum. It achieves:
-- **Range**: 2-10 km in rural areas, longer with line of sight
-- **Power**: Extremely low — can run for years on batteries
-- **Bandwidth**: Very low (~300 bps to 19 kbps)
-- **Frequencies**: ISM bands (433 MHz, 868 MHz EU, 915 MHz US)
+Mesh networking research started in military and academic settings:
+
+- DARPA Packet Radio Research (1970s-80s) — predecessors of modern mesh.
+- IEEE 802.11s (2007) — Wi-Fi mesh standard.
+- Serval Project (2012) — phone-to-phone mesh over Wi-Fi.
+
+### Recent activity (2019-present)
+
+- Yggdrasil (2018) — modern IPv6 overlay network.
+- Meshtastic (2019) — open-source LoRa mesh, broad adoption.
+- Reticulum (2018+, RNS 0.x branches matured 2021-2024) — Markqvist's encrypted-by-default mesh stack.
+- Bitchat (2024) — phone-only BLE mesh with a Nostr fallback.
+- FIPS (2024+) — Nostr-keyed mesh routing protocol.
+
+### What drove this
+
+1. Internet shutdowns used as a political tool.
+2. The wish to avoid internet dependency for privacy reasons.
+3. Disaster resilience: hurricanes, earthquakes, war.
+4. Building alternatives to corporate infrastructure.
+
+---
+
+## Categories
+
+### 1. LoRa mesh networks
+
+LoRa (Long Range) is a proprietary chirp-spread-spectrum modulation. Typical figures:
+
+- Range: 2-10 km in rural areas, longer with line of sight.
+- Power: very low, batteries last years.
+- Bandwidth: very low (~300 bps to 19 kbps).
+- Frequencies: ISM bands (433 MHz, 868 MHz EU, 915 MHz US).
 
 #### Meshtastic
 
-The most popular LoRa mesh platform:
+The most widely used LoRa mesh platform:
 
-- **Hardware**: Cheap ESP32-based radios ($20-50)
-- **Software**: Open-source firmware
-- **Range**: Up to 10 km with stock antennas
-- **Features**: GPS, encrypted messaging, sensor integration
-- **Ecosystem**: Multiple clients, maps, tracking dashboards
+- Hardware: cheap ESP32-based radios ($20-50).
+- Software: open-source firmware.
+- Range: up to 10 km with stock antennas.
+- Features: GPS, encrypted messaging, sensor integration.
+- Ecosystem: multiple clients, maps, tracking dashboards.
 
-[Ripple](https://github.com/ripple-lib/ripple) — Experimental LoRa mesh  
-[cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) — Meshtastic-Iridium bridge
+[Ripple](https://github.com/ripple-lib/ripple) — experimental LoRa mesh.
+[cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) — Meshtastic-Iridium bridge.
 
-### 2. Reticulum Stack
+### 2. Reticulum stack
 
-A complete networking stack for secure mesh communication:
+A full networking stack for secure mesh communication:
 
-- **Auto-discovery**: Nodes find each other automatically
-- **Encryption**: All traffic encrypted with Wireguard-style keys
-- **Addressing**: Distributed addressing without DNS
-- **Protocols**: IncludesLXMF (messaging), NomadNet (client)
+- Auto-discovery: nodes find each other on their own.
+- Encryption: all traffic encrypted with Wireguard-style keys.
+- Addressing: distributed addressing without DNS.
+- Protocols: includes LXMF (messaging) and NomadNet (client).
 
-[NomadNet](https://github.com/markqvist/NomadNet) — Encrypted chat over Reticulum  
-[Sideband](https://github.com/markqvist/Sideband) — Mobile LXMF client
+[NomadNet](https://github.com/markqvist/NomadNet) — encrypted chat over Reticulum.
+[Sideband](https://github.com/markqvist/Sideband) — mobile LXMF client.
 
-### 3. Overlay Networks
+### 3. Overlay networks
 
-These run over existing internet but provide true P2P connectivity:
+These run over the existing internet but provide direct P2P connectivity.
 
 #### Yggdrasil
 
-- **Architecture**: End-to-end encrypted overlay with Wireguard-style crypto
-- **Routing**: Greedy routing on a spanning tree
-- **Clients**: Native on many platforms
-- **Performance**: Slower than native internet but fully encrypted
+- Architecture: end-to-end encrypted overlay with Wireguard-style crypto.
+- Routing: greedy routing on a spanning tree.
+- Clients: native on many platforms.
+- Performance: slower than the native internet but fully encrypted.
 
 #### cjdns
 
-- **Legacy**: The original encrypted IPv6 mesh protocol
-- **Status**: Less actively maintained
-- **Network**: Hyperboria — largest cjdns network
+- Legacy: the original encrypted IPv6 mesh protocol.
+- Status: less actively maintained.
+- Network: Hyperboria, the largest cjdns network.
 
-### 4. Delay-Tolerant Networks (DTN)
+### 4. Delay-tolerant networks (DTN)
 
-When connectivity is intermittent, DTN protocols store-and-forward:
+When connectivity is intermittent, DTN protocols store and forward.
 
 #### Briar
 
-- **Transport**: Bluetooth, WiFi, Tor
-- **Protocol**: Store-and-forward messaging
-- **Use Case**: Secure messaging when internet unavailable
-- **Platforms**: Android (primary); desktop via Tor; iOS unsupported
+- Transport: Bluetooth, Wi-Fi, Tor.
+- Protocol: store-and-forward messaging.
+- Use case: secure messaging when internet is unavailable.
+- Platforms: Android (primary); desktop via Tor; iOS unsupported.
 
 #### Secure Scuttlebutt (SSB)
 
-- **Protocol**: Append-only log with gossip replication
-- **Platform**: Manyverse (Android), Patchwork (desktop)
-- **Use Case**: Social networking without servers
+- Protocol: append-only log with gossip replication.
+- Platform: Manyverse (Android), Patchwork (desktop).
+- Use case: social networking without servers.
 
 ---
 
-## Network Comparison
+## Comparison
 
-| Network | Type | Range | Internet Required | Encryption | Active Development |
+| Network | Type | Range | Internet required | Encryption | Active development |
 |---------|------|-------|--------------------|------------|--------------------|
-| **Meshtastic** | LoRa | 2-10 km | No | Yes | Very Active |
+| **Meshtastic** | LoRa | 2-10 km | No | Yes | Very active |
 | **Reticulum** | WiFi/LoRa/BT | Varies | Optional | Yes | Active |
 | **Yggdrasil** | Overlay | N/A | Yes | Yes | Active |
 | **cjdns** | Overlay | N/A | Optional | Yes | Moderate |
@@ -131,9 +136,9 @@ When connectivity is intermittent, DTN protocols store-and-forward:
 
 ---
 
-## Major Implementations
+## Implementations
 
-### Mesh Hardware
+### Mesh hardware
 
 | Device | Price | Features |
 |--------|-------|----------|
@@ -143,47 +148,48 @@ When connectivity is intermittent, DTN protocols store-and-forward:
 | **RAK WisMesh Pocket** | $80 | Pre-built handheld |
 | **SpecFive Spectre** | $150 | Android phone + LoRa |
 
-### Software Ecosystem
+### Software ecosystem
 
-- [Meshtastic](https://meshtastic.org/) — Firmware and apps
-- [Reticulum](https://reticulum.network/) — Full stack
-- [Yggdrasil](https://yggdrasil-network.github.io/) — Overlay
-- [awesome-meshtastic](https://github.com/ajmcquilkin/awesome-meshtastic) — Resources
+- [Meshtastic](https://meshtastic.org/) — firmware and apps.
+- [Reticulum](https://reticulum.network/) — full stack.
+- [Yggdrasil](https://yggdrasil-network.github.io/) — overlay.
+- [awesome-meshtastic](https://github.com/ajmcquilkin/awesome-meshtastic) — resources.
 
 ---
 
-## Use Cases
+## Use cases
 
-### 1. Disaster Communication
+### 1. Disaster communication
 
 When cell towers and internet are down, mesh networks provide local communication:
 
-- Hurricane response teams use Meshtastic
-- Ukraine wartime communication
-- Wildfire evacuation coordination
+- Hurricane response teams use Meshtastic.
+- Wartime communication in Ukraine.
+- Wildfire evacuation coordination.
 
-### 2. Privacy and Operational Security
+### 2. Privacy and operational security
 
-- No internet dependency means no metadata leakage
-- True air-gapped networks for sensitive operations
-- Bypass surveillance infrastructure
+- No internet path means no metadata leakage.
+- Air-gapped networks for sensitive operations.
+- A way around surveillance infrastructure.
 
-### 3. Rural Connectivity
+### 3. Rural connectivity
 
-In areas without internet infrastructure:
-- Remote villages in developing countries
-- Scientific expeditions
-- Maritime communications
+In areas with no internet infrastructure:
 
-### 4. Protest and Resistance
+- Remote villages in developing countries.
+- Scientific expeditions.
+- Maritime communications.
 
-- Hong Kong protests used mesh
-- Iran internet shutdown workarounds
-- Emergency communication infrastructure
+### 4. Protest and resistance
+
+- Hong Kong protests used mesh networks.
+- Iran internet shutdown workarounds.
+- Emergency communication infrastructure.
 
 ---
 
-## Evidence at a Glance
+## Evidence at a glance
 
 | Technology | Maturity | Evidence |
 |------------|----------|----------|
@@ -199,53 +205,54 @@ In areas without internet infrastructure:
 
 ### Strengths
 
-- **Independence**: No internet required
-- **Censorship resistance**: Can't block what they can't see
-- **Low power**: Can run on batteries/solar
-- **Lower cost**: No ISP, no cellular plan
+- Independence: no internet required.
+- Censorship resistance: hard to block what isn't seen.
+- Low power: can run on batteries or solar.
+- Lower cost: no ISP, no cellular plan.
 
 ### Limitations
 
-- **Range limits**: Mesh requires nodes in proximity
-- **Low bandwidth**: LoRa is very slow
-- **User density**: More users = better network
-- **Complexity**: Requires hardware and setup
-- **Discovery**: Finding others on the network
+- Range is bounded; mesh needs nodes in proximity.
+- Bandwidth is low; LoRa is very slow.
+- More users mean a better network.
+- Hardware and setup add complexity.
+- Discovery is hard.
 
-### Operational Considerations
+### Operational notes
 
-- More nodes = better range (mesh effect)
-- Antenna choice matters significantly
-- Line of sight dramatically increases range
-- Battery life depends on usage patterns
-
----
-
-## Attack Surface
-
-### Physical Layer
-
-- RF jamming (counter: frequency hopping, spread spectrum)
-- Direction finding (counter: low-power transmissions, movement)
-- RF interference
-
-### Network Layer
-
-- Sybil attacks (counter: node reputation)
-- Eclipse attacks (counter: diverse peer selection)
-- Routing attacks
-
-### Social Layer
-
-- Bad hardware (counter: verify sources)
-- Compromised firmware (counter: reproducible builds)
-- User error (counter: education)
+- More nodes mean more range (the mesh effect).
+- Antenna choice matters a lot.
+- Line of sight increases range substantially.
+- Battery life depends on usage patterns.
 
 ---
 
-## Related Files
+## Attack surface
 
-- [Overview - Encrypted Messaging](/encrypted-messaging) — Briar, SimpleX, and offline-first protocols
-- **Off-Grid Messaging** — practical patterns over LoRa, Reticulum, Briar, HF
-- [Overview - Mix Networks](/mix-networks) — anonymity overlays applicable to mesh
-- [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — pseudonymous IDs in disconnected nets
+### Physical layer
+
+- RF jamming (counter: frequency hopping, spread spectrum).
+- Direction finding (counter: low-power transmissions, movement).
+- RF interference.
+
+### Network layer
+
+- Sybil attacks (counter: node reputation).
+- Eclipse attacks (counter: diverse peer selection).
+- Routing attacks.
+
+### Social layer
+
+- Bad hardware (counter: verify sources).
+- Compromised firmware (counter: reproducible builds).
+- User error (counter: training).
+
+---
+
+## Related files
+
+- [Overview - Encrypted Messaging](/encrypted-messaging) — Briar, SimpleX, and offline-first protocols.
+- **Off-Grid Messaging** — practical patterns over LoRa, Reticulum, Briar, HF.
+- [Overview - Mix Networks](/mix-networks) — anonymity overlays applicable to mesh.
+- [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — pseudonymous IDs in disconnected networks.
+

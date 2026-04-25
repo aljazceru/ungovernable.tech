@@ -13,19 +13,19 @@ tags:
 
 ---
 
-## Core Design
+## Core design
 
-Nostr's whole protocol fits in two paragraphs:
+The whole protocol fits in two paragraphs:
 
-1. **Identity is a key.** Each user has a `secp256k1` keypair. The public key (`npub` in bech32) *is* the user — there's no username allocation, no registry, no email. Lose the key, lose the identity.
+1. Identity is a key. Each user has a `secp256k1` keypair. The public key (`npub` in bech32) *is* the user. There is no username allocation, no registry, no email. Lose the key, lose the identity.
 
-2. **Events are signed JSON.** A user signs a small JSON object (id, pubkey, created_at, kind, tags, content, sig) and POSTs it to one or more **relays**. Anyone subscribing to that relay receives the event. Clients verify the signature locally; relays are dumb pipes.
+2. Events are signed JSON. A user signs a small JSON object (id, pubkey, created_at, kind, tags, content, sig) and POSTs it to one or more relays. Anyone subscribing to that relay receives the event. Clients verify the signature locally; relays are dumb pipes.
 
-That's it. Everything else — long-form posts, DMs, reactions, zaps, marketplaces, NIP-05 identity, gift-wrapped DMs — is layered as **NIPs** (Nostr Implementation Possibilities) over this minimal substrate.
+That is the whole base protocol. Everything else (long-form posts, DMs, reactions, zaps, marketplaces, NIP-05 identity, gift-wrapped DMs) is layered as NIPs (Nostr Implementation Possibilities) over this minimal substrate.
 
 ---
 
-## Why It's Different
+## How it differs from the alternatives
 
 | Property | Nostr | Federated (ActivityPub) | Signal |
 |----------|-------|-------------------------|--------|
@@ -40,7 +40,7 @@ Nostr trades discovery convenience for sovereignty. The discovery problem is rea
 
 ---
 
-## Event Kinds (selection)
+## Event kinds (selection)
 
 | Kind | Purpose |
 |------|---------|
@@ -62,29 +62,29 @@ NIP registry: [github.com/nostr-protocol/nips](https://github.com/nostr-protocol
 
 ## Encrypted DMs: NIP-04 vs NIP-44 vs NIP-17
 
-This is the most important Nostr privacy story.
+This is the central Nostr privacy story.
 
 ### NIP-04 (legacy, deprecated)
 
-ECDH between sender/recipient pubkey, AES-256-CBC. Plaintext kind=4 events leak:
+ECDH between sender and recipient pubkey, AES-256-CBC. Plaintext kind=4 events leak:
 
-- Who sent → who received (relay sees both pubkeys).
+- Who sent to whom (the relay sees both pubkeys).
 - Length and timing.
 - The DM relationship as a public fact.
 
 ### NIP-44 (modern cipher)
 
-ChaCha20 + HMAC-SHA256, with versioning and proper KDF. Cipher itself is solid; the *envelope* is still public-key-tagged so the relay can route it.
+ChaCha20 + HMAC-SHA256, with versioning and a proper KDF. The cipher itself is solid; the *envelope* is still public-key-tagged so the relay can route it.
 
 ### NIP-17 + NIP-59 (gift wrap, current standard)
 
 Three-layer envelope:
 
-1. **Rumor** — the actual content event (unsigned).
-2. **Seal** — rumor encrypted to the recipient's pubkey, signed by sender.
-3. **Gift wrap** — seal encrypted to the recipient's pubkey, signed by an *ephemeral* pubkey, kind=1059.
+1. Rumor — the actual content event (unsigned).
+2. Seal — rumor encrypted to the recipient's pubkey, signed by sender.
+3. Gift wrap — seal encrypted to the recipient's pubkey, signed by an *ephemeral* pubkey, kind=1059.
 
-The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. **The social graph is hidden from the relay.** Sender's identity is revealed only after the recipient decrypts.
+The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. The social graph is hidden from the relay. The sender's identity is revealed only after the recipient decrypts.
 
 This is a major step toward Signal-grade metadata properties without Signal's centralization.
 
@@ -92,31 +92,31 @@ This is a major step toward Signal-grade metadata properties without Signal's ce
 
 ## Relays
 
-Anyone can run one. No federation handshake — clients just connect via WebSocket and subscribe with filters. Relays are pluggable, with diversity of policies:
+Anyone can run one. No federation handshake. Clients connect via WebSocket and subscribe with filters. Relays are pluggable, with diversity of policies:
 
-- **Permissive** — accept everything (high storage cost).
-- **Paid** — Lightning sats per event (spam-resistant, runs on a small disk).
-- **Subject-restricted** — relays for niche communities, DEFI traders, etc.
-- **Privacy-restricted** — relays that only accept gift-wrapped DMs.
+- Permissive: accept everything (high storage cost).
+- Paid: Lightning sats per event (spam-resistant, runs on a small disk).
+- Subject-restricted: relays for niche communities, DEFI traders, etc.
+- Privacy-restricted: relays that only accept gift-wrapped DMs.
 
-Robust clients connect to **multiple relays simultaneously** (5-10 typical) for both redundancy and reach. A user can move all their content by republishing to new relays — there's no "account migration" because there's no account.
+Robust clients connect to multiple relays simultaneously (5-10 typical) for both redundancy and reach. A user can move all their content by republishing to new relays. There is no "account migration" because there is no account.
 
 ---
 
-## NIP-05: Human-Readable Names
+## NIP-05: human-readable names
 
-`alice@ungovernable.tech` resolves via HTTPS to `/.well-known/nostr.json` containing the npub. **Resolution requires DNS + HTTPS** — it's a centralization vector.
+`alice@ungovernable.tech` resolves via HTTPS to `/.well-known/nostr.json`, which contains the npub. Resolution requires DNS and HTTPS, which is a centralization vector.
 
 Mitigations:
 
-- **NIP-05 over PKARR** — same JSON served by a PKARR record under your Pubky pubkey. No DNS dependency.
-- **NIP-05 over Tor `.onion`** — works, less common.
+- NIP-05 over PKARR: same JSON served by a PKARR record under your Pubky pubkey. No DNS dependency.
+- NIP-05 over Tor `.onion`: works, less common.
 
 The npub is canonical; NIP-05 is just a presentation alias.
 
 ---
 
-## Zaps (Lightning Tipping)
+## Zaps (Lightning tipping)
 
 NIP-57 wires Lightning payments to Nostr events:
 
@@ -125,7 +125,7 @@ NIP-57 wires Lightning payments to Nostr events:
 3. The receipt is published as kind=9735 on relays.
 4. Anyone aggregating zap receipts can compute B's earnings.
 
-This couples Nostr's identity layer with Bitcoin's payment layer — the only major social protocol where the speech and payment substrate are equally censorship-resistant.
+This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the only major social protocol where the speech and payment substrate are equally censorship-resistant.
 
 ---
 
@@ -133,24 +133,24 @@ This couples Nostr's identity layer with Bitcoin's payment layer — the only ma
 
 ### Strengths
 
-- **Pure pubkey identity.** No KYC, no registrar, no censorship at identity layer.
-- **Trivial account portability.** Move relays without losing followers.
-- **Permissionless innovation.** New kinds and NIPs deployed by anyone, immediately.
-- **Native Lightning integration.** Zaps and paid relays.
-- **Simple protocol.** Single-binary clients, single-binary relays, no PKI.
+- Pure pubkey identity. No KYC, no registrar, no censorship at the identity layer.
+- Trivial account portability. Move relays without losing followers.
+- Permissionless innovation. New kinds and NIPs deployed by anyone, immediately.
+- Native Lightning integration. Zaps and paid relays.
+- Simple protocol. Single-binary clients, single-binary relays, no PKI.
 
 ### Limitations
 
-- **Lossy persistence.** Relays may delete or rate-limit; durability depends on which relays you use.
-- **Sybil-prone.** Anyone can mint an npub; spam mitigations live in client filters and WoT.
-- **Discovery is hard.** Without follow graphs, finding new accounts is non-trivial.
-- **Key custody risk.** Losing the key = losing identity. NIP-26 delegation, hardware-wallet-signed events, and account-recovery NIPs help.
-- **Metadata leaked outside NIP-17.** Plain notes are public; even with gift-wrapped DMs, posting and follow lists leak.
-- **Client diversity → bug surface.** Many clients reimplement the protocol; some don't validate signatures correctly.
+- Lossy persistence. Relays may delete or rate-limit; durability depends on which relays you use.
+- Sybil-prone. Anyone can mint an npub; spam mitigations live in client filters and WoT.
+- Discovery is hard. Without follow graphs, finding new accounts is non-trivial.
+- Key custody risk. Losing the key means losing identity. NIP-26 delegation, hardware-wallet-signed events, and account-recovery NIPs help.
+- Metadata leaked outside NIP-17. Plain notes are public; even with gift-wrapped DMs, posting and follow lists leak.
+- Client diversity, bug surface. Many clients reimplement the protocol; some don't validate signatures correctly.
 
 ---
 
-## Attack Surface
+## Attack surface
 
 | Attack | Mitigation |
 |--------|-----------|
@@ -177,13 +177,13 @@ This couples Nostr's identity layer with Bitcoin's payment layer — the only ma
 
 ---
 
-## Recent Developments (2024-2026)
+## Recent developments (2024-2026)
 
-- **NIP-17 standardization** — gift-wrapped DMs become default.
-- **Outbox model (NIP-65)** — clients publish read/write relay lists; receivers know where to post replies.
-- **Nostr-DVMs** — Data Vending Machines, paid compute services discoverable via Nostr.
-- **Decentralized recovery** (NIP-XX drafts) — Shamir / FROST-based key recovery.
-- **Hardware-wallet signing** — Coldcard and Keystone added Nostr event signing.
+- NIP-17 standardization: gift-wrapped DMs become default.
+- Outbox model (NIP-65): clients publish read/write relay lists; receivers know where to post replies.
+- Nostr-DVMs: Data Vending Machines, paid compute services discoverable via Nostr.
+- Decentralized recovery (NIP-XX drafts): Shamir / FROST-based key recovery.
+- Hardware-wallet signing: Coldcard and Keystone added Nostr event signing.
 
 ---
 

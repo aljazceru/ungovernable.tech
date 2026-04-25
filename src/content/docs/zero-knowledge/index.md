@@ -9,15 +9,15 @@ tags:
   - "cryptography"
 sidebar: {"label":"Overview","order":0}
 ---
-*Prove a statement is true without revealing anything beyond its truth.*
+*Prove that a statement is true without revealing anything beyond its truth.*
 
 ---
 
-## Core Idea
+## Core idea
 
-A prover convinces a verifier that a statement `S` holds, such that the verifier learns **nothing** except `S` itself. Formally: completeness, soundness, zero-knowledge. The modern cryptographic realization uses succinct non-interactive arguments of knowledge — **SNARKs**.
+A prover convinces a verifier that a statement `S` holds, such that the verifier learns nothing except `S` itself. Formally: completeness, soundness, zero-knowledge. The modern cryptographic realization uses succinct non-interactive arguments of knowledge — **SNARKs**.
 
-The practical win: a prover does work once, produces a tiny proof (hundreds of bytes to a few KB), verifier checks it in milliseconds. Proof size and verifier time are near-constant regardless of the computation's complexity.
+The practical win: a prover does work once, produces a tiny proof (hundreds of bytes to a few KB), and the verifier checks it in milliseconds. Proof size and verifier time are near-constant regardless of the computation's complexity.
 
 ---
 
@@ -34,37 +34,37 @@ The practical win: a prover does work once, produces a tiny proof (hundreds of b
 
 ---
 
-## What's Built on Them
+## What's built on them
 
-### Blockchain Scaling (ZK Rollups)
+### Blockchain scaling (ZK rollups)
 
 - **StarkNet, zkSync Era, Scroll, Linea, Polygon zkEVM.** Bundle thousands of Ethereum txs into one on-chain proof. Enables private-by-default L2s when combined with encrypted state.
 
-### Privacy Coins / Mixers
+### Privacy coins / mixers
 
 - **Zcash (shielded pools).** Groth16 proofs over the Sapling circuit.
 - **Aztec, Tornado Cash (historical), Railgun.** EVM-layer shielded pools.
 
-### Identity & Credentials
+### Identity and credentials
 
 - **Anon Aadhaar, zkPassport, Semaphore, Rarimo.** Prove "I'm over 18 / I'm a citizen / I'm not in a sanctions list" without revealing identity.
 - **Sismo, Gitcoin Passport.** Zero-knowledge reputation portability.
 
-### ZK Machine Learning (ZKML)
+### ZK machine learning (ZKML)
 
-Prove a model output was produced by a committed set of weights on a committed input — without revealing weights or input.
+Prove a model output was produced by a committed set of weights on a committed input, without revealing weights or input.
 
 - **EZKL** (zkonnx circuits), **Giza**, **RISC Zero's zkVM**, **Modulus Labs**.
 - Current limits: proving a ~10M-param model on a reasonable input takes seconds to minutes, not milliseconds. Workable for verifiable oracles; not for real-time inference.
 - Pair with TEEs (see [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)): TEE handles input/weight privacy, ZK handles output-correctness auditability.
 
-### Private Cross-Chain, Bridges
+### Private cross-chain, bridges
 
 - **Succinct, =nil;, Polyhedra.** Light-client proofs.
 
 ---
 
-## Relation to Confidential Computing
+## Relation to confidential computing
 
 ZK and TEEs solve overlapping but not identical problems:
 
@@ -86,35 +86,35 @@ A mature confidential-inference stack may use both: TEE for fast private inferen
 ### Strengths
 
 - Mathematical assurance; no hardware trust required.
-- Tiny proofs enable verification on constrained devices (blockchains, browsers, mobile).
+- Tiny proofs allow verification on constrained devices (blockchains, browsers, mobile).
 - Post-quantum variants (STARKs, hash-based) exist.
 
 ### Limitations
 
-- **Prover cost.** Still orders of magnitude more expensive than native computation.
-- **Circuit-writing is hard.** Domain-specific; one bug can silently void security.
-- **Trusted-setup ceremonies** (Groth16, original PLONK) require careful MPC; a leaked toxic-waste compromises soundness.
-- **Zero-knowledge ≠ privacy.** ZK proves a specific statement; if the statement leaks info, so does the system.
+- Prover cost. Still orders of magnitude more expensive than native computation.
+- Circuit-writing is hard. Domain-specific; one bug can silently void security.
+- Trusted-setup ceremonies (Groth16, original PLONK) require careful MPC; a leaked toxic-waste compromises soundness.
+- Zero-knowledge is not the same as privacy. ZK proves a specific statement; if the statement leaks info, so does the system.
 
 ---
 
-## Attack Surface
+## Attack surface
 
-- **Circuit bugs.** The overwhelming majority of ZK break-ins are circuit-logic errors, not crypto.
-- **Trusted setup leakage.**
-- **Fiat-Shamir transforms** done incorrectly (weak Fiat-Shamir) → soundness failures.
-- **Proof malleability / replay** without proper domain separation.
+- Circuit bugs. The overwhelming majority of ZK break-ins are circuit-logic errors, not crypto.
+- Trusted setup leakage.
+- Fiat-Shamir transforms done incorrectly (weak Fiat-Shamir) lead to soundness failures.
+- Proof malleability or replay without proper domain separation.
 
 ---
 
-## Related Files
+## Related files
 
 - [Overview - Confidential Computing](/confidential-computing)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption)
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval)
 
-## Primary Sources
+## Primary sources
 
 - Groth: *On the Size of Pairing-Based Non-Interactive Arguments* — EUROCRYPT 2016
 - Ben-Sasson et al.: *Scalable, transparent, and post-quantum secure computational integrity* — IACR 2018 (STARKs)

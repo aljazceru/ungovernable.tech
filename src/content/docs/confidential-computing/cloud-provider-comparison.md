@@ -11,18 +11,18 @@ tags:
 ---
 *Which cloud does what, with which silicon, and what you actually get when the marketing page says "confidential."*
 
-State: early 2026. This space moves quarterly — verify before committing.
+State: early 2026. This space moves quarterly; verify before committing.
 
 ---
 
-## Capability Matrix
+## Capability matrix
 
 | Capability | Azure | AWS | GCP | Oracle OCI | IBM Cloud | Alibaba |
 |---|---|---|---|---|---|---|
 | **Intel SGX (app enclaves)** | DCsv3 (GA) | — (deprecated in cloud) | — | — | — | ECS ebmre6p (GA) |
 | **Intel TDX (CVM)** | DCesv5 (GA) | Roadmap | C3 / C3D (GA) | — | LinuxONE-adjacent only | ECS g8i (GA) |
-| **AMD SEV-SNP (CVM)** | DCasv5/DCadsv5 (GA) | M6a/M7a/C7a with Nitro+SNP (GA, evolving) | C3D (GA) | E5/E6 (GA) | Hyper Protect (GA) | ECS g7a (GA) |
-| **NVIDIA H100 CC** | NCC H100 v5 (GA) | — (roadmap) | A3 Confidential (GA) | BM.GPU.H100.CC (GA) | — | — |
+| **AMD SEV-SNP (CVM)** | DCasv5 / ECasv5 (GA) | M6a/C6a/R6a with Nitro+SNP (GA April 2023; later families add support) | N2D Milan (GA June 2024); C3D uses SEV (not SNP) | E5 (GA) | Hyper Protect (GA) | ECS g7a (GA) |
+| **NVIDIA H100 CC** | NCC H100 v5 (GA) | — (roadmap) | A3 Confidential (preview as of late 2025) | BM.GPU.H100.CC (GA) | — | — |
 | **Nitro Enclaves (non-DRAM-encrypted VM isolation)** | — | GA (all Nitro instances) | — | — | — | — |
 | **Attestation service** | Microsoft Azure Attestation (MAA) | KMS attestation conditions + Nitro attestation | Confidential Space attestation | OCI attestation (beta) | HPVS attestation | Alibaba-specific |
 | **Key release service** | Azure Key Vault Secure Key Release | AWS KMS with attestation conditions | GCP KMS + Confidential Space | OCI Vault | HPCS | KMS |
@@ -31,53 +31,53 @@ State: early 2026. This space moves quarterly — verify before committing.
 
 ---
 
-## Provider-Specific Notes
+## Provider-specific notes
 
 ### Microsoft Azure
 
-- Broadest SKU catalog; the only public cloud with both **SGX** and **TDX** and **SEV-SNP** and **H100 CC** simultaneously.
-- **Azure Attestation (MAA)** is mature, multi-platform, and returns a JWT a relying party can verify.
-- **Secure Key Release (SKR)** in Key Vault with Managed HSM — strongest KMS-gating story among majors.
+- The broadest SKU catalog. Currently the only public cloud with SGX, TDX, SEV-SNP, and H100 CC at the same time.
+- Azure Attestation (MAA) is mature, multi-platform, and returns a JWT a relying party can verify.
+- Secure Key Release (SKR) in Key Vault with Managed HSM is the strongest KMS-gating story among the majors.
 - Confidential AKS integrates CoCo and Kata.
-- **Caveat:** MAA is an Azure-operated verifier — for strongest assurance, verify raw quotes against Intel/AMD directly, not via MAA alone.
+- Caveat: MAA is an Azure-operated verifier. For strongest assurance, verify raw quotes against Intel/AMD directly, not via MAA alone.
 
 ### AWS
 
-- **Nitro Enclaves** are AWS's in-house solution: isolated mini-VMs carved out of a parent EC2 instance, with signed attestation documents. **Not** encrypted DRAM — the isolation is hypervisor+silicon-level via Nitro, not memory encryption. For many threat models this is sufficient because the Nitro hypervisor is smaller and more trusted than a general-purpose hypervisor, but it's a different model than SGX/TDX/SEV-SNP.
-- **SEV-SNP** support rolled out on M6a/M7a/C7a generations with deep Nitro integration (VLEK signing).
-- **KMS + Nitro attestation conditions** is the cleanest KMS-gated-key pattern in the industry — a single IAM policy clause can enforce "only release key to enclave with PCR0=X".
-- **No GA H100 CC yet.** Watch Trainium/Inferentia; AWS is building in-house confidential accelerators.
+- Nitro Enclaves are AWS's in-house solution: isolated mini-VMs carved out of a parent EC2 instance, with signed attestation documents. Not encrypted DRAM. Isolation is hypervisor- and silicon-level via Nitro, not memory encryption. For many threat models this is enough because the Nitro hypervisor is smaller and more trusted than a general-purpose hypervisor, but it is a different model than SGX/TDX/SEV-SNP.
+- SEV-SNP went GA in April 2023 on M6a/C6a/R6a with deep Nitro integration (VLEK signing); later 7-gen families were validated subsequently.
+- KMS plus Nitro attestation conditions is the cleanest KMS-gated-key pattern in the industry. A single IAM policy clause can enforce "only release key to enclave with PCR0=X."
+- No GA H100 CC yet. Watch Trainium and Inferentia; AWS is building in-house confidential accelerators.
 
 ### Google Cloud
 
-- Pioneered public-cloud SEV-based Confidential VMs (2020).
-- **Confidential Space** — a serverless-style product that packages a hardened Confidential VM, attestation, and workload identity federation to GCP APIs; good default for multi-party computation and attested workloads.
-- **GKE Confidential Nodes** — SNP nodes at scale; TDX in preview.
-- **A3 Confidential** is the main offering for confidential LLM inference with H100 CC.
+- Pioneered public-cloud SEV-based Confidential VMs in 2020.
+- Confidential Space is a serverless-style product that packages a hardened Confidential VM, attestation, and workload identity federation to GCP APIs. A good default for multi-party computation and attested workloads.
+- GKE Confidential Nodes provides SNP nodes at scale; TDX is in preview.
+- A3 Confidential is the main offering for confidential LLM inference with H100 CC.
 
 ### Oracle OCI
 
-- Fewer SKUs, but aggressive on **H100 CC bare-metal** — notable because you own the whole node (no co-tenant side channels).
-- OCI Vault + attestation is less mature than Azure/AWS; you'll do more plumbing.
+- Fewer SKUs but aggressive on H100 CC bare metal. Notable because you own the whole node, removing co-tenant side channels.
+- OCI Vault and attestation are less mature than Azure or AWS; you will do more plumbing.
 
 ### IBM Cloud
 
-- **Hyper Protect Virtual Servers** use IBM Z Secure Execution (s390x) — a different TEE lineage from x86, with strong pedigree for regulated finance/health.
+- Hyper Protect Virtual Servers use IBM Z Secure Execution (s390x), a different TEE lineage from x86 with strong pedigree for regulated finance and health.
 - Not relevant to NVIDIA GPU confidential inference today.
 
 ### Alibaba / Tencent / Huawei
 
-- Alibaba ECS has SGX, TDX, and SNP offerings; attestation collateral flows through Alibaba's own services. Relevant for APAC deployments; audit the trust chain carefully — the operator's verifier is *also* the cloud operator.
+- Alibaba ECS has SGX, TDX, and SNP offerings. Attestation collateral flows through Alibaba's own services. Relevant for APAC deployments; audit the trust chain carefully because the operator's verifier is also the cloud operator.
 
-### Decentralized / Specialist Operators
+### Decentralized and specialist operators
 
-- **Phala, Marlin, Oasis, Secret Network, Fluence** — TEE marketplaces where nodes are community-operated, attestation is verified on-chain, and payment is usually crypto.
-- **CoreWeave, Lambda, Crusoe, TensorWave** — GPU-specialist clouds; H100/H200 CC availability varies, often requires bring-your-own orchestration.
-- **Tinfoil, Edgeless, Anjuna, Fortanix** — layer atop the majors with hardened images + attestation UX.
+- Phala, Marlin, Oasis, Secret Network, Fluence: TEE marketplaces where nodes are community-operated, attestation is verified on-chain, and payment is usually crypto.
+- CoreWeave, Lambda, Crusoe, TensorWave: GPU-specialist clouds. H100/H200 CC availability varies, and these often require bring-your-own orchestration.
+- Tinfoil, Edgeless, Anjuna, Fortanix: layer atop the majors with hardened images and attestation UX.
 
 ---
 
-## Choosing a Provider
+## Choosing a provider
 
 | You care about… | Go with |
 |---|---|
@@ -91,16 +91,16 @@ State: early 2026. This space moves quarterly — verify before committing.
 
 ---
 
-## The Trust-Is-Not-Free Small Print
+## The trust-is-not-free small print
 
 Every cloud provider controls:
-- The **BIOS / bootloader** you cannot audit remotely (though measured and attested).
-- The **attestation service endpoints** (unless you bring-your-own verifier).
-- **Key management infrastructure** (unless you use split-key / external KMS).
-- **Network routing and egress logging** — TEEs don't hide traffic metadata.
-- **Supply-chain access** to silicon — a cloud can, in principle, receive silicon the vendor isn't shipping elsewhere.
+- The BIOS and bootloader you cannot audit remotely (though they are measured and attested).
+- The attestation service endpoints (unless you bring your own verifier).
+- Key management infrastructure (unless you use split-key or external KMS).
+- Network routing and egress logging. TEEs do not hide traffic metadata.
+- Supply-chain access to silicon. A cloud can in principle receive silicon the vendor is not shipping elsewhere.
 
-Confidential computing reduces the cloud's plaintext-access surface dramatically; it does not eliminate the cloud from your threat model. Pair with transparency logs, multi-vendor quorum, or on-chain verification if you need to actually minimize cloud trust.
+Confidential computing reduces the cloud's plaintext-access surface dramatically; it does not remove the cloud from your threat model. Pair with transparency logs, multi-vendor quorum, or on-chain verification when you need to actually minimize cloud trust.
 
 ---
 

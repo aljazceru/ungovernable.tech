@@ -11,146 +11,146 @@ tags:
   - "gns"
 sidebar: {"label":"Overview","order":0}
 ---
-*Naming systems that don't depend on ICANN, a TLD registrar, or a CA — because seizure, sanctions, and content-based takedowns flow through exactly those choke points.*
+*Naming systems that don't depend on ICANN, a TLD registrar, or a CA. Seizure, sanctions, and content-based takedowns flow through exactly those three places.*
 
 ---
 
-## Why It Matters
+## Why it matters
 
-The legacy DNS + X.509 trust chain has five choke points: root zone operators, TLD registries, domain registrars, recursive resolvers, and CAs. Any of them can be compelled — or compromised — to remove, redirect, or spy on a domain. Encrypted transports (DoH/DoT) shift who can snoop but don't solve the governance problem.
+The DNS + X.509 stack has five choke points: root zone operators, TLD registries, registrars, recursive resolvers, and CAs. Any of them can be compelled or compromised to remove, redirect, or observe traffic on a domain. Encrypted transports like DoH and DoT change who can snoop but don't change who controls the names.
 
-### The Seizure Problem
+### Seizures and takedowns
 
-Recent examples demonstrate why decentralized naming matters:
+Some recent examples:
 
-- **2023**: ICANN rejected .ONION renewal for privacy tools, creating operational chaos
-- **2022-2024**: Russian authorities seized .RU domains en masse
-- **2024**: sanctions-driven domain seizures affecting crypto projects
-- **Ongoing**: Content-based takedowns via UDRP, URS, and court orders
+- 2023: ICANN's handling of the .ONION renewal disrupted privacy tooling.
+- 2022-2024: Russian authorities seized .RU domains in bulk.
+- 2024: sanctions-driven seizures hit several crypto projects.
+- Ongoing: content-based takedowns through UDRP, URS, and court orders.
 
-The fundamental issue: **legacy DNS ties your identity to a registrar's database entry** — and that entry can be modified, deleted, or transferred without your consent.
+The structural issue is that legacy DNS ties a name to a registrar's database row, and that row can be modified, deleted, or transferred without the holder's consent.
 
 ---
 
-## Historical Context
+## Historical context
 
-### Early Pioneers (1990s-2010)
+### Early work (1990s-2010)
 
-| Year | Development | Significance |
-|------|-------------|---------------|
-| 1991 | **PGP web of trust** | First decentralized identity (keys, not names) |
-| 1997 | **DNSSEC** (RFC 2065) | Authenticated DNS records — didn't solve governance |
-| 1998 | **OpenPGP (RFC 2440)** | Formalized key signing |
-| 2011 | **Namecoin** | First functional blockchain DNS, merged-mined with Bitcoin |
-| 2017 | **ENS launched** | Ethereum-based naming goes live |
-| 2018 | **Handshake (HNS)** | Public testnet — proposes replacing the root zone itself |
+| Year | Development | Notes |
+|------|-------------|-------|
+| 1991 | PGP web of trust | First decentralized identity (keys, not names) |
+| 1997 | DNSSEC (RFC 2065) | Authenticated DNS records — didn't solve governance |
+| 1998 | OpenPGP (RFC 2440) | Formalized key signing |
+| 2011 | Namecoin | First functional blockchain DNS, merged-mined with Bitcoin |
+| 2017 | ENS launched | Ethereum-based naming |
+| 2018 | Handshake (HNS) | Public testnet — proposes replacing the root zone |
 
-### The Modern Era (2020-2026)
+### Recent activity (2020-2026)
 
-| Year | Development | Significance |
-|------|-------------|---------------|
-| 2020 | **ENS v2 planning** | Layer 2 support, gas optimization |
-| 2023 | **PKARR/Pubky** | DHT-based naming using existing P2P infra |
-| 2024 | **ENS gas reductions** | 99% reduction in registration costs |
-| 2025 | **ENS stays on L1** | Abandoned Namechain L2, focused on L1 scaling |
-| 2025 | **GNUnet 0.26.0** | RFC 9498 published — GNS standardized |
-| 2026 | **PKDNS launches** | Production DNS server for PKARR resolution |
+| Year | Development | Notes |
+|------|-------------|-------|
+| 2020 | ENS v2 planning | Layer 2 plans, gas optimization |
+| 2023 | PKARR / Pubky | DHT-based naming on existing P2P infrastructure |
+| 2023 | GNS RFC 9498 | GNS standardized |
+| 2024 | ENS gas reductions | Lower registration cost after L1 throughput improvements |
+| 2025 | GNUnet 0.26.0 | RFC 9498 GNS in production |
+| Feb 2026 | ENS stays on L1 | Nick Johnson abandons Namechain L2, focuses on L1 scaling |
+| 2026 | pkdns matures | Production DNS server for PKARR resolution |
 
 ---
 
 ## Approaches
 
-### 1. Blockchain-Anchored Names
+### 1. Blockchain-anchored names
 
-These systems store name records on a blockchain, using the blockchain as the source of truth for ownership.
+These systems store ownership records on a chain and use the chain as the source of truth.
 
 #### ENS (Ethereum Name Service)
 
-**.eth names registered on Ethereum; usable as wallet addresses, content hashes (IPFS), DIDs.**
+`.eth` names registered on Ethereum, used as wallet addresses, IPFS content hashes, and DIDs.
 
 | Feature | Detail |
 |---------|--------|
-| **Registry** | Ethereum smart contract |
-| **TLD** | .eth only |
-| **Cost** | ~$5-50/year (gas fluctuates) |
-| **Resolution** | ENS contracts → resolver → records |
-| **Resolver** | PublicResolver, CCIP-read for off-chain |
-| **Governance** | DAO + multi-sig |
+| Registry | Ethereum smart contract |
+| TLD | .eth only |
+| Cost | ~$5-50/year (gas fluctuates) |
+| Resolution | ENS contracts → resolver → records |
+| Resolver | PublicResolver, CCIP-read for off-chain |
+| Governance | DAO + multi-sig |
 
-**2025-2026 Developments:**
+2025-2026 changes:
 
-- **99% gas reduction**: Ethereum gas limit increases (30M → 60M in 2025) made ENS registrations affordable
-- **ENSv2**: Abandoned Namechain L2 plan; focusing on L1 scaling
-- **2026 outlook**: Average ENS price forecast ~$15, stable adoption
-- **CCIP-read**: Off-chain data resolution (IPFS, HTTPS) widely adopted
+- Gas costs dropped after Ethereum throughput improvements; ENS registrations got materially cheaper.
+- ENSv2 (Feb 2026): Nick Johnson announced ENS would stay on L1 instead of launching the planned Namechain L2.
+- CCIP-read (EIP-3668) is the standard pattern for cheap off-chain subname issuance.
 
-**Resources:**
+Resources:
 
 - [docs.ens.domains](https://docs.ens.domains)
 - [ens.domains](https://ens.domains)
 
 #### Handshake (HNS)
 
-**Replaces the DNS root zone with a blockchain; you can own your own TLD.**
+Replaces the DNS root zone with a blockchain. You can own your own TLD.
 
 | Feature | Detail |
 |---------|--------|
-| **Registry** | Handshake blockchain |
-| **TLD** | Any (you own your own root) |
-| **Cost** | One-time (auction + renewal) |
-| **Resolution** | Handshake resolvers |
-| **Mining** | PoW-style mining |
-| **Governance** | Permissionless |
+| Registry | Handshake blockchain |
+| TLD | Any (you own your own root) |
+| Cost | One-time (auction + renewal) |
+| Resolution | Handshake resolvers |
+| Mining | PoW-style mining |
+| Governance | Permissionless |
 
-**Status (2026):**
+Status (2026):
 
-- Active but niche (~0.5¢ HNS price)
-- Halving scheduled July 2026
-- Integration work ongoing (cDNSd)
-- Minimal mainstream adoption
+- Active but small.
+- Second halving expected mid-2026 (block 340,000; tracker estimates range late April to late July depending on hashrate).
+- Resolver work continues (HSD, hnsd).
+- Mainstream adoption is minimal.
 
-**Resources:**
+Resources:
 
 - [handshake.org](https://handshake.org)
 - [HNSd resolver](https://github.com/handshake-org/hnsd)
 
 #### Namecoin
 
-**Original blockchain DNS (2011). Still running; small user base.**
+The original blockchain DNS (2011). Still running, with a small user base.
 
-- Oldest blockchain naming system
-- .bit TLD
-- Merged-mined with Bitcoin
-- Very small ecosystem but longest track record
+- Oldest blockchain naming system.
+- .bit TLD.
+- Merged-mined with Bitcoin.
+- Tiny ecosystem, longest track record.
 
 #### Unstoppable Domains
 
-**Centralized company selling blockchain names; user lock-in concerns.**
+A centralized company that sells blockchain names. Lock-in concerns apply.
 
 - Sells .crypto, .wallet, etc.
-- **Warning**: Centralized company — can freeze/transfer names
-- Not truly decentralized despite marketing
+- The company can freeze or transfer names.
+- Not actually decentralized despite the marketing.
 
 ---
 
-### 2. Public-Key-Addressed Names
+### 2. Public-key-addressed names
 
-**Names *are* public keys.** No blockchain, no registrar — just cryptographic identity.
+The name *is* a public key. No blockchain, no registrar, just cryptographic identity.
 
 #### PKARR (Public-Key-Addressable Resource Records)
 
-**Names are Ed25519 public keys; DHT (Mainline/BitTorrent) stores signed DNS records under the key. No blockchain; used in Pubky / Slashtags.**
+Names are Ed25519 public keys. The DHT (Mainline / BitTorrent) stores signed DNS records under each key. No blockchain. Used in Pubky and Slashtags.
 
 | Feature | Detail |
 |---------|--------|
-| **Registry** | Mainline DHT (~10M nodes) |
-| **TLD** | .pk, custom |
-| **Cost** | Free (DHT storage) |
-| **Resolution** | pkdns, resolvers |
-| **Crypto** | Ed25519 signing |
-| **Governance** | None (protocol only) |
+| Registry | Mainline DHT (~10M nodes) |
+| TLD | .pk, custom |
+| Cost | Free (DHT storage) |
+| Resolution | pkdns, resolvers |
+| Crypto | Ed25519 signing |
+| Governance | None (protocol only) |
 
-**How It Works:**
+How it works:
 
 ```
 1. Generate Ed25519 keypair
@@ -160,19 +160,20 @@ These systems store name records on a blockchain, using the blockchain as the so
 5. Anyone resolves by looking up your public key hash
 ```
 
-**The name IS your public key:**
-- `npub1...` style naming
-- Self-authenticating (name proves ownership)
-- No renewal fees
-- No seizure possible (without compromising the key)
+The name is the public key:
 
-**2025-2026 Developments:**
+- `npub1...` style naming.
+- Self-authenticating (the name proves ownership).
+- No renewal fees.
+- No seizure path without the key.
 
-- **Pubky** emerged as the primary implementation
-- **pkdns** — production DNS server resolving PKARR
-- Growing ecosystem for self-sovereign identity
+2025-2026:
 
-**Resources:**
+- Pubky became the primary implementation.
+- pkdns: production DNS server resolving PKARR.
+- Growing self-sovereign-identity tooling.
+
+Resources:
 
 - [pubky/pkarr GitHub](https://github.com/pubky/pkarr)
 - [pubky/pkdns GitHub](https://github.com/pubky/pkdns)
@@ -180,54 +181,54 @@ These systems store name records on a blockchain, using the blockchain as the so
 
 #### Nostr NIP-05
 
-**Human-readable aliases resolved via HTTPS to a pubkey; not censorship-resistant by itself but composable.**
+Human-readable aliases resolved over HTTPS to a pubkey. Not censorship-resistant alone, but composable.
 
-- `user@domain.com` maps to npub
-- Uses DNS/HTTPS for resolution
-- Can be combined with PKARR for full self-sovereignty
+- `user@domain.com` maps to an npub.
+- Uses DNS / HTTPS for resolution.
+- Can be served over PKARR for full self-sovereignty.
 
 ---
 
-### 3. Overlay / Hidden Naming
+### 3. Overlay and hidden naming
 
-These systems provide censorship-resistant naming by operating in separate networks.
+Censorship-resistant naming inside separate networks.
 
 #### Tor .onion
 
-**Self-authenticating addresses (the name *is* the public key). Fully decentralized, strongest confidentiality for the operator.**
+Self-authenticating addresses where the name is the public key. Fully decentralized, with the strongest operator confidentiality.
 
-- v3 name = base32(Ed25519 pubkey ‖ checksum ‖ version) — 56 characters
-- v2 (deprecated 2021) used truncated SHA-1 of an RSA-1024 key — 16 chars
-- No registry, no CA — name verifies the key directly
-- **Only way to seize**: compromise the private key
+- v3 names: base32(Ed25519 pubkey ‖ checksum ‖ version), 56 characters.
+- v2 (deprecated 2021) used truncated SHA-1 of an RSA-1024 key, 16 characters.
+- No registry, no CA. The name verifies the key directly.
+- The only seizure path is compromising the private key.
 
-**Trade-off**: Hidden service only, not general DNS
+Trade-off: hidden services only, not general DNS.
 
 #### I2P .b32.i2p
 
-**Analogous to onion addresses, I2P's naming system.**
+Analogous to onion addresses. I2P's naming.
 
-- Base32 encoded destination keys
-- End-to-end encryption mandatory
-- Less widely deployed than Tor
+- Base32-encoded destination keys.
+- End-to-end encryption is mandatory.
+- Less widely deployed than Tor.
 
 #### GNUNet GNS (GNU Name System)
 
-**Petname-based hierarchical lookup with cryptographic roots.**
+Petname-based hierarchical lookup with cryptographic roots.
 
-- RFC 9498 (published 2023)
-- Hierarchical like DNS but with cryptographic delegation
-- Privacy-preserving (minimal metadata)
-- Integrated into GNUnet 0.26.0 (Nov 2025)
+- RFC 9498 (published 2023).
+- Hierarchical like DNS, but with cryptographic delegation.
+- Privacy-preserving (minimal metadata).
+- Integrated into GNUnet 0.26.0 (Nov 2025).
 
-**Features:**
+Features:
 
-- **Petnames**: Local nicknames for keys
-- **Delegation**: Control delegation between zones
-- **Privacy**: Built-in privacy from ground up
-- **No blockchain**: Uses GNUnet's distributed hash table
+- Petnames: local nicknames for keys.
+- Delegation: zone-to-zone control delegation.
+- Privacy from the ground up.
+- No blockchain. Uses GNUnet's DHT.
 
-**Resources:**
+Resources:
 
 - [GNUnet](https://www.gnunet.org/en/gns.html)
 - [RFC 9498](https://www.rfc-editor.org/rfc/rfc9498)
@@ -235,70 +236,70 @@ These systems provide censorship-resistant naming by operating in separate netwo
 
 ---
 
-## Relation to Confidential Inference
+## How this composes with confidential inference
 
-A confidential LLM endpoint whose domain can be seized is not actually uncensorable. Pair attested TLS (pinned inside the enclave) with a decentralized name — `.eth`, `.onion`, or PKARR — and the only way to take the service offline is to shut down the underlying TEE nodes. The attestation public key + a pubkey-addressed name yields a self-authenticating endpoint: no CA, no registry, no DNS to seize.
+A confidential LLM endpoint whose domain can be seized isn't actually uncensorable. Pair attested TLS (key pinned inside the enclave) with a decentralized name — `.eth`, `.onion`, or PKARR — and the only way to take the service down is to shut down the underlying TEE nodes. Attestation public key plus a pubkey-addressed name yields a self-authenticating endpoint with no CA, no registry, and no DNS to seize.
 
-### The Complete Picture
+### Stack comparison
 
 | Component | Traditional | Decentralized |
 |-----------|-------------|---------------|
-| **Domain** | registrar.com | .eth / .onion / pkarr |
-| **TLS Cert** | Let's Encrypt / DigiCert | Attested TEE (inside enclave) |
-| **Resolution** | ICANN → registrar → DNS | Blockchain / DHT / Tor |
-| **Seizure path** | Court order to registrar | None (self-hosted key) |
+| Domain | registrar.com | .eth / .onion / pkarr |
+| TLS cert | Let's Encrypt / DigiCert | Attested TEE (inside enclave) |
+| Resolution | ICANN → registrar → DNS | Blockchain / DHT / Tor |
+| Seizure path | Court order to registrar | None (self-hosted key) |
 
 ---
 
-## Evidence at a Glance
+## Summary
 
 | System | Type | TLD | Governance | Maturity | Status |
 |--------|------|-----|------------|----------|--------|
-| **ENS** | Blockchain | .eth | DAO | Mature | Active, 2025-26 stable |
-| **Handshake** | Blockchain | Any | Permissionless | Niche | Active, low adoption |
-| **Namecoin** | Blockchain | .bit | Permissionless | Legacy | Running |
-| **PKARR/Pubky** | DHT | Custom | None | Emerging | Active dev, 2025-26 |
-| **Tor .onion** | Overlay | .onion | None | Mature | Stable |
-| **I2P** | Overlay | .b32.i2p | None | Mature | Stable |
-| **GNS** | DHT | Custom | None | Mature | RFC 9498, 0.26.0 |
+| ENS | Blockchain | .eth | DAO | Mature | Active, 2025-26 stable |
+| Handshake | Blockchain | Any | Permissionless | Niche | Active, low adoption |
+| Namecoin | Blockchain | .bit | Permissionless | Legacy | Running |
+| PKARR/Pubky | DHT | Custom | None | Emerging | Active dev, 2025-26 |
+| Tor .onion | Overlay | .onion | None | Mature | Stable |
+| I2P | Overlay | .b32.i2p | None | Mature | Stable |
+| GNS | DHT | Custom | None | Mature | RFC 9498, 0.26.0 |
 
 ---
 
 ## Trade-offs
 
-### Strengths
+### What's good
 
-- **No seizure risk** — Name is the key; no registry to attack
-- **No renewal fees** (PKARR, Tor, I2P) — One-time key generation
-- **Self-authenticating** — Name proves ownership cryptographically
-- **Censorship-resistant** — No central point to remove records
-- **Composable** — Works with TEEs, FHE, MPC
+- No seizure risk: the name is the key, not a database row.
+- No renewal fees on PKARR, Tor, or I2P. One-time key generation.
+- Self-authenticating: the name proves ownership cryptographically.
+- Censorship-resistant: no central record to remove.
+- Composable with TEEs, FHE, and MPC.
 
-### Limitations
+### What's hard
 
-- **Usability.** Users must run resolvers, install extensions, or use bridges.
-- **Search isolation.** Search indexes ignore these spaces.
-- **Phishing.** Homoglyph and typo-squatting are easier, not harder, in new name systems.
-- **Blockchain costs.** ENS needs ETH; HNS needs HNS; gas fluctuates.
-- **Root governance varies.** "Decentralized" varies — Handshake is permissionless; ENS root has multi-sig governance.
-- **Key management.** Lose the key = lose the name (especially PKARR).
+- Usability. Users need resolvers, extensions, or bridges.
+- Search isolation. Search indexes don't cover these spaces.
+- Phishing. Homoglyph and typo attacks are easier in new namespaces.
+- Blockchain costs. ENS needs ETH, HNS needs HNS, gas varies.
+- Root governance varies. Handshake is permissionless; ENS root has multi-sig governance.
+- Key management. Lose the key, lose the name (especially with PKARR).
 
 ---
 
-## Attack Surface
+## Attack surface
 
-| Attack | Affected Systems | Mitigation |
+| Attack | Affected systems | Mitigation |
 |--------|------------------|------------|
-| **Key compromise** | PKARR, Tor, I2P | Key splitting, threshold sigs |
-| **Registrar coercion** | ENS (partial) | Smart contract upgrades |
-| **51% attack** | ENS, Handshake | PoS/PoW security |
-| **DHT poisoning** | PKARR | Signed records, multiple sources |
-| **Front-running** | ENS auctions | Commit-reveal schemes |
-| **DNS hijacking** | Traditional resolvers | DNSSEC, DANE |
+| Key compromise | PKARR, Tor, I2P | Key splitting, threshold sigs |
+| Registrar coercion | ENS (partial) | Smart contract upgrades |
+| 51% attack | ENS, Handshake | PoS/PoW security |
+| DHT poisoning | PKARR | Signed records, multiple sources |
+| Front-running | ENS auctions | Commit-reveal schemes |
+| DNS hijacking | Traditional resolvers | DNSSEC, DANE |
 
 ---
 
-## Related Files
+## Related files
 
 - [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity)
@@ -308,9 +309,9 @@ A confidential LLM endpoint whose domain can be seized is not actually uncensora
 
 ---
 
-## Primary Sources
+## Primary sources
 
-### Documentation & Specs
+### Documentation and specs
 
 - ENS docs — `docs.ens.domains`
 - Handshake — `handshake.org`
@@ -319,7 +320,7 @@ A confidential LLM endpoint whose domain can be seized is not actually uncensora
 - GNS RFC 9498 — `rfceditor.org/rfc/rfc9498`
 - Tor Rendezvous Specification v3 — `spec.torproject.org`
 
-### GitHub Repositories
+### Repositories
 
 - [pubky/pkarr](https://github.com/pubky/pkarr)
 - [pubky/pkdns](https://github.com/pubky/pkdns)
@@ -328,6 +329,6 @@ A confidential LLM endpoint whose domain can be seized is not actually uncensora
 
 ### Research
 
-- Chor et al.: *Private Information Retrieval*, JACM 1998 (foundational)
-- GNUnet: *The GNU Name System* (RFC 9498, 2023)
+- Chor et al., *Private Information Retrieval*, JACM 1998.
+- GNUnet, *The GNU Name System* (RFC 9498, 2023).
 

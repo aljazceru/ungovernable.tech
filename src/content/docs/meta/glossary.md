@@ -5,15 +5,15 @@ tags:
   - "glossary"
   - "terminology"
 ---
-Authoritative definitions for terms used across the vault. New terms must be added here on first use; deprecated terms get a `(deprecated)` marker rather than deletion.
+Definitions for terms used across the vault. New terms are added here on first use; deprecated terms get a `(deprecated)` marker rather than deletion.
 
 ---
 
 ## A
 
-**Attestation** — Cryptographic proof of the identity, configuration, and code hash of a piece of software running inside a TEE. Anchors trust in the hardware vendor's signing keys (Intel DCAP, AMD KDS, NVIDIA NRAS). See [Attestation-Architecture](/confidential-computing/attestation-architecture).
+**Attestation** — Cryptographic proof of the identity, configuration, and code hash of a piece of software running inside a TEE. Anchored in the hardware vendor's signing keys (Intel DCAP, AMD KDS, NVIDIA NRAS). See [Attestation-Architecture](/confidential-computing/attestation-architecture).
 
-**Attested TLS** — TLS connection where the server's keypair is generated *inside* an enclave and the attestation report is bound to the TLS certificate (or pinned in a Channel Binding). Lets a client verify it's talking to specific code on specific hardware, not just any holder of the cert.
+**Attested TLS** — A TLS connection where the server's keypair is generated inside an enclave and the attestation report is bound to the TLS certificate (or pinned in a Channel Binding). Lets a client verify it is talking to specific code on specific hardware, not just any holder of the cert.
 
 **AEAD** — Authenticated Encryption with Associated Data. Modern symmetric mode (AES-GCM, ChaCha20-Poly1305) that combines confidentiality and integrity in one primitive.
 
@@ -24,6 +24,8 @@ Authoritative definitions for terms used across the vault. New terms must be add
 ## B
 
 **BBS+** — Pairing-based signature scheme that supports selective disclosure of attributes and zero-knowledge proofs of possession. Foundation of W3C Verifiable Credentials with privacy.
+
+**Bitchat** — Phone-only Bluetooth-LE mesh messenger from Permissionlesstech, with a Nostr fallback for global reach. Up to seven hops over BLE, Noise-encrypted, no accounts. Geohash-based location channels on the Nostr side. See [Bitchat](/off-grid-networks/bitchat).
 
 **Bulletproofs** — Short, non-interactive zero-knowledge range proofs that need no trusted setup. Used in Monero (transaction amounts) and various confidential-transaction protocols.
 
@@ -37,9 +39,9 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Chaumian eCash** — Bearer token system using blind signatures (Chaum, 1983). Modern implementations: Cashu (Bitcoin/Lightning), GNU Taler.
 
-**CoCo (Confidential Containers)** — CNCF project bringing confidential computing to Kubernetes via Kata + TEE-backed VMs and a Trustee KBS. See [Confidential-Containers](/confidential-computing/confidential-containers).
+**CoCo (Confidential Containers)** — CNCF project bringing confidential computing to Kubernetes via Kata plus TEE-backed VMs and a Trustee KBS. See [Confidential-Containers](/confidential-computing/confidential-containers).
 
-**Confidential Computing** — Hardware-backed protection of data *during computation*, complementing at-rest and in-transit encryption.
+**Confidential Computing** — Hardware-backed protection of data during computation, complementing at-rest and in-transit encryption.
 
 **Cover traffic** — Dummy packets sent on a schedule to hide whether real traffic is flowing. Core to mixnet metadata defense.
 
@@ -63,11 +65,11 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 ## E
 
-**Ed25519** — EdDSA signature scheme over Curve25519. Compact, fast, deterministic; the de-facto modern signature primitive in Tor v3, Nostr, Signal, Pubky, etc.
+**Ed25519** — EdDSA signature scheme over Curve25519. Compact, fast, deterministic; widely used in Tor v3, SSH, age, Pubky/PKARR, Yggdrasil, MLS BasicCredentials. *Note: Nostr uses Schnorr over secp256k1 (BIP-340), not Ed25519.*
 
 **EIP-7702 / EIP-4337** — Ethereum account-abstraction proposals enabling smart-contract behavior on EOAs and bundled UserOps respectively.
 
-**Enclave** — Hardware-isolated region of memory and execution; the umbrella term for SGX enclaves, SEV-SNP VMs, TDX TDs, etc.
+**Enclave** — Hardware-isolated region of memory and execution; the umbrella term for SGX enclaves, SEV-SNP VMs, TDX TDs, and similar.
 
 ---
 
@@ -77,9 +79,11 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **FHE (Fully Homomorphic Encryption)** — Encryption that supports arbitrary computation on ciphertexts. See [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption).
 
+**FIPS** — *Free Internetworking Peering System.* Mesh routing protocol that uses Nostr secp256k1 keypairs as native node identities. Multi-transport (UDP, TCP, Ethernet, Tor, BLE), Noise-encrypted hop-to-hop and end-to-end. See [FIPS](/off-grid-networks/fips).
+
 **Forward Secrecy** — Property where compromising long-term keys does not compromise past session keys. Achieved via ephemeral DH (TLS 1.3, Signal X3DH/PQXDH).
 
-**FROST** — Flexible Round-Optimized Schnorr Threshold signatures. Used for threshold Bitcoin/Nostr key custody.
+**FROST** — Flexible Round-Optimized Schnorr Threshold signatures (Komlo & Goldberg 2020; standardized as RFC 9591 in 2024). Used for threshold Bitcoin/Nostr key custody.
 
 ---
 
@@ -87,11 +91,13 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Garlic Routing** — I2P's variant of onion routing where one packet ("garlic clove bundle") may contain multiple inner messages with different destinations.
 
+**Geohash** — Hierarchical encoding of geographic coordinates as a base32 string where shorter prefixes denote larger areas. Used by [Bitchat](/off-grid-networks/bitchat) location channels; precision selects neighborhood, city, or region scope.
+
 **GNS (GNU Name System)** — Privacy-preserving petname-based hierarchical naming, RFC 9498.
 
-**Groth16** — Pairing-based zk-SNARK with 200-byte proofs and per-circuit trusted setup. Used by Zcash Sapling, Tornado Cash.
+**Groth16** — Pairing-based zk-SNARK with constant-size proofs (~128-200 bytes depending on curve: 2×G1 + 1×G2 over BN254 / BLS12-381) and per-circuit trusted setup. Used by Zcash Sapling, Tornado Cash, Semaphore.
 
-**Grover's algorithm** — Quantum search algorithm giving a √N speedup over classical brute force. Effectively halves symmetric key strength — AES-256 retains a 128-bit security margin against it.
+**Grover's algorithm** — Quantum search algorithm giving a √N speedup over classical brute force. Effectively halves symmetric key strength. AES-256 retains a 128-bit security margin against it.
 
 ---
 
@@ -101,9 +107,9 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Handshake (HNS)** — Blockchain-based replacement for the DNS root zone, with permissionless TLD ownership.
 
-**Harvest now, decrypt later** — Adversary records encrypted traffic today expecting to decrypt it once a quantum computer exists. The motivation for migrating long-secrecy traffic to post-quantum KEMs *now*.
+**Harvest now, decrypt later** — Adversary records encrypted traffic today expecting to decrypt it once a quantum computer exists. The motivation for migrating long-secrecy traffic to post-quantum KEMs now.
 
-**Hybrid KEM** — Composition of a classical KEM (e.g. X25519) and a post-quantum KEM (e.g. ML-KEM-768) where the shared secret is the KDF of both halves. Currently deployed in TLS 1.3, SSH, Signal PQXDH, iMessage PQ3.
+**Hybrid KEM** — Composition of a classical KEM (such as X25519) and a post-quantum KEM (such as ML-KEM-768) where the shared secret is the KDF of both halves. Currently deployed in TLS 1.3, SSH, Signal PQXDH, iMessage PQ3.
 
 ---
 
@@ -133,11 +139,11 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 ## L
 
-**Lattice cryptography** — Hardness assumptions based on lattice problems (LWE, Ring-LWE, Module-LWE, NTRU). Foundation of FHE and most NIST PQC standards.
+**Lattice cryptography** — Hardness assumptions based on lattice problems (LWE, Ring-LWE, Module-LWE, NTRU). Foundation of FHE and most NIST PQC KEM/signature standards (ML-KEM, ML-DSA, FN-DSA); SLH-DSA is the hash-based exception.
 
 **Lightning Network** — Layer 2 Bitcoin protocol of bidirectional payment channels with hash-time-locked routed payments. See [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive).
 
-**Loopix** — Continuous-time mix network design (Piotrowska et al., 2017) — Poisson-mixing with cover traffic. Foundation of Nym and Katzenpost.
+**Loopix** — Continuous-time mix network design (Piotrowska et al., 2017): Poisson-mixing with cover traffic. Foundation of Nym and Katzenpost.
 
 **LoRa** — Low-power long-range radio modulation (sub-GHz ISM bands) used by Meshtastic and other off-grid networks.
 
@@ -147,11 +153,13 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 ## M
 
-**Mainline DHT** — The BitTorrent DHT, ~10 million nodes worldwide. Used by PKARR/Pubky for record publication.
+**Mainline DHT** — The BitTorrent DHT, around 10 million nodes worldwide. Used by PKARR/Pubky for record publication.
 
-**mDL (Mobile Driver's License, ISO 18013-5)** — Standard for mobile credentials with selective disclosure. Deployed in several US states and EU Digital Wallet.
+**Marmot Protocol** — Specification for using MLS (RFC 9420) over Nostr's identity and relay infrastructure for forward-secret, post-compromise-secure, scalable group messaging. KeyPackages (kind 30443), gift-wrapped Welcomes (kind 444 inside 1059), encrypted group events (kind 445). See [Marmot Protocol](/encrypted-messaging/marmot-protocol).
 
-**MEV (Maximal Extractable Value)** — Value extracted from transaction ordering by validators/builders. *Originally "Miner Extractable Value"; renamed when Ethereum left PoW.*
+**mDL (Mobile Driver's License, ISO 18013-5)** — Standard for mobile credentials with selective disclosure. Deployed in several US states and the EU Digital Wallet.
+
+**MEV (Maximal Extractable Value)** — Value extracted from transaction ordering by validators, builders, and searchers. *Originally "Miner Extractable Value"; renamed in 2022 to cover non-miner extractors.*
 
 **Mixnet** — Network that batches, reorders, and re-encrypts traffic across multiple hops to hide who-talks-to-whom from a global observer. See [Overview - Mix Networks](/mix-networks).
 
@@ -171,9 +179,9 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Namecoin** — Earliest functional blockchain naming system (2011), merged-mined with Bitcoin. `.bit` TLD.
 
-**NIP-05 / NIP-44 / NIP-17** — Nostr Implementation Possibilities. NIP-05: human-readable identifiers; NIP-44: modern E2EE DM cipher; NIP-17: gift-wrapped DMs with metadata protection.
+**NIP-05 / NIP-44 / NIP-17** — Nostr Implementation Possibilities. NIP-05: human-readable `user@domain` identifiers via `.well-known/nostr.json`; NIP-44: versioned DM payload format (ChaCha20 + HMAC-SHA256, conversation key from secp256k1 ECDH); NIP-17: gift-wrapped DMs with metadata protection (combines NIP-44 and NIP-59).
 
-**Nostr** — *Notes and Other Stuff Transmitted by Relays.* Pubkey-rooted social protocol; events signed by Schnorr/Ed25519 keys, served by relays.
+**Nostr** — *Notes and Other Stuff Transmitted by Relays.* Pubkey-rooted social protocol; events signed by **Schnorr signatures over secp256k1** (BIP-340), served by relays. See [Nostr](/identity/nostr) and [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive).
 
 **NRAS (NVIDIA Remote Attestation Service)** — Attestation backend for H100/H200/Blackwell confidential computing.
 
@@ -183,7 +191,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Onion routing** — Layered encryption such that each relay can peel one layer revealing only the next hop. Tor is the canonical implementation.
 
-**OPRF (Oblivious Pseudo-Random Function)** — Two-party protocol where the client gets `f_k(x)` without learning `k` and the server doesn't learn `x`. Used in PIR, password-authenticated key exchange, and private set intersection.
+**OPRF (Oblivious Pseudo-Random Function)** — Two-party protocol where the client gets `f_k(x)` without learning `k` and the server does not learn `x`. Used in PIR, password-authenticated key exchange, and private set intersection.
 
 **ORAM (Oblivious RAM)** — Technique that hides memory access patterns from an observer who can see which addresses are touched.
 
@@ -209,7 +217,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **PQXDH** — Post-quantum extended X3DH; the hybrid (X25519 + ML-KEM-1024) key agreement used by Signal since 2023.
 
-**Pubky** — PKARR-based identity and naming system from Synonym.
+**Pubky** — PKARR-based identity and naming system from Synonym. Adds a *homeserver* data plane (HTTP-fetched signed user data) and `pkdns` for DNS bridging. Reference social app: Pubky.app. See [Pubky](/identity/pubky).
 
 ---
 
@@ -219,15 +227,17 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **RATS (Remote ATtestation procedureS)** — IETF working group and architecture (RFC 9334) for remote attestation. Defines the Attester / Verifier / Relying-Party roles used across CC ecosystems.
 
-**Reticulum** — Markqvist's encrypted-by-default mesh networking stack. Runs over LoRa, packet radio, TCP, serial.
+**Reticulum** — Markqvist's encrypted-by-default mesh networking stack with cryptographic destinations. Runs over LoRa, packet radio, TCP, serial. See [Reticulum](/off-grid-networks/reticulum).
 
-**Ring-LWE** — Variant of LWE on polynomial rings. Smaller keys / faster ops than plain LWE.
+**Reunion** — Anonymous contact-establishment protocol over the Katzenpost mixnet. Lets two parties find each other without prior knowledge of network addresses.
+
+**Ring-LWE** — Variant of LWE on polynomial rings. Smaller keys and faster ops than plain LWE.
 
 ---
 
 ## S
 
-**SD-JWT (IETF)** — Selective Disclosure JWT — VC format that uses a Merkle-style salted-hash tree so the holder can reveal a subset of claims to the verifier.
+**SD-JWT (RFC 9901, 2025)** — Selective Disclosure JWT. JWT-based credential format where each claim is committed via a salted hash; the holder discloses the claims they choose by revealing the corresponding hash preimages. Standardized as RFC 9901 in November 2025.
 
 **SEV-SNP** — AMD Secure Encrypted Virtualization with Secure Nested Paging. VM-level TEE with integrity protection. See [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive).
 
@@ -247,7 +257,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **Taproot (BIP-340/341/342)** — Bitcoin upgrade (2021) introducing Schnorr signatures and MAST script trees; basis for sub-second-cost cooperative-spend privacy.
 
-**TCB (Trusted Computing Base)** — The set of hardware/firmware/software a security claim relies on. Smaller TCB = smaller attack surface. TCB versions appear in attestation reports.
+**TCB (Trusted Computing Base)** — The set of hardware/firmware/software a security claim relies on. Smaller TCB means smaller attack surface. TCB versions appear in attestation reports.
 
 **TDX (Trust Domain Extensions)** — Intel's VM-level TEE (2022–).
 
@@ -263,7 +273,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 ## V
 
-**VC (Verifiable Credential, W3C)** — Signed JSON-LD or JWT structure asserting claims about a subject. Issuer → Holder → Verifier model.
+**VC (Verifiable Credential, W3C)** — Signed JSON-LD or JWT structure asserting claims about a subject. Issuer, Holder, Verifier model.
 
 **VCEK / VLEK** — AMD chip-bound (VCEK) and platform-bound (VLEK) endorsement keys signed by KDS, used to verify SEV-SNP attestation reports.
 
@@ -275,7 +285,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **WireGuard** — Modern VPN protocol; minimal cryptographic core (Curve25519, ChaCha20-Poly1305, BLAKE2s). Influences Yggdrasil, Tailscale, Mullvad.
 
-**WoT (Web of Trust)** — Peer-attestation trust model — OpenPGP and Nostr social-graph variants. See [Overview - Web of Trust](/cryptography/overview-web-of-trust).
+**WoT (Web of Trust)** — Peer-attestation trust model: OpenPGP and Nostr social-graph variants. See [Overview - Web of Trust](/cryptography/overview-web-of-trust).
 
 ---
 
@@ -303,5 +313,5 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **ZK-STARK** — Zero-Knowledge Scalable Transparent ARgument of Knowledge.
 
-**Zooko's triangle** — Hypothesis that names cannot be simultaneously human-meaningful, decentralized, and globally unique. Petnames + cryptographic IDs (e.g., Pubky, ENS) are partial resolutions.
+**Zooko's triangle** — Hypothesis that names cannot be simultaneously human-meaningful, decentralized, and globally unique. Petnames plus cryptographic IDs (for example Pubky, ENS) are partial resolutions.
 

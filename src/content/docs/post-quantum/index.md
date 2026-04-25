@@ -13,16 +13,16 @@ sidebar: {"label":"Overview","order":0}
 
 ---
 
-## Why Now
+## Why now
 
-Shor's algorithm breaks RSA, Diffie-Hellman, and ECC in polynomial time on a sufficiently large quantum computer. Such a machine does not exist today and may not exist for a decade or longer — **but**:
+Shor's algorithm breaks RSA, Diffie-Hellman, and ECC in polynomial time on a sufficiently large quantum computer. Such a machine does not exist today and may not exist for a decade or longer, but:
 
-- **"Harvest now, decrypt later."** Adversaries record encrypted traffic today; any record will be readable the day a quantum computer comes online. Anything with a secrecy horizon beyond ~2035 must migrate now.
+- "Harvest now, decrypt later." Adversaries record encrypted traffic today; any record will be readable the day a quantum computer comes online. Anything with a secrecy horizon beyond ~2035 must migrate now.
 - Symmetric crypto (AES-256, SHA-3) is largely unaffected; key length doubling (Grover) is enough.
 
 ---
 
-## NIST Standards (2024-2025)
+## NIST standards (2024-2025)
 
 After a multi-year competition, NIST finalized:
 
@@ -34,74 +34,74 @@ After a multi-year competition, NIST finalized:
 | **FIPS 206 — FN-DSA** (Falcon) | Compact signatures | NTRU lattices | Size-sensitive ECDSA uses | **Draft submitted Aug 2025; final expected 2026** |
 | **HQC** | Alternate KEM | Code-based | Backup for ML-KEM | **Selected 2025; standard expected 2026** |
 
-STARK-based signatures, isogeny-based KEMs (SIKE was broken 2022 — cautionary tale), and MPC-in-the-head signatures remain research-active.
+STARK-based signatures, isogeny-based KEMs (SIKE was broken in 2022, a cautionary tale), and MPC-in-the-head signatures remain research-active.
 
 ---
 
-## Deployment Status (early 2026)
+## Deployment status (early 2026)
 
-- **TLS 1.3 hybrid KEMs** (X25519+ML-KEM-768) shipped: Chrome, Firefox, Cloudflare, Google edge, AWS KMS.
-- **SSH** (OpenSSH ≥ 9.0) offers `sntrup761x25519-sha512` hybrid; ML-KEM hybrids landing.
-- **Signal Protocol**: PQXDH in production since 2023 — hybrid X3DH + ML-KEM-1024 for initial keys.
-- **iMessage PQ3** (Apple, 2024) — post-quantum ratcheting.
-- **Email / PGP**: laggard; OpenPGP PQC draft exists, adoption minimal.
-- **Blockchain**: hash-based signatures (Lamport / XMSS / SLH-DSA) for quantum-safe wallets under active proposal; Ethereum has a long roadmap.
+- TLS 1.3 hybrid KEMs (X25519+ML-KEM-768) shipped: Chrome, Firefox, Cloudflare, Google edge, AWS KMS.
+- SSH (OpenSSH ≥ 9.0) offers `sntrup761x25519-sha512` hybrid; ML-KEM hybrids landing.
+- Signal Protocol: PQXDH in production since 2023, hybrid X3DH plus ML-KEM-1024 for initial keys.
+- iMessage PQ3 (Apple, 2024): post-quantum ratcheting.
+- Email / PGP: laggard. OpenPGP PQC draft exists, adoption minimal.
+- Blockchain: hash-based signatures (Lamport / XMSS / SLH-DSA) for quantum-safe wallets under active proposal; Ethereum has a long roadmap.
 
 ---
 
-## Relevance to Confidential Computing / Inference
+## Relevance to confidential computing / inference
 
-- **Attestation keys.** Intel / AMD / NVIDIA attestation signatures are ECDSA today — quantum-vulnerable. Pre-recorded quotes could be forged post-Q, weakening any past proof of confidentiality. Migration path: new hardware with ML-DSA or SLH-DSA attestation keys; not yet announced by vendors as of early 2026.
-- **Sealing / wrapping keys.** Long-lived sealed secrets and key-wrap ciphertexts must be PQ-secure to resist harvest-now-decrypt-later.
-- **TLS to TEE.** Use hybrid KEM in any RA-TLS today; pure-PQ once counterparts support ML-KEM.
-- **KMS-gated key release.** Rotate to PQ wrap keys on the release side.
+- Attestation keys. Intel / AMD / NVIDIA attestation signatures are ECDSA today, which is quantum-vulnerable. Pre-recorded quotes could be forged post-Q, weakening any past proof of confidentiality. Migration path: new hardware with ML-DSA or SLH-DSA attestation keys; not yet announced by vendors as of early 2026.
+- Sealing / wrapping keys. Long-lived sealed secrets and key-wrap ciphertexts must be PQ-secure to resist harvest-now-decrypt-later.
+- TLS to TEE. Use hybrid KEM in any RA-TLS today; pure-PQ once counterparts support ML-KEM.
+- KMS-gated key release. Rotate to PQ wrap keys on the release side.
 
 ---
 
 ## Trade-offs
 
-- **Key and signature sizes are larger.** ML-KEM-768 pubkey = 1184 B; ML-DSA signature ~2.4 KB. Matters on constrained links and chained certs.
-- **New code = new bugs.** Lattice math is trickier than RSA; constant-time implementations are essential and not trivial.
-- **Hybrid is safer.** Composing a classical + PQ KEM means you're secure as long as *either* remains unbroken — until we're sure about PQ algorithms, hybrid is the right default.
-- **Performance impact is minimal.** Modern hybrid implementations add 15-20ms to connection establishment (WireGuard: 15-20ms extra; TLS: negligible on modern hardware); throughput unchanged.
+- Key and signature sizes are larger. ML-KEM-768 pubkey = 1184 B; ML-DSA signature ~2.4 KB. Matters on constrained links and chained certs.
+- New code means new bugs. Lattice math is trickier than RSA; constant-time implementations are essential and not trivial.
+- Hybrid is safer. Composing a classical and PQ KEM means the system is secure as long as either remains unbroken. Until we're sure about PQ algorithms, hybrid is the right default.
+- Performance impact is minimal. Modern hybrid implementations add 15-20ms to connection establishment (WireGuard: 15-20ms extra; TLS: negligible on modern hardware); throughput unchanged.
 
 ---
 
-## Attack Surface
+## Attack surface
 
-- **Implementation side channels.** Constant-time Kyber / Dilithium are active research; several early libraries had timing leaks.
-- **Parameter selection mistakes.** Insecure parameter sets lurking in old demos.
-- **Fault attacks on signing.** Reuse of randomness or poor decoders can leak secret keys.
-- **"PQ-washing".** Products claim "post-quantum" by bolting PQ onto one layer while classical crypto still gates the overall system.
+- Implementation side channels. Constant-time Kyber / Dilithium are active research; several early libraries had timing leaks.
+- Parameter selection mistakes. Insecure parameter sets lurking in old demos.
+- Fault attacks on signing. Reuse of randomness or poor decoders can leak secret keys.
+- "PQ-washing". Products claim "post-quantum" by bolting PQ onto one layer while classical crypto still gates the overall system.
 
 ---
 
-## Implementation Libraries
+## Implementation libraries
 
 ### liboqs (C / Open Quantum Safe)
 
 The reference implementation library for NIST algorithms. Actively maintained by PQCA.
 
-- **Repository:** https://github.com/open-quantum-safe/liboqs
-- **Latest:** v0.14.0 (February 2025)
-- **Algorithms:** ML-KEM (Kyber), ML-DSA (Dilithium), SLH-DSA (SPHINCS+), HQC, SNOVA
-- **Security fix:** CVE-2025-52473 patched in v0.14.0
-- **Note:** v0.14.0 is last release with both Dilithium (Round 3) and ML-DSA (standardized); future releases only ML-DSA
-- **Upcoming:** SQIsign (additional signature), SLH-DSA (FIPS 205), NTRU support
+- Repository: https://github.com/open-quantum-safe/liboqs
+- Latest: v0.14.0 (February 2025)
+- Algorithms: ML-KEM (Kyber), ML-DSA (Dilithium), SLH-DSA (SPHINCS+), HQC, SNOVA
+- Security fix: CVE-2025-52473 patched in v0.14.0
+- Note: v0.14.0 is the last release with both Dilithium (Round 3) and ML-DSA (standardized); future releases only ML-DSA
+- Upcoming: SQIsign (additional signature), SLH-DSA (FIPS 205), NTRU support
 
 ### Rust
 
-- **pqcrypto** (https://crates.io/crates/pqcrypto) — NIST algorithm implementations with hybrid mode support
-- **ring** — considering PQ integration; not yet shipping
-- **rustpq/pqcrypto** — Rust-native implementations from the PQC research community
+- **pqcrypto** (https://crates.io/crates/pqcrypto): NIST algorithm implementations with hybrid mode support
+- **ring**: considering PQ integration; not yet shipping
+- **rustpq/pqcrypto**: Rust-native implementations from the PQC research community
 
 ### Go
 
-- **golang.org/x/crypto/kyber** — ML-KEM implementation in Go standard library's x/crypto module
-- **filippo.io/mlkem** — Standalone ML-KEM implementation (Filippo Valsorda)
+- **golang.org/x/crypto/kyber**: ML-KEM implementation in Go standard library's x/crypto module
+- **filippo.io/mlkem**: standalone ML-KEM implementation (Filippo Valsorda)
 - Go's standard library is evaluating PQ integration for Go 1.24+
 
-### Other Languages
+### Other languages
 
 | Language | Library | Status |
 |---|---|---|
@@ -111,34 +111,34 @@ The reference implementation library for NIST algorithms. Actively maintained by
 
 ---
 
-## Government Migration Timelines
+## Government migration timelines
 
 ### Germany (BSI)
 
-- **Critical infrastructure deadline:** Full migration to quantum-safe cryptography by 2030
-- **Guidance:** BSI position paper (2025) recommends hybrid deployment during transition
-- **Reference:** https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Crypto/PQC-joint-statement-2025.pdf
+- Critical infrastructure deadline: full migration to quantum-safe cryptography by 2030
+- Guidance: BSI position paper (2025) recommends hybrid deployment during transition
+- Reference: https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Crypto/PQC-joint-statement-2025.pdf
 
 ### UK (NCSC)
 
-- **Timeline:** https://www.ncsc.gov.uk/guidance/pqc-migration-timelines
-- **Guidance:** Recommends "start planning now" for systems with long data protection requirements
-- **Focus:** Inventory crypto assets first, enable crypto-agility, then migrate
+- Timeline: https://www.ncsc.gov.uk/guidance/pqc-migration-timelines
+- Guidance: recommends "start planning now" for systems with long data protection requirements
+- Focus: inventory crypto assets first, enable crypto-agility, then migrate
 
 ### United States
 
-- **NSM-10** (2022): Federal agencies must plan for PQC migration
-- **NIST SP 800-175B:** Federal standards for cryptography
-- **CISA:** "Harvest now, decrypt later" alerts to critical infrastructure operators
+- NSM-10 (2022): federal agencies must plan for PQC migration
+- NIST SP 800-175B: federal standards for cryptography
+- CISA: "Harvest now, decrypt later" alerts to critical infrastructure operators
 
 ### EU
 
-- **eIDAS 2.0:** Digital identity wallet includes quantum-safe signatures
-- **ETSI QSC:** European standards body working on PQC specifications
+- eIDAS 2.0: digital identity wallet includes quantum-safe signatures
+- ETSI QSC: European standards body working on PQC specifications
 
 ---
 
-## Updated Deployment Status (April 2026)
+## Updated deployment status (April 2026)
 
 | Protocol | Status | Details |
 |---|---|---|
@@ -154,7 +154,7 @@ The reference implementation library for NIST algorithms. Actively maintained by
 
 ---
 
-## Quantum Threat Timeline
+## Quantum threat timeline
 
 | Year | Expected Milestone |
 |---|---|
@@ -167,14 +167,14 @@ The "harvest now, decrypt later" threat is immediate. Any data with secrecy requ
 
 ---
 
-## Related Files
+## Related files
 
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption)
 - [Overview - Zero-Knowledge Proofs](/zero-knowledge)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
 - [Overview - Encrypted Messaging](/encrypted-messaging)
 
-## Primary Sources
+## Primary sources
 
 - NIST FIPS 203 / 204 / 205 / 206 — `csrc.nist.gov/projects/post-quantum-cryptography`
 - liboqs: https://github.com/open-quantum-safe/liboqs
