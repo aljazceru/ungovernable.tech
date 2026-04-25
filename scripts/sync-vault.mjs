@@ -63,8 +63,10 @@ const SKIP_FILES = new Set([
   'CHANGELOG.md',           // requested: drop from Meta
   'Research Methodology.md', // requested: drop from Meta
 ]);
-// Statuses that mark unfinished work — never publish.
-const SKIP_STATUSES = new Set(['draft', 'stub', 'planned', 'todo', 'wip', 'in-progress']);
+// Statuses that mark unfinished work — never publish. "draft" is allowed
+// through: drafts in this vault are real, substantive notes still being
+// edited, not placeholders. Only true placeholders (stub/planned/todo) skip.
+const SKIP_STATUSES = new Set(['stub', 'planned', 'todo']);
 
 function cleanTitle(s) {
   return String(s || '')
