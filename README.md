@@ -26,6 +26,25 @@ npm run dev                                          # http://localhost:4321
 `npm run build` runs the sync, builds the site, and generates the Pagefind
 search index.
 
+## Publishing vault updates
+
+After editing notes in the Obsidian vault, run:
+
+```sh
+npm run publish
+```
+
+This syncs the vault, commits the content delta with the vault's git short-SHA
+in the message, and pushes. CI handles the rest.
+
+Flags:
+- `--force`   — allow committing even if there are unrelated working-tree
+  changes (they'll be left untouched)
+- `--no-push` — commit but don't push, in case you want to inspect first
+
+If nothing changed under `src/content/docs/`, the script exits cleanly with
+"nothing to publish".
+
 ## Contributing
 
 Suggestions, corrections, and additions are welcome — open a PR or issue, or
