@@ -25,8 +25,12 @@ const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
 const NO_PUSH = args.includes('--no-push');
 
-function sh(cmd, opts = {}) {
-  return execSync(cmd, { cwd: ROOT, encoding: 'utf8', ...opts }).trim();
+function sh(cmd) {
+  return execSync(cmd, { cwd: ROOT, encoding: 'utf8' }).trim();
+}
+
+function run(cmd) {
+  execSync(cmd, { cwd: ROOT, stdio: 'inherit' });
 }
 
 function shTry(cmd) {
@@ -74,7 +78,7 @@ function main() {
 
   const sha = vaultRef();
   const msg = sha ? `content: sync vault @ ${sha}` : 'content: sync vault';
-  sh(`git commit -m "${msg}"`, { stdio: 'inherit' });
+  run(`git commit -m "${msg}"`);
   console.log(`✓ committed: ${msg}`);
 
   if (NO_PUSH) {
@@ -82,7 +86,7 @@ function main() {
     return;
   }
   console.log('▸ pushing…');
-  sh('git push', { stdio: 'inherit' });
+  run('git push');
   console.log('✓ pushed. CI will rebuild and deploy.');
 }
 
