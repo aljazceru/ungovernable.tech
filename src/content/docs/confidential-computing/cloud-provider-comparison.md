@@ -8,7 +8,6 @@ tags:
   - "oracle"
   - "confidential-computing"
   - "comparison"
-sidebar: {"label":"Confidential Computing Cloud Provider Comparison"}
 ---
 *Which cloud does what, with which silicon, and what you actually get when the marketing page says "confidential."*
 
@@ -107,7 +106,7 @@ Confidential computing reduces the cloud's plaintext-access surface dramatically
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
 - [NVIDIA-GPU-TEE](/confidential-computing/nvidia-gpu-tee)

@@ -8,7 +8,6 @@ tags:
   - "htlc"
   - "financial"
   - "deep-dive"
-sidebar: {"label":"Lightning Network Deep Dive"}
 ---
 *Bitcoin's instant, low-fee, censorship-resistant payment layer — built from bidirectional payment channels, HTLCs, and onion routing.*
 
@@ -163,9 +162,9 @@ Channels need balance on the right side to forward / receive. The 2024-2026 mark
 
 ## Related Files
 
-- [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty)
+- [Overview - Financial Sovereignty](/financial-sovereignty)
 - [Hardware Wallet Guide](/financial-sovereignty/hardware-wallet-guide) — channel state custody
-- [Overview - Mix Networks](/mix-networks/overview-mix-networks) — Tor for node operations
+- [Overview - Mix Networks](/mix-networks) — Tor for node operations
 - [MOC - Composing Primitives](/meta/moc-composing-primitives)
 
 ---

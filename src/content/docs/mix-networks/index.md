@@ -1,5 +1,5 @@
 ---
-title: "Overview - Mix Networks"
+title: "Mix Networks"
 tags:
   - "mix-networks"
   - "tor"
@@ -9,7 +9,7 @@ tags:
   - "anonymity"
   - "privacy"
   - "anonymous-routing"
-sidebar: {"hidden":true}
+sidebar: {"label":"Overview","order":0}
 ---
 *Anonymity systems that defeat traffic analysis — not just content inspection. Complementary to TEEs and encrypted messaging; what encryption leaves visible (who talked to whom, when, how often), mixnets hide.*
 
@@ -333,9 +333,9 @@ Metadata leaks bind you to .eth / Handshake names and Akash/Fluence jobs. Same m
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) — Complements metadata protection
+- [Overview - Encrypted Messaging](/encrypted-messaging) — Complements metadata protection
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference) — Layer with mixnets for complete privacy
-- [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty) — RPC node privacy
+- [Overview - Financial Sovereignty](/financial-sovereignty) — RPC node privacy
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval) — Private queries
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust) — Identity verification
-- [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) — Katzenpost PQ integration
+- [Overview - Post-Quantum Cryptography](/post-quantum) — Katzenpost PQ integration

@@ -1,5 +1,5 @@
 ---
-title: "Overview - Web of Trust"
+title: "Web of Trust"
 tags:
   - "web-of-trust"
   - "wot"
@@ -9,7 +9,6 @@ tags:
   - "openpgp"
   - "gpg"
   - "identity"
-sidebar: {"label":"Web of Trust"}
 ---
 ## Overview
 
@@ -307,11 +306,11 @@ Where:
 
 ## Related Files
 
-- [Overview - Identity & Pseudonymity](/identity/overview-identity-pseudonymity) — Pseudonymous identity and reputation
+- [Overview - Identity & Pseudonymity](/identity) — Pseudonymous identity and reputation
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — Formal DID/VC stacks
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) — PGP usage in messaging, Nostr DMs
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing) — Complementary trust mechanisms
-- [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) — Full Nostr protocol analysis *(planned)*
+- [Overview - Encrypted Messaging](/encrypted-messaging) — PGP usage in messaging, Nostr DMs
+- [Overview - Confidential Computing](/confidential-computing) — Complementary trust mechanisms
+- [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) — Full Nostr protocol analysis
 
 ---
 

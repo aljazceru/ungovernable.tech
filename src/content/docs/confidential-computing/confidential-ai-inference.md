@@ -8,7 +8,6 @@ tags:
   - "gpu-tee"
   - "llm"
   - "privacy"
-sidebar: {"label":"Confidential AI Inference"}
 ---
 *Running machine learning inference where neither the model owner sees the inputs, nor the user sees the weights — and both can cryptographically verify the promise.*
 
@@ -84,7 +83,7 @@ Not TEE-based at all: homomorphic encryption, secure multi-party computation, or
 Run the model on the user's own hardware — Apple Neural Engine, Qualcomm Hexagon, local llama.cpp on M-series / 5090. No confidentiality problem because the user *is* the trusted party.
 
 - **Gold standard for privacy** when model can fit. Always ask "can this run locally?" before reaching for a TEE.
-- See [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing) §Use Cases.
+- See [Overview - Confidential Computing](/confidential-computing) §Use Cases.
 
 ---
 
@@ -208,7 +207,7 @@ Even a perfect TEE doesn't give you a perfect confidential-inference system. Mod
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive)
 - [NVIDIA-GPU-TEE](/confidential-computing/nvidia-gpu-tee)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)

@@ -8,7 +8,6 @@ tags:
   - "tdx"
   - "security"
   - "attacks"
-sidebar: {"label":"TEE Side-Channel Attacks"}
 ---
 *A field guide. The threat model of every TEE-based system begins with: "assuming no new CVEs" — which is a lie. Here is what has broken, what is likely to break, and how to reduce blast radius.*
 
@@ -130,7 +129,7 @@ Most catastrophic. A single compromised attestation signing key can mint quotes 
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
 - [NVIDIA-GPU-TEE](/confidential-computing/nvidia-gpu-tee)

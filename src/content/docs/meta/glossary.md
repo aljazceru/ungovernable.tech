@@ -4,7 +4,6 @@ tags:
   - "meta"
   - "glossary"
   - "terminology"
-sidebar: {"label":"Glossary"}
 ---
 Authoritative definitions for terms used across the vault. New terms must be added here on first use; deprecated terms get a `(deprecated)` marker rather than deletion.
 
@@ -154,7 +153,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **MEV (Maximal Extractable Value)** — Value extracted from transaction ordering by validators/builders. *Originally "Miner Extractable Value"; renamed when Ethereum left PoW.*
 
-**Mixnet** — Network that batches, reorders, and re-encrypts traffic across multiple hops to hide who-talks-to-whom from a global observer. See [Overview - Mix Networks](/mix-networks/overview-mix-networks).
+**Mixnet** — Network that batches, reorders, and re-encrypts traffic across multiple hops to hide who-talks-to-whom from a global observer. See [Overview - Mix Networks](/mix-networks).
 
 **ML-DSA (FIPS 204)** — Module-LWE signature scheme based on Dilithium. Replaces ECDSA / RSA-PSS for post-quantum signatures.
 
@@ -206,7 +205,7 @@ Authoritative definitions for terms used across the vault. New terms must be add
 
 **PoW / PoS** — Proof of Work / Proof of Stake. Sybil-resistance mechanisms for permissionless consensus.
 
-**PQC (Post-Quantum Cryptography)** — Cryptography secure against polynomial-time quantum adversaries. See [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography).
+**PQC (Post-Quantum Cryptography)** — Cryptography secure against polynomial-time quantum adversaries. See [Overview - Post-Quantum Cryptography](/post-quantum).
 
 **PQXDH** — Post-quantum extended X3DH; the hybrid (X25519 + ML-KEM-1024) key agreement used by Signal since 2023.
 

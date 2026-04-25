@@ -7,7 +7,6 @@ tags:
   - "security"
   - "financial"
   - "deep-dive"
-sidebar: {"label":"Hardware Wallet Guide"}
 ---
 *Dedicated signing devices that keep private keys offline and approve transactions out-of-band — the practical foundation of self-custody.*
 
@@ -163,7 +162,7 @@ Lightning's online requirement conflicts with cold storage. Practical patterns:
 
 ## Related Files
 
-- [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty)
+- [Overview - Financial Sovereignty](/financial-sovereignty)
 - [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive)
 - [CoinJoin Implementation](/financial-sovereignty/coinjoin-implementation)
 - [MOC - Threat Models](/meta/moc-threat-models)

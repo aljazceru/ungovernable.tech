@@ -1,12 +1,11 @@
 ---
-title: "Overview - Private Information Retrieval (PIR)"
+title: "Private Information Retrieval (PIR)"
 tags:
   - "pir"
   - "cryptography"
   - "privacy"
   - "homomorphic"
   - "confidential-inference"
-sidebar: {"label":"Private Information Retrieval"}
 ---
 *Fetching item `i` from a public database without the database (or anyone watching it) learning `i`.*
 
@@ -149,7 +148,7 @@ The field continues to advance on multiple fronts:
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
 - [Private-LLM-Inference-Patterns](/confidential-computing/private-llm-inference-patterns)
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 
 ## Primary Sources
 

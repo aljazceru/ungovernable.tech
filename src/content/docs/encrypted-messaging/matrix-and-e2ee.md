@@ -9,7 +9,6 @@ tags:
   - "megolm"
   - "messaging"
   - "deep-dive"
-sidebar: {"label":"Matrix and E2EE"}
 ---
 *Federated, decentralized, eventually-consistent communication — large-group E2EE at the cost of richer metadata exposure than Signal or Nostr.*
 
@@ -176,7 +175,7 @@ Cross-signing + key backup means recovery is possible from a Recovery Key (essen
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Signal Protocol Technical](/encrypted-messaging/signal-protocol-technical)
 - [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)

@@ -1,12 +1,11 @@
 ---
-title: "MOC - Metadata Privacy"
+title: "Metadata Privacy"
 tags:
   - "meta"
   - "moc"
   - "metadata-resistance"
   - "privacy"
   - "overview"
-sidebar: {"label":"MOC - Metadata Privacy"}
 ---
 *A Map of Content for hiding **who, when, where, how often, how big** — the data about communications that often reveals more than the content.*
 
@@ -37,7 +36,7 @@ End-to-end encryption protects content. The packet headers, timing, sizes, and r
 
 ### Network-level mixing
 
-[Overview - Mix Networks](/mix-networks/overview-mix-networks) — Tor, Nym, Katzenpost, I2P. Layered encryption + path multiplicity. Loopix-style mixnets add latency + cover traffic for stronger guarantees against global adversaries.
+[Overview - Mix Networks](/mix-networks) — Tor, Nym, Katzenpost, I2P. Layered encryption + path multiplicity. Loopix-style mixnets add latency + cover traffic for stronger guarantees against global adversaries.
 
 ### Sealed sender / metadata-light envelopes
 
@@ -78,18 +77,18 @@ PIR over a public corpus + FHE-evaluated retrieval scoring + TEE-hosted LLM with
 
 ### "Ephemeral peer ID"
 
-did:peer or per-relationship keypairs so persistent ID doesn't leak across contexts. Foundation of [Overview - Identity & Pseudonymity](/identity/overview-identity-pseudonymity).
+did:peer or per-relationship keypairs so persistent ID doesn't leak across contexts. Foundation of [Overview - Identity & Pseudonymity](/identity).
 
 ---
 
 ## Files Most Relevant
 
-- [Overview - Mix Networks](/mix-networks/overview-mix-networks)
+- [Overview - Mix Networks](/mix-networks)
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval)
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
+- [Overview - Confidential Computing](/confidential-computing)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
-- [Overview - Identity & Pseudonymity](/identity/overview-identity-pseudonymity)
+- [Overview - Identity & Pseudonymity](/identity)
 
 ---
 

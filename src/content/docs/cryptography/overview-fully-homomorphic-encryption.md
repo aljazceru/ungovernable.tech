@@ -1,12 +1,11 @@
 ---
-title: "Overview - Fully Homomorphic Encryption"
+title: "Fully Homomorphic Encryption"
 tags:
   - "fhe"
   - "fully-homomorphic-encryption"
   - "cryptography"
   - "privacy"
   - "homomorphic-encryption"
-sidebar: {"label":"Fully Homomorphic Encryption"}
 ---
 ## Overview
 
@@ -210,7 +209,7 @@ In practice, FHE is often combined with:
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing) — FHE + TEEs for stronger guarantees
+- [Overview - Confidential Computing](/confidential-computing) — FHE + TEEs for stronger guarantees
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval) — Private queries (a key FHE use case)
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs) — Integrity verification (FHE alone does *not* give verifiability)
-- [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) — Lattice assumptions are shared
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge) — Integrity verification (FHE alone does *not* give verifiability)
+- [Overview - Post-Quantum Cryptography](/post-quantum) — Lattice assumptions are shared

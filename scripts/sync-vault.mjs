@@ -29,6 +29,22 @@ function folderToSlug(name) {
     .replace(/^-+|-+$/g, '');
 }
 
+// Curated, human-set section titles. Keyed by folderSlug.
+const SECTION_TITLES = {
+  'meta': 'Meta',
+  'confidential-computing': 'Confidential Computing',
+  'cryptography': 'Cryptography',
+  'decentralized-dns': 'Decentralized DNS',
+  'decentralized-compute': 'Decentralized Compute',
+  'off-grid-networks': 'Off-Grid Networks',
+  'financial-sovereignty': 'Financial Sovereignty',
+  'encrypted-messaging': 'Encrypted Messaging',
+  'mix-networks': 'Mix Networks',
+  'zero-knowledge': 'Zero-Knowledge',
+  'post-quantum': 'Post-Quantum',
+  'identity': 'Identity',
+};
+
 // File basename (no .md) → slug
 function fileToSlug(name) {
   return name
@@ -41,8 +57,36 @@ function fileToSlug(name) {
 
 // Folders we skip entirely
 const SKIP_DIRS = new Set(['Templates', 'Sources', '.obsidian', '.trash']);
-// Files we skip
-const SKIP_FILES = new Set(['README.md']);
+// Files we skip by basename
+const SKIP_FILES = new Set([
+  'README.md',
+  'CHANGELOG.md',           // requested: drop from Meta
+  'Research Methodology.md', // requested: drop from Meta
+]);
+// Statuses that mark unfinished work — never publish.
+const SKIP_STATUSES = new Set(['draft', 'stub', 'planned', 'todo', 'wip', 'in-progress']);
+
+function cleanTitle(s) {
+  return String(s || '')
+    .replace(/^\d+\s*[-—–]\s*/, '')        // "01 — Foo" → "Foo"
+    .replace(/^Overview\s*[-:–—]\s*/i, '') // "Overview - Foo" → "Foo"
+    .replace(/^MOC\s*[-:–—]\s*/i, '')      // "MOC - Foo" → "Foo"
+    .trim();
+}
+
+// Normalize Obsidian quirks the standard markdown renderer can't handle.
+// - `|| ... |` table rows (Obsidian "Advanced Tables" extension) → `| ... |`
+function normalizeMarkdown(src) {
+  return src
+    .split('\n')
+    .map((line) => {
+      if (/^\s*\|\|/.test(line)) {
+        return line.replace(/^(\s*)\|\|/, '$1|').replace(/\|\|\s*$/, '|');
+      }
+      return line;
+    })
+    .join('\n');
+}
 
 async function walk(dir, acc = []) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -126,84 +170,104 @@ async function main() {
   const files = await walk(VAULT);
   const mdFiles = files.filter((f) => f.toLowerCase().endsWith('.md'));
 
-  // Build basename → target path map for wikilink resolution
-  const linkMap = new Map();
-  const plan = [];
-
+  // ── Pass 1: parse frontmatter for every file, classify, filter ──────────────
+  // For each folder, choose the section-index source. Prefer `Overview - X.md`
+  // (richer content in this vault), fall back to `_Index.md`. Other files are
+  // regular pages.
+  const parsed = [];
   for (const abs of mdFiles) {
     const rel = relative(VAULT, abs);
     const parts = rel.split('/');
     const fileName = parts.pop();
     if (SKIP_FILES.has(fileName)) continue;
     if (parts.some((p) => SKIP_DIRS.has(p))) continue;
-    if (fileName.startsWith('_')) continue; // _Index.md handled below as folder index
 
-    const folderSlug = parts.length ? folderToSlug(parts[0]) : '';
-    const fileSlug = fileToSlug(fileName);
-    const target = folderSlug ? `${folderSlug}/${fileSlug}` : fileSlug;
-
-    const baseKey = fileName.replace(/\.md$/i, '');
-    linkMap.set(baseKey, '/' + target);
-    linkMap.set(baseKey.toLowerCase(), '/' + target);
-
-    plan.push({ abs, rel, folderSlug, fileSlug, target, fileName });
-  }
-
-  // Also map _Index.md files to their folder root
-  for (const abs of mdFiles) {
-    const rel = relative(VAULT, abs);
-    const parts = rel.split('/');
-    if (parts.length === 2 && parts[1] === '_Index.md') {
-      const folderSlug = folderToSlug(parts[0]);
-      linkMap.set(parts[0], '/' + folderSlug);
-    }
-  }
-
-  let written = 0;
-  const copies = [];
-  for (const item of plan) {
-    const raw = await readFile(item.abs, 'utf8');
+    const raw = await readFile(abs, 'utf8');
     const { data, body } = parseFrontmatter(raw);
 
-    // Rewrite wikilinks: [[Page]] or [[Page|Alt]]
-    let content = body.replace(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g, (_m, page, alt) => {
-      const key = page.trim();
-      const target = linkMap.get(key) || linkMap.get(key.toLowerCase());
-      const label = (alt || page).trim();
-      return target ? `[${label}](${target})` : `**${label}**`;
-    });
+    if (data.status && SKIP_STATUSES.has(String(data.status).toLowerCase())) continue;
 
-    // Drop the H1 if it duplicates the title (Starlight renders title from frontmatter)
-    const rawTitle = data.title || item.fileName.replace(/\.md$/i, '').replace(/[-_]/g, ' ');
-    const title = rawTitle.replace(/^\d+\s*[-—–]\s*/, '').trim();
-    content = content.replace(/^\s*#\s+.+\n+/, '');
+    const folder = parts[0] || '';
+    const folderSlug = folder ? folderToSlug(folder) : '';
+    parsed.push({ abs, rel, folder, folderSlug, fileName, data, body });
+  }
 
-    // Compute a clean sidebar label that strips noisy prefixes.
-    // "Overview - Confidential Computing" → "Overview"
-    // "01 — Confidential Computing"        → "Confidential Computing"
-    // Plain titles unchanged.
-    const folderTitle = item.folderSlug.replace(/-/g, ' ');
-    let sidebarLabel = title
-      .replace(/^Overview\s*[-:–—]\s*/i, '')
-      .replace(/\s*\(.*?\)\s*$/, '') // drop trailing parentheticals
-      .trim();
-    if (!sidebarLabel) sidebarLabel = title;
+  // Per-folder index selection. Priority:
+  //   1. `Overview - <FolderTopic>.md`  (matches the section's actual subject)
+  //   2. `_Index.md`                    (vault-style section landing)
+  // Other `Overview - X.md` files (where X is a sub-topic, not the folder) are
+  // treated as regular pages — they live as their own entry in the sidebar.
+  const norm = (s) =>
+    s.toLowerCase().replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const indexByFolder = new Map(); // folderSlug → parsed item
+  const sectionIndexAbs = new Set();
+  for (const item of parsed) {
+    if (!item.folderSlug) continue;
+    const base = item.fileName.replace(/\.md$/i, '');
+    const m = base.match(/^Overview\s*[-:–—]\s*(.+)$/i);
+    if (!m) continue;
+    const folderTopic = norm(item.folder.replace(/^\d+[-_]/, '').replace(/^\d+\s*[—–]\s*/, ''));
+    const fileTopic = norm(m[1]);
+    // Match if the file's topic equals or starts with the folder topic.
+    // "Post-Quantum" folder accepts "Overview - Post-Quantum Cryptography".
+    // "Identity" folder accepts "Overview - Identity & Pseudonymity".
+    const matches = fileTopic === folderTopic || fileTopic.startsWith(folderTopic + ' ');
+    if (matches && !indexByFolder.has(item.folderSlug)) {
+      indexByFolder.set(item.folderSlug, item);
+    }
+  }
+  for (const item of parsed) {
+    if (!item.folderSlug) continue;
+    if (item.fileName === '_Index.md' && !indexByFolder.has(item.folderSlug)) {
+      indexByFolder.set(item.folderSlug, item);
+    }
+  }
+  for (const v of indexByFolder.values()) sectionIndexAbs.add(v.abs);
 
-    // Hide redundant "Overview - <FolderName>" files — _Index.md serves as the
-    // section's canonical overview, so listing both is duplication.
-    const isRedundantOverview =
-      /^Overview\s*[-:–—]/i.test(title) &&
-      title.replace(/^Overview\s*[-:–—]\s*/i, '').trim().toLowerCase() === folderTitle;
+  // ── Pass 2: build linkMap so wikilinks can resolve ──────────────────────────
+  const linkMap = new Map();
+  const plan = [];
+  for (const item of parsed) {
+    const baseKey = item.fileName.replace(/\.md$/i, '');
+    if (sectionIndexAbs.has(item.abs)) {
+      linkMap.set(baseKey, '/' + item.folderSlug);
+      linkMap.set(baseKey.toLowerCase(), '/' + item.folderSlug);
+      // Also map the parent folder name to the section
+      linkMap.set(item.folder, '/' + item.folderSlug);
+      continue;
+    }
+    if (item.fileName === '_Index.md') continue; // unused index
+    if (item.fileName.startsWith('_')) continue;
 
-    const sidebar = isRedundantOverview
-      ? { hidden: true }
-      : { label: sidebarLabel };
+    const fileSlug = fileToSlug(item.fileName);
+    const target = item.folderSlug ? `${item.folderSlug}/${fileSlug}` : fileSlug;
+    linkMap.set(baseKey, '/' + target);
+    linkMap.set(baseKey.toLowerCase(), '/' + target);
+    plan.push({ ...item, fileSlug, target });
+  }
+
+  const rewriteWikilinks = (s) =>
+    normalizeMarkdown(s).replace(
+      /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g,
+      (_m, page, alt) => {
+        const key = page.trim();
+        const target = linkMap.get(key) || linkMap.get(key.toLowerCase());
+        const label = (alt || page).trim();
+        return target ? `[${label}](${target})` : `**${label}**`;
+      },
+    );
+
+  // ── Pass 3: render regular pages ────────────────────────────────────────────
+  let written = 0;
+  for (const item of plan) {
+    const content = rewriteWikilinks(item.body).replace(/^\s*#\s+.+\n+/, '');
+    const title = cleanTitle(item.data.title) ||
+      cleanTitle(item.fileName.replace(/\.md$/i, '').replace(/[-_]/g, ' '));
 
     const out = {
       title,
-      description: data.description || undefined,
-      ...(data.tags && data.tags.length ? { tags: data.tags } : {}),
-      sidebar,
+      description: item.data.description || undefined,
+      ...(item.data.tags && item.data.tags.length ? { tags: item.data.tags } : {}),
     };
 
     const outAbs = join(OUT, item.target + '.md');
@@ -212,39 +276,26 @@ async function main() {
     written++;
   }
 
-  // Write category index pages from _Index.md files
-  for (const abs of mdFiles) {
-    const rel = relative(VAULT, abs);
-    const parts = rel.split('/');
-    if (parts.length === 2 && parts[1] === '_Index.md') {
-      const folderSlug = folderToSlug(parts[0]);
-      const raw = await readFile(abs, 'utf8');
-      const { data, body } = parseFrontmatter(raw);
-      const content = body
-        .replace(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g, (_m, page, alt) => {
-          const key = page.trim();
-          const target = linkMap.get(key) || linkMap.get(key.toLowerCase());
-          const label = (alt || page).trim();
-          return target ? `[${label}](${target})` : `**${label}**`;
-        })
-        .replace(/^\s*#\s+.+\n+/, '');
-      const rawTitle = data.title || parts[0].replace(/^\d+\s*[-_]?\s*/, '').trim();
-      const title = rawTitle.replace(/^\d+\s*[-—–]\s*/, '').trim();
-      const outAbs = join(OUT, folderSlug, 'index.md');
-      await mkdir(dirname(outAbs), { recursive: true });
-      await writeFile(
-        outAbs,
-        stringifyFrontmatter({
-          title,
-          ...(data.tags && data.tags.length ? { tags: data.tags } : {}),
-          sidebar: { label: 'Overview', order: 0 },
-        }) +
-          content.trimStart() +
-          '\n',
-        'utf8',
-      );
-      written++;
-    }
+  // ── Pass 4: render section index pages ──────────────────────────────────────
+  for (const item of indexByFolder.values()) {
+    const content = rewriteWikilinks(item.body).replace(/^\s*#\s+.+\n+/, '');
+    // Section landing title = the folder's clean name (drop "Overview - " and
+    // numeric prefixes), so the page heading reads "Confidential Computing"
+    // rather than "Overview - Confidential Computing" or "01 — ...".
+    // Section title comes from the curated map — small, deliberate, correct.
+    const title = SECTION_TITLES[item.folderSlug] || cleanTitle(item.data.title);
+    const outAbs = join(OUT, item.folderSlug, 'index.md');
+    await mkdir(dirname(outAbs), { recursive: true });
+    await writeFile(
+      outAbs,
+      stringifyFrontmatter({
+        title,
+        ...(item.data.tags && item.data.tags.length ? { tags: item.data.tags } : {}),
+        sidebar: { label: 'Overview', order: 0 },
+      }) + content.trimStart() + '\n',
+      'utf8',
+    );
+    written++;
   }
 
   console.log(`Synced ${written} pages from ${VAULT}`);

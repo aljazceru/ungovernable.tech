@@ -7,7 +7,6 @@ tags:
   - "attestation"
   - "privacy"
   - "tee"
-sidebar: {"label":"Private LLM Inference Patterns"}
 ---
 *Recipes — not frameworks. The patterns below compose TEEs, attestation, KMS, and transparency logs into concrete deployable services with clear threat models.*
 

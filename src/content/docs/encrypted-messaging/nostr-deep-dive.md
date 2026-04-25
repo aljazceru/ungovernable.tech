@@ -8,7 +8,6 @@ tags:
   - "social"
   - "deep-dive"
   - "censorship-resistance"
-sidebar: {"label":"Nostr Deep Dive"}
 ---
 *"Notes and Other Stuff Transmitted by Relays" — a minimalist, pubkey-rooted social protocol with no accounts, no federation negotiation, and no central kill switch.*
 
@@ -190,12 +189,12 @@ This couples Nostr's identity layer with Bitcoin's payment layer — the only ma
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Signal Protocol Technical](/encrypted-messaging/signal-protocol-technical)
 - [Matrix and E2EE](/encrypted-messaging/matrix-and-e2ee)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)
 - [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive) — zaps integration
-- [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns) — NIP-05 over PKARR
+- [Overview - Decentralized DNS](/decentralized-dns) — NIP-05 over PKARR
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust)
 
 ---

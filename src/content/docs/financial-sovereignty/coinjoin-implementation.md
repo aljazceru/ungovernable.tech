@@ -9,7 +9,6 @@ tags:
   - "joinmarket"
   - "deep-dive"
   - "financial"
-sidebar: {"label":"CoinJoin Implementation"}
 ---
 *Collaborative Bitcoin transactions that break the common-input-ownership heuristic — the single most important on-chain privacy technique.*
 
@@ -156,7 +155,7 @@ Wallet hygiene matters as much as the join itself.
 
 ## Related Files
 
-- [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty)
+- [Overview - Financial Sovereignty](/financial-sovereignty)
 - [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive)
 - [MOC - Metadata Privacy](/meta/moc-metadata-privacy)
 

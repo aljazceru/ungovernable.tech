@@ -8,7 +8,6 @@ tags:
   - "tee"
   - "trustee"
   - "kbs"
-sidebar: {"label":"Confidential Containers"}
 ---
 *The CNCF project that makes confidential VMs look like regular Kubernetes pods — and an attestation-gated secret-release service that makes them actually safe.*
 
@@ -150,7 +149,7 @@ Caveat: the OCI registry sees manifests, tags, and layer sizes. Traffic analysis
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)

@@ -8,7 +8,6 @@ tags:
   - "blackwell"
   - "confidential-computing"
   - "confidential-ai"
-sidebar: {"label":"NVIDIA GPU TEE"}
 ---
 *The only production GPU confidential-computing stack as of 2026. Everything "confidential LLM inference on frontier models" is built on it.*
 

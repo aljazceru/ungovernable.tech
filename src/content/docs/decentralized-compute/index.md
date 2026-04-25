@@ -1,5 +1,5 @@
 ---
-title: "Overview - Decentralized Compute"
+title: "Decentralized Compute"
 tags:
   - "decentralized-compute"
   - "akash"
@@ -11,7 +11,7 @@ tags:
   - "aethir"
   - "nosana"
   - "gensyn"
-sidebar: {"hidden":true}
+sidebar: {"label":"Overview","order":0}
 ---
 *Permissionless markets for CPU, GPU, and (increasingly) confidential-GPU time. The supply side of an internet where you can rent computation without a cloud account, and — when combined with TEEs — without trusting the node operator either.*
 
@@ -154,7 +154,7 @@ See [Confidential-AI-Inference](/confidential-computing/confidential-ai-inferenc
 - [NVIDIA-GPU-TEE](/confidential-computing/nvidia-gpu-tee)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
 - [Confidential-Containers](/confidential-computing/confidential-containers)
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs)
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge)
 
 ## Primary Sources
 

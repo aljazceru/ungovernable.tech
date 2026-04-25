@@ -1,5 +1,5 @@
 ---
-title: "Overview - Post-Quantum Cryptography"
+title: "Post-Quantum"
 tags:
   - "pqc"
   - "post-quantum"
@@ -7,7 +7,7 @@ tags:
   - "ml-dsa"
   - "slh-dsa"
   - "nist"
-sidebar: {"label":"Post-Quantum Cryptography"}
+sidebar: {"label":"Overview","order":0}
 ---
 *Replacing RSA and elliptic-curve cryptography with algorithms that survive a cryptographically relevant quantum computer.*
 
@@ -140,17 +140,17 @@ The reference implementation library for NIST algorithms. Actively maintained by
 
 ## Updated Deployment Status (April 2026)
 
-|| Protocol | Status | Details |
-||---|---|---|
-|| **TLS 1.3** | ✅ Hybrid in production | Chrome, Firefox, Safari (iOS 26+) advertise X25519MLKEM768; Cloudflare, Google, AWS backends accept; **>60% of human TLS traffic** uses hybrid ML-KEM (Cloudflare Radar) |
-|| **SSH** | 🟡 In progress | OpenSSH 9.0+ supports sntrup761; ML-KEM hybrid in testing |
-|| **Signal (PQXDH)** | ✅ Production since 2023 | Hybrid X3DH + ML-KEM-1024 |
-|| **Apple iMessage (PQ3)** | ✅ Production since 2024 | Post-quantum ratcheting |
-|| **GnuPG** | 🟡 Available since v2.5.1 (Sept 2024) | ML-KEM support, not yet default |
-|| **IPsec (Cloudflare)** | ✅ Production March 2026 | First major deployment of hybrid ML-KEM for IPsec/IKEv2; draft-ietf-ipsecme-ikev2-mlkem |
-|| **WireGuard** | 🟡 In progress | PQ kernel patches pending; Surfshark offers PQ protection; NordVPN shipped Sept 2024 across all platforms |
-|| **OpenVPN** | 🟡 In progress | RFC 8784 (MPK) implementation in progress |
-|| **VPN (Enterprise)** | 🟡 In progress | Palo Alto Networks, Mullvad rolling out Quantum Safe VPN |
+| Protocol | Status | Details |
+|---|---|---|
+| **TLS 1.3** | ✅ Hybrid in production | Chrome, Firefox, Safari (iOS 26+) advertise X25519MLKEM768; Cloudflare, Google, AWS backends accept; **>60% of human TLS traffic** uses hybrid ML-KEM (Cloudflare Radar) |
+| **SSH** | 🟡 In progress | OpenSSH 9.0+ supports sntrup761; ML-KEM hybrid in testing |
+| **Signal (PQXDH)** | ✅ Production since 2023 | Hybrid X3DH + ML-KEM-1024 |
+| **Apple iMessage (PQ3)** | ✅ Production since 2024 | Post-quantum ratcheting |
+| **GnuPG** | 🟡 Available since v2.5.1 (Sept 2024) | ML-KEM support, not yet default |
+| **IPsec (Cloudflare)** | ✅ Production March 2026 | First major deployment of hybrid ML-KEM for IPsec/IKEv2; draft-ietf-ipsecme-ikev2-mlkem |
+| **WireGuard** | 🟡 In progress | PQ kernel patches pending; Surfshark offers PQ protection; NordVPN shipped Sept 2024 across all platforms |
+| **OpenVPN** | 🟡 In progress | RFC 8784 (MPK) implementation in progress |
+| **VPN (Enterprise)** | 🟡 In progress | Palo Alto Networks, Mullvad rolling out Quantum Safe VPN |
 
 ---
 
@@ -170,9 +170,9 @@ The "harvest now, decrypt later" threat is immediate. Any data with secrecy requ
 ## Related Files
 
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption)
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs)
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 
 ## Primary Sources
 

@@ -8,7 +8,6 @@ tags:
   - "tdx"
   - "rats"
   - "remote-attestation"
-sidebar: {"label":"Attestation Architecture"}
 ---
 *Attestation is the only thing that makes a TEE useful. Without it, "encrypted memory" is just a nicer way to run the same trusted-operator model you had before.*
 
@@ -166,7 +165,7 @@ Two or more independent TEEs (different vendors: TDX + SEV-SNP) must both attest
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [TEE-Technologies-Deep-Dive](/confidential-computing/tee-technologies-deep-dive)
 - [NVIDIA-GPU-TEE](/confidential-computing/nvidia-gpu-tee)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)

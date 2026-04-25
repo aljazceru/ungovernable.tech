@@ -1,5 +1,5 @@
 ---
-title: "Overview - Identity & Pseudonymity"
+title: "Identity"
 tags:
   - "identity"
   - "pseudonymity"
@@ -7,7 +7,7 @@ tags:
   - "reputation"
   - "proof-of-personhood"
   - "sybil-resistance"
-sidebar: {"label":"Identity & Pseudonymity"}
+sidebar: {"label":"Overview","order":0}
 ---
 *Identity rooted in cryptographic keys rather than institutional verification — where pseudonymity is a feature, not a bug, and reputation emerges from behavior, not credentials.*
 
@@ -283,10 +283,10 @@ Emerging research combines ZK proofs with minimal verification:
 
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — Formal DID/VC systems
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust) — Trust graph algorithms, OpenPGP WoT
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) — Nostr DMs, E2EE
-- [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns) — NIP-05, ENS integration
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs) — ZK reputation, selective disclosure
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing) — TEE-based identity verification
+- [Overview - Encrypted Messaging](/encrypted-messaging) — Nostr DMs, E2EE
+- [Overview - Decentralized DNS](/decentralized-dns) — NIP-05, ENS integration
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge) — ZK reputation, selective disclosure
+- [Overview - Confidential Computing](/confidential-computing) — TEE-based identity verification
 
 ---
 

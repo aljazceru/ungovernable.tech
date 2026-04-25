@@ -9,7 +9,6 @@ tags:
   - "mls"
   - "messaging"
   - "deep-dive"
-sidebar: {"label":"Signal Protocol Technical"}
 ---
 *The reference for asynchronous end-to-end encryption — forward secrecy, post-compromise security, deniability, and now post-quantum hybrid key exchange.*
 
@@ -150,11 +149,11 @@ These motivate the federated/decentralized alternatives: [Matrix and E2EE](/encr
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)
 - [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) — alternative trust model
 - [Matrix and E2EE](/encrypted-messaging/matrix-and-e2ee) — federated alternative
-- [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) — PQXDH context
+- [Overview - Post-Quantum Cryptography](/post-quantum) — PQXDH context
 
 ---
 

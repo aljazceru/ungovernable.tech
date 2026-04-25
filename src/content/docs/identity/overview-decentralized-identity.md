@@ -1,5 +1,5 @@
 ---
-title: "Overview - Decentralized Identity"
+title: "Decentralized Identity"
 tags:
   - "did"
   - "ssi"
@@ -7,7 +7,6 @@ tags:
   - "identity"
   - "zk"
   - "privacy"
-sidebar: {"label":"Decentralized Identity"}
 ---
 *Identifiers, credentials, and reputation that belong to the user — not to platforms, not to governments, not to the issuer after the fact.*
 
@@ -113,10 +112,10 @@ Ledger / Infra (Bitcoin/ION, Ethereum/ENS, Sovrin, centralized PKI)
 
 ## Related Files
 
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs)
-- [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography)
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge)
+- [Overview - Post-Quantum Cryptography](/post-quantum)
 - [Attestation-Architecture](/confidential-computing/attestation-architecture)
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 
 ## Primary Sources
 

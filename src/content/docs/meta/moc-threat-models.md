@@ -1,11 +1,10 @@
 ---
-title: "MOC - Threat Models"
+title: "Threat Models"
 tags:
   - "meta"
   - "moc"
   - "threat-model"
   - "overview"
-sidebar: {"label":"MOC - Threat Models"}
 ---
 *A Map of Content indexing recurring adversaries, trust assumptions, and failure modes across the vault.*
 
@@ -17,15 +16,15 @@ sidebar: {"label":"MOC - Threat Models"}
 
 | Adversary | Capability | Where it appears |
 |-----------|------------|------------------|
-| **Global passive observer** | Wire taps at IXPs, ISP backbones | [Overview - Mix Networks](/mix-networks/overview-mix-networks), [MOC - Metadata Privacy](/meta/moc-metadata-privacy) |
-| **Cloud provider / hypervisor** | Read VM RAM, modify boot, snapshot disk | [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing), [Cloud-Provider-Comparison](/confidential-computing/cloud-provider-comparison) |
-| **Compromised relay / node** | Selective forwarding, traffic injection, dropping | [Overview - Mix Networks](/mix-networks/overview-mix-networks), [Overview - Decentralized Compute](/decentralized-compute/overview-decentralized-compute) |
+| **Global passive observer** | Wire taps at IXPs, ISP backbones | [Overview - Mix Networks](/mix-networks), [MOC - Metadata Privacy](/meta/moc-metadata-privacy) |
+| **Cloud provider / hypervisor** | Read VM RAM, modify boot, snapshot disk | [Overview - Confidential Computing](/confidential-computing), [Cloud-Provider-Comparison](/confidential-computing/cloud-provider-comparison) |
+| **Compromised relay / node** | Selective forwarding, traffic injection, dropping | [Overview - Mix Networks](/mix-networks), [Overview - Decentralized Compute](/decentralized-compute) |
 | **Compromised hardware vendor** | Sign attestation reports for arbitrary code | [TEE-Side-Channel-Attacks](/confidential-computing/tee-side-channel-attacks), [Attestation-Architecture](/confidential-computing/attestation-architecture) |
-| **Court order / subpoena** | Compel logs, key disclosure, code injection | [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging), [MOC - Censorship Resistance](/meta/moc-censorship-resistance) |
+| **Court order / subpoena** | Compel logs, key disclosure, code injection | [Overview - Encrypted Messaging](/encrypted-messaging), [MOC - Censorship Resistance](/meta/moc-censorship-resistance) |
 | **Supply chain attacker** | Inject backdoor at build / package time | reproducible builds, transparency logs |
-| **51% / Sybil attacker** | Outvote consensus, censor blocks | [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty), [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns) |
-| **Malicious user device** | Full read; export keys | [Overview - Identity & Pseudonymity](/identity/overview-identity-pseudonymity), hardware-wallet patterns |
-| **Quantum adversary (future)** | Solve DLog/factoring | [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) |
+| **51% / Sybil attacker** | Outvote consensus, censor blocks | [Overview - Financial Sovereignty](/financial-sovereignty), [Overview - Decentralized DNS](/decentralized-dns) |
+| **Malicious user device** | Full read; export keys | [Overview - Identity & Pseudonymity](/identity), hardware-wallet patterns |
+| **Quantum adversary (future)** | Solve DLog/factoring | [Overview - Post-Quantum Cryptography](/post-quantum) |
 
 ---
 
@@ -63,10 +62,10 @@ When you see a system claim a property, ask which of these it requires:
 |------|-----------------|
 | [TEE-Side-Channel-Attacks](/confidential-computing/tee-side-channel-attacks) | Hardware side-channels (Foreshadow, CacheWarp, Hertzbleed, ÆPIC) |
 | [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference) | Inference-specific leaks, oracle adversaries |
-| [Overview - Mix Networks](/mix-networks/overview-mix-networks) | Global observer, compromised mixes |
-| [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) | Court order, server compromise, social-graph leak |
-| [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty) | Custodial counterparty, chain analysis |
-| [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns) | Registrar coercion, DHT poisoning |
+| [Overview - Mix Networks](/mix-networks) | Global observer, compromised mixes |
+| [Overview - Encrypted Messaging](/encrypted-messaging) | Court order, server compromise, social-graph leak |
+| [Overview - Financial Sovereignty](/financial-sovereignty) | Custodial counterparty, chain analysis |
+| [Overview - Decentralized DNS](/decentralized-dns) | Registrar coercion, DHT poisoning |
 | [Overview - Web of Trust](/cryptography/overview-web-of-trust) | Sybil, key compromise, signing equivocation |
 
 ---

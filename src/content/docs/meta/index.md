@@ -1,5 +1,5 @@
 ---
-title: "Meta — README, Glossary, and Methods"
+title: "Meta"
 tags:
   - "meta"
   - "readme"
@@ -44,7 +44,7 @@ Comprehensive definitions of all key terms:
 | **Financial** | Lightning, CoinJoin, Hardware wallets |
 | **Identity** | DID, VC, SSI, WOT |
 
-### [Research Methodology](/meta/research-methodology)
+### **Research Methodology**
 
 Systematic approach to evaluating privacy and decentralization claims:
 
@@ -75,16 +75,16 @@ This Meta section connects to all other vault sections:
 
 | Section | Focus | Landing page |
 |---------|-------|--------------|
-| 01 — Confidential Computing | TEEs, Hardware Security | [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing) |
+| 01 — Confidential Computing | TEEs, Hardware Security | [Overview - Confidential Computing](/confidential-computing) |
 | 02 — Cryptography | FHE, ZK, PIR, WoT | [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption) |
-| 03 — Decentralized DNS | DNS alternatives | [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns) |
-| 04 — Decentralized Compute | P2P markets | [Overview - Decentralized Compute](/decentralized-compute/overview-decentralized-compute) |
-| 05 — Off-Grid Networks | Mesh, DTN | [Overview - Off-Grid Networks](/off-grid-networks/overview-off-grid-networks) |
-| 06 — Financial Sovereignty | Bitcoin tech | [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty) |
-| 07 — Encrypted Messaging | E2EE protocols | [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) |
-| 08 — Mix Networks | Tor, I2P, Nym | [Overview - Mix Networks](/mix-networks/overview-mix-networks) |
-| 09 — Zero-Knowledge | ZK proofs | [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs) |
-| 10 — Post-Quantum | NIST algorithms | [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) |
+| 03 — Decentralized DNS | DNS alternatives | [Overview - Decentralized DNS](/decentralized-dns) |
+| 04 — Decentralized Compute | P2P markets | [Overview - Decentralized Compute](/decentralized-compute) |
+| 05 — Off-Grid Networks | Mesh, DTN | [Overview - Off-Grid Networks](/off-grid-networks) |
+| 06 — Financial Sovereignty | Bitcoin tech | [Overview - Financial Sovereignty](/financial-sovereignty) |
+| 07 — Encrypted Messaging | E2EE protocols | [Overview - Encrypted Messaging](/encrypted-messaging) |
+| 08 — Mix Networks | Tor, I2P, Nym | [Overview - Mix Networks](/mix-networks) |
+| 09 — Zero-Knowledge | ZK proofs | [Overview - Zero-Knowledge Proofs](/zero-knowledge) |
+| 10 — Post-Quantum | NIST algorithms | [Overview - Post-Quantum Cryptography](/post-quantum) |
 | 11 — Identity | SSI, DIDs, pseudonymity | [Overview - Decentralized Identity](/identity/overview-decentralized-identity) |
 
 ---
@@ -109,6 +109,6 @@ Every file must have:
 
 ### Next Steps
 
-- Review [Research Methodology](/meta/research-methodology) before adding content
+- Review **Research Methodology** before adding content
 - Use existing ungovernable.tech pages as content sources
 - Link new content to existing files via wikilinks

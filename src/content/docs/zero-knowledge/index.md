@@ -1,5 +1,5 @@
 ---
-title: "Overview - Zero-Knowledge Proofs"
+title: "Zero-Knowledge"
 tags:
   - "zk"
   - "zk-snark"
@@ -7,7 +7,7 @@ tags:
   - "bulletproofs"
   - "zkml"
   - "cryptography"
-sidebar: {"label":"Zero-Knowledge Proofs"}
+sidebar: {"label":"Overview","order":0}
 ---
 *Prove a statement is true without revealing anything beyond its truth.*
 
@@ -109,7 +109,7 @@ A mature confidential-inference stack may use both: TEE for fast private inferen
 
 ## Related Files
 
-- [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+- [Overview - Confidential Computing](/confidential-computing)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption)
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval)

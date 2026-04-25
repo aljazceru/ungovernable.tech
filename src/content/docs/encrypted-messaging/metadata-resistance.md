@@ -8,7 +8,6 @@ tags:
   - "deep-dive"
   - "messaging"
   - "privacy"
-sidebar: {"label":"Metadata Resistance"}
 ---
 *Encryption hides what you say. Metadata resistance hides who you said it to, when, and how often. Few systems take it seriously; the ones that do trade convenience for it.*
 
@@ -96,7 +95,7 @@ DApp-friendly P2P messaging over libp2p with relay-style propagation. Full nodes
 | Per-relationship queue (SimpleX) | Architecturally | No | Medium |
 | Constant-rate cover traffic | From timing analysis | Yes | High |
 
-True timing-attack resistance still requires constant-rate cover traffic — only Loopix-derived mixnets ([Overview - Mix Networks](/mix-networks/overview-mix-networks)) and academic systems (Vuvuzela, Pung) provide it for messaging.
+True timing-attack resistance still requires constant-rate cover traffic — only Loopix-derived mixnets ([Overview - Mix Networks](/mix-networks)) and academic systems (Vuvuzela, Pung) provide it for messaging.
 
 ---
 
@@ -161,10 +160,10 @@ For ultra-high-stakes (whistleblowing, journalism in repressive regimes), the re
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Signal Protocol Technical](/encrypted-messaging/signal-protocol-technical)
 - [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) — NIP-17 metadata properties
-- [Overview - Mix Networks](/mix-networks/overview-mix-networks) — strongest metadata defense
+- [Overview - Mix Networks](/mix-networks) — strongest metadata defense
 - [MOC - Metadata Privacy](/meta/moc-metadata-privacy)
 
 ---

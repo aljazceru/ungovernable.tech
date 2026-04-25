@@ -1,5 +1,5 @@
 ---
-title: "Overview - Decentralized DNS"
+title: "Decentralized DNS"
 tags:
   - "dns"
   - "ens"
@@ -9,7 +9,7 @@ tags:
   - "decentralized"
   - "pubky"
   - "gns"
-sidebar: {"hidden":true}
+sidebar: {"label":"Overview","order":0}
 ---
 *Naming systems that don't depend on ICANN, a TLD registrar, or a CA — because seizure, sanctions, and content-based takedowns flow through exactly those choke points.*
 
@@ -252,8 +252,8 @@ A confidential LLM endpoint whose domain can be seized is not actually uncensora
 
 ## Evidence at a Glance
 
-|| System | Type | TLD | Governance | Maturity | Status |
-||--------|------|-----|------------|----------|--------|
+| System | Type | TLD | Governance | Maturity | Status |
+|--------|------|-----|------------|----------|--------|
 | **ENS** | Blockchain | .eth | DAO | Mature | Active, 2025-26 stable |
 | **Handshake** | Blockchain | Any | Permissionless | Niche | Active, low adoption |
 | **Namecoin** | Blockchain | .bit | Permissionless | Legacy | Running |
@@ -300,10 +300,10 @@ A confidential LLM endpoint whose domain can be seized is not actually uncensora
 
 ## Related Files
 
-- [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging)
+- [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
-- [Overview - Mix Networks](/mix-networks/overview-mix-networks)
+- [Overview - Mix Networks](/mix-networks)
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust)
 
 ---

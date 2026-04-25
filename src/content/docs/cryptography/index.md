@@ -29,8 +29,8 @@ Decentralized trust models — OpenPGP WoT and Nostr social-graph WoT.
 
 These topics live in their own sections but are cryptography-adjacent:
 
-- [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs) — under [09 - Zero-Knowledge](../09-Zero-Knowledge)
-- [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) — under [10 - Post-Quantum](../10-Post-Quantum)
+- [Overview - Zero-Knowledge Proofs](/zero-knowledge) — under [09 - Zero-Knowledge](../09-Zero-Knowledge)
+- [Overview - Post-Quantum Cryptography](/post-quantum) — under [10 - Post-Quantum](../10-Post-Quantum)
 - Bulletproofs, BBS+, threshold signatures — see [Glossary](/meta/glossary)
 
 ---

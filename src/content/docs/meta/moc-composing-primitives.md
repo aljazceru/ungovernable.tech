@@ -1,11 +1,10 @@
 ---
-title: "MOC - Composing Primitives"
+title: "Composing Primitives"
 tags:
   - "meta"
   - "moc"
   - "patterns"
   - "overview"
-sidebar: {"label":"MOC - Composing Primitives"}
 ---
 *A Map of Content for building real systems by stacking the cryptographic and network primitives in the vault. No single primitive solves everything; composition is where security comes from.*
 
@@ -62,7 +61,7 @@ Optional: ZK proof of correct database state
 Transport: Tor or Nym
 ```
 
-Files: [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval) · [Overview - Mix Networks](/mix-networks/overview-mix-networks)
+Files: [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval) · [Overview - Mix Networks](/mix-networks)
 
 ### Censorship-resistant payment
 
@@ -76,7 +75,7 @@ Onion-routed HTLC payment
 Receiver: BOLT12 or LNURL with attested proof
 ```
 
-Files: [Overview - Financial Sovereignty](/financial-sovereignty/overview-financial-sovereignty) · [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive)
+Files: [Overview - Financial Sovereignty](/financial-sovereignty) · [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive)
 
 ### Sovereign social account
 
@@ -92,7 +91,7 @@ Multiple relays (transport redundancy)
 Lightning zaps for monetization
 ```
 
-Files: [Overview - Encrypted Messaging](/encrypted-messaging/overview-encrypted-messaging) · [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) · [Overview - Decentralized DNS](/decentralized-dns/overview-decentralized-dns)
+Files: [Overview - Encrypted Messaging](/encrypted-messaging) · [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) · [Overview - Decentralized DNS](/decentralized-dns)
 
 ### Verifiable confidential computation
 
@@ -111,7 +110,7 @@ This is the **vFHE** (verifiable FHE) pattern. Either of the alternatives also w
 - FHE evaluator inside an attested TEE — TEE attestation replaces the SNARK.
 - Threshold FHE with active-secure honest-majority MPC — the protocol detects misbehavior.
 
-Files: [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption) · [Overview - Zero-Knowledge Proofs](/zero-knowledge/overview-zero-knowledge-proofs) · [Overview - Confidential Computing](/confidential-computing/overview-confidential-computing)
+Files: [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption) · [Overview - Zero-Knowledge Proofs](/zero-knowledge) · [Overview - Confidential Computing](/confidential-computing)
 
 ### Post-quantum migration of everything
 
@@ -123,7 +122,7 @@ For each long-term-secret protocol (TLS, SSH, Signal, age-encrypted backups):
    4. Plan re-encryption for archived ciphertexts under new keys
 ```
 
-Files: [Overview - Post-Quantum Cryptography](/post-quantum/overview-post-quantum-cryptography) · [Glossary](/meta/glossary) (Hybrid KEM, Harvest now decrypt later)
+Files: [Overview - Post-Quantum Cryptography](/post-quantum) · [Glossary](/meta/glossary) (Hybrid KEM, Harvest now decrypt later)
 
 ---
 
@@ -143,5 +142,5 @@ Watch for these — they're "decentralized" or "private" only on the surface:
 
 ## Files Most Relevant
 
-Every Overview in the vault. Start with [Research Methodology](/meta/research-methodology)'s evaluation criteria, then pick the relevant overviews and build a stack.
+Every Overview in the vault. Start with **Research Methodology**'s evaluation criteria, then pick the relevant overviews and build a stack.
 
