@@ -336,7 +336,7 @@ Metadata leaks bind you to .eth / Handshake names and Akash/Fluence jobs. Same m
 
 - [Overview - Encrypted Messaging](/encrypted-messaging) — Complements metadata protection
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference) — Layer with mixnets for complete privacy
-- [Overview - Financial Sovereignty](/financial-sovereignty) — RPC node privacy
+- **Overview - Financial Sovereignty** — RPC node privacy
 - [Overview - Private Information Retrieval](/cryptography/overview-private-information-retrieval) — Private queries
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust) — Identity verification
 - [Overview - Post-Quantum Cryptography](/post-quantum) — Katzenpost PQ integration

@@ -201,7 +201,7 @@ A `.com` holder uses DNSSEC to claim the matching ENS namespace, then migrates s
 - [Pubky](/identity/pubky) — alternative philosophy
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — did:ens
 - [Nostr](/identity/nostr) — NIP-05 over ENS
-- [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive) — Lightning Address records
+- **Lightning Network Deep Dive** — Lightning Address records
 
 ---
 

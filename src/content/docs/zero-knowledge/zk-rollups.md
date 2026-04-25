@@ -224,7 +224,7 @@ For sovereignty users: a generic zkSync transaction is no more private than an L
 - [STARKs](/zero-knowledge/starks)
 - [Folding Schemes](/zero-knowledge/folding-schemes)
 - [ZKML](/zero-knowledge/zkml)
-- [Overview - Financial Sovereignty](/financial-sovereignty)
+- **Overview - Financial Sovereignty**
 - [Glossary](/meta/glossary) — ZK rollup, validium, volition, zkEVM types
 
 ---

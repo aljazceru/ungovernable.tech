@@ -131,7 +131,7 @@ The practical effect is that Marmot lets you cleanly separate Nostr-the-identity
 |-----------------|-------------------|
 | [Pubky](/identity/pubky) | NIP-05 served over PKARR — DNS-free human-readable handles |
 | [FIPS](/off-grid-networks/fips) | The same `npub` addresses your network nodes |
-| [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive) | Zaps tie payments to a social identity |
+| **Lightning Network Deep Dive** | Zaps tie payments to a social identity |
 | [Marmot Protocol](/encrypted-messaging/marmot-protocol) | Group messaging keyed to a social identity |
 | [Overview - Confidential Computing](/confidential-computing) | An attested signing service holding `nsec` in a TEE |
 | [Overview - Web of Trust](/cryptography/overview-web-of-trust) | Social-graph reputation built on raw `npubs` |
@@ -190,7 +190,7 @@ The practical effect is that Marmot lets you cleanly separate Nostr-the-identity
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity)
 - [Overview - Identity & Pseudonymity](/identity)
 - [FIPS](/off-grid-networks/fips)
-- [Hardware Wallet Guide](/financial-sovereignty/hardware-wallet-guide)
+- **Hardware Wallet Guide**
 
 ---
 

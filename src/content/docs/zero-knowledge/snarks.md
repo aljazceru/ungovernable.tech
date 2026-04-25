@@ -148,7 +148,7 @@ Numbers compress every year as research advances.
 - [ZKML](/zero-knowledge/zkml) — proving model inference.
 - [FHE Bootstrapping and Verification](/cryptography/fhe-bootstrapping-and-verification) — vFHE composition.
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — selective disclosure (BBS+, ZK passports).
-- [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive) — PTLCs use Schnorr + ZK adaptors.
+- **Lightning Network Deep Dive** — PTLCs use Schnorr + ZK adaptors.
 - [Overview - Identity & Pseudonymity](/identity) — proof-of-personhood (Anon Aadhaar, zkPassport, Worldcoin).
 
 ---

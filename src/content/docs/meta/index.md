@@ -80,7 +80,7 @@ This Meta section connects to all other vault sections:
 | 03 — Decentralized DNS | DNS alternatives | [Overview - Decentralized DNS](/decentralized-dns) |
 | 04 — Decentralized Compute | P2P markets | [Overview - Decentralized Compute](/decentralized-compute) |
 | 05 — Off-Grid Networks | Mesh, DTN | [Overview - Off-Grid Networks](/off-grid-networks) |
-| 06 — Financial Sovereignty | Bitcoin tech | [Overview - Financial Sovereignty](/financial-sovereignty) |
+| 06 — Financial Sovereignty | Bitcoin tech | **Overview - Financial Sovereignty** |
 | 07 — Encrypted Messaging | E2EE protocols | [Overview - Encrypted Messaging](/encrypted-messaging) |
 | 08 — Mix Networks | Tor, I2P, Nym | [Overview - Mix Networks](/mix-networks) |
 | 09 — Zero-Knowledge | ZK proofs | [Overview - Zero-Knowledge Proofs](/zero-knowledge) |

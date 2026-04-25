@@ -21,7 +21,7 @@ tags:
 | Transport | ISP routing, DPI | [Overview - Mix Networks](/mix-networks), [Overview - Off-Grid Networks](/off-grid-networks) |
 | Hosting | Cloud providers, hyperscaler ToS | [Overview - Decentralized Compute](/decentralized-compute), self-hosting, Tor hidden services |
 | Application | Platform moderation | [Overview - Encrypted Messaging](/encrypted-messaging) — Nostr, SimpleX, Matrix federations |
-| Payment | Banks, card networks, Stripe | [Overview - Financial Sovereignty](/financial-sovereignty) — Bitcoin, Lightning |
+| Payment | Banks, card networks, Stripe | **Overview - Financial Sovereignty** — Bitcoin, Lightning |
 | Identity | KYC providers, government IDs | [Overview - Decentralized Identity](/identity/overview-decentralized-identity), [Overview - Identity & Pseudonymity](/identity) |
 
 ---
@@ -94,7 +94,7 @@ Lightning zaps for monetization
 - [Overview - Off-Grid Networks](/off-grid-networks)
 - [Overview - Decentralized Compute](/decentralized-compute)
 - [Overview - Encrypted Messaging](/encrypted-messaging)
-- [Overview - Financial Sovereignty](/financial-sovereignty)
+- **Overview - Financial Sovereignty**
 - [Overview - Confidential Computing](/confidential-computing)
 - [Confidential-AI-Inference](/confidential-computing/confidential-ai-inference)
 

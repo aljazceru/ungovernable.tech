@@ -183,7 +183,7 @@ Bitchat fits into the broader vault:
 - Pair with [Briar](/off-grid-networks/briar) for higher-stakes activist work: Bitchat for local, Briar for adversarial backbone.
 - Pair with [Meshtastic](/off-grid-networks/meshtastic) in disaster-resilience kits: LoRa for kilometers, Bitchat for in-venue.
 - Pair with [Nostr](/identity/nostr) identity. Although Bitchat defaults to ephemeral, advanced users can bind to a persistent npub for cross-app continuity.
-- In-venue plus [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive): Bluetooth-mesh chat with Lightning zaps over an MQTT bridge or Nostr fallback.
+- In-venue plus **Lightning Network Deep Dive**: Bluetooth-mesh chat with Lightning zaps over an MQTT bridge or Nostr fallback.
 
 ---
 

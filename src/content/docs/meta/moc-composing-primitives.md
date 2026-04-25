@@ -75,7 +75,7 @@ Onion-routed HTLC payment
 Receiver: BOLT12 or LNURL with attested proof
 ```
 
-Files: [Overview - Financial Sovereignty](/financial-sovereignty), [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive).
+Files: **Overview - Financial Sovereignty**, **Lightning Network Deep Dive**.
 
 ### Sovereign social account
 

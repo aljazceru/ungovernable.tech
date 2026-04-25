@@ -280,7 +280,7 @@ ephemeral-N.eth   ─ short-term, deactivated after use
 - [Verifiable Credentials](/identity/verifiable-credentials)
 - [ENS](/decentralized-dns/ens) — protocol from the DNS lens
 - [Nostr](/identity/nostr)
-- [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive)
+- **Lightning Network Deep Dive**
 - [MOC - Composing Primitives](/meta/moc-composing-primitives)
 
 ---

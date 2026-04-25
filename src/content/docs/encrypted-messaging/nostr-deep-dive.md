@@ -193,7 +193,7 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 - [Signal Protocol Technical](/encrypted-messaging/signal-protocol-technical)
 - [Matrix and E2EE](/encrypted-messaging/matrix-and-e2ee)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)
-- [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive) — zaps integration
+- **Lightning Network Deep Dive** — zaps integration
 - [Overview - Decentralized DNS](/decentralized-dns) — NIP-05 over PKARR
 - [Overview - Web of Trust](/cryptography/overview-web-of-trust)
 

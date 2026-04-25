@@ -214,7 +214,7 @@ Federated Chaumian eCash where the mint signing is threshold. No single guardian
 
 - [Overview - Fully Homomorphic Encryption](/cryptography/overview-fully-homomorphic-encryption) — comparison reference
 - [Overview - Zero-Knowledge Proofs](/zero-knowledge) — composable with MPC
-- [Hardware Wallet Guide](/financial-sovereignty/hardware-wallet-guide) — alternative custody model
+- **Hardware Wallet Guide** — alternative custody model
 - [FHE Bootstrapping and Verification](/cryptography/fhe-bootstrapping-and-verification) — vFHE composition
 - [Glossary](/meta/glossary) — FROST, GG20, MuSig2, Coconut, threshold signature
 

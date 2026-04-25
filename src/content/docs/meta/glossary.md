@@ -141,7 +141,7 @@ Definitions for terms used across the vault. New terms are added here on first u
 
 **Lattice cryptography** — Hardness assumptions based on lattice problems (LWE, Ring-LWE, Module-LWE, NTRU). Foundation of FHE and most NIST PQC KEM/signature standards (ML-KEM, ML-DSA, FN-DSA); SLH-DSA is the hash-based exception.
 
-**Lightning Network** — Layer 2 Bitcoin protocol of bidirectional payment channels with hash-time-locked routed payments. See [Lightning Network Deep Dive](/financial-sovereignty/lightning-network-deep-dive).
+**Lightning Network** — Layer 2 Bitcoin protocol of bidirectional payment channels with hash-time-locked routed payments. See **Lightning Network Deep Dive**.
 
 **Loopix** — Continuous-time mix network design (Piotrowska et al., 2017): Poisson-mixing with cover traffic. Foundation of Nym and Katzenpost.
 
