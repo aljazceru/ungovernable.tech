@@ -1,10 +1,11 @@
 ---
-title: "05 — Off-Grid Networks"
+title: "Off-Grid Networks"
 tags:
   - "off-grid"
   - "mesh"
   - "lora"
   - "dtn"
+sidebar: {"label":"Overview","order":0}
 ---
 This section covers communication systems that operate independently of the traditional internet — essential for disaster resilience, censorship resistance, and operational sovereignty.
 

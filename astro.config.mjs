@@ -1,20 +1,43 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+const cat = (label, directory) => ({
+  label,
+  collapsed: true,
+  autogenerate: { directory },
+});
+
 export default defineConfig({
   site: 'https://ungovernable.tech',
   integrations: [
     starlight({
-      title: 'Ungovernable.tech',
+      title: 'ungovernable.tech',
       description:
         'A knowledge base of building blocks for a freer internet — confidential computing, cryptography, decentralized infrastructure, and more.',
-      logo: { src: './src/assets/logo.svg' },
+      logo: { src: './src/assets/logo.svg', replacesTitle: false },
       favicon: '/favicon.svg',
       customCss: ['./src/styles/custom.css'],
+      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
+      pagination: true,
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/aljazceru/ungovernable.tech' },
       ],
       head: [
+        {
+          tag: 'link',
+          attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        },
+        {
+          tag: 'link',
+          attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap',
+          },
+        },
         {
           tag: 'script',
           attrs: {
@@ -25,19 +48,18 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        { label: 'Start here', link: '/' },
-        { label: 'Confidential Computing', autogenerate: { directory: 'confidential-computing' } },
-        { label: 'Cryptography', autogenerate: { directory: 'cryptography' } },
-        { label: 'Decentralized DNS', autogenerate: { directory: 'decentralized-dns' } },
-        { label: 'Decentralized Compute', autogenerate: { directory: 'decentralized-compute' } },
-        { label: 'Off-Grid Networks', autogenerate: { directory: 'off-grid-networks' } },
-        { label: 'Financial Sovereignty', autogenerate: { directory: 'financial-sovereignty' } },
-        { label: 'Encrypted Messaging', autogenerate: { directory: 'encrypted-messaging' } },
-        { label: 'Mix Networks', autogenerate: { directory: 'mix-networks' } },
-        { label: 'Zero Knowledge', autogenerate: { directory: 'zero-knowledge' } },
-        { label: 'Post-Quantum', autogenerate: { directory: 'post-quantum' } },
-        { label: 'Identity', autogenerate: { directory: 'identity' } },
-        { label: 'Meta', autogenerate: { directory: 'meta' } },
+        cat('Confidential Computing', 'confidential-computing'),
+        cat('Cryptography', 'cryptography'),
+        cat('Decentralized DNS', 'decentralized-dns'),
+        cat('Decentralized Compute', 'decentralized-compute'),
+        cat('Off-Grid Networks', 'off-grid-networks'),
+        cat('Financial Sovereignty', 'financial-sovereignty'),
+        cat('Encrypted Messaging', 'encrypted-messaging'),
+        cat('Mix Networks', 'mix-networks'),
+        cat('Zero Knowledge', 'zero-knowledge'),
+        cat('Post-Quantum', 'post-quantum'),
+        cat('Identity', 'identity'),
+        cat('Meta', 'meta'),
       ],
     }),
   ],

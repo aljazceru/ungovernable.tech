@@ -5,6 +5,7 @@ tags:
   - "moc"
   - "censorship-resistance"
   - "overview"
+sidebar: {"label":"MOC - Censorship Resistance"}
 ---
 *A Map of Content for the cross-cutting theme of resisting takedown, blocking, and content removal across the network stack.*
 

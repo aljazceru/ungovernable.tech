@@ -1,10 +1,11 @@
 ---
-title: "07 — Encrypted Messaging"
+title: "Encrypted Messaging"
 tags:
   - "messaging"
   - "e2ee"
   - "signal"
   - "nostr"
+sidebar: {"label":"Overview","order":0}
 ---
 This section covers E2EE messaging protocols, censorship-resistant social protocols, and metadata-resistant communication.
 

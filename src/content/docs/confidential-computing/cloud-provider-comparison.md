@@ -8,6 +8,7 @@ tags:
   - "oracle"
   - "confidential-computing"
   - "comparison"
+sidebar: {"label":"Confidential Computing Cloud Provider Comparison"}
 ---
 *Which cloud does what, with which silicon, and what you actually get when the marketing page says "confidential."*
 

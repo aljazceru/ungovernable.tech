@@ -1,10 +1,11 @@
 ---
-title: "02 — Cryptography"
+title: "Cryptography"
 tags:
   - "cryptography"
   - "fhe"
   - "zk"
   - "pir"
+sidebar: {"label":"Overview","order":0}
 ---
 This section covers advanced cryptographic primitives that enable privacy-preserving computation — FHE, ZK proofs, PIR, and post-quantum algorithms.
 

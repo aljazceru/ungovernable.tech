@@ -5,6 +5,7 @@ tags:
   - "readme"
   - "glossary"
   - "methodology"
+sidebar: {"label":"Overview","order":0}
 ---
 This directory contains the foundational documentation for the Ungovernable.tech knowledge base — its philosophy, methods, glossary, and evaluation standards.
 

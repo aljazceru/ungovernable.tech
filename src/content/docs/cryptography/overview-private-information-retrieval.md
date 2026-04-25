@@ -6,6 +6,7 @@ tags:
   - "privacy"
   - "homomorphic"
   - "confidential-inference"
+sidebar: {"label":"Private Information Retrieval"}
 ---
 *Fetching item `i` from a public database without the database (or anyone watching it) learning `i`.*
 

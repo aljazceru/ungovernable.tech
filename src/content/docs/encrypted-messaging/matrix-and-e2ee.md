@@ -9,6 +9,7 @@ tags:
   - "megolm"
   - "messaging"
   - "deep-dive"
+sidebar: {"label":"Matrix and E2EE"}
 ---
 *Federated, decentralized, eventually-consistent communication — large-group E2EE at the cost of richer metadata exposure than Signal or Nostr.*
 

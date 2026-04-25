@@ -9,6 +9,7 @@ tags:
   - "openpgp"
   - "gpg"
   - "identity"
+sidebar: {"label":"Web of Trust"}
 ---
 ## Overview
 

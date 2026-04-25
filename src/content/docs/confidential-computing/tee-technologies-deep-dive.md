@@ -8,6 +8,7 @@ tags:
   - "intel-tdx"
   - "confidential-computing"
   - "hardware"
+sidebar: {"label":"TEE Technologies Deep Dive"}
 ---
 *Detailed technical analysis of Trusted Execution Environment architectures*
 

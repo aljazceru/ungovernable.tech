@@ -9,6 +9,7 @@ tags:
   - "reticulumm"
   - "meshtastic"
   - "yggdrasil"
+sidebar: {"label":"Off-Grid Networks"}
 ---
 ## Overview
 

@@ -174,15 +174,36 @@ async function main() {
     });
 
     // Drop the H1 if it duplicates the title (Starlight renders title from frontmatter)
-    const title = data.title || item.fileName.replace(/\.md$/i, '').replace(/[-_]/g, ' ');
+    const rawTitle = data.title || item.fileName.replace(/\.md$/i, '').replace(/[-_]/g, ' ');
+    const title = rawTitle.replace(/^\d+\s*[-—–]\s*/, '').trim();
     content = content.replace(/^\s*#\s+.+\n+/, '');
 
-    // Preserve a useful subset of frontmatter
+    // Compute a clean sidebar label that strips noisy prefixes.
+    // "Overview - Confidential Computing" → "Overview"
+    // "01 — Confidential Computing"        → "Confidential Computing"
+    // Plain titles unchanged.
+    const folderTitle = item.folderSlug.replace(/-/g, ' ');
+    let sidebarLabel = title
+      .replace(/^Overview\s*[-:–—]\s*/i, '')
+      .replace(/\s*\(.*?\)\s*$/, '') // drop trailing parentheticals
+      .trim();
+    if (!sidebarLabel) sidebarLabel = title;
+
+    // Hide redundant "Overview - <FolderName>" files — _Index.md serves as the
+    // section's canonical overview, so listing both is duplication.
+    const isRedundantOverview =
+      /^Overview\s*[-:–—]/i.test(title) &&
+      title.replace(/^Overview\s*[-:–—]\s*/i, '').trim().toLowerCase() === folderTitle;
+
+    const sidebar = isRedundantOverview
+      ? { hidden: true }
+      : { label: sidebarLabel };
+
     const out = {
       title,
       description: data.description || undefined,
-      // Starlight uses these:
       ...(data.tags && data.tags.length ? { tags: data.tags } : {}),
+      sidebar,
     };
 
     const outAbs = join(OUT, item.target + '.md');
@@ -207,12 +228,17 @@ async function main() {
           return target ? `[${label}](${target})` : `**${label}**`;
         })
         .replace(/^\s*#\s+.+\n+/, '');
-      const title = data.title || parts[0].replace(/^\d+\s*[-_]?\s*/, '').trim();
+      const rawTitle = data.title || parts[0].replace(/^\d+\s*[-_]?\s*/, '').trim();
+      const title = rawTitle.replace(/^\d+\s*[-—–]\s*/, '').trim();
       const outAbs = join(OUT, folderSlug, 'index.md');
       await mkdir(dirname(outAbs), { recursive: true });
       await writeFile(
         outAbs,
-        stringifyFrontmatter({ title, ...(data.tags && data.tags.length ? { tags: data.tags } : {}) }) +
+        stringifyFrontmatter({
+          title,
+          ...(data.tags && data.tags.length ? { tags: data.tags } : {}),
+          sidebar: { label: 'Overview', order: 0 },
+        }) +
           content.trimStart() +
           '\n',
         'utf8',

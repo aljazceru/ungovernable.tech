@@ -7,6 +7,7 @@ tags:
   - "security"
   - "financial"
   - "deep-dive"
+sidebar: {"label":"Hardware Wallet Guide"}
 ---
 *Dedicated signing devices that keep private keys offline and approve transactions out-of-band — the practical foundation of self-custody.*
 

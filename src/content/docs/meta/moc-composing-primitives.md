@@ -5,6 +5,7 @@ tags:
   - "moc"
   - "patterns"
   - "overview"
+sidebar: {"label":"MOC - Composing Primitives"}
 ---
 *A Map of Content for building real systems by stacking the cryptographic and network primitives in the vault. No single primitive solves everything; composition is where security comes from.*
 

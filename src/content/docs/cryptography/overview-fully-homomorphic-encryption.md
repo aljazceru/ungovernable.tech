@@ -6,6 +6,7 @@ tags:
   - "cryptography"
   - "privacy"
   - "homomorphic-encryption"
+sidebar: {"label":"Fully Homomorphic Encryption"}
 ---
 ## Overview
 

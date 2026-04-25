@@ -5,6 +5,7 @@ tags:
   - "moc"
   - "threat-model"
   - "overview"
+sidebar: {"label":"MOC - Threat Models"}
 ---
 *A Map of Content indexing recurring adversaries, trust assumptions, and failure modes across the vault.*
 

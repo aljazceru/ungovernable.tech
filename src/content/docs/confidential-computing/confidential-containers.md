@@ -8,6 +8,7 @@ tags:
   - "tee"
   - "trustee"
   - "kbs"
+sidebar: {"label":"Confidential Containers"}
 ---
 *The CNCF project that makes confidential VMs look like regular Kubernetes pods — and an attestation-gated secret-release service that makes them actually safe.*
 

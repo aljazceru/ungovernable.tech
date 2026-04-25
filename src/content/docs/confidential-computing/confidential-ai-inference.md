@@ -8,6 +8,7 @@ tags:
   - "gpu-tee"
   - "llm"
   - "privacy"
+sidebar: {"label":"Confidential AI Inference"}
 ---
 *Running machine learning inference where neither the model owner sees the inputs, nor the user sees the weights — and both can cryptographically verify the promise.*
 

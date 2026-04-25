@@ -8,6 +8,7 @@ tags:
   - "htlc"
   - "financial"
   - "deep-dive"
+sidebar: {"label":"Lightning Network Deep Dive"}
 ---
 *Bitcoin's instant, low-fee, censorship-resistant payment layer — built from bidirectional payment channels, HTLCs, and onion routing.*
 

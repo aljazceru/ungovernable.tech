@@ -7,6 +7,7 @@ tags:
   - "bulletproofs"
   - "zkml"
   - "cryptography"
+sidebar: {"label":"Zero-Knowledge Proofs"}
 ---
 *Prove a statement is true without revealing anything beyond its truth.*
 

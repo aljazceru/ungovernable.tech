@@ -9,6 +9,7 @@ tags:
   - "joinmarket"
   - "deep-dive"
   - "financial"
+sidebar: {"label":"CoinJoin Implementation"}
 ---
 *Collaborative Bitcoin transactions that break the common-input-ownership heuristic — the single most important on-chain privacy technique.*
 

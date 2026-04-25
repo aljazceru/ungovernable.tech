@@ -4,6 +4,7 @@ tags:
   - "meta"
   - "methodology"
   - "evidence"
+sidebar: {"label":"Research Methodology"}
 ---
 ## How We Evaluate Claims
 

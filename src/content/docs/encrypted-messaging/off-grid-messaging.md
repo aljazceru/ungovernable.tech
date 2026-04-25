@@ -8,6 +8,7 @@ tags:
   - "reticulum"
   - "lxmf"
   - "deep-dive"
+sidebar: {"label":"Off-Grid Messaging"}
 ---
 *Communication that survives when the internet doesn't — mesh radios, peer-to-peer over Bluetooth, store-and-forward bundles, and human couriers.*
 

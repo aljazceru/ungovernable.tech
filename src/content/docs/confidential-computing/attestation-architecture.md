@@ -8,6 +8,7 @@ tags:
   - "tdx"
   - "rats"
   - "remote-attestation"
+sidebar: {"label":"Attestation Architecture"}
 ---
 *Attestation is the only thing that makes a TEE useful. Without it, "encrypted memory" is just a nicer way to run the same trusted-operator model you had before.*
 

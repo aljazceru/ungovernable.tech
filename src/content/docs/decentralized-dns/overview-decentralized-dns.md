@@ -9,6 +9,7 @@ tags:
   - "decentralized"
   - "pubky"
   - "gns"
+sidebar: {"hidden":true}
 ---
 *Naming systems that don't depend on ICANN, a TLD registrar, or a CA — because seizure, sanctions, and content-based takedowns flow through exactly those choke points.*
 

@@ -7,6 +7,7 @@ tags:
   - "reputation"
   - "proof-of-personhood"
   - "sybil-resistance"
+sidebar: {"label":"Identity & Pseudonymity"}
 ---
 *Identity rooted in cryptographic keys rather than institutional verification — where pseudonymity is a feature, not a bug, and reputation emerges from behavior, not credentials.*
 

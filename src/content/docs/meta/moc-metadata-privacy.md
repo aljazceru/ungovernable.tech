@@ -6,6 +6,7 @@ tags:
   - "metadata-resistance"
   - "privacy"
   - "overview"
+sidebar: {"label":"MOC - Metadata Privacy"}
 ---
 *A Map of Content for hiding **who, when, where, how often, how big** — the data about communications that often reveals more than the content.*
 

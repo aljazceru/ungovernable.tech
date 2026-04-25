@@ -9,6 +9,7 @@ tags:
   - "anonymity"
   - "privacy"
   - "anonymous-routing"
+sidebar: {"hidden":true}
 ---
 *Anonymity systems that defeat traffic analysis — not just content inspection. Complementary to TEEs and encrypted messaging; what encryption leaves visible (who talked to whom, when, how often), mixnets hide.*
 

@@ -8,6 +8,7 @@ tags:
   - "social"
   - "deep-dive"
   - "censorship-resistance"
+sidebar: {"label":"Nostr Deep Dive"}
 ---
 *"Notes and Other Stuff Transmitted by Relays" — a minimalist, pubkey-rooted social protocol with no accounts, no federation negotiation, and no central kill switch.*
 

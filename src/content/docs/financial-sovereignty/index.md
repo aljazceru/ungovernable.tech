@@ -1,10 +1,11 @@
 ---
-title: "06 — Financial Sovereignty"
+title: "Financial Sovereignty"
 tags:
   - "bitcoin"
   - "lightning"
   - "privacy"
   - "self-custody"
+sidebar: {"label":"Overview","order":0}
 ---
 Practical Bitcoin self-custody, Lightning, and on-chain privacy. **Scope-limited by design** — this section assumes Bitcoin fundamentals are well-covered elsewhere (Antonopoulos, Bitcoin Optech, learnmeabitcoin.com) and focuses on operational sovereignty practice and how Bitcoin composes with the rest of the vault.
 

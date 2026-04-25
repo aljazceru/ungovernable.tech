@@ -4,6 +4,7 @@ tags:
   - "meta"
   - "glossary"
   - "terminology"
+sidebar: {"label":"Glossary"}
 ---
 Authoritative definitions for terms used across the vault. New terms must be added here on first use; deprecated terms get a `(deprecated)` marker rather than deletion.
 

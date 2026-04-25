@@ -11,6 +11,7 @@ tags:
   - "aethir"
   - "nosana"
   - "gensyn"
+sidebar: {"hidden":true}
 ---
 *Permissionless markets for CPU, GPU, and (increasingly) confidential-GPU time. The supply side of an internet where you can rent computation without a cloud account, and — when combined with TEEs — without trusting the node operator either.*
 

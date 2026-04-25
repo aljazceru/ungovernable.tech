@@ -8,6 +8,7 @@ tags:
   - "deep-dive"
   - "messaging"
   - "privacy"
+sidebar: {"label":"Metadata Resistance"}
 ---
 *Encryption hides what you say. Metadata resistance hides who you said it to, when, and how often. Few systems take it seriously; the ones that do trade convenience for it.*
 

@@ -1,5 +1,5 @@
 ---
-title: "01 — Confidential Computing"
+title: "Confidential Computing"
 tags:
   - "confidential-computing"
   - "tee"
@@ -7,6 +7,7 @@ tags:
   - "sev-snp"
   - "tdx"
   - "confidential-inference"
+sidebar: {"label":"Overview","order":0}
 ---
 Trusted Execution Environments (TEEs), hardware security enclaves, GPU confidential computing, attestation, and confidential AI inference. The foundation of protecting data *during* computation — not just at rest or in transit.
 

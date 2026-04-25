@@ -9,6 +9,7 @@ tags:
   - "mls"
   - "messaging"
   - "deep-dive"
+sidebar: {"label":"Signal Protocol Technical"}
 ---
 *The reference for asynchronous end-to-end encryption — forward secrecy, post-compromise security, deniability, and now post-quantum hybrid key exchange.*
 

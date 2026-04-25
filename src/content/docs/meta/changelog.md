@@ -3,6 +3,7 @@ title: "CHANGELOG"
 tags:
   - "meta"
   - "changelog"
+sidebar: {"label":"CHANGELOG"}
 ---
 Vault-level changes. New entries at top. Format:
 

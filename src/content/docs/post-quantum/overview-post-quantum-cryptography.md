@@ -7,6 +7,7 @@ tags:
   - "ml-dsa"
   - "slh-dsa"
   - "nist"
+sidebar: {"label":"Post-Quantum Cryptography"}
 ---
 *Replacing RSA and elliptic-curve cryptography with algorithms that survive a cryptographically relevant quantum computer.*
 

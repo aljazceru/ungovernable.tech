@@ -7,6 +7,7 @@ tags:
   - "identity"
   - "zk"
   - "privacy"
+sidebar: {"label":"Decentralized Identity"}
 ---
 *Identifiers, credentials, and reputation that belong to the user — not to platforms, not to governments, not to the issuer after the fact.*
 

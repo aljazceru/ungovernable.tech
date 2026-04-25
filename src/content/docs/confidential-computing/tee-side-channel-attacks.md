@@ -8,6 +8,7 @@ tags:
   - "tdx"
   - "security"
   - "attacks"
+sidebar: {"label":"TEE Side-Channel Attacks"}
 ---
 *A field guide. The threat model of every TEE-based system begins with: "assuming no new CVEs" — which is a lie. Here is what has broken, what is likely to break, and how to reduce blast radius.*
 

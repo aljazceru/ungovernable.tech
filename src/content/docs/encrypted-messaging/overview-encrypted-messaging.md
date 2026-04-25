@@ -7,6 +7,7 @@ tags:
   - "matrix"
   - "nostr"
   - "communications"
+sidebar: {"hidden":true}
 ---
 ## Overview
 
