@@ -28,3 +28,8 @@
 - [BOLT 4: Onion Routing](https://github.com/lightning/bolts/blob/master/04-onion-routing.md) - Sphinx-based onion routing for Lightning payments
 - [Route Blinding (BOLT 4)](https://github.com/lightning/bolts/pull/765) - Recipient privacy via blinded paths
 - [Lightning Privacy Handbook](https://lnprivacy.github.io/) - Comprehensive guide to Lightning privacy practices
+
+#### Lightning Splicing & Swaps
+- [Lightning Splicing](https://www.youtube.com/watch?v=XowFGg-jwH8) - YouTube explanation of Lightning splicing by Dusty Daemon
+- [Boltz Exchange](https://boltz.exchange/) - Atomic non-custodial swaps between Lightning and other Bitcoin layers
+- [Boltz USDT Swaps](https://bitcoinmagazine.com/business/boltz-exchange-launches-atomic-usdt-swaps-for-lightning-network-users) - Atomic USDT swaps for Lightning (March 2026)

@@ -15,6 +15,7 @@
 - [Thorchain](https://thorchain.org/) - Cross-chain liquidity protocol (AMM-based, not atomic swap)
 - [Lightning Labs Loop](https://github.com/lightninglabs/loop) - Submarine swaps between on-chain and Lightning
 - [xmr-btc-swap](https://github.com/comit-network/xmr-btc-swap) - Trustless Monero-Bitcoin atomic swap
+- [Mintlayer](https://www.mintlayer.org/) - Bitcoin-compatible chain with native atomic swaps on mainnet (January 2026)
 
 #### Privacy Analysis
 - [Atomic swap privacy](https://eprint.iacr.org/2020/1462.pdf) - On the privacy of atomic swaps and cross-chain transactions

@@ -1,6 +1,7 @@
 #### CoinJoin Implementations
 - [Wasabi Wallet](https://wasabiwallet.io/) - Privacy-focused Bitcoin wallet with Chaumian CoinJoin
 - [Wasabi Wallet GitHub](https://github.com/zkSNACKs/WalletWasabi) - Open source .NET implementation
+- [Wasabi 2.x](https://www.emergentmind.com/topics/wasabi-2-x-coinjoin) - Next-gen CoinJoin with enhanced detection resistance
 - [WabiSabi protocol](https://eprint.iacr.org/2021/387) - Flexible CoinJoin with blind signatures, not just equal-output
 - [JoinMarket](https://github.com/JoinMarket-Org/joinmarket-clientserver) - Decentralized CoinJoin marketplace — market makers earn fees
 - [Jam](https://github.com/joinmarket-webui/jam) - Web UI for JoinMarket

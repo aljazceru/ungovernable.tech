@@ -35,6 +35,7 @@
 - [NIP-19](https://github.com/nostr-protocol/nips/blob/master/19.md) - bech32-encoded entities (nsec, npub, note, nprofile, nevent)
 - [NIP-26](https://github.com/nostr-protocol/nips/blob/master/26.md) - Delegated event signing
 - [NIP-46](https://github.com/nostr-protocol/nips/blob/master/46.md) - Nostr Connect — remote signing for multi-device
+- [NIP-98](https://nips.nostr.com/98) - HTTP Auth — ephemeral events for authorizing HTTP requests
 
 #### Nostr vs ATProto
 - [Nostr vs ATProto Comparison](https://biggo.com.tw/news/nostr-atproto-developer-comparison) - Developer comparison between Nostr and Bluesky's ATProto protocol

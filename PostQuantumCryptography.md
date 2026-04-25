@@ -12,6 +12,7 @@
 - [Open Quantum Safe](https://openquantumsafe.org/) - Project integrating PQC into TLS, SSH, and other protocols via liboqs
 - [pqcrystals/kyber](https://github.com/pq-crystals/kyber) - Reference implementation of ML-KEM (Kyber)
 - [pqcrystals/dilithium](https://github.com/pq-crystals/dilithium) - Reference implementation of ML-DSA (Dilithium)
+- [OpenSSL 3.5 PQC](https://cfp.openssl-conference.org/openssl-conference-2025/talk/8X8YTF/) - Post-quantum TLS 1.3 integration in OpenSSL (Kyber, Dilithium)
 
 #### Hybrid Key Exchange
 - [X25519Kyber768 in TLS](https://www.ietf.org/archive/id/draft-tls-westerbaan-xyber768d00-02.html) - Hybrid post-quantum key exchange for TLS 1.3 (deployed in Chrome)
