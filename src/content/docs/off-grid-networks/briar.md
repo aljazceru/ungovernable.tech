@@ -187,7 +187,7 @@ In a regional internet outage, two Briar phones in the same building sync over B
 ## Related files
 
 - [Overview - Off-Grid Networks](/off-grid-networks)
-- **Off-Grid Messaging**
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)
 - [Overview - Encrypted Messaging](/encrypted-messaging)
 - [Overview - Mix Networks](/mix-networks)

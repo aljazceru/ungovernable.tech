@@ -206,7 +206,7 @@ NomadNet pages served from a rnsd-equipped node. Forum-style content delivered o
 - [FIPS](/off-grid-networks/fips)
 - [Yggdrasil](/off-grid-networks/yggdrasil)
 - [Briar](/off-grid-networks/briar)
-- **Off-Grid Messaging**
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging)
 - [MOC - Censorship Resistance](/meta/moc-censorship-resistance)
 
 ---

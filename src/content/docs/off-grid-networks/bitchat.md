@@ -203,7 +203,7 @@ Bitchat fits into the broader vault:
 - [Reticulum](/off-grid-networks/reticulum)
 - [Briar](/off-grid-networks/briar)
 - [FIPS](/off-grid-networks/fips) — Nostr-keyed mesh routing (different scope)
-- **Off-Grid Messaging**
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging)
 - [Nostr Deep Dive](/encrypted-messaging/nostr-deep-dive) — Bitchat's online transport
 - [Glossary](/meta/glossary) — Noise Protocol, NIP-17, geohash
 

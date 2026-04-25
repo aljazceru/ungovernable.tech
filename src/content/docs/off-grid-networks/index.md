@@ -252,7 +252,7 @@ In areas with no internet infrastructure:
 ## Related files
 
 - [Overview - Encrypted Messaging](/encrypted-messaging) — Briar, SimpleX, and offline-first protocols.
-- **Off-Grid Messaging** — practical patterns over LoRa, Reticulum, Briar, HF.
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging) — practical patterns over LoRa, Reticulum, Briar, HF.
 - [Overview - Mix Networks](/mix-networks) — anonymity overlays applicable to mesh.
 - [Overview - Decentralized Identity](/identity/overview-decentralized-identity) — pseudonymous IDs in disconnected networks.
 

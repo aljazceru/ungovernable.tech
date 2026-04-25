@@ -199,5 +199,5 @@ Trade-offs:
 - [Signal Protocol Technical](/encrypted-messaging/signal-protocol-technical)
 - [Matrix and E2EE](/encrypted-messaging/matrix-and-e2ee)
 - [Metadata Resistance](/encrypted-messaging/metadata-resistance)
-- **Off-Grid Messaging**
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging)
 

@@ -124,7 +124,7 @@ A node is typically operated headless (battery + radio) and paired to a phone vi
 | Direction-finding resistance | No; active radios are triangulable |
 | Sybil resistance | None inherent |
 
-For threat models that include radio surveillance, layer Meshtastic with **Off-Grid Messaging** patterns: short bursts, low duty cycle, mobile transmitters, mission-keys-only on participants' devices.
+For threat models that include radio surveillance, layer Meshtastic with [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging) patterns: short bursts, low duty cycle, mobile transmitters, mission-keys-only on participants' devices.
 
 ---
 
@@ -197,7 +197,7 @@ The `want_position` flag is on by default. Disable it for adversarial environmen
 - [Overview - Off-Grid Networks](/off-grid-networks)
 - [Reticulum](/off-grid-networks/reticulum) — alternative stack with built-in E2EE
 - [FIPS](/off-grid-networks/fips) — Nostr-keyed mesh routing
-- **Off-Grid Messaging**
+- [Off-Grid Messaging](/encrypted-messaging/off-grid-messaging)
 - [MOC - Censorship Resistance](/meta/moc-censorship-resistance)
 
 ---
