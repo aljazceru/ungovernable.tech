@@ -27,6 +27,7 @@
 - [Nym NEAR Integration](https://www.theblock.co/post/260369/nym-privacy-protections-near-ecosystem) - Nym mixnet privacy for NEAR blockchain ecosystem
 - [Nym 2026 Roadmap](https://nym.com/blog/nym-roadmap-2026) - Plans for enhanced censorship resistance and privacy features
 - [NymVPN Censorship Resistance 2026](https://nym.com/blog/nym-censorship-resistance-2026) - Building decentralized VPN network for bypassing censorship
+- [NymVPN dApp Mode](https://nym.com/blog/nymvpn-dapp-mode) - Route wallet traffic through mixnet via SOCKS5 proxy for blockchain metadata privacy
 - [Katzenpost](https://katzenpost.network/) - Mix network research project and protocol specification
 - [Katzenpost Mix Spec](https://katzenpost.network/docs/specs/mixspec.html) - Formal mix network protocol specification
 - [Katzenpost GitHub](https://github.com/katzenpost/katzenpost) - Open source mix network implementation with post-quantum cryptography
