@@ -32,6 +32,8 @@
 - [Katzenpost Mix Spec](https://katzenpost.network/docs/specs/mixspec.html) - Formal mix network protocol specification
 - [Katzenpost GitHub](https://github.com/katzenpost/katzenpost) - Open source mix network implementation with post-quantum cryptography
 - [Katzenpost FOSDEM 2025](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-5475-katzenpost-developing-privacy-software-in-go/) - Post-quantum mixnet implementation in Go
+- [Katzenpost Threat Model](https://katzenpost.network/) - Security assumptions and attack scenarios for the mixnet design
+- [Katzenpost Admin Guide](https://katzenpost.network/) - Running Katzenpost servers including local Docker mixnet setups
 - [HOPR](https://hoprnet.org/) - Decentralized, metadata-private point-to-point data exchange protocol based on an incentivized mixnet
 
 #### Related Privacy Infrastructure

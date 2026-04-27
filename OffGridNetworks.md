@@ -14,6 +14,8 @@
 #### Reticulum Stack
 - [Reticulum](https://reticulum.network/) - self-configuring, encrypted mesh networking stack
 - [Reticulum GitHub](https://github.com/markqvist/Reticulum)
+- [Reticulum Mesh Network](https://meshunderground.com/posts/1743612357295-reticulum-mesh-network---secure-communication-beyond-the-internet/) - Secure communication beyond the internet
+- [EFF: Radio Hobbyists, Good News for LoRa & Mesh](https://www.eff.org/deeplinks/2025/07/radio-hobbyists-rejoice-good-news-lora-mesh) - July 2025 update on LoRa mesh networking
 - [liamcottle/reticulum-meshchat](https://github.com/liamcottle/reticulum-meshchat) - Simple mesh network communications app powered by Reticulum (944 stars)
 - [BeechatNetworkSystemsLtd/rns-vpn-rs](https://github.com/BeechatNetworkSystemsLtd/rns-vpn-rs) - VPN over Reticulum mesh network (Rust)
 - [DanBeard/RETCON](https://github.com/DanBeard/RETCON) - Streamlined, deployment-focused solution for Reticulum mesh networking

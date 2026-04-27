@@ -15,6 +15,9 @@ Cardano based DNS
 - [Handshake GitHub](https://github.com/handshake-org/hsd) - Node implementation and protocol specs
 - [Bob Wallet](https://bobwallet.io/) - GUI wallet for Handshake name management
 - [Handshake DNS Replacement Guide](https://decentralizers.com/2025/12/02/handshake-dns-replacement-guide/) - 10-step guide to replacing DNS with Handshake (December 2025)
+- [Alternative DNS Systems - ENS, Handshake](https://rx-name.net/blog/alternative-dns-systems-ens-handshake-and-other-non-icann-solutions) - Comparison of decentralized DNS alternatives
+- [A Practical Guide to Decentralized Websites](https://ens.domains/blog/post/decentralized-websites) - Deploying decentralized websites using ENS, IPFS, Filecoin, and Safe
+- [Tokenized DNS Domains with Doma and ENS](https://ens.domains/blog/post/d3-doma) - Doma Protocol enabling DNS domains to function as ENS names
 
 #### Namecoin
 - [Namecoin](https://www.namecoin.org/) - Experimental decentralized DNS and identity using Bitcoin infrastructure

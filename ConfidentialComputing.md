@@ -1,3 +1,8 @@
+#### GPU Confidential Computing
+- [Stealth Cloud Confidential Computing Deep Dive](https://stealthcloud.ai/cloud-paradigms/confidential-computing-deep-dive/) - Technical overview of Intel TDX, AMD SEV-SNP, ARM CCA, attestation protocols, and hardware root of trust
+- [Benchmarking Confidential Computing: TDX v/s SEV-SNP](https://www.computer.org/csdl/proceedings-article/hpcc/2025/687400a178/2bggrnRwZws) - 2025 IEEE HPCC paper comparing TDX and SEV-SNP performance on Azure
+- [Confidential Computing in VMware Cloud Foundation 9.0](https://blogs.vmware.com/cloud-foundation/2025/08/06/confidential-computing-vmware-cloud-foundation-9-0/) - AMD SEV-SNP & Intel TDX workload isolation in VMware
+
 #### Confidential computing on GPUs
 - [TEE.Fail Side-Channel Attack](https://thehackernews.com/2025/10/new-teefail-side-channel-attack.html) - Extracts secrets from Intel SGX/TDX and AMD SEV-SNP with Ciphertext Hiding (October 2025)
 - [Phala Confidential Computing Trends 2025](https://phala.com/learn/confidential-computing-trends-2025) - Gartner predicts 60% of enterprises will evaluate TEE by year-end, GPU TEE for AI workloads matures (2025)
