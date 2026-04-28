@@ -15,7 +15,13 @@
 - [Thorchain](https://thorchain.org/) - Cross-chain liquidity protocol (AMM-based, not atomic swap)
 - [Lightning Labs Loop](https://github.com/lightninglabs/loop) - Submarine swaps between on-chain and Lightning
 - [xmr-btc-swap](https://github.com/comit-network/xmr-btc-swap) - Trustless Monero-Bitcoin atomic swap
+- [Farcaster Node](https://github.com/farcaster-project/farcaster-node) - Microservice-based Bitcoin-Monero atomic swap node
+- [Serai](https://github.com/serai-dex/serai) - DEX architecture for BTC, ETH, DAI, and XMR using threshold multisig and swap cryptography
 - [Mintlayer](https://www.mintlayer.org/) - Bitcoin-compatible chain with native atomic swaps on mainnet (January 2026)
+
+#### Privacy-Preserving DEXs
+- [Haveno](https://github.com/haveno-dex/haveno) - Monero-and-Tor-based decentralized P2P exchange for fiat and crypto trades
+- [Penumbra](https://github.com/penumbra-zone/penumbra) - Fully shielded Cosmos zone for private staking, swaps, and market making
 
 #### Privacy Analysis
 - [Atomic swap privacy](https://eprint.iacr.org/2020/1462.pdf) - On the privacy of atomic swaps and cross-chain transactions

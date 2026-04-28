@@ -1,14 +1,14 @@
-Nostr and bitcoin based dns - [nomen](https://github.com/ursuscamp/nomen)
+#### Nostr & Public-Key DNS
+- [nomen](https://github.com/ursuscamp/nomen) - Nostr and Bitcoin based naming system
+- [pkdns](https://github.com/pubky/pkdns) - pkarr based DNS setup compatible with existing DNS
+- [pkarr](https://github.com/pubky/pkarr) - Public Key Addressable Resource Records
+- [Nuhvi/pkarr](https://github.com/Nuhvi/pkarr) - Public-Key Addressable Resource Records using Mainline DHT and BEP44 for sovereign TLDs
 
-DHT based public key dns 
-[pkdns](https://github.com/pubky/pkdns) - pkarr based dns setup compatible with existing dns 
-[pkarr](https://github.com/pubky/pkarr) - Public Key Addressable Resource Records
+#### ENS
+- [Ethereum Name Service](https://ens.domains/) - Ethereum-based decentralized naming system
 
-ETH based ens system
-https://ens.domains/
-
-Cardano based DNS
-[blinklabs-io/dns-contracts](https://github.com/blinklabs-io/dns-contracts) - Decentralized DNS service and marketplace contracts on Cardano
+#### Cardano DNS
+- [blinklabs-io/dns-contracts](https://github.com/blinklabs-io/dns-contracts) - Decentralized DNS service and marketplace contracts on Cardano
 
 #### Handshake
 - [Handshake](https://handshake.org/) - Decentralized, permissionless naming protocol replacing Certificate Authorities

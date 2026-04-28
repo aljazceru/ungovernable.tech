@@ -29,6 +29,12 @@
 - [awesome-nostr](https://github.com/aljazceru/awesome-nostr) - Curated list of Nostr projects and resources
 - [NostrHub](https://soapbox.pub/blog/announcing-nostrhub) - NIPs, apps, and repos discovery platform
 - [zap.store](https://dev.to/jurjendevries/2025-the-year-of-decentralization-how-nostr-will-make-you-a-standout-developer-5f5l) - Decentralized app distribution for Nostr
+- [Blossom](https://github.com/hzrd149/blossom) - HTTP blob-storage specification using Nostr keys for identity and authorization
+- [nostr-idb](https://github.com/hzrd149/nostr-idb) - IndexedDB-backed event store with a relay-like API for local-first Nostr apps
+
+#### Nostr Payments & Compute
+- [Cashu NUTs](https://github.com/cashubtc/nuts) - Protocol specifications for Cashu ecash wallets and mints, including Nostr mint backup
+- [Routstr Core](https://github.com/routstr/routstr-core) - Nostr discovery plus Cashu micropayments for permissionless API/inference routing
 
 #### Nostr & Identity
 - [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) - Mapping Nostr keys to DNS-based identifiers

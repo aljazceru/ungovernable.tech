@@ -5,6 +5,7 @@
 - [WabiSabi protocol](https://eprint.iacr.org/2021/387) - Flexible CoinJoin with blind signatures, not just equal-output
 - [JoinMarket](https://github.com/JoinMarket-Org/joinmarket-clientserver) - Decentralized CoinJoin marketplace — market makers earn fees
 - [Jam](https://github.com/joinmarket-webui/jam) - Web UI for JoinMarket
+- [Whirlpool](https://github.com/Samourai-Wallet/Whirlpool) - Chaumian CoinJoin implementation based on modified ZeroLink theory
 
 #### Payjoin (P2EP)
 - [BIP 78: Payjoin](https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki) - Pay-to-endpoint: receiver contributes inputs to a payment transaction

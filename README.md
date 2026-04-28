@@ -49,4 +49,7 @@ Network-level anonymity through mix networks, onion routing, and noise-generatin
 ## [Zero-Knowledge Proofs](./ZeroKnowledgeProofs.md)
 Cryptographic proofs that verify statements without revealing underlying data. ZK rollups, privacy-preserving smart contracts, ZK identity, and proof systems (SNARKs, STARKs, Bulletproofs).
 
+## [Surveillance Countermeasures](./SurveillanceCountermeasures.md)
+Practical tools for reducing tracking and surveillance: hardened browsers, mobile OS hardening, Tor routing, URL-cleaning extensions, private search proxies, and fingerprinting audits.
+
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
