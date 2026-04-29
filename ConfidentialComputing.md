@@ -14,6 +14,7 @@
 - [Evaluating DeepSeek in Confidential Computing](https://arxiv.org/html/2502.11347v1) - Analyzing TEE impact on LLM inference efficiency
 - [GPU Travelling for Confidential Collaborative Training](https://dl.acm.org/doi/10.1145/3719027.3765029) - Using confidential GPUs for privacy-preserving ML training
 - [Red Hat: Enhancing AI inference security with confidential computing](https://next.redhat.com/2025/10/23/enhancing-ai-inference-security-with-confidential-computing-a-path-to-private-data-inference-with-proprietary-llms/) - Extending TEE boundary to GPUs
+- [GPU-TEE-Papers](https://github.com/ConfidentialComputing/GPU-TEE-Papers) - Curated paper collection on CPU/GPU TEEs, NVIDIA H100 confidential computing, and GPU memory security
 
 #### Confidential computing on CPUs:
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
@@ -72,9 +73,9 @@
 #### Confidential computing in the cloud
 ##### Azure 
 - [Onidel Cloud AMD SEV-SNP vs Intel TDX](https://onidel.com/blog/amd-sev-snp-vs-intel-tdx-vps) - 2025 comparison guide for VPS isolation and performance
-- how to deploy with cli https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-enclave-nodes-aks-get-started
-- gramine aks azure https://github.com/gramineproject/contrib/tree/master/Examples/aks-attestation
-- azure confidential providers https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-containers-enclaves
+- [Azure confidential enclave nodes on AKS](https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-enclave-nodes-aks-get-started) - CLI guide for deploying confidential enclave nodes on AKS
+- [Gramine AKS attestation example](https://github.com/gramineproject/contrib/tree/master/Examples/aks-attestation) - Example for running Gramine workloads with Azure Kubernetes attestation
+- [Azure confidential containers enclaves](https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-containers-enclaves) - Azure documentation for confidential containers with enclave-aware providers
 
 ##### AWS
 - [Nitro enclaves](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html)

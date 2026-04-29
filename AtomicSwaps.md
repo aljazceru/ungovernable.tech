@@ -22,6 +22,7 @@
 #### Privacy-Preserving DEXs
 - [Haveno](https://github.com/haveno-dex/haveno) - Monero-and-Tor-based decentralized P2P exchange for fiat and crypto trades
 - [Penumbra](https://github.com/penumbra-zone/penumbra) - Fully shielded Cosmos zone for private staking, swaps, and market making
+- [BasicSwap DEX](https://github.com/basicswap/basicswap/) - Peer-to-peer atomic-swap DEX with decentralized order book and no accounts
 
 #### Privacy Analysis
 - [Atomic swap privacy](https://eprint.iacr.org/2020/1462.pdf) - On the privacy of atomic swaps and cross-chain transactions

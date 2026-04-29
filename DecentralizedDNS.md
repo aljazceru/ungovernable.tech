@@ -3,6 +3,7 @@
 - [pkdns](https://github.com/pubky/pkdns) - pkarr based DNS setup compatible with existing DNS
 - [pkarr](https://github.com/pubky/pkarr) - Public Key Addressable Resource Records
 - [Nuhvi/pkarr](https://github.com/Nuhvi/pkarr) - Public-Key Addressable Resource Records using Mainline DHT and BEP44 for sovereign TLDs
+- [pkdns-publisher](https://github.com/pubky/pkdns-publisher) - Rust service that republishes PKARR DNS records to keep them alive on Mainline DHT
 
 #### ENS
 - [Ethereum Name Service](https://ens.domains/) - Ethereum-based decentralized naming system
@@ -21,8 +22,8 @@
 
 #### Namecoin
 - [Namecoin](https://www.namecoin.org/) - Experimental decentralized DNS and identity using Bitcoin infrastructure
-- [Namecoin Post-Quantum TLS](https://www.namecoin.org/) - Research on PQ-resistant Namecoin TLS implementation (2025-2026)
-- [Namecoin FOSDEM 2026](https://www.namecoin.org/) - Upcoming FOSDEM 2026 presentation
+- [Namecoin Post-Quantum TLS](https://www.namecoin.org/2025/09/23/is-post-quantum-namecoin-tls-feasible.html) - Research on PQ-resistant Namecoin TLS implementation
+- [Namecoin FOSDEM 2026](https://www.namecoin.org/2026/01/26/fosdem-2026.html) - Namecoin and Tor PKI presentation announcement for FOSDEM 2026
 
 #### Mesh network naming
 - [zhoreeq/meshname](https://github.com/zhoreeq/meshname) - Universal naming system for all IPv6-based mesh networks (CJDNS, Yggdrasil)

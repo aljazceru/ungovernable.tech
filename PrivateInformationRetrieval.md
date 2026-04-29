@@ -1,17 +1,12 @@
+#### Implementations
+- [FastPIR](https://github.com/ishtiyaque/FastPIR) - An efficient computational private information retrieval (CPIR) library  in C++
+- [SimplePIR](https://github.com/ahenzinger/simplepir) - One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval
+- [private-search](https://github.com/exo-explore/private-search/) - Private Web Search for Local LLMs
+- [secretflow/psi](https://github.com/secretflow/psi) - Private Set Intersection (PSI) and Private Information Retrieval (PIR) from SecretFlow
+- [vt-asaplab/pirex](https://github.com/vt-asaplab/pirex) - Client-Efficient Private Information Retrieval (PETS 2025)
+- [ahenzinger/finite-diffs-pir](https://github.com/ahenzinger/finite-diffs-pir) - Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)
 
-## Implementations
-
-[FastPIR](https://github.com/ishtiyaque/FastPIR) - An efficient computational private information retrieval (CPIR) library  in C++
-
-[SimplePIR](https://github.com/ahenzinger/simplepir) - One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval
-
-[private-search](https://github.com/exo-explore/private-search/) - Private Web Search for Local LLMs
-
-[secretflow/psi](https://github.com/secretflow/psi) - Private Set Intersection (PSI) and Private Information Retrieval (PIR) from SecretFlow
-
-[vt-asaplab/pirex](https://github.com/vt-asaplab/pirex) - Client-Efficient Private Information Retrieval (PETS 2025)
-
-[ahenzinger/finite-diffs-pir](https://github.com/ahenzinger/finite-diffs-pir) - Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)
+- [google/private-retrieval](https://github.com/google/private-retrieval) - Google C++ PIR library using SHELL homomorphic encryption components
 
 #### Academic Papers and Surveys
 - [IM-PIR: In-Memory Private Information Retrieval](https://arxiv.org/abs/2509.06514) - PIM-based multi-server PIR with 3.7x query throughput improvement
@@ -33,6 +28,4 @@
 - [Incremental Single-Server PIR](https://eprint.iacr.org/2026/030) - Extends incremental preprocessing to single-server PIR for efficient updates (2026)
 - [NewtonPIR: Communication Efficient Single-Server PIR](https://dl.acm.org/doi/abs/10.1007/978-981-95-7072-0_30) - PETS 2025 paper on efficient single-server PIR
 - [Information-Theoretic Random-Index PIR](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcsITC.2025.5) - ITC 2025 paper on IT-PIR
-
-
 

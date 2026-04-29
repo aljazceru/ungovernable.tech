@@ -64,6 +64,8 @@
 - [MeshCom](https://meshcom.org/) - Amateur radio mesh networking
 - [SpecFive Spectre](https://specfive.com/) - Android LoRa mesh phone with Meshtastic integration
 - [RAK WisMesh Pocket](https://www.rakwireless.com/en-us/products/wismesh) - Pre-built Meshtastic handheld devices with solar repeater options
+- [RAK WisMesh Base](https://docs.rakwireless.com/product-categories/meshtastic/wismesh-base/overview/) - Base board for building Meshtastic nodes with RAK4630 nRF52840 LoRa module
+- [Meshtastic Introduction](https://meshtastic.org/docs/introduction/) - Official overview of LoRa mesh features, routing, encryption, and getting started
 
 #### Resources
 - [Meshtastic documentation](https://meshtastic.org/docs/)

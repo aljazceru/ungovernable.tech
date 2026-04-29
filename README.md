@@ -52,4 +52,7 @@ Cryptographic proofs that verify statements without revealing underlying data. Z
 ## [Surveillance Countermeasures](./SurveillanceCountermeasures.md)
 Practical tools for reducing tracking and surveillance: hardened browsers, mobile OS hardening, Tor routing, URL-cleaning extensions, private search proxies, and fingerprinting audits.
 
+## [Multi-Party Computation](./MultiPartyComputation.md)
+Secure computation protocols where multiple parties jointly compute over private inputs without revealing them. Covers MPC frameworks, TLSNotary-style attestations, and privacy-preserving ML tools.
+
   For any suggestions or comments submit a [PR/open an issue](https://github.com/aljazceru/ungovernable.tech) or send smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si)
