@@ -10,6 +10,8 @@
 - [Tor2web](https://tor2web.org/) - Access .onion services from a regular browser (trade-off: no anonymity)
 - [Onion-Location](https://community.torproject.org/onion-services/onion-location/) - HTTP header for revealing .onion sites via regular browsers
 - [Tor Network Documentation](https://tb-manual.torproject.org/) - Comprehensive manual for using Tor effectively
+- [Tor Browser: Unblocking Tor](https://support.torproject.org/tor-browser/circumvention/unblocking-tor/) - Official guide to obfs4, meek, Snowflake, WebTunnel, bridges, and Lyrebird
+- [Tor daemon bridge setup](https://support.torproject.org/little-t-tor/circumvention/using-bridges/) - torrc examples for obfs4, Snowflake, and WebTunnel pluggable transports
 
 #### I2P (Invisible Internet Project)
 - [I2P](https://geti2p.net/) - Fully decentralized, self-organizing overlay network for anonymous communication
@@ -21,6 +23,7 @@
 
 #### Mix Networks
 - [Nym](https://nym.com/) - Decentralized noise-generating mixnet providing network-level anonymity
+- [Nym GitHub](https://github.com/nymtech/nym) - Rust monorepo for Nym nodes, gateways, clients, SDKs, wallet, explorer, and network services
 - [NymVPN](https://github.com/nymtech/nym-vpn-client) - Cross-platform VPN application leveraging Nym's 5-hop mixnet for traffic privacy
 - [NymVPN v2026.7](https://nym.com/blog/nymvpn.v2026.7) - Split tunneling (beta), post-quantum Lewes protocol, improved macOS authentication (April 2026)
 - [NymVPN vs VPNs vs Tor vs I2P vs dVPNs](https://nym.com/blog/nymvpn-v-vpns-v-tor-v-i2p-v-dvpns) - Detailed comparison of anonymity solutions
@@ -31,9 +34,12 @@
 - [Katzenpost](https://katzenpost.network/) - Mix network research project and protocol specification
 - [Katzenpost Mix Spec](https://katzenpost.network/docs/specs/mixspec.html) - Formal mix network protocol specification
 - [Katzenpost GitHub](https://github.com/katzenpost/katzenpost) - Open source mix network implementation with post-quantum cryptography
+- [Loopix Anonymity System](https://arxiv.org/abs/1703.00536) - Piotrowska et al. (2017) — low-latency mixnet with cover traffic and provider-based anonymous messaging
+- [Loopix Messaging](https://github.com/google-deepmind/loopix-messaging) - Experimental Go implementation of anonymous messaging using mix networks
+- [Mixnet and ACN Research](https://github.com/lehnberg/mixnet-and-acn-research) - Curated bibliography for mixnets and anonymous communication networks
 - [Katzenpost FOSDEM 2025](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-5475-katzenpost-developing-privacy-software-in-go/) - Post-quantum mixnet implementation in Go
-- [Katzenpost Threat Model](https://katzenpost.network/) - Security assumptions and attack scenarios for the mixnet design
-- [Katzenpost Admin Guide](https://katzenpost.network/) - Running Katzenpost servers including local Docker mixnet setups
+- [Katzenpost Threat Model](https://katzenpost.network/docs/threat_model/) - Security assumptions and attack scenarios for the mixnet design
+- [Katzenpost Admin Guide](https://katzenpost.network/docs/) - Running Katzenpost servers including local Docker mixnet setups
 - [HOPR](https://hoprnet.org/) - Decentralized, metadata-private point-to-point data exchange protocol based on an incentivized mixnet
 
 #### Related Privacy Infrastructure

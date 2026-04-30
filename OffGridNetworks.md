@@ -1,4 +1,5 @@
 #### LoRa Mesh Networks
+- [disaster.radio](https://github.com/sudomesh/disaster-radio) - Paused solar-powered LoRa disaster recovery mesh network with firmware, hardware, and web app components
 - [Meshtastic](https://meshtastic.org/) - open source, off-grid, decentralized mesh network using LoRa
 - [Meshtastic GitHub](https://github.com/meshtastic)
 - [Meshtastic firmware](https://github.com/meshtastic/firmware)
@@ -8,6 +9,8 @@
 - [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
 - [Yeraze/meshmonitor](https://github.com/Yeraze/meshmonitor) - Web tool for monitoring Meshtastic node deployments over TCP/HTTP (386 stars)
 - [Slofi/overmesh](https://github.com/Slofi/overmesh) - Self-hosted Meshtastic dashboard with node map, chat, bot, offline maps, and Mesh Sense
+- [Meshtastic Home Assistant](https://github.com/meshtastic/home-assistant) - Home Assistant custom integration for Meshtastic gateways, sensors, notifications, and automations
+- [MESH-API](https://github.com/mr-tbot/mesh-api) - Experimental API router bridging Meshtastic and MeshCore networks to local services, dashboards, and alerts
 - [Wio Tracker 1110](https://www.seeedstudio.com/blog/2024/07/04/introducing-wio-tracker-1110-dev-kit-for-meshtastic-building-open-source-off-grid-decentralized-and-free-lora-mesh-network/) - Dev kit for Meshtastic with GPS, solar charging
 - [Meshtastic Beginner Guide 2025](https://smartnmagic.com/blogs/solutions/what-is-meshtastic-the-complete-beginners-guide-to-lora-mesh-networks) - Comprehensive beginner's guide for Meshtastic
 
@@ -18,6 +21,7 @@
 - [EFF: Radio Hobbyists, Good News for LoRa & Mesh](https://www.eff.org/deeplinks/2025/07/radio-hobbyists-rejoice-good-news-lora-mesh) - July 2025 update on LoRa mesh networking
 - [liamcottle/reticulum-meshchat](https://github.com/liamcottle/reticulum-meshchat) - Simple mesh network communications app powered by Reticulum (944 stars)
 - [BeechatNetworkSystemsLtd/rns-vpn-rs](https://github.com/BeechatNetworkSystemsLtd/rns-vpn-rs) - VPN over Reticulum mesh network (Rust)
+- [FreeTAKTeam/Reticulum_OpenAPI](https://github.com/FreeTAKTeam/Reticulum_OpenAPI) - Experimental LXMF-based API layer for command/response services over Reticulum
 - [DanBeard/RETCON](https://github.com/DanBeard/RETCON) - Streamlined, deployment-focused solution for Reticulum mesh networking
 - [NomadNet](https://github.com/markqvist/NomadNet) - encrypted communications network built on Reticulum
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
@@ -44,6 +48,8 @@
 #### Overlay Mesh Networks
 - [Yggdrasil](https://yggdrasil-network.github.io/) - overlay network implementing a greedy routing scheme
 - [Yggdrasil GitHub](https://github.com/yggdrasil-network/yggdrasil-go)
+- [Yggdrasil Android](https://github.com/yggdrasil-network/yggdrasil-android) - Reference Android app for connecting to Yggdrasil as a VPN service
+- [Crispa Android](https://github.com/yggdrasil-network/crispa-android) - Community Android client for connecting to Yggdrasil with default peers
 - [Revertron/Yggdrasil-ng](https://github.com/Revertron/Yggdrasil-ng) - Yggdrasil Network rewritten in Rust
 - [Mimir-IM/MimirForAndroid](https://github.com/Mimir-IM/MimirForAndroid) - True P2P messenger on top of Yggdrasil Network (132 stars)
 - [JB-SelfCompany/Tyr](https://github.com/JB-SelfCompany/Tyr) - True P2P Email on top of Yggdrasil Network for Android (299 stars)
