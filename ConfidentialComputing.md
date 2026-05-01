@@ -69,6 +69,8 @@
 - [obliviouslabs/benchmarks](https://github.com/obliviouslabs/benchmarks) - ORAM benchmarks comparing Signal and Meta implementations
 - [mobilecoinfoundation/mc-oblivious](https://github.com/mobilecoinfoundation/mc-oblivious) - ORAM libraries for secure enclave applications
 - [facebook/oram](https://github.com/facebook/oram) - Oblivious RAM implementation for secure enclave applications
+- [Signal faster ORAM layer](https://signal.org/blog/building-faster-oram/) - Technical deep dive on Path ORAM for private contact discovery inside enclaves
+- [Signal Contact Discovery Service](https://github.com/signalapp/ContactDiscoveryService) - Private contact discovery microservice that hides users' contact graphs from the server
 
 #### Confidential computing in the cloud
 ##### Azure 

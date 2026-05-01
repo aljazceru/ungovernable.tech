@@ -19,7 +19,7 @@
 - [Manta Network](https://manta.network/) - Modular ZK rollup with Universal Circuits for privacy-preserving applications
 
 #### Privacy-Focused ZK
-- [Aztec Network](https://aztec.network/) - Privacy-first ZK rollup enabling private smart contracts on Ethereum
+- [Aztec Documentation](https://docs.aztec.network/) - Developer guides for private smart contracts on Ethereum's privacy-first zkRollup
 - [Tornado Cash](https://github.com/tornadocash) - Non-custodial Ethereum privacy solution using ZK proofs (note: sanctioned by OFAC)
 - [Nocturne](https://nocturne.xyz/) - Privacy protocol using ZK proofs for shielded Ethereum transactions
 - [Zcash](https://z.cash/) - Privacy-preserving cryptocurrency using zk-SNARKs (Halo 2)
@@ -49,7 +49,12 @@
 - [Jolt](https://github.com/a16z/jolt) - a16z's fast, extensible RISC-V zkVM using sumcheck and lookup arguments
 - [Nexus zkVM](https://github.com/nexus-xyz/nexus-zkvm) - Modular, prover-optimized zkVM written in Rust (3.5K stars)
 - [SP1](https://github.com/succinctlabs/sp1) - Succinct's zkVM achieving real-time Ethereum proving (4.5K stars)
+- [OpenVM](https://github.com/openvm-org/openvm) - Modular zkVM framework for custom instructions, Rust frontends, and Ethereum verification
+- [Valida zkVM](https://github.com/valida-xyz/valida) - Archived STARK-based zkVM focused on code reuse, performance, and modularity
 - [awesome-zkvm](https://github.com/rkdud007/awesome-zkvm) - Curated list of zkVM projects and resources
+
+#### Ethereum Privacy Tooling
+- [Kohaku Wallet](https://github.com/ethereum/kohaku-extension) - Ethereum Foundation reference wallet embedding on-chain privacy through the Kohaku SDK
 
 #### Resources
 - [Awesome Zero-Knowledge Proofs](https://github.com/matter-labs/awesome-zero-knowledge-proofs) - Curated list of ZKP implementations, libraries, and educational resources
