@@ -20,6 +20,8 @@
 - [nostr-rs-relay](https://github.com/scsibug/nostr-rs-relay) - Rust-based Nostr relay with SQLite storage
 - [strfry](https://github.com/hoytech/strfry) - High-performance C++ Nostr relay
 - [nostr-ts-relay](https://github.com/Cameri/nostr-ts-relay) - TypeScript relay implementation
+- [nostrcheck-server](https://github.com/quentintaranpino/nostrcheck-server) - Self-hostable Nostr service server with relay, NIP-96/Blossom file hosting, NIP-05, NWC, and WoT
+- [NostrGator](https://github.com/Grumpified-OGGVCT/NostrGator) - Docker stack for sovereign Nostr relays, file hosting, Lightning wallet integration, and monitoring
 
 #### Nostr Ecosystem
 - [zapddit](https://github.com/nickvdyck/zapddit) - Reddit-like Nostr client
@@ -30,11 +32,15 @@
 - [NostrHub](https://soapbox.pub/blog/announcing-nostrhub) - NIPs, apps, and repos discovery platform
 - [zap.store](https://dev.to/jurjendevries/2025-the-year-of-decentralization-how-nostr-will-make-you-a-standout-developer-5f5l) - Decentralized app distribution for Nostr
 - [Blossom](https://github.com/hzrd149/blossom) - HTTP blob-storage specification using Nostr keys for identity and authorization
+- [NIP-96](https://github.com/nostr-protocol/nips/blob/master/96.md) - HTTP file storage integration for Nostr clients, deprecated in favor of NIP-B7
 - [nostr-idb](https://github.com/hzrd149/nostr-idb) - IndexedDB-backed event store with a relay-like API for local-first Nostr apps
 
 #### Nostr Payments & Compute
 - [Cashu NUTs](https://github.com/cashubtc/nuts) - Protocol specifications for Cashu ecash wallets and mints, including Nostr mint backup
 - [Routstr Core](https://github.com/routstr/routstr-core) - Nostr discovery plus Cashu micropayments for permissionless API/inference routing
+- [NIP-47](https://github.com/nostr-protocol/nips/blob/master/47.md) - Nostr Wallet Connect specification for controlling Lightning wallets over Nostr
+- [Nostr Wallet Connect Docs](https://docs.nwc.dev/contribute/specification) - Official NWC protocol documentation and implementation guidance
+- [Alby NWC App](https://github.com/getAlby/nwc.getalby.com) - Go application for connecting apps to a Lightning node or wallet over Nostr
 
 #### Nostr & Identity
 - [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) - Mapping Nostr keys to DNS-based identifiers

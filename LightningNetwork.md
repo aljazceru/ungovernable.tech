@@ -7,6 +7,7 @@
 - [Eclair](https://github.com/ACINQ/eclair) - ACINQ's Scala Lightning implementation
 - [LDK](https://github.com/lightningdevkit/rust-lightning) - Lightning Development Kit — modular library for building Lightning nodes
 - [BOLT Specifications](https://github.com/lightning/bolts) - Basis of Lightning Technology protocol specifications
+- [BOLT 2: Peer Protocol](https://github.com/lightning/bolts/blob/master/02-peer-protocol.md) - Channel management spec covering v2 channels, dual funding, and splicing
 - [BOLT 12: Offers](https://github.com/lightning/bolts/blob/master/xx-offer-encoding.md) - Recurring payments, refunds, and more flexible invoiceless payment flows
 - [Lightning Loop](https://github.com/lightninglabs/loop) - Non-custodial submarine swaps between Lightning and on-chain
 - [Lightning Pool](https://github.com/lightninglabs/pool) - Marketplace for Lightning channel leases
@@ -30,6 +31,7 @@
 - [Lightning Privacy Handbook](https://lnprivacy.github.io/) - Comprehensive guide to Lightning privacy practices
 
 #### Lightning Splicing & Swaps
+- [LND Liquidity Ads Issue](https://github.com/lightningnetwork/lnd/issues/6569) - Tracking native dual-funded channel / liquidity ads support in LND
 - [Lightning Splicing](https://www.youtube.com/watch?v=XowFGg-jwH8) - YouTube explanation of Lightning splicing by Dusty Daemon
 - [Boltz Exchange](https://boltz.exchange/) - Atomic non-custodial swaps between Lightning and other Bitcoin layers
 - [Boltz USDT Swaps](https://bitcoinmagazine.com/business/boltz-exchange-launches-atomic-usdt-swaps-for-lightning-network-users) - Atomic USDT swaps for Lightning (March 2026)

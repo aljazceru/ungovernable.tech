@@ -1,5 +1,7 @@
 #### Atomic Swaps
 - [TierNolan's atomic swap](https://bitcointalk.org/index.php?topic=193281.msg2224948) - Original atomic cross-chain swap proposal (2013)
+- [Bitcoin–Monero Atomic Swap Protocol](https://github.com/h4sh3d/xmr-btc-atomic-swap) - Research protocol for BTC-XMR swaps using adaptor signatures and discrete-log proofs
+- [Monero Atomic Swaps Announcement](https://www.getmonero.org/2021/08/20/atomic-swaps.html) - Monero project announcement of BTC-XMR atomic swap software reaching mainnet usability
 - [Bitcoin Script for HTLCs](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) - Hash Time-Locked Contracts for atomic swaps
 - [Komodo BarterDEX](https://github.com/KomodoPlatform/komodo-defi-framework) - Decentralized exchange supporting atomic swaps across 95+ chains
 - [Liquality](https://liquality.io/) - Atomic swap wallet for BTC/ETH/ERC-20
