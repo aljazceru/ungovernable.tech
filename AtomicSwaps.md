@@ -22,6 +22,7 @@
 - [Mintlayer](https://www.mintlayer.org/) - Bitcoin-compatible chain with native atomic swaps on mainnet (January 2026)
 
 #### Privacy-Preserving DEXs
+- [Bisq](https://docs.bisq.network/exchange/whitepaper.html) - Open-source P2P Bitcoin exchange using Tor, multisig deposits, and decentralized dispute resolution
 - [Haveno](https://github.com/haveno-dex/haveno) - Monero-and-Tor-based decentralized P2P exchange for fiat and crypto trades
 - [Penumbra](https://github.com/penumbra-zone/penumbra) - Fully shielded Cosmos zone for private staking, swaps, and market making
 - [BasicSwap DEX](https://github.com/basicswap/basicswap/) - Peer-to-peer atomic-swap DEX with decentralized order book and no accounts
@@ -31,3 +32,4 @@
 #### Privacy Analysis
 - [Atomic swap privacy](https://eprint.iacr.org/2020/1462.pdf) - On the privacy of atomic swaps and cross-chain transactions
 - [Breaking Atomic Swaps](https://eprint.iacr.org/2019/877.pdf) - Privacy analysis of HTLC-based atomic swap protocols
+- [Monero's Decentralized P2P Exchanges](https://arxiv.org/abs/2505.02392) - Kopyciok, Victor, Schmid (2025) — compares Haveno, Bisq, BasicSwap, COMIT, and privacy risks

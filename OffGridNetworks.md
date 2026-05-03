@@ -4,6 +4,7 @@
 - [Meshtastic GitHub](https://github.com/meshtastic)
 - [Meshtastic firmware](https://github.com/meshtastic/firmware)
 - [Meshtastic Android](https://github.com/meshtastic/Meshtastic-Android)
+- [Meshtastic Python](https://github.com/meshtastic/python) - Official Python CLI and API for administering and automating Meshtastic devices
 - [Meshtastic 2025 Beginner Guide](https://www.seeedstudio.com/blog/2025/07/10/meshtastic-off-grid-mesh-network/) - Comprehensive guide for building off-grid mesh networks
 - [Ripple](https://github.com/ripple-lib/ripple) - experimental LoRa mesh networking
 - [cubeos-app/meshsat](https://github.com/cubeos-app/meshsat) - Meshtastic-to-Iridium satellite bridge: one gateway, unlimited mesh nodes, $15/month
@@ -22,11 +23,13 @@
 - [liamcottle/reticulum-meshchat](https://github.com/liamcottle/reticulum-meshchat) - Simple mesh network communications app powered by Reticulum (944 stars)
 - [BeechatNetworkSystemsLtd/rns-vpn-rs](https://github.com/BeechatNetworkSystemsLtd/rns-vpn-rs) - VPN over Reticulum mesh network (Rust)
 - [FreeTAKTeam/Reticulum_OpenAPI](https://github.com/FreeTAKTeam/Reticulum_OpenAPI) - Experimental LXMF-based API layer for command/response services over Reticulum
+- [Reticulum Meshtastic Integration](https://github.com/FreeTAKTeam/Reticulum_Meshtastic_Integration) - Bridge mapping Meshtastic packets and chat into Reticulum Community Hub topics
 - [DanBeard/RETCON](https://github.com/DanBeard/RETCON) - Streamlined, deployment-focused solution for Reticulum mesh networking
 - [NomadNet](https://github.com/markqvist/NomadNet) - encrypted communications network built on Reticulum
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
 - [LXMF](https://github.com/markqvist/LXMF) - secure, distributed messaging protocol
 - [RNode](https://github.com/markqvist/RNode_Firmware) - open LoRa radio hardware
+- [RNode Firmware CE](https://github.com/liberatedsystems/RNode_Firmware_CE) - Community-maintained RNode firmware fork expanding hardware support
 - [Columba](https://columba.network/) - normie-friendly Android messaging and voice app for Reticulum (Bluetooth, WiFi, LoRa)
 - [Columba GitHub](https://github.com/torlando-tech/columba) - Android LXMF/LXST client using Reticulum
 - [RMAP](https://rmap.world/v3/) - Reticulum network worldwide mapping and mesh visualization tool (March 2025)

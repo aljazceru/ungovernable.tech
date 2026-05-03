@@ -6,6 +6,7 @@
 - [uBlock Origin](https://github.com/gorhill/uBlock) - Efficient wide-spectrum blocker for ads, trackers, malware, and coin miners
 - [ClearURLs](https://github.com/ClearURLs/Addon) - Browser extension that removes tracking parameters from URLs
 - [Privacy Possum](https://github.com/cowlicks/privacypossum) - Browser extension that reduces and falsifies data collected by commercial trackers
+- [Privacy Guides](https://github.com/privacyguides/privacyguides.org) - Community-maintained recommendations for defending against mass surveillance
 
 #### Mobile & Device Hardening
 - [GrapheneOS](https://github.com/GrapheneOS/platform_manifest) - Android privacy and security hardening project for supported Pixel devices
@@ -22,3 +23,5 @@
 
 #### Fingerprinting Tests
 - [CreepJS](https://github.com/abrahamjuliot/creepjs) - Browser fingerprinting test suite for auditing how trackable a browser/device is
+- [web-fingerprinting](https://github.com/abrahamjuliot/web-fingerprinting) - Research collection covering fingerprinting papers, attacks, mitigations, and test suites
+- [Browser Fingerprinting Resistance Research](https://github.com/Joe12387/browser-fingerprinting-resistance-research) - Matrix comparing browser protections against common fingerprinting techniques

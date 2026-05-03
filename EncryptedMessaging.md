@@ -27,8 +27,9 @@
 - [SimpleX Security Audit](https://simplex.chat/blog/20241014-simplex-network-v6-1-security-review-better-calls-user-experience.html) - Trail of Bits cryptographic design review for v6.1
 - [Cwtch](https://docs.cwtch.im/) - Decentralized, metadata-resistant messaging over Tor v3 onion services
 - [Briar](https://briarproject.org/) - Peer-to-peer encrypted messaging via Tor, Bluetooth, and WiFi
-- [Briar Desktop 0.6.0-beta](https://briarproject.org/) - Beta desktop client for secure P2P messaging
-- [Briar 1.5.17](https://briarproject.org/) - Latest release (March 2026) with improved connectivity
+- [Briar Desktop 0.6.0-beta](https://briarproject.org/news/2023-briar-desktop-0.6.0-released/) - Beta desktop client adding blogs support to secure P2P messaging
+- [Briar 1.5.17](https://code.briarproject.org/briar/briar/-/tree/release-1.5.17) - March 2026 Android release with improved connectivity
+- [Session Desktop](https://github.com/session-foundation/session-desktop) - Decentralized onion-routed messenger using service nodes for offline storage and IP protection
 
 #### Modern Encryption Tools
 - [age](https://github.com/FiloSottile/age) - Simple, modern file encryption tool (Go) — a GPG replacement

@@ -34,6 +34,9 @@ Bitcoin transaction privacy techniques where multiple parties merge transactions
 ## [Atomic Swaps](./AtomicSwaps.md)
 Trustless cross-chain cryptocurrency exchange using Hash Time-Locked Contracts and adaptor signatures. Enables decentralized trading without custodians, with improving privacy via scriptless scripts.
 
+## [Decentralized Marketplaces](./DecentralizedMarketplaces.md)
+Peer-to-peer exchanges and marketplaces that reduce custody, KYC chokepoints, and platform dependency. Covers Bisq, Haveno, BasicSwap, RoboSats, OpenBazaar, and Particl-style private commerce.
+
 ## [Encrypted Messaging](./EncryptedMessaging.md)
 End-to-end encrypted messaging protocols and metadata-resistant communication. Covers Signal Protocol, Matrix, MLS (RFC 9420), SimpleX, Cwtch, and modern encryption tools replacing GPG.
 
