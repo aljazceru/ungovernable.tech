@@ -1,4 +1,5 @@
 #### Nostr Protocol
+- [nak](https://github.com/fiatjaf/nak) - Command-line tool for creating, signing, querying, and publishing Nostr events
 - [Nostr](https://nostr.com/) - Notes and Other Stuff Transmitted by Relays — minimalist decentralized social protocol
 - [NIP-01](https://github.com/nostr-protocol/nips/blob/master/01.md) - Core protocol specification: events, kinds, relays
 - [nostr-protocol/nips](https://github.com/nostr-protocol/nips) - Nostr Implementation Possibilities — protocol extension proposals
@@ -17,6 +18,7 @@
 - [Notedeck](https://nostr.co.uk/news/) - Nostr client v0.8 released early 2026
 
 #### Nostr Relays
+- [Bloom](https://github.com/nostrnative/bloom) - Cross-platform bundled Blossom media server and Nostr relay for self-hosting
 - [nostr-rs-relay](https://github.com/scsibug/nostr-rs-relay) - Rust-based Nostr relay with SQLite storage
 - [strfry](https://github.com/hoytech/strfry) - High-performance C++ Nostr relay
 - [nostr-ts-relay](https://github.com/Cameri/nostr-ts-relay) - TypeScript relay implementation

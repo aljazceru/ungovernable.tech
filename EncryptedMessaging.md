@@ -8,6 +8,7 @@
 - [Signal SPQR Post-Quantum Ratchet](https://csrc.nist.gov/csrc/media/events/2025/sixth-pqc-standardization-conference/post-quantum%20ratcheting%20for%20signal.pdf) - Sparse Post-Quantum Ratchet (SPQR) integrating ML-KEM (2025)
 
 #### Matrix Protocol
+- [vodozemac](https://github.com/matrix-org/vodozemac) - Pure Rust implementation of Matrix Olm and Megolm cryptographic ratchets
 - [Matrix.org](https://matrix.org/) - Open protocol for decentralized, federated real-time communication
 - [Olm](https://gitlab.matrix.org/matrix-org/olm) - Double Ratchet implementation for 1:1 Matrix encryption
 - [Megolm](https://gitlab.matrix.org/matrix-org/olm/blob/master/docs/megolm.md) - Sender-key ratchet for efficient group encryption in Matrix
@@ -15,6 +16,8 @@
 - [Element](https://element.io/) - Flagship Matrix client for web, desktop, and mobile
 
 #### Messaging Layer Security (MLS)
+- [OpenMLS](https://github.com/openmls/openmls) - Rust implementation of the RFC 9420 Messaging Layer Security protocol
+- [Wire Core Crypto](https://github.com/wireapp/core-crypto) - MLS-based end-to-end encryption library used by Wire clients
 - [RFC 9420: MLS Protocol](https://www.rfc-editor.org/rfc/rfc9420) - IETF standard for efficient group end-to-end encryption
 - [MLS Architecture](https://messaginglayersecurity.rocks/mls-architecture/) - Architecture document for MLS deployment
 - [TreeKEM](https://eprint.iacr.org/2025/229.pdf) - External-Operations TreeKEM and the security of MLS in RFC 9420

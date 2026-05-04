@@ -1,4 +1,6 @@
 #### Tor Network
+- [Lyrebird](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird) - Tor pluggable transport implementation supporting obfs4 and related bridge transports
+- [Conjure](https://github.com/refraction-networking/conjure) - Refraction networking pluggable transport for censorship circumvention
 - [Tor Project](https://www.torproject.org/) - Free software and decentralized network for anonymous communication
 - [Tor Browser](https://www.torproject.org/download/) - Hardened Firefox browser configured for Tor
 - [Onion Services](https://community.torproject.org/onion-services/) - Hidden services accessible only within the Tor network

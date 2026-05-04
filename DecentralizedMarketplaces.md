@@ -1,4 +1,5 @@
 #### P2P Exchanges
+- [Haveno Reto](https://github.com/retoaccess1/haveno-reto) - Community Haveno network distribution for Monero-and-Tor-based P2P exchange
 - [Bisq](https://bisq.network/) - Decentralized P2P Bitcoin exchange network using Tor and local payment methods
 - [Bisq Whitepaper](https://docs.bisq.network/exchange/whitepaper.html) - Architecture and threat-model overview for Bisq's Tor-based P2P exchange
 - [Haveno](https://github.com/haveno-dex/haveno) - Monero-and-Tor-based decentralized exchange platform for crypto and fiat trades

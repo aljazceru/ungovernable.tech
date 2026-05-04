@@ -17,6 +17,8 @@
 - [GPU-TEE-Papers](https://github.com/ConfidentialComputing/GPU-TEE-Papers) - Curated paper collection on CPU/GPU TEEs, NVIDIA H100 confidential computing, and GPU memory security
 
 #### Confidential computing on CPUs:
+- [confidential-containers/trustee](https://github.com/confidential-containers/trustee) - Attestation and secret-management components for Confidential Containers
+- [krunvm](https://github.com/containers/krunvm) - CLI for creating microVMs with libkrun, including confidential virtualization workflows
 - [Trusted Container Extensions for Container-based Confidential Computing](https://arxiv.org/pdf/2205.05747.pdf)
 - [Trusted execution environment](https://en.wikipedia.org/wiki/Trusted_execution_environment)
 - [Confidential Containers](https://github.com/confidential-containers/)

@@ -6,6 +6,8 @@
 - [NIST PQC Standardization](https://csrc.nist.gov/projects/post-quantum-cryptography) - Official NIST post-quantum cryptography project page
 
 #### Open Source Implementations
+- [Cloudflare CIRCL](https://github.com/cloudflare/circl) - Go cryptographic library with post-quantum primitives including ML-KEM and ML-DSA
+- [oqs-provider](https://github.com/open-quantum-safe/oqs-provider) - OpenSSL 3 provider enabling liboqs quantum-safe and hybrid algorithms for TLS 1.3
 - [liboqs](https://github.com/open-quantum-safe/liboqs) - C library for quantum-safe cryptographic algorithms (Open Quantum Safe project)
 - [PQClean](https://github.com/pqclean/PQClean) - Clean, portable, reference implementations of post-quantum schemes
 - [PQ Code Package](https://github.com/pq-code-package) - Maintained successor to PQClean for NIST-standardized PQC schemes
@@ -15,11 +17,13 @@
 - [OpenSSL 3.5 PQC](https://cfp.openssl-conference.org/openssl-conference-2025/talk/8X8YTF/) - Post-quantum TLS 1.3 integration in OpenSSL (Kyber, Dilithium)
 
 #### Hybrid Key Exchange
+- [IETF X25519MLKEM768 TLS Draft](https://www.ietf.org/archive/id/draft-kwiatkowski-tls-ecdhe-mlkem-02.html) - Hybrid ECDHE plus ML-KEM key agreement for TLS 1.3
 - [X25519Kyber768 in TLS](https://www.ietf.org/archive/id/draft-tls-westerbaan-xyber768d00-02.html) - Hybrid post-quantum key exchange for TLS 1.3 (deployed in Chrome)
 - [Chrome PQC Deployment](https://chromestatus.com/feature/5257822742249472) - Chrome's X25519Kyber768 key encapsulation for TLS
 - [RFC 9180: HPKE](https://www.rfc-editor.org/rfc/rfc9180) - Hybrid Public Key Encryption (extensible to PQC KEMs)
 
 #### Migration & Compliance
+- [Meta PQC Migration Framework](https://engineering.fb.com/2026/04/16/security/post-quantum-cryptography-migration-at-meta-framework-lessons-and-takeaways/) - Practical migration levels, inventory, deployment guardrails, and organizational lessons
 - [NSA CNSA 2.0](https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/) - CNSA 2.0 Suite requirements for national security systems (ML-KEM-1024, ML-DSA-87)
 - [PQCC International Requirements](https://pqcc.org/international-pqc-requirements/) - Global PQC migration requirements and timelines
 - [NIST SP 800-227](https://csrc.nist.gov/pubs/sp/800/227/ipd) - Recommendations for key-encapsulation mechanisms
