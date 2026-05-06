@@ -7,6 +7,7 @@
 - [ahenzinger/finite-diffs-pir](https://github.com/ahenzinger/finite-diffs-pir) - Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)
 
 - [google/private-retrieval](https://github.com/google/private-retrieval) - Google C++ PIR library using SHELL homomorphic encryption components
+- [OpenMined/PIR](https://github.com/OpenMined/PIR) - OpenMined private information retrieval protocol implementations across shared project requirements
 
 #### Academic Papers and Surveys
 - [IM-PIR: In-Memory Private Information Retrieval](https://arxiv.org/abs/2509.06514) - PIM-based multi-server PIR with 3.7x query throughput improvement

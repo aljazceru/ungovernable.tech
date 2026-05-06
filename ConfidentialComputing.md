@@ -16,6 +16,14 @@
 - [Red Hat: Enhancing AI inference security with confidential computing](https://next.redhat.com/2025/10/23/enhancing-ai-inference-security-with-confidential-computing-a-path-to-private-data-inference-with-proprietary-llms/) - Extending TEE boundary to GPUs
 - [GPU-TEE-Papers](https://github.com/ConfidentialComputing/GPU-TEE-Papers) - Curated paper collection on CPU/GPU TEEs, NVIDIA H100 confidential computing, and GPU memory security
 
+#### Confidential AI & Private Inference
+- [Tinfoil](https://tinfoil.sh/) - Verifiably private AI inference platform using NVIDIA confidential computing GPUs and remote attestation
+- [tinfoilsh/coco-inferencing](https://github.com/tinfoilsh/coco-inferencing) - Open-source confidential AI inference stack developed with Red Hat
+- [mithril-security/blindai](https://github.com/mithril-security/blindai) - Confidential AI deployment framework for serving models inside secure enclaves
+- [intel/confidential-computing-zoo](https://github.com/intel/confidential-computing-zoo) - Intel examples for confidential AI inference, SGX, TDX, HE, and remote attestation
+- [microsoft/onnx-server-openenclave](https://github.com/microsoft/onnx-server-openenclave) - Open Enclave ONNX inference server with encryption and attestation support
+- [NVIDIA Confidential Computing TDX Deployment Guide](https://docs.nvidia.com/cc-deployment-guide-tdx.pdf) - NVIDIA guide for deploying H100 confidential computing with Intel TDX
+
 #### Confidential computing on CPUs:
 - [confidential-containers/trustee](https://github.com/confidential-containers/trustee) - Attestation and secret-management components for Confidential Containers
 - [krunvm](https://github.com/containers/krunvm) - CLI for creating microVMs with libkrun, including confidential virtualization workflows

@@ -1,4 +1,4 @@
-Existing projects in this space:
+#### Existing Projects
 - [golem.network](https://www.golem.network/)
 - [gputopia.ai](https://gputopia.ai/)
 - [akash.network](https://akash.network)
@@ -13,3 +13,9 @@ Existing projects in this space:
 - [TimeleapLabs/tlp-contracts](https://github.com/TimeleapLabs/tlp-contracts) - Solidity smart contracts for Timeleap's decentralized compute marketplace with EIP712 signature authorization
 - [CipherKuma/AgentPay](https://github.com/CipherKuma/AgentPay) - Decentralized compute marketplace where AI agents pay for GPU/inference services via x402 micropayments
 - [REChain-Network-Solutions/DeCub](https://github.com/REChain-Network-Solutions/DeCub) - DeCub (Decentralized Compute Platform) is a decentralized distributed compute and storage platform using a hybrid consensus model
+
+#### Distributed Compute Tooling
+- [Lilypad](https://github.com/Lilypad-Tech/lilypad) - Decentralized GPU network for running containerized AI workloads with compute-provider payments
+- [Lilypad DCN](https://github.com/Lilypad-Tech/lilypad-dcn) - EVM-coordinated decentralized compute network using Bacalhau and Docker for jobs
+- [Fluence](https://github.com/fluencelabs) - Decentralized compute network for deploying VMs on independently operated infrastructure
+- [Bacalhau](https://github.com/bacalhau-project/bacalhau) - Distributed compute-over-data platform used by decentralized compute networks for containerized jobs

@@ -4,6 +4,7 @@
 - [Halo 2](https://electriccoin.co/blog/halo-2-cryptographic-proof-system/) - Recursive proof composition without trusted setup, used in Zcash Orchard
 - [Circom & SnarkJS](https://github.com/iden3/circom) - Domain-specific language and toolchain for writing and verifying zk-SNARK circuits
 - [Arkworks](https://github.com/arkworks-rs) - Rust ecosystem for programming and composing zk-SNARK protocols
+- [Zilch](https://github.com/TrustworthyComputing/Zilch) - STARK framework for scalable, transparent zero-knowledge arguments without trusted setup
 
 #### ZK Rollups & Scaling
 - [zkSync Era](https://github.com/matter-labs/zksync-era) - ZK rollup on Ethereum supporting smart contracts with native account abstraction

@@ -9,6 +9,8 @@
 - [CrypTen](https://crypten.ai/) - PyTorch-based research framework for secure and privacy-preserving machine learning with MPC
 - [SCALE-MAMBA](https://github.com/KULeuven-COSIC/SCALE-MAMBA) - MPC system supporting SPDZ-family protocols and malicious-security settings
 - [FRESCO](https://github.com/aicis/fresco) - Java framework for efficient secure computation applications and protocol suites
+- [ABY](https://github.com/encryptogroup/ABY) - Mixed-protocol secure two-party computation framework combining arithmetic sharing, Boolean sharing, and Yao circuits
+- [MOTION](https://github.com/encryptogroup/MOTION) - C++ framework for mixed-protocol MPC with GMW, BMR, arithmetic sharing, and OT-based protocols
 
 #### MPC Applications
 - [TLSNotary](https://tlsnotary.org/) - MPC-based protocol for proving facts about HTTPS sessions without revealing private data
