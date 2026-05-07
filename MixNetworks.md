@@ -6,6 +6,7 @@
 - [Onion Services](https://community.torproject.org/onion-services/) - Hidden services accessible only within the Tor network
 - [Tor Pluggable Transports](https://tb-manual.torproject.org/circumvention/) - Censorship circumvention via obfs4, snowflake, and meek bridges
 - [Snowflake](https://snowflake.torproject.org/) - WebRTC-based pluggable transport for Tor censorship resistance
+- [Snowflake GitHub](https://github.com/keroserene/snowflake) - Original WebRTC pluggable transport repository with client, proxy, and library code
 - [Snowflake 2.0](https://ubos.tech/news/tors-2025-anti%E2%80%91censorship-strategies-lessons-from-iran-and-russia/) - Major 2025 update with improved obfuscation and scalability for high-censorship regions
 - [WebTunnel](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel) - HTTP-based obfuscation transport simulating regular HTTPS traffic
 - [Conjure](https://github.com/net4people/bbs/issues/124) - New pre-alpha pluggable transport available in Tor Browser nightlies
@@ -19,9 +20,13 @@
 - [I2P](https://geti2p.net/) - Fully decentralized, self-organizing overlay network for anonymous communication
 - [i2p.i2p GitHub](https://github.com/i2p/i2p.i2p) - I2P Java implementation
 - [I2Pd](https://github.com/PurpleI2P/i2pd) - Lightweight C++ implementation of I2P client
+- [I2P+](https://i2pplus.github.io/) - Enhanced Java I2P router distribution with improved console UX and performance tuning
+- [I2P+ GitHub](https://github.com/I2PPlus/i2pplus) - Source repository for the I2P+ soft fork of the Java I2P router
 - [I2P Botnet](https://i2pbot.net/) - Community resources and services on I2P
+- [StormyCloud I2P Reseed](https://www.stormycloud.org/reseed/) - Public signed reseed server for bootstrapping new I2P routers
 - [I2P 2.11.0 Release](https://i2p.net/) - Latest release with improved NTCP2 resistance to probing attacks
 - [I2P 2.9.0 Release](https://i2p.net/en/blog/2025/06/02/i2p-2.9.0-release/) - June 2025 release with thread and performance improvements
+- [awesome-i2p](https://github.com/mikalv/awesome-i2p) - Curated list of I2P implementations, libraries, projects, and resources
 
 #### Mix Networks
 - [Nym](https://nym.com/) - Decentralized noise-generating mixnet providing network-level anonymity

@@ -12,6 +12,7 @@
 - [Slofi/overmesh](https://github.com/Slofi/overmesh) - Self-hosted Meshtastic dashboard with node map, chat, bot, offline maps, and Mesh Sense
 - [Meshtastic Home Assistant](https://github.com/meshtastic/home-assistant) - Home Assistant custom integration for Meshtastic gateways, sensors, notifications, and automations
 - [MESH-API](https://github.com/mr-tbot/mesh-api) - Experimental API router bridging Meshtastic and MeshCore networks to local services, dashboards, and alerts
+- [Akita Meshtastic eMail](https://github.com/AkitaEngineering/Akita-Meshtastic-eMail) - Experimental store-and-forward email-like messaging over Meshtastic LoRa meshes
 - [Wio Tracker 1110](https://www.seeedstudio.com/blog/2024/07/04/introducing-wio-tracker-1110-dev-kit-for-meshtastic-building-open-source-off-grid-decentralized-and-free-lora-mesh-network/) - Dev kit for Meshtastic with GPS, solar charging
 - [Meshtastic Beginner Guide 2025](https://smartnmagic.com/blogs/solutions/what-is-meshtastic-the-complete-beginners-guide-to-lora-mesh-networks) - Comprehensive beginner's guide for Meshtastic
 
@@ -26,6 +27,7 @@
 - [Reticulum Meshtastic Integration](https://github.com/FreeTAKTeam/Reticulum_Meshtastic_Integration) - Bridge mapping Meshtastic packets and chat into Reticulum Community Hub topics
 - [DanBeard/RETCON](https://github.com/DanBeard/RETCON) - Streamlined, deployment-focused solution for Reticulum mesh networking
 - [NomadNet](https://github.com/markqvist/NomadNet) - encrypted communications network built on Reticulum
+- [The Chat Room](https://github.com/fr33n0w/thechatroom) - IRC-style public chat room for Reticulum NomadNet and MeshChat deployments
 - [Sideband](https://github.com/markqvist/Sideband) - LXMF client for Android, Linux and macOS
 - [LXMF](https://github.com/markqvist/LXMF) - secure, distributed messaging protocol
 - [RNode](https://github.com/markqvist/RNode_Firmware) - open LoRa radio hardware
@@ -54,6 +56,7 @@
 - [Yggdrasil Android](https://github.com/yggdrasil-network/yggdrasil-android) - Reference Android app for connecting to Yggdrasil as a VPN service
 - [Crispa Android](https://github.com/yggdrasil-network/crispa-android) - Community Android client for connecting to Yggdrasil with default peers
 - [Revertron/Yggdrasil-ng](https://github.com/Revertron/Yggdrasil-ng) - Yggdrasil Network rewritten in Rust
+- [ygg0-lib-go](https://github.com/filinvadim/ygg0-lib-go) - Go library embedding Yggdrasil routing directly into applications without an external daemon
 - [Mimir-IM/MimirForAndroid](https://github.com/Mimir-IM/MimirForAndroid) - True P2P messenger on top of Yggdrasil Network (132 stars)
 - [JB-SelfCompany/Tyr](https://github.com/JB-SelfCompany/Tyr) - True P2P Email on top of Yggdrasil Network for Android (299 stars)
 - [cjdns](https://github.com/cjdelisle/cjdns) - encrypted IPv6 mesh network
