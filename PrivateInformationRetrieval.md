@@ -8,6 +8,11 @@
 
 - [google/private-retrieval](https://github.com/google/private-retrieval) - Google C++ PIR library using SHELL homomorphic encryption components
 - [OpenMined/PIR](https://github.com/OpenMined/PIR) - OpenMined private information retrieval protocol implementations across shared project requirements
+- [microsoft/SealPIR](https://github.com/microsoft/SealPIR) - Research implementation of SealPIR with low communication costs using Microsoft SEAL
+- [XPIR](https://github.com/XPIR-team/XPIR) - Ring-LWE computational PIR library from the POPETS 2016 XPIR paper
+- [Onion-PIR](https://github.com/mhmughees/Onion-PIR) - Lattice-based single-server PIR composing two SHE schemes for smaller replies
+- [PIR-PIXR/CPIR](https://github.com/PIR-PIXR/CPIR) - Reference code for committed private information retrieval
+- [ChalametPIR](https://github.com/itzmeanjan/ChalametPIR) - Stateful single-server keyword PIR scheme built on top of FrodoPIR
 
 #### Academic Papers and Surveys
 - [IM-PIR: In-Memory Private Information Retrieval](https://arxiv.org/abs/2509.06514) - PIM-based multi-server PIR with 3.7x query throughput improvement

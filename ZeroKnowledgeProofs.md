@@ -58,7 +58,10 @@
 - [Kohaku Wallet](https://github.com/ethereum/kohaku-extension) - Ethereum Foundation reference wallet embedding on-chain privacy through the Kohaku SDK
 - [Kohaku](https://github.com/ethereum/kohaku) - Ethereum Foundation privacy-first tooling monorepo for Railgun, Privacy Pools, provider abstraction, and PQ accounts
 - [Privacy Pools Core](https://github.com/0xbow-io/privacy-pools-core) - ZK contracts, circuits, relayer, and SDK for approved-set private Ethereum transfers
+- [Privacy Pools](https://github.com/ameensol/privacy-pools) - Ethereum privacy pool prototype using zero-knowledge proofs and association sets
 
 #### Resources
 - [Awesome Zero-Knowledge Proofs](https://github.com/matter-labs/awesome-zero-knowledge-proofs) - Curated list of ZKP implementations, libraries, and educational resources
 - [ZK learning resources from 0xPARC](https://learn.0xparc.org/) - Educational materials for learning ZK cryptography
+- [awesome-zk](https://github.com/ventali/awesome-zk) - Curated directory of ZK projects, libraries, tools, and learning resources
+- [web3privacy](https://github.com/web3privacy/web3privacy) - Market overview of privacy-preserving Web3 protocols, wallets, infrastructure, and research

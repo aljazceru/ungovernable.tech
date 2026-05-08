@@ -15,6 +15,9 @@
 - [pqcrystals/kyber](https://github.com/pq-crystals/kyber) - Reference implementation of ML-KEM (Kyber)
 - [pqcrystals/dilithium](https://github.com/pq-crystals/dilithium) - Reference implementation of ML-DSA (Dilithium)
 - [OpenSSL 3.5 PQC](https://cfp.openssl-conference.org/openssl-conference-2025/talk/8X8YTF/) - Post-quantum TLS 1.3 integration in OpenSSL (Kyber, Dilithium)
+- [OQS-OpenSSH](https://github.com/open-quantum-safe/openssh) - Prototype OpenSSH fork with liboqs-based quantum-resistant key exchange and authentication
+- [OQS Demos](https://github.com/open-quantum-safe/oqs-demos) - Integration recipes and demos for using liboqs in TLS, SSH, curl, and related software
+- [itzmeanjan/ml-kem](https://github.com/itzmeanjan/ml-kem) - C++20 implementation of NIST FIPS 203 ML-KEM
 
 #### Hybrid Key Exchange
 - [IETF X25519MLKEM768 TLS Draft](https://www.ietf.org/archive/id/draft-kwiatkowski-tls-ecdhe-mlkem-02.html) - Hybrid ECDHE plus ML-KEM key agreement for TLS 1.3
@@ -27,6 +30,7 @@
 - [NSA CNSA 2.0](https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/) - CNSA 2.0 Suite requirements for national security systems (ML-KEM-1024, ML-DSA-87)
 - [PQCC International Requirements](https://pqcc.org/international-pqc-requirements/) - Global PQC migration requirements and timelines
 - [NIST SP 800-227](https://csrc.nist.gov/pubs/sp/800/227/ipd) - Recommendations for key-encapsulation mechanisms
+- [TNO PQChoiceAssistant](https://github.com/TNO/PQChoiceAssistant) - Tool for choosing suitable post-quantum algorithms for a deployment use case
 
 #### Research & Analysis
 - [Inside NIST's PQC](https://postquantum.com/post-quantum/nists-pqc-technical/) - Technical deep-dive into Kyber, Dilithium, and SPHINCS+

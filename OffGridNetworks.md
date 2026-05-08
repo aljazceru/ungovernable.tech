@@ -15,6 +15,8 @@
 - [Akita Meshtastic eMail](https://github.com/AkitaEngineering/Akita-Meshtastic-eMail) - Experimental store-and-forward email-like messaging over Meshtastic LoRa meshes
 - [Wio Tracker 1110](https://www.seeedstudio.com/blog/2024/07/04/introducing-wio-tracker-1110-dev-kit-for-meshtastic-building-open-source-off-grid-decentralized-and-free-lora-mesh-network/) - Dev kit for Meshtastic with GPS, solar charging
 - [Meshtastic Beginner Guide 2025](https://smartnmagic.com/blogs/solutions/what-is-meshtastic-the-complete-beginners-guide-to-lora-mesh-networks) - Comprehensive beginner's guide for Meshtastic
+- [socialmesh](https://github.com/gotnull/socialmesh) - Offline Meshtastic companion app for messaging, node discovery, and mesh exploration over BLE/USB
+- [pyMC_core](https://github.com/pyMC-dev/pyMC_core) - Python MeshCore library for SPI LoRa radio modules and off-grid field deployments
 
 #### Reticulum Stack
 - [Reticulum](https://reticulum.network/) - self-configuring, encrypted mesh networking stack
@@ -39,6 +41,7 @@
 #### MeshCore
 - [MeshCore](https://github.com/ajmcquilkin/meshcore) - Meshtastic-like mesh networking for T-Deck, T-Watch, and other ESP32 devices
 - [MeshCore Radio](https://github.com/ajmcquilkin/meshcore-radio) - radio firmware component
+- [awesome-meshcore](https://github.com/samuk/awesome-meshcore) - Curated resources for MeshCore LoRa text communications and supported hardware
 
 #### Delay-Tolerant Networks (DTN)
 - [Briar](https://briarproject.org/) - secure messaging via Bluetooth, WiFi, or Tor
@@ -83,3 +86,4 @@
 - [Meshtastic documentation](https://meshtastic.org/docs/)
 - [Reticulum documentation](https://reticulum.network/manual/)
 - [awesome-meshtastic](https://github.com/ajmcquilkin/awesome-meshtastic)
+- [Alternative Internet](https://github.com/redecentralize/alternative-internet) - Curated directory of decentralized networking, mesh, darknet, and P2P projects
