@@ -1,0 +1,136 @@
+pillar: messaging
+sections:
+- title: Signal Protocol
+  items:
+  - name: Signal Protocol
+    url: https://signal.org/docs/
+    desc: Open protocol providing end-to-end encryption with forward secrecy and post-compromise
+      security
+  - name: libsignal
+    url: https://github.com/signalapp/libsignal
+    desc: Official Signal Protocol library (Java, C, Rust)
+  - name: Double Ratchet Specification
+    url: https://signal.org/docs/specifications/doubleratchet/
+    desc: Signal's core key derivation and message encryption algorithm
+  - name: X3DH Key Agreement
+    url: https://signal.org/docs/specifications/x3dh/
+    desc: Extended Triple Diffie-Hellman for establishing shared secrets
+  - name: x3dh-ratchet
+    url: https://github.com/ekkolon/x3dh-ratchet
+    desc: Crypto primitives based on the Signal Protocol for secure async messaging
+  - name: 2key-ratchet
+    url: https://github.com/PeculiarVentures/2key-ratchet
+    desc: Double Ratchet and X3DH implementation in JavaScript
+  - name: Signal SPQR Post-Quantum Ratchet
+    url: https://csrc.nist.gov/csrc/media/events/2025/sixth-pqc-standardization-conference/post-quantum%20ratcheting%20for%20signal.pdf
+    desc: Sparse Post-Quantum Ratchet (SPQR) integrating ML-KEM (2025)
+- title: Matrix Protocol
+  items:
+  - name: vodozemac
+    url: https://github.com/matrix-org/vodozemac
+    desc: Pure Rust implementation of Matrix Olm and Megolm cryptographic ratchets
+  - name: Matrix.org
+    url: https://matrix.org/
+    desc: Open protocol for decentralized, federated real-time communication
+  - name: Olm
+    url: https://gitlab.matrix.org/matrix-org/olm
+    desc: Double Ratchet implementation for 1:1 Matrix encryption
+  - name: Megolm
+    url: https://gitlab.matrix.org/matrix-org/olm/blob/master/docs/megolm.md
+    desc: Sender-key ratchet for efficient group encryption in Matrix
+  - name: Matrix E2EE Implementation Guide
+    url: https://matrix.org/docs/matrix-concepts/end-to-end-encryption/
+    desc: Official guide to Matrix's end-to-end encryption architecture
+  - name: Element
+    url: https://element.io/
+    desc: Flagship Matrix client for web, desktop, and mobile
+- title: Messaging Layer Security (MLS)
+  items:
+  - name: OpenMLS
+    url: https://github.com/openmls/openmls
+    desc: Rust implementation of the RFC 9420 Messaging Layer Security protocol
+  - name: Wire Core Crypto
+    url: https://github.com/wireapp/core-crypto
+    desc: MLS-based end-to-end encryption library used by Wire clients
+  - name: 'RFC 9420: MLS Protocol'
+    url: https://www.rfc-editor.org/rfc/rfc9420
+    desc: IETF standard for efficient group end-to-end encryption
+  - name: MLS Architecture
+    url: https://messaginglayersecurity.rocks/mls-architecture/
+    desc: Architecture document for MLS deployment
+  - name: TreeKEM
+    url: https://eprint.iacr.org/2025/229.pdf
+    desc: External-Operations TreeKEM and the security of MLS in RFC 9420
+  - name: MLS RFC Overview
+    url: https://blog.phnx.im/rfc-9420-mls/
+    desc: Detailed walkthrough of RFC 9420 design and security properties
+- title: Metadata-Resistant Messaging
+  items:
+  - name: SimpleX Chat
+    url: https://github.com/simplex-chat/simplex-chat
+    desc: First messaging network operating without user identifiers of any kind
+  - name: SimpleX Messaging Protocol
+    url: https://github.com/simplex-chat/simplexmq/blob/stable/protocol/simplex-messaging.md
+    desc: Transport-agnostic protocol for distributed secure unidirectional messaging
+  - name: SimpleX v6.4.1
+    url: https://simplex.chat/blog/
+    desc: July 2025 release with contact management and group protection features
+  - name: SimpleX Security Audit
+    url: https://simplex.chat/blog/20241014-simplex-network-v6-1-security-review-better-calls-user-experience.html
+    desc: Trail of Bits cryptographic design review for v6.1
+  - name: Cwtch
+    url: https://docs.cwtch.im/
+    desc: Decentralized, metadata-resistant messaging over Tor v3 onion services
+  - name: Cwtch Implementation
+    url: https://git.openprivacy.ca/cwtch.im/cwtch
+    desc: Official peer implementation for asynchronous, metadata-resistant Cwtch
+      applications
+  - name: Briar
+    url: https://briarproject.org/
+    desc: Peer-to-peer encrypted messaging via Tor, Bluetooth, and WiFi
+  - name: Briar Desktop 0.6.0-beta
+    url: https://briarproject.org/news/2023-briar-desktop-0.6.0-released/
+    desc: Beta desktop client adding blogs support to secure P2P messaging
+  - name: Briar 1.5.17
+    url: https://code.briarproject.org/briar/briar/-/tree/release-1.5.17
+    desc: March 2026 Android release with improved connectivity
+  - name: Quiet
+    url: https://github.com/TryQuiet/quiet
+    desc: Private peer-to-peer team chat with no central servers, built on Tor and
+      IPFS-style syncing
+  - name: Session
+    url: https://getsession.org/
+    desc: Decentralized private messenger using onion-routed service nodes and account
+      IDs instead of phone numbers
+  - name: Session Desktop
+    url: https://github.com/session-foundation/session-desktop
+    desc: Decentralized onion-routed messenger using service nodes for offline storage
+      and IP protection
+- title: Modern Encryption Tools
+  items:
+  - name: age
+    url: https://github.com/FiloSottile/age
+    desc: Simple, modern file encryption tool (Go) — a GPG replacement
+  - name: minisign
+    url: https://github.com/jedisct1/minisign
+    desc: Minimalistic tool for signing files and verifying signatures
+  - name: OpenPGP.js
+    url: https://github.com/openpgpjs/openpgpjs
+    desc: OpenPGP implementation in JavaScript (maintained by Proton Mail)
+  - name: Sequoia PGP
+    url: https://sequoia-pgp.org/
+    desc: Modern OpenPGP implementation in Rust
+  - name: Gopenpgp
+    url: https://github.com/ProtonMail/gopenpgp
+    desc: Go wrapper around GPG for high-performance OpenPGP operations
+- title: Privacy Infrastructure
+  items:
+  - name: Oblivious HTTP (OHTTP)
+    url: https://en.wikipedia.org/wiki/Oblivious_HTTP
+    desc: IETF protocol for anonymous HTTP transactions via relay
+  - name: Oblivious DoH (ODoH)
+    url: https://blog.cloudflare.com/oblivious-dns/
+    desc: DNS resolution via oblivious relay to hide client identity from resolver
+  - name: 'RFC 9458: OHTTP'
+    url: https://www.rfc-editor.org/rfc/rfc9458
+    desc: IETF standard for Oblivious HTTP

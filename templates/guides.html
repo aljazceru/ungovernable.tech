@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}Guides — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': 'Guides'}]) }}
+<header class="page-head">
+  <p class="kicker">Practical, step by step</p>
+  <h1>Guides</h1>
+  <p class="dek">How to actually do this: pick a messenger, hold your own keys, set up a mesh, publish a site nobody can take down. Guides are written to be followed, with the trade-offs named.</p>
+</header>
+<div class="rows big">
+  {% for g in guides %}{{ m.guide_row(g) }}{% endfor %}
+</div>
+</div></div>
+{% endblock %}

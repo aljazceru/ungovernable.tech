@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ title }} — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb(crumb) }}
+<header class="page-head">
+  <p class="kicker">{{ kicker }}</p>
+  <h1>{{ title }}</h1>
+  {% if dek %}<p class="dek">{{ dek }}</p>{% endif %}
+</header>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    {{ body_html|safe }}
+  </article>
+</div>
+</div></div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}ungovernable.tech — a library of technology for sovereign individuals{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld[0]|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+
+<section class="hero">
+  <p class="kicker">A field manual for digital autonomy</p>
+  <h1>Technology for people who refuse to be governed by surveillance.</h1>
+  <p class="lede">ungovernable.tech is an independent library of the tools, protocols and cryptography that keep people private, connected and sovereign: from Tor and mesh radios to zero-knowledge proofs and post-quantum keys. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+  <a class="bigsearch" href="/directory/" id="bigsearch">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <span>Search {{ counts.entries }} entries — Tor, ecash, MLS, attestation…</span>
+    <kbd>/</kbd>
+  </a>
+</section>
+
+{% if start_guide or paths %}
+<section class="band" id="start">
+  <div class="band-h"><h2>Start here</h2><span class="label">{{ paths|length }} learning paths</span></div>
+  <div class="cards">
+    {% if start_guide %}
+    <a class="card card-first" href="{{ start_guide.url }}">
+      <span class="label">First</span>
+      <b>{{ start_guide.title }}</b>
+      <p>{{ start_guide.dek }}</p>
+      <span class="meta">{{ start_guide.time or 'Guide' }}</span>
+    </a>
+    {% endif %}
+    {% for p in paths %}
+    <a class="card" href="/paths/{{ p.key }}/">
+      <span class="label">{{ loop.index }} · Path</span>
+      <b>{{ p.name }}</b>
+      <p>{{ p.who }}</p>
+      <span class="meta">{{ p.steps|length }} steps</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="band" id="pillars">
+  <div class="band-h"><h2>The fourteen pillars</h2><span class="label">Browse by question</span></div>
+  <div class="pgrid">
+    {% for p in pillar_stats %}
+    <a class="pcell" href="/pillars/{{ p.key }}/">
+      <span class="pnum">{{ '%02d'|format(loop.index) }}</span>
+      <b>{{ p.name }}</b>
+      <span class="pq">{{ p.question }}</span>
+      <span class="pmeta">{{ p.n_entries }} entr{{ 'y' if p.n_entries == 1 else 'ies' }} · {{ p.n_guides }} guide{{ '' if p.n_guides == 1 else 's' }} · {{ p.n_links }} links</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% if guides_new %}
+<section class="band" id="guides">
+  <div class="band-h"><h2>Guides</h2><a class="label more" href="/guides/">All guides →</a></div>
+  <div class="cards">
+    {% for g in guides_new %}
+    <a class="card" href="{{ g.url }}">
+      <span class="label">{{ g.level or 'Guide' }} · {{ g.time or 'practical' }}</span>
+      <b>{{ g.title }}</b>
+      <p>{{ g.dek }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="band cols2">
+  <div>
+    <div class="band-h"><h2>Recently updated</h2></div>
+    <div class="rows">
+      {% for e in recent %}{{ m.entry_row(e) }}{% endfor %}
+    </div>
+  </div>
+  <div>
+    <div class="band-h"><h2>Latest briefings</h2><a class="label more" href="/briefings/">All series →</a></div>
+    <div class="rows">
+      {% for b in latest_briefings %}
+      <a class="row" href="/briefings/{{ b.series }}/{{ b.date }}/">
+        <span class="nm">{{ b.series_name }}<small>{{ b.date }} — {{ b.first_line }}</small></span>
+        <span class="ty">Briefing</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="band" id="readiness">
+  <div class="band-h"><h2>How ready is it?</h2><a class="label more" href="/method/#readiness">The scale →</a></div>
+  <nav class="spec" aria-label="Readiness across the library">
+    <svg viewBox="0 0 1000 12" preserveAspectRatio="none" role="img" aria-label="{{ readiness_counts|dictsort|last }} of the library's rated entries are {{ readiness[readiness_order[0]].label|lower }}">
+      {% for seg in spec_segments %}
+      <a href="/method/#readiness" aria-label="{{ seg.label }}: {{ seg.n }} entries" title="{{ seg.label }}: {{ seg.n }} entries"><rect x="{{ seg.x }}" y="0" width="{{ seg.w }}" height="12"{% if seg.n == 0 %} opacity="0.15"{% endif %}/></a>
+      {% endfor %}
+    </svg>
+  </nav>
+  <div class="scale">
+    {% for r in readiness_order %}
+    <a href="/method/#readiness">
+      {{ m.meter(r) }}<span><b>{{ readiness[r].label }}</b><p>{{ readiness[r].tail }}</p></span>
+      <span class="n">{{ readiness_counts[r] or 0 }}<span class="chev" aria-hidden="true">›</span></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+</div></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ s.name }} briefings — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': 'Briefings', 'url': '/briefings/'}, {'name': s.name}]) }}
+<header class="page-head">
+  <p class="kicker">Weekly research log</p>
+  <h1>{{ s.name }}</h1>
+  <p class="dek">Dated weekly notes on {{ pillar_names|join(' and ') }}. Each briefing reflects what was known in its week; the pillar entries carry the current view.</p>
+</header>
+<div class="rows big">
+  {% for b in briefings %}
+  <a class="row" href="/briefings/{{ b.series }}/{{ b.date }}/">
+    <span class="nm">{{ b.date }}<small>{{ b.first_line }}</small></span>
+    <span class="ty">{{ b.window or 'Weekly' }}</span>
+  </a>
+  {% endfor %}
+</div>
+</div></div>
+{% endblock %}

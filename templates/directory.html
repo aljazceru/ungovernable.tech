@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Directory — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span class="here">Directory</span></nav>
+<header class="page-head">
+  <p class="kicker">Curated outbound links</p>
+  <h1>Directory</h1>
+  <p class="dek">{{ n_links }} links to projects, specifications, papers and tools, grouped by pillar. Hand-checked, with dead and superseded links marked. External sites are their own affair — follow with care.</p>
+  <label class="filter" for="dir-filter">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="dir-filter" type="search" placeholder="Filter links (e.g. rust, tls, wallet)" autocomplete="off">
+  </label>
+</header>
+{% for p in pillars %}
+<section class="dsec" id="{{ p.key }}" data-pillar="{{ p.key }}">
+  <h2 class="sec-h"><a href="/pillars/{{ p.key }}/">{{ p.name }}</a><span class="count">{{ p.n }} links</span></h2>
+  {% for s in p.sections %}
+  <div class="dsub">
+    <h3>{{ s['title'] }}</h3>
+    <ul class="links">
+      {% for it in s['items'] %}
+      <li data-hay="{{ it.name|lower }} {{ it.desc|lower }} {{ s.title|lower }}">
+        <a href="{{ it.url }}" rel="noopener nofollow">{{ it.name }}</a>
+        {% if it.status %}<span class="tag tag-{{ it.status }}">{{ it.status }}</span>{% endif %}
+        {% if it.desc %}<span class="ldesc"> — {{ it.desc }}</span>{% endif %}
+        {% if it.note %}<span class="lnote">{{ it.note }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</section>
+{% endfor %}
+<p class="empty-dir" hidden>No links match that filter.</p>
+</div></div>
+{% endblock %}

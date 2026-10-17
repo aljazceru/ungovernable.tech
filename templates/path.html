@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ p.name }} (path) — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': 'Paths', 'url': '/paths/'}, {'name': p.name}]) }}
+<header class="page-head">
+  <p class="kicker">Learning path · {{ p.steps|length }} steps</p>
+  <h1>{{ p.name }}</h1>
+  <p class="dek">{{ p.intro }}</p>
+  <p class="who"><span class="label">Who it is for</span> {{ p.who }}</p>
+</header>
+<ol class="steps">
+  {% for st in p.steps %}
+  <li>
+    <span class="step-n">{{ loop.index }}</span>
+    <div>
+      <a class="step-t" href="{{ st.url }}">{{ st.title }}</a>
+      <span class="step-meta">{{ type_labels[st.type] }}{% if st.readiness %} · {{ readiness[st.readiness].label }}{% endif %}</span>
+      <p>{{ st.why }}</p>
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+{% if next_path %}
+<nav class="pn" aria-label="More paths">
+  <span></span>
+  <a class="pn-hub" href="/paths/"><span class="label">Paths</span><span class="pn-t">All learning paths</span></a>
+  <a href="/paths/{{ next_path.key }}/"><span class="label">Next path</span><span class="pn-t">{{ next_path.name }}</span></a>
+</nav>
+{% endif %}
+</div></div>
+{% endblock %}

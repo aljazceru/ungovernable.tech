@@ -1,0 +1,36 @@
+{% macro meter(r, lg=False) -%}
+{%- if r and readiness.get(r) -%}
+<span class="m{{ ' lg' if lg }} m-{{ r }}" role="img" aria-label="Readiness: {{ readiness[r].label }}"{% if not lg %} title="{{ readiness[r].full }}"{% endif %}>
+{%- if r == 'cautionary' -%}<i class="bang" aria-hidden="true">!</i>
+{%- else -%}{% for i in range(5) %}<i{% if r == 'historical' %} class="hollow"{% elif i < readiness[r].level %} class="on"{% endif %}></i>{% endfor %}
+{%- endif -%}
+</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro gv(r) -%}
+{%- if r and readiness.get(r) -%}
+<span class="gv{{ ' gv-caution' if r == 'cautionary' }}">{{ meter(r) }}<b>{{ readiness[r].label }}</b></span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro entry_row(e) -%}
+<a class="row" href="{{ e.url }}">
+  <span class="nm">{{ e.title }}{% if e.readiness == 'cautionary' %} <span class="ctag" title="{{ readiness['cautionary'].full }}">!</span>{% endif %}{% if e.also %}<small class="also">also in {{ e.also }}</small>{% endif %}</span>
+  <span class="ty">{{ type_labels[e.type] }}</span>
+  {{ gv(e.readiness) if e.readiness else '' }}
+</a>
+{%- endmacro %}
+
+{% macro guide_row(g) -%}
+<a class="row" href="{{ g.url }}">
+  <span class="nm">{{ g.title }}<small class="also">{{ g.dek }}</small></span>
+  <span class="ty">{{ g.level or 'Guide' }}</span>
+  <span class="ty">{{ g.time }}</span>
+</a>
+{%- endmacro %}
+
+{% macro crumb(items) -%}
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a>
+{%- for i in items %}<span aria-hidden="true">/</span>{% if i.url %}<a href="{{ i.url }}">{{ i.name }}</a>{% else %}<span class="here">{{ i.name }}</span>{% endif %}{% endfor %}</nav>
+{%- endmacro %}

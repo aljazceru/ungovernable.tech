@@ -1,0 +1,46 @@
+# Editorial corrections to the legacy link directory (link-checked 2026-10-17).
+# remove: dead links (404) with no obvious replacement, or links that never pointed at the named project.
+remove:
+  - https://bitcointalk.org/index.php?topic=3229539.0
+  - https://csrc.nist.gov/pubs/fips/206/final
+  - https://docs.nvidia.com/confidential-computing-deployment-guide.pdf
+  - https://drops.dagstuhl.de/entities/document/10.4230/LIPIcsITC.2025.5
+  - https://electriccoin.co/blog/halo-2-cryptographic-proof-system/
+  - https://github.com/NicolasL-S/gnunet
+  - https://github.com/ajmcquilkin/awesome-meshtastic
+  - https://github.com/ajmcquilkin/meshcore-radio
+  - https://github.com/cryptogarageinc/dlc-spec
+  - https://github.com/dlc-link/dlc-clients
+  - https://github.com/gaborbudiao/dlc-oracle
+  - https://github.com/geometryresearch/mpc-circuits
+  - https://github.com/lightning/bolts/blob/master/xx-offer-encoding.md
+  - https://github.com/nickvdyck/zapddit
+  - https://github.com/ripple-lib/ripple
+  - https://insujang.github.io/assets/pdf/hix_slides.pdf
+  - https://liquid.net/members
+  - https://lnprivacy.github.io/
+  - https://rmap.world/v3/
+  - https://www.rakwireless.com/en-us/products/wismesh
+  - https://docs.liquid.net/docs/2-way-peg
+  - https://docs.liquid.net/docs/dynamic-federations
+  - https://docs.liquid.net/docs/issued-assets
+  - https://www.emergentmind.com/topics/wasabi-2-x-coinjoin
+# replace: url -> {url, name?} for moved projects
+replace:
+  https://community.torproject.org/onion-services/onion-location/: {url: "https://community.torproject.org/onion-services/advanced/onion-location/"}
+  https://github.com/LLFourn/secp256kfun/tree/main/adaptor: {url: "https://github.com/LLFourn/secp256kfun"}
+  https://github.com/ajmcquilkin/meshcore: {url: "https://github.com/meshcore-dev/MeshCore", name: "MeshCore"}
+  https://github.com/kind-0-nostr/nsecbunker: {url: "https://github.com/kind-0/nsecbunkerd", name: "nsecbunkerd"}
+  https://github.com/rust-nostr/nostr-sdk: {url: "https://github.com/rust-nostr/nostr", name: "rust-nostr"}
+  https://github.com/nickvdyck/coracle: {url: "https://github.com/coracle-social/coracle", name: "Coracle"}
+  https://github.com/openwalletfoundation/credo: {url: "https://github.com/openwallet-foundation/credo-ts", name: "Credo (TypeScript)"}
+  https://katzenpost.network/docs/specs/mixspec.html: {url: "https://katzenpost.network/docs/", name: "Katzenpost documentation"}
+# annotate: status = defunct | archived | caution, with a short reader-facing note
+annotate:
+  https://samouraiwallet.com/: {status: defunct, note: "Seized by US authorities in April 2024; the developers later pleaded guilty."}
+  https://github.com/Samourai-Wallet/Whirlpool: {status: defunct, note: "Whirlpool coordinator went offline with the Samourai seizure in April 2024."}
+  https://liquality.io/: {status: defunct, note: "Liquality wallet was discontinued."}
+  https://openbazaar.org/: {status: caution, note: "The original OpenBazaar network shut down in 2021; relaunch plans are unproven."}
+  https://github.com/OpenBazaar/haven: {status: archived, note: "Client for the original OpenBazaar network, which shut down in 2021."}
+  https://wasabiwallet.io/: {status: caution, note: "zkSNACKs ended its CoinJoin coordinator in June 2024; Wasabi now relies on third-party coordinators."}
+  https://tor2web.org/: {status: caution, note: "Tor2web gives no anonymity to the reader; use Tor Browser instead."}

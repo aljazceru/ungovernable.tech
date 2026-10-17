@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Page not found — ungovernable.tech{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+<div class="nf">
+  <p class="kicker">Error 404</p>
+  <h1>This page does not exist.</h1>
+  <p class="dek">The link is broken, the page moved, or the slug is misspelled. Search the library, or start from a pillar.</p>
+  <a class="bigsearch" href="/directory/" id="bigsearch">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <span>Search {{ counts.entries }} entries</span>
+    <kbd>/</kbd>
+  </a>
+  <ul class="nf-pillars">
+    {% for p in pillars %}<li><a href="/pillars/{{ p.key }}/">{{ p.name }}</a></li>{% endfor %}
+  </ul>
+</div>
+</div></div>
+{% endblock %}
