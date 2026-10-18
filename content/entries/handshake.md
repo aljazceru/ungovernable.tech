@@ -187,7 +187,7 @@ Some Handshake names alias to ICANN names via DNS records. A user resolves `mybr
 - Handshake-as-identity experiments tying Handshake names to PGP and DID workflows; small-scale.
 - **August 2025 soft fork:** A significant supply reduction event cut HNS supply ~56% (from 2.04B to ~889M); viewed as bullish for miners and long-term investors.
 - **ViaBTC HNS pool closes (June 1, 2026):** ViaBTC — representing ~50% of HNS hashrate — discontinued its HNS mining pool. Immediate price impact. Community views this as an opportunity for decentralization via smaller pools (e.g., Cedric's pool). ViaBTC was not open to negotiation.
-- **Namebase fully winds down (June 2, 2026):** The dominant Handshake registrar/marketplace completed its shutdown. User coins and names were returned. The community is migrating to self-hosted tools: BobWallet (self-hosted wallet), ShakeDex (decentralized exchange), Chrome extension (DNS records + ShakeDex integration), and host.limo (Handshake hosting).
+- **Namebase fully winds down (June 2, 2026):** The dominant Handshake registrar/marketplace completed its shutdown. User coins and names were returned. The community is migrating to self-hosted tools: [BobWallet](https://github.com/kyokan/bob-wallet) (self-hosted wallet), ShakeDex (decentralized exchange), Chrome extension (DNS records + ShakeDex integration), and host.limo (Handshake hosting).
 - **Second halving (~July 22, 2026, block 340,000):** Block reward drops from 2000 HNS → 1000 HNS. The halving arrives mid-ecosystem stress following the ViaBTC/Namebase disruptions.
 - **DNS records PR (June 2026):** Active community discussion on adding more DNS records for security, including TLSA records for HTTPS support.
 

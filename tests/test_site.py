@@ -203,3 +203,28 @@ def test_no_horizontal_scroll_at_360():
         for m in re.finditer(r'min-width:\s*([\d.]+)(px|rem)', body):
             val = float(m.group(1)) * (16 if m.group(2) == 'rem' else 1)
             assert val <= 480, '%s: %s' % (sel.strip(), m.group(0))
+
+
+def test_all_links_clickable():
+    """No link-like text should be unclickable: no bare URLs in visible text,
+    no leftover wiki-link brackets. Enforced site-wide via site_check."""
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import importlib, site_check
+    importlib.reload(site_check)
+    assert site_check.main() == 0
+
+    bare = re.compile(r"(?<![\"'=])(https?://|www\.)[^\s<>()\[\]\"']+", re.I)
+    for f in html_files():
+        if is_stub(f):
+            continue
+        s = BeautifulSoup(open(f, encoding='utf-8').read(), 'html.parser')
+        for tag in s(['script', 'style']):
+            tag.decompose()
+        body = s.find('body') or s
+        for node in body.find_all(string=bare):
+            if node.find_parent(['a', 'code', 'pre']):
+                continue
+            raise AssertionError('%s: bare URL %r' % (
+                os.path.relpath(f, PUBLIC), bare.search(str(node)).group(0)[:50]))
+        assert '[[' not in body.get_text(' '), os.path.relpath(f, PUBLIC)

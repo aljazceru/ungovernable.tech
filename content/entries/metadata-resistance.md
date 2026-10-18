@@ -152,5 +152,3 @@ For ultra-high-stakes work (whistleblowing, journalism in repressive regimes), t
 - van den Hooff et al., *Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis*, SOSP 2015.
 - Angel & Setty, *Unobservable Communication over Fully Untrusted Infrastructure*, OSDI 2016 (Pung).
 - Briar Project, *Briar protocol specification*.
-
-For the specific technique of hiding *when* and *how much* you send, see [Cover Traffic and Constant-Rate Padding](/kb/cover-traffic/).

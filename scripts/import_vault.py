@@ -56,6 +56,90 @@ VAULT_LANG = [
 ]
 
 WIKILINK = re.compile(r'\[\[([^\]]+?)\]\]')
+
+# Wikilink targets that have no mapped vault note but a good real-world home:
+# existing site pages, briefings, or authoritative external URLs (all verified
+# to return 200 at authoring time). Keyed by the wikilink's final name segment.
+WIKILINK_OVERRIDES = {
+    # existing site entries / pillars / briefings
+    'FROST': '/kb/threshold-signatures/',
+    'Hardware Signers': '/kb/hardware-wallets/',
+    'World ID': '/kb/proof-of-personhood/',
+    'Worldcoin': '/kb/proof-of-personhood/',
+    'Nostr-WoT': '/kb/nostr-web-of-trust/',
+    'Nostr-WoT extension': '/kb/nostr-web-of-trust/',
+    'nostr-wot-extension': '/kb/nostr-web-of-trust/',
+    'bunker 1.0.0': '/kb/remote-signing/',
+    'ENS Foundation': '/kb/ens/',
+    'Cryptographic Agility': '/kb/hybrid-kem-migration/',
+    'nym.com/blog/nymvpn-network-upgrade': 'https://nym.com/blog/nymvpn-network-upgrade',
+    'Identity': '/pillars/identity/',
+    'Migration Plan — PQ Encryption for Existing Nostr-Clients': '/pillars/pqc/',
+    'Post-Quantum Saturday': '/briefings/post-quantum/',
+    'Post-Quantum Saturday — August 29 2026 Weekly Update': '/briefings/post-quantum/',
+    'Identity Sunday — September 13 2026 Weekly Update': '/briefings/identity/2026-09-13/',
+    'WoT Thursday — September 03 2026 Weekly Update': '/briefings/web-of-trust/2026-09-03/',
+    # authoritative external URLs
+    'NIPs': 'https://github.com/nostr-protocol/nips',
+    'NIP-17 key-decoupling proposal (fiatjaf)': 'https://github.com/nostr-protocol/nips/blob/master/17.md',
+    'NIP-42': 'https://github.com/nostr-protocol/nips/blob/master/42.md',
+    'NIP-45': 'https://github.com/nostr-protocol/nips/blob/master/45.md',
+    'NIP-78': 'https://github.com/nostr-protocol/nips/blob/master/78.md',
+    'NIP-89': 'https://github.com/nostr-protocol/nips/blob/master/89.md',
+    'NIP-90': 'https://github.com/nostr-protocol/nips/blob/master/90.md',
+    'NIP-A3': 'https://github.com/nostr-protocol/nips/blob/master/A3.md',
+    'NIP-AC': 'https://github.com/nostr-protocol/nips',
+    'NIP-F4 podcasts': 'https://github.com/nostr-protocol/nips/blob/master/F4.md',
+    'Amethyst': 'https://github.com/vitorpamplona/amethyst',
+    'Amber': 'https://github.com/greenart7c3/Amber',
+    'Citrine': 'https://github.com/greenart7c3/Citrine',
+    'Damus': 'https://damus.io',
+    'Coracle': 'https://coracle.social',
+    'Ditto': 'https://github.com/soapbox-pub/ditto',
+    'Mostro': 'https://mostro.network',
+    'Iris Stack': 'https://iris.to',
+    'Arti': 'https://tpo.pages.torproject.net/core/arti/',
+    'liboqs': 'https://github.com/open-quantum-safe/liboqs',
+    'mldsa-native': 'https://github.com/pq-code-package/mldsa-native',
+    'ENSIP-28 Name Owned Accounts': 'https://docs.ens.domains/ensip/28',
+    'ENSIP-31 Payment Preferences': 'https://docs.ens.domains/ensip/31',
+    'W3C': 'https://www.w3.org',
+    'uWebSockets': 'https://github.com/uNetworking/uWebSockets',
+    'strfry': 'https://github.com/hoytech/strfry',
+    'Farcaster': 'https://www.farcaster.xyz',
+    'Nous Research': 'https://nousresearch.com',
+    'BobWallet': 'https://github.com/kyokan/bob-wallet',
+    'ngit-cli': 'https://github.com/DanConwayDev/ngit-cli',
+}
+
+# Wikilink targets deliberately rendered as plain prose (no accurate link
+# target exists): ambiguous code symbols, draft notes, numeric fragments.
+WIKILINK_PLAIN = {
+    'MOCHA', 'Outfox', 'Lewes Protocol', 'DNS-AID', 'KSK', 'DCP', 'MDK',
+    'Disclosure', 'relayer', 'FiltersCounter', 'Chama', 'Clave', 'CHANGELOG',
+    'Nomentum Labs Grails SPP3 Marketplace RFP',
+    'Endowment permissions to KPK Update', 'open', '42',
+    '300,60,14', '540,108,18', '975, 195, ≤24', '975,195,≤24',
+}
+
+_WL_OVR_CI = {k.lower(): v for k, v in WIKILINK_OVERRIDES.items()}
+_WL_PLAIN_CI = {k.lower() for k in WIKILINK_PLAIN}
+
+
+def wikilink_override(name):
+    """-> ('url', url) | ('plain', None) | None for a wikilink name segment."""
+    n = (name or '').strip()
+    if n in WIKILINK_OVERRIDES:
+        return 'url', WIKILINK_OVERRIDES[n]
+    if n in WIKILINK_PLAIN:
+        return 'plain', None
+    nl = n.lower()
+    if nl in _WL_OVR_CI:
+        return 'url', _WL_OVR_CI[nl]
+    if nl in _WL_PLAIN_CI:
+        return 'plain', None
+    return None
+
 HEADING_DATE = re.compile(r'([A-Z][a-z]+) (\d{1,2}) (\d{4})')
 MONTHS = {m: i for i, m in enumerate(
     ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -215,7 +299,7 @@ class LinkIndex:
         if name == 'README' and not folder:
             return 'url', '/about/'
         if name == 'CHANGELOG' and not folder:
-            return 'text', None
+            return 'plain', None
         fkey = self.folder_key(folder) if folder else None
         if not fkey and re.match(r'^\d+\s*-\s*\S', name):
             # [[08-Mix-Networks]] / [[08 - Mix Networks]]: a section folder link
@@ -254,6 +338,9 @@ class LinkIndex:
             p = self.aliases.get(name.lower())
             if p:
                 return 'url', self.entry_url(self.entries[p])
+        ov = wikilink_override(name) or wikilink_override(t)
+        if ov:
+            return ov
         return 'text', None
 
 
@@ -450,6 +537,8 @@ def resolve_line(l, index, unresolved):
         r = index.resolve(target)
         if r and r[0] == 'url':
             return '[%s](%s)' % (disp, r[1])
+        if r and r[0] == 'plain':
+            return disp or stem_text
         unresolved[re.sub(r'\.md$', '', target.split('#')[0].rsplit('/', 1)[-1])] += 1
         return disp or stem_text
 
@@ -466,6 +555,8 @@ def resolve_line(l, index, unresolved):
         r = index.resolve(name) or index.resolve(name.rsplit('#', 1)[0])
         if r and r[0] == 'url':
             return '[%s](%s)' % (label, r[1])
+        if r and r[0] == 'plain':
+            return label
         unresolved[re.sub(r'\.md$', '', name.rsplit('/', 1)[-1].split('#')[0])] += 1
         return label                              # unwrap dead vault links
 
@@ -577,6 +668,8 @@ def parse_glossary(text, index, unresolved):
                     if index.entry_url(spec) == r[1]:
                         see.append(spec['slug'])
                 return '[%s](%s)' % (disp, r[1])
+            if r and r[0] == 'plain':
+                return disp
             unresolved[target] += 1
             return disp
         definition_md = WIKILINK.sub(sub, definition)
@@ -796,6 +889,12 @@ def main():
     print('entries: %d  briefings: %d  glossary terms: %d  unresolved links: %d'
           % (len(index.entries), sum(stats['briefings'].values()), len(terms),
              sum(unresolved_all.values())))
+    if sum(unresolved_all.values()):
+        print('ERROR: unresolved wikilinks (no link target and not in '
+              'WIKILINK_PLAIN):', file=sys.stderr)
+        for name, n in sorted(unresolved_all.items(), key=lambda kv: (-kv[1], kv[0])):
+            print('  - %s (%d)' % (name, n), file=sys.stderr)
+        sys.exit(1)
 
 
 def build_report(vmap, stats, unresolved, synthesized, no_sources, n_entries, n_brief, n_terms):

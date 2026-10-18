@@ -47,76 +47,8 @@ Re-running the importer refreshes this file.
 
 ## Unresolved wikilinks
 
-Vault links with no site target; rendered as plain text (129 occurrences).
+Vault links with no site target; rendered as plain text (0 occurrences).
 
-- NIPs — 9
-- Amethyst — 6
-- DNS-AID — 6
-- Migration Plan — PQ Encryption for Existing Nostr-Clients — 5
-- Amber — 4
-- Hardware Signers — 4
-- MOCHA — 4
-- Outfox — 4
-- Post-Quantum Saturday — 4
-- Arti — 3
-- ENSIP-28 Name Owned Accounts — 3
-- Lewes Protocol — 3
-- Nostr-WoT extension — 3
-- Citrine — 2
-- Cryptographic Agility — 2
-- Disclosure — 2
-- Ditto — 2
-- ENSIP-31 Payment Preferences — 2
-- Identity — 2
-- Identity Sunday — September 13 2026 Weekly Update — 2
-- Mostro — 2
-- World ID — 2
-- Worldcoin — 2
-- liboqs — 2
-- mldsa-native — 2
-- nostr-wot-extension — 2
-- nymvpn-network-upgrade — 2
-- relayer — 2
-- uWebSockets — 2
-- 300,60,14 — 1
-- 42 — 1
-- 540,108,18 — 1
-- 975, 195, ≤24 — 1
-- 975,195,≤24 — 1
-- BobWallet — 1
-- CHANGELOG — 1
-- Chama — 1
-- Clave — 1
-- Coracle — 1
-- DCP — 1
-- Damus — 1
-- ENS Foundation — 1
-- Endowment permissions to KPK Update  — 1
-- FROST — 1
-- Farcaster — 1
-- FiltersCounter — 1
-- Iris Stack — 1
-- KSK — 1
-- MDK — 1
-- NIP-17 key-decoupling proposal (fiatjaf) — 1
-- NIP-42 — 1
-- NIP-45 — 1
-- NIP-78 — 1
-- NIP-89 — 1
-- NIP-90 — 1
-- NIP-A3 — 1
-- NIP-AC — 1
-- NIP-F4 podcasts — 1
-- Nomentum Labs Grails SPP3 Marketplace RFP — 1
-- Nostr-WoT — 1
-- Nous Research — 1
-- Post-Quantum Saturday — August 29 2026 Weekly Update — 1
-- W3C — 1
-- WoT Thursday — September 03 2026 Weekly Update — 1
-- bunker 1.0.0 — 1
-- ngit-cli — 1
-- open — 1
-- strfry — 1
 
 ## Synthesised descriptions (0)
 

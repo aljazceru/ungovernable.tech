@@ -188,6 +188,42 @@ def fix_fragments(soup):
     return soup
 
 
+
+BARE_URL_RE = re.compile(r"(https?://[^\s<>()\[\]\"'`]+|www\.[^\s<>()\[\]\"'`]+)")
+_URL_TRAIL = '.,;:!?\u2019\u201d\'")]}'
+
+
+def autolink(soup):
+    """Make bare URLs in text clickable, skipping existing links and code."""
+    from bs4 import NavigableString
+    for text in list(soup.find_all(string=True)):
+        st = str(text)
+        if 'http' not in st and 'www.' not in st:
+            continue
+        if text.find_parent(['a', 'code', 'pre', 'script', 'style']):
+            continue
+        parts, last, changed = [], 0, False
+        for m in BARE_URL_RE.finditer(st):
+            url, (start, end) = m.group(0), m.span()
+            trail = 0
+            while url and url[-1] in _URL_TRAIL:
+                url, trail = url[:-1], trail + 1
+            if not url:
+                continue
+            end -= trail
+            parts.append(NavigableString(st[last:start]))
+            href = url if url.lower().startswith('http') else 'https://' + url
+            a = soup.new_tag('a', href=href, rel='noopener nofollow')
+            a.string = url
+            parts.append(a)
+            last, changed = end, True
+        if not changed:
+            continue
+        parts.append(NavigableString(st[last:]))
+        text.replace_with(*parts)
+    return soup
+
+
 def postprocess(html, wrap_tables=True):
     soup = BeautifulSoup(html, 'html.parser')
     # markdown's table alignment emits inline style attributes; CSP blocks
@@ -218,6 +254,7 @@ def postprocess(html, wrap_tables=True):
                 if r not in rel:
                     rel.append(r)
             a['rel'] = rel
+    autolink(soup)
     fix_fragments(soup)
     return soup.decode_contents(), soup
 
@@ -418,8 +455,17 @@ def load_all():
     gp = os.path.join(ROOT, 'content', 'glossary.yml')
     if os.path.exists(gp):
         for t in yaml.safe_load(open(gp, encoding='utf-8')) or []:
-            t['definition_html'] = markdown.markdown(
-                t['definition_md'], extensions=['sane_lists'])
+            _gdoc = BeautifulSoup(markdown.markdown(
+                t['definition_md'], extensions=['sane_lists']), 'html.parser')
+            for _a in _gdoc.find_all('a', href=True):
+                if _a['href'].startswith(('http://', 'https://')):
+                    _rel = _a.get('rel') or []
+                    for _r in ('noopener', 'nofollow'):
+                        if _r not in _rel:
+                            _rel.append(_r)
+                    _a['rel'] = _rel
+            autolink(_gdoc)
+            t['definition_html'] = _gdoc.decode_contents()
             t['see_urls'] = [entries[s]['url'] for s in t.get('see') or []
                              if s in entries] if entries else []
             t['see_pairs'] = [(entries[s]['url'], entries[s]['title'])

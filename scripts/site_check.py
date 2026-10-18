@@ -148,6 +148,27 @@ def main():
         if p is None or not os.path.isfile(p):
             problems.append('search.json -> %s (missing page)' % it['u'])
 
+    # link-like-but-unclickable: bare URLs in visible text, and leftover
+    # wiki-link brackets. All real links must be <a> elements.
+    BARE_URL = re.compile(r"(?<![\"'=])(https?://|www\.)[^\s<>()\[\]\"']+", re.I)
+    for f in html_files():
+        rel = os.path.relpath(f, PUBLIC)
+        if is_stub(os.path.join(PUBLIC, rel)):
+            continue
+        s2 = doc_for(f)
+        body = s2.find('body') or s2
+        for tag in body.find_all(['script', 'style']):
+            tag.decompose()
+        for node in body.find_all(string=BARE_URL):
+            if node.find_parent(['a', 'code', 'pre']):
+                continue
+            m = BARE_URL.search(str(node))
+            problems.append('%s: bare URL not linked (%s)'
+                            % (rel, m.group(0)[:60]))
+        txt = body.get_text(' ')
+        if '[[' in txt or ']]' in txt:
+            problems.append('%s: leftover wiki-link brackets in text' % rel)
+
     for p in problems:
         print('BAD', p)
     print('checked %d pages (%d stubs), sitemap %d urls, problems: %d'
