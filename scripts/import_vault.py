@@ -123,6 +123,18 @@ WIKILINK_PLAIN = {
 }
 
 _WL_OVR_CI = {k.lower(): v for k, v in WIKILINK_OVERRIDES.items()}
+
+# Persistent editorial cross-links appended to generated vault entries, so
+# they survive importer re-runs without hand-editing the generated files.
+# Keyed by entry slug; value is markdown appended as a final paragraph.
+ENTRY_APPEND = {
+    'metadata-resistance': 'For the specific technique of hiding *when* and '
+        '*how much* you send, see [Cover Traffic and Constant-Rate Padding]'
+        '(/kb/cover-traffic/).',
+    'off-grid-networks': 'For internet access built and owned by its users '
+        'rather than a telco, see [Community Networks](/kb/community-networks/).',
+}
+
 _WL_PLAIN_CI = {k.lower() for k in WIKILINK_PLAIN}
 
 
@@ -762,8 +774,12 @@ def main():
             'aliases': [str(x) for x in (fm.get('aliases') or [])],
             'tags': [str(x) for x in (fm.get('tags') or [])],
         }
+        body_out = body.strip()
+        extra = ENTRY_APPEND.get(spec['slug'])
+        if extra and extra not in body_out:
+            body_out = body_out + '\n\n' + extra
         writes[os.path.join('content', 'entries', spec['slug'] + '.md')] = \
-            emit_entry_fm(e) + body.strip() + '\n'
+            emit_entry_fm(e) + body_out + '\n'
         for p in spec['pillars']:
             stats['entries'][p] += 1
         stats['types'][spec['type']] += 1
