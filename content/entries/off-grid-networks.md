@@ -251,3 +251,5 @@ In areas with no internet infrastructure:
 - Bad hardware (counter: buy from reputable vendors, inspect board revisions, and keep spare known-good radios).
 - Compromised firmware (counter: reproducible builds).
 - User error (counter: training).
+
+For internet access built and owned by its users rather than a telco, see [Community Networks](/kb/community-networks/).

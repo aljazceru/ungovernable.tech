@@ -10,7 +10,7 @@ created: 2026-10-17
 origin: original
 level: intermediate
 time: "10 minutes to a weekend"
-related: [tor, using-tor-safely, building-a-mesh, bitcoin-self-custody, nostr-getting-started, i2p, reticulum, nym]
+related: [tor, using-tor-safely, building-a-mesh, bitcoin-self-custody, nostr-getting-started, i2p, reticulum, nym, resilient-infrastructure, community-networks]
 ---
 
 Decentralised networks are not decentralised by design alone; they are decentralised because many independent people run parts of them, in many countries, on many providers. If you live somewhere with an open internet and some spare bandwidth, you can give people behind firewalls a way out, and make every network on this site harder to capture.

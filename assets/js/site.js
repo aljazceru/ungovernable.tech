@@ -195,4 +195,21 @@ if (dirFilter) {
   };
   dirFilter.addEventListener('input', debounce(run, 90));
 }
+
+/* ---------- what's possible: pillar filter (enhancement; all shown w/o JS) ---------- */
+const posGrid = $('#pos-grid');
+if (posGrid) {
+  const chips = $$('.pos-chip');
+  const cards = $$('.scn');
+  const setActive = key => {
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.pillar === key)));
+    cards.forEach(card => {
+      const show = key === 'all' ||
+        (card.dataset.pillars || '').split(' ').includes(key);
+      card.hidden = !show;
+    });
+  };
+  chips.forEach(c => c.addEventListener('click', () => setActive(c.dataset.pillar)));
+}
+
 })();

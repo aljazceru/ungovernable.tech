@@ -460,6 +460,21 @@ def load_all():
                            'body_html': html, 'dek': fm.get('dek')}
     else:
         data['sources'] = None
+    # possible / what's possible map
+    poss = None
+    pp2 = os.path.join(ROOT, 'content', 'possible.yml')
+    if os.path.exists(pp2):
+        poss = yaml.safe_load(open(pp2, encoding='utf-8'))
+        for sc in poss.get('scenarios', []):
+            for sl in sc['blocks']:
+                if sl not in entries:
+                    raise SystemExit('possible: %s references unknown slug %r'
+                                     % (sc['key'], sl))
+            for pk in sc['pillars']:
+                if pk not in data['pillar_by_key']:
+                    raise SystemExit('possible: %s references unknown pillar %r'
+                                     % (sc['key'], pk))
+    data['possible'] = poss
     return data
 
 
@@ -526,6 +541,12 @@ def build_search_index(data):
     for t in data['glossary']:
         idx.append({'t': t['term'], 'u': '/glossary/#%s' % t['slug'], 'k': 'Term',
                     'p': [], 'd': t['definition_md'], 'a': '', 'h': '', 'r': ''})
+    if data.get('possible'):
+        pz = data['possible']
+        idx.append({'t': "What's Possible", 'u': '/possible/', 'k': 'Map',
+                    'p': [], 'd': pz['dek'],
+                    'a': ' '.join(sc['goal'] for sc in pz['scenarios']),
+                    'h': '', 'r': ''})
     for series, lst in data['briefings'].items():
         name = data['series_specs'].get(series, {}).get('name', series)
         for b in lst:
@@ -856,6 +877,36 @@ def main():
                series_key=series_key, series_name=series_name,
                series_briefings=series_briefings, jsonld=crumb_jsonld)
 
+    # ---------- what's possible map -------------------------------------
+    if data.get('possible'):
+        poss = data['possible']
+        scn = []
+        for sc in poss['scenarios']:
+            blocks = [{'title': entries[sl]['title'], 'url': entries[sl]['url'],
+                       'readiness': entries[sl].get('readiness'),
+                       'type': entries[sl]['type']} for sl in sc['blocks']]
+            pills = [{'key': k, 'short': pillar_by_key[k]['short'],
+                      'name': pillar_by_key[k]['name']} for k in sc['pillars']]
+            scn.append({'key': sc['key'], 'goal': sc['goal'], 'dek': sc['dek'],
+                        'blocks': blocks, 'pillars': pills,
+                        'pillar_keys': sc['pillars']})
+        poss_crumb = jsonld({
+            '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Home',
+                 'item': SITE + '/'},
+                {'@type': 'ListItem', 'position': 2, 'name': "What's Possible",
+                 'item': SITE + '/possible/'}]})
+        render('possible.html', 'possible/index.html',
+               title="What's Possible", nav='possible',
+               description=('What you can do today by combining the technologies in '
+                            'this library: real capabilities mapped to the working '
+                            'building blocks that compose them.'),
+               canonical='/possible/',
+               dek=poss['dek'], intro=poss['intro'], scenarios=scn,
+               art=cipher_grid('ungovernable.tech/possible/0x7'),
+               jsonld=poss_crumb)
+
     # ---------- entries and guides ---------------------------------------
     for slug in sorted(entries):
         e = entries[slug]
@@ -1090,6 +1141,8 @@ def main():
     urls = [('/', None), ('/pillars/', None), ('/directory/', None),
             ('/glossary/', None), ('/about/', None), ('/briefings/', None),
             ('/method/', None), ('/sources/', None)]
+    if data.get('possible'):
+        urls.append(('/possible/', None))
     if guides:
         urls.append(('/guides/', None))
     if data['paths']:
