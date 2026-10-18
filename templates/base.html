@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% from "macros.html" import mark %}
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -8,8 +9,7 @@
 <meta name="description" content="{{ description }}">
 <link rel="canonical" href="{{ canon }}">
 <meta name="robots" content="{% block robots %}index,follow{% endblock %}">
-<meta name="theme-color" content="#f3f1ea" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121311" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0a0d0b">
 <meta property="og:type" content="{{ og_type or 'website' }}">
 <meta property="og:site_name" content="ungovernable.tech">
 <meta property="og:title" content="{{ og_title or self.title() | striptags }}">
@@ -34,13 +34,17 @@
 <link rel="stylesheet" href="/assets/css/site.css?v={{ v }}">
 <link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
 {% block head %}{% endblock %}
-<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
 </head>
 <body{% if body_class %} class="{{ body_class }}"{% endif %}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hdr gut">
   <div class="wrap in">
-    <a class="wordmark" href="/">UNGOVERNABLE<small>.tech</small></a>
+    <a class="wordmark" href="/">
+      {{ mark(22) }}
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
     <nav class="nav" aria-label="Main">
       <a href="/pillars/"{% if nav == 'pillars' %} aria-current="page"{% endif %}>Pillars</a>
       <a href="/guides/"{% if nav == 'guides' %} aria-current="page"{% endif %}>Guides</a>
@@ -50,7 +54,7 @@
       <a href="/glossary/"{% if nav == 'glossary' %} aria-current="page"{% endif %}>Glossary</a>
     </nav>
     <div class="tools">
-      <a class="sbtn" href="/directory/" id="open-search">Search {{ counts.entries }} entries <kbd>/</kbd></a>
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search {{ counts.entries }} entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
       <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
       </button>
@@ -69,17 +73,24 @@
 </main>
 <footer class="foot gut">
   <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
     <div class="in">
       <div class="mission">
-        <a class="wordmark" href="/">UNGOVERNABLE<small>.tech</small></a>
+        <a class="wordmark" href="/">
+          {{ mark(18) }}
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
         <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
       </div>
       <div>
-        <span class="label">Pillars</span>
+        <span class="label">// Pillars</span>
         <ul>{% for p in pillars %}<li><a href="/pillars/{{ p.key }}/">{{ p.short }}</a></li>{% endfor %}</ul>
       </div>
       <div>
-        <span class="label">Learn</span>
+        <span class="label">// Learn</span>
         <ul>
           <li><a href="/guides/">Guides</a></li>
           <li><a href="/paths/">Paths</a></li>
@@ -89,7 +100,7 @@
         </ul>
       </div>
       <div>
-        <span class="label">About</span>
+        <span class="label">// About</span>
         <ul>
           <li><a href="/method/">Method</a></li>
           <li><a href="/about/">About</a></li>
@@ -101,7 +112,8 @@
       </div>
     </div>
     <div class="base">
-      <span>No trackers. No cookies. No third-party requests.</span>
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>{{ build_fp }}</span>
       <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
     </div>
   </div>
@@ -109,8 +121,11 @@
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" hidden>
   <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
-    <label class="off-label" for="q">Search</label>
-    <input id="q" type="search" placeholder="Search entries, guides, briefings…" autocomplete="off">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
     <div class="res" id="res"></div>
     <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
   </div>

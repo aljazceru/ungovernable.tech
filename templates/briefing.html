@@ -7,18 +7,19 @@
 {% block main %}
 <div class="gut"><div class="wrap">
 {{ m.crumb([{'name': 'Briefings', 'url': '/briefings/'}, {'name': series_name, 'url': '/briefings/' ~ b.series ~ '/'}, {'name': b.date}]) }}
-<header class="page-head">
+<header class="page-head tex">
   <p class="kicker">Briefing · {{ series_name }}</p>
   <h1>{{ b.title }}</h1>
   <p class="dek">{{ b.window }}</p>
   <div class="meta">
-    <span>Published <b>{{ b.date }}</b></span>
+    <span>published <b>{{ b.date }}</b></span>
     <span><b>{{ b.read_min }}</b> min read</span>
     {% for p in pillar_names %}<span><a href="/pillars/{{ p.key }}/">{{ p.name }}</a></span>{% endfor %}
   </div>
 </header>
 <aside class="dated" role="note">
-  <p><b>Dated briefing.</b> This page reflects what was known on {{ b.date }}. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+  <p class="d-line">DATED BRIEFING // {{ b.date }} // may be outdated</p>
+  <p>This page reflects what was known on {{ b.date }}. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
 </aside>
 <div class="mono-grid no-toc">
   <article class="prose">

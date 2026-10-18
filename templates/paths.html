@@ -2,8 +2,8 @@
 {% block title %}Paths — ungovernable.tech{% endblock %}
 {% block main %}
 <div class="gut"><div class="wrap">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span class="here">Paths</span></nav>
-<header class="page-head">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><span class="here">Paths</span></nav>
+<header class="page-head tex">
   <p class="kicker">Learning paths</p>
   <h1>Paths</h1>
   <p class="dek">Ordered reading lists by persona: what to read first, and why, if you are under surveillance, behind a firewall, holding your own money or building the stuff.</p>
@@ -11,10 +11,10 @@
 <div class="cards stack">
   {% for p in paths %}
   <a class="card wide" href="/paths/{{ p.key }}/">
-    <span class="label">{{ p.steps|length }} steps</span>
+    <span class="label">[ PATH_{{ '%02d'|format(loop.index) }} ]</span>
     <b>{{ p.name }}</b>
     <p>{{ p.who }}</p>
-    <span class="meta">{{ p.intro }}</span>
+    <span class="meta">{{ p.steps|length }} steps · {{ p.intro }}</span>
   </a>
   {% endfor %}
 </div>

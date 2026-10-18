@@ -3,7 +3,7 @@
 {% block main %}
 <div class="gut"><div class="wrap">
 {{ m.crumb([{'name': 'Paths', 'url': '/paths/'}, {'name': p.name}]) }}
-<header class="page-head">
+<header class="page-head tex">
   <p class="kicker">Learning path · {{ p.steps|length }} steps</p>
   <h1>{{ p.name }}</h1>
   <p class="dek">{{ p.intro }}</p>
@@ -12,7 +12,7 @@
 <ol class="steps">
   {% for st in p.steps %}
   <li>
-    <span class="step-n">{{ loop.index }}</span>
+    <span class="step-n">{{ '%02d'|format(loop.index) }}</span>
     <div>
       <a class="step-t" href="{{ st.url }}">{{ st.title }}</a>
       <span class="step-meta">{{ type_labels[st.type] }}{% if st.readiness %} · {{ readiness[st.readiness].label }}{% endif %}</span>

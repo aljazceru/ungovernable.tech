@@ -6,10 +6,16 @@
 {% block main %}
 <div class="gut"><div class="wrap">
 {{ m.crumb([{'name': 'Pillars', 'url': '/pillars/'}, {'name': p.name}]) }}
-<header class="page-head">
-  <p class="kicker">{{ p.question }}</p>
-  <h1>{{ p.name }}</h1>
-  <p class="dek">{{ p.intro }}</p>
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x{{ '%02x'|format(p.idx) }} / 0x0e</span>{{ p.question }}</p>
+    <h1>{{ p.name }}</h1>
+    <p class="dek">{{ p.intro }}</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon">{{ m.glyph(p.key, 36) }}</span><div class="ident-wrap">{{ p.identicon|safe }}</div>
+    <p class="hexline">{{ p.hexline }}</p>
+  </div>
 </header>
 
 <div class="hub">
@@ -54,7 +60,7 @@
 <section id="directory">
   <h2 class="sec-h">Directory<span class="count">{{ n_links }} curated links</span></h2>
   {% for s in directory['sections'] %}
-  <div class="dsec">
+  <div class="dsub">
     <h3>{{ s['title'] }}</h3>
     <ul class="links">
       {% for it in s['items'] %}

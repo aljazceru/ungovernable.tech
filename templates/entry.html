@@ -7,26 +7,32 @@
 {% block main %}
 <div class="gut"><div class="wrap">
 {{ m.crumb([{'name': primary_pillar.name, 'url': '/pillars/' ~ primary_pillar.key ~ '/'}, {'name': e.title}]) }}
-<header class="ahead">
-  <p class="kind">{{ type_labels[e.type] }} · {{ pillar_names|join(' · ') }}</p>
+<header class="ahead tex">
+  <p class="kind">
+    {%- if e.type == 'guide' %}<span class="ktag ktag-k">Field guide</span>{% endif -%}
+    <span class="ktag">[ {{ type_labels[e.type]|upper }} ]</span>
+    {%- for pn in pillar_names %}<span class="ktag">[ {{ pn|upper }} ]</span>{% endfor -%}
+  </p>
   <h1>{{ e.title }}</h1>
   {% if e.aliases %}<p class="aka">Also {{ e.aliases|join(', ') }}.</p>{% endif %}
   <p class="dek">{{ e.dek }}</p>
   <div class="meta">
-    <span>Updated <b>{{ e.updated }}</b></span>
+    {% if e.readiness %}<span class="meta-r">{{ m.badge(e.readiness) }}</span>{% endif %}
+    <span>updated <b>{{ e.updated }}</b></span>
     <span><b>{{ e.read_min }}</b> min read</span>
-    {% if e.readiness %}<span class="meta-r">{{ m.meter(e.readiness) }} {{ readiness[e.readiness].label }}</span>{% endif %}
-    {% if e.level %}<span>Level <b>{{ e.level }}</b></span>{% endif %}
-    {% if e.time %}<span><b>{{ e.time }}</b></span>{% endif %}
+    {% if e.level %}<span class="ktag">[ {{ e.level|upper }} ]</span>{% endif %}
+    {% if e.time %}<span class="ktag">[ {{ e.time|upper }} ]</span>{% endif %}
   </div>
 </header>
 
 <div class="mono-grid">
   {% if toc %}
-  <nav class="toc" aria-label="Contents">
-    <span class="label">Contents</span>
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
     {% for t in toc %}<a href="#{{ t.id }}">{{ t.title }}</a>{% endfor %}
-  </nav>
+    </div>
+  </details>
   {% endif %}
 
   <article class="prose">
@@ -34,7 +40,7 @@
 
     {% if related %}
     <section class="related-sec" id="related">
-      <h2>Related</h2>
+      <h2 class="nx">Related</h2>
       <div class="rows">
         {% for r in related %}{{ m.entry_row(r) }}{% endfor %}
       </div>
@@ -49,7 +55,7 @@
     {% endif %}
 
     <section class="history" id="history">
-      <h2>Page history</h2>
+      <h2 class="nx">Page history</h2>
       <dl class="dl">
         <dt>Updated</dt><dd>{{ e.updated }}</dd>
         <dt>Origin</dt><dd>{{ origin_note }}</dd>
@@ -60,11 +66,13 @@
 
   <aside class="glance" aria-label="At a glance">
     <div class="glance-in">
-      <h2>At a glance</h2>
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
       {% if e.readiness %}
       <div class="grade">
-        {{ m.meter(e.readiness, lg=True) }}
-        <div><b>{{ readiness[e.readiness].label }}</b><span>{{ readiness[e.readiness].full }}</span></div>
+        {{ m.badge(e.readiness, lg=True) }}
+        {{ m.meter(e.readiness) }}
+        <p>{{ readiness[e.readiness].full }}</p>
       </div>
       {% endif %}
       <p class="def">{{ e.dek }}</p>
@@ -76,6 +84,7 @@
         <dt>Updated</dt><dd>{{ e.updated }}</dd>
         <dt>Sources linked</dt><dd>{{ n_sources }}</dd>
       </dl>
+      </div>
     </div>
   </aside>
 </div>

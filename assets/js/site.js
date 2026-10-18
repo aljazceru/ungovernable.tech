@@ -1,4 +1,4 @@
-/* ungovernable.tech site JS: search modal, theme toggle, mobile menu,
+/* ungovernable.tech site JS: search palette, theme toggle, mobile menu,
    contents scroll-spy, heading anchors, directory filter.
    Enhancement only — all content is in the static HTML. */
 (function () {
@@ -9,15 +9,13 @@ const esc = s => String(s).replace(/[&<>"]/g,
   c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
-/* ---------- theme ---------- */
+/* ---------- theme (dark is the default; light is opt-in) ---------- */
 const root = document.documentElement;
 function applyTheme(t) {
-  if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t);
-  else root.removeAttribute('data-theme');
+  root.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
 }
 $('#theme-toggle')?.addEventListener('click', () => {
-  const cur = root.getAttribute('data-theme') ||
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
   const next = cur === 'dark' ? 'light' : 'dark';
   applyTheme(next);
   try { localStorage.setItem('theme', next); } catch (e) { /* private mode */ }
@@ -94,10 +92,13 @@ function score(it, q) {
   if ((it.p || []).some(p => norm(p).includes(q))) s += 3;
   return s;
 }
+const bdg = r => r ? '<span class="bdg bdg-' +
+  r.toLowerCase().replace(/[^a-z]+/g, '-') + '">' + esc(r) + '</span>' : '';
 function rowHTML(it, isSel) {
-  const meta = [(it.p || []).join(' · '), it.r].filter(Boolean).join(' · ');
+  const meta = [(it.p || []).join(' · ')].filter(Boolean).join(' · ');
   return `<a class="row${isSel ? ' sel' : ''}" href="${it.u}">` +
     `<span class="nm">${esc(it.t)}<small>${esc(meta)}</small></span>` +
+    bdg(it.r) +
     `<span class="ty">${esc(it.k)}</span></a>`;
 }
 function render() {
@@ -110,7 +111,7 @@ function render() {
   sel = Math.min(sel, Math.max(0, hits.length - 1));
   resBox.innerHTML = hits.length
     ? hits.map((it, i) => rowHTML(it, i === sel)).join('')
-    : '<p class="empty-dir" style="padding:1.1rem 1rem">No matches. Try a protocol name, a pillar, or a term.</p>';
+    : '<p class="empty-dir">No matches. Try a protocol name, a pillar, or a term.</p>';
   resN.textContent = hits.length ? hits.length + ' results' : '';
 }
 function openSheet() {

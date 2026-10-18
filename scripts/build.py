@@ -68,8 +68,9 @@ MD_EXTS = ['tables', 'fenced_code', 'toc', 'attr_list', 'footnotes',
            'sane_lists', 'def_list']
 
 INLINE_SCRIPT = ('(function(){try{var t=localStorage.getItem("theme");'
-                 'if(t==="light"||t==="dark"){document.documentElement.'
-                 'setAttribute("data-theme",t)}}catch(e){}})();')
+                 'document.documentElement.setAttribute("data-theme",'
+                 't==="light"?"light":"dark")}catch(e){'
+                 'document.documentElement.setAttribute("data-theme","dark")}})();')
 
 BUILTIN_METHOD = '''The library exists to answer practical questions under pressure: how to talk, move, publish and compute when someone is watching or interfering. Every entry is written the same way: what it does, what it protects against, what it trusts, and how ready it is. Nothing here is advice; everything here is meant to be checkable.
 
@@ -189,6 +190,17 @@ def fix_fragments(soup):
 
 def postprocess(html, wrap_tables=True):
     soup = BeautifulSoup(html, 'html.parser')
+    # markdown's table alignment emits inline style attributes; CSP blocks
+    # them, so translate the text-align ones to classes and drop the rest
+    for tag in soup.find_all(True):
+        st = tag.get('style')
+        if not st:
+            continue
+        m = re.fullmatch(r'\s*text-align:\s*(right|left|center)\s*;?\s*', st)
+        if m:
+            tag['class'] = (tag.get('class') or []) + [
+                {'right': 'ta-r', 'left': 'ta-l', 'center': 'ta-c'}[m.group(1)]]
+        del tag['style']
     if wrap_tables:
         for tb in soup.find_all('table'):
             if tb.parent.name == 'div' and 'tw' in (tb.parent.get('class') or []):
@@ -219,6 +231,86 @@ def datefmt(d):
         return datetime.date.fromisoformat(str(d)).strftime('%d %b %Y').lstrip('0')
     except ValueError:
         return str(d)
+
+
+# ------------------------------------------------ presentation helpers
+# Deterministic generative art: PGP armour, hex dumps, cipher grids and
+# mirrored identicons, all derived from content hashes so the build stays
+# byte-for-byte reproducible.
+
+def armour_block(slugs, n_lines=10, width=64):
+    """Base64 armour: a sha256 chain over the entry slugs, wrapped at 64."""
+    import base64
+    seed = ('\n'.join(slugs)).encode()
+    buf = b''
+    while len(buf) < n_lines * width * 3 // 4:
+        seed = hashlib.sha256(seed).digest()
+        buf += seed
+    text = base64.b64encode(buf).decode()
+    return [text[i:i + width] for i in range(0, n_lines * width, width)]
+
+
+def hexdump(s, n_lines=6, width=8):
+    """Classic hexdump rows (`width` bytes each) of a string."""
+    out, b = [], s.encode()
+    for i in range(n_lines):
+        chunk = b[i * width:(i + 1) * width]
+        if not chunk:
+            break
+        hx = ' '.join('%02x' % c for c in chunk)
+        asc = ''.join(chr(c) if 32 <= c < 127 else '.' for c in chunk)
+        out.append('%04x  %-*s  |%s|' % (i * width, width * 3 - 1, hx, asc))
+    return out
+
+
+def _grid_svg(seed, size, mirrored, density, levels, cls=''):
+    """Pixel grid SVG from a sha256 of `seed`; rects at varying opacity."""
+    h = hashlib.shake_256(seed.encode()).digest(size * size)
+    cols = size // 2 if mirrored else size
+    rects = []
+    for y in range(size):
+        for x in range(cols):
+            v = h[(y * cols + x) % len(h)]
+            if v < density:
+                op = levels[v % len(levels)]
+                xs = (x, size - 1 - x) if mirrored else (x,)
+                for xx in xs:
+                    rects.append('<rect x="%d" y="%d" width="1" height="1" '
+                                 'opacity="%.2f"/>' % (xx, y, op))
+    return ('<svg class="%s" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
+            'shape-rendering="crispEdges" aria-hidden="true" focusable="false">'
+            '%s</svg>') % (cls, size, size, ''.join(rects))
+
+
+def cipher_grid(seed, size=16):
+    """Hero cipher grid: sparse noise of signal pixels at 4 opacities."""
+    return _grid_svg(seed, size, mirrored=False, density=0x66,
+                     levels=[0.85, 0.5, 0.28, 0.14], cls='cipher-svg')
+
+
+def identicon(key, size=12):
+    """Mirrored pixel identicon for a pillar key, 3 opacity levels."""
+    return _grid_svg('pillar/' + key, size, mirrored=True, density=0x60,
+                     levels=[0.9, 0.55, 0.3], cls='identicon-svg')
+
+
+def hexline(key, n=16):
+    """First n bytes of sha256(key) as a spaced hex string."""
+    return ' '.join('%02x' % b
+                    for b in hashlib.sha256(key.encode()).digest()[:n])
+
+
+def content_hash():
+    """Short fingerprint of everything under content/, PGP-style."""
+    h = hashlib.sha256()
+    cdir = os.path.join(ROOT, 'content')
+    for dirpath, _, fns in sorted(os.walk(cdir)):
+        for fn in sorted(fns):
+            p = os.path.join(dirpath, fn)
+            h.update(os.path.relpath(p, cdir).encode())
+            h.update(open(p, 'rb').read())
+    hx = h.hexdigest()[:32].upper()
+    return ' '.join(hx[i:i + 4] for i in range(0, 32, 4))
 
 
 # ---------------------------------------------------------------- load
@@ -387,12 +479,24 @@ def make_env(data):
              + len(data['paths'] or []) + len(data['pillars'])
              + len(data['glossary']))
 
+    n_links_total = sum(len(s['items'])
+                        for d in (data['directory'] or {}).values()
+                        for s in d['sections'])
     ctx = {
         'site': SITE, 'v': v, 'nav': None,
         'pillars': data['pillars'],
         'readiness': READINESS, 'readiness_order': READINESS_ORDER,
         'type_labels': TYPE_LABELS,
-        'counts': {'total': total, 'entries': len(entries)},
+        'counts': {'total': total, 'entries': len(entries),
+                   'guides': sum(1 for e in entries.values()
+                                 if e.get('type') == 'guide'),
+                   'briefings': sum(len(v) for v in data['briefings'].values()),
+                   'links': n_links_total, 'trackers': 0},
+        'armour': armour_block(sorted(entries)),
+        'hexdump': hexdump('Technology for people who refuse to be governed '
+                           'by surveillance.'),
+        'hero_grid': cipher_grid('ungovernable.tech/hero/166'),
+        'build_fp': content_hash(),
     }
     return env, ctx
 
@@ -431,105 +535,120 @@ def build_search_index(data):
     return idx
 
 
+TAGLINE = 'Technology for people who refuse to be governed by surveillance.'
+
+BG = (10, 13, 11)       # --bg #0a0d0b
+INK = (223, 231, 225)   # --ink #dfe7e1
+MUT = (133, 148, 138)   # --muted #85948a
+SIGNAL = (60, 255, 143)  # --signal #3cff8f
+GRID = (18, 30, 24)     # faint grid line on bg
+
+# the 5x5 pixel-grid U mark (x, y cells), also used for the favicon
+U_MARK = [(0, 0), (4, 0), (0, 1), (4, 1), (0, 2), (4, 2),
+          (0, 3), (4, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)]
+
+
+def draw_mark(d, x, y, cell, fill=SIGNAL, pad=True):
+    """Draw the 5x5 pixel U at (x, y) with cells of `cell` px, 1-cell pad."""
+    ox = x + (cell if pad else 0)
+    oy = y + (cell if pad else 0)
+    for cx, cy in U_MARK:
+        d.rectangle([ox + cx * cell, oy + cy * cell,
+                     ox + (cx + 1) * cell - 1, oy + (cy + 1) * cell - 1], fill=fill)
+
+
 def og_images(pillars):
-    """Default + per-pillar 1200x630 cards on the dark plate."""
+    """Default + per-pillar 1200x630 cards in the dark identity."""
     from PIL import Image, ImageDraw, ImageFont
     fdir = os.path.join(ROOT, 'scripts', 'fonts')
     big_p = os.path.join(fdir, 'Archivo-Bold.ttf')
     mono_p = os.path.join(fdir, 'IBMPlexMono-Medium.ttf')
-    ink, mut, plate, accent = '#d8d6cc', '#8a887d', '#121311', '#f08a5d'
 
-    def fonts(bh, mh):
-        return (ImageFont.truetype(big_p, bh) if os.path.exists(big_p)
-                else ImageFont.load_default(),
-                ImageFont.truetype(mono_p, mh) if os.path.exists(mono_p)
+    def F(path, size):
+        return (ImageFont.truetype(path, size) if os.path.exists(path)
                 else ImageFont.load_default())
 
-    def card(path, name, sub, tagline_mode=False):
-        img = Image.new('RGB', (1200, 630), plate)
+    def base():
+        img = Image.new('RGB', (1200, 630), BG)
         d = ImageDraw.Draw(img)
-        d.line([(64, 96), (1136, 96)], fill='#2a2b27', width=2)
-        mono = (ImageFont.truetype(mono_p, 26) if os.path.exists(mono_p)
-                else ImageFont.load_default())
-        d.text((64, 46), 'UNGOVERNABLE.TECH', font=mono, fill=mut)
-        big_size = 72 if tagline_mode else 104
-        big = (ImageFont.truetype(big_p, big_size) if os.path.exists(big_p)
-               else ImageFont.load_default())
+        for gx in range(40, 1200, 40):
+            d.line([(gx, 0), (gx, 630)], fill=GRID, width=1)
+        for gy in range(40, 630, 40):
+            d.line([(0, gy), (1200, gy)], fill=GRID, width=1)
+        d.text((64, 52), 'UNGOVERNABLE.TECH', font=F(mono_p, 26), fill=MUT)
+        d.text((1050, 52), '0 TRACKERS', font=F(mono_p, 22), fill=MUT)
+        draw_mark(d, 64, 104, 8)
+        return img, d
+
+    def wrap(d, text, font, maxw):
         lines, cur = [], ''
-        for w in name.split(' '):
+        for w in text.split(' '):
             t = (cur + ' ' + w).strip()
-            if d.textlength(t, font=big) > 1060 and cur:
+            if d.textlength(t, font=font) > maxw and cur:
                 lines.append(cur)
                 cur = w
             else:
                 cur = t
         lines.append(cur)
-        if len(lines) > 3:
-            big_size = 56
-            big = (ImageFont.truetype(big_p, big_size) if os.path.exists(big_p)
-                   else ImageFont.load_default())
-        y = 250 if len(lines) < 3 else 190
+        return lines
+
+    def card(path, title, sub, kicker):
+        img, d = base()
+        big_size = 66 if len(title) > 34 else 96
+        big = F(big_p, big_size)
+        lines = wrap(d, title, big, 1000)
+        if len(lines) >= 4:
+            big_size, big = 56, F(big_p, 56)
+            lines = wrap(d, title, big, 1000)
+        elif len(lines) == 3 and big_size > 76:
+            big_size, big = 76, F(big_p, 76)
+        y0 = 260 if len(lines) <= 2 else (225 if len(lines) == 3 else 215)
+        d.text((64, y0 - 52), kicker, font=F(mono_p, 26), fill=SIGNAL)
+        y = y0
         for l in lines[:4]:
-            d.text((64, y), l, font=big, fill=ink)
-            y += big_size + 14
-        d.rectangle([64, 500, 128, 506], fill=accent)
-        subf = (ImageFont.truetype(mono_p, 29) if os.path.exists(mono_p)
-                else ImageFont.load_default())
-        # wrap the sub to at most two lines, ellipsizing the rest
-        cur, lines, ys = '', [], 526
-        for w in sub.split(' '):
-            t = (cur + ' ' + w).strip()
-            if d.textlength(t, font=subf) > 1010 and cur:
-                lines.append(cur)
-                cur = w
-            else:
-                cur = t
-        lines.append(cur)
-        if len(lines) > 2:
-            second = lines[1]
-            while lines[2:]:
-                t = second + ' ' + lines[2]
-                if d.textlength(t + '…', font=subf) <= 1010:
-                    second = t
-                    lines = lines[2:]
-                else:
-                    break
-            while d.textlength(second + '…', font=subf) > 1010 and ' ' in second:
-                second = second.rsplit(' ', 1)[0]
-            lines = [lines[0], second + '…']
-        for l in lines[:2]:
-            d.text((64, ys), l, font=subf, fill=mut)
-            ys += 38
+            d.text((64, y), l, font=big, fill=INK)
+            y += big_size + 12
+        d.rectangle([64, y + 8, 160, y + 13], fill=SIGNAL)
+        mono = F(mono_p, 28)
+        yy = y + 36
+        for l in wrap(d, sub, mono, 1010)[:2]:
+            d.text((64, yy), l, font=mono, fill=MUT)
+            yy += 38
         img.save(path, 'PNG', optimize=True)
 
     ogdir = os.path.join(PUBLIC, 'assets', 'og')
     os.makedirs(ogdir, exist_ok=True)
-    card(os.path.join(ogdir, 'default.png'),
-         'Technology for people who refuse to be governed by surveillance.',
+    card(os.path.join(ogdir, 'default.png'), TAGLINE,
          'An independent library of anonymity, circumvention and sovereignty tools.',
-         tagline_mode=True)
+         '// FIELD MANUAL')
     for i, p in enumerate(pillars, 1):
         card(os.path.join(ogdir, 'pillar-%s.png' % p['key']), p['name'],
-             'Pillar %02d — %s' % (i, p['question']))
+             'Pillar %02d of 14 — %s' % (i, p['question']),
+             '0x%02d / 14' % i)
 
 
 def favicons():
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
-           '<rect width="32" height="32" rx="4" fill="#121311"/>'
-           '<path d="M10 8v9a6 6 0 0 0 12 0V8" fill="none" stroke="#d8d6cc" '
-           'stroke-width="4.4" stroke-linecap="square"/></svg>')
+    """The 5x5 pixel U mark as favicon.svg + Pillow-rendered icons."""
+    rects = ''.join('<rect x="%d" y="%d" width="1" height="1"/>' % c
+                    for c in U_MARK)
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 7" '
+           'shape-rendering="crispEdges"><rect width="7" height="7" '
+           'fill="#0a0d0b"/><g fill="#3cff8f" transform="translate(1,1)">'
+           '%s</g></svg>') % rects
     open(os.path.join(PUBLIC, 'favicon.svg'), 'w', encoding='utf-8').write(svg)
-    from PIL import Image, ImageDraw, ImageFont
-    big_p = os.path.join(ROOT, 'scripts', 'fonts', 'Archivo-Bold.ttf')
+    from PIL import Image, ImageDraw
     for size, name in [(32, 'favicon.ico'), (192, 'icon-192.png'),
                        (512, 'icon-512.png'), (512, 'icon-maskable-512.png')]:
-        pad = 0.30 if 'maskable' in name else 0.16
-        im = Image.new('RGB', (size, size), '#121311')
+        # mark occupies 5/7 of the canvas (safe zone for maskable too)
+        cell = size / 7.0
+        im = Image.new('RGB', (size, size), BG)
         d = ImageDraw.Draw(im)
-        f = ImageFont.truetype(big_p, int(size * (1 - 2 * pad) * 0.82)) \
-            if os.path.exists(big_p) else ImageFont.load_default()
-        d.text((size * .5 - .02 * size, size * .56), 'U', font=f, fill='#d8d6cc',
-               anchor='mm')
+        for cx, cy in U_MARK:
+            x0 = round((cx + 1) * cell)
+            y0 = round((cy + 1) * cell)
+            x1 = round((cx + 2) * cell)
+            y1 = round((cy + 2) * cell)
+            d.rectangle([x0, y0, x1 - 1, y1 - 1], fill=SIGNAL)
         if name == 'favicon.ico':
             im.save(os.path.join(PUBLIC, name), sizes=[(32, 32)])
         else:
@@ -538,7 +657,7 @@ def favicons():
         'name': 'ungovernable.tech', 'short_name': 'ungovernable',
         'description': 'A library of the technologies people use to free themselves.',
         'start_url': '/', 'scope': '/', 'display': 'minimal-ui',
-        'background_color': '#121311', 'theme_color': '#121311',
+        'background_color': '#0a0d0b', 'theme_color': '#0a0d0b',
         'icons': [
             {'src': '/assets/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
             {'src': '/assets/icon-512.png', 'sizes': '512x512', 'type': 'image/png'},
@@ -581,6 +700,10 @@ def main():
     env, ctx = make_env(data)
     pillars, entries = data['pillars'], data['entries']
     pillar_by_key = data['pillar_by_key']
+    for i, p in enumerate(pillars, 1):
+        p['idx'] = i
+        p['identicon'] = identicon(p['key'])
+        p['hexline'] = hexline(p['key'])
 
     def w(rel, content):
         p = os.path.join(PUBLIC, rel)
