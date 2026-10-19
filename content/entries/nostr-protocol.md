@@ -172,3 +172,5 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 - NIPs registry — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)
 - NIP-17 / NIP-44 / NIP-59 specifications.
 - *Nostr — A simple, open protocol* (whitepaper-style overview).
+
+For end-to-end encrypted group chat built on Nostr keys and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) and [Cordn](/kb/cordn/).

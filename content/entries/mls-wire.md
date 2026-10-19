@@ -151,3 +151,5 @@ Wire is "the place where MLS first ran in anger" and is the implementation other
 - Cohn-Gordon et al., "On Ends-to-Ends Encryption: Asynchronous Group Messaging with Strong Security Guarantees" (CCS 2018) — foundational paper.
 - OpenMLS (alternative implementation) — [github.com/openmls/openmls](https://github.com/openmls/openmls).
 - Real World Crypto talks (2022-2024) by Wire and Cisco engineers on production MLS deployment lessons.
+
+MLS is also being deployed without any central Delivery Service: [White Noise](/kb/white-noise/) runs it over public Nostr relays via the [Marmot](/kb/marmot-protocol/) protocol, and [Cordn](/kb/cordn/) keeps a single ordering coordinator per group that anyone can self-host behind a firewall.

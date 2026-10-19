@@ -208,3 +208,5 @@ Wire is a Swiss / German enterprise messenger and the canonical production refer
 - Endpoint compromise — E2EE does not help if the device is malware.
 - Identity binding — verifying that a key belongs to the intended human is out-of-band work.
 - Jurisdiction — app-store and provider availability varies.
+
+Two newer MLS-based projects on Nostr identities: [White Noise](/kb/white-noise/), a relay-native messenger built on Marmot, and [Cordn](/kb/cordn/), group messaging through a coordinator you can run yourself.

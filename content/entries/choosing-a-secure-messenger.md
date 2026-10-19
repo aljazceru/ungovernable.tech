@@ -5,7 +5,7 @@ type: guide
 pillars: [messaging, anonymity]
 description: "Signal, SimpleX, Session, Briar, Cwtch, Matrix and others compared by what they actually protect: content, identifiers, metadata and availability."
 dek: "Every serious messenger encrypts content. They differ in what they require from you, what their servers learn, and whether they work when the internet does not."
-updated: 2026-10-17
+updated: 2026-10-19
 created: 2026-10-17
 origin: original
 level: beginner
@@ -43,7 +43,7 @@ Note on Session: when Session forked from Signal in 2020 it replaced the Signal 
 
 **For communities and organisations that want to run their own servers: Matrix.** Federation means no single company controls the network, and you can host your own homeserver. The trade-off is metadata: homeservers see who is in which room and when, and federated rooms copy that to every participating server.
 
-**For Nostr users: Marmot and NIP-17.** Encrypted messaging on Nostr is developing quickly; see [Marmot](/kb/marmot-protocol/) and [Getting Started on Nostr Safely](/guides/nostr-getting-started/).
+**For Nostr users: White Noise, Cordn and NIP-17.** Encrypted messaging on Nostr is developing quickly. [White Noise](/kb/white-noise/) is the most mature option: MLS group chat over relays you choose, built on [Marmot](/kb/marmot-protocol/), audited, but still beta. [Cordn](/kb/cordn/) takes a different path, routing each group through one coordinator you can self-host anywhere. Both are experimental, so pair them with a battle-tested messenger for sensitive work. See also [Getting Started on Nostr Safely](/guides/nostr-getting-started/).
 
 ## What to avoid for sensitive work
 

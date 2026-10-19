@@ -133,6 +133,26 @@ ENTRY_APPEND = {
         '(/kb/cover-traffic/).',
     'off-grid-networks': 'For internet access built and owned by its users '
         'rather than a telco, see [Community Networks](/kb/community-networks/).',
+    'marmot-protocol': '**Update, October 2026.** The numbered MIP documents '
+        'described above are now deprecated: the Marmot repository holds a '
+        'reorganised specification (foundation, protocol-core, transports, app '
+        'components, features) marked *adopted*, with weekly normative changes '
+        'listed in its changelog. The event kinds above are unchanged. For the '
+        'main client built on it, see [White Noise](/kb/white-noise/); for an '
+        'MLS-over-Nostr design that keeps a self-hostable coordinator instead of '
+        'publishing to public relays, see [Cordn](/kb/cordn/).',
+    'mls-wire': 'MLS is also being deployed without any central Delivery '
+        'Service: [White Noise](/kb/white-noise/) runs it over public Nostr '
+        'relays via the [Marmot](/kb/marmot-protocol/) protocol, and '
+        '[Cordn](/kb/cordn/) keeps a single ordering coordinator per group that '
+        'anyone can self-host behind a firewall.',
+    'encrypted-messaging': 'Two newer MLS-based projects on Nostr identities: '
+        '[White Noise](/kb/white-noise/), a relay-native messenger built on '
+        'Marmot, and [Cordn](/kb/cordn/), group messaging through a coordinator '
+        'you can run yourself.',
+    'nostr-protocol': 'For end-to-end encrypted group chat built on Nostr keys '
+        'and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) '
+        'and [Cordn](/kb/cordn/).',
 }
 
 _WL_PLAIN_CI = {k.lower() for k in WIKILINK_PLAIN}

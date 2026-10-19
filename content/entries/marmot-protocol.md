@@ -191,3 +191,5 @@ Group communication over the FIPS mesh: KeyPackages discovered via Nostr relays 
 - NIP-59 (gift-wrap), NIP-44 (cipher), NIP-EE (legacy MLS-over-Nostr) — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips).
 - OpenMLS — [github.com/openmls/openmls](https://github.com/openmls/openmls).
 - mls-rs — [github.com/awslabs/mls-rs](https://github.com/awslabs/mls-rs).
+
+**Update, October 2026.** The numbered MIP documents described above are now deprecated: the Marmot repository holds a reorganised specification (foundation, protocol-core, transports, app components, features) marked *adopted*, with weekly normative changes listed in its changelog. The event kinds above are unchanged. For the main client built on it, see [White Noise](/kb/white-noise/); for an MLS-over-Nostr design that keeps a self-hostable coordinator instead of publishing to public relays, see [Cordn](/kb/cordn/).
