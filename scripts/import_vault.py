@@ -132,7 +132,12 @@ ENTRY_APPEND = {
         '*how much* you send, see [Cover Traffic and Constant-Rate Padding]'
         '(/kb/cover-traffic/).',
     'off-grid-networks': 'For internet access built and owned by its users '
-        'rather than a telco, see [Community Networks](/kb/community-networks/).',
+        'rather than a telco, see [Community Networks](/kb/community-networks/).' '\n\n' + (
+        'MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside '
+        '[Meshtastic](/kb/meshtastic/). Correction to the table above: MeshCore '
+        'encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), '
+        'not only at app level. Bitchat launched in July 2025; see '
+        '[Bitchat](/kb/bitchat/).'),
     'marmot-protocol': '**Update, October 2026.** The numbered MIP documents '
         'described above are now deprecated: the Marmot repository holds a '
         'reorganised specification (foundation, protocol-core, transports, app '
@@ -153,7 +158,48 @@ ENTRY_APPEND = {
     'nostr-protocol': 'For end-to-end encrypted group chat built on Nostr keys '
         'and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) '
         'and [Cordn](/kb/cordn/).',
+    'meshtastic': '**Sibling project: MeshCore.** [MeshCore](/kb/meshcore/) runs '
+        'on the same LoRa boards but relays only through dedicated repeaters and '
+        'learns direct routes instead of flooding. It is lighter on airtime, but '
+        'its cryptography is thinner (AES-128-ECB with a 2-byte MAC, no audit) and '
+        'its main phone apps are closed source. The MeshCore entry has a '
+        'side-by-side comparison, and [Building a Mesh](/guides/building-a-mesh/) '
+        'helps you choose between them. For phone-only mesh chat with no radio '
+        'hardware, see [Bitchat](/kb/bitchat/).',
+    'off-grid-messaging': 'LoRa mesh has two main firmware families: '
+        '[Meshtastic](/kb/meshtastic/) and its sibling [MeshCore](/kb/meshcore/), '
+        'which relays only through dedicated repeaters and learns routes. For a '
+        'Bluetooth mesh on phones alone, with a Nostr fallback, see '
+        '[Bitchat](/kb/bitchat/).',
+    'reticulum': 'The comparison above uses Meshtastic. Its sibling '
+        '[MeshCore](/kb/meshcore/) sits in the same place relative to '
+        'Reticulum: LoRa-only firmware with fixed repeaters, compared directly '
+        'with [Meshtastic](/kb/meshtastic/) in the MeshCore entry.',
+    'fips-mesh': 'Beside [Meshtastic](/kb/meshtastic/) in the table above '
+        'belongs its sibling [MeshCore](/kb/meshcore/): Ed25519 node keys, '
+        'flood-then-learned-path routing through dedicated repeaters, AES-128 '
+        'with a 2-byte MAC, no forward secrecy, active development.',
+    'briar': 'For a phone-only Bluetooth mesh with multi-hop relaying, '
+        'store-and-forward couriers and a Nostr fallback, compare '
+        '[Bitchat](/kb/bitchat/).',
 }
+# vault slug -> related slugs written into the emitted front matter (shown first)
+ENTRY_RELATED = {
+    'meshtastic': ['meshcore', 'building-a-mesh', 'bitchat', 'reticulum',
+                   'off-grid-networks', 'off-grid-messaging'],
+    'off-grid-messaging': ['meshtastic', 'meshcore', 'bitchat', 'briar', 'reticulum'],
+    'off-grid-networks': ['meshtastic', 'meshcore', 'bitchat', 'reticulum',
+                          'building-a-mesh'],
+}
+
+# glossary slug -> replacement definition_md / extra see-slugs
+GLOSSARY_DEF = {
+    'lora': 'Low-power long-range radio modulation (sub-GHz ISM bands) used by '
+            '[Meshtastic](/kb/meshtastic/), [MeshCore](/kb/meshcore/) and other '
+            'off-grid networks.',
+}
+GLOSSARY_SEE = {'lora': ['meshtastic', 'meshcore']}
+
 
 _WL_PLAIN_CI = {k.lower() for k in WIKILINK_PLAIN}
 
@@ -705,7 +751,12 @@ def parse_glossary(text, index, unresolved):
             unresolved[target] += 1
             return disp
         definition_md = WIKILINK.sub(sub, definition)
-        terms.append({'term': term, 'slug': slugify(term),
+        gslug = slugify(term)
+        definition_md = GLOSSARY_DEF.get(gslug, definition_md)
+        for x in GLOSSARY_SEE.get(gslug, []):
+            if x not in see:
+                see.append(x)
+        terms.append({'term': term, 'slug': gslug,
                       'definition_md': definition_md, 'see': see})
     return terms
 
@@ -732,6 +783,8 @@ def emit_entry_fm(e):
         fm.append('aliases: %s' % ylist(e['aliases']))
     if e.get('tags'):
         fm.append('tags: %s' % ylist(e['tags']))
+    if e.get('related'):
+        fm.append('related: %s' % ylist(e['related']))
     fm.append('---')
     return '\n'.join(fm) + '\n\n'
 
@@ -793,6 +846,7 @@ def main():
             'source': path,
             'aliases': [str(x) for x in (fm.get('aliases') or [])],
             'tags': [str(x) for x in (fm.get('tags') or [])],
+            'related': list(ENTRY_RELATED.get(spec['slug'], [])),
         }
         body_out = body.strip()
         extra = ENTRY_APPEND.get(spec['slug'])

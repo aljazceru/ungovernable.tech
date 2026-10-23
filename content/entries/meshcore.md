@@ -2,129 +2,74 @@
 title: "MeshCore"
 slug: meshcore
 type: deep-dive
-pillars: ["mesh"]
+pillars: [mesh]
 readiness: usable
-description: "MeshCore, lightweight firmware for multi-hop LoRa mesh messaging with dedicated repeaters and direct-path routing: how it differs from Meshtastic."
-dek: "Lightweight, portable C++ library and firmware for multi-hop LoRa (and other packet radio) mesh routing. Designed for embedded, custom, and resilient off-grid networks with explicit node roles and focus on simplicity for developers."
-updated: 2026-06-22
+description: "MeshCore turns inexpensive LoRa boards into an off-grid text mesh with dedicated repeaters and learned direct routes. How it works and how it differs from Meshtastic."
+dek: "Meshtastic's closest sibling: the same cheap LoRa radios, but only dedicated repeaters relay traffic, and routes are learned rather than flooded. Lighter on airtime, with thinner cryptography."
+updated: 2026-10-23
 created: 2026-06-22
-origin: vault
-source: "05-Off-Grid-Networks/MeshCore.md"
-aliases: ["Mesh Core"]
-tags: ["meshcore", "lora", "mesh", "off-grid", "deep-dive", "routing"]
+origin: original
+related: [meshtastic, building-a-mesh, off-grid-networks, off-grid-messaging, reticulum, bitchat, internet-shutdown-preparedness, running-freedom-infrastructure]
+aliases: ["Mesh Core", "MeshCore LoRa"]
+tags: ["meshcore", "lora", "mesh", "off-grid", "deep-dive"]
 ---
 
-## What it is
+MeshCore is open-source firmware and a C++ routing library that turn inexpensive LoRa radios into a multi-hop text mesh with no towers, SIM cards or internet. It is the closest alternative to [Meshtastic](/kb/meshtastic/). It runs on the same boards (Heltec, RAK WisBlock, LILYGO T-Deck and T-Beam, Seeed and others) and serves the same uses, from emergency response to hiking to events. But it makes a different bet about routing. In Meshtastic, every node helps relay. In MeshCore, **only dedicated repeaters relay**, and once a route is known, messages follow it instead of flooding the whole mesh. The core firmware is MIT-licensed and developed at meshcore-dev, with prebuilt firmware flashable from a browser. Its UK community hub, meshcore.co.uk, reports more than 30,000 users in more than 80 countries.
 
-MeshCore (meshcore-dev org) provides a minimal routing core + reference firmwares (Companion, Repeater, Room Server) that turn supported LoRa boards into a decentralized, self-healing mesh. It emphasizes:
+## How it works
 
-- Fixed node roles to control routing quality (Companions do not repeat traffic by default).
-- No central servers or internet dependency.
-- Easy flashing via web flasher for supported hardware; developer-friendly C++ library and examples.
-- MIT license, portable to embedded projects.
+**Roles.** You flash each radio as one of three firmware types:
+- **Companion**: your personal node, paired over Bluetooth, USB or Wi-Fi with a phone, desktop or web app. It does **not** repeat other people's traffic, so mobile handhelds never become accidental backbone links.
+- **Repeater**: a fixed relay, often solar-powered on a rooftop or hill, that you administer remotely over the mesh.
+- **Room server**: a small bulletin board that stores shared posts for a group.
 
-Positioning vs peers (per project and community comparisons):
-- Vs [Meshtastic](/kb/meshtastic/): lighter core, more embedded/developer-oriented, explicit roles and room-server BBS primitives, different routing emphasis (hybrid elements).
-- Vs [Reticulum](/kb/reticulum/): narrower (primarily LoRa packet radio focus vs full stack over many transports); simpler for radio-centric use cases.
-- Vs Bitchat: radio hardware first (not phone-BLE only).
+There is also standalone firmware for devices with keyboards and screens, such as the T-Deck.
 
-Active in 2026 with firmware releases, client apps (iOS/Android/web), HA integration, gateways, and community nodes.
+**Routing.** The first message to a contact floods through the repeaters. The recipient's delivery report comes back carrying the list of repeaters the message passed through. The sender stores that path, and later messages carry it in the packet, so only the repeaters named on the path retransmit. Group channels have no single destination, so they always flood, but repeater operators can cap how far floods travel (`flood.max`). Nodes announce themselves with **adverts**: a name, a position if they choose, and an Ed25519 public key signed against spoofing. Companions advertise only when the user taps the button; repeaters advertise every 12 hours by default.
 
-## Architecture & Roles
+**Encryption.** Every node has an Ed25519 identity key. Direct messages use a shared secret from an elliptic-curve key exchange between the two nodes' keys. Group channels use a shared 128- or 256-bit channel secret. The default public channel's key is published, so anyone can read it. Payloads are encrypted with **AES-128 in ECB mode**, followed by an HMAC-SHA256 tag **truncated to 2 bytes**. Packets address the sender and recipient by **1-byte hashes** of their keys. A planned v2 packet format reserves room for 2-byte hashes and a 4-byte MAC.
 
-### Core routing library
-- C++ , no dynamic allocation outside init (embedded-friendly).
-- Multi-hop packet routing with hop limit.
-- Self-healing mesh; passive neighbor observation.
-- Supports LoRa (and designed for other packet radios).
+**Software.** The firmware, flasher and configuration tools are open source. Clients include the web app at app.meshcore.nz, Liam Cottle's Android and iOS apps, meshcore.js and a Python CLI. Per the project FAQ, the T-Deck standalone firmware and the native mobile apps are **not** open source. Some features, such as deeper T-Deck maps and immediate remote administration from the phone apps, are unlocked by a paid registration. meshcore.co.uk also sells *MeshOS*, a standalone-device firmware licensed at £8 per device, and a MeshCore handset.
 
-### Firmware roles (pre-built via flasher)
-- **Companion**: Pairs with external client apps over BLE/USB/Wi-Fi/Serial. Does not repeat messages (prevents polluting routes from mobile/handheld nodes).
-- **Repeater**: Extends coverage; relays traffic. Can be solar-powered (e.g., SenseCAP Solar Node).
-- **Room Server**: Simple BBS / shared posts server for group coordination or data sharing over the mesh.
+## MeshCore and Meshtastic
 
-Examples in repo also include KISS modem (serial bridge), simple secure chat, sensor telemetry.
+| | MeshCore | [Meshtastic](/kb/meshtastic/) |
+|---|---|---|
+| Who relays | Dedicated repeaters only; companions never repeat | Every node by default, through managed flooding (roles can mute clients) |
+| Direct messages | Flood once, then a learned source path | Managed flood; next-hop routing since firmware 2.6 |
+| Group channels | Always flood, with hop caps per repeater | Managed flood |
+| Direct-message crypto | ECDH shared secret, AES-128-ECB, 2-byte MAC | X25519, then AES-256-CCM (authenticated) |
+| Channel crypto | Shared secret, AES-128-ECB, 2-byte MAC; public channel key published | AES-CTR channel key (AEAD option from 2.8.1); default key published |
+| Forward secrecy | No | No |
+| Licensing | MIT firmware; T-Deck firmware and native apps closed | GPL-3.0 firmware; open apps |
+| Maturity | Younger (2025), fast-growing, frequent releases | Older (2019), largest LoRa-mesh community and ecosystem |
 
-### Clients & tooling
-- Official companion apps: web (app.meshcore.nz), Android (Liam Cottle), iOS.
-- Config tool: config.meshcore.io (for repeaters/room servers over USB or remote LoRa mgmt).
-- Flasher: https://meshcore.io/flasher (prebuilts for Heltec, RAK, LILYGO etc.).
-- Libraries: meshcore.js (Node), Python CLI, ESPHome component, HA integration.
-- Remote management of infrastructure nodes over the mesh itself.
+The practical upshot: MeshCore spends less airtime on busy meshes and gives repeater operators more control. That suits planned regional networks with a few well-placed solar repeaters. Meshtastic has the larger ecosystem, fully open clients, and more conservative, authenticated cryptography. The two do not interoperate over the air, although community bridges exist. A neighbourhood should pick one; see [Building a Mesh](/guides/building-a-mesh/).
 
-### Hardware
-Targets common ESP32 / nRF / RAK LoRa boards (Heltec V3/V4, RAK WisBlock, LILYGO T-Deck / T-LoRa / T-Watch variants, Wio Tracker, ThinkNode, WisMesh, etc.). See flasher for current matrix. Antennas and placement dominate range (same physics as other LoRa meshes).
+## What it protects against
 
-## Protocol & Features
+- **Infrastructure loss.** It needs no towers, SIM cards, internet or accounts, and a mesh keeps working through outages and shutdowns.
+- **Casual eavesdropping.** Direct messages and private channels are unreadable without the keys, including to the repeaters that carry them.
+- **Spoofed node announcements.** Adverts are signed.
+- **Airtime exhaustion.** Learned paths and non-repeating companions reduce flooding, which keeps a shared, duty-cycle-limited radio channel usable as the mesh grows.
 
-- Packet routing focused on reliability for embedded use.
-- Public channels / group comms via clients; private/encrypted sessions in examples (Simple Secure Chat uses Noise or equivalent).
-- Room server for structured shared "posts" / BBS-style messaging (durable within mesh).
-- Sensor support and telemetry examples.
-- Gateways/MQTT bridges exist in community (bidirectional to internet when desired, without mandating it).
-- Low-power design; repeaters can run solar.
+## What it trusts, and the limits
 
-Encryption: End-to-end options in client paths; core library is transport/routing. Past public issues around AES implementation were identified and addressed in development (see repo issues ~2025). Verify current primitives in active firmware.
+- **Thin cryptography.** ECB mode leaks when two 16-byte blocks of plaintext are identical. A 2-byte MAC means a forged packet has about a 1-in-65,536 chance of being accepted. There is no forward secrecy: anyone who records traffic and later obtains a key (for example from a seized node) can decrypt everything recorded. No independent audit has been published. Treat MeshCore as private from bystanders, not from a determined adversary.
+- **Metadata on the air.** Headers, hashed addresses and routing paths are visible. Adverts broadcast names, keys and optional positions. 1-byte hashes collide on large meshes. Like any radio, LoRa transmitters can be located by direction finding and jammed.
+- **Repeater operators and their defaults.** Routes depend on whoever runs the repeaters. The default admin password is `password`, so change it. Physical access to a repeater exposes its keys.
+- **Closed and paid pieces.** The main phone apps and standalone firmware are not open source, so part of what you run cannot be inspected.
+- **Physics.** Expect kilometres of range with line of sight, a few hundred bytes per message, and regional duty-cycle limits.
 
-KISS modem protocol for host integration documented.
+## Readiness
 
-## Trade-offs
+**Usable.** MeshCore has shipped stable firmware releases since 2025 (v1.18.0 in October 2026). It runs on dozens of widely available boards and is deployed by tens of thousands of users. For off-grid text in an outage, at events or in the backcountry, it works today, and on large meshes it is often more airtime-efficient than Meshtastic. Its weaker, unaudited cryptography and partly closed client stack are the reasons to prefer Meshtastic (or [Reticulum](/kb/reticulum/)) when confidentiality really matters.
 
-### Strengths
-- Explicit role model reduces certain routing pathologies (mobile nodes don't become accidental backbone).
-- Very lightweight and auditable C++ core suitable for custom embedded sovereign devices.
-- Fast path to working mesh with prebuilts + flasher; good for tactical, IoT, repeater networks.
-- Room server primitive enables lightweight shared state without full app servers.
-- Active cross-ecosystem tooling (HA, ESPHome, gateways) for practical deployments.
+## Primary sources
 
-### Limitations
-- Younger / smaller ecosystem than Meshtastic (fewer off-the-shelf clients, maps, long-running community meshes documented at scale).
-- Documentation and protocol spec still maturing (FAQ, KISS docs, but V2 protocol discussions on roadmap).
-- Range/airtime physics identical to other LoRa: low bandwidth, duty-cycle limits, line-of-sight dependent.
-- Encryption story is "in the apps/examples" rather than uniform default like some stacks; audit per deployment.
-- Companion devices require a paired "controller" (phone/laptop) for full UX in many cases (standalone options exist via T-Deck etc.).
-
-## Attack Surface
-
-- **RF layer**: Jamming, direction finding, collision (same as [Meshtastic](/kb/meshtastic/), [Reticulum](/kb/reticulum/) LoRa modes). Mitigations: low duty cycle, mobility, directional antennas, frequency agility where supported.
-- **Routing**: Flood/routing attacks, wormhole, Sybil via many cheap nodes. Fixed roles and companion non-repeating help; reputation or ACLs on roadmap for repeaters.
-- **Crypto**: Historical AES issues in early versions — confirm current firmware uses reviewed modes (e.g. authenticated encryption, proper IVs). Noise in chat examples provides forward secrecy where used.
-- **Endpoint / companion**: Phone or host compromise leaks keys/session; use hardened OS where possible.
-- **Physical / supply**: Rogue firmware on cheap boards; prefer reproducible or verified flashes. Solar repeaters add physical access risk.
-- **Internet bridges/gateways**: If used, introduce metadata or availability dependency — optional for pure off-grid.
-
-## Comparison Snapshot (LoRa meshes)
-
-| Project     | Focus                  | Roles / Topology Control | Encryption Model          | Standout Primitive     | Ecosystem Maturity |
-|-------------|------------------------|----------------------------|---------------------------|------------------------|--------------------|
-| Meshtastic | Consumer + telemetry  | Managed flood, some next-hop | Per-channel AES + optional PK | MQTT bridge, maps, sensors | Very high |
-| MeshCore   | Embedded / custom / routers | Explicit: Companion (no repeat), Repeater, Room Server | App/example level (Noise etc.); routing core transport | Room Server BBS, KISS, flasher simplicity | Growing (2026) |
-| Reticulum  | Full encrypted stack  | Destination-oriented, multi-transport | Wireguard-style + app protocols | LXMF messaging, NomadNet | High for stack |
-
-## Operational Notes
-
-- Start with flasher + supported board (Heltec/RAK common).
-- Use Companion firmware + mobile/desktop app for chat.
-- Deploy solar repeaters at elevation for coverage.
-- For custom: build on the C++ lib + examples (companion radio, sensor, secure chat).
-- Monitor airtime; same LoRa constraints.
-- Community: meshcore.gg Discord, docs.meshcore.io, YouTube explainers (Comms Channel, Liam Cottle tech talk).
-
-## Evidence & Status
-
-- Active repo under meshcore-dev (firmware, examples, issues with power measurements, hardware quirks 2026).
-- Pre-built flashing, multi-platform clients shipping.
-- MIT; contributions via dev branch.
-- Used in off-grid, emergency prep, tactical discussions on X 2026; hardware vendors shipping "for MeshCore" nodes.
-- Not yet at Meshtastic's deployment volume but strong for developers wanting controllable mesh routing without full Meshtastic feature surface.
-
-## Sources & References
-
-- Project site: https://meshcore.io/
-- GitHub: https://github.com/meshcore-dev/MeshCore (library, firmware, examples)
-- Flasher & docs: https://meshcore.io/flasher , https://docs.meshcore.io , FAQ in repo
-- Clients & tools: liamcottle repos, meshcore.js, community gateways/HA/ESPHome
-- Presentations: MeshCore Technical Presentation (Liam Cottle), quickstart series (The Comms Channel)
-- Comparisons: Community posts and Blackout Comms site explicitly compare MeshCore/Meshtastic/Blackout Comms
-
-*Primary sources preferred: repo code, protocol docs, hardware measurements from issues.*
+- MeshCore (UK community hub, user guides, MeshOS): https://meshcore.co.uk/ · MeshOS: https://www.meshcore.co.uk/meshos.html
+- Firmware and library (MIT): https://github.com/meshcore-dev/MeshCore · Releases: https://github.com/meshcore-dev/MeshCore/releases · Documentation: https://docs.meshcore.io/
+- Protocol: packet format https://github.com/meshcore-dev/MeshCore/blob/main/docs/packet_format.md · payloads https://github.com/meshcore-dev/MeshCore/blob/main/docs/payloads.md · encryption code https://github.com/meshcore-dev/MeshCore/blob/main/src/Utils.cpp
+- FAQ (routing, roles, open-source status, defaults): https://github.com/meshcore-dev/MeshCore/blob/main/docs/faq.md
+- Tools: flasher https://meshcore.io/flasher · config https://config.meshcore.io/ · web app https://app.meshcore.nz/ · meshcore.js https://github.com/liamcottle/meshcore.js · Python CLI https://github.com/fdlamotte/meshcore-cli
+- Meshtastic, for the comparison: encryption https://meshtastic.org/docs/overview/encryption/ · routing https://meshtastic.org/docs/overview/mesh-algo/

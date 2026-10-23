@@ -29,7 +29,9 @@ remove:
 replace:
   https://community.torproject.org/onion-services/onion-location/: {url: "https://community.torproject.org/onion-services/advanced/onion-location/"}
   https://github.com/LLFourn/secp256kfun/tree/main/adaptor: {url: "https://github.com/LLFourn/secp256kfun"}
-  https://github.com/ajmcquilkin/meshcore: {url: "https://github.com/meshcore-dev/MeshCore", name: "MeshCore"}
+  https://github.com/ajmcquilkin/meshcore: {url: "https://github.com/meshcore-dev/MeshCore", name: "MeshCore firmware", desc: "MIT-licensed LoRa mesh firmware and C++ routing library: companions, dedicated repeaters, room servers"}
+  https://github.com/permissionlesstech/bitchat: {url: "https://github.com/permissionlesstech/bitchat", name: "Bitchat (iOS/macOS source)", desc: "Bluetooth LE mesh messenger with a Nostr fallback; public domain"}
+  https://en.wikipedia.org/wiki/BitChat: {url: "https://en.wikipedia.org/wiki/BitChat", name: "Bitchat on Wikipedia", desc: "Encyclopedia overview of the Bitchat messenger and its history"}
   https://github.com/kind-0-nostr/nsecbunker: {url: "https://github.com/kind-0/nsecbunkerd", name: "nsecbunkerd"}
   https://github.com/rust-nostr/nostr-sdk: {url: "https://github.com/rust-nostr/nostr", name: "rust-nostr"}
   https://github.com/nickvdyck/coracle: {url: "https://github.com/coracle-social/coracle", name: "Coracle"}
@@ -52,3 +54,16 @@ add:
     - {section: "Messaging Layer Security (MLS)", name: "MDK (Marmot Development Kit)", url: "https://github.com/marmot-protocol/mdk", desc: "Rust implementation of Marmot used by White Noise, with bindings"}
     - {section: "Messaging Layer Security (MLS)", name: "Cordn", url: "https://cordn.net/", desc: "MLS group messaging via a self-hostable coordinator reached over Nostr relays (ContextVM); beta"}
     - {section: "Messaging Layer Security (MLS)", name: "ContextVM", url: "https://contextvm.org/", desc: "Transport for exposing services over Nostr relays without domains or open ports; used by Cordn"}
+  mesh:
+    - {section: "MeshCore", name: "MeshCore documentation", url: "https://docs.meshcore.io/", desc: "Official docs: firmware roles, CLI, packet format and companion protocol"}
+    - {section: "MeshCore", name: "MeshCore web flasher", url: "https://meshcore.io/flasher", desc: "Flash companion, repeater or room-server firmware from the browser"}
+    - {section: "Bluetooth Mesh Messaging", name: "Bitchat", url: "https://bitchat.free/", desc: "Project site: phone-only Bluetooth mesh chat with no accounts or servers"}
+    - {section: "Bluetooth Mesh Messaging", name: "Bitchat whitepaper", url: "https://github.com/permissionlesstech/bitchat/blob/main/WHITEPAPER.md", desc: "Protocol v2.0: BLE mesh, Noise encryption, couriers, Nostr path and its metadata limits"}
+    - {section: "Bluetooth Mesh Messaging", name: "Bitchat for Android", url: "https://github.com/permissionlesstech/bitchat-android", desc: "Protocol-compatible Android client with Tor and Wi-Fi Aware support"}
+# insert_after: url -> items placed right after that item (same section)
+insert_after:
+  https://meshtastic.org/:
+    - {name: "MeshCore", url: "https://meshcore.co.uk/", desc: "Meshtastic's sibling LoRa mesh: same boards, dedicated repeaters and learned direct routes"}
+# move_after: pillar -> {section: section it should directly follow}
+move_after:
+  mesh: {"MeshCore": "LoRa Mesh Networks"}

@@ -12,6 +12,7 @@ origin: vault
 source: "05-Off-Grid-Networks/Meshtastic.md"
 aliases: ["Meshtastic LoRa"]
 tags: ["meshtastic", "lora", "mesh", "off-grid", "deep-dive"]
+related: ["meshcore", "building-a-mesh", "bitchat", "reticulum", "off-grid-networks", "off-grid-messaging"]
 ---
 
 ## What it is
@@ -181,3 +182,5 @@ The `want_position` flag is on by default. Disable it for adversarial environmen
 - Firmware repository — [github.com/meshtastic/firmware](https://github.com/meshtastic/firmware)
 - Protocol spec — [meshtastic.org/docs/overview/mesh-algo](https://meshtastic.org/docs/overview/mesh-algo)
 - LoRa Alliance, *LoRaWAN Regional Parameters*.
+
+**Sibling project: MeshCore.** [MeshCore](/kb/meshcore/) runs on the same LoRa boards but relays only through dedicated repeaters and learns direct routes instead of flooding. It is lighter on airtime, but its cryptography is thinner (AES-128-ECB with a 2-byte MAC, no audit) and its main phone apps are closed source. The MeshCore entry has a side-by-side comparison, and [Building a Mesh](/guides/building-a-mesh/) helps you choose between them. For phone-only mesh chat with no radio hardware, see [Bitchat](/kb/bitchat/).

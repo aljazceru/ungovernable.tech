@@ -10,7 +10,7 @@ created: 2026-10-17
 origin: original
 level: beginner
 time: "1-2 hours to prepare"
-related: [off-grid-messaging, briar, bitchat, meshtastic, building-a-mesh, censorship-circumvention]
+related: [off-grid-messaging, briar, bitchat, meshtastic, meshcore, building-a-mesh, censorship-circumvention]
 ---
 
 Governments shut down the internet during protests, elections, exams and conflicts. Access Now's #KeepItOn coalition documents hundreds of shutdowns every year, from regional mobile data cuts to nationwide blackouts lasting weeks. Shutdowns are rarely total and rarely instant: often mobile data goes first, then specific apps, then everything. Preparation is what separates a group that can still coordinate from one that cannot.

@@ -157,6 +157,10 @@ def main():
     replace = {norm_url(k): v for k, v in (overrides.get('replace') or {}).items()}
     annotate = {norm_url(k): v for k, v in (overrides.get('annotate') or {}).items()}
     add = overrides.get('add') or {}
+    # insert_after: url -> [items] placed immediately after that item, same section
+    insert_after = {norm_url(k): v for k, v in (overrides.get('insert_after') or {}).items()}
+    # move_after: pillar -> {section title: title of the section it should follow}
+    move_after = overrides.get('move_after') or {}
 
     outdir = os.path.join(ROOT, 'content', 'directory')
     os.makedirs(outdir, exist_ok=True)
@@ -193,6 +197,8 @@ def main():
                         it = dict(it, url=rep.get('url', it['url']))
                         if rep.get('name'):
                             it['name'] = rep['name']
+                        if rep.get('desc'):
+                            it['desc'] = rep['desc']
                         nu = norm_url(it['url'])
                         if nu in seen_urls:
                             continue
@@ -201,6 +207,13 @@ def main():
                                   note=annotate[nu].get('note'))
                     seen_urls.add(nu)
                     target['items'].append(it)
+                    for extra in insert_after.get(nu, []):
+                        en = norm_url(extra['url'])
+                        if en in seen_urls or en in remove:
+                            continue
+                        seen_urls.add(en)
+                        target['items'].append({'name': extra['name'], 'url': extra['url'],
+                                                'desc': extra.get('desc', '')})
         for item in add.get(pillar) or []:
             nu = norm_url(item['url'])
             if nu in seen_urls:
@@ -213,6 +226,12 @@ def main():
             sections[seen_titles[title]]['items'].append(
                 {'name': item['name'], 'url': item['url'], 'desc': item.get('desc', '')})
         sections = [s for s in sections if s['items']]
+        for title, after in (move_after.get(pillar) or {}).items():
+            idx = {s['title']: n for n, s in enumerate(sections)}
+            if title in idx and after in idx:
+                sec = sections.pop(idx[title])
+                pos = [s['title'] for s in sections].index(after)
+                sections.insert(pos + 1, sec)
         doc = {'pillar': pillar, 'sections': sections}
         out = os.path.join(outdir, pillar + '.yml')
         body = yaml.safe_dump(doc, sort_keys=False, allow_unicode=True,

@@ -169,3 +169,5 @@ In a regional internet outage, two Briar phones in the same building sync over B
 - Briar Protocol Specification — *Bramble, Briar's transport protocol*.
 - Mailbox documentation — [briarproject.org/manual/mailbox](https://briarproject.org/manual/mailbox)
 - Open Technology Fund audits.
+
+For a phone-only Bluetooth mesh with multi-hop relaying, store-and-forward couriers and a Nostr fallback, compare [Bitchat](/kb/bitchat/).

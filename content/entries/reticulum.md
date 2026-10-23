@@ -183,3 +183,5 @@ NomadNet pages served from a rnsd-equipped node. Forum-style content delivered o
 - LXMF — [github.com/markqvist/LXMF](https://github.com/markqvist/LXMF)
 - NomadNet — [github.com/markqvist/NomadNet](https://github.com/markqvist/NomadNet)
 - Sideband — [github.com/markqvist/Sideband](https://github.com/markqvist/Sideband)
+
+The comparison above uses Meshtastic. Its sibling [MeshCore](/kb/meshcore/) sits in the same place relative to Reticulum: LoRa-only firmware with fixed repeaters, compared directly with [Meshtastic](/kb/meshtastic/) in the MeshCore entry.

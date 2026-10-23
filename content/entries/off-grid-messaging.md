@@ -11,6 +11,7 @@ origin: vault
 source: "07-Encrypted-Messaging/Off-Grid Messaging.md"
 aliases: ["Off-Grid Comms"]
 tags: ["off-grid", "messaging", "briar", "meshtastic", "reticulum", "lxmf", "deep-dive"]
+related: ["meshtastic", "meshcore", "bitchat", "briar", "reticulum"]
 ---
 
 > Pairs with [Overview - Off-Grid Networks](/kb/off-grid-networks/) (transport layer) and [Overview - Encrypted Messaging](/kb/encrypted-messaging/) (security model).
@@ -150,3 +151,5 @@ Off-grid messaging has *different* threats from internet-based messaging:
 - LXMF — [github.com/markqvist/LXMF](https://github.com/markqvist/LXMF)
 - Briar — [briarproject.org](https://briarproject.org)
 - Bridgefy security audit, *Mesh-based messaging app cryptography*, 2020.
+
+LoRa mesh has two main firmware families: [Meshtastic](/kb/meshtastic/) and its sibling [MeshCore](/kb/meshcore/), which relays only through dedicated repeaters and learns routes. For a Bluetooth mesh on phones alone, with a Nostr fallback, see [Bitchat](/kb/bitchat/).

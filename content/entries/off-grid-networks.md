@@ -11,6 +11,7 @@ origin: vault
 source: "05-Off-Grid-Networks/Overview - Off-Grid Networks.md"
 aliases: ["Mesh Networking", "Mesh Networks", "LoRa Mesh", "Delay Tolerant Networks", "DTN"]
 tags: ["off-grid", "mesh-network", "meshnet", "lora", "dtn", "reticulumm", "meshtastic", "yggdrasil"]
+related: ["meshtastic", "meshcore", "bitchat", "reticulum", "building-a-mesh"]
 ---
 
 ## What this covers
@@ -253,3 +254,5 @@ In areas with no internet infrastructure:
 - User error (counter: training).
 
 For internet access built and owned by its users rather than a telco, see [Community Networks](/kb/community-networks/).
+
+MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside [Meshtastic](/kb/meshtastic/). Correction to the table above: MeshCore encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), not only at app level. Bitchat launched in July 2025; see [Bitchat](/kb/bitchat/).

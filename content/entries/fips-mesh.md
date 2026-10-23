@@ -173,3 +173,5 @@ K8s sidecar pattern: FIPS runs alongside an existing service, presenting `fips0`
 - *fips-intro.md* — top-level overview.
 - Noise Protocol Framework — [noiseprotocol.org](https://noiseprotocol.org/).
 - Nostr Protocol — [github.com/nostr-protocol/nostr](https://github.com/nostr-protocol/nostr).
+
+Beside [Meshtastic](/kb/meshtastic/) in the table above belongs its sibling [MeshCore](/kb/meshcore/): Ed25519 node keys, flood-then-learned-path routing through dedicated repeaters, AES-128 with a 2-byte MAC, no forward secrecy, active development.
