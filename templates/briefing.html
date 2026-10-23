@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ b.title }} — ungovernable.tech{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld_article|safe }}</script>
+<script type="application/ld+json">{{ jsonld_crumb|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': 'Briefings', 'url': '/briefings/'}, {'name': series_name, 'url': '/briefings/' ~ b.series ~ '/'}, {'name': b.date}]) }}
+<header class="page-head tex">
+  <p class="kicker">Briefing · {{ series_name }}</p>
+  <h1>{{ b.title }}</h1>
+  <p class="dek">{{ b.window }}</p>
+  <div class="meta">
+    <span>published <b>{{ b.date }}</b></span>
+    <span><b>{{ b.read_min }}</b> min read</span>
+    {% for p in pillar_names %}<span><a href="/pillars/{{ p.key }}/">{{ p.name }}</a></span>{% endfor %}
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // {{ b.date }} // may be outdated</p>
+  <p>This page reflects what was known on {{ b.date }}. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    {{ body_html|safe }}
+    <nav class="pn" aria-label="Series navigation">
+      {% if prev %}<a href="/briefings/{{ b.series }}/{{ prev.date }}/"><span class="label">Previous</span><span class="pn-t">{{ prev.title }}</span></a>{% else %}<span></span>{% endif %}
+      <a class="pn-hub" href="/briefings/{{ b.series }}/"><span class="label">Series</span><span class="pn-t">All {{ series_name }} briefings</span></a>
+      {% if next %}<a href="/briefings/{{ b.series }}/{{ next.date }}/"><span class="label">Next</span><span class="pn-t">{{ next.title }}</span></a>{% else %}<span></span>{% endif %}
+    </nav>
+  </article>
+</div>
+</div></div>
+{% endblock %}

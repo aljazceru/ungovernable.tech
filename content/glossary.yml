@@ -1,0 +1,591 @@
+- term: Attestation
+  slug: attestation
+  definition_md: Cryptographic proof of the identity, configuration, and code hash
+    of a piece of software running inside a TEE. Anchored in the hardware vendor's
+    signing keys (Intel DCAP, AMD KDS, NVIDIA NRAS). See [Attestation-Architecture](/kb/remote-attestation/).
+  see:
+  - remote-attestation
+- term: Attested TLS
+  slug: attested-tls
+  definition_md: A TLS connection where the server's keypair is generated inside an
+    enclave and the attestation report is bound to the TLS certificate (or pinned
+    in a Channel Binding). Lets a client verify it is talking to specific code on
+    specific hardware, not just any holder of the cert.
+  see: []
+- term: AEAD
+  slug: aead
+  definition_md: Authenticated Encryption with Associated Data. Modern symmetric mode
+    (AES-GCM, ChaCha20-Poly1305) that combines confidentiality and integrity in one
+    primitive.
+  see: []
+- term: Alice / Bob / Eve / Mallory
+  slug: alice-bob-eve-mallory
+  definition_md: Standard cryptographic example names. Alice and Bob are honest parties;
+    Eve is a passive eavesdropper; Mallory is an active attacker.
+  see: []
+- term: BBS+
+  slug: bbs
+  definition_md: Pairing-based signature scheme that supports selective disclosure
+    of attributes and zero-knowledge proofs of possession. Foundation of W3C Verifiable
+    Credentials with privacy.
+  see: []
+- term: Bitchat
+  slug: bitchat
+  definition_md: Phone-only Bluetooth-LE mesh messenger from Permissionlesstech, with
+    a Nostr fallback for global reach. Up to seven hops over BLE, Noise-encrypted,
+    no accounts. Geohash-based location channels on the Nostr side. See [Bitchat](/kb/bitchat/).
+  see:
+  - bitchat
+- term: Bulletproofs
+  slug: bulletproofs
+  definition_md: Short, non-interactive zero-knowledge range proofs that need no trusted
+    setup. Used in Monero (transaction amounts) and various confidential-transaction
+    protocols.
+  see: []
+- term: Blinding / Blind signature
+  slug: blinding-blind-signature
+  definition_md: Cryptographic technique where a signer signs a message it cannot
+    read. Used by Chaumian eCash, Cashu, and parts of mixnet payment schemes.
+  see: []
+- term: CCIP-Read (EIP-3668)
+  slug: ccip-read-eip-3668
+  definition_md: Pattern that lets ENS resolvers serve names from off-chain backends
+    with cryptographic proofs.
+  see: []
+- term: Chaumian eCash
+  slug: chaumian-ecash
+  definition_md: 'Bearer token system using blind signatures (Chaum, 1983). Modern
+    implementations: Cashu (Bitcoin/Lightning), GNU Taler.'
+  see: []
+- term: CoCo (Confidential Containers)
+  slug: coco-confidential-containers
+  definition_md: CNCF project bringing confidential computing to Kubernetes via Kata
+    plus TEE-backed VMs and a Trustee KBS. See [Confidential-Containers](/kb/confidential-containers/).
+  see:
+  - confidential-containers
+- term: Confidential Computing
+  slug: confidential-computing
+  definition_md: Hardware-backed protection of data during computation, complementing
+    at-rest and in-transit encryption.
+  see: []
+- term: Cover traffic
+  slug: cover-traffic
+  definition_md: Dummy packets sent on a schedule to hide whether real traffic is
+    flowing. Core to mixnet metadata defense.
+  see: []
+- term: CRR (Continual Re-Randomization)
+  slug: crr-continual-re-randomization
+  definition_md: Property of mix networks where each hop re-encrypts (or re-blinds)
+    the packet so the bit pattern changes between links.
+  see: []
+- term: DCAP (Data Center Attestation Primitives)
+  slug: dcap-data-center-attestation-primitives
+  definition_md: Intel's open attestation infrastructure for SGX/TDX, replacing the
+    EPID-based Attestation Service for production use.
+  see: []
+- term: DHT (Distributed Hash Table)
+  slug: dht-distributed-hash-table
+  definition_md: Key-value store spread across many nodes (Kademlia, Mainline). Used
+    for peer discovery, BitTorrent trackers, PKARR record storage.
+  see: []
+- term: Decentralized storage
+  slug: decentralized-storage
+  definition_md: Storage architecture where integrity, persistence, or retrieval is
+    distributed across independent operators rather than a single cloud account. Includes
+    content-addressed systems (IPFS), paid storage markets (Filecoin, Sia), archival
+    networks (Arweave), and app-specific blob layers (Blossom).
+  see: []
+- term: DID (Decentralized Identifier)
+  slug: did-decentralized-identifier
+  definition_md: 'W3C URI scheme `did:method:id` resolving to a DID Document with
+    public keys and service endpoints. Methods: `did:key`, `did:web`, `did:ion`, `did:plc`,
+    `did:peer`, `did:ens`.'
+  see: []
+- term: Double Ratchet
+  slug: double-ratchet
+  definition_md: Per-message key rotation algorithm in Signal/MLS that combines a
+    Diffie-Hellman ratchet with a symmetric KDF chain to deliver forward secrecy and
+    post-compromise security.
+  see: []
+- term: DTN (Delay-Tolerant Network)
+  slug: dtn-delay-tolerant-network
+  definition_md: Networking architecture (RFC 4838) for intermittent or high-latency
+    links. Uses store-carry-forward bundles. Used in mesh, satellite, and disconnected
+    operation.
+  see: []
+- term: Ed25519
+  slug: ed25519
+  definition_md: 'EdDSA signature scheme over Curve25519. Compact, fast, deterministic;
+    widely used in Tor v3, SSH, age, Pubky/PKARR, Yggdrasil, MLS BasicCredentials.
+    *Note: Nostr uses Schnorr over secp256k1 (BIP-340), not Ed25519.*'
+  see: []
+- term: EIP-7702 / EIP-4337
+  slug: eip-7702-eip-4337
+  definition_md: Ethereum account-abstraction proposals enabling smart-contract behavior
+    on EOAs and bundled UserOps respectively.
+  see: []
+- term: Enclave
+  slug: enclave
+  definition_md: Hardware-isolated region of memory and execution; the umbrella term
+    for SGX enclaves, SEV-SNP VMs, TDX TDs, and similar.
+  see: []
+- term: fhEVM
+  slug: fhevm
+  definition_md: Ethereum-compatible EVM that operates on FHE ciphertexts. Zama's
+    flagship.
+  see: []
+- term: FHE (Fully Homomorphic Encryption)
+  slug: fhe-fully-homomorphic-encryption
+  definition_md: Encryption that supports arbitrary computation on ciphertexts. See
+    [Overview - Fully Homomorphic Encryption](/kb/fully-homomorphic-encryption/).
+  see:
+  - fully-homomorphic-encryption
+- term: FIPS
+  slug: fips
+  definition_md: '*Free Internetworking Peering System.* Mesh routing protocol that
+    uses Nostr secp256k1 keypairs as native node identities. Multi-transport (UDP,
+    TCP, Ethernet, Tor, BLE), Noise-encrypted hop-to-hop and end-to-end. See [FIPS](/kb/fips-mesh/).'
+  see:
+  - fips-mesh
+- term: Forward Secrecy
+  slug: forward-secrecy
+  definition_md: Property where compromising long-term keys does not compromise past
+    session keys. Achieved via ephemeral DH (TLS 1.3, Signal X3DH/PQXDH).
+  see: []
+- term: FROST
+  slug: frost
+  definition_md: Flexible Round-Optimized Schnorr Threshold signatures (Komlo & Goldberg
+    2020; standardized as RFC 9591 in 2024). Used for threshold Bitcoin/Nostr key
+    custody.
+  see: []
+- term: Garlic Routing
+  slug: garlic-routing
+  definition_md: I2P's variant of onion routing where one packet ("garlic clove bundle")
+    may contain multiple inner messages with different destinations.
+  see: []
+- term: Geohash
+  slug: geohash
+  definition_md: Hierarchical encoding of geographic coordinates as a base32 string
+    where shorter prefixes denote larger areas. Used by [Bitchat](/kb/bitchat/) location
+    channels; precision selects neighborhood, city, or region scope.
+  see:
+  - bitchat
+- term: GNS (GNU Name System)
+  slug: gns-gnu-name-system
+  definition_md: Privacy-preserving petname-based hierarchical naming, RFC 9498.
+  see: []
+- term: Groth16
+  slug: groth16
+  definition_md: 'Pairing-based zk-SNARK with constant-size proofs (~128-200 bytes
+    depending on curve: 2×G1 + 1×G2 over BN254 / BLS12-381) and per-circuit trusted
+    setup. Used by Zcash Sapling, Tornado Cash, Semaphore.'
+  see: []
+- term: Grover's algorithm
+  slug: grover-s-algorithm
+  definition_md: Quantum search algorithm giving a √N speedup over classical brute
+    force. Effectively halves symmetric key strength. AES-256 retains a 128-bit security
+    margin against it.
+  see: []
+- term: Halo2
+  slug: halo2
+  definition_md: PLONK-family proof system from Electric Coin Co.; recursive composition
+    without a fresh trusted setup per circuit. Used in Zcash Orchard.
+  see: []
+- term: Handshake (HNS)
+  slug: handshake-hns
+  definition_md: Blockchain-based replacement for the DNS root zone, with permissionless
+    TLD ownership.
+  see: []
+- term: Harvest now, decrypt later
+  slug: harvest-now-decrypt-later
+  definition_md: Adversary records encrypted traffic today expecting to decrypt it
+    once a quantum computer exists. The motivation for migrating long-secrecy traffic
+    to post-quantum KEMs now.
+  see: []
+- term: Hybrid KEM
+  slug: hybrid-kem
+  definition_md: Composition of a classical KEM (such as X25519) and a post-quantum
+    KEM (such as ML-KEM-768) where the shared secret is the KDF of both halves. Currently
+    deployed in TLS 1.3, SSH, Signal PQXDH, iMessage PQ3.
+  see: []
+- term: I2P (Invisible Internet Project)
+  slug: i2p-invisible-internet-project
+  definition_md: Anonymous overlay network using garlic routing and unidirectional
+    tunnels.
+  see: []
+- term: IETF
+  slug: ietf
+  definition_md: Internet Engineering Task Force; the body that publishes RFCs.
+  see: []
+- term: Ion / did:ion
+  slug: ion-did-ion
+  definition_md: DIF DID method anchored on Bitcoin via Sidetree (a Layer-2 ledger).
+  see: []
+- term: Kademlia
+  slug: kademlia
+  definition_md: DHT algorithm using XOR distance for routing. The basis of Mainline
+    DHT, IPFS, libp2p Kad-DHT.
+  see: []
+- term: IPFS CID
+  slug: ipfs-cid
+  definition_md: Content Identifier used by IPFS to name data by cryptographic hash
+    plus codec metadata. A CID proves byte integrity, while availability depends on
+    pinning or storage deals.
+  see: []
+- term: KBS (Key Broker Service)
+  slug: kbs-key-broker-service
+  definition_md: Component in CoCo Trustee that releases secrets to enclaves only
+    on a valid attestation.
+  see: []
+- term: KEM (Key Encapsulation Mechanism)
+  slug: kem-key-encapsulation-mechanism
+  definition_md: Primitive that produces an encapsulated symmetric key for a recipient
+    public key. Replaces Diffie-Hellman in post-quantum protocols.
+  see: []
+- term: KDS (Key Distribution Service)
+  slug: kds-key-distribution-service
+  definition_md: 'AMD''s attestation backend: serves VCEK / VLEK certificates that
+    endorse SEV-SNP attestation reports.'
+  see: []
+- term: Key Escrow
+  slug: key-escrow
+  definition_md: Third-party holding of decryption keys. Contradicts sovereignty;
+    historically pushed by states (Clipper chip).
+  see: []
+- term: Lattice cryptography
+  slug: lattice-cryptography
+  definition_md: Hardness assumptions based on lattice problems (LWE, Ring-LWE, Module-LWE,
+    NTRU). Foundation of FHE and most NIST PQC KEM/signature standards (ML-KEM, ML-DSA,
+    FN-DSA); SLH-DSA is the hash-based exception.
+  see: []
+- term: Lightning Network
+  slug: lightning-network
+  definition_md: Layer 2 Bitcoin protocol of bidirectional payment channels with hash-time-locked
+    routed payments. See [Lightning Network Deep Dive](/kb/lightning-network/).
+  see:
+  - lightning-network
+- term: Loopix
+  slug: loopix
+  definition_md: 'Continuous-time mix network design (Piotrowska et al., 2017): Poisson-mixing
+    with cover traffic. Foundation of Nym and Katzenpost.'
+  see: []
+- term: LoRa
+  slug: lora
+  definition_md: Low-power long-range radio modulation (sub-GHz ISM bands) used by
+    [Meshtastic](/kb/meshtastic/), [MeshCore](/kb/meshcore/) and other off-grid networks.
+  see:
+  - meshtastic
+  - meshcore
+- term: LWE (Learning With Errors)
+  slug: lwe-learning-with-errors
+  definition_md: Lattice problem on which most modern lattice crypto rests.
+  see: []
+- term: Mainline DHT
+  slug: mainline-dht
+  definition_md: The BitTorrent DHT, around 10 million nodes worldwide. Used by PKARR/Pubky
+    for record publication.
+  see: []
+- term: Marmot Protocol
+  slug: marmot-protocol
+  definition_md: Specification for using MLS (RFC 9420) over Nostr's identity and
+    relay infrastructure for forward-secret, post-compromise-secure, scalable group
+    messaging. KeyPackages (kind 30443), gift-wrapped Welcomes (kind 444 inside 1059),
+    encrypted group events (kind 445). See [Marmot Protocol](/kb/marmot-protocol/).
+  see:
+  - marmot-protocol
+- term: mDL (Mobile Driver's License, ISO 18013-5)
+  slug: mdl-mobile-driver-s-license-iso-18013-5
+  definition_md: Standard for mobile credentials with selective disclosure. Deployed
+    in several US states and the EU Digital Wallet.
+  see: []
+- term: MEV (Maximal Extractable Value)
+  slug: mev-maximal-extractable-value
+  definition_md: Value extracted from transaction ordering by validators, builders,
+    and searchers. *Originally "Miner Extractable Value"; renamed in 2022 to cover
+    non-miner extractors.*
+  see: []
+- term: Mixnet
+  slug: mixnet
+  definition_md: Network that batches, reorders, and re-encrypts traffic across multiple
+    hops to hide who-talks-to-whom from a global observer. See [Overview - Mix Networks](/kb/mix-networks/).
+  see:
+  - mix-networks
+- term: ML-DSA (FIPS 204)
+  slug: ml-dsa-fips-204
+  definition_md: Module-LWE signature scheme based on Dilithium. Replaces ECDSA /
+    RSA-PSS for post-quantum signatures.
+  see: []
+- term: ML-KEM (FIPS 203)
+  slug: ml-kem-fips-203
+  definition_md: Module-LWE key encapsulation based on Kyber. Replaces ECDH / RSA-KEM
+    for post-quantum key exchange.
+  see: []
+- term: MLS (Messaging Layer Security, RFC 9420)
+  slug: mls-messaging-layer-security-rfc-9420
+  definition_md: IETF standard for group E2EE with continuous group key agreement
+    (TreeKEM). Used in Wire and Cisco Webex; Matrix MLS profile in development.
+  see: []
+- term: MPC (Multi-Party Computation)
+  slug: mpc-multi-party-computation
+  definition_md: Cryptographic primitive where parties jointly compute a function
+    over their private inputs without revealing them. Honest-majority and dishonest-majority
+    variants exist.
+  see: []
+- term: MRENCLAVE / MRSIGNER
+  slug: mrenclave-mrsigner
+  definition_md: 'SGX measurements: hash of the enclave''s initial code/data (MRENCLAVE)
+    and the signing identity (MRSIGNER). Used in attestation policies.'
+  see: []
+- term: Namecoin
+  slug: namecoin
+  definition_md: Earliest functional blockchain naming system (2011), merged-mined
+    with Bitcoin. `.bit` TLD.
+  see: []
+- term: NIP-05 / NIP-44 / NIP-17
+  slug: nip-05-nip-44-nip-17
+  definition_md: 'Nostr Implementation Possibilities. NIP-05: human-readable `user@domain`
+    identifiers via `.well-known/nostr.json`; NIP-44: versioned DM payload format
+    (ChaCha20 + HMAC-SHA256, conversation key from secp256k1 ECDH); NIP-17: gift-wrapped
+    DMs with metadata protection (combines NIP-44 and NIP-59).'
+  see: []
+- term: Nostr
+  slug: nostr
+  definition_md: '*Notes and Other Stuff Transmitted by Relays.* Pubkey-rooted social
+    protocol; events signed by **Schnorr signatures over secp256k1** (BIP-340), served
+    by relays. See [Nostr](/kb/nostr-identity/) and [Nostr Deep Dive](/kb/nostr-protocol/).'
+  see:
+  - nostr-identity
+  - nostr-protocol
+- term: NRAS (NVIDIA Remote Attestation Service)
+  slug: nras-nvidia-remote-attestation-service
+  definition_md: Attestation backend for H100/H200/Blackwell confidential computing.
+  see: []
+- term: Onion routing
+  slug: onion-routing
+  definition_md: Layered encryption such that each relay can peel one layer revealing
+    only the next hop. Tor is the canonical implementation.
+  see: []
+- term: OPRF (Oblivious Pseudo-Random Function)
+  slug: oprf-oblivious-pseudo-random-function
+  definition_md: Two-party protocol where the client gets `f_k(x)` without learning
+    `k` and the server does not learn `x`. Used in PIR, password-authenticated key
+    exchange, and private set intersection.
+  see: []
+- term: ORAM (Oblivious RAM)
+  slug: oram-oblivious-ram
+  definition_md: Technique that hides memory access patterns from an observer who
+    can see which addresses are touched.
+  see: []
+- term: Overlay network
+  slug: overlay-network
+  definition_md: Logical network running on top of an existing underlay (Yggdrasil,
+    cjdns, Tor, I2P).
+  see: []
+- term: PCC (Private Cloud Compute)
+  slug: pcc-private-cloud-compute
+  definition_md: Apple's confidential AI inference platform (announced 2024). Combines
+    Secure Enclave, code transparency log, and stateless attested servers.
+  see: []
+- term: Payjoin (BIP-78)
+  slug: payjoin-bip-78
+  definition_md: Two-party CoinJoin variant where the receiver contributes inputs,
+    breaking the common-input-ownership heuristic.
+  see: []
+- term: Petname
+  slug: petname
+  definition_md: Local nickname for a globally-unique cryptographic identifier (Stiegler's
+    petname system; Zooko's triangle resolution).
+  see: []
+- term: PIR (Private Information Retrieval)
+  slug: pir-private-information-retrieval
+  definition_md: Protocol that lets a client retrieve record `i` from a database while
+    the server learns nothing about `i`. See [Overview - Private Information Retrieval](/kb/private-information-retrieval/).
+  see:
+  - private-information-retrieval
+- term: PKARR
+  slug: pkarr
+  definition_md: Public-Key-Addressable Resource Records over Mainline DHT. Names
+    are Ed25519 keys; records are signed and stored under the keyhash.
+  see: []
+- term: PoW / PoS
+  slug: pow-pos
+  definition_md: Proof of Work / Proof of Stake. Sybil-resistance mechanisms for permissionless
+    consensus.
+  see: []
+- term: PQC (Post-Quantum Cryptography)
+  slug: pqc-post-quantum-cryptography
+  definition_md: Cryptography secure against polynomial-time quantum adversaries.
+    See [Overview - Post-Quantum Cryptography](/kb/post-quantum-cryptography/).
+  see:
+  - post-quantum-cryptography
+- term: PQXDH
+  slug: pqxdh
+  definition_md: Post-quantum extended X3DH; the hybrid (X25519 + ML-KEM-1024) key
+    agreement used by Signal since 2023.
+  see: []
+- term: Pubky
+  slug: pubky
+  definition_md: 'PKARR-based identity and naming system from Synonym. Adds a *homeserver*
+    data plane (HTTP-fetched signed user data) and `pkdns` for DNS bridging. Reference
+    social app: Pubky.app. See [Pubky](/kb/pubky/).'
+  see:
+  - pubky
+- term: Ratchet
+  slug: ratchet
+  definition_md: 'A keying scheme that derives new keys irreversibly forward, providing
+    forward secrecy. *Symmetric ratchet*: KDF chain. *DH ratchet*: Diffie-Hellman
+    re-key per round-trip.'
+  see: []
+- term: RATS (Remote ATtestation procedureS)
+  slug: rats-remote-attestation-procedures
+  definition_md: IETF working group and architecture (RFC 9334) for remote attestation.
+    Defines the Attester / Verifier / Relying-Party roles used across CC ecosystems.
+  see: []
+- term: Reticulum
+  slug: reticulum
+  definition_md: Markqvist's encrypted-by-default mesh networking stack with cryptographic
+    destinations. Runs over LoRa, packet radio, TCP, serial. See [Reticulum](/kb/reticulum/).
+  see:
+  - reticulum
+- term: Reunion
+  slug: reunion
+  definition_md: Anonymous contact-establishment protocol over the Katzenpost mixnet.
+    Lets two parties find each other without prior knowledge of network addresses.
+  see: []
+- term: Ring-LWE
+  slug: ring-lwe
+  definition_md: Variant of LWE on polynomial rings. Smaller keys and faster ops than
+    plain LWE.
+  see: []
+- term: SD-JWT (RFC 9901, 2025)
+  slug: sd-jwt-rfc-9901-2025
+  definition_md: Selective Disclosure JWT. JWT-based credential format where each
+    claim is committed via a salted hash; the holder discloses the claims they choose
+    by revealing the corresponding hash preimages. Standardized as RFC 9901 in November
+    2025.
+  see: []
+- term: SEV-SNP
+  slug: sev-snp
+  definition_md: AMD Secure Encrypted Virtualization with Secure Nested Paging. VM-level
+    TEE with integrity protection. See [TEE-Technologies-Deep-Dive](/kb/tee-technologies/).
+  see:
+  - tee-technologies
+- term: SGX (Software Guard Extensions)
+  slug: sgx-software-guard-extensions
+  definition_md: Intel's per-process TEE (2015–). Powerful but punctuated by side-channel
+    breaks; legacy for new workloads.
+  see: []
+- term: Schnorr signature
+  slug: schnorr-signature
+  definition_md: Linear, aggregatable signature scheme. Bitcoin Taproot uses Schnorr/BIP340.
+  see: []
+- term: Sphinx packet
+  slug: sphinx-packet
+  definition_md: Format for fixed-size, layered-encrypted mixnet packets that hide
+    path length and per-hop processing.
+  see: []
+- term: STARK
+  slug: stark
+  definition_md: Scalable Transparent Argument of Knowledge. Hash-based, no trusted
+    setup, post-quantum candidate; large proofs but fast verifier.
+  see: []
+- term: Steganography
+  slug: steganography
+  definition_md: Hiding data within other data (messages in images, traffic shaped
+    to look like benign traffic).
+  see: []
+- term: Taproot (BIP-340/341/342)
+  slug: taproot-bip-340-341-342
+  definition_md: Bitcoin upgrade (2021) introducing Schnorr signatures and MAST script
+    trees; basis for sub-second-cost cooperative-spend privacy.
+  see: []
+- term: TCB (Trusted Computing Base)
+  slug: tcb-trusted-computing-base
+  definition_md: The set of hardware/firmware/software a security claim relies on.
+    Smaller TCB means smaller attack surface. TCB versions appear in attestation reports.
+  see: []
+- term: TDX (Trust Domain Extensions)
+  slug: tdx-trust-domain-extensions
+  definition_md: Intel's VM-level TEE (2022–).
+  see: []
+- term: TEE (Trusted Execution Environment)
+  slug: tee-trusted-execution-environment
+  definition_md: Hardware mechanism for isolated execution. Umbrella term covering
+    SGX, TDX, SEV-SNP, Arm CCA, IBM SE.
+  see: []
+- term: Threshold signature
+  slug: threshold-signature
+  definition_md: Signature where any `t` of `n` parties can sign; fewer than `t` cannot.
+    FROST (Schnorr), GG20 (ECDSA), Pedersen DKG.
+  see: []
+- term: TOR / Tor (The Onion Router)
+  slug: tor-tor-the-onion-router
+  definition_md: Low-latency onion-routing anonymity network. Three-hop default circuits;
+    v3 hidden services.
+  see: []
+- term: Trustee
+  slug: trustee
+  definition_md: CoCo's KBS implementation; gates secret release on attestation policy.
+  see: []
+- term: VC (Verifiable Credential, W3C)
+  slug: vc-verifiable-credential-w3c
+  definition_md: Signed JSON-LD or JWT structure asserting claims about a subject.
+    Issuer, Holder, Verifier model.
+  see: []
+- term: VCEK / VLEK
+  slug: vcek-vlek
+  definition_md: AMD chip-bound (VCEK) and platform-bound (VLEK) endorsement keys
+    signed by KDS, used to verify SEV-SNP attestation reports.
+  see: []
+- term: vFHE (Verifiable FHE)
+  slug: vfhe-verifiable-fhe
+  definition_md: FHE composed with a SNARK over the homomorphic circuit so the decryptor
+    can verify the server computed the function honestly.
+  see: []
+- term: WireGuard
+  slug: wireguard
+  definition_md: Modern VPN protocol; minimal cryptographic core (Curve25519, ChaCha20-Poly1305,
+    BLAKE2s). Influences Yggdrasil, Tailscale, Mullvad.
+  see: []
+- term: WoT (Web of Trust)
+  slug: wot-web-of-trust
+  definition_md: 'Peer-attestation trust model: OpenPGP and Nostr social-graph variants.
+    See [Overview - Web of Trust](/kb/web-of-trust/).'
+  see:
+  - web-of-trust
+- term: X25519
+  slug: x25519
+  definition_md: Diffie-Hellman over Curve25519. Default ECDH primitive in TLS 1.3,
+    Signal, WireGuard.
+  see: []
+- term: X3DH
+  slug: x3dh
+  definition_md: Extended Triple Diffie-Hellman key agreement (Signal, 2016). Replaced
+    by PQXDH in production.
+  see: []
+- term: Yggdrasil
+  slug: yggdrasil
+  definition_md: Encrypted IPv6 mesh overlay; routing by cryptographic identity.
+  see: []
+- term: Zama
+  slug: zama
+  definition_md: Commercial FHE company; ships Concrete (TFHE) and fhEVM.
+  see: []
+- term: ZK Proof (Zero-Knowledge Proof)
+  slug: zk-proof-zero-knowledge-proof
+  definition_md: Prove a statement true without revealing why.
+  see: []
+- term: ZK-SNARK
+  slug: zk-snark
+  definition_md: Zero-Knowledge Succinct Non-interactive ARgument of Knowledge.
+  see: []
+- term: ZK-STARK
+  slug: zk-stark
+  definition_md: Zero-Knowledge Scalable Transparent ARgument of Knowledge.
+  see: []
+- term: Zooko's triangle
+  slug: zooko-s-triangle
+  definition_md: Hypothesis that names cannot be simultaneously human-meaningful,
+    decentralized, and globally unique. Petnames plus cryptographic IDs (for example
+    Pubky, ENS) are partial resolutions.
+  see: []

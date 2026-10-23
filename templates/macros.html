@@ -1,0 +1,70 @@
+{#- Readiness badges: bold, mono, square. The meter stays as a small inner
+    element where a graded read is useful (at-a-glance, the home scale). -#}
+{% macro badge(r, lg=False) -%}
+{%- if r and readiness.get(r) -%}
+<span class="bdg bdg-{{ r }}{{ ' bdg-lg' if lg }}" title="{{ readiness[r].full }}">
+{%- if r == 'battle-tested' -%}<i aria-hidden="true">✓ </i>
+{%- elif r == 'cautionary' -%}<i aria-hidden="true">! </i>{%- endif -%}
+{{- readiness[r].label -}}</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro meter(r, lg=False) -%}
+{%- if r and readiness.get(r) -%}
+<span class="m{{ ' lg' if lg }} m-{{ r }}" role="img" aria-label="Readiness: {{ readiness[r].label }}"{% if not lg %} title="{{ readiness[r].full }}"{% endif %}>
+{%- if r == 'cautionary' -%}<i class="bang" aria-hidden="true">!</i>
+{%- else -%}{% for i in range(5) %}<i{% if r == 'historical' %} class="hollow"{% elif i < readiness[r].level %} class="on"{% endif %}></i>{% endfor %}
+{%- endif -%}
+</span>
+{%- endif -%}
+{%- endmacro %}
+
+{#- 28px stroke icons, one per pillar: simple geometric, 1.6px stroke,
+    currentColor so they inherit the signal accent on hover. -#}
+{% macro glyph(key, size=28) -%}
+{%- set paths = {
+  'anonymity': '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="3"/>',
+  'circumvention': '<path d="M16 5v14"/><path d="M16 9h3M16 15h3M19 7v10"/><path d="M2 12h16"/><path d="m15 8.5 4 3.5-4 3.5"/>',
+  'messaging': '<path d="M3 6.5h13v11H3z"/><path d="m3 8 6.5 4.7L16 8"/><circle cx="19" cy="6.5" r="2.4"/><path d="M19 8.9V16M19 13h2.6"/>',
+  'mesh': '<circle cx="5" cy="5" r="2.3"/><circle cx="19" cy="5" r="2.3"/><circle cx="12" cy="11.5" r="2.3"/><circle cx="12" cy="19" r="2.3"/><path d="m6.9 6.2 3.3 3.6M17.1 6.2l-3.3 3.6M12 13.8v2.9"/>',
+  'naming': '<path d="M8 3v18M16 3v18M8 7.5h8M8 12h8M8 16.5h8"/>',
+  'identity': '<path d="M4 9.5a8.8 8.8 0 0 1 16 0"/><path d="M7 12a5.5 5.5 0 0 1 10 0v4"/><path d="M10 12.5a2.5 2.5 0 0 1 4 0V19"/><path d="M12 19v2.5"/>',
+  'money': '<ellipse cx="12" cy="6" rx="8" ry="2.8"/><path d="M4 6v5.5c0 1.5 3.6 2.8 8 2.8s8-1.3 8-2.8V6"/><path d="M4 11.5V17c0 1.5 3.6 2.8 8 2.8s8-1.3 8-2.8v-5.5"/>',
+  'storage': '<path d="m12 2.5 7.5 4.2v10.6L12 21.5l-7.5-4.2V6.7z"/><path d="M12 11 4.9 7.1M12 11l7.1-3.9M12 11v10"/>',
+  'compute': '<rect x="7" y="7" width="10" height="10"/><rect x="10.2" y="10.2" width="3.6" height="3.6"/><path d="M9.5 7V4M14.5 7V4M9.5 20v-3M14.5 20v-3M7 9.5H4M7 14.5H4M20 9.5h-3M20 14.5h-3"/>',
+  'confidential': '<path d="m12 2.5 8 3v6c0 5-3.4 8.1-8 9.5-4.6-1.4-8-4.5-8-9.5v-6z"/><rect x="9.8" y="10" width="4.4" height="4.4"/><path d="M12 7.8V10M12 14.4v2M9.2 12.2H10M14 12.2h.8"/>',
+  'cryptography': '<rect x="5.5" y="10.5" width="13" height="9.5"/><path d="M9 10.5V8a3 3 0 0 1 6 0v2.5"/><path d="M9.3 14h.01M12 14h.01M14.7 14h.01M9.3 16.8h.01M12 16.8h.01M14.7 16.8h.01" stroke-linecap="round"/>',
+  'zk': '<path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/><path d="M4.5 19.5 19.5 4.5"/>',
+  'pqc': '<g transform="rotate(45 12 12)"><path d="M7 3v18M12 3v18M17 3v18M3 7h18M3 12h18M3 17h18"/></g>',
+  'endpoint': '<rect x="6.5" y="2.5" width="11" height="19" rx="1.5"/><path d="M10.5 5h3"/><path d="m12 7.5 4 1.7v3c0 2.5-1.6 4-4 4.8-2.4-.8-4-2.3-4-4.8v-3z"/>'
+} -%}
+{%- if paths.get(key) -%}
+<svg class="glyph g-{{ key }}" viewBox="0 0 24 24" width="{{ size }}" height="{{ size }}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false">{{ paths[key]|safe }}</svg>
+{%- endif -%}
+{%- endmacro %}
+
+{#- The 5x5 pixel-grid U mark, signal on bg, crisp edges. -#}
+{% macro mark(size=22) -%}
+<svg class="mark" viewBox="0 0 7 7" width="{{ size }}" height="{{ size }}" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)">{% for c in [(1,1),(5,1),(1,2),(5,2),(1,3),(5,3),(1,4),(5,4),(1,5),(2,5),(3,5),(4,5),(5,5)] %}<rect x="{{ c[0] }}" y="{{ c[1] }}" width="1" height="1"/>{% endfor %}</g></svg>
+{%- endmacro %}
+
+{% macro entry_row(e) -%}
+<a class="row" href="{{ e.url }}">
+  <span class="nm">{{ e.title }}{% if e.also %}<small class="also">{{ e.also }}</small>{% endif %}</span>
+  <span class="ty">{{ type_labels[e.type] }}</span>
+  {{ badge(e.readiness) if e.readiness else '' }}
+</a>
+{%- endmacro %}
+
+{% macro guide_row(g) -%}
+<a class="row" href="{{ g.url }}">
+  <span class="nm">{{ g.title }}<small class="also">{{ g.dek }}</small></span>
+  <span class="ty">{{ g.level or 'Guide' }}</span>
+  <span class="ty">{{ g.time }}</span>
+</a>
+{%- endmacro %}
+
+{% macro crumb(items) -%}
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a>
+{%- for i in items %}<span aria-hidden="true">/</span>{% if i.url %}<a href="{{ i.url }}">{{ i.name }}</a>{% else %}<span class="here">{{ i.name }}</span>{% endif %}{% endfor %}</nav>
+{%- endmacro %}

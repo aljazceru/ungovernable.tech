@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Glossary — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span class="here">Glossary</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Definitions</p>
+  <h1>Glossary</h1>
+  <p class="dek">{{ terms|length }} short definitions for terms used across the library. Terms link to the entries that cover them in depth.</p>
+  <nav class="az" aria-label="Glossary letters">
+    {% for l in letters %}<a href="#L-{{ l }}">{{ l }}</a>{% endfor %}
+  </nav>
+</header>
+{% for l, group in groups %}
+<section class="gsec">
+  <h2 class="letter" id="L-{{ l }}">{{ l }}</h2>
+  <dl class="gloss">
+    {% for t in group %}
+    <div class="gterm" id="{{ t.slug }}">
+      <dt>{{ t.term }}</dt>
+      <dd>{{ t.definition_html|safe }}{% if t.see_urls %}<span class="see">See <em>{% for u, ti in t.see_pairs %}<a href="{{ u }}">{{ ti }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</em></span>{% endif %}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+</section>
+{% endfor %}
+</div></div>
+{% endblock %}

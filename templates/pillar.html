@@ -1,0 +1,110 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ title }} — ungovernable.tech{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': 'Pillars', 'url': '/pillars/'}, {'name': p.name}]) }}
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x{{ '%02x'|format(p.idx) }} / 0x0e</span>{{ p.question }}</p>
+    <h1>{{ p.name }}</h1>
+    <p class="dek">{{ p.intro }}</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon">{{ m.glyph(p.key, 36) }}</span><div class="ident-wrap">{{ p.identicon|safe }}</div>
+    <p class="hexline">{{ p.hexline }}</p>
+  </div>
+</header>
+
+<div class="hub">
+
+{% if start_here %}
+<section>
+  <h2 class="sec-h">Start here</h2>
+  <div class="rows">
+    {% for e in start_here %}{{ m.entry_row(e) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if guides %}
+<section>
+  <h2 class="sec-h">Guides</h2>
+  <div class="rows">
+    {% for g in guides %}{{ m.guide_row(g) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if technologies %}
+<section>
+  <h2 class="sec-h">Technologies</h2>
+  <div class="rows">
+    {% for e in technologies %}{{ m.entry_row(e) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if reference %}
+<section>
+  <h2 class="sec-h">Reference and research</h2>
+  <div class="rows">
+    {% for e in reference %}{{ m.entry_row(e) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if directory %}
+<section id="directory">
+  <h2 class="sec-h">Directory<span class="count">{{ n_links }} curated links</span></h2>
+  {% for s in directory['sections'] %}
+  <div class="dsub">
+    <h3>{{ s['title'] }}</h3>
+    <ul class="links">
+      {% for it in s['items'] %}
+      <li>
+        <a href="{{ it.url }}" rel="noopener nofollow">{{ it.name }}</a>
+        {% if it.status %}<span class="tag tag-{{ it.status }}">{{ it.status }}</span>{% endif %}
+        {% if it.desc %}<span class="ldesc"> — {{ it.desc }}</span>{% endif %}
+        {% if it.note %}<span class="lnote">{{ it.note }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  <p class="more-links"><a href="/directory/">Full directory, all pillars →</a></p>
+</section>
+{% endif %}
+
+{% if series_briefings %}
+<section id="briefings">
+  <h2 class="sec-h">Briefings<span class="count">{{ series_briefings|length }} latest</span></h2>
+  <div class="rows">
+    {% for b in series_briefings %}
+    <a class="row" href="/briefings/{{ b.series }}/{{ b.date }}/">
+      <span class="nm">{{ b.title }}<small>{{ b.window or b.date }}</small></span>
+      <span class="ty">{{ b.date }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <p class="more-links"><a href="/briefings/{{ series_key }}/">All {{ series_name }} briefings →</a></p>
+</section>
+{% elif pillar_series %}
+<section id="briefings">
+  <h2 class="sec-h">Briefings</h2>
+  <div class="rows">
+    {% for s in pillar_series %}
+    <a class="row" href="/briefings/{{ s.series }}/">
+      <span class="nm">{{ s.name }}<small>{{ s.n }} weekly briefings, latest {{ s.latest.date }}</small></span>
+      <span class="ty">Series</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+</div>
+</div></div>
+{% endblock %}
