@@ -128,9 +128,7 @@ Blackwell multi-GPU CC adds NVLink encryption. That protects a specific intercon
 - [NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
 - [NVIDIA confidential VM threat model and interconnect limits](https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model)
 - [NVIDIA Hopper and Blackwell confidential-computing whitepaper](https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf)
-
-- NVIDIA: *Confidential Computing on NVIDIA H100 GPUs* (whitepaper, 2023)
-- NVIDIA: *Blackwell Architecture Technical Brief* (2024)
-- NVIDIA NVTrust repo — `github.com/NVIDIA/nvtrust`
-- NRAS docs — `docs.attestation.nvidia.com`
-- DMTF SPDM 1.2 spec — `dmtf.org/standards/spdm`
+- [NVIDIA Blackwell architecture technical brief](https://resources.nvidia.com/en-us-blackwell-architecture)
+- [NVIDIA NVTrust](https://github.com/NVIDIA/nvtrust)
+- [NVIDIA attestation documentation](https://docs.nvidia.com/attestation/)
+- [DMTF SPDM 1.2 specification](https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.2.3.pdf)

@@ -20,7 +20,7 @@ The whole protocol fits in two paragraphs:
 
 1. Identity is a key. Each user has a `secp256k1` keypair. The public key (`npub` in bech32) *is* the user. There is no username allocation, no registry, no email. Lose the key, lose the identity.
 
-2. Events are signed JSON. A user signs a small JSON object (id, pubkey, created_at, kind, tags, content, sig) and POSTs it to one or more relays. Anyone subscribing to that relay receives the event. Clients verify the signature locally; relays are dumb pipes.
+2. Events are signed JSON. A user signs a small JSON object (id, pubkey, created_at, kind, tags, content, sig) and publishes it over WebSocket to one or more relays. Anyone subscribing to that relay receives the event. Clients verify the signature locally; relays are dumb pipes.
 
 That is the whole base protocol. Everything else (long-form posts, DMs, reactions, zaps, marketplaces, NIP-05 identity, gift-wrapped DMs) is layered as NIPs (Nostr Implementation Possibilities) over this minimal substrate.
 
@@ -96,11 +96,11 @@ Robust clients connect to multiple relays simultaneously (5-10 typical) for both
 
 ## NIP-05: human-readable names
 
-`alice@ungovernable.tech` resolves via HTTPS to `/.well-known/nostr.json`, which contains the npub. Resolution requires DNS and HTTPS, which is a centralization vector.
+`alice@ungovernable.tech` resolves via HTTPS to `/.well-known/nostr.json`, which maps the name to a hex-encoded public key. Resolution requires DNS and HTTPS, which is a centralization vector.
 
 Mitigations:
 
-- NIP-05 over PKARR: same JSON served by a PKARR record under your Pubky pubkey. No DNS dependency.
+- Keep the public key available independently of the alias. NIP-05 specifies DNS and HTTPS; PKARR is a separate naming mechanism, not a standardized NIP-05 transport.
 - NIP-05 over Tor `.onion`: works, less common.
 
 The npub is canonical; NIP-05 is just a presentation alias.
@@ -144,7 +144,7 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 | Sybil follow inflation | Trust only social-graph-rooted accounts |
 | Key compromise | Move to new key + announce via signed delegation; consider FROST threshold sig |
 | Relay log correlation | Use NIP-17 for DMs; route over Tor |
-| NIP-05 takedown | Self-host; serve over PKARR / `.onion` |
+| NIP-05 takedown | Preserve and share the public key independently; DNS/HTTPS aliases remain optional |
 | Phishing via npub similarity | Petname systems, NIP-05 verification |
 
 ## Tools
@@ -168,12 +168,12 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 
 ## Primary sources
 
-- [NIPs README: unrecommended proposals](https://github.com/nostr-protocol/nips)
-- [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
-
-- fiatjaf, *Nostr — Notes and Other Stuff Transmitted by Relays*, 2020. [github.com/nostr-protocol/nostr](https://github.com/nostr-protocol/nostr)
-- NIPs registry — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)
-- NIP-17 / NIP-44 / NIP-59 specifications.
-- *Nostr — A simple, open protocol* (whitepaper-style overview).
+- [NIPs registry and proposal status](https://github.com/nostr-protocol/nips)
+- [Nostr protocol overview](https://github.com/nostr-protocol/nostr)
+- [NIP-01: events and relays](https://github.com/nostr-protocol/nips/blob/master/01.md)
+- [NIP-17: private direct messages](https://github.com/nostr-protocol/nips/blob/master/17.md)
+- [NIP-44: versioned encryption](https://github.com/nostr-protocol/nips/blob/master/44.md)
+- [NIP-59: gift wrap and visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
+- [Nostr NIP-05: DNS-based identifiers](https://github.com/nostr-protocol/nips/blob/master/05.md)
 
 For end-to-end encrypted group chat built on Nostr keys and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) and [Cordn](/kb/cordn/).

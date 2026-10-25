@@ -19,7 +19,7 @@ related: ["fedimint", "robosats", "btcpay-server", "cashu-ecash"]
 
 Bitcoin base-layer transactions are *settlement*, not *payments*. Block intervals (~10 min) and per-byte fees price out micropayments and high-frequency commerce. Lightning solves this without a custodian or a separate token: peers open a 2-of-2 multisig channel, exchange off-chain state updates, and settle on-chain only when they close. While the channel is open, payments are atomic, route through a network of intermediaries, and clear in seconds for sub-cent fees.
 
-The censorship-resistance story compounds. Payments are onion-routed (Sphinx), so intermediaries see only the next hop, and modern features (route blinding, BOLT12 offers, async payments) progressively close the metadata gaps that early Lightning still leaked.
+The censorship-resistance story compounds. Payments are onion-routed (Sphinx), so intermediaries see their incoming peer and outgoing hop, and modern features (route blinding, BOLT12 offers, async payments) progressively close the metadata gaps that early Lightning still leaked.
 
 ## Core mechanics
 
@@ -39,7 +39,7 @@ Funding tx (on-chain) → 2-of-2 multisig output
 
 ### HTLCs (Hash-Time-Locked Contracts)
 
-A multi-hop payment is a chain of *HTLCs*. Each hop locks funds against a hash preimage `R` and a timeout. The receiver knows `R` (it's the payment hash); revealing `R` upstream collects the payment. If `R` isn't revealed before the timeout, funds return.
+A multi-hop payment is a chain of *HTLCs*. Each hop locks funds against a hash preimage `R` and a timeout. The receiver knows the preimage `R`; the payment hash is `SHA256(R)`; revealing `R` upstream collects the payment. If `R` isn't revealed before the timeout, funds return.
 
 This makes routed payments atomic: either the whole route settles or none of it does.
 
@@ -68,7 +68,7 @@ The protocol is defined by the BOLT (Basis of Lightning Technology) specs:
 | BOLT 5 | On-chain transactions |
 | BOLT 7 | Gossip and channel discovery |
 | BOLT 11 | Payment requests (legacy invoices) |
-| BOLT 12 | Offers, modern reusable key-based payment requests (PR #798 remained outside the canonical numbered BOLTs as of early 2026) |
+| BOLT 12 | Offers: reusable payment requests specified in the canonical BOLT 12 document |
 
 Onion messages were folded into the existing BOLT 4/7 surface (feature bits 38/39, message type 513) rather than getting a separate BOLT.
 
@@ -147,12 +147,14 @@ Channels need balance on the right side to forward and receive. The 2024-2026 ma
 
 ## Primary sources
 
+- [The Bitcoin Lightning Network](https://lightning.network/lightning-network-paper.pdf)
+- [BOLT specifications](https://github.com/lightning/bolts)
+- [BOLT 4: Onion Routing Protocol](https://github.com/lightning/bolts/blob/master/04-onion-routing.md)
+- [BOLT 2: peer protocol and HTLC handling](https://github.com/lightning/bolts/blob/master/02-peer-protocol.md)
+- [BOLT 12: Offers](https://github.com/lightning/bolts/blob/master/12-offer-encoding.md)
+- [Lightning Labs: LND documentation](https://docs.lightning.engineering/lightning-network-tools/lnd)
+- [ACINQ: Eclair](https://github.com/ACINQ/eclair)
+- [Core Lightning documentation](https://docs.corelightning.org/)
 - [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
-
-- Joseph Poon, Thaddeus Dryja, *The Bitcoin Lightning Network*, 2016. [lightning.network/lightning-network-paper.pdf](https://lightning.network/lightning-network-paper.pdf)
-- BOLT spec — [github.com/lightning/bolts](https://github.com/lightning/bolts)
-- Olaoluwa Osuntokun et al., *Sphinx Mix Format*, BOLT 4.
-- Antoine Riard, *Channel Jamming Attacks*, lightning-dev mailing list.
-- Lightning Labs, ACINQ, Blockstream — implementation docs.
 
 For applications of Lightning, see [Fedimint](/kb/fedimint/) for federated ecash and gateway contracts, [RoboSats](/kb/robosats/) for peer-to-peer acquisition using hold invoices, and [BTCPay Server](/kb/btcpay-server/) for accepting payments. Their entries distinguish guardian, coordinator and wallet custody.

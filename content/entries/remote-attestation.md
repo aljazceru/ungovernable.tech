@@ -3,9 +3,10 @@ title: "Remote Attestation Architecture"
 slug: remote-attestation
 type: explainer
 pillars: ["confidential"]
+readiness: usable
 description: "Remote attestation lets you verify which code is running on which hardware before trusting it with secrets. The architecture, standards and pitfalls."
 dek: "Without attestation, a TEE is just a more expensive way to run the same trusted-operator model. Attestation is what makes \"encrypted memory\" useful to a remote party."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/Attestation-Architecture.md"
@@ -17,10 +18,10 @@ tags: ["attestation", "tee", "dcap", "sev-snp", "tdx", "rats", "remote-attestati
 
 A valid attestation quote proves, to a remote party, all of the following — and nothing more:
 
-1. Hardware identity. A genuine CPU or GPU from the claimed vendor (Intel, AMD, NVIDIA) signed this quote, using a per-device key burned in at the factory.
+1. Evidence provenance. Verify the signing and endorsement chain required by the platform; attestation signing keys are not universally per-device secrets burned in at manufacture.
 2. TCB version. The microcode, firmware, and security-version-number (SVN) at the moment the quote was generated.
 3. Measurement. A hash over the exact code and initial memory state running inside the TEE (MRENCLAVE for SGX, MRTD + RTMR for TDX, measurement for SEV-SNP, GSP firmware hash for NVIDIA).
-4. Runtime data. A fixed 64-byte `REPORT_DATA` / `user_data` field the enclave chose at quote time, typically a hash of the session public key and a client-supplied nonce.
+4. Runtime data. A platform-specific field can bind evidence to a nonce or session public key. Its size and meaning depend on the attestation format.
 
 It does not prove that the code is bug-free, that the operator is honest, that the TCB is unexploited, that the code hash corresponds to readable source, that data stays confidential later, or that the quote was generated recently (without a nonce).
 
@@ -113,7 +114,7 @@ Practical rule: treat verifier collateral like a CA bundle. Stale collateral mea
 | **NVIDIA NRAS** | H100 / H200 / Blackwell | Returns EAT JWT |
 | **Azure Attestation (MAA)** | Multi-platform | Azure-hosted verifier; returns JWT |
 | **AWS KMS + Nitro attestation** | Nitro Enclaves | KMS policy can require specific PCR values for key release |
-| **Project Veraison (CCC)** | Multi-platform, open-source | The only open, cross-vendor verifier. Pluggable. |
+| **Project Veraison (CCC)** | Multi-platform, open-source | An open verifier with pluggable platform support. |
 | **Confidential Containers Trustee / KBS** | CoCo | Attestation-gated secret release for CoCo pods |
 | **Automata, Phala, Oasis on-chain** | Decentralized | On-chain quote verification; smart contracts enforce TCB minimums |
 
@@ -149,13 +150,13 @@ Two or more independent TEEs (different vendors, e.g. TDX + SEV-SNP) must both a
 - Skipping collateral refresh. Yesterday's TCB info will not flag today's CVE.
 - Logging the quote. Quotes contain `report_data`; if that includes a session key, do not log it.
 
-## Primary Sources
+## Primary sources
 
-- IETF RFC 9334 — *Remote ATtestation procedureS (RATS) Architecture*
-- Intel: *DCAP Reference Implementation* — `github.com/intel/SGXDataCenterAttestationPrimitives`
-- Intel: *TDX Attestation Ecosystem* whitepaper
-- AMD: *SEV Secure Nested Paging Firmware ABI Specification*
-- Project Veraison — `github.com/veraison`
-- CCC: *Common Terminology for Confidential Computing* (2022)
+- [RFC 9334: Remote ATtestation procedureS Architecture](https://www.rfc-editor.org/rfc/rfc9334.html)
+- [Intel DCAP reference implementation](https://github.com/intel/SGXDataCenterAttestationPrimitives)
+- [Intel TDX attestation](https://docs.trustauthority.intel.com/main/articles/articles/ita/concept-tdx-attestation.html)
+- [Project Veraison verifier](https://github.com/veraison/services)
+- [CCC: Common Terminology for Confidential Computing](https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/Common-Terminology-for-Confidential-Computing.pdf)
+- [AMD SEV-SNP Firmware ABI Specification](https://www.amd.com/content/dam/amd/en/documents/developer/56860.pdf)
 
 For a concrete SGX verification workflow, see [verifying a confidential workload](/guides/verifying-a-confidential-workload/).

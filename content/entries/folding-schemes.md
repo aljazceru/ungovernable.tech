@@ -6,7 +6,7 @@ pillars: ["zk"]
 readiness: research
 description: "Folding schemes such as Nova combine many instances of a computation into one claim, making incremental and recursive zero-knowledge proofs cheap."
 dek: "A 2022-onward family of techniques that \"fold\" multiple instances of a computation into a single succinct claim, deferring expensive SNARK proving until the end. The technical innovation that makes incremental ZK proving practical at scale."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "09-Zero-Knowledge/Folding Schemes.md"
@@ -86,7 +86,7 @@ Without folding, recursive ZK was the right idea expressed in the wrong shape. W
 | **Nova** | Relaxed R1CS | First IVC with cheap step folding |
 | **SuperNova** | Relaxed R1CS, non-uniform | Multi-program IVC |
 | **HyperNova** | CCS | Plonkish-friendly folding |
-| **ProtoStar** | Plonkish with high-degree gates | Production-ready Plonkish folding |
+| **ProtoStar** | Plonkish with high-degree gates | Plonkish accumulation/folding research |
 | **Mangrove / Honk** | Plonkish | Aztec's folding direction (PG / variations) |
 | **Sangria / Origami** | Variants | Research alternatives |
 
@@ -108,7 +108,7 @@ Without folding, recursive ZK was the right idea expressed in the wrong shape. W
 
 ## Where folding shows up
 
-- **zkVMs** (Risc0, SP1, Jolt) use folding internally for instruction-by-instruction proving.
+- **zkVMs** use different proof architectures. RISC Zero uses STARKs; Nova-style folding is one approach to incremental computation, not a property of every zkVM.
 - **Aztec Network** uses folding (Honk variants) for recursive proof aggregation.
 - **Lurk language** (Filecoin / Lurk Lab) is folding-native.
 - Verifiable ML prototypes fold per-layer proofs into final-model proofs.
@@ -119,15 +119,17 @@ Without folding, recursive ZK was the right idea expressed in the wrong shape. W
 - ProtoStar publishes Plonkish folding for production.
 - HyperNova extends to CCS.
 - Lurk matures as a folding-native programming environment.
-- Zero-knowledge zkVM bake-off (SP1 vs Risc0 vs Jolt) increasingly differentiates on folding-engine choice.
+- zkVM comparisons must distinguish STARK recursion, lookup arguments and folding.
 - Folding-friendly curves become a research target. Fields chosen for cheap folding rather than just SNARK-friendliness.
 
 ## Primary sources
 
-- Kothapalli, Setty, Tzialla, *Nova: Recursive Zero-Knowledge Arguments from Folding Schemes*, IACR 2021/370.
-- Kothapalli, Setty, *SuperNova: Proving universal machine executions without universal circuits*, 2022.
-- Kothapalli, Setty, *HyperNova: Recursive arguments for customizable constraint systems*, 2023.
-- Bünz, Chen, *ProtoStar: Generic Efficient Accumulation/Folding for Special Sound Protocols*, 2024.
-- Microsoft Nova source — [github.com/microsoft/Nova](https://github.com/microsoft/Nova).
-- Lurk — [lurk-lang.org](https://lurk-lang.org).
-- Risc0 / SP1 / Jolt repos.
+- [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes](https://eprint.iacr.org/2021/370)
+- [SuperNova: Proving universal machine executions without universal circuits](https://eprint.iacr.org/2022/1758)
+- [HyperNova: Recursive arguments for customizable constraint systems](https://eprint.iacr.org/2023/573)
+- [ProtoStar: Generic Efficient Accumulation/Folding for Special Sound Protocols](https://eprint.iacr.org/2023/620)
+- [Microsoft Nova implementation](https://github.com/microsoft/Nova)
+- [Lurk implementation](https://github.com/lurk-lab/lurk-rs)
+- [RISC Zero implementation](https://github.com/risc0/risc0)
+- [SP1 implementation](https://github.com/succinctlabs/sp1)
+- [Jolt implementation](https://github.com/a16z/jolt)

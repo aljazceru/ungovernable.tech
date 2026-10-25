@@ -5,7 +5,7 @@ type: map
 pillars: ["endpoint"]
 description: "A map of the recurring adversaries, trust assumptions and failure modes across this library, from cloud operators to quantum computers."
 dek: "A Map of Content indexing recurring adversaries, trust assumptions, and failure modes across this library."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "00 - Meta/MOC - Threat Models.md"
@@ -35,9 +35,9 @@ When a system claims a property, ask which of these it requires:
 - Trust the CPU vendor: TEEs require Intel, AMD, or NVIDIA not to misissue attestations.
 - Trust the CA: TLS without pinning lets any CA mint an MITM cert.
 - Trust the registrar or DNS path: can be bypassed by self-authenticating names.
-- Trust at least one honest relay: Tor relies on this for onion routing.
+- Tor separates knowledge across relays; it does not protect against an observer who can correlate both ends of a connection merely because one relay is honest.
 - Trust the majority of validators: PoS and PoW security models.
-- Trust no party: pure cryptographic constructions (FHE, ZK, MPC with honest majority).
+- Cryptographic constructions have distinct assumptions: FHE and ZK depend on their schemes, while honest-majority MPC explicitly assumes enough non-colluding participants.
 - Trust your own keys and endpoint: true for everything. If your client is compromised, all bets are off.
 
 ## Recurring failure modes
@@ -67,3 +67,11 @@ When a system claims a property, ask which of these it requires:
 ## New Threat Models
 
 For new threat models, follow the structure of mature security-analysis files in this library and complete every section before adding the note to an index.
+
+## Primary sources
+
+- [Tor: The Second-Generation Onion Router](https://www.usenix.org/conference/13th-usenix-security-symposium/tor-second-generation-onion-router)
+- [RFC 9334: attestation roles and trust](https://www.rfc-editor.org/rfc/rfc9334.html)
+- [NIST SP 800-204D: software supply chain security](https://csrc.nist.gov/pubs/sp/800/204/d/final)
+- [Secure Multiparty Computation (MPC)](https://eprint.iacr.org/2020/300)
+- [Shor: quantum factoring and discrete logarithms](https://arxiv.org/abs/quant-ph/9508027)

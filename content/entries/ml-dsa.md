@@ -6,7 +6,7 @@ pillars: ["pqc"]
 readiness: usable
 description: "ML-DSA (FIPS 204), NIST's primary post-quantum signature standard: how the lattice scheme works, its parameter sets, sizes and deployment."
 dek: "The NIST-standardized post-quantum signature scheme (FIPS 204, finalized August 2024). Companion to ML-KEM for the signing side of public-key cryptography. Replaces ECDSA, RSA-PSS, and EdDSA where post-quantum security is required."
-updated: 2026-05-16
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "10-Post-Quantum/ML-DSA.md"
@@ -115,7 +115,7 @@ A significant open question: how do crypto-currencies migrate to PQ signatures?
 - Bitcoin uses ECDSA (legacy) and Schnorr (Taproot). Both are quantum-vulnerable.
 - A migration would require a hard fork to add PQ signature support, with a coordinated freeze on legacy addresses.
 - ML-DSA-87 signatures are about 4.5 KB, far larger than Bitcoin's 64-byte Schnorr. Block size and fee impact are non-trivial.
-- BIPs proposing PQ signatures exist (e.g., BIP-360); none deployed as of 2026.
+- BIP-360 proposes P2MR, which removes Taproot key-path spending; it does not introduce a post-quantum signature algorithm.
 
 Bitcoin's quantum vulnerability is real but deferred. Actual cryptographically relevant quantum computers don't exist yet, and the transition path is being designed without urgency.
 
@@ -159,10 +159,10 @@ For Lightning users with existing addresses: keep them out of public view (don't
 
 ## Primary sources
 
-- NIST, *FIPS 204: Module-Lattice-Based Digital Signature Standard*, August 2024.
-- NIST, *FIPS 205: Stateless Hash-Based Digital Signature Standard (SLH-DSA)*, August 2024.
-- NIST, *FIPS 206: FN-DSA (Falcon)*, draft August 2025.
-- Ducas et al., *CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme*, IACR 2017/633.
-- Lyubashevsky, *Fiat-Shamir with Aborts: Applications to Lattice and Factoring-Based Signatures*, ASIACRYPT 2009.
-- liboqs — [openquantumsafe.org](https://openquantumsafe.org).
-- pq-crystals/dilithium — [github.com/pq-crystals/dilithium](https://github.com/pq-crystals/dilithium).
+- [FIPS 204: Module-Lattice-Based Digital Signature Standard](https://csrc.nist.gov/pubs/fips/204/final)
+- [FIPS 205: Stateless Hash-Based Digital Signature Standard](https://csrc.nist.gov/pubs/fips/205/final)
+- [NIST post-quantum signature standardization](https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022)
+- [CRYSTALS -- Dilithium: Digital Signatures from Module Lattices](https://eprint.iacr.org/2017/633)
+- [Open Quantum Safe liboqs](https://github.com/open-quantum-safe/liboqs)
+- [CRYSTALS-Dilithium reference implementation](https://github.com/pq-crystals/dilithium)
+- [BIP 360: Pay-to-Merkle-Root](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki)

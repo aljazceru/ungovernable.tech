@@ -3,9 +3,10 @@ title: "Decentralized Storage"
 slug: decentralized-storage
 type: explainer
 pillars: ["storage"]
+readiness: usable
 description: "Storage that survives platform failure, account seizure and takedowns: IPFS, Filecoin, Arweave, Sia, Storj, Swarm and Blossom compared by guarantees."
 dek: "Storage that survives platform failure, account seizure, domain takedown, and cloud-provider policy changes by making data independently addressable, replicated, paid for, or mirrored across operators."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-28
 origin: vault
 source: "12-Decentralized-Storage/Overview - Decentralized Storage.md"
@@ -108,14 +109,14 @@ Build static assets, publish to IPFS and Arweave, pin on multiple providers, and
 | Legal takedown | Gateways and hosted servers | Multi-jurisdiction replication, content-addressed mirrors |
 | Key loss | Encrypted storage | Hardware-backed key custody and recovery plan |
 
-## Primary Sources
+## Primary sources
 
-- Benet, *IPFS - Content Addressed, Versioned, P2P File System*, arXiv 2014.
-- Protocol Labs, *Filecoin: A Decentralized Storage Network*, 2017.
-- Williams, *Arweave: A Protocol for Economically Sustainable Information Permanence*, 2018.
-- Vorick and Champine, *Sia: Simple Decentralized Storage*, 2014.
-- Storj Labs, *Storj: A Decentralized Cloud Storage Network Framework*, 2018.
-- Trón et al., *Swarm: Storage and Communication Infrastructure for a Self-Sovereign Digital Society*, Ethereum Foundation.
-- Blossom BUD specifications — [github.com/hzrd149/blossom](https://github.com/hzrd149/blossom).
+- [Benet: IPFS, Content Addressed, Versioned, P2P File System](https://arxiv.org/abs/1407.3561)
+- [Arweave whitepaper](https://www.arweave.org/files/arweave-lightpaper.pdf)
+- [Sia: Simple Decentralized Storage](https://sia.tech/sia.pdf)
+- [Storj: A Decentralized Cloud Storage Network Framework](https://www.storj.io/storjv3.pdf)
+- [Swarm: storage and communication specification](https://www.ethswarm.org/swarm-whitepaper.pdf)
+- [Blossom BUD specifications](https://github.com/hzrd149/blossom)
+- [Filecoin protocol specification](https://spec.filecoin.io/intro/)
 
 For a practical selection table, see [Choosing Decentralized Storage](/kb/compare-storage/). Continue with [Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), [Local-first Software and CRDTs](/kb/local-first-crdts/), [BitTorrent for Archive Distribution](/kb/bittorrent-archives/), [IPNS and DNSLink](/kb/ipns-dnslink/), [Hypercore and Hyperdrive](/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/). For replicated code and collaboration records, see [Radicle](/kb/radicle/).

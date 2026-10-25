@@ -6,7 +6,7 @@ pillars: ["storage"]
 readiness: usable
 description: "Sia and Storj, two decentralized storage networks closest to ordinary cloud object storage: encryption, erasure coding, contracts and trust."
 dek: "Two decentralized storage systems closest to ordinary cloud object storage. Both split and distribute encrypted data across independent storage nodes, but they differ in market design, trust surface, and operator experience."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-28
 origin: vault
 source: "12-Decentralized-Storage/Sia and Storj.md"
@@ -90,11 +90,12 @@ Storj is less trust-minimized than the purest P2P designs because satellites coo
 | Plaintext compromise | Keep encryption client-side; never upload raw secrets |
 | Host collusion | Wide shard distribution and provider diversity |
 
-## Primary Sources
+## Primary sources
 
-- Vorick and Champine, *Sia: Simple Decentralized Storage*, 2014.
-- Sia Docs — [docs.sia.tech](https://docs.sia.tech/)
-- Storj Labs, *Storj: A Decentralized Cloud Storage Network Framework*, 2018.
-- Storj Docs — [docs.storj.io](https://docs.storj.io/)
+- [Sia: Simple Decentralized Storage](https://sia.tech/sia.pdf)
+- [Sia documentation](https://docs.sia.tech/)
+- [Storj: A Decentralized Cloud Storage Network Framework](https://www.storj.io/storjv3.pdf)
+- [Storj: encryption](https://storj.dev/learn/concepts/encryption-key)
+- [Storj documentation](https://storj.dev/)
 
 For another encrypted storage design, see [Tahoe-LAFS](/kb/tahoe-lafs/). For a device-based setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/).

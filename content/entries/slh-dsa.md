@@ -6,7 +6,7 @@ pillars: ["pqc"]
 readiness: usable
 description: "SLH-DSA (FIPS 205), the conservative hash-based post-quantum signature standard: large signatures, minimal assumptions, and when to use it."
 dek: "The conservative post-quantum signature standard (FIPS 205, August 2024). Built on hash functions only — no number-theoretic and no lattice assumption. Huge signatures, but the smallest cryptographic attack surface of any PQ scheme NIST has standardized."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "10-Post-Quantum/SLH-DSA.md"
@@ -61,7 +61,7 @@ FIPS 205 specifies twelve variants: three security levels (NIST categories 1, 3,
 
 (SHAKE variants are size-equivalent; speed depends on hardware acceleration of SHA-2 vs Keccak.)
 
-`s` versus `f` is a hyper-tree depth trade. Smaller signatures need a shallower tree, which makes signing slower because each leaf is more expensive to derive. The `f` variants take roughly 10x more bandwidth to gain about 50x faster signing.
+`s` versus `f` is a hyper-tree depth trade. Smaller signatures need a shallower tree, which makes signing slower because each leaf is more expensive to derive. The `f` variants use larger signatures to reduce signing work; the size and speed trade-off depends on the selected parameter set.
 
 Public keys stay tiny (32-64 bytes). Signatures are the cost.
 
@@ -109,10 +109,10 @@ SLH-DSA has the most conservative cryptographic assumption and the smallest impl
 
 ## Standardization status
 
-- **FIPS 205**: published August 13, 2024 (`nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf`).
+- **FIPS 205**: published August 13, 2024 ([FIPS 205: Stateless Hash-Based Digital Signature Standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf)).
 - Reference implementation in liboqs (Open Quantum Safe) and the SPHINCS+ project repository.
 - HSM support: emerging through 2025-2026 in Thales, Utimaco, and AWS CloudHSM firmware roadmaps.
-- IETF: hybrid signature drafts (e.g., `draft-ietf-lamps-pq-composite-sigs`) include SLH-DSA composites.
+- IETF: `draft-ietf-lamps-pq-composite-sigs` specifies ML-DSA composites, not SLH-DSA composites.
 
 ## Side-channel and implementation properties
 
@@ -157,13 +157,13 @@ The dominant attack surface is **fault injection during the hyper-tree traversal
 1. **Root CA signing** — issue intermediate CA certs with SLH-DSA. Intermediate CAs use ML-DSA for daily issuance.
 2. **Firmware signing** — sign release manifests with SLH-DSA + classical Ed25519 hybrid; verifier requires both.
 3. **Long-term notarization** — Sigstore-style transparency log entries cosigned by an SLH-DSA key for archival assurance.
-4. **Hybrid composite signatures** — `draft-ietf-lamps-pq-composite-sigs` defines `Ed25519+SLH-DSA-SHA2-128s`-style composite OIDs for X.509.
+4. **Hybrid signatures** — combining SLH-DSA with a classical signature requires an explicitly specified protocol and encoding. The cited LAMPS composite draft covers ML-DSA.
 
 ## Primary sources
 
-- NIST, *FIPS 205: Stateless Hash-Based Digital Signature Standard*, August 13, 2024. `nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf`.
-- Bernstein, Hülsing, Kölbl, Niederhagen, Rijneveld, Schwabe, *The SPHINCS+ Signature Framework*, ACM CCS 2019.
-- SPHINCS+ submission to NIST PQC, round 3 (2020). `sphincs.org`.
-- Hülsing, Rijneveld, Schwabe, *ARMed SPHINCS — Computing a 41 KB signature in 16 KB of RAM*, PKC 2016.
-- liboqs SLH-DSA implementation — `github.com/open-quantum-safe/liboqs`.
-- IETF, *Composite ML-DSA / SLH-DSA Signatures for X.509*, `draft-ietf-lamps-pq-composite-sigs`.
+- [FIPS 205: Stateless Hash-Based Digital Signature Standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf)
+- [The SPHINCS+ Signature Framework](https://eprint.iacr.org/2019/1086)
+- [SPHINCS+ specification](https://sphincs.org/data/sphincs+-r3.1-specification.pdf)
+- [ARMed SPHINCS -- Computing a 41KB signature in 16KB of RAM](https://eprint.iacr.org/2015/1042)
+- [liboqs SLH-DSA implementation](https://github.com/open-quantum-safe/liboqs/tree/main/src/sig/slh_dsa)
+- [Composite ML-DSA for X.509](https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/)

@@ -6,7 +6,7 @@ pillars: ["money"]
 readiness: usable
 description: "CoinJoin and Payjoin break the assumption that all inputs of a Bitcoin transaction belong to one person: implementations, trade-offs and legal context."
 dek: "Collaborative Bitcoin transactions that break the common-input-ownership heuristic. The most important on-chain privacy technique."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "06-Financial-Sovereignty/CoinJoin Implementation.md"
@@ -76,7 +76,7 @@ With Payjoin:
    Heuristic now thinks: 1.3 BTC spender owns both inputs. Wrong.
 ```
 
-Payjoin doesn't need a coordinator. The receiver runs a small endpoint. It is a substantial anonymity improvement at zero on-chain cost penalty.
+Payjoin doesn't need a coordinator. The receiver runs a small endpoint. It disrupts the common-input-ownership heuristic, but additional inputs and outputs can increase transaction weight and fees.
 
 ## Privacy math
 
@@ -138,12 +138,13 @@ Wallet hygiene matters as much as the join itself.
 4. For payments to merchants, prefer Lightning (next-best privacy) or Payjoin if accepted.
 5. Avoid exchange round-trips that link mixed back to KYC.
 
-## Primary Sources
+## Primary sources
 
-- Maxwell, Gregory, *CoinJoin: Bitcoin privacy for the real world*, 2013. [bitcointalk.org/index.php?topic=279249.0](https://bitcointalk.org/index.php?topic=279249.0)
-- Ficsór, Ádám, *ZeroLink: The Bitcoin Fungibility Framework*, 2018.
-- Ficsór, Kogman, Ontivero, Seres, *WabiSabi: Centrally Coordinated CoinJoins with Variable Amounts*, IACR ePrint 2021/206.
-- BIP-78 *Payjoin* — [github.com/bitcoin/bips/blob/master/bip-0078.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki)
-- Hill, *Joinstr: Coordinatorless CoinJoins via Nostr*, 2023.
+- [Maxwell: CoinJoin, Bitcoin privacy for the real world](https://bitcointalk.org/index.php?topic=279249.0)
+- [ZeroLink: The Bitcoin Fungibility Framework](https://github.com/nopara73/ZeroLink)
+- [WabiSabi: Centrally Coordinated CoinJoins with Variable Amounts](https://eprint.iacr.org/2021/206)
+- [BIP 78: Payjoin](https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki)
+- [Joinstr documentation](https://docs.joinstr.xyz/)
+- [JoinMarket implementation](https://github.com/JoinMarket-Org/joinmarket-clientserver)
 
 For related payment-privacy choices, see [Silent Payments](/kb/silent-payments/) for reusable Bitcoin addresses, [Zcash](/kb/zcash/) for shielded pools, and [BTCPay Server](/kb/btcpay-server/) for running a payment processor. The [P2P acquisition comparison](/kb/compare-p2p-bitcoin-acquisition/) covers custody and identity disclosure when obtaining bitcoin.

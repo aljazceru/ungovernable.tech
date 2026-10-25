@@ -5,8 +5,8 @@ type: deep-dive
 pillars: ["pqc"]
 readiness: experimental
 description: "FN-DSA (Falcon), the compact lattice signature scheme being standardised as FIPS 206: how it works, its implementation pitfalls and its status."
-dek: "Fast Fourier-NIST Signature — a lattice-based digital signature algorithm based on the NTRU lattice and Gaussian sampling, standardized as FIPS 206 (draft)."
-updated: 2026-06-06
+dek: "FN-DSA is the Falcon-based signature algorithm under development for FIPS 206, using NTRU lattices and Gaussian sampling."
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "10-Post-Quantum/FN-DSA Falcon.md"
@@ -16,7 +16,7 @@ tags: ["fn-dsa", "falcon", "ntru", "signatures", "fips-206", "post-quantum", "de
 
 ## What it is
 
-Falcon (Fast-Fourier Lattice-based Compact signatures over NTRU) was submitted to the NIST PQC competition by **Prest, Fouque, Hoffstein, Kirchner, Lyubashevsky, Pornin, Ricosset, Seiler, Whyte, and Zhang**. Selected as a winner in the third round (July 2022), it is being standardized as **FIPS 206 / FN-DSA**, with the initial public draft published August 11, 2025 by NIST.
+Falcon (Fast-Fourier Lattice-based Compact signatures over NTRU) was submitted to the NIST PQC competition by **Prest, Fouque, Hoffstein, Kirchner, Lyubashevsky, Pornin, Ricosset, Seiler, Whyte, and Zhang**. Selected as a winner in the third round (July 2022), it is being standardized as **FIPS 206 / FN-DSA**, with standardization still in progress. The implementation documentation warns that its format may change before the standard is published.
 
 Falcon's reason for existing alongside [ML-DSA](/kb/ml-dsa/) is signature size. At NIST category 1, a Falcon-512 signature is about 666 bytes versus ML-DSA-44's 2,420 bytes. For protocols where signatures are embedded in chains (X.509 certificate chains, DNSSEC records, blockchain witness data), this is a meaningful saving.
 
@@ -26,7 +26,7 @@ The cost is implementation difficulty: Falcon is the only NIST PQ signature that
 
 Falcon is a **GPV-style hash-and-sign** signature over **NTRU lattices**. The high-level structure:
 
-1. The keypair is a short basis for an NTRU lattice. The public key is a hash of the lattice; the secret key is a "good" (short) basis.
+1. The keypair is a short basis for an NTRU lattice. The public key is the polynomial h = g/f modulo q; the secret key supplies a short NTRU lattice basis.
 2. To sign a message `m`, hash to a random point `c` in the lattice space.
 3. Sample a lattice point `s` near `c` using the secret short basis. The "near" sampling uses a **discrete Gaussian distribution** to avoid leaking the basis.
 4. The signature is the offset `c - s`.
@@ -46,7 +46,7 @@ This decision is the central trade-off of Falcon.
 
 ## Parameter sets
 
-FIPS 206 (draft, August 2025) specifies two parameter sets:
+The Falcon submission specifies two parameter sets; these are not a promise of final FIPS 206 encodings:
 
 | Variant | Security level | Public key | Signature | NTRU degree |
 |---------|---------------|-----------|-----------|-------------|
@@ -56,7 +56,7 @@ FIPS 206 (draft, August 2025) specifies two parameter sets:
 Notable absences:
 
 - No Cat 3 variant. Falcon-768 was considered but dropped for clean NTRU degree-power-of-two parameters.
-- Signature sizes are **average** — Falcon's signatures vary slightly in length because of the rejection-sampling step.
+- Falcon has several signature encodings. The 666-byte and 1,280-byte figures are the padded encodings; compressed encodings can vary in length.
 
 Compared to the alternatives at Cat 1:
 
@@ -85,7 +85,7 @@ Floating-point Gaussian sampling is the hardest part of any cryptographic librar
 - **Guerreau, Martinelli, Ricosset, Rossi, 2022**: profiling attack on the FFT step.
 - **Zhang, Lin, Yu, Wang, 2023**: cache-timing attack against the table lookup in the Gaussian sampler.
 
-NIST and the Falcon team have responded with constant-time samplers (Howe, Prest, Apon, "Isochronous Gaussian Sampling: From Inception to Implementation," PQCrypto 2020), but constant-time floating-point remains hardware-dependent.
+NIST and the Falcon team have responded with constant-time samplers (Howe, Prest, Ricosset, Rossi, "Isochronous Gaussian Sampling: From Inception to Implementation," PQCrypto 2020), but constant-time floating-point remains hardware-dependent.
 
 ### Where it bites
 
@@ -138,13 +138,9 @@ When **not** to use it:
 
 ## Standardization status
 
-- **NIST selection**: announced July 2022, alongside CRYSTALS-Dilithium and SPHINCS+.
-- **FIPS 206 initial public draft (IPD)**: August 11, 2025 — the draft standard was submitted for public comment, not merely announced.
-- **Public comment period**: closed late 2025.
-- **Final standard**: expected late 2026 / early 2027. The IETF `draft-ietf-cose-falcon-04` reference note states "FIPS 206 (expected to be published in late 2026 early 2027)." The NIST 6th PQC Conference (2025) confirmed active discussion of SUF-CMA requirements, hedged variants, key/message-recovery mode, and fixed-point signing — the final standard will reflect resolution of these open questions.
-- **COSE integration**: `draft-ietf-cose-falcon-04` (current, expires April 2026) tracks FIPS 206 alignment. The COSE-wg milestone is January 2026 for "one or more documents describing the proper use of algorithms."
-- **liboqs**: Falcon implemented; tracking FIPS 206 alignment in current releases.
-- **HSM support**: limited. Most major HSM vendors await final FIPS 206 before shipping production code.
+Falcon was selected for standardization in 2022. FN-DSA is the Falcon-based algorithm being developed for FIPS 206. The implementation documentation explicitly warns that it anticipates a future draft and does not guarantee stable keys or signatures before final standardization.
+
+Falcon implementations in liboqs are available for experimentation. Pin the scheme and encoding used by each implementation; do not assume Falcon and a future FN-DSA standard are interchangeable.
 
 ## Hybrid deployment
 
@@ -163,7 +159,7 @@ The CA/B Forum and IETF LAMPS WG drafts include Falcon composites in the hybrid 
 
 ### Strengths
 
-- Smallest signatures of any NIST-standardized PQ signature scheme.
+- Compact signatures compared with ML-DSA and SLH-DSA.
 - Smaller public keys than ML-DSA (897 B vs 1,312 B at Cat 1).
 - Verification is fast.
 - Mature cryptanalysis after years of NIST review.
@@ -181,7 +177,7 @@ The CA/B Forum and IETF LAMPS WG drafts include Falcon composites in the hybrid 
 
 | Attack | Mitigation |
 |--------|-----------|
-| Timing leak from fp Gaussian sampler | Isochronous sampler (Howe-Prest-Apon 2020); platform-pinned IEEE 754 |
+| Timing leak from fp Gaussian sampler | Isochronous sampler (Howe-Prest-Ricosset-Rossi 2020); platform-pinned IEEE 754 |
 | Power analysis on signing | Masked sampler implementations |
 | Compiler reordering of fp ops | Strict `-fno-fast-math`, `-fno-fp-contract=off`; audit binary |
 | Fault injection into NTRU keygen | Recompute and compare; verify before publishing |
@@ -198,10 +194,11 @@ The CA/B Forum and IETF LAMPS WG drafts include Falcon composites in the hybrid 
 
 ## Primary sources
 
-- NIST, *FIPS 206: FN-DSA (Falcon) — Initial Public Draft*, August 11, 2025. `csrc.nist.gov/pubs/fips/206/ipd`.
-- Prest, Fouque, Hoffstein, Kirchner, Lyubashevsky, Pornin, Ricosset, Seiler, Whyte, Zhang, *Falcon: Fast-Fourier Lattice-based Compact Signatures over NTRU*, NIST PQC submission round 3, 2020. `falcon-sign.info`.
-- Gentry, Peikert, Vaikuntanathan, *Trapdoors for Hard Lattices and New Cryptographic Constructions*, STOC 2008. (GPV signature framework)
-- Hoffstein, Pipher, Silverman, *NTRU: A Ring-Based Public Key Cryptosystem*, ANTS-III 1998.
-- Howe, Prest, Apon, *Isochronous Gaussian Sampling: From Inception to Implementation*, PQCrypto 2020.
-- Karabulut, Aysu, *Falcon Down: Breaking Falcon Post-Quantum Signature Scheme through Side-Channel Attacks*, DAC 2021.
-- liboqs Falcon implementation — `github.com/open-quantum-safe/liboqs`.
+- [NIST post-quantum signature standardization](https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022)
+- [Falcon specification](https://falcon-sign.info/falcon.pdf)
+- [Trapdoors for Hard Lattices and New Cryptographic Constructions](https://eprint.iacr.org/2007/432)
+- [Hoffstein, Pipher and Silverman: NTRU](https://www.ntru.org/f/hps98.pdf)
+- [Falcon Down: Breaking Falcon Post-Quantum Signature Scheme through Side-Channel Attacks](https://eprint.iacr.org/2021/772)
+- [liboqs Falcon implementation](https://github.com/open-quantum-safe/liboqs/tree/main/src/sig/falcon)
+- [FN-DSA implementation and standardization caveats](https://github.com/pornin/c-fn-dsa)
+- [Isochronous Gaussian Sampling: From Inception to Implementation](https://eprint.iacr.org/2019/1411)

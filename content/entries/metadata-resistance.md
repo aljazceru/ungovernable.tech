@@ -3,9 +3,10 @@ title: "Metadata Resistance"
 slug: metadata-resistance
 type: explainer
 pillars: ["messaging", "anonymity"]
+readiness: usable
 description: "Encryption hides what you say; metadata resistance hides whom you said it to, when and how often. Techniques, systems and their trade-offs."
 dek: "Encryption hides what you say. Metadata resistance hides who you said it to, when, and how often. Few systems take it seriously; the ones that do trade convenience for it."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "07-Encrypted-Messaging/Metadata Resistance.md"
@@ -23,7 +24,7 @@ A messenger is metadata-resistant if a network observer (server, ISP, cloud prov
 | Who is the recipient? | Visible to server | Visible | Hidden (queue ID) | Hidden | Hidden |
 | How often does Alice talk to Bob? | Visible (frequency) | Visible | Per-queue, not per-pair | Per-mailbox | Per-Tor-circuit |
 | Are Alice and Bob friends? | Contact list | Public follow list | Hidden | Hidden | Hidden |
-| Where is Alice? | IP at server | IP at relay | IP at SMP server (or Tor) | Hidden via Lokinet | Hidden via Tor |
+| Where is Alice? | IP at server | IP at relay | IP at SMP server (or Tor) | Protected by onion requests | Hidden via Tor |
 | When is Alice online? | Visible | Visible per relay | Polling-pattern visible | Mailbox check pattern | Tor-only |
 
 The leading metadata-resistant designs sacrifice features (search, push notifications, group scale) for these properties.
@@ -46,10 +47,10 @@ Trade-off: contact discovery is out-of-band (QR code or one-time link). No globa
 
 ### Session
 
-Forked from Signal, dropped phone numbers. Routes through Lokinet, a Loki-mixnet-derived overlay similar to Tor. Identity is a public key (`05XXX…` Session ID).
+Forked from Signal, dropped phone numbers. Uses onion requests through its service-node network. Identity is a public key (`05XXX…` Session ID).
 
 - No phone, no email.
-- Lokinet-routed by default. IP not visible to Session servers.
+- Onion requests separate the originating client from the destination node; the entry node still sees the client connection.
 - Mailbox-based delivery. Recipient pulls; sender pushes to a swarm of nodes hosting the mailbox.
 - Onion-routed message envelopes.
 
@@ -62,13 +63,13 @@ Tor v3 hidden services as the entire transport. No central server, no message st
 - Tor v3 client auth. Only authorized peers connect.
 - No accounts, no servers.
 - Async via "untrusted infrastructure" — message queueing nodes are blind, just hold ciphertext.
-- Open Privacy Foundation project.
+- Open Privacy Research Society project.
 
 Trade-off: synchronous-only without untrusted infra; tiny ecosystem; battery hungry on mobile.
 
 ### Briar (P2P + Tor + offline)
 
-Built around adversarial network conditions. Three transport modes: Tor, Bluetooth, Wi-Fi direct. No servers at all.
+Built around adversarial network conditions. Three transport modes: Tor, Bluetooth and local Wi-Fi. No servers at all.
 
 - Direct peer-to-peer. No infrastructure.
 - Forum / blog model for groups.
@@ -106,9 +107,9 @@ The honest framing: metadata-resistance reduces leakage to specific adversaries.
 ```
 Endpoint:    OS hardened, FDE, biometric or hardware key for unlock
    ↓
-App:         SimpleX or Session or Briar (no user IDs)
+App:         SimpleX, Session or Briar (different identifier models)
    ↓
-Transport:   Tor or Lokinet (anonymizes network identity)
+Transport:   Tor or the application’s onion-routing transport
    ↓
 Identity:    Per-relationship keys; rotate; don't link to clearnet identity
    ↓
@@ -144,14 +145,15 @@ For ultra-high-stakes work (whistleblowing, journalism in repressive regimes), t
 | Hardware fingerprinting | Tails / amnesic systems |
 | Forced device unlock | Hidden volumes, duress wallets, plausible deniability |
 
-## Primary Sources
+## Primary sources
 
-- Evgeny Poberezkin, *SimpleX Messaging Protocol*, 2021. [github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md](https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md)
-- Session Foundation, *Session Whitepaper*, 2020.
-- Open Privacy Research Society, *Cwtch: Privacy-preserving infrastructure*.
-- van den Hooff et al., *Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis*, SOSP 2015.
-- Angel & Setty, *Unobservable Communication over Fully Untrusted Infrastructure*, OSDI 2016 (Pung).
-- Briar Project, *Briar protocol specification*.
+- [SimpleX Messaging Protocol](https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md)
+- [Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis](https://pdos.csail.mit.edu/papers/vuvuzela:sosp15.pdf)
+- [Pung: Unobservable Communication over Fully Untrusted Infrastructure](https://www.usenix.org/conference/osdi16/technical-sessions/presentation/angel)
+- [Cwtch security design](https://docs.cwtch.im/security/intro/)
+- [Briar protocol specifications](https://code.briarproject.org/briar/briar-spec/-/tree/master)
+- [Session cryptographic design](https://arxiv.org/abs/2002.04609)
+- [Briar: transports and peer-to-peer synchronization](https://briarproject.org/how-it-works/)
 
 For the specific technique of hiding *when* and *how much* you send, see [Cover Traffic and Constant-Rate Padding](/kb/cover-traffic/).
 

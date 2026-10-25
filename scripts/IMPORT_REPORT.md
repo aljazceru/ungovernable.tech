@@ -39,11 +39,11 @@ Re-running the importer refreshes this file.
 ### By readiness
 
 - battle-tested: 14
-- usable: 46
+- usable: 61
 - experimental: 29
-- research: 7
+- research: 8
 - historical: 2
-- cautionary: 2
+- cautionary: 3
 
 ## Unresolved wikilinks
 
@@ -55,25 +55,4 @@ Vault links with no site target; rendered as plain text (0 occurrences).
 Entries whose meta description could not be taken verbatim from the dek (first sentence too long or too short; cut at a clause boundary instead):
 
 
-## Entries with no external links in the body (19)
-
-- Confidential AI Inference
-- Confidential Computing Across Cloud Providers
-- Confidential Containers (CoCo)
-- Decentralized Identity
-- FN-DSA (Falcon)
-- HQC
-- KERI (Key Event Receipt Infrastructure)
-- Map: Censorship Resistance
-- Map: Composing Primitives
-- Map: Metadata Privacy
-- Map: Threat Models
-- Merkle Tree Certificates
-- Remote Attestation Architecture
-- Remote Signing (NIP-46 and Friends)
-- SLH-DSA (FIPS 205)
-- Stateful Hash-Based Signatures (XMSS, LMS)
-- TEE Side-Channel Attacks
-- The Dihedral Coset Attack Line
-- Zero-Knowledge Proofs
-
+## Entries with no external links in the body (0)

@@ -5,7 +5,7 @@ type: deep-dive
 pillars: ["money"]
 readiness: usable
 description: "Cashu brings Chaumian ecash to Bitcoin: blind-signed bearer tokens that give near-cash payment privacy, in exchange for trusting the mint with custody."
-dek: "Bearer-token ecash using blind signatures (Chaum 1982/83) backed by Bitcoin/Lightning. Private, offline-capable, small-to-medium value transfers with no on-chain footprint until redemption. 2026 milestone: first production-path \"unruggable\" mints running keys inside TEE enclaves."
+dek: "Bearer-token ecash using blind signatures (Chaum 1982/83) backed by Bitcoin/Lightning. Private, offline-capable, small-to-medium value transfers with no on-chain footprint until redemption. Mint custody remains a central trust assumption."
 updated: 2026-10-25
 created: 2026-06-22
 origin: vault
@@ -28,7 +28,7 @@ Chaumian ecash gives **bearer tokens**:
 - You hold the tokens locally (like digital cash in a wallet).
 - Spend by sending proofs to receiver or another mint (swaps).
 - No one but you and the final redeemer sees the chain of custody.
-- Works offline (send tokens via any transport: Nostr DM, USB, QR, LoRa).
+- Tokens can be transferred offline by QR, USB or another transport, but the recipient must contact the mint to swap them and establish that they have not already been spent.
 - Denominations + swaps provide some fungibility.
 
 Cashu (Bitcoin/Lightning native implementation) + NIP-60/61 (Nostr wallet + nutzaps) made it practical for the ungovernable stack.
@@ -44,30 +44,16 @@ Cashu (Bitcoin/Lightning native implementation) + NIP-60/61 (Nostr wallet + nutz
 
 **Fedimint** variant: federated (threshold) mints. Multiple guardians run the mint with threshold blind signing. No single operator can inflate or steal reserves alone. More resilient but adds coordination.
 
-## 2026: TEE-protected "unruggable" mints
+## Mint custody and hardware protection
 
-Classic risk: the mint operator (or coerced) can:
-- Inflate supply (sign extra notes without reserves).
-- Steal backing BTC/LN.
-- Correlate users via timing/amounts if not careful (or log).
+Blind signatures protect the link between issuance and redemption; they do not prove reserves or prevent the mint from refusing redemption. Cashu users still trust the mint’s custody and availability.
 
-Milestone (public testing reported by Cashu lead calle ~May/June 2026): first on-chain Cashu mint with keys generated and operated **entirely inside a TEE enclave** (e.g., Intel TDX/SEV-SNP or equivalent). 
-
-- Mint operator never sees the signing keys.
-- Attestation proves the correct code is running.
-- Reserves can be on-chain / LN with enclave-controlled access.
-- Operator cannot unilaterally inflate or exit with funds.
-
-This moves the trust from "don't trust the mint operator" toward "trust the TEE + attestation + reproducible build + on-chain visibility of backing".
-
-See cross-reference: [Confidential-AI-Inference](/kb/confidential-ai-inference/) / [Overview - Confidential Computing](/kb/confidential-computing/) and TEE attestation patterns. This is the canonical ungovernable composition of confidential compute + financial privacy primitive.
-
-Still early (testing/research at time of writing); production mints will need audits, transparency logs for attestation, and user-side verification of measurements.
+Running mint code in a TEE is a possible deployment pattern, not a guarantee supplied by Cashu. Attestation must be checked against a policy, and hardware, code, reserve custody and rollback behavior remain part of the threat model. See [Remote attestation](/kb/remote-attestation/) and [Confidential computing](/kb/confidential-computing/).
 
 ## Nostr integration (NIP-60 / 61)
 
-- **NIP-60**: Ecash wallet standard for Nostr. Wallets store/receive/send tokens via Nostr events (gift-wrapped for privacy).
-- **NIP-61**: Nutzaps — Cashu-based zaps/tips over Nostr (private, no public LN invoice exposure).
+- **NIP-60**: Ecash wallet standard for Nostr. Wallet state and token records use encrypted Nostr events as specified by NIP-60.
+- **NIP-61**: Nutzaps — Cashu tips using kind 9321 events. Recipient tags, sender identity and proofs in these events are public; the proofs are locked for the recipient.
 - Clients (Amethyst v1.12+ etc.): unified balance across Lightning + on-chain + Cashu + NWC. Per-mint views.
 - Trade protocols (Mostro, Chama): use gift-wrapped transport + ecash/Fedimint settlement for P2P trades without leaking to public relays.
 
@@ -83,7 +69,7 @@ This makes ecash first-class in the sovereign social + money stack.
 
 ### Practical attacks
 - **Mint rug / inflation**: Historical risk; TEEs + threshold signing (Fedimint) + transparency are the mitigations in flight.
-- **Double-spend by receiver**: Prevented by mint tracking spent secrets (if you send the same proof twice, second fails).
+- **Double-spend risk**: A sender can pass the same proof to multiple recipients. The mint rejects already-spent proofs; recipients need an online swap before treating payment as final.
 - **Key loss / device loss**: No recovery unless you backed up the tokens or used multi-mint + social recovery patterns.
 - **Mint correlation**: A single mint sees all its issuances and redemptions. Use many small mints + swaps.
 - **Nostr metadata**: Without NIP-17 gift wrapping, ecash events leak graph. Use wrapped.
@@ -102,7 +88,7 @@ This makes ecash first-class in the sovereign social + money stack.
 |---------------|--------------------------|---------|-------------------|------------------------|---------------------------|
 | CoinJoin (WabiSabi/JoinMarket) | Chain analysts + casual observers | No (needs on-chain) | UTXO level | Participation volume + equal outputs | Larger on-chain amounts |
 | Lightning     | Intermediate nodes (partial) | Needs online for routing | High (sats) | Channel counterparties + liquidity | Fast payments, larger |
-| Cashu/Ecash   | Mint(s) + network observers | Yes    | Fixed + swaps    | Blind sigs + now TEE/federation | Small spends, tips, offline, private zaps |
+| Cashu/Ecash | Blindness against mint; transport metadata remains | Token transfer only; online check needed | Fixed + swaps | Blind signatures; mint remains custodian | Small transfers and tips |
 
 They compose: CoinJoin → LN channel → Cashu mint deposit → private ecash spends.
 
@@ -116,19 +102,18 @@ They compose: CoinJoin → LN channel → Cashu mint deposit → private ecash s
 
 See [Nostr Deep Dive](/kb/nostr-protocol/) and recent Identity weeklies for client status.
 
-## Sources & Evidence
-
-- Chaum original: "Blind Signatures for Untraceable Payments" (1982/83).
-- Cashu: protocol docs, NIPs 60/61 in nostr-protocol/nips; implementation repos under cashubtc org.
-- Fedimint: threshold/federated variant docs and code.
-- 2026 TEE milestone: public statements and testing notes from calle (Cashu lead); Socratic seminars and Nostr discussions covering design tradeoffs and attestation.
-- Client integrations: Amethyst release notes (v1.12+), Zeus PRs.
-- Primary verification: run/test mints, inspect proofs, check attestation measurements when TEE mints publish them.
-
-*Ecash is production for small values today; TEE/federated backing is the active research-to-deployment frontier that directly strengthens the ungovernable claim.*
-
 ## Primary sources
 
-- [Cashu NUT-00: BDHKE on secp256k1](https://github.com/cashubtc/nuts/blob/main/00.md)
+- [Cashu NUT-00: blind Diffie-Hellman signatures and tokens](https://github.com/cashubtc/nuts/blob/main/00.md)
+- [Cashu NUT-03: token swaps and double-spend checking](https://github.com/cashubtc/nuts/blob/main/03.md)
+- [NIP-60: Cashu wallet events](https://github.com/nostr-protocol/nips/blob/master/60.md)
+- [NIP-61: Nutzaps](https://github.com/nostr-protocol/nips/blob/master/61.md)
+- [Cashu reference implementation](https://github.com/cashubtc/nutshell)
+- [Fedimint implementation](https://github.com/fedimint/fedimint)
+- [Amethyst releases](https://github.com/vitorpamplona/amethyst/releases)
+- [Zeus releases](https://github.com/ZeusLN/zeus/releases)
+- [Cashu FAQ: custody and mint trust](https://docs.cashu.space/faq)
+- [Chaum: Blind Signatures for Untraceable Payments](https://chaum.com/wp-content/uploads/2022/01/Chaum-blind-signatures.pdf)
+- [RFC 9334: Remote ATtestation procedureS Architecture](https://www.rfc-editor.org/rfc/rfc9334.html)
 
 For a dedicated account of guardian custody, threshold blind signatures and Lightning gateway contracts, see [Fedimint](/kb/fedimint/). Compare it with [Bitcoin self-custody](/guides/bitcoin-self-custody/), [BTCPay Server](/kb/btcpay-server/) and [Zcash](/kb/zcash/) when deciding which custody and privacy assumptions fit a payment.

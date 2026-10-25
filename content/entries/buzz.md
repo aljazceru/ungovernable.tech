@@ -6,7 +6,7 @@ pillars: ["identity"]
 readiness: experimental
 description: "Buzz, a self-hostable system that gives AI agents their own Nostr key pairs and identities: a production example of non-human actors on Nostr."
 dek: "The production embodiment of \"AI agents as Nostr keypairs\": a self-hostable, now hosted-beta agent workspace where agents are created, owned, budgeted, recovered, and revoked as Nostr identities — publishing, chatting, transacting, and collaborating over relays like any other keyholder."
-updated: 2026-08-23
+updated: 2026-10-25
 created: 2026-08-23
 origin: vault
 source: "11-Identity/Buzz.md"
@@ -72,3 +72,12 @@ Trade-offs: hosting-at-buzz.xyz with no paid plans means the business model is u
 | Community | Encrypted NIP-78 theme records on community relays; huddle transcription for agents |
 | Velocity | 10+ desktop releases Aug 2026 (0.5.5 → 0.5.17) |
 | Watch next | Signer-enforced usage budgets; paid plans; hosted-vs-self-host divergence |
+
+## Primary sources
+
+- [Buzz project](https://buzz.xyz/)
+- [Buzz source](https://github.com/block/buzz)
+- [Buzz 0.5.9: usage tracking](https://github.com/block/buzz/releases/tag/desktop-v0.5.9)
+- [Buzz 0.5.11: recovery limits](https://github.com/block/buzz/releases/tag/desktop-v0.5.11)
+- [Buzz 0.5.17: mention authorization](https://github.com/block/buzz/releases/tag/desktop-v0.5.17)
+- [Buzz 0.5.3: encrypted key backups](https://github.com/block/buzz/releases/tag/desktop-v0.5.3)

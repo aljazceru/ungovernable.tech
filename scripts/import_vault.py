@@ -1302,7 +1302,7 @@ def main():
 
     report = build_report(vmap, stats, unresolved_all, synthesized, no_sources,
                           len(index.entries), sum(stats['briefings'].values()), len(terms))
-    writes[os.path.join('scripts', 'IMPORT_REPORT.md')] = report
+    writes[os.path.join('scripts', 'IMPORT_REPORT.md')] = report.rstrip() + '\n'
 
     if a.dry_run:
         for p in sorted(writes):

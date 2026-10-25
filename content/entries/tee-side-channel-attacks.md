@@ -3,9 +3,10 @@ title: "TEE Side-Channel Attacks"
 slug: tee-side-channel-attacks
 type: threat-model
 pillars: ["confidential"]
+readiness: cautionary
 description: "A field guide to side-channel attacks on trusted execution environments, from cache timing to physical memory interposers, and the defences."
 dek: "A field guide. The threat model of every TEE-based system begins with \"assuming no new CVEs,\" which is a lie. Below: what has broken, what is likely to break, and how to reduce the blast radius."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/TEE-Side-Channel-Attacks.md"
@@ -48,7 +49,7 @@ tags: ["tee", "side-channel", "sgx", "sev", "tdx", "security", "attacks"]
 ### Intel TDX
 
 - TDX is newer; fewer public breaks, but it shares a pedigree with SGX. Early Intel TDX security advisories (2023-2024) covered TDX Module bugs. The TDX Module is effectively a tiny hypervisor; bugs there break all TDs on the host.
-- Downfall / Gather Data Sampling (2023). Affected AVX gather instructions broadly; TDX was impacted alongside general processors. Mitigated by microcode.
+- Downfall / Gather Data Sampling (2023). Affected vulnerable Intel processors using AVX gather instructions; the published affected generations do not establish a TDX break. Mitigated by microcode.
 - Co-tenant speculation attacks between TDs on the same host are an active research area.
 
 ### NVIDIA H100 CC
@@ -90,7 +91,7 @@ Mitigations:
 
 The most catastrophic class. A single compromised attestation signing key can mint quotes for enclaves that do not exist.
 
-- Intel / AMD factory key extraction. So far only theoretical; would require a very capable adversary.
+- Hardware and firmware attacks can undermine attestation. BadRAM demonstrates forged SEV-SNP attestation measurements through memory aliasing and replay.
 - PSP / TDX Module RCE. Has happened in limited form; treat every PSP / TDX Module firmware update as security-critical.
 - Cloud provider attestation collateral tampering. Mitigated by pinning vendor roots, not cloud-operator roots. Do not trust MAA / NRAS blindly; cross-check against Intel/AMD/NVIDIA-published collateral.
 
@@ -113,12 +114,13 @@ The most catastrophic class. A single compromised attestation signing key can mi
 9. Have a kill switch. When the next CVE drops, you must be able to blackhole the vulnerable TCB in your attestation policy within hours, not weeks.
 10. Accept that TEEs are probabilistic. For threat models where a single break is catastrophic, use a TEE as defense in depth behind a cryptographic guarantee (FHE, MPC, ZK), not as the sole line.
 
-## Primary Sources
+## Primary sources
 
-- Van Bulck et al.: *A Tale of Two Worlds: Assessing the Vulnerability of Enclave Shielding Runtimes* — CCS 2019
-- Chen et al.: *SgxPectre Attacks* — EuroS&P 2019
-- *CacheWarp* — Zhang et al., USENIX Security 2024 (CVE-2023-20592)
-- *Hertzbleed* — Wang et al., USENIX Security 2022
-- Intel SGX / TDX security advisories — `intel.com/content/www/us/en/security-center`
-- AMD PSIRT — `amd.com/en/resources/product-security`
-- NVIDIA PSIRT — `nvidia.com/en-us/security`
+- [Van Bulck et al.: A Tale of Two Worlds](https://vanbulck.net/files/ccs19-tale.pdf)
+- [Chen et al.: SgxPectre Attacks](https://arxiv.org/abs/1802.09085)
+- [CacheWarp: Software-based Fault Injection using Selective State Reset](https://www.usenix.org/conference/usenixsecurity24/presentation/zhang-ruiyi)
+- [Hertzbleed: Turning Power Side-Channel Attacks Into Remote Timing Attacks](https://www.usenix.org/conference/usenixsecurity22/presentation/wang-yingchen)
+- [AMD product security](https://www.amd.com/en/resources/product-security.html)
+- [NVIDIA security bulletins](https://www.nvidia.com/en-us/security/)
+- [Downfall: affected processors and mitigations](https://downfall.page/)
+- [BadRAM: Practical Memory Aliasing Attacks on Trusted Execution Environments](https://badram.eu/)

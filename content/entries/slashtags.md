@@ -6,7 +6,7 @@ pillars: ["naming", "identity"]
 readiness: historical
 description: "Slashtags, Synonym's earlier protocol for key-rooted identity and peer-to-peer data sharing: what it attempted and why it was superseded by Pubky."
 dek: "The original Synonym-dev protocol for key-rooted, peer-to-peer identity, hyperdrive-backed data sharing, and Slashtags-as-DNS-names. Slashtags is the predecessor and conceptual parent of Pubky Core and PKARR — the same engineering team, the same DHT and cryptographic identity pattern, but earlier, narrower in scope, and now formally superseded. Slashtags itself is best understood as a historical artifact that explains why Pubky Core looks the way it does. See PKARR for the modern production stack; Overview - Decentralized DNS for the comparative landscape."
-updated: 2026-06-22
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "03-Decentralized-DNS/Slashtags.md"
@@ -16,7 +16,7 @@ tags: ["slashtags", "synonym", "pkarr", "hyperdrive", "hyperswarm", "identity", 
 
 ## What Slashtags was
 
-Slashtags (2019–2024) was a JavaScript implementation of a key-rooted P2P identity and data layer built on top of [Hyperdrives](https://github.com/holepunchto/hyperdrive) (personal append-only file drives) and [Hyperswarm](https://github.com/hyperswarm/hyperswarm) (a Kademlia-based DHT with UDP holepunching). The same team (Synonym) later reworked the core idea into PKARR (signed DNS records on the Mainline DHT) and Pubky Core (a production protocol suite with SDKs, homeservers, mobile key custody, and a social graph). The current `slashtags.to` website now redirects to Pubky Core and states:
+Slashtags (2019–2024) was a JavaScript implementation of a key-rooted P2P identity and data layer built on top of [Hyperdrives](https://github.com/holepunchto/hyperdrive) (personal append-only file drives) and [Hyperswarm](https://github.com/holepunchto/hyperswarm) (a Kademlia-based DHT with UDP holepunching). The same team (Synonym) later reworked the core idea into PKARR (signed DNS records on the Mainline DHT) and Pubky Core (a production protocol suite with SDKs, homeservers, mobile key custody, and a social graph). The current [Slashtags transition to Pubky Core](https://slashtags.to/) website now redirects to Pubky Core and states:
 
 > "Slashtags is now Pubky Core, which provides infrastructure for decentralized identity management, data routing, and hosting."
 
@@ -43,15 +43,15 @@ A hyperdrive is an append-only log of blocks, similar to a content-addressed log
 - **Contacts lists**: who the user has added.
 - **Account metadata**: per-service data for Slashtag-enabled services.
 
-The hyperdrive is signed: only the Slashtag's private key can add a new block. Other peers can read the drive (and seed it) if they have the discovery key. Sharing means handing over the public key (or its URI form).
+The hyperdrive is signed: only the Slashtag's private key can add a new block. Other peers need the drive’s public key to open and verify it. A discovery key identifies the swarm but does not by itself grant read access. Sharing means handing over the public key (or its URI form).
 
 ### Access control
 
 | Action | Who can do it |
 |--------|---------------|
 | Add a block to a drive | Only the Slashtag's private key holder |
-| Read a drive | Anyone with the discovery key |
-| Seed a drive | Anyone with the discovery key and a running node |
+| Read a drive | Anyone with the public key, subject to any application encryption |
+| Seed a drive | A replicating peer with the drive key and data |
 | Discover / find the drive | Any Hyperswarm peer via the DHT |
 
 This is a simple read-public / write-private model. Public writes mean the Slashtag operator's signature is required for any update; any peer can mirror and distribute.
@@ -98,7 +98,7 @@ With the move to Pubky Core, Bitkit is one of the early wallets that will integr
 1. **Limited language support.** JavaScript only at the protocol layer. Rust SDKs came later via PKARR, and even later for full Pubky Core (Rust / JS / Swift / Kotlin).
 2. **Hyperswarm DHT scale.** Hyperswarm is excellent for small-to-medium-scale P2P apps but not as ambient as the Mainline DHT (which has ~10M nodes and 15+ years of uptime).
 3. **Hyperdrive storage overhead.** A hyperdrive is heavier than a signed DNS record; mobile devices and low-resource peers struggled to maintain full hyperdrive replicas.
-4. **DHT reachability in hostile networks.** UDP holepunching works in many environments but is less robust than TCP-based Mainline DHT in restrictive networks.
+4. **DHT reachability in hostile networks.** Both Hyperswarm discovery and the BitTorrent Mainline DHT use UDP. UDP restrictions can affect either network.
 
 These four issues are the technical reasons for the move to Mainline DHT + signed DNS records in PKARR. The lessons carried forward; the engineering substrate changed.
 
@@ -135,13 +135,13 @@ These four issues are the technical reasons for the move to Mainline DHT + signe
 
 | Item | Evidence | What it supports |
 |------|----------|------------------|
-| `synonymdev/slashtags` repo | 568 commits; beta status; documentation still in progress; npm package `@synonymdev/slashtag` | Real implementation, but explicitly beta and now superseded |
-| `slashtags.to` website | "Slashtags is now Pubky Core" | Official redirection to Pubky Core |
+| [Slashtags implementation](https://github.com/synonymdev/slashtags) repo | 568 commits; beta status; documentation still in progress; npm package `@synonymdev/slashtag` | Real implementation, but explicitly beta and now superseded |
+| [Slashtags transition to Pubky Core](https://slashtags.to/) website | "Slashtags is now Pubky Core" | Official redirection to Pubky Core |
 | `synonymdev/slashtags-widget-price-feed`, `…news-feed`, `…bitcoin-feed` | Public Slashtags widget examples | Public data publishing pattern that Slashtags pioneered |
 | Bitkit wallet integration | Slashtags powers Bitkit profile, contacts, payments | First and longest-running Slashtag production deployment |
 | BIP-39 key derivation | `specs/slashtags-derivation.md` in the Slashtags repo | Standard mnemonic-based identity |
-| Hyperswarm DHT | `github.com/hyperswarm/hyperswarm` | Underlying discovery network |
-| Hyperdrive file drives | `github.com/holepunchto/hyperdrive` | Underlying data model |
+| Hyperswarm DHT | [Hyperswarm implementation](https://github.com/holepunchto/hyperswarm) | Underlying discovery network |
+| Hyperdrive file drives | [Hyperdrive implementation](https://github.com/holepunchto/hyperdrive) | Underlying data model |
 
 ## Recent developments (2023–2026)
 
@@ -151,12 +151,14 @@ These four issues are the technical reasons for the move to Mainline DHT + signe
 
 ## Primary sources
 
-- Slashtags website — `slashtags.to` (now redirects to Pubky Core).
-- Slashtags implementation — `github.com/synonymdev/slashtags`.
-- Slashtag npm package — `npmjs.com/package/@synonymdev/slashtag`.
-- Slashtags derivation spec — `github.com/synonymdev/slashtags/blob/master/specs/slashtags-derivation.md`.
-- Synonym Bitkit wallet — `synonym.to/products/#bitkit`.
-- Slashtags auth demo — `github.com/synonymdev/slashtags-auth-demo`.
-- Hyperswarm DHT — `github.com/hyperswarm/hyperswarm`.
-- Hyperdrive — `github.com/holepunchto/hyperdrive`.
-- Kademlia — Maymounkov & Mazières, IPTPS 2002.
+- [Pubky Core: current project](https://pubky.org/)
+- [Slashtags implementation](https://github.com/synonymdev/slashtags)
+- [Slashtag package source](https://github.com/synonymdev/slashtags/tree/master/packages/slashtag)
+- [Slashtags key derivation specification](https://github.com/synonymdev/slashtags/blob/master/specs/slashtags-derivation.md)
+- [Bitkit source](https://github.com/synonymdev/bitkit)
+- [Slashtags authentication example](https://github.com/synonymdev/slashtags-auth-demo)
+- [Hyperswarm implementation](https://github.com/holepunchto/hyperswarm)
+- [Hyperdrive implementation](https://github.com/holepunchto/hyperdrive)
+- [Maymounkov and Mazières: Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
+- [BEP 5: BitTorrent DHT over UDP](https://www.bittorrent.org/beps/bep_0005.html)
+- [Slashtags transition to Pubky Core](https://slashtags.to/)

@@ -3,9 +3,10 @@ title: "Multi-Party Computation"
 slug: multi-party-computation
 type: explainer
 pillars: ["cryptography"]
+readiness: usable
 description: "Secure multi-party computation lets parties compute a function over their private inputs while learning nothing else: protocols, tools and uses."
 dek: "Cryptographic protocols where parties jointly compute a function over their private inputs while learning nothing beyond the output. The defining property: no party (including all attackers up to a threshold) sees inputs other than its own."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "02-Cryptography/Multi-Party Computation.md"
@@ -78,13 +79,13 @@ A specialization of MPC: instead of a generic `f`, the function is a cryptograph
 
 ### Schnorr threshold (FROST)
 
-Komlo & Goldberg (2020), standardized as **RFC 9591** (2024). Two-round signing protocol over `secp256k1`/Ed25519. Used for:
+Komlo & Goldberg (2020), standardized as **RFC 9591** (2024). Two-round signing protocol with several ciphersuites, including Ed25519 and secp256k1. Bitcoin Taproot requires BIP-340-compatible handling; generic RFC 9591 secp256k1 signatures are not a drop-in replacement. Used for:
 
 - Bitcoin Taproot multisig that looks like single-sig on-chain.
 - Nostr threshold key custody (research and early production).
 - Lightning node operator key sharding.
 
-FROST replaced earlier MuSig variants for production deployments because its security proof is cleaner and rounds are fixed.
+FROST supports threshold signing; MuSig2 is an n-of-n multisignature protocol. They address different participation requirements.
 
 ### ECDSA threshold (GG20, CMP)
 
@@ -103,7 +104,7 @@ Schnorr multi-signature aggregation (BIP-327). Two rounds, n-of-n only. Differs 
 |----------|---------------|---------|
 | Threshold custody | t-of-n FROST or GG20 | Key never reconstructed in one place |
 | Joint analytics | SPDZ over arithmetic circuits | Joint statistics without pooling raw data |
-| Blind eCash mints (Cashu, Fedimint) | Threshold blind signatures | Mint can't unilaterally inflate |
+| Federated eCash mints (Fedimint) | Threshold blind signatures | No single guardian can issue alone; a signing quorum remains trusted |
 | MPC-based RNG / DKG | Distributed key generation | Sample a key no party knows |
 | Auctions / voting | Garbled circuits or honest-majority arithmetic | Bid privacy with public verifiability |
 | ZK proof generation | Distributed prover | Avoid centralizing the proving key |
@@ -147,9 +148,9 @@ Generate Groth16 or PLONK trusted setup parameters via MPC ceremony (the "Powers
 
 Two non-colluding servers each hold a share of the model weights and the input. Inference proceeds with per-layer MPC arithmetic. Trade-off vs FHE: faster (often by orders of magnitude) but requires a non-collusion assumption.
 
-### Cashu / Fedimint mints
+### Federated eCash mints
 
-Federated Chaumian eCash where the mint signing is threshold. No single guardian can issue blind signatures unilaterally; users redeem with a threshold-signed token.
+Fedimint distributes mint authority across guardians using threshold blind signatures. Cashu’s basic protocol uses a mint signing key and does not itself require a threshold federation.
 
 ## Trade-offs
 
@@ -181,21 +182,25 @@ Federated Chaumian eCash where the mint signing is threshold. No single guardian
 
 ## Recent developments (2024-2026)
 
-- FROST standardization as **RFC 9591** (Sep 2024).
+- FROST standardization as **RFC 9591** (June 2024).
 - Production threshold custody at scale (Coinbase, Fireblocks, BitGo) with billions in AUM.
 - DKG ceremony tooling matured; simpler bootstrapping for new threshold groups.
 - Active-secure variants of FROST and GG20 with proven simulators.
 - Mobile MPC SDKs (ZenGo, Lit Protocol). Distributed wallets without hardware keys.
-- MPC-in-the-head signature schemes (Picnic, BBS+ adjacent) explored for PQ.
+- MPC-in-the-head signature schemes (such as Picnic) explored for PQ.
 
 ## Primary sources
 
-- Yao, *Protocols for Secure Computations*, FOCS 1982 — original 2PC.
-- Goldreich, Micali, Wigderson, *How to Play any Mental Game*, STOC 1987 — GMW.
-- Ben-Or, Goldwasser, Wigderson, *Completeness Theorems for Non-Cryptographic Fault-Tolerant Distributed Computation*, STOC 1988 — BGW.
-- Damgård et al., *SPDZ: Multiparty Computation from Somewhat Homomorphic Encryption*, CRYPTO 2012.
-- Komlo & Goldberg, *FROST: Flexible Round-Optimized Schnorr Threshold Signatures*, IACR 2020/852. Standardized as **RFC 9591** (2024).
-- Gennaro & Goldfeder, *Fast Multiparty Threshold ECDSA with Fast Trustless Setup*, CCS 2018; updated CMP variants.
-- Lindell, *Tutorial on the Foundations of Cryptography* — chapter on MPC.
-- mp-spdz: [github.com/data61/MP-SPDZ](https://github.com/data61/MP-SPDZ).
-- frost-secp256k1: [github.com/ZcashFoundation/frost](https://github.com/ZcashFoundation/frost).
+- [Yao: Protocols for Secure Computations](https://research.cs.wisc.edu/areas/sec/yao1982-ocr.pdf)
+- [Completeness Theorems for Non-Cryptographic Fault-Tolerant Distributed Computation](https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/GBW88/GBW88.pdf)
+- [Multiparty Computation from Somewhat Homomorphic Encryption](https://eprint.iacr.org/2011/535)
+- [FROST: Flexible Round-Optimized Schnorr Threshold Signatures](https://eprint.iacr.org/2020/852)
+- [RFC 9591: FROST](https://www.rfc-editor.org/rfc/rfc9591.html)
+- [UC Non-Interactive, Proactive, Threshold ECDSA](https://eprint.iacr.org/2020/492)
+- [Secure Multiparty Computation (MPC)](https://eprint.iacr.org/2020/300)
+- [MP-SPDZ implementation](https://github.com/data61/MP-SPDZ)
+- [FROST implementation](https://github.com/ZcashFoundation/frost)
+- [MuSig2: BIP 327](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki)
+- [Fedimint protocol](https://github.com/fedimint/fedimint)
+- [Cashu NUT-00](https://github.com/cashubtc/nuts/blob/main/00.md)
+- [Fast Secure Two-Party ECDSA Signing](https://eprint.iacr.org/2017/552)

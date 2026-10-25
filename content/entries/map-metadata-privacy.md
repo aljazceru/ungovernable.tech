@@ -5,14 +5,14 @@ type: map
 pillars: ["anonymity", "messaging"]
 description: "A map of metadata privacy: hiding who, when, where, how often and how much, which often reveals more than the content of communications."
 dek: "A Map of Content for hiding who, when, where, how often, and how big — the data about communications that often reveals more than the content itself."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "00 - Meta/MOC - Metadata Privacy.md"
 tags: ["meta", "moc", "metadata-resistance", "privacy", "overview"]
 ---
 
-> "We kill people based on metadata." — Michael Hayden, former NSA Director.
+
 
 ## Why metadata is harder
 
@@ -23,7 +23,7 @@ End-to-end encryption protects content. Packet headers, timing, sizes, and routi
 | Layer | Visible to | What it reveals |
 |-------|-----------|----------------|
 | TCP/IP | Any on-path observer | Source IP, destination IP, ports, timing, sizes |
-| TLS | Same | SNI (until ECH), certificate chain, ALPN |
+| TLS | Same | ClientHello fields such as SNI/ALPN unless protected; TLS 1.3 encrypts the server certificate |
 | Application protocols | Server, traffic analyst | Auth tokens, request paths, identifiers |
 | DNS | Resolver, ISP | Every domain you look up |
 | Cloud control planes | Cloud provider | Workload location, scale, access patterns |
@@ -38,7 +38,7 @@ End-to-end encryption protects content. Packet headers, timing, sizes, and routi
 ### Sealed sender and metadata-light envelopes
 
 - Signal sealed sender: the sender identity is encrypted to the recipient, so the server only sees the recipient.
-- Nostr NIP-17 gift wrap: DM events are wrapped in a public-key-encrypted envelope so relays cannot see the social graph.
+- Nostr NIP-17 gift wrap: gift wraps conceal the original sender but expose the recipient’s public key and delivery timing.
 - SimpleX queue model: pairwise queues addressed by random IDs, with no user accounts.
 
 ### Private retrieval
@@ -47,7 +47,7 @@ End-to-end encryption protects content. Packet headers, timing, sizes, and routi
 
 ### Padding and cover traffic
 
-- Constant-rate fills: WireGuard keepalives, Loopix loops, Tor v3 padding.
+- Cover traffic and padding: Loopix adds cover messages; Tor has padding mechanisms. WireGuard persistent keepalives preserve NAT mappings and are not constant-rate traffic-analysis protection.
 - Length padding: message-length flooring so sizes do not leak.
 
 ### Onion-routed authentication
@@ -83,9 +83,13 @@ did:peer or per-relationship keypairs so a persistent ID does not leak across co
 - [Confidential-AI-Inference](/kb/confidential-ai-inference/)
 - [Overview - Identity & Pseudonymity](/kb/identity-and-pseudonymity/)
 
-## Reading list
+## Primary sources
 
-- Roger Dingledine et al., *Tor: The Second-Generation Onion Router*, USENIX 2004.
-- Piotrowska et al., *The Loopix Anonymity System*, USENIX 2017.
-- Chen et al., *Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis*, SOSP 2015.
-- Angel & Setty, *Unobservable Communication over Fully Untrusted Infrastructure*, OSDI 2016 (Pung).
+- [Tor: The Second-Generation Onion Router](https://www.usenix.org/conference/13th-usenix-security-symposium/tor-second-generation-onion-router)
+- [The Loopix Anonymity System](https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska)
+- [Pung: Unobservable Communication over Fully Untrusted Infrastructure](https://www.usenix.org/conference/osdi16/technical-sessions/presentation/angel)
+- [RFC 8446: TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446.html)
+- [Nostr NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
+- [WireGuard: persistent keepalives](https://www.wireguard.com/quickstart/)
+- [Signal: sealed sender](https://signal.org/blog/sealed-sender/)
+- [Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis](https://pdos.csail.mit.edu/papers/vuvuzela:sosp15.pdf)

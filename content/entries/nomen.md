@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: experimental
 description: "Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status."
 dek: "A small but conceptually interesting decentralized DNS protocol that composes two existing sovereign systems: Bitcoin for global ordering of name claims and Nostr for signed record updates. Nomen is not production-scale infrastructure today; its value is as a clean design pattern for globally unique names without launching a new chain or transport network."
-updated: 2026-10-25
+updated: 2026-05-04
 created: 2026-05-04
 origin: vault
 source: "03-Decentralized-DNS/Nomen.md"

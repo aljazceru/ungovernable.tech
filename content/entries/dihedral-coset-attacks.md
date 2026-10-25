@@ -6,7 +6,7 @@ pillars: ["pqc"]
 readiness: research
 description: "The dihedral coset problem and the line of quantum attacks on lattice cryptography it inspires: what has been claimed, refuted and still matters."
 dek: "Deep-dive companion to Post-Quantum Saturday — August 22 2026 Weekly Update and Overview - Post-Quantum Cryptography. This note consolidates the twenty-year research program connecting the Dihedral Coset Problem to lattice problems and LWE — Regev 2004 → BKSW 2018 → Chen 2024 → Bai et al. 2025 → Wen–Zheng 2026 → Simon 2026 → GRZ 2026 — including what was claimed, what survived, and where the live edges are. Flagged as a needed deep-dive in the August 15 update (§Next Steps #4)."
-updated: 2026-08-22
+updated: 2026-10-25
 created: 2026-08-22
 origin: vault
 source: "10-Post-Quantum/The Dihedral Coset Attack Line.md"
@@ -46,7 +46,7 @@ The connection to lattices runs one direction: quantum reductions *from* lattice
 
 ### Regev 2004 — the bridge is built
 
-Oded Regev, "Quantum Computation and Lattice Problems," SIAM Journal on Computing 2004 (FOCS 2003 lineage). Polynomial-time **quantum reduction** from approximate unique-SVP (and related lattice problems) to the Dihedral Subgroup Problem — conditional on an efficient coherent solver for average-case modular subset-sum. No such solver existed. The result sat for twenty years as elegant mathematics with the attack-shaped hole where a solver should be.
+Oded Regev, "Quantum Computation and Lattice Problems," SIAM Journal on Computing 2004 (FOCS 2003 history). Polynomial-time **quantum reduction** from approximate unique-SVP (and related lattice problems) to the Dihedral Subgroup Problem — conditional on an efficient coherent solver for average-case modular subset-sum. No such solver existed. The result sat for twenty years as elegant mathematics with the attack-shaped hole where a solver should be.
 
 **Why it still matters**: every subsequent paper in this line is either strengthening the reduction (BKSW, Wen–Zheng) or trying to fill the solver hole (Kuperberg-line, Chen, Bai, Simon).
 
@@ -58,9 +58,9 @@ Greg Kuperberg's subexponential 2^O(√n)-time algorithm for the dihedral hidden
 
 ### BKSW 2018 — the equivalence tightened
 
-Brakerski, Kirshanova, Stehlé, Wen, "Learning With Errors and Extrapolated Dihedral Cosets," EUROCRYPT 2018. Proved LWE ⇄ EDCP quantum-polynomially for suitable parameters — deepening the connection from "lattice problems reduce to DCP" to "LWE and the extrapolated problem are essentially the same difficulty quantumly." Elena Kirshanova (co-author) became one of the central verifiers of the Simon claim in Aug 2026 — the same research program, continuing.
+Brakerski, Kirshanova, Stehlé, Wen, "Learning With Errors and Extrapolated Dihedral Cosets," PKC 2018. Proved LWE ⇄ EDCP quantum-polynomially for suitable parameters — deepening the connection from "lattice problems reduce to DCP" to "LWE and the extrapolated problem are essentially the same difficulty quantumly." Elena Kirshanova (co-author) became one of the central verifiers of the Simon claim in Aug 2026 — the same research program, continuing.
 
-**Note**: Wen (Télécom Paris) is a co-author of both BKSW 2018 and Wen–Zheng 2026. This is one research lineage, not independent arrival.
+**Note**: Wen (Télécom Paris) is a co-author of both BKSW 2018 and Wen–Zheng 2026. This is one research history, not independent arrival.
 
 ### Chen 2024 — first poly-time claim, first death
 
@@ -111,7 +111,7 @@ Read as more than a rebuttal, ePrint 2026/1693 contributes a reusable insight: *
 |---|---|---|---|
 | **ML-KEM (FIPS 203)** | Module-LWE, power-of-two cyclotomic, rank 2/3/4 | **Bridge exists (Wen–Zheng), no solver** | Composition at real parameters unproven even before the refutation (decision vs search, CBD vs Gaussian, sample budget); now also solver-less |
 | **ML-DSA (FIPS 204)** | Module-LWE/SIS + SelfTargetMSIS | One step removed | A Module-LWE break ≠ automatic forgery; forgery needs its own analysis |
-| **FN-DSA / Falcon (FIPS 206 IPD)** | NTRU | **Not implicated by this path** | No published DCP-line reduction to NTRU; separate assessment required |
+| **FN-DSA / Falcon (FIPS 206 under development)** | NTRU | **Not implicated by this path** | No published DCP-line reduction to NTRU; separate assessment required |
 | FrodoKEM | plain LWE | Nearest Simon's direct corollary | The "conservative" unstructured choice sat closest to the (now-dead) claim — an inversion of the usual hierarchy worth remembering |
 | **HQC** | quasi-cyclic codes | Untouched | Code-based; standard expected 2026–27; see the McEliece distinguisher backfill for the code-side margin story |
 | Classic McEliece | binary Goppa codes | Untouched by DCP line | New quasipoly distinguisher (Aug 2026) is a separate, non-break development |
@@ -138,7 +138,7 @@ Ordered by what a watcher should rank as signal:
 | Quasi-poly EDCP (2025) | Bai et al. | CRYPTO 2025 | ✓ Standing (bounded) | — | — |
 | Kuperberg subexp (2005) | Kuperberg | — | ✓ Standing (21 years) | — | — |
 
-The pattern: extraordinary claims die fast and publicly; incremental honest results survive with explicit bounds. The 2024→2026 sequence also shows verification *accelerating* — from expert-read (days) to machine-checked no-go (nine days, with Lean). Assume the next extraordinary claim gets the same treatment on an even shorter clock, likely with AI assistance at the search stage (the HAWK/Mythos precedent from July).
+The pattern: extraordinary claims die fast and publicly; incremental honest results survive with explicit bounds. The 2024→2026 sequence also shows verification *accelerating* — from expert-read (days) to machine-checked no-go (nine days, with Lean).
 
 ## Deployment guidance (unchanged, now boringly so)
 
@@ -150,10 +150,10 @@ The pattern: extraordinary claims die fast and publicly; incremental honest resu
 
 ## Open questions
 
-1. Will Simon respond to the no-go — revision, withdrawal, or silence? (No statement as of Aug 22, 2026.)
+1. How does Simon’s October 7, 2026 revision address the no-go result? The ePrint record now includes an author response; that response alone does not establish a working attack.
 2. Does anyone take Wen–Zheng's IP-M-EDCP invitation? Watch ePrint for 2026/1693-citing work.
 3. Will the GRZ Lean artifact set precedent — machine-checked refutations as the new norm for extraordinary claims?
-4. Does the AI-cryptanalysis economics shift ($100K/week per result) eventually get pointed at EDCP/IP-M-EDCP directly — the first AI-found solver in this line?
+
 5. HQC standardization (2026–27): does the McEliece distinguisher line change NIST's code-based timing or messaging?
 
 ## Related
@@ -167,4 +167,18 @@ The pattern: extraordinary claims die fast and publicly; incremental honest resu
 - [Merkle Tree Certificates](/kb/merkle-tree-certificates/) — the PQ Web PKI track that proceeds regardless
 - [PQC Deployment and Libraries Tracker](/kb/pqc-deployment-tracker/) — the deployment map
 
-*Primary sources: ePrint 2026/1693 (GRZ no-go), 2026/1591 (Simon), 2026/155 (Wen–Zheng), 2025/1046 (Bai et al.), 2024/555 (Chen, withdrawn), Regev SIAM J. Comput. 2004, BKSW EUROCRYPT 2018, Kuperberg 2005/2011; github.com/sragavan99/lean-ePrint-2026-1591-refutation; github.com/a-as-plus-e/lemma3-objection; PostQuantum.com analyses (Ivezic, Aug 6/15); IACR News Aug 15, 2026. Links verified August 22, 2026.*
+## Primary sources
+
+- [The ePrint:2026/1591 Quantum Algorithm Does Not Solve DCP](https://eprint.iacr.org/2026/1693)
+- [A Polynomial-Time Quantum Algorithm for the Dihedral Coset Problem](https://eprint.iacr.org/2026/1591)
+- [Module Learning With Errors and Structured Extrapolated Dihedral Cosets](https://eprint.iacr.org/2026/155)
+- [A Quasi-polynomial Time Algorithm for the Extrapolated Dihedral Coset Problem over Power-of-Two Moduli](https://eprint.iacr.org/2025/1046)
+- [Quantum Algorithms for Lattice Problems](https://eprint.iacr.org/2024/555)
+- [Regev: Quantum Computation and Lattice Problems](https://arxiv.org/abs/cs/0304005)
+- [Kuperberg: A Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem](https://arxiv.org/abs/quant-ph/0302112)
+- [Kuperberg: Another Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem](https://arxiv.org/abs/1112.3333)
+- [Lean verification of the Simon refutation](https://github.com/sragavan99/lean-ePrint-2026-1591-refutation)
+- [Lemma 3 objection](https://github.com/a-as-plus-e/lemma3-objection)
+- [RFC 10024: Hybrid key exchange](https://www.rfc-editor.org/rfc/rfc10024.html)
+- [Learning With Errors and Extrapolated Dihedral Cosets](https://arxiv.org/abs/1710.08223)
+- [FN-DSA implementation and standardization caveats](https://github.com/pornin/c-fn-dsa)

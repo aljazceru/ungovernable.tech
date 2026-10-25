@@ -3,6 +3,7 @@ title: "Naming on Mesh and Off-Grid Networks"
 slug: mesh-naming
 type: explainer
 pillars: ["naming", "mesh"]
+readiness: usable
 description: "How mesh and off-grid networks name things without the global DNS: key-derived addresses, local registries and naming on Yggdrasil, cjdns and Reticulum."
 dek: "Mesh networks don't run on the global DNS — they have to invent their own naming because there's no ICANN root zone, no registrar, and often no working internet connection. Two overlay approaches are Yggdrasil (key-derived IPv6 over an encrypted overlay) and cjdns (key-derived IPv6 over a DHT). On top of these sit application-layer naming systems — Briar's contact-graph, IPFS's content addressing, Nostr's NIP-05, and PKARR zones — that compose the broader off-grid identity stack. See Overview - Decentralized DNS for the comparative landscape; Overlay Naming - Tor .onion and I2P for the parallel hidden-service naming systems."
 updated: 2026-10-25
@@ -38,7 +39,7 @@ Yggdrasil is an encrypted IPv6 overlay that gives every node a stable, cryptogra
 
 - `200::/7` is the IANA range originally allocated for NSAP-mapped addresses (RFC 1888, deprecated by RFC 4048, currently unused).
 - Yggdrasil uses `200::/8` for host addresses and `300::/8` for prefixes; the rest of the bits are derived from the node's NodeID.
-- A node's NodeID is `sha512(curve25519_public_key)`, truncated by an "address collapse" algorithm that gives collision resistance comparable to a true 128-bit hash by counting leading `1` bits.
+- The current address implementation encodes a prefix, a count of leading bits and a truncated part of the bitwise-inverted Ed25519 public key. It is not the older SHA-512/Curve25519 construction.
 
 The result: `300:abcd:ef12:3456:7890:abcd:ef12:3456` is a stable, self-authenticating, routable address. There is no DNS lookup. There is no DHCP lease. There is no A record.
 
@@ -86,7 +87,7 @@ There is no built-in DNS. Naming happens at one of three layers:
 
 ### What it is
 
-cjdns is the older cousin of Yggdrasil. Written in C, originally designed by Caleb James DeLisle starting ~2010, it powers the Hyperboria community network. Like Yggdrasil, every node has an Ed25519 keypair and the IPv6 address is derived from the public key. Unlike Yggdrasil, it uses a Kademlia-based DHT directly for routing rather than a spanning tree.
+cjdns is the older cousin of Yggdrasil. Written in C, originally designed by Caleb James DeLisle starting ~2010, it powers the Hyperboria community network. cjdns uses Curve25519 keys and derives an IPv6 address from the public key. Unlike Yggdrasil, it uses a Kademlia-based DHT directly for routing rather than a spanning tree.
 
 ### Address format
 
@@ -95,7 +96,7 @@ fc<rest of address derived from key hash>:/128
 ```
 
 - cjdns uses the `fc00::/8` range (the IPv6 Unique Local Address range).
-- The address is constructed from `sha512(public_key)` truncated to 128 bits; the first 8 bits are set to `fc`.
+- The address comes from a double SHA-512 hash of the public key, truncated to 128 bits. Key generation repeats until the result starts with `fc`; that prefix is not simply overwritten.
 - Same property as Yggdrasil: address = key hash = identifier. There is no DNS.
 
 ### Routing: CryptoAuth
@@ -131,32 +132,11 @@ Briar is a peer-to-peer messenger for activists, journalists, and high-risk user
 
 ### How naming works
 
-1. Each user has a long-term Ed25519 identity keypair.
-2. The "name" of a contact is whatever you've called them locally.
-3. To add a contact, you either:
-   - Scan a QR code (offline, in-person).
-   - Exchange a `briar://` URI over a secure channel.
-   - Meet over Bluetooth / Wi-Fi / Tor and discover peers.
-4. The contact's `briar://` URI encodes their public key, display name, and a "known fingerprints" hint.
-
-The "name" is a string the user types in the contact list; the "address" is the public key, used for end-to-end encryption of direct messages and forum posts.
+Contacts are added explicitly by scanning each other’s QR codes in person or exchanging contact links through another channel. Local Bluetooth or Wi-Fi reachability does not automatically authenticate strangers as contacts.
 
 ### Transport fallback
 
-Briar uses the most aggressive transport fallback in the production privacy stack:
-
-- **Internet available**: connect via Tor.
-- **Internet available but Tor blocked**: connect via pluggable transports (Snowflake, meek, etc.).
-- **No internet**: connect over Bluetooth or Wi-Fi to nearby contacts.
-
-In the Bluetooth / Wi-Fi mode, "naming" is reduced to physical presence: you tap "Add contact", the phones discover each other over the local radio, exchange keys, and the contact is added. This is a kind of physical-layer out-of-band authentication, stronger than any DNS-based system.
-
-### Maturity (2026)
-
-- Briar 1.5.17 (March 2026) — current release.
-- Briar Desktop 0.6.0-beta — released 2026.
-- Active development; stable on Android, beta on desktop.
-- Used by activists, journalists, dissidents; not mainstream, not meant to be.
+Briar uses Tor over the internet and can synchronize with nearby contacts through Bluetooth or a local Wi-Fi network. Its manual documents the contact-addition and connection requirements; do not infer them from ordinary radio discovery.
 
 ### What Briar teaches about mesh naming
 
@@ -182,7 +162,7 @@ Internet-side fallback (if a path exists)
   └─ ENS or Handshake for human-readable names
 ```
 
-The mesh address is the network identity; the overlay names (onion, PKARR, ENS) are the application identities. A single Ed25519 keypair can be the master identity across all of these — a property that meshes well with [Pubky](/kb/pubky/)'s approach.
+The mesh address is the network identity; the overlay names (onion, PKARR, ENS) are the application identities. These systems have different key formats and protocol requirements; sharing a master secret would require an explicit, domain-separated derivation design.
 
 ## Comparison
 
@@ -227,7 +207,6 @@ The mesh address is the network identity; the overlay names (onion, PKARR, ENS) 
 ## Recent developments (2024–2026)
 
 - **Yggdrasil** — experimental, alpha-stage software; future changes may break compatibility.
-- **Briar 1.5.17 (March 2026)**, **Briar Desktop 0.6.0-beta (2026)** — active development continues.
 - **Embedded Yggdrasil in Go applications** (Asciimoth, dev.to, 2024) — easier integration of Yggdrasil as a library.
 - **PKARR over Yggdrasil** — community work on using PKARR's signed DNS records as a service-discovery layer for Yggdrasil services.
 - **Hacker News renewed interest (May 2025)** — the original 2018 announcement post resurfaced on the front page, drove a wave of new experimentation.
@@ -236,11 +215,11 @@ The mesh address is the network identity; the overlay names (onion, PKARR, ENS) 
 ## Primary sources
 
 - [Yggdrasil project status](https://yggdrasil-network.github.io/)
-
-- Yggdrasil addressing — `yggdrasil-network.github.io/2018/07/28/addressing.html`.
-- Yggdrasil `yggdrasil-go` — `github.com/yggdrasil-network/yggdrasil-go`.
-- Yggdrasil embedded Go library — `dev.to/asciimoth/yggdrasil-network-as-an-embedded-go-library-9h`.
-- cjdns — `github.com/cjdelisle/cjdns`.
-- Hyperboria — `hyperboria.net`.
-- Briar — `briarproject.org`.
-- CryptoAuth technical analysis — `crypto.pkt.cash/updates/compact-source-routing`.
+- [Yggdrasil implementation](https://github.com/yggdrasil-network/yggdrasil-go)
+- [cjdns implementation and addressing](https://github.com/cjdelisle/cjdns)
+- [Hyperboria](https://hyperboria.net/)
+- [Briar: local and internet transports](https://briarproject.org/how-it-works/)
+- [cjdns CryptoAuth specification](https://github.com/cjdelisle/cjdns/blob/master/doc/Whitepaper.md)
+- [Yggdrasil as an embedded Go library](https://dev.to/asciimoth/yggdrasil-network-as-an-embedded-go-library-9h)
+- [Yggdrasil address derivation](https://github.com/yggdrasil-network/yggdrasil-go/blob/develop/src/address/address.go)
+- [Briar manual](https://briarproject.org/manual/)

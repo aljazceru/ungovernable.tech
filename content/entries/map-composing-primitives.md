@@ -5,7 +5,7 @@ type: map
 pillars: ["cryptography", "confidential"]
 description: "A map for building real systems by combining primitives: TEEs with attestation, mixnets with ecash, ZK with identity, and where compositions fail."
 dek: "A Map of Content for building real systems by stacking the cryptographic and network primitives in this library. No single primitive solves everything; composition is where security comes from."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "00 - Meta/MOC - Composing Primitives.md"
@@ -41,7 +41,7 @@ Attested TLS bound to enclave-generated key
    ↓
 TDX or SEV-SNP confidential VM
    ↓
-H100/H200 confidential GPU mode (encrypted PCIe)
+Confidential GPU mode with protected CPU–GPU transfers
    ↓
 Open-weights LLM + reproducible build hash
    ↓
@@ -83,11 +83,11 @@ Files: [Overview - Financial Sovereignty](/kb/financial-sovereignty/), [Lightnin
 ```
 Nostr keypair (signing key)
    ↓
-NIP-17 gift-wrapped DMs (metadata protection)
+NIP-17 gift-wrapped DMs (sender hidden; recipient tag visible)
    ↓
 Blossom for media blobs (SHA-256-addressed, mirrored)
    ↓
-NIP-05 over PKARR (no DNS dependency)
+Public-key identity; optional NIP-05 alias via DNS and HTTPS
    ↓
 Multiple relays (transport redundancy)
    ↓
@@ -147,7 +147,7 @@ This is the vFHE (verifiable FHE) pattern. Either of these alternatives also wor
 
 Files: [Overview - Fully Homomorphic Encryption](/kb/fully-homomorphic-encryption/), [Overview - Zero-Knowledge Proofs](/kb/zero-knowledge-proofs/), [Overview - Confidential Computing](/kb/confidential-computing/).
 
-### Unruggable ecash mint (TEE composition 2026)
+### Hardware-protected ecash mint (deployment pattern)
 
 ```
 Bitcoin/Lightning reserves (self-custodied or on-chain visible)
@@ -158,7 +158,7 @@ Remote attestation + transparency log (client verifies correct code + measuremen
    ↓
 Blind signatures issued; users hold bearer tokens offline / over Nostr / mesh
    ↓
-Redemption or swap still works; operator cannot inflate or steal
+Redemption still depends on the mint; evaluate code, reserves, rollback and hardware trust
 ```
 
 Direct 01 + 06 composition. See [Cashu and Chaumian Ecash](/kb/cashu-ecash/) and confidential computing attestation files. Moves from "trust the mint runner" to "trust the hardware root + audited enclave code."
@@ -190,3 +190,13 @@ These look decentralized or private only on the surface:
 ## Files most relevant
 
 Every Overview in this library. Start with [Research Methodology](/method/)'s evaluation criteria, then pick the relevant overviews and build a stack.
+
+## Primary sources
+
+- [RFC 9334: attestation architecture](https://www.rfc-editor.org/rfc/rfc9334.html)
+- [RA-TLS: binding attestation to TLS](https://arxiv.org/abs/1801.05863)
+- [Nostr NIP-05: DNS-based identifiers](https://github.com/nostr-protocol/nips/blob/master/05.md)
+- [Nostr NIP-59: gift-wrap metadata](https://github.com/nostr-protocol/nips/blob/master/59.md)
+- [Cashu NUT-00: protocol and mint trust](https://github.com/cashubtc/nuts/blob/main/00.md)
+- [Lightning BOLT 4: onion routing](https://github.com/lightning/bolts/blob/master/04-onion-routing.md)
+- [NVIDIA: Confidential Computing on H100 GPUs](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)

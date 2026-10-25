@@ -6,7 +6,7 @@ pillars: ["cryptography"]
 readiness: usable
 description: "Password-authenticated key exchange and OPAQUE: logging in with a password without the server ever learning it, standardised by the IETF."
 dek: "Password-Authenticated Key Exchange: protocols where two parties agree on a strong shared key from a low-entropy password, without ever sending the password (or anything offline-attackable) over the wire. The asymmetric variants (aPAKE) further ensure the server stores no usable password equivalent."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "02-Cryptography/OPAQUE and PAKE.md"
@@ -20,7 +20,7 @@ The TLS-then-send-password pattern leaks the password to anyone who can compromi
 
 - The protocol transcript leaks no information enabling offline password guessing.
 - Each session yields a key only obtainable by parties who knew the password during the exchange.
-- In aPAKE variants, the server stores a value that does not enable a server-side dictionary attack.
+- In aPAKE variants, the server stores a registration record instead of the plaintext password. Full server compromise can still permit offline password guessing.
 
 The shared abstraction:
 
@@ -36,11 +36,11 @@ client(password)        server(verifier or password-hash)
 
 | Category | Server stores | Stolen DB enables offline crack | Standardized |
 |----------|---------------|---------------------------------|--------------|
-| Symmetric PAKE (e.g. CPace) | shared password | yes (both sides equivalent) | RFC 9710 (2024) |
+| Symmetric PAKE (e.g. CPace) | shared password | yes (both sides equivalent) | CFRG Internet-Draft |
 | aPAKE (e.g. SRP, OPAQUE) | a verifier (one-way) | depends on construction | varies |
-| Strong aPAKE (OPAQUE) | OPRF-blinded envelope | no offline crack pre-compromise | RFC 9807 (2025) |
+| Strong aPAKE (OPAQUE) | OPRF-blinded envelope | resists precomputation; full compromise permits guessing | RFC 9807 (2025) |
 
-The "strong" qualifier matters: vanilla aPAKE schemes including SRP allow a server-side breach to enable offline dictionary attacks. OPAQUE is the first widely-adopted PAKE that resists this.
+OPAQUE resists precomputed password attacks before server compromise. After full compromise, including the server’s OPRF secret, an attacker can test guesses offline; key stretching raises the cost per guess.
 
 ## SRP (Secure Remote Password)
 
@@ -59,7 +59,7 @@ Despite the warts, SRP is in production at 1Password (key-derivation handshake),
 
 ## CPace
 
-Haase and Labrique, *AuCPace*. Standardized as **RFC 9710** (April 2024) under the CFRG CPace track. Symmetric PAKE — both parties hold the password, no server-stored verifier asymmetry.
+CPace is specified in the CFRG Internet-Draft `draft-irtf-cfrg-cpace`. Symmetric PAKE — both parties hold the password, no server-stored verifier asymmetry.
 
 ```
 both parties:  G = hash_to_curve(password, sid, ad)
@@ -72,49 +72,19 @@ Use cases: device pairing (Bluetooth-style PIN), key escrow recovery between two
 
 ## OPAQUE
 
-Jarecki, Krawczyk and Xu, *OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks*, EUROCRYPT 2018. Standardized as **RFC 9807** (March 2025) after a multi-year CFRG draft process.
+Jarecki, Krawczyk and Xu, *OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks*, EUROCRYPT 2018. Published as the informational IRTF **RFC 9807** (July 2025) after a multi-year CFRG draft process.
 
-Core idea: combine an Oblivious PRF (OPRF) with an authenticated key exchange. Registration:
+Core idea: combine an Oblivious PRF (OPRF), credential recovery, and authenticated key exchange. The client blinds its password for the OPRF exchange, derives a randomized password, and uses it to recover authentication credentials. The server does not receive the plaintext password, including during registration.
 
-```
-client:  rwd = H(password, OPRF(server_oprf_key, password))
-client:  envelope = AEAD(rwd, key_pair_for_login)
-client → server: store(envelope, oprf_key_per_user)
-```
+RFC 9807’s envelope contains a nonce and authentication tag. The client derives its private key and authenticates the associated credentials; the envelope is not simply an AEAD-encrypted private-key blob.
 
-Login:
-
-```
-client → server: OPRF eval blind for password
-server → client: oprf_response (without learning password)
-client:  rwd = H(password, OPRF eval)
-client:  decrypt envelope → long-term keypair
-both:   AKE using the keypair
-```
-
-Properties:
-
-- Server never sees the password or anything from which it can derive the password offline. The OPRF binds the password evaluation to the server's secret OPRF key, which is what blocks pre-computation: an attacker who steals the database must still query a (potentially rate-limited) OPRF online for each guess, or must additionally steal the OPRF key.
-- Even with both database and OPRF key stolen, the work factor is one OPRF per guess plus one AEAD decryption — defenders can pick a slow OPRF and a memory-hard KDF (Argon2id) inside the envelope to make brute force expensive.
-- Composable AKE: the IETF spec permits 3DH and HMQV-style instantiations. Reference uses 3DH over `ristretto255` or `decaf448`.
-
-### Cipher suites in RFC 9807
-
-| Suite | Group | OPRF | AKE | Hash |
-|-------|-------|------|-----|------|
-| `OPAQUE-3DH-Ristretto255-SHA512` | ristretto255 | ristretto255 OPRF | 3DH | SHA-512 |
-| `OPAQUE-3DH-Decaf448-SHAKE256` | decaf448 | decaf448 OPRF | 3DH | SHAKE-256 |
-| `OPAQUE-3DH-P256-SHA256` | NIST P-256 | P-256 OPRF | 3DH | SHA-256 |
-| `OPAQUE-3DH-P384-SHA384` | NIST P-384 | P-384 OPRF | 3DH | SHA-384 |
-| `OPAQUE-3DH-P521-SHA512` | NIST P-521 | P-521 OPRF | 3DH | SHA-512 |
+The RFC specifies a 3DH instantiation. Implementations must agree on the OPRF, group, hash, KDF, MAC and key-stretching parameters. Full server compromise permits offline guessing, while separating the OPRF secret into a rate-limited protected service can change that deployment’s compromise boundary.
 
 ## Production deployments
 
 ### WhatsApp encrypted backups (2021)
 
-WhatsApp shipped end-to-end encrypted iCloud/Google Drive backups in 2021 using an HSM-backed PAKE-like protocol. Public materials describe a flow consistent with an OPRF + envelope (an OPAQUE-class design), with the OPRF evaluated by an HSM array. Offline attacks against the HSM-locked secrets are blocked unless an attacker compromises the HSM. This was a flagship deployment that pushed CFRG to finalize OPAQUE as a standard.
-
-Source: WhatsApp engineering whitepaper, *Security of End-to-End Encrypted Backups*, 2021.
+WhatsApp’s published encrypted-backup design uses OPAQUE to authenticate password-based access to a backup-key vault protected by HSMs. Its guessing limits depend on that protected service, not on OPAQUE eliminating offline guessing after full compromise.
 
 ### Cloudflare and the Privacy Pass adjacency
 
@@ -129,8 +99,8 @@ Modern passkey-style auth (WebAuthn, FIDO2) competes with OPAQUE on the same pro
 | Property | SRP | CPace | OPAQUE |
 |----------|-----|-------|--------|
 | Asymmetric (server-only verifier) | yes | no | yes |
-| Strong aPAKE (no offline crack from DB) | no | n/a | **yes** |
-| RFC | 2945, 5054 (TLS) | 9710 | **9807** |
+| Resists password precomputation before server compromise | no | n/a | **yes** |
+| Specification | RFC 2945, 5054 (TLS) | CFRG CPace draft | RFC 9807 (informational) |
 | Curve choice | discrete-log group | EC | EC |
 | Round trips | 2 | 2 | 3 (registration) / 2 (login) |
 | OPRF dependency | none | none | required |
@@ -139,7 +109,7 @@ Modern passkey-style auth (WebAuthn, FIDO2) competes with OPAQUE on the same pro
 
 ## Security assumptions
 
-- OPAQUE: OPRF security (one-more-DH or analogous), AKE security of the underlying 3DH, AEAD soundness, KDF irreducibility. The 2018 paper's UC-style proof has been refined through CFRG review.
+- OPAQUE: OPRF security (one-more-DH or analogous), AKE security of the underlying 3DH, MAC and KDF security. The 2018 paper's UC-style proof has been refined through CFRG review.
 - Side-channel: hash-to-curve in the OPRF must be constant-time (RFC 9380 SSWU/Elligator2).
 - Quantum: all listed PAKEs are broken by Shor on the elliptic-curve operations. Lattice-based PAKE constructions exist (e.g., Beguinet et al. 2023) but no IETF-blessed cipher suite as of 2026.
 
@@ -147,16 +117,16 @@ Modern passkey-style auth (WebAuthn, FIDO2) competes with OPAQUE on the same pro
 
 - **Don't roll your own.** PAKE has historically broken under subtle modifications. Use audited libraries (`opaque-ke` in Rust, Cloudflare's reference, the `voprf` crate).
 - **Salt and parameters must be deterministic per user.** Generating fresh salts on each login defeats aPAKE.
-- **Argon2id inside the envelope is recommended** so that even if both DB and OPRF key leak, the per-guess cost is high.
+- **Use the agreed key-stretching function** so that even if both DB and OPRF key leak, the per-guess cost is high.
 - **TLS underneath is still required** for transport-level integrity and replay protection — OPAQUE is not a substitute for TLS.
 
 ## Primary sources
 
-- Wu, *The SRP Authentication and Key Exchange System*, RFC 2945 (Sep 2000).
-- Taylor, Wu, Mavrogiannopoulos, Perrin, *Using SRP for TLS Authentication*, RFC 5054 (Nov 2007).
-- Jarecki, Krawczyk, Xu, *OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks*, EUROCRYPT 2018.
-- Bourdrez, Krawczyk, Lewi, Wood, *The OPAQUE Asymmetric PAKE Protocol*, RFC 9807 (Mar 2025).
-- Haase, Labrique, *CPace, a Balanced Composable PAKE*, RFC 9710 (Apr 2024).
-- WhatsApp, *Security of End-to-End Encrypted Backups*, 2021 whitepaper.
-- `opaque-ke` (Rust): [github.com/facebook/opaque-ke](https://github.com/facebook/opaque-ke).
-- CFRG VOPRF: RFC 9497 (Dec 2023).
+- [RFC 2945: The SRP Authentication and Key Exchange System](https://www.rfc-editor.org/rfc/rfc2945.html)
+- [RFC 5054: Using SRP for TLS Authentication](https://www.rfc-editor.org/rfc/rfc5054.html)
+- [OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks](https://eprint.iacr.org/2018/163)
+- [RFC 9807: The OPAQUE Asymmetric PAKE Protocol](https://www.rfc-editor.org/rfc/rfc9807.html)
+- [CFRG: CPace, a balanced composable PAKE](https://datatracker.ietf.org/doc/draft-irtf-cfrg-cpace/)
+- [opaque-ke implementation](https://github.com/facebook/opaque-ke)
+- [RFC 9497: OPRFs using prime-order groups](https://www.rfc-editor.org/rfc/rfc9497.html)
+- [WhatsApp: encrypted backups design](https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/)

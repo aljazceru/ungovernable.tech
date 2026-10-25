@@ -6,7 +6,7 @@ pillars: ["confidential"]
 readiness: usable
 description: "Confidential Containers (CoCo) runs Kubernetes pods inside confidential VMs with attestation and key release: architecture, components and caveats."
 dek: "The CNCF project that makes confidential VMs look like ordinary Kubernetes pods, paired with an attestation-gated secret-release service that makes the whole thing safe to deploy."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/Confidential-Containers.md"
@@ -53,7 +53,7 @@ Container ecosystems assume the node is the trust boundary: kubelet reads secret
 │  Trustee (out-of-band, operator-owned or       │
 │  third-party)                                  │
 │    - Key Broker Service (KBS)                  │
-│    - Attestation Service (AS) — Veraison       │
+│    - Attestation Service (AS)                 │
 │    - Reference Value Provider Service (RVPS)   │
 │    - Resource repository (secrets, keys)      │
 └───────────────────────────────────────────────┘
@@ -67,7 +67,7 @@ Container ecosystems assume the node is the trust boundary: kubelet reads secret
 | **Kata-agent** | Tiny agent inside the CVM that talks to the host shim over a hardened vsock channel; measured into RTMR. |
 | **Attestation-agent** | Client-side of RATS; collects evidence (TDX quote, SNP report, etc.) and talks to the KBS. |
 | **Image puller** | Pulls OCI images *inside* the CVM (not on the untrusted host), supports encrypted images (OCIcrypt / skopeo encrypt). |
-| **Trustee** | The relying-party services: KBS, Attestation Service (Veraison-based), RVPS (known-good measurements), resource store. |
+| **Trustee** | The relying-party services: KBS, Attestation Service, RVPS (known-good measurements), resource store. |
 | **KBS (Key Broker Service)** | Single gateway the attestation-agent talks to; returns keys, secrets, or encrypted resources only after the Attestation Service approves the evidence. |
 | **Peer-pods** | CoCo mode where the CVM runs on a *different* host (e.g., a managed confidential VM instance in the cloud) because the K8s worker itself may not have TDX/SNP. The shim becomes a thin broker. |
 
@@ -114,7 +114,7 @@ Caveat: the OCI registry sees manifests, tags, and layer sizes. Traffic analysis
 | **Edgeless MarbleRun** | Service mesh for confidential workloads; handles attestation-gated cert issuance |
 | **Inclavare / Occlum** | Library-OS approach (SGX-centric); different trade-offs than CoCo's VM approach |
 | **Gramine-SGX** | Library OS for unmodified Linux binaries in SGX; predates CoCo, still widely used for tight SGX workloads |
-| **Veraison** | Open verifier used inside Trustee |
+| **Veraison** | An alternative attestation-verification service; distinct from Trustee’s native Attestation Service |
 | **Keylime** | Runtime integrity verification (IMA) for confidential and non-confidential hosts; can be combined |
 
 ## Production considerations
@@ -132,10 +132,11 @@ Caveat: the OCI registry sees manifests, tags, and layer sizes. Traffic analysis
 - Jobs where the trust boundary is the VM, not the pod. Then Constellation (all-confidential cluster) may be cleaner.
 - FHE or MPC workloads where the whole point is no hardware trust. TEEs are the wrong tool.
 
-## Primary Sources
+## Primary sources
 
-- CoCo project — `github.com/confidential-containers`
-- Trustee repo + docs — `github.com/confidential-containers/trustee`
-- Kata Containers docs — `katacontainers.io/docs/`
-- Edgeless Constellation — `docs.edgeless.systems/constellation`
-- OCIcrypt spec — `github.com/containers/ocicrypt`
+- [Confidential Containers architecture](https://confidentialcontainers.org/docs/architecture/)
+- [Trustee implementation and architecture](https://github.com/confidential-containers/trustee)
+- [Kata Containers documentation](https://github.com/kata-containers/kata-containers/tree/main/docs)
+- [Constellation architecture](https://docs.edgeless.systems/constellation/architecture/overview)
+- [OCIcrypt implementation and image encryption](https://github.com/containers/ocicrypt)
+- [Confidential Containers: init-data and policy](https://confidentialcontainers.org/docs/features/initdata/)

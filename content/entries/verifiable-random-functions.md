@@ -3,9 +3,10 @@ title: "Verifiable Random Functions (VRFs)"
 slug: verifiable-random-functions
 type: explainer
 pillars: ["cryptography"]
+readiness: usable
 description: "Verifiable random functions give pseudorandom outputs plus a proof the key holder computed them correctly, used in consensus and key transparency."
 dek: "A pseudorandom function whose outputs come with a non-interactive proof that the holder of a secret key produced them correctly. Anyone with the public key can verify the output is the unique value the keyholder committed to."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "02-Cryptography/VRFs.md"
@@ -58,7 +59,7 @@ H = hash_to_curve(pk || α)
 
 Verification recomputes `H`, checks the Schnorr equation, then derives `β` from `Γ`. Uniqueness comes from the fact that a single point `Γ = sk·H` exists per `(sk, α)`.
 
-RFC 9381 specifies five suites:
+RFC 9381 specifies four ECVRF suites (and a separate RSA-FDH-VRF construction):
 
 | Suite | Curve | Hash-to-curve |
 |-------|-------|---------------|
@@ -66,7 +67,7 @@ RFC 9381 specifies five suites:
 | `ECVRF-P256-SHA256-SSWU` | NIST P-256 | Simplified SWU (RFC 9380) |
 | `ECVRF-EDWARDS25519-SHA512-TAI` | edwards25519 | try-and-increment |
 | `ECVRF-EDWARDS25519-SHA512-ELL2` | edwards25519 | Elligator2 |
-| `ECVRF-secp256k1-SHA256-TAI` | secp256k1 | try-and-increment |
+
 
 Try-and-increment leaks timing on `α` (the number of iterations is input-dependent); SSWU and Elligator2 are constant-time and preferred for new deployments.
 
@@ -105,12 +106,12 @@ Several Nostr relay-selection and committee-rotation proposals use VRF-based sor
 | Property | Commit-reveal | VRF | VRF + on-chain seed |
 |----------|---------------|-----|---------------------|
 | Round trips | 2 (commit, reveal) | 1 | 1 |
-| Bias by aborting reveal | yes | n/a | n/a |
+| Bias by withholding a result | yes | possible | possible |
 | Bias by choosing input | n/a | grind seed before commit | block-hash seed mitigates |
 | Public verifiability | after reveal | immediate | immediate |
 | Operator can withhold | yes (drops) | yes (refuse to publish) | yes (but seed is public) |
 
-VRF removes the abort-bias problem of commit-reveal. The remaining bias surface is whether the operator can choose the input `α` adversarially. Pinning `α` to a recent block hash or beacon output (League of Entropy) closes this loop. See [VDFs](/kb/verifiable-delay-functions/) for the complementary problem of the input itself being predictable far in advance.
+A VRF fixes the output for a given public key and input, but the keyholder can still withhold an unfavorable result. Fixing the input in advance limits input grinding; a surrounding protocol must also address withholding. See [VDFs](/kb/verifiable-delay-functions/) for the complementary problem of the input itself being predictable far in advance.
 
 ## Security assumptions
 
@@ -120,7 +121,7 @@ VRF removes the abort-bias problem of commit-reveal. The remaining bias surface 
 
 ## Standardization state
 
-- **RFC 9381** (Aug 2023): IRTF/CFRG-published ECVRF specification with five cipher suites. Stable; multiple production implementations.
+- **RFC 9381** (Aug 2023): IRTF/CFRG-published VRF specification with four ECVRF cipher suites. Stable; multiple production implementations.
 - **draft-irtf-cfrg-vrf-15** preceded the RFC; older deployments may pin to specific drafts.
 - No NIST profile yet. NIST has not standardized VRFs separately from broader random-beacon work.
 
@@ -129,7 +130,7 @@ VRF removes the abort-bias problem of commit-reveal. The remaining bias surface 
 - Reference: `c2sp/vrf-r255` (Filippo Valsorda) for ristretto255 ECVRF.
 - Algorand's `go-algorand` ships its own audited ECVRF implementation.
 - Chainlink VRF v2/v2.5 uses a Solidity verifier for `ECVRF-secp256k1-SHA256`.
-- `noble-curves` (Paul Miller) ships RFC 9381 ECVRF in pure JS/TS.
+
 - Constant-time hash-to-curve is non-trivial; pin to RFC 9380 SSWU/Elligator2 implementations rather than rolling your own.
 
 ## Trade-offs
@@ -150,11 +151,9 @@ VRF removes the abort-bias problem of commit-reveal. The remaining bias surface 
 
 ## Primary sources
 
-- Micali, Rabin, Vadhan, *Verifiable Random Functions*, FOCS 1999.
-- Goldberg, Reyzin, Papadopoulos, Včelák, *Verifiable Random Functions* — RFC 9381 (Aug 2023).
-- Faz-Hernández, Scott, Sullivan, Wahby, Wood, *Hashing to Elliptic Curves*, RFC 9380 (Aug 2023).
-- Chen, Micali, *Algorand: A Secure and Efficient Distributed Ledger*, 2017.
-- Goldberg, Reyzin, Papadopoulos, Včelák, *NSEC5: Provably Preventing DNSSEC Zone Enumeration*, NDSS 2015.
-- Davidson, Goldberg, Sullivan et al., *Privacy Pass: Bypassing Internet Challenges Anonymously*, PETS 2018.
-- ECVRF reference: [github.com/C2SP/CCTV/tree/main/RFC9381](https://github.com/C2SP/CCTV/tree/main/RFC9381).
-- noble-curves: [github.com/paulmillr/noble-curves](https://github.com/paulmillr/noble-curves).
+- [RFC 9381: Verifiable Random Functions](https://www.rfc-editor.org/rfc/rfc9381.html)
+- [RFC 9380: Hashing to Elliptic Curves](https://www.rfc-editor.org/rfc/rfc9380.html)
+- [Chen and Micali: Algorand](https://arxiv.org/abs/1607.01341)
+- [NSEC5: Provably Preventing DNSSEC Zone Enumeration](https://eprint.iacr.org/2014/582)
+- [Micali, Rabin and Vadhan: Verifiable Random Functions](https://people.seas.harvard.edu/~salil/research/VRF-abs.html)
+- [Privacy Pass: Bypassing Internet Challenges Anonymously](https://petsymposium.org/2018/files/papers/issue3/popets-2018-0026.pdf)

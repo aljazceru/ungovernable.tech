@@ -3,6 +3,7 @@ title: "PIR Use Cases and Deployments"
 slug: pir-use-cases
 type: explainer
 pillars: ["cryptography"]
+readiness: usable
 description: "Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more."
 dek: "Where private information retrieval is actually being used, tested, or planned for production. From Certificate Transparency auditing to Ethereum privacy to Apple device features."
 updated: 2026-10-25
@@ -52,7 +53,7 @@ Even if transactions themselves are private (via privacy pools, ZK proofs, etc.)
 ### Key Developments
 
 #### Kohaku Privacy Toolkit (2025–2026)
-Kohaku is an open-source Ethereum privacy toolkit developed by the Ethereum Foundation's Privacy Cluster (announced October 2025, 47-member team). It consists of:
+Kohaku is an open-source Ethereum privacy toolkit developed by the Ethereum Foundation's Privacy Cluster (see the public project repository). It consists of:
 - **Kohaku SDK**: Modular plugin system for wallet developers
 - **Kohaku Reference Wallet**: Browser extension forked from Ambire, targeted at power users
 
@@ -78,10 +79,9 @@ The SDK moved from announcement to shipping alpha artifacts (GitHub-verified Aug
 | `@kohaku-eth/provider` | 0.1.0-alpha.9 | Aug 21 2026 (NEW — wallet↫network abstraction; 0.1.0 major.minor ahead of plugins) |
 | `@kohaku-eth/pq-account` | listed | Post-quantum ERC-4337 account implementation |
 
-- Repo: https://github.com/ethereum/kohaku — 399 stars, created Aug 1 2025, active weekly releases.
-- **Railgun integration has operational ERC-4337 mempool relaying** — private transactions route through the 4337 mempool instead of protocol-specific relayers, removing a centralized-relayer dependency (The Defiant). SDK announced May 25 2026; Ambire integrating in production; breadcoop collaboration on an experimental browser-extension wallet; CLI reference wallet from `kassandraoftroy/kohaku-cli`.
+- The Kohaku repository publishes the toolkit’s implementation.
 - **Scope**: shielded-pool writes (Railgun, Tornado Cash, Privacy Pools) plus post-quantum accounts, multisig, hardware-wallet support. Berlin Blockchain Week showcase planned.
-- **The private-*reads* (PIR) side is NOT yet in the SDK** — it remains the Phase-1-then-endgame architecture above. The Kohaku testnet roadmap (`ethereum/wallet-poc`) schedules "v1: Abstraction Core with Privacy by Design" across January–August 2026, making H2 2026 the watch window for the first PIR-backed wallet feature.
+- **The private-*reads* (PIR) side is NOT yet in the SDK** — it remains the Phase-1-then-endgame architecture above. The Kohaku testnet roadmap ([Kohaku private-state-reading prototype](https://github.com/ethereum/wallet-poc)) schedules "v1: Abstraction Core with Privacy by Design" across January–August 2026, making H2 2026 the watch window for the first PIR-backed wallet feature.
 
 #### Sharded PIR Design for Ethereum State
 Ali Atiia and Keewoo Lee published a comprehensive design for sharding Ethereum state across multiple PIR schemes on ethresear.ch (2025). Key proposals:
@@ -121,7 +121,7 @@ Search engines (Google, Bing, DuckDuckGo) see every query you make. Even "privac
 Tiptoe is a system for fully private web search built by Alexandra Henzinger et al. (MIT, Google). It was published at SOSP 2023 and demonstrates that private web search is architecturally feasible.
 
 **Architecture**:
-- Two non-colluding servers: a **ranking service** and a **URL service**.
+- Separate ranking and URL services, with privacy based on cryptography rather than an assumption that their operators do not collude.
 - Documents are pre-processed: embedded into vectors, clustered, and organized into cryptographic data structures.
 - The client encrypts its query using Regev encryption (LWE).
 - The ranking service computes on encrypted data to find the relevant document cluster.
@@ -134,17 +134,17 @@ Tiptoe is a system for fully private web search built by Alexandra Henzinger et 
 - Compatible with transformer embedding models.
 - Query latency is practical on a cluster of tens of machines.
 
-**Repo**: https://github.com/ahenzinger/tiptoe (56 stars)
+**Implementation**: see the Tiptoe source in the primary-source list.
 
 **Funded by**: Capital One, Facebook, Google, Mozilla, NASDAQ, MIT FinTech@CSAIL, NSF.
 
 ### Deployment Status
 
-Tiptoe is a **research prototype** that demonstrates feasibility. It is not deployed as a product. The non-collusion requirement (two independent server operators) is the main deployment barrier. Mozilla's involvement is notable as they could potentially operate one of the two servers.
+Tiptoe is a **research prototype** that demonstrates feasibility. It is not deployed as a product. Its implementation is a research prototype with substantial computation and communication requirements; independent non-colluding operators are not a prerequisite.
 
 ### Relevance to Freedom Tech
 
-Private search is one of the highest-impact privacy primitives. If search queries are truly hidden, the largest surveillance vector in everyday internet use is closed. Tiptoe's architecture (two non-colluding servers) maps naturally to organizations like Mozilla + Tor Project, or EFF + a university.
+Private search is one of the highest-impact privacy primitives. If search queries are truly hidden, the largest surveillance vector in everyday internet use is closed. Tiptoe’s architecture protects the query without relying on separate organizations refusing to collude.
 
 ## 4. Apple Device Features
 
@@ -183,7 +183,7 @@ PIR enables checking a password against a breach database without revealing whic
 
 ### Deployment Status
 
-**Research**. No production password-checking service is known to use PIR. Google Password Checkup uses k-anonymity (range queries), which is less private than PIR but more practical at current performance levels. iSimplePIR's incremental update support makes PIR-based breach checking more viable for frequently-updated breach databases.
+**Research**. No production password-checking service is known to use PIR. Google Password Checkup combines a k-anonymity partition with private set intersection; describing it as only a range query omits its cryptographic protection. iSimplePIR's incremental update support makes PIR-based breach checking more viable for frequently-updated breach databases.
 
 ## 6. Private Contact Discovery
 
@@ -231,7 +231,7 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 |----------|--------|-----------|---------|
 | CT Log Auditing | Research→Pilot | YPIR (48× cost reduction) | Operator adoption |
 | Ethereum Private Reads | Design→Prototype | Sharded PIR, Kohaku, RisePIR | Performance at ETH state size |
-| Private Web Search | Prototype | Tiptoe (two-server) | Non-collusion requirement |
+| Private Web Search | Prototype | Tiptoe (cryptographic single-server trust model) | Computation and communication cost |
 | Apple Device Features | **Production** | HE+PIR; public Swift library and service example | Public code can be inspected; example backend is not for production |
 | Password Breach Check | Research | iSimplePIR | Incremental update performance |
 | Contact Discovery | Research | Respire, FrodoPIR | DB size (billions of entries) |
@@ -248,7 +248,7 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 ### Pattern 2: Two Non-Colluding Servers
 - Client queries both servers, neither learns the query alone.
 - Information-theoretic security possible.
-- Best for: Private web search (Tiptoe), high-security applications.
+- Best for: Applications explicitly designed for a non-collusion model; Tiptoe does not require that assumption.
 - Deployment barrier: Finding two independent operators.
 
 ### Pattern 3: Hardware-Assisted (TEE+ORAM)
@@ -266,7 +266,19 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 
 ## Primary sources
 
-- [Apple Swift Homomorphic Encryption, including PIR](https://github.com/apple/swift-homomorphic-encryption)
-- [Apple PIR Service Example and deployment limits](https://github.com/apple/pir-service-example)
+- [Apple Swift Homomorphic Encryption](https://github.com/apple/swift-homomorphic-encryption)
+- [Apple PIR service example](https://github.com/apple/pir-service-example)
+- [Apple: Combining Machine Learning and Homomorphic Encryption](https://machinelearning.apple.com/research/homomorphic-encryption)
+- [SimplePIR and DoublePIR implementation](https://github.com/ahenzinger/simplepir)
+- [YPIR: High-Throughput Single-Server PIR with Silent Preprocessing](https://www.usenix.org/conference/usenixsecurity24/presentation/menon)
+- [Tiptoe private search implementation](https://github.com/ahenzinger/tiptoe)
+- [Respire: High-Rate PIR for Databases with Small Records](https://eprint.iacr.org/2024/1165)
+- [Kohaku SDK](https://github.com/ethereum/kohaku)
+- [Kohaku private-state-reading prototype](https://github.com/ethereum/wallet-poc)
+- [Ethereum privacy roadmap](https://ethereum.org/roadmap/privacy/)
+- [Incremental Single-Server Private Information Retrieval](https://eprint.iacr.org/2026/030)
+- [Google hintless PIR](https://github.com/google/hintless_pir)
+- [Google Password Checkup: private set intersection](https://security.googleblog.com/2019/06/helping-organizations-do-more-without-collecting-more-data.html)
+- [Signal private contact discovery](https://signal.org/blog/private-contact-discovery/)
 
 For separating a request from its network origin, compare [Oblivious HTTP and DNS](/kb/oblivious-http/).

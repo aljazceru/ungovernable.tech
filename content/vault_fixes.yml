@@ -36,35 +36,114 @@ at-protocol:
   replace:
   - new: Not native; NIP-26 delegation is unrecommended
     old: Not native (NIP-26 delegation; FROST experiments)
-  - new: |-
-      ## Primary sources
+  - new: '## Primary sources
 
-      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)'
     old: '## Primary sources'
+  - old: Signs records on the user's behalf if it holds the rotation key (or accepts client-signed records if not).
+    new: Signs repository commits with the repository signing key. Rotation keys authorize DID updates and are a separate role.
+  - old: identifiers are random and portable across PDSs
+    new: identifiers derive from the genesis operation and are portable across PDSs
+  - old: production uses Ed25519/secp256k1
+    new: the specified curves are P-256 and secp256k1
+  - old: '| plc.directory censors / refuses operations | did:web fallback; future migration to decentralized PLC substrate |'
+    new: '| plc.directory censors / refuses operations | Existing did:plc identities depend on the directory accepting updates; did:web is a separate identity choice |'
+  - old: 3. **Migrate to a different DID method**. Users who care can move to did:web today. There is no migration scheme from did:plc to a future fully decentralized method.
+    new: 3. **Choose a DID method when creating an identity**. did:web is supported, but changing DID method changes the account’s identifier; it is not ordinary PDS migration.
   updated: '2026-10-25'
+  sources:
+  - title: 'NIPs registry: delegation status'
+    url: https://github.com/nostr-protocol/nips
+  - title: AT Protocol specification
+    url: https://atproto.com/specs/atp
+  - title: did:plc specification and directory implementation
+    url: https://github.com/did-method-plc/did-method-plc
+  - title: Lexicon specification
+    url: https://atproto.com/specs/lexicon
+  - title: PLC Directory
+    url: https://web.plc.directory/
+  - title: AT Protocol account migration
+    url: https://atproto.com/guides/account-migration
+  - title: W3C DID Core
+    url: https://www.w3.org/TR/did-core/
+  - title: AT Protocol reference implementations
+    url: https://github.com/bluesky-social/atproto
+  - title: AT Protocol cryptographic curves
+    url: https://atproto.com/specs/cryptography
+  - title: AT Protocol repository specification
+    url: https://atproto.com/specs/repository
+  - title: AT Protocol DID requirements
+    url: https://atproto.com/specs/did
+
 bitcoin-post-quantum-migration:
   replace:
-  - new: P2PKH and P2WPKH outputs contain a public-key hash. P2TR outputs instead publish the tweaked
-      public key when the output is created, before any spend.
+  - new: P2PKH and P2WPKH outputs contain a public-key hash. P2TR outputs instead publish the tweaked public key when the output is created, before any spend.
     old: Hash-locked outputs (P2PKH, P2WPKH, P2TR) only expose the pubkey *when the output is spent*.
-  - new: '| **P2TR** (Taproot) | At output creation | The output contains the 32-byte tweaked public key
-      Q. Key-path spending verifies a Schnorr signature against Q; Q is a curve point, not a public-key
-      hash. |'
-    old: '| **P2TR** (Taproot) | After first spend | Address is the tweaked pubkey (`HASH(internal_pubkey
-      \|\| merkle_root)`). On spend, the internal pubkey is revealed in some script paths. Key-path spends
-      reveal less. |'
+  - new: '| **P2TR** (Taproot) | At output creation | The output contains the 32-byte tweaked public key Q. Key-path spending verifies a Schnorr signature against Q; Q is a curve point, not a public-key hash. |'
+    old: '| **P2TR** (Taproot) | After first spend | Address is the tweaked pubkey (`HASH(internal_pubkey \|\| merkle_root)`). On spend, the internal pubkey is revealed in some script paths. Key-path spends reveal less. |'
   - new: P2PKH, P2WPKH
     old: P2PKH, P2WPKH, P2TR key-path
-  - new: Unspent Taproot outputs belong in the exposed-public-key category. Never spending from a Taproot
-      address does not hide its output key.
-    old: 'Estimates as of 2025: roughly 25-30% of all BTC sits in already-exposed pubkeys (P2PK + reused
-      addresses). The rest is hash-protected, which buys time but not safety once a CRQC exists.'
-  - new: |-
-      ## Primary sources
+  - new: Unspent Taproot outputs belong in the exposed-public-key category. Never spending from a Taproot address does not hide its output key.
+    old: 'Estimates as of 2025: roughly 25-30% of all BTC sits in already-exposed pubkeys (P2PK + reused addresses). The rest is hash-protected, which buys time but not safety once a CRQC exists.'
+  - new: '## Primary sources
 
-      - [BIP 341: Taproot output keys and key-path validation](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
+
+      - [BIP 341: Taproot output keys and key-path validation](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)'
     old: '## Primary sources'
+  - old: version 0.11.0 checked April 2026
+    new: version 0.12.1 checked October 2026
+  - old: 'P2MR script: OP_PUSHNUM_3 <32-byte Merkle root>'
+    new: 'P2MR script: OP_2 OP_PUSHBYTES_32 <32-byte Merkle root>'
+  - old: '**FN-DSA / Falcon** (draft FIPS 206)'
+    new: '**FN-DSA / Falcon** (FIPS 206 under development)'
+  - old: 'Cons: doubles signature size; doesn''t actually protect existing addresses; just adds PQ to new addresses.'
+    new: 'Cons: adds the selected post-quantum signature''s size to the classical signature; does not retroactively protect existing outputs.'
+  - old: '### Hard fork (deprecate vulnerable signatures)'
+    new: '### Deprecating vulnerable signatures'
+  - old: 'A more aggressive proposal: at a flag day, deprecate ECDSA and Schnorr signature acceptance entirely. All UTXOs must be migrated to PQ addresses by date X.'
+    new: BIP-361 proposes a staged sunset of legacy signatures after a post-quantum output type is available. It describes the migration as a series of soft forks. Restricting previously valid spends does not inherently require a hard fork.
+  - old: 4. Eventually hard-fork to deprecate ECDSA / Schnorr — but only after CRQC threat is imminent and coordination is feasible.
+    new: 4. Consider a separately agreed sunset of legacy signatures; BIP-361 describes a soft-fork approach.
+  - old: '- Hard-fork-to-deprecate option is politically untouchable for now.'
+    new: '- A legacy-signature sunset requires a separate consensus decision.'
+  - old: ~1.7M BTC sit in P2PK outputs (early Satoshi-era coins). All immediately at risk.
+    new: ''
+  - old: '- No clear answer for Satoshi-era P2PK coins (~1M+ BTC).'
+    new: '- Treatment of unmigrated P2PK coins remains a separate policy question.'
+  - old: Sapling/Orchard rely on BLS12-381 pairings; full PQ migration would be a redesign
+    new: Sapling uses Groth16 over BLS12-381; Orchard uses Halo 2 over the Pasta curves. Both depend on quantum-vulnerable curve assumptions
+  - old: '`github.com/bitcoin/bips/blob/master/bip-0360.mediawiki`'
+    new: '[BIP 360: Pay-to-Merkle-Root](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki)'
   updated: '2026-10-25'
+  sources:
+  - title: 'BIP 341: Taproot output keys and key-path validation'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
+  - title: 'BIP 360: Pay-to-Merkle-Root'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki
+  - title: 'FIPS 203: ML-KEM'
+    url: https://csrc.nist.gov/pubs/fips/203/final
+  - title: 'FIPS 204: ML-DSA'
+    url: https://csrc.nist.gov/pubs/fips/204/final
+  - title: 'FIPS 205: SLH-DSA'
+    url: https://csrc.nist.gov/pubs/fips/205/final
+  - title: NIST post-quantum signature standardization
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022
+  - title: 'Shor: polynomial-time algorithms for factoring and discrete logarithms'
+    url: https://arxiv.org/abs/quant-ph/9508027
+  - title: 'BIP 340: Schnorr signatures for secp256k1'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
+  - title: 'Aggarwal et al.: Quantum attacks on Bitcoin, and how to protect against them'
+    url: https://arxiv.org/abs/1710.10377
+  - title: 'BIP 361: Post Quantum Migration and Legacy Signature Sunset'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki
+  - title: 'Pieter Wuille and other participants: Against Allowing Quantum Recovery of Bitcoin'
+    url: https://groups.google.com/g/bitcoindev/c/uUK6py0Yjq0
+  - title: Zcash protocol specification
+    url: https://zips.z.cash/protocol/protocol.pdf
+  - title: FN-DSA implementation and standardization caveats
+    url: https://github.com/pornin/c-fn-dsa
+
 briar:
   replace:
   - new: Account backup and export/import recovery are not available.
@@ -101,14 +180,72 @@ briar:
   updated: '2026-10-25'
 cashu-ecash:
   replace:
-  - new: '- **Cryptographic basis**: Cashu uses Blind Diffie-Hellman Key Exchange (BDHKE) on secp256k1,
-      as specified by NUT-00. For migration considerations, see [Post-Quantum Cryptography](/kb/post-quantum-cryptography/).'
-    old: '- **Quantum**: Blind sig schemes (often RSA or similar in Cashu today) need PQ migration planning;
-      symmetric parts inside proofs are easier.'
+  - new: '- **Cryptographic basis**: Cashu uses Blind Diffie-Hellman Key Exchange (BDHKE) on secp256k1, as specified by NUT-00. For migration considerations, see [Post-Quantum Cryptography](/kb/post-quantum-cryptography/).'
+    old: '- **Quantum**: Blind sig schemes (often RSA or similar in Cashu today) need PQ migration planning; symmetric parts inside proofs are easier.'
+  - old: 'Works offline (send tokens via any transport: Nostr DM, USB, QR, LoRa).'
+    new: Tokens can be transferred offline by QR, USB or another transport, but the recipient must contact the mint to swap them and establish that they have not already been spent.
+  - old: '2026 milestone: first production-path "unruggable" mints running keys inside TEE enclaves.'
+    new: Mint custody remains a central trust assumption.
+  - old: "## 2026: TEE-protected \"unruggable\" mints\n\nClassic risk: the mint operator (or coerced) can:\n- Inflate supply (sign extra notes without reserves).\n- Steal backing BTC/LN.\n- Correlate users via timing/amounts if not careful (or log).\n\nMilestone (public testing reported by Cashu lead calle ~May/June 2026): first on-chain Cashu mint with keys generated and operated **entirely inside a TEE enclave** (e.g., Intel TDX/SEV-SNP or equivalent). \n\n- Mint operator never sees the signing keys.\n- Attestation proves the correct code is running.\n- Reserves can be on-chain / LN with enclave-controlled access.\n- Operator cannot unilaterally inflate or exit with funds.\n\nThis moves the trust from \"don't trust the mint operator\" toward \"trust the TEE + attestation + reproducible build + on-chain visibility of backing\".\n\nSee cross-reference: [Confidential-AI-Inference](/kb/confidential-ai-inference/) / [Overview - Confidential Computing](/kb/confidential-computing/) and TEE attestation\
+      \ patterns. This is the canonical ungovernable composition of confidential compute + financial privacy primitive.\n\nStill early (testing/research at time of writing); production mints will need audits, transparency logs for attestation, and user-side verification of measurements."
+    new: '## Mint custody and hardware protection
+
+
+      Blind signatures protect the link between issuance and redemption; they do not prove reserves or prevent the mint from refusing redemption. Cashu users still trust the mint’s custody and availability.
+
+
+      Running mint code in a TEE is a possible deployment pattern, not a guarantee supplied by Cashu. Attestation must be checked against a policy, and hardware, code, reserve custody and rollback behavior remain part of the threat model. See [Remote attestation](/kb/remote-attestation/) and [Confidential computing](/kb/confidential-computing/).'
+  - old: Wallets store/receive/send tokens via Nostr events (gift-wrapped for privacy).
+    new: Wallet state and token records use encrypted Nostr events as specified by NIP-60.
+  - old: Nutzaps — Cashu-based zaps/tips over Nostr (private, no public LN invoice exposure).
+    new: Nutzaps — Cashu tips using kind 9321 events. Recipient tags, sender identity and proofs in these events are public; the proofs are locked for the recipient.
+  - old: '**Double-spend by receiver**: Prevented by mint tracking spent secrets (if you send the same proof twice, second fails).'
+    new: '**Double-spend risk**: A sender can pass the same proof to multiple recipients. The mint rejects already-spent proofs; recipients need an online swap before treating payment as final.'
+  - old: '| Cashu/Ecash   | Mint(s) + network observers | Yes    | Fixed + swaps    | Blind sigs + now TEE/federation | Small spends, tips, offline, private zaps |'
+    new: '| Cashu/Ecash | Blindness against mint; transport metadata remains | Token transfer only; online check needed | Fixed + swaps | Blind signatures; mint remains custodian | Small transfers and tips |'
+  - old: '## Sources & Evidence
+
+
+      - Chaum original: "Blind Signatures for Untraceable Payments" (1982/83).
+
+      - Cashu: protocol docs, NIPs 60/61 in nostr-protocol/nips; implementation repos under cashubtc org.
+
+      - Fedimint: threshold/federated variant docs and code.
+
+      - 2026 TEE milestone: public statements and testing notes from calle (Cashu lead); Socratic seminars and Nostr discussions covering design tradeoffs and attestation.
+
+      - Client integrations: Amethyst release notes (v1.12+), Zeus PRs.
+
+      - Primary verification: run/test mints, inspect proofs, check attestation measurements when TEE mints publish them.
+
+
+      *Ecash is production for small values today; TEE/federated backing is the active research-to-deployment frontier that directly strengthens the ungovernable claim.*'
+    new: ''
   sources:
-  - title: 'Cashu NUT-00: BDHKE on secp256k1'
+  - title: 'Cashu NUT-00: blind Diffie-Hellman signatures and tokens'
     url: https://github.com/cashubtc/nuts/blob/main/00.md
+  - title: 'Cashu NUT-03: token swaps and double-spend checking'
+    url: https://github.com/cashubtc/nuts/blob/main/03.md
+  - title: 'NIP-60: Cashu wallet events'
+    url: https://github.com/nostr-protocol/nips/blob/master/60.md
+  - title: 'NIP-61: Nutzaps'
+    url: https://github.com/nostr-protocol/nips/blob/master/61.md
+  - title: Cashu reference implementation
+    url: https://github.com/cashubtc/nutshell
+  - title: Fedimint implementation
+    url: https://github.com/fedimint/fedimint
+  - title: Amethyst releases
+    url: https://github.com/vitorpamplona/amethyst/releases
+  - title: Zeus releases
+    url: https://github.com/ZeusLN/zeus/releases
+  - title: 'Cashu FAQ: custody and mint trust'
+    url: https://docs.cashu.space/faq
+  - title: 'Chaum: Blind Signatures for Untraceable Payments'
+    url: https://chaum.com/wp-content/uploads/2022/01/Chaum-blind-signatures.pdf
+  - title: 'RFC 9334: Remote ATtestation procedureS Architecture'
+    url: https://www.rfc-editor.org/rfc/rfc9334.html
   updated: '2026-10-25'
+
 cwtch:
   replace:
   - new: '- **Platforms**: Android, Linux, macOS and Windows. The official supported-platform list does
@@ -392,12 +529,38 @@ lightning-network:
   replace:
   - new: Self-custody; check the wallet’s current support and custody model
     old: Self-custody (Phoenix, Mutiny, Zeus)
-  - new: |-
-      ## Primary sources
+  - new: '## Primary sources
 
-      - [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
+
+      - [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)'
     old: '## Primary Sources'
+  - old: intermediaries see only the next hop
+    new: intermediaries see their incoming peer and outgoing hop
+  - old: The receiver knows `R` (it's the payment hash)
+    new: The receiver knows the preimage `R`; the payment hash is `SHA256(R)`
+  - old: 'Offers, modern reusable key-based payment requests (PR #798 remained outside the canonical numbered BOLTs as of early 2026)'
+    new: 'Offers: reusable payment requests specified in the canonical BOLT 12 document'
   updated: '2026-10-25'
+  sources:
+  - title: The Bitcoin Lightning Network
+    url: https://lightning.network/lightning-network-paper.pdf
+  - title: BOLT specifications
+    url: https://github.com/lightning/bolts
+  - title: 'BOLT 4: Onion Routing Protocol'
+    url: https://github.com/lightning/bolts/blob/master/04-onion-routing.md
+  - title: 'BOLT 2: peer protocol and HTLC handling'
+    url: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md
+  - title: 'BOLT 12: Offers'
+    url: https://github.com/lightning/bolts/blob/master/12-offer-encoding.md
+  - title: 'Lightning Labs: LND documentation'
+    url: https://docs.lightning.engineering/lightning-network-tools/lnd
+  - title: 'ACINQ: Eclair'
+    url: https://github.com/ACINQ/eclair
+  - title: Core Lightning documentation
+    url: https://docs.corelightning.org/
+  - title: Mutiny Wallet shutdown announcement
+    url: https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/
+
 loopix:
   replace:
   - new: 2025/861
@@ -462,12 +625,58 @@ mesh-naming:
     old: The two production answers are Yggdrasil
   - new: '- **Yggdrasil** — experimental, alpha-stage software; future changes may break compatibility.'
     old: '- **Yggdrasil v0.5.12 (Dec 2024)** — stable release, embedded Go library released.'
-  - new: |-
-      ## Primary sources
+  - new: '## Primary sources
 
-      - [Yggdrasil project status](https://yggdrasil-network.github.io/)
+
+      - [Yggdrasil project status](https://yggdrasil-network.github.io/)'
     old: '## Primary sources'
+  - old: A node's NodeID is `sha512(curve25519_public_key)`, truncated by an "address collapse" algorithm that gives collision resistance comparable to a true 128-bit hash by counting leading `1` bits.
+    new: The current address implementation encodes a prefix, a count of leading bits and a truncated part of the bitwise-inverted Ed25519 public key. It is not the older SHA-512/Curve25519 construction.
+  - old: Like Yggdrasil, every node has an Ed25519 keypair and the IPv6 address is derived from the public key.
+    new: cjdns uses Curve25519 keys and derives an IPv6 address from the public key.
+  - old: The address is constructed from `sha512(public_key)` truncated to 128 bits; the first 8 bits are set to `fc`.
+    new: The address comes from a double SHA-512 hash of the public key, truncated to 128 bits. Key generation repeats until the result starts with `fc`; that prefix is not simply overwritten.
+  - old: "### How naming works\n\n1. Each user has a long-term Ed25519 identity keypair.\n2. The \"name\" of a contact is whatever you've called them locally.\n3. To add a contact, you either:\n   - Scan a QR code (offline, in-person).\n   - Exchange a `briar://` URI over a secure channel.\n   - Meet over Bluetooth / Wi-Fi / Tor and discover peers.\n4. The contact's `briar://` URI encodes their public key, display name, and a \"known fingerprints\" hint.\n\nThe \"name\" is a string the user types in the contact list; the \"address\" is the public key, used for end-to-end encryption of direct messages and forum posts.\n\n### Transport fallback\n\nBriar uses the most aggressive transport fallback in the production privacy stack:\n\n- **Internet available**: connect via Tor.\n- **Internet available but Tor blocked**: connect via pluggable transports (Snowflake, meek, etc.).\n- **No internet**: connect over Bluetooth or Wi-Fi to nearby contacts.\n\nIn the Bluetooth / Wi-Fi mode, \"naming\" is\
+      \ reduced to physical presence: you tap \"Add contact\", the phones discover each other over the local radio, exchange keys, and the contact is added. This is a kind of physical-layer out-of-band authentication, stronger than any DNS-based system.\n\n### Maturity (2026)\n\n- Briar 1.5.17 (March 2026) — current release.\n- Briar Desktop 0.6.0-beta — released 2026.\n- Active development; stable on Android, beta on desktop.\n- Used by activists, journalists, dissidents; not mainstream, not meant to be.\n"
+    new: '### How naming works
+
+
+      Contacts are added explicitly by scanning each other’s QR codes in person or exchanging contact links through another channel. Local Bluetooth or Wi-Fi reachability does not automatically authenticate strangers as contacts.
+
+
+      ### Transport fallback
+
+
+      Briar uses Tor over the internet and can synchronize with nearby contacts through Bluetooth or a local Wi-Fi network. Its manual documents the contact-addition and connection requirements; do not infer them from ordinary radio discovery.
+
+      '
+  - old: '- **Briar 1.5.17 (March 2026)**, **Briar Desktop 0.6.0-beta (2026)** — active development continues.
+
+      '
+    new: ''
+  - old: A single Ed25519 keypair can be the master identity across all of these — a property that meshes well with [Pubky](/kb/pubky/)'s approach.
+    new: These systems have different key formats and protocol requirements; sharing a master secret would require an explicit, domain-separated derivation design.
   updated: '2026-10-25'
+  sources:
+  - title: Yggdrasil project status
+    url: https://yggdrasil-network.github.io/
+  - title: Yggdrasil implementation
+    url: https://github.com/yggdrasil-network/yggdrasil-go
+  - title: cjdns implementation and addressing
+    url: https://github.com/cjdelisle/cjdns
+  - title: Hyperboria
+    url: https://hyperboria.net/
+  - title: 'Briar: local and internet transports'
+    url: https://briarproject.org/how-it-works/
+  - title: cjdns CryptoAuth specification
+    url: https://github.com/cjdelisle/cjdns/blob/master/doc/Whitepaper.md
+  - title: Yggdrasil as an embedded Go library
+    url: https://dev.to/asciimoth/yggdrasil-network-as-an-embedded-go-library-9h
+  - title: Yggdrasil address derivation
+    url: https://github.com/yggdrasil-network/yggdrasil-go/blob/develop/src/address/address.go
+  - title: Briar manual
+    url: https://briarproject.org/manual/
+
 mix-networks:
   replace:
   - new: '- Tor Browser releases and platform downloads are published by the Tor Project; check the download
@@ -535,12 +744,52 @@ namecoin:
   replace:
   - new: BLAKE2b + SHA3 PoW
     old: Cuckatoo32 PoW
-  - new: |-
-      ## Primary sources
+  - new: '## Primary sources
 
-      - [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+
+      - [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)'
     old: '## Primary sources'
+  - old: contains DNS records in standard DNS zone format.
+    new: stores DNS-related data in Namecoin’s JSON-based record format.
+  - old: '**Bitcoin-derived cost** — name registration cost follows Bitcoin fee markets; cheap in normal times, expensive in congestion.'
+    new: '**Namecoin transaction fees** — registration and updates are Namecoin transactions; merged mining does not make Bitcoin’s transaction-fee market the fee market for names.'
+  - old: economic cost same as Bitcoin 51% attack
+    new: security depends on the hash power actually merge-mining Namecoin
+  - old: '| [DNNS](/kb/dnns/) | Lithosphere PoS | On-chain | Unknown (no public repo) | Announced | 0 |'
+    new: '| [DNNS](/kb/dnns/) | Lithosphere chain | On-chain | Check the application’s resolver path | Public Kamet testnet implementation | Experimental |'
+  - old: lineage
+    new: history
+  - old: '`github.com/namecoin/namecoin-core`'
+    new: '[Namecoin Core](https://github.com/namecoin/namecoin-core)'
+  - old: '`github.com/namecoin/ncdns`'
+    new: '[ncdns resolver](https://github.com/namecoin/ncdns)'
+  - old: '`github.com/namecoin/ncp11`'
+    new: '[ncp11 PKCS#11 module](https://github.com/namecoin/ncp11)'
+  - old: '`github.com/namecoin/encaya`'
+    new: '[Encaya](https://github.com/namecoin/encaya)'
   updated: '2026-10-25'
+  sources:
+  - title: Namecoin Core
+    url: https://github.com/namecoin/namecoin-core
+  - title: ncdns resolver
+    url: https://github.com/namecoin/ncdns
+  - title: ncp11 PKCS#11 module
+    url: https://github.com/namecoin/ncp11
+  - title: Encaya
+    url: https://github.com/namecoin/encaya
+  - title: Namecoin Core 28.0 release
+    url: https://www.namecoin.org/2024/12/15/namecoin-core-28.0-released.html
+  - title: 'Namecoin: post-quantum TLS'
+    url: https://www.namecoin.org/2025/09/23/is-post-quantum-namecoin-tls-feasible.html
+  - title: 'Namecoin: ncp11 code quality'
+    url: https://www.namecoin.org/2025/05/13/code-quality-improvements-in-ncp11.html
+  - title: Handshake proof-of-work implementation
+    url: https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js
+  - title: Namecoin documentation
+    url: https://www.namecoin.org/docs/name-owners/
+  - title: DNNS implementation overview
+    url: https://github.com/KaJLabs/lithosphere/blob/main/DNNS/README.md
+
 nostr-identity:
   replace:
   - new: |-
@@ -619,23 +868,42 @@ nostr-key-custody:
   updated: '2026-10-25'
 nostr-protocol:
   replace:
-  - new: '- Key custody risk. Losing the key means losing identity. Use a dedicated signer and a recovery
-      plan; the NIPs README marks NIP-26 delegation as unrecommended. See [Nostr Key Custody and Recovery](/guides/nostr-key-custody/).'
-    old: '- Key custody risk. Losing the key means losing identity. NIP-26 delegation, hardware-wallet-signed
-      events, and account-recovery NIPs help.'
-  - new: The relay sees a kind-1059 gift wrap signed by an ephemeral key and addressed to the recipient’s
-      public key in a visible `p` tag. The original sender is encrypted, but recipient and timing metadata
-      remain visible.
-    old: The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. The
-      social graph is hidden from the relay. The sender's identity is revealed only after the recipient
-      decrypts.
-  - new: |-
-      ## Primary sources
+  - new: '- Key custody risk. Losing the key means losing identity. Use a dedicated signer and a recovery plan; the NIPs README marks NIP-26 delegation as unrecommended. See [Nostr Key Custody and Recovery](/guides/nostr-key-custody/).'
+    old: '- Key custody risk. Losing the key means losing identity. NIP-26 delegation, hardware-wallet-signed events, and account-recovery NIPs help.'
+  - new: The relay sees a kind-1059 gift wrap signed by an ephemeral key and addressed to the recipient’s public key in a visible `p` tag. The original sender is encrypted, but recipient and timing metadata remain visible.
+    old: The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. The social graph is hidden from the relay. The sender's identity is revealed only after the recipient decrypts.
+  - new: '## Primary sources
+
 
       - [NIPs README: unrecommended proposals](https://github.com/nostr-protocol/nips)
-      - [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
+
+      - [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)'
     old: '## Primary Sources'
+  - old: and POSTs it to one or more relays
+    new: and publishes it over WebSocket to one or more relays
+  - old: which contains the npub
+    new: which maps the name to a hex-encoded public key
+  - old: '- NIP-05 over PKARR: same JSON served by a PKARR record under your Pubky pubkey. No DNS dependency.'
+    new: '- Keep the public key available independently of the alias. NIP-05 specifies DNS and HTTPS; PKARR is a separate naming mechanism, not a standardized NIP-05 transport.'
+  - old: '| NIP-05 takedown | Self-host; serve over PKARR / `.onion` |'
+    new: '| NIP-05 takedown | Preserve and share the public key independently; DNS/HTTPS aliases remain optional |'
   updated: '2026-10-25'
+  sources:
+  - title: NIPs registry and proposal status
+    url: https://github.com/nostr-protocol/nips
+  - title: Nostr protocol overview
+    url: https://github.com/nostr-protocol/nostr
+  - title: 'NIP-01: events and relays'
+    url: https://github.com/nostr-protocol/nips/blob/master/01.md
+  - title: 'NIP-17: private direct messages'
+    url: https://github.com/nostr-protocol/nips/blob/master/17.md
+  - title: 'NIP-44: versioned encryption'
+    url: https://github.com/nostr-protocol/nips/blob/master/44.md
+  - title: 'NIP-59: gift wrap and visible recipient tags'
+    url: https://github.com/nostr-protocol/nips/blob/master/59.md
+  - title: 'Nostr NIP-05: DNS-based identifiers'
+    url: https://github.com/nostr-protocol/nips/blob/master/05.md
+
 nostr-web-of-trust:
   replace:
   - new: The NIPs README marks NIP-26 delegated event signing as unrecommended. Historical discussion
@@ -667,44 +935,48 @@ nostr-web-of-trust:
   updated: '2026-10-25'
 nvidia-gpu-tee:
   replace:
-  - new: |-
-      │  │  │  Protected GPU memory      │     │  │
-      │  │  │  Hopper HBM: unencrypted   │     │  │
-    old: |-
-      │  │  │  HBM (encrypted & integrity   │     │  │
-      │  │  │  protected via on-die engine)│     │  │
-  - new: '| **Protected GPU memory** | Hopper HBM is not encrypted. NVIDIA’s threat model relies on on-package
-      memory and access controls; memory protection must not be described as HBM encryption. |'
-    old: '| **Encrypted HBM** | HBM contents encrypted + integrity-protected by hardware engine at memory-controller
-      layer (AES-256-GCM, per-GPU key). |'
-  - new: '| **Encrypted CPU–GPU transfers** | The driver inside the CPU TEE stages encrypted data in shared-memory
-      bounce buffers. Command buffers and CUDA kernels are also encrypted before crossing PCIe. This does
-      not imply encryption of every PCIe transaction. |'
-    old: '| **Encrypted PCIe** | SPDM 1.2 session between CPU TEE and GPU. Key exchange via ECDHE, bulk
-      traffic AES-GCM. All CUDA H2D/D2H copies transparently encrypted. |'
-  - new: '2. CC-On: GPU confidential-computing protections and attestation are enabled. CPU–GPU transfers
-      use encryption; Hopper HBM remains unencrypted.'
+  - new: '│  │  │  Protected GPU memory      │     │  │
+
+      │  │  │  Hopper HBM: unencrypted   │     │  │'
+    old: '│  │  │  HBM (encrypted & integrity   │     │  │
+
+      │  │  │  protected via on-die engine)│     │  │'
+  - new: '| **Protected GPU memory** | Hopper HBM is not encrypted. NVIDIA’s threat model relies on on-package memory and access controls; memory protection must not be described as HBM encryption. |'
+    old: '| **Encrypted HBM** | HBM contents encrypted + integrity-protected by hardware engine at memory-controller layer (AES-256-GCM, per-GPU key). |'
+  - new: '| **Encrypted CPU–GPU transfers** | The driver inside the CPU TEE stages encrypted data in shared-memory bounce buffers. Command buffers and CUDA kernels are also encrypted before crossing PCIe. This does not imply encryption of every PCIe transaction. |'
+    old: '| **Encrypted PCIe** | SPDM 1.2 session between CPU TEE and GPU. Key exchange via ECDHE, bulk traffic AES-GCM. All CUDA H2D/D2H copies transparently encrypted. |'
+  - new: '2. CC-On: GPU confidential-computing protections and attestation are enabled. CPU–GPU transfers use encryption; Hopper HBM remains unencrypted.'
     old: '2. CC-On (protected PCIe): full TEE. Encrypted PCIe, attested, HBM encrypted.'
-  - new: '4. Multi-GPU: Hopper protected-PCIe (PPCIe) mode encrypts CPU–GPU traffic, while GPU–GPU traffic
-      over NVLink remains unencrypted. Blackwell multi-GPU CC mode also encrypts NVLink traffic. Assess
-      the supported hardware, firmware and driver configuration for each mode.'
-    old: '4. Multi-GPU / NVLink CC (Blackwell): NVLink traffic between GPUs in the same confidential domain
-      is also encrypted and attested. This enables multi-GPU models (tensor or pipeline parallel) inside
-      a single TEE trust domain. Hopper''s NVLink is not encrypted, so multi-GPU on H100 CC forces PCIe
-      routing with a heavy perf cost. This is a major Blackwell upgrade.'
-  - new: Blackwell multi-GPU CC adds NVLink encryption. That protects a specific interconnect; it is not
-      evidence that every GPU memory region or system link is encrypted.
-    old: 'Blackwell improves this materially: encrypted NVLink, higher-throughput PCIe Gen5 crypto engines,
-      and larger on-die attestation caches push steady-state overhead toward single digits even for multi-GPU
-      MoE.'
-  - new: |-
-      ## Primary sources
+  - new: '4. Multi-GPU: Hopper protected-PCIe (PPCIe) mode encrypts CPU–GPU traffic, while GPU–GPU traffic over NVLink remains unencrypted. Blackwell multi-GPU CC mode also encrypts NVLink traffic. Assess the supported hardware, firmware and driver configuration for each mode.'
+    old: '4. Multi-GPU / NVLink CC (Blackwell): NVLink traffic between GPUs in the same confidential domain is also encrypted and attested. This enables multi-GPU models (tensor or pipeline parallel) inside a single TEE trust domain. Hopper''s NVLink is not encrypted, so multi-GPU on H100 CC forces PCIe routing with a heavy perf cost. This is a major Blackwell upgrade.'
+  - new: Blackwell multi-GPU CC adds NVLink encryption. That protects a specific interconnect; it is not evidence that every GPU memory region or system link is encrypted.
+    old: 'Blackwell improves this materially: encrypted NVLink, higher-throughput PCIe Gen5 crypto engines, and larger on-die attestation caches push steady-state overhead toward single digits even for multi-GPU MoE.'
+  - new: '## Primary sources
+
 
       - [NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+
       - [NVIDIA confidential VM threat model and interconnect limits](https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model)
-      - [NVIDIA Hopper and Blackwell confidential-computing whitepaper](https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf)
+
+      - [NVIDIA Hopper and Blackwell confidential-computing whitepaper](https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf)'
     old: '## Primary Sources'
   updated: '2026-10-25'
+  sources:
+  - title: 'NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM'
+    url: https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/
+  - title: NVIDIA confidential VM threat model and interconnect limits
+    url: https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model
+  - title: NVIDIA Hopper and Blackwell confidential-computing whitepaper
+    url: https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf
+  - title: NVIDIA Blackwell architecture technical brief
+    url: https://resources.nvidia.com/en-us-blackwell-architecture
+  - title: NVIDIA NVTrust
+    url: https://github.com/NVIDIA/nvtrust
+  - title: NVIDIA attestation documentation
+    url: https://docs.nvidia.com/attestation/
+  - title: DMTF SPDM 1.2 specification
+    url: https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.2.3.pdf
+
 off-grid-networks:
   replace:
   - old: '| **Yggdrasil** | Overlay | N/A | Yes | Yes | Active |'
@@ -719,15 +991,140 @@ off-grid-networks:
   updated: '2026-10-25'
 onion-and-i2p-naming:
   replace:
-  - new: '- A 2-byte checksum: the first two bytes of SHA3-256 over `".onion checksum" || public_key ||
-      version`.'
+  - new: '- A 2-byte checksum: the first two bytes of SHA3-256 over `".onion checksum" || public_key || version`.'
     old: '- 2-byte SHA-1 checksum of the public key.'
-  - new: |-
-      ## Primary sources
+  - new: '## Primary sources
 
-      - [Tor specification: encoding v3 onion addresses](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
+
+      - [Tor specification: encoding v3 onion addresses](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)'
     old: '## Primary sources'
+  - old: "*The only naming systems in production where the name **is** a public key, and where no third party can take the name down. Tor and I2P are full overlay networks — naming is just one of several layers — but the address format is the most elegant expression of Zooko's triangle in real-world infrastructure: a 56-character string that humans type, that is mathematically the operator's long-term identity key, and that the network uses to rendezvous-route a connection. See [Overview - Decentralized DNS](/kb/decentralized-dns/) for the broader landscape; [GNS](/kb/gnu-name-system/) and [PKARR](/kb/pkarr/) for the cryptographic patterns they share.*\n\n## Why overlay naming matters\n\nA `.com` is a database row a registrar can rewrite. An `.eth` is a smart-contract entry. A Handshake TLD is an auction outcome. **A Tor v3 `.onion` is a curve point**: `base32(pubkey ‖ checksum ‖ version)`. The name proves the key. The key proves the operator. There is nothing for an adversary to seize except\
+      \ the private key.\n\nThe structural properties are the same as [PKARR](/kb/pkarr/) (Ed25519) and [GNS](/kb/gnu-name-system/) (per-zone Ed25519 / ECDSA), but Tor and I2P take them further: there is no global DHT and no global namespace, so the name is not only self-authenticating, it is also **globally unique by construction**. The key has 2²⁵² entropy; collisions are impossible. The trade-off is that overlay names are not human-readable and not resolvable outside the overlay — by design.\n\n## Tor v3 onion services\n\n### Address format\n\nA v3 address is:\n\n```\n<base32( ed25519_pubkey || checksum || version )>.onion\n```\n\n- 32 bytes Ed25519 long-term identity public key.\n- A 2-byte checksum: the first two bytes of SHA3-256 over `\".onion checksum\" || public_key || version`.\n- 1-byte version byte (`0x03`).\n- Total: 35 bytes → 56 base32 characters.\n\nThe address itself is a Tor service ID. To connect, the client performs a Tor rendezvous using this as the rendezvous point.\
+      \ The 56-character length is a deliberate friction: hard to type, hard to mistake for a normal domain, hard to typo-squat.\n\n### Key evolution (v1 → v2 → v3)\n\n| Version | Crypto | Length | Status | Year introduced / retired |\n|---------|--------|--------|--------|----------------------------|\n| v1 | RSA-1024 | 16 chars | Deprecated in v3 core (2014) | 2003 |\n| v2 | RSA-1024, SHA-1 truncated | 16 chars | **Removed in Tor 0.4.6** (2021); 2021-10-15 HSDir began refusing to publish v2 descriptors; on 2021-12-15 the Tor Browser ceased resolving v2 addresses | 2004 |\n| v3 | Ed25519 + Curve25519 (NTor) + SHA-3 | 56 chars | **Current standard** | 2017 (rend-spec-v3) |\n\nv2 deprecation is one of the most consequential forced migrations in decentralized naming — six months from announcement to removal, billions of historical v2 addresses rendered dead. The reasons: RSA-1024 was demonstrably weak; v2 descriptor publication was unencrypted to HSDirs (the relays that stored the descriptors),\
+      \ so HSDir operators could learn which onion was online and roughly how popular. v3 encrypts the entire descriptor; HSDir stores only blinded public keys.\n\n### Crypto pieces in v3\n\nA v3 service uses three keys:\n\n| Key | Algorithm | Purpose |\n|-----|-----------|---------|\n| Long-term identity (`hs_blind_id`) | Ed25519 | The public component of the `.onion` address. Used by clients to verify the descriptor signing key. |\n| Service descriptor signing key | Ed25519 (short-term, rotated ~12h to 24h, signed by long-term key) | Signs descriptor entries in the HSDir DHT. |\n| Service online key (`NTor onion key`) | Curve25519 | Used for the NTor three-way handshake when the client connects. |\n\nThe blinding protocol: `hs_blind_id = blind(hs_blind_pubkey, N)` where `N` is a time-varying parameter published in the consensus. As long as the time parameter `N` stays current (within 12-24 hours), the same service can be found at the same `.onion`. After expiry, clients need a fresh consensus\
+      \ to re-derive the blinded key, and the service uploads a new descriptor. This is what makes HSDir enumeration hard: an HSDir sees a moving target.\n\n### Resolution (rendezvous)\n\nA client looking up `expyuzz4wqqyqhjn.onion`:\n\n1. Derive blinded key for current time period.\n2. DHT-lookup of descriptor in the HSDir ring.\n3. Verify descriptor signature against the long-term identity key.\n4. Get the service's introduction points and NTor onion key.\n5. Open a Tor circuit to a random relay (rendezvous point), send an INTRODUCE1 cell to a service introduction point, wait for RENDEZVOUS2, and complete the NTor handshake.\n\nThe result is a Tor circuit terminated at the service with no party in the path knowing both who the client is and where the service is. The client knows only the `.onion`; the service knows only the rendezvous-point circuit.\n\n### Why browser UX works\n\nThe Tor Browser ships a custom `.onion` resolver that bypasses normal DNS. Firefox, Brave, and Chrome follow\
+      \ via the `.onion` HTTPS upgrade heuristic. Major services (Facebook, BBC, NYT, ProPublica, the New York Times, ProtonMail) have run v3 onion services for years. Facebook's `facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion` was the largest production deployment of v3 in history before they decommissioned it in May 2024 — but other news services still use it.\n\n### The cert story solved\n\nInside Tor, the TLS certificate presented by the service is **unrelated to a CA**. Clients verify that the certificate's public key matches the `.onion` long-term identity. The Tor Browser pins a deterministic 56-char SHA-256 of the pubkey as the cert's SPKI fingerprint. There is no CA, no ICANN, no registrar — and the connection is encrypted by the Tor circuit anyway, so TLS is defense in depth.\n\n### Deployment realities (2026)\n\n- v3 is the only supported form. v2 was excised 2021-12-15.\n- A meaningful fraction of public web traffic to media and darknet services runs over v3.\n\
+      - Major wallets and crypto services (e.g., Bisq, Peach Bitcoin, Robosats, Bisq 2) use v3 onion services for backend connectivity.\n- Performance is worse than clearnet: 3-hop circuit, plus rendezvous, plus handshake. v3 connections are slower than v2 in latency but stronger in confidentiality.\n- Vanity `.onion` generators (mkp224o) are CPU-bound but feasible — projects like the BBC routinely use 8-12 char vanity prefixes.\n\n### Trade-offs\n\n**Strengths**\n- Strongest operator confidentiality in production.\n- No global state to censor.\n- Self-authenticating; the name proves the key.\n- Strong end-to-end encryption built in.\n- Multi-layer defense (circuit + TLS + key pinning).\n\n**Limitations**\n- 56 characters — UX friction, error-prone.\n- Slower than clearnet.\n- Hidden services only; not a general DNS.\n- Discovery is out-of-band (no search engine).\n- Operational complexity — running a Tor relay, then a service, plus key custody.\n\n### Attack surface\n\n| Attack | Mitigation\
+      \ |\n|--------|-----------|\n| RSA-1024 break (v2 era) | Mitigated by v3 (Ed25519) — historic issue |\n| HSDir enumeration | Blinded keys; encrypted descriptors |\n| HSDir / guard DoS | Multiple introduction points; guard rotation; load-balancing |\n| Rendezvous-point analysis | Padded cells; timing obfuscation; multiple RPs |\n| Service private key compromise | Hardware token custody; periodic subkey rotation |\n| Onion-phish (homoglyph in 56-char string) | Browser warnings; petname UIs |\n\n## I2P destinations\n\nI2P (Invisible Internet Project) is a separate, more fully distributed overlay with its own naming model.\n\n### Address format\n\nAn I2P destination is **not a single 56-char string**. The network identifier is a 516-byte binary blob (a 256-byte public key, 128-byte signing key, and certificate) that is hashed and base32-encoded. The hash is a 52-character base32 of a SHA-256 of the destination's signing key, but the actual data the network uses is the full 516-byte structure.\
+      \ To route a connection, peers exchange the binary structure directly — `.b32.i2p` is a hash for human memory, not a network identifier.\n\n```\n<base32( sha256( signing_key ) )>.b32.i2p  →  52 characters\n```\n\nThe 516-byte destination is what gets published in I2P's NetDB (the network database) and exchanged by peers.\n\n### Crypto pieces\n\n- **Signing key**: Ed25519 (default since I2P 0.9.46, 2021).\n- **Encryption key**: X25519 (ElGamal for older destinations).\n- **Certificate**: Type byte + signing key + optional encryption key.\n\n### Resolution (floodfill router + NetDB)\n\nI2P's floodfill routers collectively maintain the NetDB — a distributed Kademlia-like DHT of `destination → router contact info`. Lookups for `.b32.i2p` go through the local NetDB; if the entry isn't local, the request floods out to floodfill peers.\n\n- Local NetDB: fast (in-memory).\n- Distributed NetDB: tunnel-routed, latency adds up.\n- Lease sets: every destination periodically publishes its current\
+      \ router contact info to the NetDB.\n\n### Hosts.txt and naming\n\nI2P ships a generic naming library with a `hosts.txt` base implementation. The `i2pd` C++ router and the Java I2P router both support `hosts.txt` mappings, but the canonical name is the destination hash. Custom naming overlays (`addon.i2p` services like `stats.i2p`, `i2p.rocks`, `stormycloud.i2p`) build human-readable aliases on top of base32.\n\n### Key evolution\n\n| Era | Default key type | Notes |\n|-----|------------------|-------|\n| Pre-0.9.46 | DSA-SHA1 (1280-bit ElGamal) | Older destinations still on the network |\n| 0.9.46 (2021) | Ed25519 + X25519 | Default for new destinations |\n| 2026 (post-quantum work) | Ed25519 / X25519 with hybrid PQ proposals | Proposal 169: hybrid X25519 + ML-KEM, hybrid Ed25519 + ML-DSA. Implementation in progress on ratchet and SSU2 transports. |\n\n### Post-quantum roadmap (2025–2026)\n\nI2P Proposal 169 (2023, still in progress) lays out the PQ migration:\n- Hybrid X25519 + ML-KEM\
+      \ (Kyber) key exchange for NTCP2, SSU2, and Ratchet.\n- Hybrid Ed25519 + ML-DSA (Dilithium) signatures.\n- Goal: don't break interoperability with existing Ed25519-only destinations.\n- Work is incremental and ongoing; production I2P traffic is still primarily classical crypto in 2026.\n\n### Comparison with Tor\n\n| Dimension | Tor v3 | I2P |\n|-----------|--------|-----|\n| Address | 56-char base32 Ed25519 | 52-char base32 SHA-256 of Ed25519 + 516-byte destination blob |\n| Network model | Centralized directory authorities + DHT for services | Distributed floodfill + DHT for NetDB |\n| Service model | Outproxy to clearnet optional; primarily onion services | Eepsites (`.i2p` internal web), `i2p.rocks` exit, full internal services |\n| User base | Larger public footprint | Smaller but vibrant; more eepsite content |\n| PQ status | Draft proposals, hybrid Tor pluggable transports | Proposal 169, hybrid ratchet/SSU2 in progress |\n| Crypto | Ed25519 + Curve25519 + SHA-3 | Ed25519 +\
+      \ X25519, PQ in progress |\n\n### I2P as a naming substrate\n\nFor an `eepsite` (`http://example.i2p`), the user-facing name is a domain under `.i2p` registered in a custom naming service (`stats.i2p`, etc.). The lookup eventually produces a 52-char base32 destination, which the router converts to the full 516-byte destination for routing.\n\nThis is closer to a GNS-style system than to a global DNS: the `.i2p` TLDs are managed by overlay services, not by a single registry. Lookup privacy is high because the network uses unidirectional tunnels per direction and pads traffic; an observer outside the I2P overlay cannot see queries.\n\n### Trade-offs\n\n**Strengths**\n- Self-authenticating; name proves the operator.\n- No CA, no global registry, no ICANN involvement.\n- Strongly distributed (no directory authority in the Tor sense).\n- Internal eepsites — a self-contained dark web.\n- Per-destination keys; compromise of one does not break the network.\n\n**Limitations**\n- 52-char base32;\
+      \ worse UX than 16-char v2 onion.\n- Internal service model only; clearnet exit requires explicit configuration.\n- Smaller user base than Tor.\n- Post-quantum migration in progress, not landed.\n- Discovery is out-of-band.\n\n### Attack surface\n\n| Attack | Mitigation |\n|--------|-----------|\n| Floodfill takeover | Multiple redundant floodfills; republishing |\n| Destination compromise | Hardware custody; rotation if supported |\n| Tunnel deanonymization | Padded messages; varied tunnel lengths |\n| Eepsite enumeration | Base32 is not enumeratable (2²⁵² space) |\n| Naming overlay takeover | Use multiple naming services; verify destination out-of-band |\n\n## How overlay naming composes with the rest of the stack\n\nThe deep question for the Ungovernable.tech stack is: when do you put a service behind an onion / eepsite vs. behind a PKARR / ENS / Handshake name?\n\n| Stack | Reach | Confidentiality | Trust model | Best for |\n|-------|-------|-----------------|-------------|----------|\n\
+      | `.onion` v3 | Tor users only | Strongest | Self-authenticating | Sensitive services (wallets, leakdrops, journalism) |\n| `.b32.i2p` | I2P users only | Strong | Self-authenticating | Eepsites, internal services, fully distributed apps |\n| `.eth` / CCIP-Read | Web2 + Web3 | Low (DNS visible) | Chain + CA | Mainstream apps with crypto identity |\n| Handshake TLD | HNS resolvers | Low (chain public) | Chain | Permissionless namespaces |\n| PKARR / Pubky | DHT lookups + bridge | Low (DHT visible) | Ed25519 | Self-sovereign data platforms |\n| GNS | GNS-aware apps | Strongest queries | Ed25519 + per-zone | Privacy-respecting apps inside GNUnet |\n\nA serious Ungovernable deployment layers them:\n\n```\nEdge service\n  ├─ v3 .onion   ─► Tor users (max confidentiality)\n  ├─ .b32.i2p    ─► I2P users (distributed)\n  ├─ .eth        ─► Web3 mainstream (CCIP-Read subdomain for off-chain records)\n  ├─ PKARR zone  ─► DHT-direct clients, Pubky social\n  └─ legacy .com ─► Web2 fallback\n```\n\
+      \nThis is the practical pattern: the `.onion` is the kill-switch-resistant address; the `.eth` is the everyday address; the PKARR zone is the self-sovereign data plane.\n\n## Recent developments (2024–2026)\n\n- **v2 fully retired** (2021-12-15); v3 is the only supported form.\n- Facebook decommissioned its massive v3 deployment in May 2024; the darknet footprint of major mainstream media remains.\n- I2P 0.9.46+ (2021) made Ed25519 the default signing key. PQ migration in progress under Proposal 169.\n- Bisq 2 (2024), Robosats, Peach Bitcoin, and dozens of crypto projects ship v3 onion services as primary endpoints.\n- Vanity `.onion` generators (mkp224o) continue to mature; 8–12 char prefixes are realistic on a small cluster.\n- Tor Project explores post-quantum handshake upgrades (Proposal 323, hybrid PQ + classical) — not yet deployed in stable releases.\n- **2026**: Tor's stable channel 0.4.8.x carries v3 + post-quantum handshake drafts. I2P ratchet (a replacement for the older\
+      \ ElGamal transport) gains hybrid X25519 + ML-KEM support on a development branch.\n\n## Primary sources\n\n- [Tor specification: encoding v3 onion addresses](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)\n\n- Tor Rendezvous Specification v3 — `spec.torproject.org/rend-spec-v3.html`.\n- Tor Onion Services v3 — `spec.torproject.org/v3 onion services`.\n- Tor Project blog: v3 onion services — `blog.torproject.org/v3-onion-services-usage/`.\n- I2P naming overview — `i2p.net/en/docs/overview/naming`.\n- I2P Proposal 169 — Post-Quantum Crypto Protocols — `i2p.net/en/proposals/169-pq-crypto`.\n- I2P Development Roadmap — `i2p.net/en/get-involved/roadmap`.\n- mK224o vanity onion generator — `github.com/cathugger/mkp224o`.\n- Zooko Wilcox-O'Hearn, *Names: Distributed, Secure, Human-Readable: Choose Two*, 2001 (Zooko's triangle)."
+    new: '## Summary
+
+
+      Tor onion services and I2P destinations bind overlay addresses to cryptographic identities. They avoid a conventional registrar for the cryptographic address, while still depending on software, keys and a functioning overlay network.
+
+
+      Human-readable aliases are a separate layer. See [decentralized naming](/kb/decentralized-dns/), [GNS](/kb/gnu-name-system/) and [PKARR](/kb/pkarr/) for other approaches to that trade-off.
+
+
+      ## How it works
+
+
+      ### Tor v3 onion services
+
+
+      A v3 onion address encodes the service’s Ed25519 public key, a checksum and a version byte:
+
+
+      ```
+
+      base32(public_key || checksum || version) + ".onion"
+
+      ```
+
+
+      The public key occupies 32 bytes, the checksum 2 bytes and the version 1 byte. Together they produce a 56-character base32 label. The checksum is derived from SHA3-256 over the onion-checksum prefix, public key and version.
+
+
+      Clients derive a time-period-specific blinded key and obtain the corresponding service descriptor from onion-service directories. The descriptor supplies introduction points. Client and service establish separate circuits to a rendezvous relay; the onion address itself is not that relay’s address.
+
+
+      Descriptor signing keys, blinded keys and the long-term identity key have different roles. The descriptor verification chain connects the service description to the identity encoded in the address.
+
+
+      ### Onion authentication and HTTPS
+
+
+      Tor authenticates the onion service and encrypts the connection within the overlay. HTTPS can add a separate TLS layer. Ordinary HTTPS certificate validation still applies: Tor Browser does not universally replace it with a deterministic pin derived from the onion key. The Tor Project documents CA-issued certificates for onion services.
+
+
+      Running an onion service does not require operating a public Tor relay. The service setup guide describes configuring a Tor client and a local service endpoint.
+
+
+      ### I2P destinations
+
+
+      An I2P Destination is a serialized structure containing public-key fields and a certificate. It is not universally a 516-byte object: its encoding depends on the certificate and key types.
+
+
+      A conventional `.b32.i2p` address uses the base32-encoded SHA-256 hash of the complete Destination, yielding a 52-character label. It is not a hash of only the signing key. The router obtains the corresponding LeaseSet and Destination information to establish communication.
+
+
+      Human-readable `.i2p` names are local address-book mappings, often populated through subscriptions. Different users can have different mappings; this is not a single global registrar-controlled namespace.
+
+
+      ### Post-quantum work
+
+
+      I2P Proposal 169 separates work on the ratchet, NTCP2, SSU2 and signature types. Its status table marks hybrid ratchet work complete in Java I2P and i2pd, while other components have separate rollout states. It does not support the blanket claim that all post-quantum work remains an undeployed development-branch experiment.
+
+
+      ## Trust model / threat model
+
+
+      - Verify the address through a channel appropriate to the application. A self-authenticating address proves control of a key, not a person’s real-world identity.
+
+      - Protect service keys and endpoints. Address authentication cannot repair a compromised application or stolen identity key.
+
+      - Directory, tunnel and routing mechanisms still have availability and traffic-analysis limits.
+
+      - Human-readable aliases introduce trust in whoever supplies the mapping.
+
+
+      ## Readiness
+
+
+      Tor v3 onion services and I2P destination naming are implemented and documented. Follow the current service and router documentation; protocol support and migration status depend on the particular implementation.
+
+
+      ## Limits
+
+
+      Cryptographic addresses are long and normally distributed out of band. They do not guarantee availability, eliminate phishing, or make traffic correlation impossible. Vanity-address tools such as mkp224o change the appearance of a Tor address by searching keys; they do not change its authentication model.
+
+
+      A service can publish an onion address, an I2P address and a conventional domain for different audiences. Treat each as a distinct access path and verify the bindings between them.'
+  - old: The only naming systems in production where the name is a public key, and where no third party can take the name down.
+    new: Tor onion services and I2P destinations bind overlay addresses to cryptographic identities, with human-readable aliases and availability as separate concerns.
   updated: '2026-10-25'
+  sources:
+  - title: 'Tor: encoding v3 onion addresses'
+    url: https://spec.torproject.org/rend-spec/encoding-onion-addresses.html
+  - title: Tor onion-service protocol
+    url: https://spec.torproject.org/rend-spec/index.html
+  - title: 'Tor: onion services version 3'
+    url: https://blog.torproject.org/v3-onion-services-usage/
+  - title: I2P development roadmap
+    url: https://i2p.net/en/get-involved/roadmap
+  - title: mkp224o vanity onion generator
+    url: https://github.com/cathugger/mkp224o
+  - title: I2P naming overview
+    url: https://i2p.net/en/docs/overview/naming/
+  - title: Tor onion service authentication and HTTPS
+    url: https://community.torproject.org/onion-services/advanced/https/
+  - title: Tor onion-service setup
+    url: https://community.torproject.org/onion-services/setup/
+  - title: 'I2P common structures: Destination'
+    url: https://i2p.net/en/docs/specs/common-structures/
+  - title: I2P Proposal 169 current specification
+    url: https://i2p.net/en/proposals/169-pq-crypto/
+
 phala-and-0g:
   replace:
   - new: '- GPU memory protection depends on the hardware and mode. On H100, access controls protect HBM
@@ -746,24 +1143,71 @@ phala-and-0g:
   updated: '2026-10-25'
 pir-use-cases:
   replace:
-  - new: Apple publishes the Swift Homomorphic Encryption library, including PIR, and a PIR service example.
-      These repositories make the library and example backend available for inspection. The example supports
-      Live Caller ID Lookup and URL filtering; its README explicitly says it should not be run in production.
-      Public example code does not establish that every component of Apple’s deployed services is open
-      source.
-    old: Apple's deployment proves that PIR-class techniques can work at consumer scale on mobile devices
-      with acceptable latency. This validates the deployment path for other privacy-preserving features.
-      However, Apple's implementation is proprietary and not open for independent auditing.
-  - new: '| Apple Device Features | **Production** | HE+PIR; public Swift library and service example
-      | Public code can be inspected; example backend is not for production |'
-    old: '| Apple Device Features | **Production** | HE+PIR (proprietary) | Closed-source, not auditable
-      |'
+  - new: Apple publishes the Swift Homomorphic Encryption library, including PIR, and a PIR service example. These repositories make the library and example backend available for inspection. The example supports Live Caller ID Lookup and URL filtering; its README explicitly says it should not be run in production. Public example code does not establish that every component of Apple’s deployed services is open source.
+    old: Apple's deployment proves that PIR-class techniques can work at consumer scale on mobile devices with acceptable latency. This validates the deployment path for other privacy-preserving features. However, Apple's implementation is proprietary and not open for independent auditing.
+  - new: '| Apple Device Features | **Production** | HE+PIR; public Swift library and service example | Public code can be inspected; example backend is not for production |'
+    old: '| Apple Device Features | **Production** | HE+PIR (proprietary) | Closed-source, not auditable |'
+  - old: Google Password Checkup uses k-anonymity (range queries), which is less private than PIR but more practical at current performance levels.
+    new: Google Password Checkup combines a k-anonymity partition with private set intersection; describing it as only a range query omits its cryptographic protection.
+  - old: (announced October 2025, 47-member team)
+    new: (see the public project repository)
+  - old: '- Repo: https://github.com/ethereum/kohaku — 399 stars, created Aug 1 2025, active weekly releases.
+
+      '
+    new: '- The Kohaku repository publishes the toolkit’s implementation.
+
+      '
+  - old: '- **Railgun integration has operational ERC-4337 mempool relaying** — private transactions route through the 4337 mempool instead of protocol-specific relayers, removing a centralized-relayer dependency (The Defiant). SDK announced May 25 2026; Ambire integrating in production; breadcoop collaboration on an experimental browser-extension wallet; CLI reference wallet from `kassandraoftroy/kohaku-cli`.
+
+      '
+    new: ''
+  - old: '**Repo**: https://github.com/ahenzinger/tiptoe (56 stars)'
+    new: '**Implementation**: see the Tiptoe source in the primary-source list.'
+  - old: Tiptoe (two-server)
+    new: Tiptoe (cryptographic single-server trust model)
+  - old: '| Non-collusion requirement |'
+    new: '| Computation and communication cost |'
+  - old: Private web search (Tiptoe), high-security applications.
+    new: Applications explicitly designed for a non-collusion model; Tiptoe does not require that assumption.
+  - old: 'Two non-colluding servers: a **ranking service** and a **URL service**.'
+    new: Separate ranking and URL services, with privacy based on cryptography rather than an assumption that their operators do not collude.
+  - old: The non-collusion requirement (two independent server operators) is the main deployment barrier. Mozilla's involvement is notable as they could potentially operate one of the two servers.
+    new: Its implementation is a research prototype with substantial computation and communication requirements; independent non-colluding operators are not a prerequisite.
+  - old: Tiptoe's architecture (two non-colluding servers) maps naturally to organizations like Mozilla + Tor Project, or EFF + a university.
+    new: Tiptoe’s architecture protects the query without relying on separate organizations refusing to collude.
+  - old: '`ethereum/wallet-poc`'
+    new: '[Kohaku private-state-reading prototype](https://github.com/ethereum/wallet-poc)'
   sources:
-  - title: Apple Swift Homomorphic Encryption, including PIR
+  - title: Apple Swift Homomorphic Encryption
     url: https://github.com/apple/swift-homomorphic-encryption
-  - title: Apple PIR Service Example and deployment limits
+  - title: Apple PIR service example
     url: https://github.com/apple/pir-service-example
+  - title: 'Apple: Combining Machine Learning and Homomorphic Encryption'
+    url: https://machinelearning.apple.com/research/homomorphic-encryption
+  - title: SimplePIR and DoublePIR implementation
+    url: https://github.com/ahenzinger/simplepir
+  - title: 'YPIR: High-Throughput Single-Server PIR with Silent Preprocessing'
+    url: https://www.usenix.org/conference/usenixsecurity24/presentation/menon
+  - title: Tiptoe private search implementation
+    url: https://github.com/ahenzinger/tiptoe
+  - title: 'Respire: High-Rate PIR for Databases with Small Records'
+    url: https://eprint.iacr.org/2024/1165
+  - title: Kohaku SDK
+    url: https://github.com/ethereum/kohaku
+  - title: Kohaku private-state-reading prototype
+    url: https://github.com/ethereum/wallet-poc
+  - title: Ethereum privacy roadmap
+    url: https://ethereum.org/roadmap/privacy/
+  - title: Incremental Single-Server Private Information Retrieval
+    url: https://eprint.iacr.org/2026/030
+  - title: Google hintless PIR
+    url: https://github.com/google/hintless_pir
+  - title: 'Google Password Checkup: private set intersection'
+    url: https://security.googleblog.com/2019/06/helping-organizations-do-more-without-collecting-more-data.html
+  - title: Signal private contact discovery
+    url: https://signal.org/blog/private-contact-discovery/
   updated: '2026-10-25'
+
 pkarr:
   replace:
   - old: '| Maturity | Emerging (2025–26) | Production | Live mainnet | Standardized (RFC 9498) |'
@@ -838,17 +1282,38 @@ pqc-deployment-tracker:
   updated: '2026-10-25'
 private-llm-inference-patterns:
   replace:
-  - new: '- Keep the vector index within the attested workload and encrypt its stored copy. On Hopper,
-      plaintext in GPU HBM is protected by isolation rather than HBM encryption; release decryption keys
-      only after verifying the required CPU and GPU evidence.'
-    old: '- Vector DB inside a CVM (TDX); index encrypted in HBM or on disk with a key released only to
-      attested index enclaves.'
-  - new: |-
-      ## Primary sources
+  - new: '- Keep the vector index within the attested workload and encrypt its stored copy. On Hopper, plaintext in GPU HBM is protected by isolation rather than HBM encryption; release decryption keys only after verifying the required CPU and GPU evidence.'
+    old: '- Vector DB inside a CVM (TDX); index encrypted in HBM or on disk with a key released only to attested index enclaves.'
+  - new: '## Primary sources
 
-      - [NVIDIA H100 confidential-computing boundary](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+
+      - [NVIDIA H100 confidential-computing boundary](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)'
     old: '## Primary Sources'
+  - old: Old enclaves automatically lose key access.
+    new: This blocks future key releases to disallowed measurements; it does not revoke plaintext keys already released.
+  - old: 'Gotcha: training is PCIe-heavy; CC overhead is higher than for inference. Budget 15-25% on H100. Blackwell is meaningfully better.'
+    new: Measure protected-transfer overhead for the actual training workload and hardware; a fixed percentage is not a portable guarantee.
   updated: '2026-10-25'
+  sources:
+  - title: NVIDIA H100 confidential-computing boundary
+    url: https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/
+  - title: 'Apple: Private Cloud Compute Security Guide'
+    url: https://security.apple.com/documentation/private-cloud-compute/
+  - title: 'Knauth et al.: Integrating Remote Attestation with Transport Layer Security'
+    url: https://arxiv.org/abs/1801.05863
+  - title: Sigstore Rekor transparency log
+    url: https://docs.sigstore.dev/logging/overview/
+  - title: 'NIST SP 800-204D: Software Supply Chain Security'
+    url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+  - title: 'Microsoft: Confidential AI'
+    url: https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-ai
+  - title: 'Apple Private Cloud Compute: security design'
+    url: https://security.apple.com/blog/private-cloud-compute/
+  - title: ONNX Runtime Open Enclave port for confidential inference
+    url: https://github.com/microsoft/onnxruntime-openenclave
+  - title: 'RFC 9334: Remote ATtestation procedureS Architecture'
+    url: https://www.rfc-editor.org/rfc/rfc9334.html
+
 reticulum:
   replace:
   - new: '| **Sideband** | Cross-platform messenger | LXMF-based; Android, Linux, macOS and Windows |'
@@ -1029,22 +1494,360 @@ tor:
   updated: '2026-10-25'
 unstoppable-domains:
   replace:
-  - new: '| Renewal required | No (one-time) | Yes (annual rent) | Yes (RENEW covenant; approximately
-      two years on mainnet) | Yes (every 200 days) |'
-    old: '| Renewal required | No (one-time) | Yes (annual rent) | No (auction + burn) | Yes (every 200
-      days) |'
-  - new: |-
-      ## Primary sources
+  - new: '| Renewal required | No (one-time) | Yes (annual rent) | Yes (RENEW covenant; approximately two years on mainnet) | Yes (every 200 days) |'
+    old: '| Renewal required | No (one-time) | Yes (annual rent) | No (auction + burn) | Yes (every 200 days) |'
+  - new: '## Primary sources
+
 
       - [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+
       - [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
-      - [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)
+
+      - [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)'
     old: '## Primary sources'
-  - new: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | Yes (RENEW; approximately two
-      years) | Strong — chain, no operator |'
-    old: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | No (auction + burn) | Strong
-      — chain, no operator |'
+  - new: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | Yes (RENEW; approximately two years) | Strong — chain, no operator |'
+    old: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | No (auction + burn) | Strong — chain, no operator |'
+  - old: '## Summary
+
+
+      Unstoppable Domains (UD) is a VC-backed company founded in 2018 that sells second-level names registered on blockchain networks (initially Ethereum, now primarily Polygon). It claims ~4.6M+ names across many TLDs. The names are **technically** minted on a chain (so the name itself is a token), but the **registry interface** is the UD company''s website, and the company has been actively pursuing the ability to take names down via a patent-pending mechanism that uses wallet-vote thresholds.
+
+
+      This is the structural difference between [ENS](/kb/ens/) / [Handshake](/kb/handshake/) / [Namecoin](/kb/namecoin/) (which are protocol-level systems with no off-chain operator that can take a name down) and a company that happens to use a chain as a database. The patent filing is significant because it explicitly acknowledges the centralization that critics have pointed out for years.
+
+
+      ## What UD sells
+
+
+      - **`.crypto`** — the original UD TLD.
+
+      - **`.wallet`** — wallet-themed names.
+
+      - **`.nft`**, **`.x`**, **`.bitcoin`**, **`.dao`**, **`.888`**, **`.zil`**, **`.go`**, **`.blockchain`**, others.
+
+      - Multi-chain: Polygon (primary), Zilliqa (legacy), Ethereum (legacy).
+
+
+      Each name is minted as a token; the buyer holds the token in their wallet. Names are sold once (no annual renewal). Sales model: premium prices for short and common names; otherwise $5–$40 typical.
+
+
+      The technical claim: the name is a token, so it''s "yours forever." The practical claim: the company maintains the resolution infrastructure (resolver service), the website (where you mint), and the customer support.
+
+
+      ## Why UD is a centralized system in decentralized packaging
+
+
+      A real decentralized naming system has three properties:
+
+
+      1. **Ownership** is determined by the chain state, not by an operator.
+
+      2. **Resolution** works without the operator''s cooperation.
+
+      3. **Takedowns** are infeasible without a chain reorg or a key compromise.
+
+
+      UD satisfies (1) at the token level — the NFT is yours in your wallet — but not (2) or (3):
+
+
+      | Property | UD | ENS | Handshake | Namecoin |
+
+      |----------|----|----|-----------|----------|
+
+      | Token/chain ownership | Yes (NFT) | Yes (NFT) | Yes (UTXO) | Yes (UTXO) |
+
+      | Resolution independent of company | Limited (relying on UD resolver) | Yes (any RPC) | Yes (hnsd, public resolvers) | Yes (ncdns) |
+
+      | Takedown by operator | **Yes (claimed in patent)** | No (no operator) | No (no operator) | No (no operator) |
+
+      | Renewal required | No (one-time) | Yes (annual rent) | Yes (RENEW covenant; approximately two years on mainnet) | Yes (every 200 days) |
+
+      | ICANN accreditation | Yes (also sells `.com`) | No | No | No |
+
+
+      UD is also **ICANN-accredited** — the only blockchain-domain company with both the ICANN registrar credential *and* the ICANN 84 partner D3 Protocol partnership. This means UD can sell both legacy Web2 domains and Web3 names. It also means UD is bound by UDRP, court orders, and the ICANN contractual regime, like any other accredited registrar.
+
+
+      ## The takedown patent (Sept 2025)
+
+
+      In **September 2025**, news emerged that UD had filed a US patent application (filed Feb 2024, published Aug 2025) titled "Deactivation of decentralized domains." The patent describes a mechanism where a name can be deactivated if:
+
+
+      1. A threshold of wallet accounts signs messages saying the name is problematic (a "takedown" vote).
+
+      2. A "reviewing authority" signs a message on behalf of a domain takedown organization.
+
+      3. The name''s safety score drops below a threshold (computed from access patterns, complaints, content).
+
+
+      The patent''s own text is candid:
+
+
+      > "One of the features of blockchain-based naming systems is also a bug: it''s not possible to take down domains that are used in bad ways. ... taking down and suspending domains is critical to a functioning naming system and necessary to attract end-user companies."
+
+
+      The patent also describes anti-abuse design: wallet age, account reliability, time windows — these prevent trivial Sybil-based takedown attacks. So the proposed mechanism is a "soft" takedown requiring community agreement, not a unilateral kill switch.
+
+
+      But the structural fact remains: **there is a takedown path that does not require a chain reorg or a key compromise**. That is a meaningful departure from what the marketing ("Unstoppable") implies.
+
+
+      ## Why UD built the takedown mechanism
+
+
+      The company''s stated reason: brands and enterprise customers need a way to remove names used for fraud, phishing, or abuse. Without a takedown path, mainstream adoption is blocked. The implicit reason: UDRP, ICANN contractual obligations, and reputational concerns with hosting a global phishing platform push toward having a takedown mechanism regardless.
+
+
+      The patent suggests a quasi-decentralized mechanism (community voting + reviewing authority) rather than unilateral takedowns. The proposed design is at least more sophisticated than a single admin key, but it is still a takedown path that exists outside the chain.
+
+
+      ## Comparison with the truly decentralized alternatives
+
+
+      | System | Can an operator take the name down? | Resolution path | Renewal | Censorship-resistance story |
+
+      |--------|--------------------------------------|------------------|---------|-----------------------------|
+
+      | **Unstoppable Domains** | **Yes (per Sept 2025 patent)** | UD resolver / DApps | No (one-time) | Weak — operator has takedown path |
+
+      | [ENS](/kb/ens/) | No | Any RPC, CCIP-Read | Yes (annual rent) | Strong — chain + DAO |
+
+      | [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | Yes (RENEW; approximately two years) | Strong — chain, no operator |
+
+      | [Namecoin](/kb/namecoin/) | No | ncdns locally | Yes (every ~200 days) | Strongest — no operator, 15-year track record |
+
+      | [GNS](/kb/gnu-name-system/) | N/A (no global namespace) | GNUnet resolver | No | Strong — petname system |
+
+      | [PKARR](/kb/pkarr/) / [Pubky](/kb/pubky/) | No | pkdns, Mainline DHT | No | Strong — Ed25519, no operator |
+
+      | [Overlay Naming - Tor .onion and I2P](/kb/onion-and-i2p-naming/) | No | Overlay-native | No | Strongest — no operator at all |
+
+      | [Cardano DNS](/kb/cardano-dns/) | No | cdnsd | No (auction) | Strong — Handshake + Cardano |
+
+      | [Nomen](/kb/nomen/) | No | Indexer | No | Experimental — Bitcoin + Nostr |
+
+      | [DNNS](/kb/dnns/) | Unknown (no public code) | Lithosphere | Unknown | Unverified |
+
+
+      The pattern is clear: a system with a corporate operator cannot make an "unstoppable" promise. ENS, Handshake, Namecoin, GNS, PKARR, Tor, I2P, and Nomen all have no operator that can take a name down. UD has one.
+
+
+      ## UD as the proof-by-counterexample
+
+
+      UD is useful as a *case study* in decentralized naming precisely because it shows the limits of "blockchain-anchored but company-controlled":
+
+
+      1. **The chain anchors ownership at the token level.** UD''s NFT-mint is real, on a real chain, in a real wallet.
+
+      2. **The chain does not anchor governance.** The company can change the resolver, mint new names, refuse to support a name in their tools, and (per the patent) deactivate a name.
+
+      3. **The user''s experience is centralized.** Most users buy names through the UD website, use the UD resolver, and rely on the UD''s browser extension or mobile app to resolve `.crypto` and friends.
+
+      4. **The "decentralized" branding is misleading.** The token is on a chain; the system is not.
+
+
+      For an Ungovernable.tech stack, the lesson is that "decentralized" should be reserved for systems whose governance and resolution are also decentralized. Chain-anchored ownership is necessary but not sufficient.
+
+
+      ## UD''s positioning in 2026
+
+
+      UD continues to operate as a Web3 naming company, but with three structural constraints:
+
+
+      1. **Patent-pending takedown mechanism** — explicit acknowledgment that the system is not "unstoppable" in the literal sense.
+
+      2. **ICANN accreditation** — UD is also a real registrar for real Web2 domains; the company has both a Web2 and a Web3 business.
+
+      3. **D3 Protocol partnership (announced at ICANN 84)** — tokenization of Web2 domains; this is a different product (D3''s `.box`, `.art`, `.locker` TLDs) that intersects with UD''s domain business.
+
+
+      The crypto-native users who wanted a "decentralized domain" generally migrated to ENS, Handshake, or PKARR. UD''s customer base is now primarily enterprise and Web2 brands exploring tokenized domain products.
+
+
+      ## Trade-offs
+
+
+      ### Strengths (relative to the alternatives)
+
+
+      - Easy onboarding — credit card, no crypto wallet needed.
+
+      - One-time payment, no renewal.
+
+      - ICANN-accredited; can also sell real `.com` and friends.
+
+      - Big marketing budget; "Unstoppable" branding had a real effect on awareness.
+
+      - Customer support; enterprise integrations.
+
+
+      ### Limitations (relative to decentralized alternatives)
+
+
+      - Operator can take a name down (per Sept 2025 patent).
+
+      - Resolution depends on UD''s resolver infrastructure.
+
+      - Tied to UD''s chain of choice (Polygon) for the .crypto family.
+
+      - ICANN-bound by UDRP and contractual obligations.
+
+      - Premium pricing for short names; speculative secondary market.
+
+      - No real censorship-resistance story.
+
+
+      ## Use cases (real and aspirational)
+
+
+      | Use case | Reality |
+
+      |---------|---------|
+
+      | Crypto wallet address | Workable, but ENS has more wallet integrations |
+
+      | Censorship-resistant website | Weak — UD has a takedown path |
+
+      | Brand domain (Web3 + Web2 dual) | UD''s strongest use case; D3 partnership extends this |
+
+      | Speculative investment | Real market; the 2021 peak drove a secondary-market boom |
+
+      | Enterprise / corporate identity | Real market; less censorship-resistance, more convenience |
+
+
+      ## Evidence at a glance
+
+
+      | Item | Evidence | What it supports |
+
+      |------|----------|------------------|
+
+      | UD "Deactivation of decentralized domains" patent | Filed Feb 2024, published Aug 2025; reported Sept 2025 by Domain Name Wire | UD is building an explicit takedown mechanism |
+
+      | 4.6M+ names registered | Domain Details 2025 KB | Real, large user base |
+
+      | ICANN accreditation | Oxford Info Labs / AFNIC report | UD is a real registrar, not only a Web3 company |
+
+      | D3 Protocol partnership | MarkMonitor blog 2025 | UD / D3 working on tokenized Web2 domains |
+
+      | Oxford Information Labs / AFNIC report | Q4 2023; 31 blockchain providers studied; blockchain = 0.5% of total domains | Scale of blockchain domains is small but real |
+
+      | Forbes America''s Best Startup Employers 2025 | UD blog Mar 2025 | UD is a real, growing company |
+
+
+      ## Recent developments (2024–2026)
+
+
+      - **Feb 2024 → Aug 2025**: UD files and publishes the takedown patent.
+
+      - **Sep 2025**: Domain Name Wire exposes the patent; community discussion on the contradiction with "Unstoppable" branding.
+
+      - **2025**: D3 Protocol partnership announced; ICANN 84 partnership materializes.
+
+      - **2025**: Oxford Information Labs + AFNIC publish mapping study; UD is one of only two ICANN-accredited blockchain providers (with Freename).
+
+      - **2025**: UD appears on Forbes America''s Best Startup Employers list for the fourth consecutive year.
+
+      - **2026**: UD continues to operate; the takedown mechanism remains in patent-pending state, not yet activated in production.
+
+
+      ## Primary sources
+
+
+      - [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+
+      - [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+
+      - [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)
+
+
+      - Unstoppable Domains — `unstoppabledomains.com`.
+
+      - "Deactivation of decentralized domains" patent — `domainnamewire.com/wp-content/Unstoppable-takedown-patent.pdf` (Domain Name Wire coverage Sept 2025).
+
+      - Domain Name Wire coverage — `domainnamewire.com/2025/09/02/unstoppable-domains-files-patent-for-way-to-take-down-blockchain-domains`.
+
+      - Oxford Information Labs + AFNIC report — `oxil.uk/news/mapping-blockchain-domain-providers-10-key-findings-from-oxford-information-labs-and-afnic`.
+
+      - MarkMonitor Web3 update 2025 — `markmonitor.com/blog/web3-and-web2-updates-on-blockchain-domains-in-2025`.
+
+      - Domain Details Web3 investing KB 2025 — `domaindetails.com/kb/domain-investing/blockchain-domains-web3-investing`.'
+    new: '## Summary
+
+
+      Unstoppable Domains provides blockchain-based names and software for resolving their records. Its resolution library supports reading blockchain data through configured providers. Resolution therefore does not inherently require the company’s hosted resolver, although hosted interfaces and RPC providers can still be practical dependencies.
+
+
+      The relevant distinction is between ownership records, contract authority, resolution software and the interfaces a user chooses. Compare [ENS](/kb/ens/), [Handshake](/kb/handshake/) and [Namecoin](/kb/namecoin/) in the [decentralized naming overview](/kb/decentralized-dns/).
+
+
+      ## How it works
+
+
+      Applications use resolution software to obtain records such as cryptocurrency addresses and content locations associated with a name. The library documents supported naming systems and provider configuration. A user’s dependency on a hosted API depends on the chosen integration; it is not a universal protocol requirement.
+
+
+      ## The deactivation patent application
+
+
+      US20250274481A1, titled *Deactivation of decentralized domains*, was filed on February 28, 2024 and published on August 28, 2025. It describes a proposed deactivation process involving signed requests, wallet-related thresholds and a reviewing authority.
+
+
+      This is evidence of a proposed mechanism. A patent application does not establish that the mechanism is implemented, deployed or enabled for existing names. It also does not prove that an operator can unilaterally deactivate every name. Those questions require examining the relevant deployed contracts and resolution behavior.
+
+
+      ## Trust model / threat model
+
+
+      - Check the contract and naming system used by the particular name.
+
+      - Distinguish control over a token or record from control over a website, gateway or hosted API.
+
+      - A resolver can refuse to answer without changing the underlying blockchain record.
+
+      - An independent resolver reduces dependence on a hosted service but still needs a reliable view of chain state.
+
+
+      ## Readiness
+
+
+      Resolution software and integration documentation are public. Evaluate the supported chain, provider and client combination for the intended application. The patent application alone supplies no deployment-readiness evidence for its proposed deactivation process.
+
+
+      ## Comparison and limits
+
+
+      [Handshake](/kb/handshake/) names require renewal: its implementation defines an approximately two-year mainnet renewal window and enforces expiry. Blockchain storage does not imply perpetual availability or identical renewal rules across naming systems.
+
+
+      The Oxford Information Labs and AFNIC study examines blockchain-domain providers as a diverse market. Its findings should not be treated as proof that every provider uses the same contracts or governance.
+
+
+      For a censorship-resistance assessment, inspect the current contracts, resolver path and client behavior. Marketing language, a token record and a patent filing each describe different parts of that assessment.'
+  - old: 'A cautionary case study in decentralized naming. Unstoppable Domains sells blockchain-minted names (`.crypto`, `.wallet`, `.nft`, `.x`, `.bitcoin`, and more) on Polygon and other chains, marketed as censorship-resistant, and now (per a Sept 2025 patent filing) building a wallet-vote-based takedown mechanism. The lesson: blockchain-anchored ≠ decentralized governance. See Overview - Decentralized DNS for the comparative landscape; Namecoin for the original chain-DNS that has no company at all.'
+    new: Blockchain-based names with public resolution software and a published deactivation patent application; contract authority and deployed behavior need separate evaluation.
+  - old: 'A cautionary case study: Unstoppable Domains sells blockchain-minted names, but the company''s control over resolution undermines the sovereignty claim.'
+    new: 'Unstoppable Domains offers blockchain-based names: resolution choices, contract trust and what its deactivation patent does and does not establish.'
   updated: '2026-10-25'
+  sources:
+  - title: 'Deactivation of decentralized domains: patent application US20250274481A1'
+    url: https://patents.google.com/patent/US20250274481A1/en
+  - title: 'Oxford Information Labs and AFNIC: blockchain domain provider study'
+    url: https://oxil.uk/news/mapping-blockchain-domain-providers-10-key-findings-from-oxford-information-labs-and-afnic/
+  - title: Handshake mainnet renewal window
+    url: https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js
+  - title: Handshake name-expiry rule
+    url: https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js
+  - title: Handshake RENEW covenant validation
+    url: https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js
+  - title: Unstoppable Domains documentation
+    url: https://docs.unstoppabledomains.com/
+  - title: Unstoppable resolution library
+    url: https://github.com/unstoppabledomains/resolution
+
 web-of-trust-survey:
   replace:
   - new: NIP-26 delegated event signing is marked unrecommended in the NIPs README. Historical discussion
@@ -1089,17 +1892,6 @@ yggdrasil:
     old: '## Primary sources'
   updated: '2026-10-25'
 
-dnns:
-  replace:
-  - old: '| [GNS](/kb/gnu-name-system/) | GNUnet DHT | Local petnames | No | No | No | Niche |'
-    new: '| [GNS](/kb/gnu-name-system/) | GNUnet DHT | Local petnames | No | No | No | Experimental |'
-  - old: '## Primary sources'
-    new: '## Primary sources
-
-
-      - [GNUnet software status](https://www.gnunet.org/en/about.html)'
-  updated: '2026-10-25'
-
 cardano-dns:
   replace:
   - old: '| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet encrypted DHT records | GNUnet resolver/NSS | Niche, standardized |'
@@ -1110,7 +1902,6 @@ cardano-dns:
 
       - [GNUnet software status](https://www.gnunet.org/en/about.html)'
   updated: '2026-10-25'
-
 nomen:
   replace:
   - old: '| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet DHT | Local petnames | Niche but standardized | Privacy-preserving lookup |'
@@ -1120,4 +1911,1617 @@ nomen:
 
 
       - [GNUnet software status](https://www.gnunet.org/en/about.html)'
+confidential-ai-inference:
+  replace:
+  - old: All PCIe traffic between them is AES-GCM encrypted; both endpoints attest jointly.
+    new: Protected CPU–GPU transfers use encrypted bounce buffers over the untrusted link. The CPU and GPU supply attestation evidence that the deployment must validate and bind to its secure channel.
+  - old: Logging is structurally impossible, not merely policy-disabled.
+    new: The design aims to prevent retention of user request data while allowing restricted operational metrics.
+  - old: encrypted PCIe (SPDM + AES-GCM)
+    new: protected CPU–GPU data transfers (SPDM-established keys and AES-GCM)
+  - old: '`security.apple.com/blog/private-cloud-compute`'
+    new: '[Apple Private Cloud Compute: security design](https://security.apple.com/blog/private-cloud-compute/)'
+  sources:
+  - title: 'Apple: Private Cloud Compute Security Guide'
+    url: https://security.apple.com/documentation/private-cloud-compute/
+  - title: 'NVIDIA: Confidential Computing on H100 GPUs'
+    url: https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/
+  - title: 'Confidential Computing Consortium: Technical Analysis'
+    url: https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/CCC-A-Technical-Analysis-of-Confidential-Computing-v1.3_unlocked.pdf
+  - title: Intel SGX Explained
+    url: https://eprint.iacr.org/2016/086
+  - title: 'Li et al.: A Survey of Secure Computation Using Trusted Execution Environments'
+    url: https://arxiv.org/abs/2302.12150
+  - title: 'Microsoft: Confidential AI'
+    url: https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-ai
+  - title: 'Apple Private Cloud Compute: security design'
+    url: https://security.apple.com/blog/private-cloud-compute/
+  - title: ONNX Runtime Open Enclave port for confidential inference
+    url: https://github.com/microsoft/onnxruntime-openenclave
+  updated: '2026-10-25'
+confidential-cloud-comparison:
+  replace:
+  - old: C3 / C3D (GA)
+    new: c3-standard-* (TDX)
+  - old: M6a/C6a/R6a with Nitro+SNP (GA April 2023; later families add support)
+    new: Selected M6a/C6a/R6a sizes; check tenancy and region requirements
+  - old: GA (all Nitro instances)
+    new: Supported Nitro instance types, with exclusions
+  - old: '| Hyper Protect (GA)     |'
+    new: '| — |'
+  - old: '- SEV-SNP went GA in April 2023 on M6a/C6a/R6a with deep Nitro integration (VLEK signing); later 7-gen families were validated subsequently.
+
+      '
+    new: '- AWS documents SEV-SNP support for selected M6a, C6a and R6a configurations, with separate requirements for Shared, Dedicated Instance and Dedicated Host tenancy.
+
+      '
+  - old: lineage
+    new: history
+  sources:
+  - title: Azure confidential computing products
+    url: https://learn.microsoft.com/en-us/azure/confidential-computing/overview-azure-products
+  - title: 'AWS EC2: AMD SEV-SNP'
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html
+  - title: AWS Nitro Enclaves requirements
+    url: https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html
+  - title: Google Cloud Confidential VM supported configurations
+    url: https://cloud.google.com/confidential-computing/confidential-vm/docs/supported-configurations
+  - title: Google Cloud Confidential Space
+    url: https://cloud.google.com/confidential-computing/confidential-space/docs/confidential-space-overview
+  - title: Oracle Cloud confidential computing
+    url: https://docs.oracle.com/en-us/iaas/Content/Compute/References/confidential_compute.htm
+  - title: IBM Hyper Protect Virtual Servers
+    url: https://cloud.ibm.com/docs/vpc?topic=vpc-about-se
+  updated: '2026-10-25'
+confidential-containers:
+  replace:
+  - old: Attestation Service (AS) — Veraison
+    new: 'Attestation Service (AS)          '
+  - old: Attestation Service (Veraison-based)
+    new: Attestation Service
+  - old: '| **Veraison** | Open verifier used inside Trustee |'
+    new: '| **Veraison** | An alternative attestation-verification service; distinct from Trustee’s native Attestation Service |'
+  sources:
+  - title: Confidential Containers architecture
+    url: https://confidentialcontainers.org/docs/architecture/
+  - title: Trustee implementation and architecture
+    url: https://github.com/confidential-containers/trustee
+  - title: Kata Containers documentation
+    url: https://github.com/kata-containers/kata-containers/tree/main/docs
+  - title: Constellation architecture
+    url: https://docs.edgeless.systems/constellation/architecture/overview
+  - title: OCIcrypt implementation and image encryption
+    url: https://github.com/containers/ocicrypt
+  - title: 'Confidential Containers: init-data and policy'
+    url: https://confidentialcontainers.org/docs/features/initdata/
+  updated: '2026-10-25'
+decentralized-identity:
+  sources:
+  - title: W3C Decentralized Identifiers v1.0
+    url: https://www.w3.org/TR/did-core/
+  - title: W3C Verifiable Credentials Data Model v2.0
+    url: https://www.w3.org/TR/vc-data-model-2.0/
+  - title: 'RFC 9901: Selective Disclosure for JSON Web Tokens'
+    url: https://www.rfc-editor.org/rfc/rfc9901.html
+  - title: DIF Presentation Exchange specification
+    url: https://identity.foundation/presentation-exchange/
+  - title: DIF DIDComm Messaging specification
+    url: https://identity.foundation/didcomm-messaging/spec/
+  updated: '2026-10-25'
+dihedral-coset-attacks:
+  replace:
+  - old: FIPS 206 IPD
+    new: FIPS 206 under development
+  - old: BKSW EUROCRYPT 2018
+    new: BKSW PKC 2018
+  - old: '"Learning With Errors and Extrapolated Dihedral Cosets," EUROCRYPT 2018'
+    new: '"Learning With Errors and Extrapolated Dihedral Cosets," PKC 2018'
+  - old: 1. Will Simon respond to the no-go — revision, withdrawal, or silence? (No statement as of Aug 22, 2026.)
+    new: 1. How does Simon’s October 7, 2026 revision address the no-go result? The ePrint record now includes an author response; that response alone does not establish a working attack.
+  - old: Assume the next extraordinary claim gets the same treatment on an even shorter clock, likely with AI assistance at the search stage (the HAWK/Mythos precedent from July).
+    new: ''
+  - old: 4. Does the AI-cryptanalysis economics shift ($100K/week per result) eventually get pointed at EDCP/IP-M-EDCP directly — the first AI-found solver in this line?
+    new: ''
+  - old: '*Primary sources: ePrint 2026/1693 (GRZ no-go), 2026/1591 (Simon), 2026/155 (Wen–Zheng), 2025/1046 (Bai et al.), 2024/555 (Chen, withdrawn), Regev SIAM J. Comput. 2004, BKSW PKC 2018, Kuperberg 2005/2011; github.com/sragavan99/lean-ePrint-2026-1591-refutation; github.com/a-as-plus-e/lemma3-objection; PostQuantum.com analyses (Ivezic, Aug 6/15); IACR News Aug 15, 2026. Links verified August 22, 2026.*'
+    new: ''
+  - old: lineage
+    new: history
+  - old: 'machine-checked no-go (nine days, with Lean). '
+    new: machine-checked no-go (nine days, with Lean).
+  sources:
+  - title: The ePrint:2026/1591 Quantum Algorithm Does Not Solve DCP
+    url: https://eprint.iacr.org/2026/1693
+  - title: A Polynomial-Time Quantum Algorithm for the Dihedral Coset Problem
+    url: https://eprint.iacr.org/2026/1591
+  - title: Module Learning With Errors and Structured Extrapolated Dihedral Cosets
+    url: https://eprint.iacr.org/2026/155
+  - title: A Quasi-polynomial Time Algorithm for the Extrapolated Dihedral Coset Problem over Power-of-Two Moduli
+    url: https://eprint.iacr.org/2025/1046
+  - title: Quantum Algorithms for Lattice Problems
+    url: https://eprint.iacr.org/2024/555
+  - title: 'Regev: Quantum Computation and Lattice Problems'
+    url: https://arxiv.org/abs/cs/0304005
+  - title: 'Kuperberg: A Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem'
+    url: https://arxiv.org/abs/quant-ph/0302112
+  - title: 'Kuperberg: Another Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem'
+    url: https://arxiv.org/abs/1112.3333
+  - title: Lean verification of the Simon refutation
+    url: https://github.com/sragavan99/lean-ePrint-2026-1591-refutation
+  - title: Lemma 3 objection
+    url: https://github.com/a-as-plus-e/lemma3-objection
+  - title: 'RFC 10024: Hybrid key exchange'
+    url: https://www.rfc-editor.org/rfc/rfc10024.html
+  - title: Learning With Errors and Extrapolated Dihedral Cosets
+    url: https://arxiv.org/abs/1710.08223
+  - title: FN-DSA implementation and standardization caveats
+    url: https://github.com/pornin/c-fn-dsa
+  updated: '2026-10-25'
+fn-dsa-falcon:
+  replace:
+  - old: Fast Fourier-NIST Signature — a lattice-based digital signature algorithm based on the NTRU lattice and Gaussian sampling, standardized as FIPS 206 (draft).
+    new: FN-DSA is the Falcon-based signature algorithm under development for FIPS 206, using NTRU lattices and Gaussian sampling.
+  - old: with the initial public draft published August 11, 2025 by NIST.
+    new: with standardization still in progress. The implementation documentation warns that its format may change before the standard is published.
+  - old: The public key is a hash of the lattice; the secret key is a "good" (short) basis.
+    new: The public key is the polynomial h = g/f modulo q; the secret key supplies a short NTRU lattice basis.
+  - old: 'FIPS 206 (draft, August 2025) specifies two parameter sets:'
+    new: 'The Falcon submission specifies two parameter sets; these are not a promise of final FIPS 206 encodings:'
+  - old: '- Signature sizes are **average** — Falcon''s signatures vary slightly in length because of the rejection-sampling step.'
+    new: '- Falcon has several signature encodings. The 666-byte and 1,280-byte figures are the padded encodings; compressed encodings can vary in length.'
+  - old: Howe, Prest, Apon
+    new: Howe, Prest, Ricosset, Rossi
+  - old: Howe-Prest-Apon 2020
+    new: Howe-Prest-Ricosset-Rossi 2020
+  - old: '## Standardization status
+
+
+      - **NIST selection**: announced July 2022, alongside CRYSTALS-Dilithium and SPHINCS+.
+
+      - **FIPS 206 initial public draft (IPD)**: August 11, 2025 — the draft standard was submitted for public comment, not merely announced.
+
+      - **Public comment period**: closed late 2025.
+
+      - **Final standard**: expected late 2026 / early 2027. The IETF `draft-ietf-cose-falcon-04` reference note states "FIPS 206 (expected to be published in late 2026 early 2027)." The NIST 6th PQC Conference (2025) confirmed active discussion of SUF-CMA requirements, hedged variants, key/message-recovery mode, and fixed-point signing — the final standard will reflect resolution of these open questions.
+
+      - **COSE integration**: `draft-ietf-cose-falcon-04` (current, expires April 2026) tracks FIPS 206 alignment. The COSE-wg milestone is January 2026 for "one or more documents describing the proper use of algorithms."
+
+      - **liboqs**: Falcon implemented; tracking FIPS 206 alignment in current releases.
+
+      - **HSM support**: limited. Most major HSM vendors await final FIPS 206 before shipping production code.'
+    new: '## Standardization status
+
+
+      Falcon was selected for standardization in 2022. FN-DSA is the Falcon-based algorithm being developed for FIPS 206. The implementation documentation explicitly warns that it anticipates a future draft and does not guarantee stable keys or signatures before final standardization.
+
+
+      Falcon implementations in liboqs are available for experimentation. Pin the scheme and encoding used by each implementation; do not assume Falcon and a future FN-DSA standard are interchangeable.'
+  - old: Smallest signatures of any NIST-standardized PQ signature scheme.
+    new: Compact signatures compared with ML-DSA and SLH-DSA.
+  sources:
+  - title: NIST post-quantum signature standardization
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022
+  - title: Falcon specification
+    url: https://falcon-sign.info/falcon.pdf
+  - title: Trapdoors for Hard Lattices and New Cryptographic Constructions
+    url: https://eprint.iacr.org/2007/432
+  - title: 'Hoffstein, Pipher and Silverman: NTRU'
+    url: https://www.ntru.org/f/hps98.pdf
+  - title: 'Falcon Down: Breaking Falcon Post-Quantum Signature Scheme through Side-Channel Attacks'
+    url: https://eprint.iacr.org/2021/772
+  - title: liboqs Falcon implementation
+    url: https://github.com/open-quantum-safe/liboqs/tree/main/src/sig/falcon
+  - title: FN-DSA implementation and standardization caveats
+    url: https://github.com/pornin/c-fn-dsa
+  - title: 'Isochronous Gaussian Sampling: From Inception to Implementation'
+    url: https://eprint.iacr.org/2019/1411
+  updated: '2026-10-25'
+hqc:
+  replace:
+  - old: as the second standardized PQ KEM
+    new: for standardization as a second PQ KEM
+  - old: with the FIPS document expected in 2026.
+    new: as an additional code-based KEM.
+  - old: '## Lineage: code-based cryptography'
+    new: '## Code-based cryptography'
+  - old: ' — the original is older than RSA.'
+    new: .
+  - old: McEliece used Goppa codes; ciphertexts are large (~1 MB for the public key).
+    new: McEliece used Goppa codes. The large object in Classic McEliece is the public key, not the ciphertext.
+  - old: decoded with a generic syndrome decoder.
+    new: with decoding tailored to that concatenated code.
+  - old: HQC-128
+    new: HQC-1
+  - old: HQC-192
+    new: HQC-3
+  - old: HQC-256
+    new: HQC-5
+  - old: 2,249
+    new: 2,241
+  - old: 4,481
+    new: 4,433
+  - old: 4,522
+    new: 4,514
+  - old: 9,026
+    new: 8,978
+  - old: 7,245
+    new: 7,237
+  - old: 14,469
+    new: 14,421
+  - old: 'NIST''s selected HQC parameter sets target the same NIST security categories as ML-KEM:'
+    new: 'The August 2025 HQC specification names the parameter sets HQC-1, HQC-3 and HQC-5. They target the same NIST security categories as ML-KEM:'
+  - old: '## Performance
+
+
+      On modern x86-64 with AVX2:
+
+
+      - **HQC-1 keygen**: ~150-300 µs
+
+      - **HQC-1 encaps**: ~200-500 µs
+
+      - **HQC-1 decaps**: ~400-1,000 µs (decoding the concatenated code is the bottleneck)
+
+
+      Slower than ML-KEM (which is in the ~30-100 µs range across all operations) but well within the budget for TLS handshakes.'
+    new: '## Performance
+
+
+      The HQC specification reports implementation-specific benchmarks and identifies its test platform. Compare implementations on the intended hardware; a generic microsecond range is not a portable performance guarantee.'
+  - old: lineage
+    new: history
+  sources:
+  - title: 'NIST IR 8545: Fourth-round status report'
+    url: https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8545.pdf
+  - title: HQC specification
+    url: https://pqc-hqc.org/doc/hqc_specifications_2025_08_22.pdf
+  - title: Efficient Encryption from Random Quasi-Cyclic Codes
+    url: https://eprint.iacr.org/2016/1194
+  - title: 'McEliece: A Public-Key Cryptosystem Based on Algebraic Coding Theory'
+    url: https://ipnpr.jpl.nasa.gov/progress_report2/42-44/44N.PDF
+  - title: A Modular Analysis of the Fujisaki-Okamoto Transformation
+    url: https://eprint.iacr.org/2017/604
+  - title: liboqs HQC implementation
+    url: https://github.com/open-quantum-safe/liboqs/tree/main/src/kem/hqc
+  updated: '2026-10-25'
+keri:
+  replace:
+  - old: did:webs:example.com:user:alice
+    new: did:webs:example.com%3a3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9OxmP
+  - old: This is structurally different from did:plc and did:web, where a compromised signing key can rotate the identity to an attacker-controlled key.
+    new: KERI pre-rotation commits to future keys. In did:plc, repository signing keys and DID rotation keys have distinct authority; compromise of a repository key alone does not authorize DID rotation.
+  - old: '- **W3C DID Core 1.1** discussions (2024-2025) considered incorporating pre-rotation as an optional feature; not finalized.
+
+      '
+    new: ''
+  - old: '`arxiv.org/abs/1907.02143`'
+    new: '[Smith: Key Event Receipt Infrastructure](https://arxiv.org/abs/1907.02143)'
+  sources:
+  - title: 'Smith: Key Event Receipt Infrastructure'
+    url: https://arxiv.org/abs/1907.02143
+  - title: KERI specification
+    url: https://weboftrust.github.io/ietf-keri/draft-ssmith-keri.html
+  - title: CESR specification
+    url: https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html
+  - title: GLEIF vLEI Ecosystem Governance Framework
+    url: https://www.gleif.org/en/vlei/introducing-the-vlei-ecosystem-governance-framework
+  - title: KERI reference implementation
+    url: https://github.com/WebOfTrust/keripy
+  - title: KERIA implementation
+    url: https://github.com/WebOfTrust/keria
+  - title: Signify TypeScript implementation
+    url: https://github.com/WebOfTrust/signify-ts
+  - title: Trust over IP KERI specification
+    url: https://trustoverip.github.io/kswg-keri-specification/
+  - title: The did:webs method
+    url: https://trustoverip.github.io/kswg-did-method-webs-specification/
+  - title: ACDC specification
+    url: https://trustoverip.github.io/kswg-acdc-specification/
+  - title: did:plc specification and directory implementation
+    url: https://github.com/did-method-plc/did-method-plc
+  updated: '2026-10-25'
+map-censorship-resistance:
+  replace:
+  - old: NIP-05 over PKARR or .onion (no DNS dependency)
+    new: Share Nostr public keys independently; NIP-05 aliases depend on DNS and HTTPS
+  sources:
+  - title: Tor onion-service protocol
+    url: https://spec.torproject.org/rend-spec/index.html
+  - title: 'Nostr NIP-01: events and relays'
+    url: https://github.com/nostr-protocol/nips/blob/master/01.md
+  - title: 'Nostr NIP-05: DNS-based identifiers'
+    url: https://github.com/nostr-protocol/nips/blob/master/05.md
+  - title: 'IPFS: persistence and availability'
+    url: https://docs.ipfs.tech/how-to/pin-files/
+  - title: 'Briar: transports and peer-to-peer synchronization'
+    url: https://briarproject.org/how-it-works/
+  updated: '2026-10-25'
+map-composing-primitives:
+  replace:
+  - old: NIP-05 over PKARR (no DNS dependency)
+    new: Public-key identity; optional NIP-05 alias via DNS and HTTPS
+  - old: NIP-17 gift-wrapped DMs (metadata protection)
+    new: NIP-17 gift-wrapped DMs (sender hidden; recipient tag visible)
+  - old: '### Unruggable ecash mint (TEE composition 2026)'
+    new: '### Hardware-protected ecash mint (deployment pattern)'
+  - old: H100/H200 confidential GPU mode (encrypted PCIe)
+    new: Confidential GPU mode with protected CPU–GPU transfers
+  - old: Redemption or swap still works; operator cannot inflate or steal
+    new: Redemption still depends on the mint; evaluate code, reserves, rollback and hardware trust
+  sources:
+  - title: 'RFC 9334: attestation architecture'
+    url: https://www.rfc-editor.org/rfc/rfc9334.html
+  - title: 'RA-TLS: binding attestation to TLS'
+    url: https://arxiv.org/abs/1801.05863
+  - title: 'Nostr NIP-05: DNS-based identifiers'
+    url: https://github.com/nostr-protocol/nips/blob/master/05.md
+  - title: 'Nostr NIP-59: gift-wrap metadata'
+    url: https://github.com/nostr-protocol/nips/blob/master/59.md
+  - title: 'Cashu NUT-00: protocol and mint trust'
+    url: https://github.com/cashubtc/nuts/blob/main/00.md
+  - title: 'Lightning BOLT 4: onion routing'
+    url: https://github.com/lightning/bolts/blob/master/04-onion-routing.md
+  - title: 'NVIDIA: Confidential Computing on H100 GPUs'
+    url: https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/
+  updated: '2026-10-25'
+map-metadata-privacy:
+  replace:
+  - old: '> "We kill people based on metadata." — Michael Hayden, former NSA Director.'
+    new: ''
+  - old: '| TLS | Same | SNI (until ECH), certificate chain, ALPN |'
+    new: '| TLS | Same | ClientHello fields such as SNI/ALPN unless protected; TLS 1.3 encrypts the server certificate |'
+  - old: DM events are wrapped in a public-key-encrypted envelope so relays cannot see the social graph.
+    new: gift wraps conceal the original sender but expose the recipient’s public key and delivery timing.
+  - old: 'Constant-rate fills: WireGuard keepalives, Loopix loops, Tor v3 padding.'
+    new: 'Cover traffic and padding: Loopix adds cover messages; Tor has padding mechanisms. WireGuard persistent keepalives preserve NAT mappings and are not constant-rate traffic-analysis protection.'
+  - old: '## Reading list'
+    new: '## Primary sources'
+  sources:
+  - title: 'Tor: The Second-Generation Onion Router'
+    url: https://www.usenix.org/conference/13th-usenix-security-symposium/tor-second-generation-onion-router
+  - title: The Loopix Anonymity System
+    url: https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska
+  - title: 'Pung: Unobservable Communication over Fully Untrusted Infrastructure'
+    url: https://www.usenix.org/conference/osdi16/technical-sessions/presentation/angel
+  - title: 'RFC 8446: TLS 1.3'
+    url: https://www.rfc-editor.org/rfc/rfc8446.html
+  - title: 'Nostr NIP-59: visible recipient tags'
+    url: https://github.com/nostr-protocol/nips/blob/master/59.md
+  - title: 'WireGuard: persistent keepalives'
+    url: https://www.wireguard.com/quickstart/
+  - title: 'Signal: sealed sender'
+    url: https://signal.org/blog/sealed-sender/
+  - title: 'Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis'
+    url: https://pdos.csail.mit.edu/papers/vuvuzela:sosp15.pdf
+  updated: '2026-10-25'
+map-threat-models:
+  replace:
+  - old: 'Trust at least one honest relay: Tor relies on this for onion routing.'
+    new: Tor separates knowledge across relays; it does not protect against an observer who can correlate both ends of a connection merely because one relay is honest.
+  - old: 'Trust no party: pure cryptographic constructions (FHE, ZK, MPC with honest majority).'
+    new: 'Cryptographic constructions have distinct assumptions: FHE and ZK depend on their schemes, while honest-majority MPC explicitly assumes enough non-colluding participants.'
+  sources:
+  - title: 'Tor: The Second-Generation Onion Router'
+    url: https://www.usenix.org/conference/13th-usenix-security-symposium/tor-second-generation-onion-router
+  - title: 'RFC 9334: attestation roles and trust'
+    url: https://www.rfc-editor.org/rfc/rfc9334.html
+  - title: 'NIST SP 800-204D: software supply chain security'
+    url: https://csrc.nist.gov/pubs/sp/800/204/d/final
+  - title: Secure Multiparty Computation (MPC)
+    url: https://eprint.iacr.org/2020/300
+  - title: 'Shor: quantum factoring and discrete logarithms'
+    url: https://arxiv.org/abs/quant-ph/9508027
+  updated: '2026-10-25'
+merkle-tree-certificates:
+  replace:
+  - old: Post-quantum usE of oLder Protocol Number TerminalS — a backronym
+    new: PKI, Logs, And Tree Signatures
+  - old: '**Quote** (Josh Aas, Let''s Encrypt / ISRG head): *"Let''s Encrypt is committed to a post-quantum-safe Web PKI. The path we''re planning to take is Merkle Tree Certificates."*'
+    new: The roadmap, published by Andrew Gabbitas, identifies Merkle Tree Certificates as Let’s Encrypt’s planned approach to post-quantum web authentication.
+  - old: (Meshtastic, Reticulum, cjdns)
+    new: ([Meshtastic](/kb/meshtastic/), [MeshCore](/kb/meshcore/), Reticulum, cjdns)
+  - old: '## Standardization
+
+
+      '
+    new: '## Standardization
+
+
+      As of October 25, 2026, the MTC specification is an active Internet-Draft, revision 07 dated October 7, 2026. The table below retains the earlier snapshot’s dates.
+
+
+      '
+  sources:
+  - title: 'Let''s Encrypt: A Post-Quantum Future'
+    url: https://letsencrypt.org/2026/06/03/pq-certs/
+  - title: IETF PLANTS working group
+    url: https://datatracker.ietf.org/wg/plants/about/
+  - title: Merkle Tree Certificates specification
+    url: https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/
+  - title: LAMPS composite ML-DSA signatures
+    url: https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/
+  - title: 'Cloudflare: ML-DSA will have to do'
+    url: https://blog.cloudflare.com/ml-dsa-will-have-to-do/
+  - title: IETF 126 MAPRG meeting materials
+    url: https://datatracker.ietf.org/meeting/126/session/maprg
+  - title: Chrome post-quantum PKI design
+    url: https://www.chromium.org/Home/chromium-security/post-quantum-pki-design/
+  - title: 'Chrome: quantum-safe HTTPS'
+    url: https://blog.google/security/cultivating-a-robust-and-efficient-quantum-safe-https/
+  - title: Google Cloud post-quantum roadmap
+    url: https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap
+  - title: 'RFC 9925: Unsigned X.509 Certificates'
+    url: https://www.rfc-editor.org/rfc/rfc9925.html
+  updated: '2026-10-25'
+remote-attestation:
+  replace:
+  - old: 1. Hardware identity. A genuine CPU or GPU from the claimed vendor (Intel, AMD, NVIDIA) signed this quote, using a per-device key burned in at the factory.
+    new: 1. Evidence provenance. Verify the signing and endorsement chain required by the platform; attestation signing keys are not universally per-device secrets burned in at manufacture.
+  - old: 4. Runtime data. A fixed 64-byte `REPORT_DATA` / `user_data` field the enclave chose at quote time, typically a hash of the session public key and a client-supplied nonce.
+    new: 4. Runtime data. A platform-specific field can bind evidence to a nonce or session public key. Its size and meaning depend on the attestation format.
+  - old: The only open, cross-vendor verifier. Pluggable.
+    new: An open verifier with pluggable platform support.
+  sources:
+  - title: 'RFC 9334: Remote ATtestation procedureS Architecture'
+    url: https://www.rfc-editor.org/rfc/rfc9334.html
+  - title: Intel DCAP reference implementation
+    url: https://github.com/intel/SGXDataCenterAttestationPrimitives
+  - title: Intel TDX attestation
+    url: https://docs.trustauthority.intel.com/main/articles/articles/ita/concept-tdx-attestation.html
+  - title: Project Veraison verifier
+    url: https://github.com/veraison/services
+  - title: 'CCC: Common Terminology for Confidential Computing'
+    url: https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/Common-Terminology-for-Confidential-Computing.pdf
+  - title: AMD SEV-SNP Firmware ABI Specification
+    url: https://www.amd.com/content/dam/amd/en/documents/developer/56860.pdf
+  updated: '2026-10-25'
+remote-signing:
+  replace:
+  - old: NIP-04 / NIP-44 ChaCha20-Poly1305 to a session key
+    new: NIP-44 v2, which uses ChaCha20 and HMAC-SHA-256
+  - old: ' Acquired by Open Sats steward; multi-key support.'
+    new: ''
+  - old: 'Coldcard added Nostr event signing in firmware 5.x (2024). Workflow:
+
+
+      1. Generate Nostr key on Coldcard, derived from BIP-39 seed via a Nostr-specific derivation path.
+
+      2. Construct unsigned event on a desktop client.
+
+      3. Pass to Coldcard via QR code or microSD.
+
+      4. Coldcard displays event content for review.
+
+      5. User confirms; Coldcard returns signed event.
+
+
+      The signing latency is meaningful (10-30 seconds per event), so Coldcard is impractical for high-frequency posting. It''s the cold-storage option for high-stakes Nostr identities (long-form publishing, key witnesses, organizational accounts).
+
+      '
+    new: 'Coldcard’s documented message-signing interface must not be assumed to implement Nostr event signing. Check the exact firmware and event format before designing a hardware-signing workflow; Bitcoin signed-message support alone does not establish NIP-01 compatibility.
+
+      '
+  - old: '`github.com/nostr-protocol/nips/blob/master/07.md`'
+    new: '[NIP-07: browser signing interface](https://github.com/nostr-protocol/nips/blob/master/07.md)'
+  - old: '`github.com/nostr-protocol/nips/blob/master/46.md`'
+    new: '[NIP-46: remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)'
+  - old: '`github.com/greenart7c3/Amber`'
+    new: '[Amber implementation](https://github.com/greenart7c3/Amber)'
+  - old: '`github.com/kind-0/nsecbunkerd`'
+    new: '[nsecbunker implementation](https://github.com/kind-0/nsecbunkerd)'
+  - old: '`github.com/fiatjaf/nos2x`'
+    new: '[nos2x browser signer](https://github.com/fiatjaf/nos2x)'
+  - old: '`github.com/cmdruid/frost`'
+    new: '[Frostr FROST implementation](https://github.com/cmdruid/frost)'
+  sources:
+  - title: Nostr Implementation Possibilities registry
+    url: https://github.com/nostr-protocol/nips
+  - title: 'NIP-07: browser signing interface'
+    url: https://github.com/nostr-protocol/nips/blob/master/07.md
+  - title: 'NIP-46: remote signing'
+    url: https://github.com/nostr-protocol/nips/blob/master/46.md
+  - title: 'NIP-44: versioned encryption'
+    url: https://github.com/nostr-protocol/nips/blob/master/44.md
+  - title: 'FROST: Flexible Round-Optimized Schnorr Threshold Signatures'
+    url: https://eprint.iacr.org/2020/852
+  - title: Amber implementation
+    url: https://github.com/greenart7c3/Amber
+  - title: nsecbunker implementation
+    url: https://github.com/kind-0/nsecbunkerd
+  - title: Alby browser extension
+    url: https://github.com/getAlby/lightning-browser-extension
+  - title: nos2x browser signer
+    url: https://github.com/fiatjaf/nos2x
+  - title: Frostr implementation
+    url: https://github.com/FROSTR-ORG/igloo-core
+  - title: Coldcard firmware release history
+    url: https://coldcard.com/docs/upgrade/
+  - title: Coldcard message signing
+    url: https://coldcard.com/docs/message-signing/
+  - title: Frostr FROST implementation
+    url: https://github.com/cmdruid/frost
+  updated: '2026-10-25'
+slh-dsa:
+  replace:
+  - old: The `f` variants take roughly 10x more bandwidth to gain about 50x faster signing.
+    new: The `f` variants use larger signatures to reduce signing work; the size and speed trade-off depends on the selected parameter set.
+  - old: '- IETF: hybrid signature drafts (e.g., `draft-ietf-lamps-pq-composite-sigs`) include SLH-DSA composites.'
+    new: '- IETF: `draft-ietf-lamps-pq-composite-sigs` specifies ML-DSA composites, not SLH-DSA composites.'
+  - old: 4. **Hybrid composite signatures** — `draft-ietf-lamps-pq-composite-sigs` defines `Ed25519+SLH-DSA-SHA2-128s`-style composite OIDs for X.509.
+    new: 4. **Hybrid signatures** — combining SLH-DSA with a classical signature requires an explicitly specified protocol and encoding. The cited LAMPS composite draft covers ML-DSA.
+  - old: '`nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf`'
+    new: '[FIPS 205: Stateless Hash-Based Digital Signature Standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf)'
+  sources:
+  - title: 'FIPS 205: Stateless Hash-Based Digital Signature Standard'
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf
+  - title: The SPHINCS+ Signature Framework
+    url: https://eprint.iacr.org/2019/1086
+  - title: SPHINCS+ specification
+    url: https://sphincs.org/data/sphincs+-r3.1-specification.pdf
+  - title: ARMed SPHINCS -- Computing a 41KB signature in 16KB of RAM
+    url: https://eprint.iacr.org/2015/1042
+  - title: liboqs SLH-DSA implementation
+    url: https://github.com/open-quantum-safe/liboqs/tree/main/src/sig/slh_dsa
+  - title: Composite ML-DSA for X.509
+    url: https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/
+  updated: '2026-10-25'
+stateful-hash-signatures:
+  replace:
+  - old: NIST SP 800-208 (October 2020) blesses these for code signing and firmware updates only.
+    new: NIST SP 800-208 (October 2020) requires tightly controlled state management and hardware cryptographic modules.
+  - old: '## NIST SP 800-208 — what it allows
+
+
+      NIST published *Recommendation for Stateful Hash-Based Signature Schemes* (SP 800-208, October 2020) to define when these schemes may be used in federal systems. The scope is deliberately narrow:
+
+
+      > **Approved use cases**: code signing, firmware signing, and other applications where the signing operation is performed in a controlled environment and signature state can be reliably maintained.
+
+      >
+
+      > **Not approved**: general-purpose public-key signatures, TLS, document signing, anywhere the signer is a normal end-user device.
+
+
+      The reasoning: state management is the failure mode. A signing system that loses or duplicates state will produce two signatures with the same leaf, and the security proof breaks. In a controlled signing pipeline (release engineering, firmware build server) this can be enforced. On a phone or laptop it cannot.'
+    new: '## NIST SP 800-208 — what it requires
+
+
+      NIST SP 800-208 approves specified LMS/HSS and XMSS/XMSS-MT parameter sets. It requires key generation and signing in hardware cryptographic modules that do not export secret keying material. State must be maintained so that no one-time key signs two different messages.
+
+
+      Firmware and software signing are important applications. Suitability for another application depends on meeting the recommendation’s state-management and hardware requirements.'
+  - old: '- NIST narrowly approves only for code/firmware signing.'
+    new: '- NIST-approved use requires the hardware and state-management controls in SP 800-208.'
+  - old: '- **NSA CNSA 2.0** (September 2022): allows LMS for software/firmware signing as part of the suite of post-quantum recommendations.'
+    new: ''
+  - old: '| Already using LMS in standards (e.g., NSA CNSA 2.0 firmware) | LMS |'
+    new: '| Existing deployment requires LMS | LMS |'
+  sources:
+  - title: 'RFC 8391: XMSS'
+    url: https://www.rfc-editor.org/rfc/rfc8391.html
+  - title: 'RFC 8554: Leighton-Micali Hash-Based Signatures'
+    url: https://www.rfc-editor.org/rfc/rfc8554.html
+  - title: 'NIST SP 800-208: Stateful Hash-Based Signature Schemes'
+    url: https://csrc.nist.gov/pubs/sp/800/208/final
+  - title: XMSS - A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions
+    url: https://eprint.iacr.org/2011/484
+  - title: 'Leighton and Micali: hash-based signature patent'
+    url: https://patents.google.com/patent/US5432852A/en
+  - title: 'NIST SP 800-208: full recommendation'
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf
+  updated: '2026-10-25'
+tee-side-channel-attacks:
+  replace:
+  - old: Affected AVX gather instructions broadly; TDX was impacted alongside general processors.
+    new: Affected vulnerable Intel processors using AVX gather instructions; the published affected generations do not establish a TDX break.
+  - old: Intel / AMD factory key extraction. So far only theoretical; would require a very capable adversary.
+    new: Hardware and firmware attacks can undermine attestation. BadRAM demonstrates forged SEV-SNP attestation measurements through memory aliasing and replay.
+  sources:
+  - title: 'Van Bulck et al.: A Tale of Two Worlds'
+    url: https://vanbulck.net/files/ccs19-tale.pdf
+  - title: 'Chen et al.: SgxPectre Attacks'
+    url: https://arxiv.org/abs/1802.09085
+  - title: 'CacheWarp: Software-based Fault Injection using Selective State Reset'
+    url: https://www.usenix.org/conference/usenixsecurity24/presentation/zhang-ruiyi
+  - title: 'Hertzbleed: Turning Power Side-Channel Attacks Into Remote Timing Attacks'
+    url: https://www.usenix.org/conference/usenixsecurity22/presentation/wang-yingchen
+  - title: AMD product security
+    url: https://www.amd.com/en/resources/product-security.html
+  - title: NVIDIA security bulletins
+    url: https://www.nvidia.com/en-us/security/
+  - title: 'Downfall: affected processors and mitigations'
+    url: https://downfall.page/
+  - title: 'BadRAM: Practical Memory Aliasing Attacks on Trusted Execution Environments'
+    url: https://badram.eu/
+  updated: '2026-10-25'
+zero-knowledge-proofs:
+  replace:
+  - old: '| **PLONK / Halo2** | 1–5 KB | Moderate | ~10–50 ms | Universal (updatable) | No |'
+    new: '| **PLONK / Halo2** | Construction-dependent | Moderate | Construction-dependent | PLONK: universal; original Halo2: none | No |'
+  - old: '| **Nova / Folding** | Small | Incremental, fast | Fast | Per-circuit | No |'
+    new: '| **Nova / Folding** | Small | Incremental, fast | Fast | Nova needs no trusted setup; compression backend can differ | No |'
+  - old: '| **SNARKs over FRI / Binius / Jolt** | Moderate | Very fast | Fast | None / universal | Mostly yes |'
+    new: '| **SNARKs over FRI / Binius / Jolt** | Construction-dependent | Construction-dependent | Construction-dependent | Depends on commitment scheme | Hash-based variants can be; curve-based Jolt is not |'
+  sources:
+  - title: On the Size of Pairing-based Non-interactive Arguments
+    url: https://eprint.iacr.org/2016/260
+  - title: Scalable, transparent, and post-quantum secure computational integrity
+    url: https://eprint.iacr.org/2018/046
+  - title: 'PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge'
+    url: https://eprint.iacr.org/2019/953
+  - title: 'Bulletproofs: Short Proofs for Confidential Transactions and More'
+    url: https://eprint.iacr.org/2017/1066
+  - title: 'Nova: Recursive Zero-Knowledge Arguments from Folding Schemes'
+    url: https://eprint.iacr.org/2021/370
+  - title: Halo2 design documentation
+    url: https://zcash.github.io/halo2/
+  - title: Jolt implementation and cryptographic design
+    url: https://github.com/a16z/jolt
+  - title: Recursive Proof Composition without a Trusted Setup
+    url: https://eprint.iacr.org/2019/1021
+  updated: '2026-10-25'
+arweave:
+  sources:
+  - title: Arweave whitepaper
+    url: https://www.arweave.org/files/arweave-lightpaper.pdf
+  - title: Arweave protocol documentation
+    url: https://docs.arweave.org/developers/
+  - title: Arweave yellow paper
+    url: https://www.arweave.org/yellow-paper.pdf
+  - title: 'Trautwein et al.: Design and Evaluation of IPFS'
+    url: https://arxiv.org/abs/2208.05877
+  - title: Arweave protocol implementation
+    url: https://github.com/ArweaveTeam/arweave
+  updated: '2026-10-25'
+bbs-signatures:
+  replace:
+  - old: Signatures are short (one G1 point + one scalar ≈ 80 bytes for BLS12-381) and aggregatable.
+    new: The current BBS draft has 80-byte signatures over BLS12-381. The BBS+ construction shown below has one G1 point and two scalars, totaling 112 bytes.
+  - old: 'The AnonCreds credential format (used in Hyperledger Indy and the broader self-sovereign-identity stack) originally used CL signatures. The 2.0 line moves to BBS+. AnonCreds adds revocation registries (cryptographic accumulators) on top of BBS+ presentations.
+
+      '
+    new: 'The published AnonCreds v1 specification uses CL signatures and revocation accumulators. Its properties should not be attributed to a deployed BBS+ replacement.
+
+      '
+  - old: '### EU Digital Identity Wallet (EUDI / eIDAS 2.0)
+
+
+      The EUDI Wallet specifications (ARF — Architecture and Reference Framework) reference BBS+ as one of the privacy-preserving signature options alongside SD-JWT. Pilots launched 2024–2025 with member-state issuers; production timeline is staggered through 2026–2027.
+
+
+      ### mDL (ISO/IEC 18013-5) and adjacent profiles
+
+
+      The base mDL spec uses CBOR Web Tokens with SHA-256 hash-based selective disclosure, not BBS+. However, the mDL ecosystem has explored BBS+ as a future profile for stronger unlinkability — current mDL presentations leak a per-credential identifier across verifiers, which BBS+ would eliminate.
+
+
+      ### MATTR, Trinsic, Spruce ecosystem
+
+
+      Several SSI vendors ship BBS+ in production credential issuance flows for B2B identity. Volumes are in the millions, not billions.
+
+      '
+    new: ''
+  - old: '| Verifier sees presentation count | ZK each time | yes, identical artifact |'
+    new: '| Presentations can be correlated cryptographically | Randomized proofs; disclosed data can still correlate | Reused issuer-signed JWT can correlate |'
+  - old: RFC 8949 + draft-ietf-oauth-selective-disclosure-jwt
+    new: RFC 9901
+  - old: 'Pragmatically: SD-JWT is winning on adoption because it slots into existing OAuth/OIDC flows. BBS+ wins on cryptographic privacy guarantees. The EU and several national wallets carry both as parallel profiles.
+
+      '
+    new: ''
+  - old: '## Aggregation and threshold
+
+
+      BBS+ supports **issuer aggregation** — multiple issuer signatures over the same message vector compress to a single proof of validity (with per-issuer public keys). Used for multi-issuer attestations.
+
+
+      **Threshold BBS+** issuance is an active research area. Doerner, Kondi, Lee, Shelat and others have published threshold-friendly variants (2023–2024). Production implementations are sparse as of 2026.'
+    new: '## Aggregation and threshold
+
+
+      The BBS draft specifies signatures and selective-disclosure proofs. It does not define general issuer-signature aggregation or threshold issuance. Multi-issuer or threshold constructions require additional protocols and security analysis.'
+  sources:
+  - title: Anonymous Attestation Using the Strong Diffie Hellman Assumption Revisited
+    url: https://eprint.iacr.org/2016/663
+  - title: Revisiting BBS Signatures
+    url: https://eprint.iacr.org/2023/275
+  - title: 'CFRG: The BBS Signature Scheme'
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-signatures/
+  - title: W3C Verifiable Credentials Data Model v2.0
+    url: https://www.w3.org/TR/vc-data-model-2.0/
+  - title: AnonCreds specification
+    url: https://github.com/anoncreds/anoncreds-spec
+  - title: 'RFC 9901: Selective Disclosure for JSON Web Tokens'
+    url: https://www.rfc-editor.org/rfc/rfc9901.html
+  - title: W3C BBS cryptosuite
+    url: https://www.w3.org/TR/vc-di-bbs/
+  - title: Short Group Signatures
+    url: https://eprint.iacr.org/2004/174
+  - title: Constant-Size Dynamic $k$-TAA
+    url: https://eprint.iacr.org/2008/136
+  - title: BBS Pseudonyms
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-per-verifier-linkability/
+  updated: '2026-10-25'
+buzz:
+  sources:
+  - title: Buzz project
+    url: https://buzz.xyz/
+  - title: Buzz source
+    url: https://github.com/block/buzz
+  - title: 'Buzz 0.5.9: usage tracking'
+    url: https://github.com/block/buzz/releases/tag/desktop-v0.5.9
+  - title: 'Buzz 0.5.11: recovery limits'
+    url: https://github.com/block/buzz/releases/tag/desktop-v0.5.11
+  - title: 'Buzz 0.5.17: mention authorization'
+    url: https://github.com/block/buzz/releases/tag/desktop-v0.5.17
+  - title: 'Buzz 0.5.3: encrypted key backups'
+    url: https://github.com/block/buzz/releases/tag/desktop-v0.5.3
+  updated: '2026-10-25'
+coinjoin:
+  replace:
+  - old: It is a substantial anonymity improvement at zero on-chain cost penalty.
+    new: It disrupts the common-input-ownership heuristic, but additional inputs and outputs can increase transaction weight and fees.
+  sources:
+  - title: 'Maxwell: CoinJoin, Bitcoin privacy for the real world'
+    url: https://bitcointalk.org/index.php?topic=279249.0
+  - title: 'ZeroLink: The Bitcoin Fungibility Framework'
+    url: https://github.com/nopara73/ZeroLink
+  - title: 'WabiSabi: Centrally Coordinated CoinJoins with Variable Amounts'
+    url: https://eprint.iacr.org/2021/206
+  - title: 'BIP 78: Payjoin'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki
+  - title: Joinstr documentation
+    url: https://docs.joinstr.xyz/
+  - title: JoinMarket implementation
+    url: https://github.com/JoinMarket-Org/joinmarket-clientserver
+  updated: '2026-10-25'
+decentralized-storage:
+  sources:
+  - title: 'Benet: IPFS, Content Addressed, Versioned, P2P File System'
+    url: https://arxiv.org/abs/1407.3561
+  - title: Arweave whitepaper
+    url: https://www.arweave.org/files/arweave-lightpaper.pdf
+  - title: 'Sia: Simple Decentralized Storage'
+    url: https://sia.tech/sia.pdf
+  - title: 'Storj: A Decentralized Cloud Storage Network Framework'
+    url: https://www.storj.io/storjv3.pdf
+  - title: 'Swarm: storage and communication specification'
+    url: https://www.ethswarm.org/swarm-whitepaper.pdf
+  - title: Blossom BUD specifications
+    url: https://github.com/hzrd149/blossom
+  - title: Filecoin protocol specification
+    url: https://spec.filecoin.io/intro/
+  updated: '2026-10-25'
+dnns:
+  replace:
+  - old: '## Summary
+
+
+      DNNS (Decentralized Naming System) is Lithosphere''s answer to the question: what naming system do you build when the consumers of the namespace are not just humans browsing websites, but autonomous agents, AI systems, and cross-chain applications that need machine-readable, programmatically enforceable identity?
+
+
+      Rather than competing with ENS, Handshake, or PKARR, DNNS targets a different layer — it is an **on-chain programmable identity layer** built natively into the Lithosphere protocol, where names are not merely resolved but can carry programmable rules, routing logic, and cross-chain bindings.
+
+
+      The project is very new (announced March 31, 2026, with follow-on routing announcement April 21, 2026). It has press coverage and a conceptual description but limited public repository evidence as of the knowledge cutoff. Treat it as a tracked experimental development, not as production infrastructure.
+
+
+      ## Historical context
+
+
+      Decentralized naming has moved through several eras:
+
+
+      || Era | Systems | Limitation |
+
+      |-----|--------|---------|-----------|
+
+      | 2011–2017 | Namecoin, ENS | Single-chain, human-centric resolution |
+
+      | 2018–2022 | Handshake, GNS | Root-zone replacement or petname privacy |
+
+      | 2023–2025 | PKARR/Pubky, Nostr NIP-05 | Key-rooted, fee-free, social |
+
+      | 2026 | DNNS (Lithosphere) | On-chain programmable identity for Web4 agents |
+
+
+      DNNS arrives in the 2026 wave alongside the broader Web4/AI-agent infrastructure narrative. The thesis: as AI agents begin operating autonomously across decentralized networks, they need naming systems that are:
+
+
+      - Persistent (not dependent on a single chain''s liveness)
+
+      - Machine-readable (AI-interpretable identity metadata)
+
+      - Programmatically enforceable (routing rules, capability grants embedded in the name record)
+
+      - Sovereign (user-controlled, not platform-controlled)
+
+
+      DNNS tries to address all four.
+
+
+      ## Architecture
+
+
+      DNNS is built into the Lithosphere protocol. The public descriptions emphasize:
+
+
+      ### On-chain naming
+
+
+      Names are registered and updated on the Lithosphere blockchain. The name record is not just a pointer — it contains programmable metadata that can specify:
+
+
+      - Routing rules (how to reach the named entity across networks)
+
+      - Capability grants (what operations this identity is authorized to perform)
+
+      - Cross-chain bindings (pointers to identities on other chains)
+
+      - AI-readable descriptors (structured data AI agents can interpret)
+
+
+      ### Programmable identity layer
+
+
+      The distinction Lithosphere draws: traditional DNS resolves a name to an IP address. DNNS resolves a name to a **programmable identity** — a bundle of routing information, authorization rules, and metadata that a system or agent can act on directly.
+
+
+      ### On-chain routing
+
+
+      The April 2026 announcement expanded DNNS with **on-chain routing**: interactions between applications, services, and agents can be directed within the protocol itself, rather than relying on external resolution.
+
+
+      ### Cross-chain model
+
+
+      DNNS is described as blockchain-agnostic at the identity layer — it is built on Lithosphere but positions itself as a naming system that works across decentralized networks, not just within one chain ecosystem.
+
+
+      ## Evidence at a glance
+
+
+      || Claim | Evidence | Confidence |
+
+      |-------|--------|----------|------------|
+
+      | Lithosphere announced DNNS in March 2026 | Globe and Mail / Newsfile Corp press release, March 31, 2026 | High |
+
+      | DNNS is on-chain programmable identity | Press release describes "programmable identity layer" and "AI-readable identity architecture" | High |
+
+      | On-chain routing announced April 2026 | Globe and Mail / Newsfile Corp, April 21, 2026 follow-on release | High |
+
+      | Targets Web4 / autonomous agents | Press releases explicitly frame DNNS for AI agents and Web4 infrastructure | High |
+
+      | GitHub repository public | Not found in search; no confirmed public repo as of 2026-05-18 | Low — no confirmed public code |
+
+      | Mainstream adoption | No evidence yet; described as announced, not deployed | N/A |
+
+
+      **Key gap:** No public GitHub repository was found for Lithosphere DNNS. The only sources are press releases from Globe and Mail / Newsfile Corp. This is typical for very new announcements but means the technical claims cannot be independently verified yet.
+
+
+      ## Maturity assessment
+
+
+      DNNS is currently at **announced / early development** stage — roughly equivalent to where Handshake was in its 2018 testnet phase.
+
+
+      ### Positive indicators
+
+
+      - Funded project with public announcements and ongoing development (follow-on routing announcement April 21, 2026, shows continued work).
+
+      - Positions itself in a real market need (AI-agent naming / Web4 identity).
+
+      - On-chain model means resolution can leverage existing blockchain infrastructure.
+
+      - Cross-chain framing is differentiated from ENS (single-chain) and PKARR (off-chain DHT).
+
+
+      ### Caution indicators
+
+
+      - **No public repository found.** Cannot verify implementation claims.
+
+      - Press-release-only disclosure makes technical due diligence impossible.
+
+      - Lithosphere itself is a less-prominent blockchain project — the DNNS ecosystem depends on Lithosphere''s continued development.
+
+      - AI-agent/Web4 framing is aspirational; actual agent deployments using DNNS are not documented.
+
+      - No testnet, no documented adoption.
+
+
+      ## How DNNS compares
+
+
+      || System | Registry | Human-readable | Programmable | AI-agent ready | Maturity |
+
+      |--------|---------|----------------|-------------|----------------|-----------|
+
+      | [ENS](/kb/ens/) | Ethereum L1 | Yes | Limited (CCIP-Read) | Emerging | High (EVM ecosystem) | Production |
+
+      | [Handshake](/kb/handshake/) | Handshake PoW | Yes | No | No | No | Niche but live |
+
+      | [PKARR](/kb/pkarr/) / [Pubky](/kb/pubky/) | Mainline DHT | No | No | No | Possible | Emerging |
+
+      | [GNS](/kb/gnu-name-system/) | GNUnet DHT | Local petnames | No | No | No | Niche |
+
+      | [Nomen](/kb/nomen/) | Bitcoin + Nostr | Yes | No | No | No | Experimental |
+
+      | [Cardano DNS](/kb/cardano-dns/) | Handshake + Cardano | Yes | Via Cardano contracts | Possible | Possible | Experimental |
+
+      | DNNS | Lithosphere L1 | Yes | Yes (on-chain) | Designed for | Very early |
+
+
+      DNNS''s closest conceptual neighbor is Cardano DNS — both are blockchain-native naming systems with programmable second layers — but DNNS is newer and explicitly targets AI-agent routing rather than DNS marketplace functionality.
+
+
+      ## Trade-offs
+
+
+      ### Strengths
+
+
+      - **Programmable name records.** Unlike static DNS records, DNNS records can carry routing rules, capability grants, and AI-readable metadata. This is a genuine architectural advance over flat name-to-address systems.
+
+      - **On-chain authority.** Blockchain-backed names avoid the registrar seizure path; ownership is determined by chain state.
+
+      - **Cross-chain framing.** Positioning as chain-agnostic is compelling if realized — a DNNS name could unify identity across EVM, Solana, Cosmos, etc.
+
+      - **AI-agent native.** The design goal is names that AI agents can read, interpret, and act on without human mediation.
+
+
+      ### Limitations
+
+
+      - **Chain dependency.** Like ENS (Ethereum), DNNS inherits Lithosphere''s liveness and finality properties. If Lithosphere goes down, so does DNNS resolution.
+
+      - **No public code.** Impossible to independently audit, verify, or adopt without a repository.
+
+      - **New chain risk.** Lithosphere is not Bitcoin or Ethereum — it lacks the security track record and decentralization of those systems.
+
+      - **Adoption chicken-and-egg.** AI agents and Web4 infrastructure are not yet deployed at scale; DNNS''s primary use case depends on a future that hasn''t arrived.
+
+      - **Governance unclear.** How are conflicts resolved? How are squatting and migration handled? No published policy.
+
+
+      ## Primary sources
+
+
+      - Lithosphere DNNS announcement (March 31, 2026) — Globe and Mail / Newsfile Corp.
+
+      - Lithosphere DNNS routing announcement (April 21, 2026) — Globe and Mail / Newsfile Corp.
+
+      - Lithosphere protocol — lithosphere.tech (no specific DNNS documentation URL found as of 2026-05-18).
+
+      - Newsfile Corp coverage — [newsfilecorp.com/release/290630](https://www.newsfilecorp.com/release/290630/Lithosphere-Introduces-DNNS-The-Decentralized-Naming-System-Powering-Web4-Infrastructure).'
+    new: '## Summary
+
+
+      DNNS is Lithosphere’s on-chain naming application. Its public repository contains an ENS-derived implementation, custom Solidity contracts, deployment manifests and explorer integration. The documented v0 service uses the `.litho` namespace on the Kamet testnet.
+
+
+      This is a blockchain application namespace. It does not replace the public DNS root. Compare [ENS](/kb/ens/), [Handshake](/kb/handshake/) and [PKARR](/kb/pkarr/) in the [decentralized naming overview](/kb/decentralized-dns/).
+
+
+      ## How it works
+
+
+      The documented Kamet deployment uses an ENS registry, base registrar, custom registration controller, public resolver and reverse registrar. Registration follows a commit–wait–reveal flow. The owner sets resolver records separately from registration.
+
+
+      The v0 interface supports second-level `.litho` names and free testnet registration. The repository distinguishes that deployed interface from later reference architectures and cross-chain work; these should not be treated as one interchangeable production system.
+
+
+      The explorer’s acceptance record documents forward resolution and forward-confirmed reverse resolution. A reverse name is displayed only after resolving that name back to the queried address.
+
+
+      ## Trust model / threat model
+
+
+      - Name control depends on the selected chain, deployed contracts and controller configuration.
+
+      - RPC services and explorer interfaces affect availability and the information shown to users.
+
+      - Publishing source and deployment addresses does not establish that the contracts have been independently audited.
+
+      - The project’s security notes identify unresolved development-tool dependencies and distinguish them from the contracts’ runtime behavior.
+
+
+      ## Readiness
+
+
+      Experimental. Public code and a documented testnet deployment exist. The repository’s acceptance record describes a supported Kamet interface and explorer checks; that evidence supports testing this implementation, not a claim of general cross-chain production readiness.
+
+
+      ## Limits
+
+
+      - The documented v0 interface is limited to Kamet and second-level names.
+
+      - Registration and record updates are separate operations.
+
+      - Cross-chain expansion must be evaluated against the specific implementation and deployment being used.
+
+      - A source release and an acceptance checklist are not a security audit.'
+  - old: DNNS is a programmable identity and routing layer introduced by Lithosphere in March–April 2026. It replaces traditional centralized DNS with an on-chain naming framework designed for Web4 environments — where autonomous agents, decentralized services, and AI-readable identity require persistent, verifiable names that persist across blockchain networks and environments. See Overview - Decentralized DNS for how it fits in the broader naming landscape.
+    new: Lithosphere’s ENS-derived naming application has public contracts, deployment manifests and a documented Kamet testnet interface for .litho names.
+  - old: 'DNNS, an experimental programmable identity and routing layer introduced in 2026: what it proposes, how it differs from DNS, and open questions.'
+    new: 'DNNS is Lithosphere’s experimental on-chain naming application: public contracts, the Kamet testnet interface and its trust limits.'
+  sources:
+  - title: Lithosphere source
+    url: https://github.com/KaJLabs/lithosphere
+  - title: DNNS implementation overview
+    url: https://github.com/KaJLabs/lithosphere/blob/main/DNNS/README.md
+  - title: DNNS code provenance
+    url: https://github.com/KaJLabs/lithosphere/blob/main/DNNS/PROVENANCE.md
+  - title: DNNS security model
+    url: https://github.com/KaJLabs/lithosphere/blob/main/DNNS/SECURITY.md
+  - title: DNNS acceptance checks
+    url: https://github.com/KaJLabs/lithosphere/blob/main/docs/dnns-acceptance.md
+  updated: '2026-10-25'
+encrypted-messaging:
+  replace:
+  - old: '**PQXDH** (X25519 + ML-KEM-1024 hybrid) in late 2023'
+    new: '**PQXDH** (initially X25519 + CRYSTALS-Kyber-1024) in 2023'
+  - old: Not metadata-resistant beyond sealed-sender for the recipient identifier.
+    new: Sealed sender hides the sender identity inside the envelope; the service still sees the recipient.
+  - old: E2EE is on by default for new private rooms since Element X / Matrix 2.0 (2022).
+    new: Element’s predecessor Riot enabled E2EE by default for new private rooms in May 2020.
+  - old: NIP-44 still leaks recipient pubkey unless wrapped in NIP-17
+    new: NIP-17 hides the sender inside a gift wrap but still exposes its recipient tag
+  - old: 'X25519-keypair identity; no phone number, no email. Onion-routed over the Oxen Service Node network ([Session](/kb/session-messenger/)). Originally a Signal Protocol fork; replaced X3DH with a simpler onion-routed handshake; still uses Double Ratchet for direct messages. Group encryption is migrating to MLS-style designs in 2024-2026. Funded by the $OXEN token (a real critique line).
+
+      '
+    new: 'Session uses public-key identifiers and onion-routed delivery without phone-number registration. Its threat model and protocol differ from Signal’s; consult the [metadata-resistance comparison](/kb/metadata-resistance/) for transport trade-offs.
+
+      '
+  - old: Yes (Oxen service nodes)
+    new: Yes (distributed service nodes)
+  - old: Yes (post-2023 group MLS-style; 1:1 lacks PFS)
+    new: Yes; protocol differs from Signal
+  - old: Distinct cryptographic lineage from Signal
+    new: A different group protocol from Signal
+  - old: '## Evidence at a glance
+
+
+      | Technology | Maturity | Evidence |
+
+      |------------|----------|----------|
+
+      | Signal Protocol | Production | Billions of users via Signal/WhatsApp |
+
+      | Matrix (Olm/Megolm) | Production | Active development; matrix.org + thousands of homeservers |
+
+      | Nostr | Production | Active relay ecosystem; multi-million npubs published |
+
+      | Marmot Protocol (MLS over Nostr) | Active | Spec stable; reference implementations shipping |
+
+      | SimpleX | Production | ~250K users (2024 audit by Trail of Bits + Galois) |
+
+      | Session | Production | Oxen network live since 2020 |
+
+      | Briar | Production | F-Droid + Play Store; long-running Tor-based design |
+
+      '
+    new: ''
+  - old: compromise of any single key does not expose past or future messages.
+    new: deleted message keys protect past traffic; recovery after compromise requires fresh ratchet contributions that the attacker no longer observes.
+  sources:
+  - title: 'Signal: protocol specifications'
+    url: https://signal.org/docs/
+  - title: 'RFC 9420: Messaging Layer Security'
+    url: https://www.rfc-editor.org/rfc/rfc9420.html
+  - title: 'Matrix: end-to-end encryption implementation guide'
+    url: https://matrix.org/docs/matrix-concepts/end-to-end-encryption/
+  - title: SimpleX Messaging Protocol
+    url: https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md
+  - title: 'Nostr NIP-17: private direct messages'
+    url: https://github.com/nostr-protocol/nips/blob/master/17.md
+  - title: 'Nostr NIP-59: gift wrap'
+    url: https://github.com/nostr-protocol/nips/blob/master/59.md
+  - title: 'Briar: transport and privacy'
+    url: https://briarproject.org/how-it-works/
+  - title: 'Signal: initial PQXDH deployment'
+    url: https://signal.org/blog/pqxdh/
+  - title: 'Signal: sealed sender'
+    url: https://signal.org/blog/sealed-sender/
+  - title: 'Matrix: encryption by default in May 2020'
+    url: https://matrix.org/blog/2020/05/06/cross-signing-and-end-to-end-encryption-by-default-is-here/
+  - title: Session cryptographic design
+    url: https://arxiv.org/abs/2002.04609
+  - title: The Double Ratchet Algorithm
+    url: https://signal.org/docs/specifications/doubleratchet/
+  updated: '2026-10-25'
+folding-schemes:
+  replace:
+  - old: '- **zkVMs** (Risc0, SP1, Jolt) use folding internally for instruction-by-instruction proving.'
+    new: '- **zkVMs** use different proof architectures. RISC Zero uses STARKs; Nova-style folding is one approach to incremental computation, not a property of every zkVM.'
+  - old: '- Zero-knowledge zkVM bake-off (SP1 vs Risc0 vs Jolt) increasingly differentiates on folding-engine choice.'
+    new: '- zkVM comparisons must distinguish STARK recursion, lookup arguments and folding.'
+  - old: Production-ready Plonkish folding
+    new: Plonkish accumulation/folding research
+  sources:
+  - title: 'Nova: Recursive Zero-Knowledge Arguments from Folding Schemes'
+    url: https://eprint.iacr.org/2021/370
+  - title: 'SuperNova: Proving universal machine executions without universal circuits'
+    url: https://eprint.iacr.org/2022/1758
+  - title: 'HyperNova: Recursive arguments for customizable constraint systems'
+    url: https://eprint.iacr.org/2023/573
+  - title: 'ProtoStar: Generic Efficient Accumulation/Folding for Special Sound Protocols'
+    url: https://eprint.iacr.org/2023/620
+  - title: Microsoft Nova implementation
+    url: https://github.com/microsoft/Nova
+  - title: Lurk implementation
+    url: https://github.com/lurk-lab/lurk-rs
+  - title: RISC Zero implementation
+    url: https://github.com/risc0/risc0
+  - title: SP1 implementation
+    url: https://github.com/succinctlabs/sp1
+  - title: Jolt implementation
+    url: https://github.com/a16z/jolt
+  updated: '2026-10-25'
+ipfs-and-filecoin:
+  sources:
+  - title: 'Benet: IPFS, Content Addressed, Versioned, P2P File System'
+    url: https://arxiv.org/abs/1407.3561
+  - title: IPFS persistence and pinning
+    url: https://docs.ipfs.tech/how-to/pin-files/
+  - title: Filecoin storage proofs
+    url: https://docs.filecoin.io/basics/the-blockchain/proofs
+  - title: 'Trautwein et al.: Design and Evaluation of IPFS'
+    url: https://arxiv.org/abs/2208.05877
+  - title: Filecoin protocol specification
+    url: https://spec.filecoin.io/intro/
+  updated: '2026-10-25'
+katzenpost:
+  replace:
+  - old: '`katzenpost/katzenpost`'
+    new: '[Katzenpost implementation](https://github.com/katzenpost/katzenpost)'
+  sources:
+  - title: Katzenpost project documentation
+    url: https://katzenpost.network/docs/
+  - title: Katzenpost implementation
+    url: https://github.com/katzenpost/katzenpost
+  - title: The Loopix Anonymity System
+    url: https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska
+  - title: 'CTIDH: faster constant-time CSIDH'
+    url: https://eprint.iacr.org/2021/633
+  - title: KEMSphinx specification
+    url: https://katzenpost.network/docs/specs/kemsphinx/
+  - title: Sphinx packet specification
+    url: https://katzenpost.network/docs/specs/sphinx/
+  - title: Reunion specification
+    url: https://github.com/katzenpost/reunion
+  updated: '2026-10-25'
+metadata-resistance:
+  replace:
+  - old: Hidden via Lokinet
+    new: Protected by onion requests
+  - old: Routes through Lokinet, a Loki-mixnet-derived overlay similar to Tor.
+    new: Uses onion requests through its service-node network.
+  - old: Lokinet-routed by default. IP not visible to Session servers.
+    new: Onion requests separate the originating client from the destination node; the entry node still sees the client connection.
+  - old: Open Privacy Foundation project.
+    new: Open Privacy Research Society project.
+  - old: Tor, Bluetooth, Wi-Fi direct
+    new: Tor, Bluetooth and local Wi-Fi
+  - old: SimpleX or Session or Briar (no user IDs)
+    new: SimpleX, Session or Briar (different identifier models)
+  - old: Tor or Lokinet (anonymizes network identity)
+    new: Tor or the application’s onion-routing transport
+  sources:
+  - title: SimpleX Messaging Protocol
+    url: https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md
+  - title: 'Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis'
+    url: https://pdos.csail.mit.edu/papers/vuvuzela:sosp15.pdf
+  - title: 'Pung: Unobservable Communication over Fully Untrusted Infrastructure'
+    url: https://www.usenix.org/conference/osdi16/technical-sessions/presentation/angel
+  - title: Cwtch security design
+    url: https://docs.cwtch.im/security/intro/
+  - title: Briar protocol specifications
+    url: https://code.briarproject.org/briar/briar-spec/-/tree/master
+  - title: Session cryptographic design
+    url: https://arxiv.org/abs/2002.04609
+  - title: 'Briar: transports and peer-to-peer synchronization'
+    url: https://briarproject.org/how-it-works/
+  updated: '2026-10-25'
+ml-dsa:
+  replace:
+  - old: BIPs proposing PQ signatures exist (e.g., BIP-360); none deployed as of 2026.
+    new: BIP-360 proposes P2MR, which removes Taproot key-path spending; it does not introduce a post-quantum signature algorithm.
+  sources:
+  - title: 'FIPS 204: Module-Lattice-Based Digital Signature Standard'
+    url: https://csrc.nist.gov/pubs/fips/204/final
+  - title: 'FIPS 205: Stateless Hash-Based Digital Signature Standard'
+    url: https://csrc.nist.gov/pubs/fips/205/final
+  - title: NIST post-quantum signature standardization
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022
+  - title: 'CRYSTALS -- Dilithium: Digital Signatures from Module Lattices'
+    url: https://eprint.iacr.org/2017/633
+  - title: Open Quantum Safe liboqs
+    url: https://github.com/open-quantum-safe/liboqs
+  - title: CRYSTALS-Dilithium reference implementation
+    url: https://github.com/pq-crystals/dilithium
+  - title: 'BIP 360: Pay-to-Merkle-Root'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki
+  updated: '2026-10-25'
+multi-party-computation:
+  replace:
+  - old: FROST replaced earlier MuSig variants for production deployments because its security proof is cleaner and rounds are fixed.
+    new: FROST supports threshold signing; MuSig2 is an n-of-n multisignature protocol. They address different participation requirements.
+  - old: Two-round signing protocol over `secp256k1`/Ed25519.
+    new: Two-round signing protocol with several ciphersuites, including Ed25519 and secp256k1. Bitcoin Taproot requires BIP-340-compatible handling; generic RFC 9591 secp256k1 signatures are not a drop-in replacement.
+  - old: '| Blind eCash mints (Cashu, Fedimint) | Threshold blind signatures | Mint can''t unilaterally inflate |'
+    new: '| Federated eCash mints (Fedimint) | Threshold blind signatures | No single guardian can issue alone; a signing quorum remains trusted |'
+  - old: '### Cashu / Fedimint mints'
+    new: '### Federated eCash mints'
+  - old: Federated Chaumian eCash where the mint signing is threshold. No single guardian can issue blind signatures unilaterally; users redeem with a threshold-signed token.
+    new: Fedimint distributes mint authority across guardians using threshold blind signatures. Cashu’s basic protocol uses a mint signing key and does not itself require a threshold federation.
+  - old: RFC 9591** (Sep 2024)
+    new: RFC 9591** (June 2024)
+  - old: MPC-in-the-head signature schemes (Picnic, BBS+ adjacent)
+    new: MPC-in-the-head signature schemes (such as Picnic)
+  sources:
+  - title: 'Yao: Protocols for Secure Computations'
+    url: https://research.cs.wisc.edu/areas/sec/yao1982-ocr.pdf
+  - title: Completeness Theorems for Non-Cryptographic Fault-Tolerant Distributed Computation
+    url: https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/GBW88/GBW88.pdf
+  - title: Multiparty Computation from Somewhat Homomorphic Encryption
+    url: https://eprint.iacr.org/2011/535
+  - title: 'FROST: Flexible Round-Optimized Schnorr Threshold Signatures'
+    url: https://eprint.iacr.org/2020/852
+  - title: 'RFC 9591: FROST'
+    url: https://www.rfc-editor.org/rfc/rfc9591.html
+  - title: UC Non-Interactive, Proactive, Threshold ECDSA
+    url: https://eprint.iacr.org/2020/492
+  - title: Secure Multiparty Computation (MPC)
+    url: https://eprint.iacr.org/2020/300
+  - title: MP-SPDZ implementation
+    url: https://github.com/data61/MP-SPDZ
+  - title: FROST implementation
+    url: https://github.com/ZcashFoundation/frost
+  - title: 'MuSig2: BIP 327'
+    url: https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki
+  - title: Fedimint protocol
+    url: https://github.com/fedimint/fedimint
+  - title: Cashu NUT-00
+    url: https://github.com/cashubtc/nuts/blob/main/00.md
+  - title: Fast Secure Two-Party ECDSA Signing
+    url: https://eprint.iacr.org/2017/552
+  updated: '2026-10-25'
+nostr-vpn:
+  replace:
+  - old: 'Tunnels: WireGuard (boringtun) with hop-by-hop + independent E2E encryption layers and periodic rekeying for forward secrecy.'
+    new: 'Data-plane implementation: the project maintains its own FIPS implementation; WireGuard support is for upstream egress.'
+  - old: FIPS (see [FIPS](/kb/fips-mesh/)) for self-organizing encrypted mesh routing across heterogeneous transports (UDP, TCP, Ethernet, Tor, Bluetooth).
+    new: the project’s FIPS implementation for encrypted mesh routing, with direct connections when available and routing through FIPS neighbors otherwise. See [FIPS](/kb/fips-mesh/).
+  - old: (including BLE for local)
+    new: (subject to the VPN implementation’s transport support)
+  - old: '- Local fallback: BLE transport for air-gapped-ish or internet-down scenarios within physical proximity.'
+    new: '- Routing fallback: FIPS neighbors can carry traffic when direct UDP is unavailable.'
+  - old: '**FIPS mesh peers**: see hop-by-hop encrypted traffic; cannot correlate your full flows without breaking both layers.'
+    new: '**FIPS mesh peers**: encryption protects payloads but does not by itself eliminate traffic correlation through timing and volume.'
+  sources:
+  - title: Nostr VPN implementation
+    url: https://github.com/mmalmi/nostr-vpn
+  - title: Nostr VPN releases
+    url: https://github.com/mmalmi/nostr-vpn/releases
+  - title: Nostr VPN changelog
+    url: https://github.com/mmalmi/nostr-vpn/blob/master/CHANGELOG.md
+  - title: FIPS mesh implementation and transport support
+    url: https://github.com/jmcorgan/fips
+  - title: 'NIP-44: encrypted signaling'
+    url: https://github.com/nostr-protocol/nips/blob/master/44.md
+  updated: '2026-10-25'
+opaque-and-pake:
+  replace:
+  - old: In aPAKE variants, the server stores a value that does not enable a server-side dictionary attack.
+    new: In aPAKE variants, the server stores a registration record instead of the plaintext password. Full server compromise can still permit offline password guessing.
+  - old: RFC 9710 (2024)
+    new: CFRG Internet-Draft
+  - old: no offline crack pre-compromise
+    new: resists precomputation; full compromise permits guessing
+  - old: 'The "strong" qualifier matters: vanilla aPAKE schemes including SRP allow a server-side breach to enable offline dictionary attacks. OPAQUE is the first widely-adopted PAKE that resists this.'
+    new: OPAQUE resists precomputed password attacks before server compromise. After full compromise, including the server’s OPRF secret, an attacker can test guesses offline; key stretching raises the cost per guess.
+  - old: Haase and Labrique, *AuCPace*. Standardized as **RFC 9710** (April 2024) under the CFRG CPace track.
+    new: CPace is specified in the CFRG Internet-Draft `draft-irtf-cfrg-cpace`.
+  - old: Standardized as **RFC 9807** (March 2025)
+    new: Published as the informational IRTF **RFC 9807** (July 2025)
+  - old: 'Core idea: combine an Oblivious PRF (OPRF) with an authenticated key exchange. Registration:
+
+
+      ```
+
+      client:  rwd = H(password, OPRF(server_oprf_key, password))
+
+      client:  envelope = AEAD(rwd, key_pair_for_login)
+
+      client → server: store(envelope, oprf_key_per_user)
+
+      ```
+
+
+      Login:
+
+
+      ```
+
+      client → server: OPRF eval blind for password
+
+      server → client: oprf_response (without learning password)
+
+      client:  rwd = H(password, OPRF eval)
+
+      client:  decrypt envelope → long-term keypair
+
+      both:   AKE using the keypair
+
+      ```
+
+
+      Properties:
+
+
+      - Server never sees the password or anything from which it can derive the password offline. The OPRF binds the password evaluation to the server''s secret OPRF key, which is what blocks pre-computation: an attacker who steals the database must still query a (potentially rate-limited) OPRF online for each guess, or must additionally steal the OPRF key.
+
+      - Even with both database and OPRF key stolen, the work factor is one OPRF per guess plus one AEAD decryption — defenders can pick a slow OPRF and a memory-hard KDF (Argon2id) inside the envelope to make brute force expensive.
+
+      - Composable AKE: the IETF spec permits 3DH and HMQV-style instantiations. Reference uses 3DH over `ristretto255` or `decaf448`.
+
+
+      ### Cipher suites in RFC 9807
+
+
+      | Suite | Group | OPRF | AKE | Hash |
+
+      |-------|-------|------|-----|------|
+
+      | `OPAQUE-3DH-Ristretto255-SHA512` | ristretto255 | ristretto255 OPRF | 3DH | SHA-512 |
+
+      | `OPAQUE-3DH-Decaf448-SHAKE256` | decaf448 | decaf448 OPRF | 3DH | SHAKE-256 |
+
+      | `OPAQUE-3DH-P256-SHA256` | NIST P-256 | P-256 OPRF | 3DH | SHA-256 |
+
+      | `OPAQUE-3DH-P384-SHA384` | NIST P-384 | P-384 OPRF | 3DH | SHA-384 |
+
+      | `OPAQUE-3DH-P521-SHA512` | NIST P-521 | P-521 OPRF | 3DH | SHA-512 |
+
+      '
+    new: 'Core idea: combine an Oblivious PRF (OPRF), credential recovery, and authenticated key exchange. The client blinds its password for the OPRF exchange, derives a randomized password, and uses it to recover authentication credentials. The server does not receive the plaintext password, including during registration.
+
+
+      RFC 9807’s envelope contains a nonce and authentication tag. The client derives its private key and authenticates the associated credentials; the envelope is not simply an AEAD-encrypted private-key blob.
+
+
+      The RFC specifies a 3DH instantiation. Implementations must agree on the OPRF, group, hash, KDF, MAC and key-stretching parameters. Full server compromise permits offline guessing, while separating the OPRF secret into a rate-limited protected service can change that deployment’s compromise boundary.
+
+      '
+  - old: 'WhatsApp shipped end-to-end encrypted iCloud/Google Drive backups in 2021 using an HSM-backed PAKE-like protocol. Public materials describe a flow consistent with an OPRF + envelope (an OPAQUE-class design), with the OPRF evaluated by an HSM array. Offline attacks against the HSM-locked secrets are blocked unless an attacker compromises the HSM. This was a flagship deployment that pushed CFRG to finalize OPAQUE as a standard.
+
+
+      Source: WhatsApp engineering whitepaper, *Security of End-to-End Encrypted Backups*, 2021.
+
+      '
+    new: 'WhatsApp’s published encrypted-backup design uses OPAQUE to authenticate password-based access to a backup-key vault protected by HSMs. Its guessing limits depend on that protected service, not on OPAQUE eliminating offline guessing after full compromise.
+
+      '
+  - old: '| Strong aPAKE (no offline crack from DB) | no | n/a | **yes** |'
+    new: '| Resists password precomputation before server compromise | no | n/a | **yes** |'
+  - old: '| RFC | 2945, 5054 (TLS) | 9710 | **9807** |'
+    new: '| Specification | RFC 2945, 5054 (TLS) | CFRG CPace draft | RFC 9807 (informational) |'
+  - old: AEAD soundness, KDF irreducibility
+    new: MAC and KDF security
+  - old: '**Argon2id inside the envelope is recommended**'
+    new: '**Use the agreed key-stretching function**'
+  sources:
+  - title: 'RFC 2945: The SRP Authentication and Key Exchange System'
+    url: https://www.rfc-editor.org/rfc/rfc2945.html
+  - title: 'RFC 5054: Using SRP for TLS Authentication'
+    url: https://www.rfc-editor.org/rfc/rfc5054.html
+  - title: 'OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks'
+    url: https://eprint.iacr.org/2018/163
+  - title: 'RFC 9807: The OPAQUE Asymmetric PAKE Protocol'
+    url: https://www.rfc-editor.org/rfc/rfc9807.html
+  - title: 'CFRG: CPace, a balanced composable PAKE'
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-cpace/
+  - title: opaque-ke implementation
+    url: https://github.com/facebook/opaque-ke
+  - title: 'RFC 9497: OPRFs using prime-order groups'
+    url: https://www.rfc-editor.org/rfc/rfc9497.html
+  - title: 'WhatsApp: encrypted backups design'
+    url: https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/
+  updated: '2026-10-25'
+polynomial-commitments:
+  replace:
+  - old: Xie, Zhang, Wang, *Orion
+    new: Xie, Zhang, Song, *Orion
+  - old: Zeilberger, Ben-Sasson, Genkin, Tsabary, *Basefold
+    new: Zeilberger, Chen, Fisch, *Basefold
+  - old: '- IPA: linear in degree, multiple MB of calldata for non-trivial circuits — too expensive for direct on-chain verification.'
+    new: '- IPA: verification can require linear work even though the proof has logarithmic size; on-chain cost depends on the implementation.'
+  sources:
+  - title: Efficient Zero-Knowledge Arguments for Arithmetic Circuits in the Discrete Log Setting
+    url: https://eprint.iacr.org/2016/263
+  - title: 'Bulletproofs: Short Proofs for Confidential Transactions and More'
+    url: https://eprint.iacr.org/2017/1066
+  - title: Recursive Proof Composition without a Trusted Setup
+    url: https://eprint.iacr.org/2019/1021
+  - title: Doubly-efficient zkSNARKs without trusted setup
+    url: https://eprint.iacr.org/2017/1132
+  - title: 'Brakedown: Linear-time and field-agnostic SNARKs for R1CS'
+    url: https://eprint.iacr.org/2021/1043
+  - title: 'Orion: Zero Knowledge Proof with Linear Prover Time'
+    url: https://eprint.iacr.org/2022/1010
+  - title: 'BaseFold: Efficient Field-Agnostic Polynomial Commitment Schemes from Foldable Codes'
+    url: https://eprint.iacr.org/2023/1705
+  - title: 'Spartan: Efficient and general-purpose zkSNARKs without trusted setup'
+    url: https://eprint.iacr.org/2019/550
+  - title: Halo2 design documentation
+    url: https://zcash.github.io/halo2/
+  - title: 'Kate, Zaverucha and Goldberg: Polynomial Commitments'
+    url: https://cacr.uwaterloo.ca/techreports/2010/cacr2010-10.pdf
+  - title: Fast Reed-Solomon Interactive Oracle Proofs of Proximity
+    url: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2018.14
+  updated: '2026-10-25'
+sia-and-storj:
+  sources:
+  - title: 'Sia: Simple Decentralized Storage'
+    url: https://sia.tech/sia.pdf
+  - title: Sia documentation
+    url: https://docs.sia.tech/
+  - title: 'Storj: A Decentralized Cloud Storage Network Framework'
+    url: https://www.storj.io/storjv3.pdf
+  - title: 'Storj: encryption'
+    url: https://storj.dev/learn/concepts/encryption-key
+  - title: Storj documentation
+    url: https://storj.dev/
+  updated: '2026-10-25'
+signal-protocol:
+  replace:
+  - old: Even if a future quantum adversary records today's traffic and breaks all ECDH, they still face an unbroken ML-KEM. Currently deployed in Signal mobile clients since fall 2023.
+    new: The hybrid combines classical agreement with a post-quantum KEM. Signal’s initial 2023 deployment used CRYSTALS-Kyber-1024; calling that historical deployment ML-KEM would conflate the submission algorithm with the later standard.
+  - old: The recipient validates an attached *delivery token* (rate-limit) and *unidentified-sender certificate* (Signal's signed pseudonymous binding) without revealing identity to the server.
+    new: The service checks the recipient’s delivery token to control abuse. The receiving client verifies the sender certificate carried inside the encrypted envelope.
+  - old: '| Contact discovery | SGX-based PIR |'
+    new: '| Contact discovery | Private discovery using SGX |'
+  - old: Group membership privacy. Server knows group rosters (mitigated via private groups, contact discovery in SGX).
+    new: Group membership privacy. Signal’s private-group design aims to keep group membership and attributes hidden from the service; network metadata remains a separate concern.
+  sources:
+  - title: The X3DH Key Agreement Protocol
+    url: https://signal.org/docs/specifications/x3dh/
+  - title: The Double Ratchet Algorithm
+    url: https://signal.org/docs/specifications/doubleratchet/
+  - title: The PQXDH Key Agreement Protocol
+    url: https://signal.org/docs/specifications/pqxdh/
+  - title: A Formal Security Analysis of the Signal Messaging Protocol
+    url: https://eprint.iacr.org/2016/1013
+  - title: 'RFC 9420: Messaging Layer Security'
+    url: https://www.rfc-editor.org/rfc/rfc9420.html
+  - title: libsignal implementation
+    url: https://github.com/signalapp/libsignal
+  - title: Signal private group system
+    url: https://signal.org/blog/signal-private-group-system/
+  - title: 'Signal: PQXDH deployment'
+    url: https://signal.org/blog/pqxdh/
+  - title: 'Signal: sealed sender'
+    url: https://signal.org/blog/sealed-sender/
+  - title: Signal private contact discovery
+    url: https://signal.org/blog/private-contact-discovery/
+  updated: '2026-10-25'
+slashtags:
+  replace:
+  - old: https://github.com/hyperswarm/hyperswarm
+    new: https://github.com/holepunchto/hyperswarm
+  - old: Other peers can read the drive (and seed it) if they have the discovery key.
+    new: Other peers need the drive’s public key to open and verify it. A discovery key identifies the swarm but does not by itself grant read access.
+  - old: '| Read a drive | Anyone with the discovery key |'
+    new: '| Read a drive | Anyone with the public key, subject to any application encryption |'
+  - old: '| Seed a drive | Anyone with the discovery key and a running node |'
+    new: '| Seed a drive | A replicating peer with the drive key and data |'
+  - old: UDP holepunching works in many environments but is less robust than TCP-based Mainline DHT in restrictive networks.
+    new: Both Hyperswarm discovery and the BitTorrent Mainline DHT use UDP. UDP restrictions can affect either network.
+  - old: '`github.com/hyperswarm/hyperswarm`'
+    new: '[Hyperswarm implementation](https://github.com/holepunchto/hyperswarm)'
+  - old: '`synonymdev/slashtags`'
+    new: '[Slashtags implementation](https://github.com/synonymdev/slashtags)'
+  - old: '`github.com/holepunchto/hyperdrive`'
+    new: '[Hyperdrive implementation](https://github.com/holepunchto/hyperdrive)'
+  - old: '`slashtags.to`'
+    new: '[Slashtags transition to Pubky Core](https://slashtags.to/)'
+  sources:
+  - title: 'Pubky Core: current project'
+    url: https://pubky.org/
+  - title: Slashtags implementation
+    url: https://github.com/synonymdev/slashtags
+  - title: Slashtag package source
+    url: https://github.com/synonymdev/slashtags/tree/master/packages/slashtag
+  - title: Slashtags key derivation specification
+    url: https://github.com/synonymdev/slashtags/blob/master/specs/slashtags-derivation.md
+  - title: Bitkit source
+    url: https://github.com/synonymdev/bitkit
+  - title: Slashtags authentication example
+    url: https://github.com/synonymdev/slashtags-auth-demo
+  - title: Hyperswarm implementation
+    url: https://github.com/holepunchto/hyperswarm
+  - title: Hyperdrive implementation
+    url: https://github.com/holepunchto/hyperdrive
+  - title: 'Maymounkov and Mazières: Kademlia'
+    url: https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
+  - title: 'BEP 5: BitTorrent DHT over UDP'
+    url: https://www.bittorrent.org/beps/bep_0005.html
+  - title: Slashtags transition to Pubky Core
+    url: https://slashtags.to/
+  updated: '2026-10-25'
+snarks:
+  replace:
+  - old: '| Nova/SuperNova (folded) | Small | Fast | Incremental | Per-circuit |'
+    new: '| Nova/SuperNova (folded) | Small | Fast | Incremental | No trusted setup required by folding; compression backend can differ |'
+  - old: '- **No setup** (STARKs, Halo2 with IPA): purely hash-based.'
+    new: '- **No trusted setup**: STARKs use hash-based constructions; Halo2 with IPA instead relies on elliptic-curve discrete logarithms.'
+  - old: '| Quantum break (pairings) | Migrate to STARK / Halo2 / hash-based variants |'
+    new: '| Quantum break (pairings or discrete logarithms) | Assess hash-based proof systems; IPA-based Halo2 is also quantum-vulnerable |'
+  - old: Uses Inner Product Arguments (IPA) over `secp256k1` / `pasta` curves instead of pairings.
+    new: Uses Inner Product Arguments (IPA) over the Pasta curves instead of pairings.
+  sources:
+  - title: On the Size of Pairing-based Non-interactive Arguments
+    url: https://eprint.iacr.org/2016/260
+  - title: 'PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge'
+    url: https://eprint.iacr.org/2019/953
+  - title: Recursive Proof Composition without a Trusted Setup
+    url: https://eprint.iacr.org/2019/1021
+  - title: Halo2 design documentation
+    url: https://zcash.github.io/halo2/
+  - title: 'Spartan: Efficient and general-purpose zkSNARKs without trusted setup'
+    url: https://eprint.iacr.org/2019/550
+  - title: Unlocking the lookup singularity with Lasso
+    url: https://eprint.iacr.org/2023/1216
+  - title: 'Jolt: SNARKs for Virtual Machines via Lookups'
+    url: https://eprint.iacr.org/2023/1217
+  - title: 'Nova: Recursive Zero-Knowledge Arguments from Folding Schemes'
+    url: https://eprint.iacr.org/2021/370
+  - title: Scalable, transparent, and post-quantum secure computational integrity
+    url: https://eprint.iacr.org/2018/046
+  updated: '2026-10-25'
+swarm:
+  sources:
+  - title: Bee client
+    url: https://github.com/ethersphere/bee
+  - title: Swarm whitepaper
+    url: https://www.ethswarm.org/swarm-whitepaper.pdf
+  - title: Swarm documentation
+    url: https://docs.ethswarm.org/
+  - title: 'Swarm: postage stamps'
+    url: https://docs.ethswarm.org/docs/desktop/postage-stamps
+  updated: '2026-10-25'
+verifiable-random-functions:
+  replace:
+  - old: 'RFC 9381 specifies five suites:'
+    new: 'RFC 9381 specifies four ECVRF suites (and a separate RSA-FDH-VRF construction):'
+  - old: '| `ECVRF-secp256k1-SHA256-TAI` | secp256k1 | try-and-increment |'
+    new: ''
+  - old: ECVRF specification with five cipher suites
+    new: VRF specification with four ECVRF cipher suites
+  - old: VRF removes the abort-bias problem of commit-reveal. The remaining bias surface is whether the operator can choose the input `α` adversarially. Pinning `α` to a recent block hash or beacon output (League of Entropy) closes this loop.
+    new: A VRF fixes the output for a given public key and input, but the keyholder can still withhold an unfavorable result. Fixing the input in advance limits input grinding; a surrounding protocol must also address withholding.
+  - old: '| Bias by aborting reveal | yes | n/a | n/a |'
+    new: '| Bias by withholding a result | yes | possible | possible |'
+  - old: '- `noble-curves` (Paul Miller) ships RFC 9381 ECVRF in pure JS/TS.'
+    new: ''
+  sources:
+  - title: 'RFC 9381: Verifiable Random Functions'
+    url: https://www.rfc-editor.org/rfc/rfc9381.html
+  - title: 'RFC 9380: Hashing to Elliptic Curves'
+    url: https://www.rfc-editor.org/rfc/rfc9380.html
+  - title: 'Chen and Micali: Algorand'
+    url: https://arxiv.org/abs/1607.01341
+  - title: 'NSEC5: Provably Preventing DNSSEC Zone Enumeration'
+    url: https://eprint.iacr.org/2014/582
+  - title: 'Micali, Rabin and Vadhan: Verifiable Random Functions'
+    url: https://people.seas.harvard.edu/~salil/research/VRF-abs.html
+  - title: 'Privacy Pass: Bypassing Internet Challenges Anonymously'
+    url: https://petsymposium.org/2018/files/papers/issue3/popets-2018-0026.pdf
   updated: '2026-10-25'

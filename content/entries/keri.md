@@ -6,7 +6,7 @@ pillars: ["identity"]
 readiness: experimental
 description: "KERI builds self-certifying identifiers with pre-rotated keys, so a stolen signing key does not mean a stolen identity. How it works and where it is used."
 dek: "Self-certifying identifiers built on cryptographic prefixes, with pre-rotated keys so a stolen signing key doesn't mean a stolen identity. Sam Smith's design from 2019, picked up by GLEIF and the Trust over IP Foundation. Niche but technically distinctive."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "11-Identity/KERI.md"
@@ -20,7 +20,7 @@ KERI is an identity protocol where the identifier is **self-certifying**: it's a
 
 The headline distinguishing feature is **pre-rotation**: at every key rotation event, the controller commits in advance to the *next* key by including its hash in the signed event. The next signing key is therefore not exposed until it is actually used, and an adversary who steals the current signing key cannot rotate to a key they control — only the controller has the pre-image of the committed next-key hash.
 
-KERI was designed by **Samuel M. Smith** starting around 2019 and published as a sequence of technical reports on `arxiv.org/abs/1907.02143` and at `keri.one`. It has been adopted as the technical foundation of the **Trust over IP Foundation** layer-1 spec and used by **GLEIF** (Global Legal Entity Identifier Foundation) for vLEI (verifiable LEI) credentials.
+KERI was designed by **Samuel M. Smith** starting around 2019 and published as a sequence of technical reports on [Smith: Key Event Receipt Infrastructure](https://arxiv.org/abs/1907.02143) and at `keri.one`. It has been adopted as the technical foundation of the **Trust over IP Foundation** layer-1 spec and used by **GLEIF** (Global Legal Entity Identifier Foundation) for vLEI (verifiable LEI) credentials.
 
 ## Core concepts
 
@@ -69,7 +69,7 @@ The next signing key (`K+1`) is held offline or in a secure location until neede
 
 If an adversary steals `K`, they **cannot rotate**: they don't have `K+1`'s pre-image. The legitimate controller can rotate to `K+1` (which they hold offline), invalidating the stolen `K`. The window of vulnerability is the time between key compromise detection and rotation.
 
-This is structurally different from did:plc and did:web, where a compromised signing key can rotate the identity to an attacker-controlled key.
+KERI pre-rotation commits to future keys. In did:plc, repository signing keys and DID rotation keys have distinct authority; compromise of a repository key alone does not authorize DID rotation.
 
 ### Witnesses and watchers
 
@@ -102,7 +102,7 @@ did:keri:EAtNcDOg-pQzPg5QyYQpNCD3lFQ7hRgIzJsjlEByuwk
 A hybrid: DIDs hosted at HTTPS URLs (like did:web) but **with a KEL appended** so the underlying KERI identifier is verifiable independently of DNS. Designed to give the operational simplicity of did:web with KERI's self-certifying assurance.
 
 ```
-did:webs:example.com:user:alice
+did:webs:example.com%3a3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9OxmP
 ↓
 HTTPS fetches DID Doc + KEL
 KEL is verifiable cryptographically; HTTPS is just a transport
@@ -163,7 +163,6 @@ KERI has a **niche** in identity. As of early 2026:
 - Implementations exist (`keripy`, `keri-rs`, `keria`, `signify-ts`) but are research-grade compared to the W3C DID/VC ecosystem.
 - **GLEIF vLEI** is the biggest production deployment. Government and enterprise pilots are the active use cases.
 - Bluesky, Nostr, and the broader sovereign-identity space have not adopted KERI. The simplicity argument from pure-key systems beats KERI's pre-rotation in most cypherpunk contexts.
-- **W3C DID Core 1.1** discussions (2024-2025) considered incorporating pre-rotation as an optional feature; not finalized.
 
 KERI is technically excellent for what it does. It is also operationally heavy in a way that limits its adoption to organizations with dedicated identity infrastructure teams.
 
@@ -199,13 +198,14 @@ KERI is technically excellent for what it does. It is also operationally heavy i
 
 ## Primary sources
 
-- Smith, *Key Event Receipt Infrastructure (KERI)*, arXiv:1907.02143, July 2019. `arxiv.org/abs/1907.02143`.
-- Smith, *Decentralized Key Management System (DKMS): An Inflection Point*, IEEE Identity & Trust 2018.
-- KERI specification site — `keri.one`.
-- KERI white papers — `github.com/SmithSamuelM/Papers`.
-- IETF, *Internet-Drafts on KERI and CESR*, ongoing 2023-2025.
-- Trust over IP Foundation — `trustoverip.org`.
-- GLEIF vLEI Ecosystem Governance Framework — `gleif.org/en/vlei/introducing-the-vlei-ecosystem-governance-framework`.
-- did:webs method spec — `trustoverip.github.io/tswg-did-method-webs-specification/`.
-- ACDC specification — `trustoverip.github.io/tswg-acdc-specification/`.
-- Reference implementations: `github.com/WebOfTrust/keripy`, `github.com/WebOfTrust/keria`, `github.com/WebOfTrust/signify-ts`.
+- [Smith: Key Event Receipt Infrastructure](https://arxiv.org/abs/1907.02143)
+- [KERI specification](https://weboftrust.github.io/ietf-keri/draft-ssmith-keri.html)
+- [CESR specification](https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html)
+- [GLEIF vLEI Ecosystem Governance Framework](https://www.gleif.org/en/vlei/introducing-the-vlei-ecosystem-governance-framework)
+- [KERI reference implementation](https://github.com/WebOfTrust/keripy)
+- [KERIA implementation](https://github.com/WebOfTrust/keria)
+- [Signify TypeScript implementation](https://github.com/WebOfTrust/signify-ts)
+- [Trust over IP KERI specification](https://trustoverip.github.io/kswg-keri-specification/)
+- [The did:webs method](https://trustoverip.github.io/kswg-did-method-webs-specification/)
+- [ACDC specification](https://trustoverip.github.io/kswg-acdc-specification/)
+- [did:plc specification and directory implementation](https://github.com/did-method-plc/did-method-plc)

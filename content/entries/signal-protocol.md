@@ -6,7 +6,7 @@ pillars: ["messaging"]
 readiness: battle-tested
 description: "The Signal Protocol, the reference for end-to-end encrypted messaging: X3DH and PQXDH key agreement, the double ratchet, and post-quantum upgrades."
 dek: "The reference for asynchronous end-to-end encryption: forward secrecy, post-compromise security, deniability, and now post-quantum hybrid key exchange."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "07-Encrypted-Messaging/Signal Protocol Technical.md"
@@ -61,7 +61,7 @@ Adds an ML-KEM-1024 KEM to X3DH. Bob's pre-key bundle now includes a signed PQ p
 SK = KDF( X3DH_secrets  ||  ML-KEM-shared-secret )
 ```
 
-Even if a future quantum adversary records today's traffic and breaks all ECDH, they still face an unbroken ML-KEM. Currently deployed in Signal mobile clients since fall 2023.
+The hybrid combines classical agreement with a post-quantum KEM. Signal’s initial 2023 deployment used CRYSTALS-Kyber-1024; calling that historical deployment ML-KEM would conflate the submission algorithm with the later standard.
 
 ## Double Ratchet
 
@@ -84,7 +84,7 @@ The result: each message is encrypted under a unique key, deletable immediately 
 
 By default the server knows `sender_id → recipient_id`. Sealed sender envelopes the sender identity inside the encrypted payload; the server sees only the recipient.
 
-The recipient validates an attached *delivery token* (rate-limit) and *unidentified-sender certificate* (Signal's signed pseudonymous binding) without revealing identity to the server.
+The service checks the recipient’s delivery token to control abuse. The receiving client verifies the sender certificate carried inside the encrypted envelope.
 
 Limit: the server still sees connection metadata (IP, timing). For full metadata privacy, combine with Tor.
 
@@ -101,7 +101,7 @@ MLS (RFC 9420) is the IETF standard for group E2EE: TreeKEM-based continuous gro
 | Core protocol | [libsignal](https://github.com/signalapp/libsignal) | Rust core, language bindings |
 | Group | Sender Keys (in libsignal) | Signal proprietary group |
 | Server-side | Signal-Server (Java) | KGB / contact discovery |
-| Contact discovery | SGX-based PIR | `Overview - Private Information Retrieval` |
+| Contact discovery | Private discovery using SGX | `Overview - Private Information Retrieval` |
 | Sealed sender certificates | Signal-issued, time-limited | Operationally tied to Signal |
 
 ## What Signal doesn't solve
@@ -109,7 +109,7 @@ MLS (RFC 9420) is the IETF standard for group E2EE: TreeKEM-based continuous gro
 - Server-controlled identity (phone number). Signal requires a phone for registration; usernames since 2024 mitigate display, not registration.
 - Centralized infrastructure. Signal-Server is one organization; takedown removes the messaging fabric.
 - Backups. Cloud backups (iOS / Android) bypass the protocol's deletability.
-- Group membership privacy. Server knows group rosters (mitigated via private groups, contact discovery in SGX).
+- Group membership privacy. Signal’s private-group design aims to keep group membership and attributes hidden from the service; network metadata remains a separate concern.
 - Endpoint compromise. Malware on the phone reads everything pre-encryption.
 
 These motivate the federated and decentralized alternatives: [Matrix and E2EE](/kb/matrix/), [Nostr Deep Dive](/kb/nostr-protocol/), SimpleX.
@@ -129,13 +129,17 @@ These motivate the federated and decentralized alternatives: [Matrix and E2EE](/
 - No multi-device peer-to-peer: secondary devices link to a primary.
 - Backups outside the protocol undermine deletability if used.
 
-## Primary Sources
+## Primary sources
 
-- Marlinspike & Perrin, *The X3DH Key Agreement Protocol*, 2016.
-- Perrin & Marlinspike, *The Double Ratchet Algorithm*, 2016.
-- Kret & Marlinspike, *The PQXDH Key Agreement Protocol*, 2023. [signal.org/docs/specifications/pqxdh](https://signal.org/docs/specifications/pqxdh/)
-- Cohn-Gordon et al., *A Formal Security Analysis of the Signal Messaging Protocol*, EuroS&P 2017.
-- RFC 9420, *Messaging Layer Security*.
-- libsignal — [github.com/signalapp/libsignal](https://github.com/signalapp/libsignal)
+- [The X3DH Key Agreement Protocol](https://signal.org/docs/specifications/x3dh/)
+- [The Double Ratchet Algorithm](https://signal.org/docs/specifications/doubleratchet/)
+- [The PQXDH Key Agreement Protocol](https://signal.org/docs/specifications/pqxdh/)
+- [A Formal Security Analysis of the Signal Messaging Protocol](https://eprint.iacr.org/2016/1013)
+- [RFC 9420: Messaging Layer Security](https://www.rfc-editor.org/rfc/rfc9420.html)
+- [libsignal implementation](https://github.com/signalapp/libsignal)
+- [Signal private group system](https://signal.org/blog/signal-private-group-system/)
+- [Signal: PQXDH deployment](https://signal.org/blog/pqxdh/)
+- [Signal: sealed sender](https://signal.org/blog/sealed-sender/)
+- [Signal private contact discovery](https://signal.org/blog/private-contact-discovery/)
 
 For the distinction between the Signal app and other messenger architectures, see [Choosing a private messenger](/kb/compare-messengers/). Compare [XMPP with OMEMO](/kb/xmpp-omemo/) and [Delta Chat](/kb/delta-chat/).

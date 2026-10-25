@@ -3,6 +3,7 @@ title: "Private LLM Inference Patterns"
 slug: private-llm-inference-patterns
 type: explainer
 pillars: ["confidential", "cryptography"]
+readiness: usable
 description: "Concrete patterns for private LLM inference that combine TEEs, attestation, key management and transparency logs, each with an explicit threat model."
 dek: "Recipes, not frameworks. The patterns below combine TEEs, attestation, KMS, and transparency logs into concrete deployable services with explicit threat models."
 updated: 2026-10-25
@@ -52,7 +53,7 @@ Flow on cold start:
 3. The KMS verifies, encrypts the DEK to the enclave pubkey, and returns it.
 4. The enclave decrypts the DEK in memory, streams encrypted weights from object store, decrypts them into HBM, and runs.
 
-Rotation: issue a new image, get a new measurement, extend the KMS allowlist, roll the deployment, then remove the old measurement from the allowlist. Old enclaves automatically lose key access.
+Rotation: issue a new image, get a new measurement, extend the KMS allowlist, roll the deployment, then remove the old measurement from the allowlist. This blocks future key releases to disallowed measurements; it does not revoke plaintext keys already released.
 
 Threat model: as Pattern 1, plus trust in the KMS operator's enforcement of attestation conditions. To reduce KMS trust, use a multi-KMS Shamir split across different clouds.
 
@@ -122,7 +123,7 @@ Shape:
 - Output: LoRA or full delta, re-encrypted to a customer-controlled key or to a downstream inference enclave's attestation policy.
 - Optional: zero-knowledge proof that training was the published code over the claimed hyperparameters (heavy, research-only today).
 
-Gotcha: training is PCIe-heavy; CC overhead is higher than for inference. Budget 15-25% on H100. Blackwell is meaningfully better.
+Measure protected-transfer overhead for the actual training workload and hardware; a fixed percentage is not a portable guarantee.
 
 ## Pattern 8: Attested tool use
 
@@ -149,9 +150,11 @@ Tool use is where most "private inference" products quietly fail their threat mo
 ## Primary sources
 
 - [NVIDIA H100 confidential-computing boundary](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
-
-- Apple: *Private Cloud Compute Security Guide*
-- Microsoft: *Confidential AI and Inferencing* whitepapers (2024–)
-- Knauth et al.: *Integrating Remote Attestation with Transport Layer Security* (RA-TLS, 2018)
-- Sigstore / Rekor transparency log — `sigstore.dev`
-- NIST SP 800-204D (software supply chain, informs the build side)
+- [Apple: Private Cloud Compute Security Guide](https://security.apple.com/documentation/private-cloud-compute/)
+- [Knauth et al.: Integrating Remote Attestation with Transport Layer Security](https://arxiv.org/abs/1801.05863)
+- [Sigstore Rekor transparency log](https://docs.sigstore.dev/logging/overview/)
+- [NIST SP 800-204D: Software Supply Chain Security](https://csrc.nist.gov/pubs/sp/800/204/d/final)
+- [Microsoft: Confidential AI](https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-ai)
+- [Apple Private Cloud Compute: security design](https://security.apple.com/blog/private-cloud-compute/)
+- [ONNX Runtime Open Enclave port for confidential inference](https://github.com/microsoft/onnxruntime-openenclave)
+- [RFC 9334: Remote ATtestation procedureS Architecture](https://www.rfc-editor.org/rfc/rfc9334.html)

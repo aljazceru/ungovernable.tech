@@ -5,7 +5,7 @@ type: map
 pillars: ["circumvention"]
 description: "A map of censorship resistance across the stack: naming, storage, transport, messaging and publishing, and how the pieces in this library combine."
 dek: "A Map of Content for the cross-cutting theme of resisting takedown, blocking, and content removal across the network stack."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "00 - Meta/MOC - Censorship Resistance.md"
@@ -73,7 +73,7 @@ Posts signed locally → broadcast to many relays
    ↓
 Media on Blossom servers → mirrored by SHA-256
    ↓
-NIP-05 over PKARR or .onion (no DNS dependency)
+Share Nostr public keys independently; NIP-05 aliases depend on DNS and HTTPS
    ↓
 Lightning zaps for monetization
 ```
@@ -110,5 +110,13 @@ See [MeshCore](/kb/meshcore/), [Cashu and Chaumian Ecash](/kb/cashu-ecash/), and
 - [Overview - Financial Sovereignty](/kb/financial-sovereignty/)
 - [Overview - Confidential Computing](/kb/confidential-computing/)
 - [Confidential-AI-Inference](/kb/confidential-ai-inference/)
+
+## Primary sources
+
+- [Tor onion-service protocol](https://spec.torproject.org/rend-spec/index.html)
+- [Nostr NIP-01: events and relays](https://github.com/nostr-protocol/nips/blob/master/01.md)
+- [Nostr NIP-05: DNS-based identifiers](https://github.com/nostr-protocol/nips/blob/master/05.md)
+- [IPFS: persistence and availability](https://docs.ipfs.tech/how-to/pin-files/)
+- [Briar: transports and peer-to-peer synchronization](https://briarproject.org/how-it-works/)
 
 For the access layer, compare [WireGuard](/kb/wireguard/), [Outline](/kb/outline/), [Psiphon](/kb/psiphon/) and [Tor bridges and pluggable transports](/kb/pluggable-transports/). [OONI](/kb/ooni/) explains how to read network measurements and assess the risks of collecting them. For deployment, see [the private-server guide](/guides/self-hosted-circumvention-server/).

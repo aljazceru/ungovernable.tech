@@ -5,7 +5,7 @@ type: deep-dive
 pillars: ["naming"]
 readiness: usable
 description: "Namecoin, the first fork of Bitcoin and the first blockchain naming system: how .bit names work, what it got right, and why adoption stayed small."
-dek: "The original blockchain DNS — the first Bitcoin fork (April 2011) and the first system to put human-meaningful names on a permissionless chain. Active development continues 15 years later, with Namecoin Core 28.0 released in December 2024; the user-facing ecosystem is small but the technical lineage runs through every chain-anchored name that followed. See Overview - Decentralized DNS for the comparative landscape; Handshake for the spiritual successor that replaced the DNS root zone."
+dek: "The original blockchain DNS — the first Bitcoin fork (April 2011) and the first system to put human-meaningful names on a permissionless chain. Active development continues 15 years later, with Namecoin Core 28.0 released in December 2024; the user-facing ecosystem is small but the technical history runs through every chain-anchored name that followed. See Overview - Decentralized DNS for the comparative landscape; Handshake for the spiritual successor that replaced the DNS root zone."
 updated: 2026-10-25
 created: 2026-06-22
 origin: vault
@@ -56,7 +56,7 @@ A Bitcoin miner with `getauxval`-style support mines Namecoin blocks in parallel
 
 ### Names as key/value records
 
-A Namecoin name is a path of the form `namespace/name`. The most-used namespace is `d/` (DNS). A `d/example` record corresponds to `example.bit` and contains DNS records in standard DNS zone format.
+A Namecoin name is a path of the form `namespace/name`. The most-used namespace is `d/` (DNS). A `d/example` record corresponds to `example.bit` and stores DNS-related data in Namecoin’s JSON-based record format.
 
 Names have:
 - A name (the key).
@@ -92,10 +92,10 @@ This is the **interoperability magic of AIA and PKCS#11** that Jeremy Rand cites
 
 | Component | Repository | Activity (mid-2026) |
 |-----------|------------|---------------------|
-| `namecoin-core` | `github.com/namecoin/namecoin-core` | 51,352 commits; 27+ releases; current stable **Namecoin Core nc31.1 (Jul 2026**, Bitcoin Core 31.1 base); master branch regularly built and tested |
-| `ncdns` resolver | `github.com/namecoin/ncdns` | Active; v0.0.7+ series; current as of 2025–2026 |
-| `ncp11` PKCS#11 module | `github.com/namecoin/ncp11` | Code-quality improvements merged May 2025 |
-| `Encaya` server | `github.com/namecoin/encaya` | Hashed TLSA (Sep 2025), Encasha SSHFP (Sep 2025), off-chain TLSA (Sep 2025) — active dev |
+| `namecoin-core` | [Namecoin Core](https://github.com/namecoin/namecoin-core) | 51,352 commits; 27+ releases; current stable **Namecoin Core nc31.1 (Jul 2026**, Bitcoin Core 31.1 base); master branch regularly built and tested |
+| `ncdns` resolver | [ncdns resolver](https://github.com/namecoin/ncdns) | Active; v0.0.7+ series; current as of 2025–2026 |
+| `ncp11` PKCS#11 module | [ncp11 PKCS#11 module](https://github.com/namecoin/ncp11) | Code-quality improvements merged May 2025 |
+| `Encaya` server | [Encaya](https://github.com/namecoin/encaya) | Hashed TLSA (Sep 2025), Encasha SSHFP (Sep 2025), off-chain TLSA (Sep 2025) — active dev |
 | `ncgencert` (renamed Sep 2025) | `github.com/namecoin/ncgencert` | Replaces `generate_nmc_cert`; current |
 | `sockstrace` | Active tooling | Major update Jul 2025 |
 
@@ -138,7 +138,7 @@ The September 2025 Encasha work extends off-chain TLSA to off-chain SSHFP, provi
 - **Tiny user-facing ecosystem.** A handful of working sites; mainstream awareness is low.
 - **Name squatting** — first-claim-wins with no auction; valuable names (short, common) were taken in 2011–2013 and have not been released.
 - **Renewal friction** — names expire every 36,000 blocks (~200 days) unless renewed; lose the key, lose the name.
-- **Bitcoin-derived cost** — name registration cost follows Bitcoin fee markets; cheap in normal times, expensive in congestion.
+- **Namecoin transaction fees** — registration and updates are Namecoin transactions; merged mining does not make Bitcoin’s transaction-fee market the fee market for names.
 - **OpenNIC dropped `.bit` (2019)** — public alternative-root support evaporated.
 - **No smart contracts** — limits composability (compared to ENS, Cardano DNS, DNSSEC-into-ENS).
 - **On-chain privacy** — name registrations are public, like all UTXO-chain transactions.
@@ -147,7 +147,7 @@ The September 2025 Encasha work extends off-chain TLSA to off-chain SSHFP, provi
 
 | Attack | Mitigation |
 |--------|-----------|
-| Mining majority attack (rename / double-claim) | Bitcoin's hashrate when miners opt in; economic cost same as Bitcoin 51% attack |
+| Mining majority attack (rename / double-claim) | Bitcoin's hashrate when miners opt in; security depends on the hash power actually merge-mining Namecoin |
 | Name squatting | Auctions, secondary markets, social conventions |
 | OpenNIC de-listing | Run `ncdns` locally; no alternative root needed |
 | TLS hijack | AIA + PKCS#11 path; ncp11 verifications |
@@ -163,7 +163,7 @@ The September 2025 Encasha work extends off-chain TLSA to off-chain SSHFP, provi
 | [Handshake](/kb/handshake/) | BLAKE2b + SHA3 PoW | UTXO chain; auction | Hard (DANE, niche browsers) | Niche; 2nd halving Jul 2026 | 8 years |
 | [ENS](/kb/ens/) | Ethereum PoS | Smart contract | Yes (any CA; CCIP-Read) | Mainstream | 9 years |
 | [Cardano DNS](/kb/cardano-dns/) | Cardano / Handshake | Native asset + plutus | Not yet | Experimental | 2–3 years |
-| [DNNS](/kb/dnns/) | Lithosphere PoS | On-chain | Unknown (no public repo) | Announced | 0 |
+| [DNNS](/kb/dnns/) | Lithosphere chain | On-chain | Check the application’s resolver path | Public Kamet testnet implementation | Experimental |
 
 Namecoin is the system to study if you want the most "no-trust-at-all" answer to "can a decentralized name have HTTPS without a CA?" — and if you're willing to live with a small ecosystem.
 
@@ -186,15 +186,13 @@ For a `.bit` site visitor:
 
 ## Primary sources
 
-- [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
-
-- Namecoin website — `namecoin.org`.
-- Namecoin Core source — `github.com/namecoin/namecoin-core`.
-- `ncdns` resolver — `github.com/namecoin/ncdns`.
-- `ncp11` PKCS#11 — `github.com/namecoin/ncp11`.
-- `Encaya` server — `github.com/namecoin/encaya`.
-- Namecoin Core 28.0 release notes — `namecoin.org/2024/12/15/namecoin-core-28.0-released.html`.
-- Jeremy Rand, "Is Post-Quantum Namecoin TLS Feasible?" — `namecoin.org/2025/09/23/...`.
-- Jeremy Rand, "Code Quality Improvements in ncp11" — `namecoin.org/2025/05/13/...`.
-- Wikipedia, "Namecoin" — `en.wikipedia.org/wiki/Namecoin`.
-- Aaron Swartz, "Squaring the Triangle" (2011) — `sqz.swartzfamily.com/2011/05/01/squaring-the-triangle/`.
+- [Namecoin Core](https://github.com/namecoin/namecoin-core)
+- [ncdns resolver](https://github.com/namecoin/ncdns)
+- [ncp11 PKCS#11 module](https://github.com/namecoin/ncp11)
+- [Encaya](https://github.com/namecoin/encaya)
+- [Namecoin Core 28.0 release](https://www.namecoin.org/2024/12/15/namecoin-core-28.0-released.html)
+- [Namecoin: post-quantum TLS](https://www.namecoin.org/2025/09/23/is-post-quantum-namecoin-tls-feasible.html)
+- [Namecoin: ncp11 code quality](https://www.namecoin.org/2025/05/13/code-quality-improvements-in-ncp11.html)
+- [Handshake proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+- [Namecoin documentation](https://www.namecoin.org/docs/name-owners/)
+- [DNNS implementation overview](https://github.com/KaJLabs/lithosphere/blob/main/DNNS/README.md)

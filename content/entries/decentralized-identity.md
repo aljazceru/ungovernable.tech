@@ -3,9 +3,10 @@ title: "Decentralized Identity"
 slug: decentralized-identity
 type: explainer
 pillars: ["identity"]
+readiness: usable
 description: "Identifiers, credentials and reputation that belong to the user rather than a platform: DIDs, verifiable credentials and key-based identity explained."
 dek: "Identifiers, credentials, and reputation that belong to the user, not to platforms, governments, or the issuer after the fact."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "11-Identity/Overview - Decentralized Identity.md"
@@ -100,10 +101,10 @@ Ledger / Infra (Bitcoin/ION, Ethereum/ENS, Sovrin, centralized PKI)
 
 ## Primary sources
 
-- W3C: *Decentralized Identifiers (DIDs) v1.0*
-- W3C: *Verifiable Credentials Data Model v2.0*
-- IETF: *SD-JWT* drafts
-- ISO 18013-5 (mDL)
-- DIF specifications — `identity.foundation`
+- [W3C Decentralized Identifiers v1.0](https://www.w3.org/TR/did-core/)
+- [W3C Verifiable Credentials Data Model v2.0](https://www.w3.org/TR/vc-data-model-2.0/)
+- [RFC 9901: Selective Disclosure for JSON Web Tokens](https://www.rfc-editor.org/rfc/rfc9901.html)
+- [DIF Presentation Exchange specification](https://identity.foundation/presentation-exchange/)
+- [DIF DIDComm Messaging specification](https://identity.foundation/didcomm-messaging/spec/)
 
 For server-based social federation and its migration boundaries, see [ActivityPub](/kb/activitypub/).

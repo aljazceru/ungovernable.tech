@@ -5,8 +5,8 @@ type: deep-dive
 pillars: ["pqc"]
 readiness: usable
 description: "XMSS and LMS, stateful hash-based signatures: small, conservative post-quantum signatures that are safe only if the signer never reuses state."
-dek: "The narrow-but-bulletproof PQ signature option: smaller than SLH-DSA, hash-only assumption, but you must track the signed-index. Reusing an index breaks the scheme. NIST SP 800-208 (October 2020) blesses these for code signing and firmware updates only."
-updated: 2026-04-26
+dek: "The narrow-but-bulletproof PQ signature option: smaller than SLH-DSA, hash-only assumption, but you must track the signed-index. Reusing an index breaks the scheme. NIST SP 800-208 (October 2020) requires tightly controlled state management and hardware cryptographic modules."
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "10-Post-Quantum/Stateful Hash Signatures.md"
@@ -84,15 +84,11 @@ LMS prioritizes implementation simplicity and verification speed. It is slightly
 
 LMS signatures are slightly smaller than XMSS at comparable parameters because of differences in the WOTS variant (LM-OTS vs WOTS+).
 
-## NIST SP 800-208 — what it allows
+## NIST SP 800-208 — what it requires
 
-NIST published *Recommendation for Stateful Hash-Based Signature Schemes* (SP 800-208, October 2020) to define when these schemes may be used in federal systems. The scope is deliberately narrow:
+NIST SP 800-208 approves specified LMS/HSS and XMSS/XMSS-MT parameter sets. It requires key generation and signing in hardware cryptographic modules that do not export secret keying material. State must be maintained so that no one-time key signs two different messages.
 
-> **Approved use cases**: code signing, firmware signing, and other applications where the signing operation is performed in a controlled environment and signature state can be reliably maintained.
->
-> **Not approved**: general-purpose public-key signatures, TLS, document signing, anywhere the signer is a normal end-user device.
-
-The reasoning: state management is the failure mode. A signing system that loses or duplicates state will produce two signatures with the same leaf, and the security proof breaks. In a controlled signing pipeline (release engineering, firmware build server) this can be enforced. On a phone or laptop it cannot.
+Firmware and software signing are important applications. Suitability for another application depends on meeting the recommendation’s state-management and hardware requirements.
 
 ## The state-management problem in detail
 
@@ -138,7 +134,7 @@ The Linux kernel community experimented with XMSS and LMS for module signing as 
 ### Government
 
 - **Germany / BSI**: lists XMSS and LMS in its TR-02102-1 catalog for narrow applications.
-- **NSA CNSA 2.0** (September 2022): allows LMS for software/firmware signing as part of the suite of post-quantum recommendations.
+
 
 ## Comparison with stateless SLH-DSA
 
@@ -170,7 +166,7 @@ The cryptographic assumption is the same. The difference is purely operational. 
 - Stateful. State corruption is catastrophic.
 - Capacity is bounded by tree height.
 - Operational complexity (counter persistence, backup discipline).
-- NIST narrowly approves only for code/firmware signing.
+- NIST-approved use requires the hardware and state-management controls in SP 800-208.
 - Not suitable for end-user signing (phones, laptops, browsers).
 
 ## Attack surface
@@ -192,13 +188,13 @@ The cryptographic assumption is the same. The difference is purely operational. 
 | Distributed signing environment, can't centralize state | SLH-DSA |
 | End-user devices signing | SLH-DSA or ML-DSA |
 | Already using XMSS in standards (e.g., ETSI quantum-safe certificate profiles) | XMSS |
-| Already using LMS in standards (e.g., NSA CNSA 2.0 firmware) | LMS |
+| Existing deployment requires LMS | LMS |
 
 ## Primary sources
 
-- IETF, *RFC 8391: XMSS — eXtended Merkle Signature Scheme*, May 2018. Hülsing, Butin, Gazdag, Rijneveld, Mohaisen. `datatracker.ietf.org/doc/rfc8391/`.
-- IETF, *RFC 8554: Leighton-Micali Hash-Based Signatures*, April 2019. McGrew, Curcio, Fluhrer. `datatracker.ietf.org/doc/rfc8554/`.
-- NIST, *SP 800-208: Recommendation for Stateful Hash-Based Signature Schemes*, October 2020. Cooper, Apon, Dang, Davidson, Dworkin, Miller. `csrc.nist.gov/publications/detail/sp/800-208/final`.
-- NSA, *CNSA Suite 2.0*, September 7, 2022. `media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF`.
-- Buchmann, Dahmen, Hülsing, *XMSS — A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions*, PQCrypto 2011.
-- Leighton, Micali, *Large provably fast and secure digital signature schemes from secure hash functions*, US Patent 5,432,852, 1995.
+- [RFC 8391: XMSS](https://www.rfc-editor.org/rfc/rfc8391.html)
+- [RFC 8554: Leighton-Micali Hash-Based Signatures](https://www.rfc-editor.org/rfc/rfc8554.html)
+- [NIST SP 800-208: Stateful Hash-Based Signature Schemes](https://csrc.nist.gov/pubs/sp/800/208/final)
+- [XMSS - A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions](https://eprint.iacr.org/2011/484)
+- [Leighton and Micali: hash-based signature patent](https://patents.google.com/patent/US5432852A/en)
+- [NIST SP 800-208: full recommendation](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf)

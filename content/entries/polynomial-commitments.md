@@ -3,9 +3,10 @@ title: "Polynomial Commitments"
 slug: polynomial-commitments
 type: explainer
 pillars: ["zk", "cryptography"]
+readiness: usable
 description: "Polynomial commitment schemes such as KZG, FRI and IPA sit underneath every modern proof system. What they are and how they trade off."
 dek: "Underneath every modern proof system is a polynomial commitment scheme (PCS). The PCS lets a prover commit to a polynomial and later open it at a verifier-chosen point with a short proof. Most of the trade-offs that distinguish SNARKs from STARKs — proof size, prover time, trusted setup, post-quantum security — actually come from the PCS layer, not from the polynomial IOP on top. Pick the PCS and the proof system's properties largely follow."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "09-Zero-Knowledge/Polynomial Commitments.md"
@@ -161,7 +162,7 @@ Golovnev, Lee, Setty, Thaler, Wahby, *Brakedown: Linear-Time and Field-Agnostic 
 
 ### Orion
 
-Xie, Zhang, Wang, *Orion: Zero-Knowledge Proof with Linear Prover Time*, CRYPTO 2022.
+Xie, Zhang, Song, *Orion: Zero-Knowledge Proof with Linear Prover Time*, CRYPTO 2022.
 
 - Builds on Brakedown's code-based ideas with smaller proofs (poly-log).
 - Hash-based, transparent.
@@ -169,7 +170,7 @@ Xie, Zhang, Wang, *Orion: Zero-Knowledge Proof with Linear Prover Time*, CRYPTO 
 
 ### Basefold
 
-Zeilberger, Ben-Sasson, Genkin, Tsabary, *Basefold: Efficient Field-Agnostic Polynomial Commitment Schemes from Foldable Codes*, CRYPTO 2024.
+Zeilberger, Chen, Fisch, *Basefold: Efficient Field-Agnostic Polynomial Commitment Schemes from Foldable Codes*, CRYPTO 2024.
 
 - FRI-style folding generalized to a wider class of codes.
 - Field-agnostic; unifies FRI and Brakedown-style approaches.
@@ -221,7 +222,7 @@ Hash-based PCSes (FRI, Brakedown, Orion, Basefold) survive Shor's algorithm. Pai
 For Ethereum-deployed verifiers:
 
 - KZG: ~250-500k gas (one or two pairings + minor group ops). Cheapest.
-- IPA: linear in degree, multiple MB of calldata for non-trivial circuits — too expensive for direct on-chain verification.
+- IPA: verification can require linear work even though the proof has logarithmic size; on-chain cost depends on the implementation.
 - FRI: log² verifier, but practical implementations are still ~1-3M gas. Usable but not cheap.
 - Brakedown / Orion: similar order to FRI in current implementations.
 
@@ -241,14 +242,14 @@ This cost is why the "wrap with Groth16 / KZG for final on-chain verification" p
 
 ## Primary sources
 
-- Kate, Zaverucha, Goldberg, *Constant-Size Commitments to Polynomials and Their Applications*, ASIACRYPT 2010.
-- Ben-Sasson, Bentov, Horesh, Riabzev, *Fast Reed-Solomon Interactive Oracle Proofs of Proximity*, ICALP 2018.
-- Bootle, Cerulli, Chaidos, Groth, Petit, *Efficient Zero-Knowledge Arguments for Arithmetic Circuits in the Discrete Log Setting*, EUROCRYPT 2016.
-- Bünz, Bootle, Boneh, Poelstra, Wuille, Maxwell, *Bulletproofs: Short Proofs for Confidential Transactions and More*, IEEE S&P 2018.
-- Bowe, Grigg, Hopwood, *Recursive Proof Composition without a Trusted Setup* (Halo), 2019.
-- Wahby, Tzialla, Shelat, Thaler, Walfish, *Doubly-Efficient zkSNARKs Without Trusted Setup* (Hyrax), IEEE S&P 2018.
-- Golovnev, Lee, Setty, Thaler, Wahby, *Brakedown: Linear-Time and Field-Agnostic SNARKs for R1CS*, CRYPTO 2023.
-- Xie, Zhang, Wang, *Orion: Zero-Knowledge Proof with Linear Prover Time*, CRYPTO 2022.
-- Zeilberger, Ben-Sasson, Genkin, Tsabary, *Basefold: Efficient Field-Agnostic Polynomial Commitment Schemes from Foldable Codes*, CRYPTO 2024.
-- Setty, *Spartan: Efficient and General-Purpose zkSNARKs*, CRYPTO 2020.
-- Halo2 Book — [zcash.github.io/halo2/](https://zcash.github.io/halo2/).
+- [Efficient Zero-Knowledge Arguments for Arithmetic Circuits in the Discrete Log Setting](https://eprint.iacr.org/2016/263)
+- [Bulletproofs: Short Proofs for Confidential Transactions and More](https://eprint.iacr.org/2017/1066)
+- [Recursive Proof Composition without a Trusted Setup](https://eprint.iacr.org/2019/1021)
+- [Doubly-efficient zkSNARKs without trusted setup](https://eprint.iacr.org/2017/1132)
+- [Brakedown: Linear-time and field-agnostic SNARKs for R1CS](https://eprint.iacr.org/2021/1043)
+- [Orion: Zero Knowledge Proof with Linear Prover Time](https://eprint.iacr.org/2022/1010)
+- [BaseFold: Efficient Field-Agnostic Polynomial Commitment Schemes from Foldable Codes](https://eprint.iacr.org/2023/1705)
+- [Spartan: Efficient and general-purpose zkSNARKs without trusted setup](https://eprint.iacr.org/2019/550)
+- [Halo2 design documentation](https://zcash.github.io/halo2/)
+- [Kate, Zaverucha and Goldberg: Polynomial Commitments](https://cacr.uwaterloo.ca/techreports/2010/cacr2010-10.pdf)
+- [Fast Reed-Solomon Interactive Oracle Proofs of Proximity](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2018.14)

@@ -3,9 +3,10 @@ title: "SNARKs"
 slug: snarks
 type: explainer
 pillars: ["zk"]
+readiness: usable
 description: "SNARKs are tiny zero-knowledge proofs that verify in milliseconds and can prove arbitrary computation: how they work, trusted setups and main systems."
 dek: "Cryptographic proofs that are tiny (hundreds of bytes to a few kilobytes), check in milliseconds, and can prove arbitrary computation. The workhorse of ZK rollups, privacy coins, and verifiable identity systems."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "09-Zero-Knowledge/SNARKs.md"
@@ -73,7 +74,7 @@ Variants: Aztec Plonk, TurboPlonk, UltraPlonk, Plookup, Caulk, Lasso (lookup arg
 
 Electric Coin Co.'s rewrite of Plonk for Zcash Orchard. Two big changes:
 
-- No trusted setup. Uses Inner Product Arguments (IPA) over `secp256k1` / `pasta` curves instead of pairings. The transparent setup is hash-based.
+- No trusted setup. Uses Inner Product Arguments (IPA) over the Pasta curves instead of pairings. The transparent setup is hash-based.
 - Recursive composition without overhead. Proofs prove proofs, enabling unbounded depth.
 
 Halo2 is the basis for many modern systems: Filecoin's Saturn, Scroll's Plonkish prover, Anoma, Aztec Network's modern stack.
@@ -119,7 +120,7 @@ Recursive composition is what makes ZK rollups scalable: prove a million transac
 | Plonky2/3 | 50-100 KB | ~10 ms | Fast | None (hash-based) |
 | STARK | 50-200 KB | ~10 ms | Fast | None |
 | Spartan | ~5 KB | Linear | Fast | None |
-| Nova/SuperNova (folded) | Small | Fast | Incremental | Per-circuit |
+| Nova/SuperNova (folded) | Small | Fast | Incremental | No trusted setup required by folding; compression backend can differ |
 
 Numbers compress every year as research advances.
 
@@ -140,7 +141,7 @@ A "trusted setup" generates structured reference parameters via a multi-party co
 - **Per-circuit setup** (Groth16): ceremony per use case. Operationally heavy.
 - **Universal setup** (PLONK family): one ceremony for all circuits up to a size cap. Reusable.
 - **Updatable setup** (Sonic, Marlin): anyone can extend the ceremony, lowering trust.
-- **No setup** (STARKs, Halo2 with IPA): purely hash-based.
+- **No trusted setup**: STARKs use hash-based constructions; Halo2 with IPA instead relies on elliptic-curve discrete logarithms.
 
 Production projects with trusted setups (Zcash, Filecoin, Aleo) ran ceremonies with thousands of contributors. The cryptographic case for soundness is solid; the operational case for "no setup" systems is increasingly preferred for new designs.
 
@@ -169,7 +170,7 @@ Production projects with trusted setups (Zcash, Filecoin, Aleo) ran ceremonies w
 | Trusted-setup all-collude | Multi-party ceremony with honest-1-of-n soundness |
 | Prover bugs in circuit | Formal verification, audit, fuzzing |
 | Soundness break in proof system | Use battle-tested systems (Groth16, PLONK have strong literature) |
-| Quantum break (pairings) | Migrate to STARK / Halo2 / hash-based variants |
+| Quantum break (pairings or discrete logarithms) | Assess hash-based proof systems; IPA-based Halo2 is also quantum-vulnerable |
 | Implementation timing-side-channel | Constant-time prover libraries |
 | Public-input commitment confusion | Clear API for what's public vs witness |
 
@@ -183,11 +184,12 @@ Production projects with trusted setups (Zcash, Filecoin, Aleo) ran ceremonies w
 
 ## Primary sources
 
-- Groth, *On the Size of Pairing-Based Non-Interactive Arguments*, EUROCRYPT 2016.
-- Gabizon, Williamson, Ciobotaru, *PLONK*, IACR 2019/953.
-- Bowe, Grigg, Hopwood, *Recursive Proof Composition without a Trusted Setup* (Halo), 2019.
-- Bowe et al., *Halo2 Book* — [zcash.github.io/halo2/](https://zcash.github.io/halo2/).
-- Setty, *Spartan: Efficient and General-Purpose zkSNARKs*, CRYPTO 2020.
-- Setty, Thaler, Wahby, *Unlocking the Lookup Singularity with Lasso*, 2023.
-- Arun, Setty, Thaler, *Jolt: SNARKs for Virtual Machines via Lookups*, 2023.
-- Kothapalli, Setty, Tzialla, *Nova: Recursive Zero-Knowledge Arguments from Folding Schemes*, 2022.
+- [On the Size of Pairing-based Non-interactive Arguments](https://eprint.iacr.org/2016/260)
+- [PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge](https://eprint.iacr.org/2019/953)
+- [Recursive Proof Composition without a Trusted Setup](https://eprint.iacr.org/2019/1021)
+- [Halo2 design documentation](https://zcash.github.io/halo2/)
+- [Spartan: Efficient and general-purpose zkSNARKs without trusted setup](https://eprint.iacr.org/2019/550)
+- [Unlocking the lookup singularity with Lasso](https://eprint.iacr.org/2023/1216)
+- [Jolt: SNARKs for Virtual Machines via Lookups](https://eprint.iacr.org/2023/1217)
+- [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes](https://eprint.iacr.org/2021/370)
+- [Scalable, transparent, and post-quantum secure computational integrity](https://eprint.iacr.org/2018/046)

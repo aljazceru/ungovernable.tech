@@ -59,7 +59,7 @@ The user's data lives on a PDS. A PDS:
 
 - Stores the user's repository (a Merkle-search-tree of records).
 - Serves authenticated reads to clients.
-- Signs records on the user's behalf if it holds the rotation key (or accepts client-signed records if not).
+- Signs repository commits with the repository signing key. Rotation keys authorize DID updates and are a separate role.
 - Publishes the user's commits to the relay firehose.
 
 Anyone can run a PDS. The default is `bsky.social`, run by Bluesky PBC, but third-party PDSs exist. Account migration between PDSs is a defined protocol step.
@@ -134,7 +134,7 @@ did:plc carries the "DID" framing — implying decentralization — but is **ope
 This is a different centralization than did:web (DNS) or did:plc's competitors:
 
 - **did:web**: DNS-trust-rooted; everyone running their own domain has independent control. But identifiers are domain-bound.
-- **did:plc**: identifiers are random and portable across PDSs, but the log is run by one operator. **Slightly more decentralized for ordinary users than did:web (you don't need a domain), substantially less so than did:ion (Bitcoin-anchored).**
+- **did:plc**: identifiers derive from the genesis operation and are portable across PDSs, but the log is run by one operator. **Slightly more decentralized for ordinary users than did:web (you don't need a domain), substantially less so than did:ion (Bitcoin-anchored).**
 - **did:ion**: Bitcoin-anchored via Sidetree. Decentralized, but operationally heavier and slower.
 
 In practice: did:plc is "decentralized enough" for Bluesky's threat model (Twitter-replacement social) but is not what a user looking for cypherpunk-grade sovereign identity should rely on.
@@ -207,13 +207,13 @@ For a user who wants:
 
 | Attack | Mitigation |
 |--------|-----------|
-| plc.directory censors / refuses operations | did:web fallback; future migration to decentralized PLC substrate |
+| plc.directory censors / refuses operations | Existing did:plc identities depend on the directory accepting updates; did:web is a separate identity choice |
 | PDS forges records on user's behalf | User-side signing where supported; attestation of PDS behavior |
 | Rotation key compromise | Multiple rotation keys, kept offline; recovery via secondary rotation keys |
 | Repository signing key compromise | Rotation to new key via PLC operation |
 | AppView fabricates feed contents | Independent AppViews; user verification of records via PDS |
 | DNS hijack of did:web | Same as did:web — DNSSEC, registrar lock |
-| Quantum attack on signing keys | atproto signature-agnostic in principle; production uses Ed25519/secp256k1 |
+| Quantum attack on signing keys | atproto signature-agnostic in principle; the specified curves are P-256 and secp256k1 |
 
 ## Future decentralization paths
 
@@ -221,7 +221,7 @@ Bluesky has discussed several paths to decentralizing the PLC log:
 
 1. **BFT consensus across multiple operators**. Several organizations run independent PLC nodes; consensus on each operation. Discussed publicly; not deployed.
 2. **Bitcoin / blockchain anchoring**. Like did:ion's Sidetree. Slow but decentralized. Not on Bluesky's near-term roadmap.
-3. **Migrate to a different DID method**. Users who care can move to did:web today. There is no migration scheme from did:plc to a future fully decentralized method.
+3. **Choose a DID method when creating an identity**. did:web is supported, but changing DID method changes the account’s identifier; it is not ordinary PDS migration.
 
 As of early 2026, none of these have moved. plc.directory remains operationally centralized. The data model gives Bluesky an exit ramp; whether they take it depends on community pressure and engineering priorities.
 
@@ -238,13 +238,14 @@ As of early 2026, none of these have moved. plc.directory remains operationally 
 
 ## Primary sources
 
-- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
-
-- Bluesky, *AT Protocol Specification*, `atproto.com/specs/atp`.
-- Bluesky, *did:plc method spec*, `github.com/did-method-plc/did-method-plc`.
-- Bluesky, *AT Protocol Lexicon*, `atproto.com/specs/lexicon`.
-- Bluesky, *PLC Directory*, `web.plc.directory`.
-- Bluesky, *Account Migration*, `atproto.com/guides/account-migration`.
-- W3C, *DID Core 1.0*, 2022. `w3.org/TR/did-core/`.
-- AT Protocol public repos — `github.com/bluesky-social/atproto`.
-- Reference PLC mirror implementations — `github.com/did-method-plc`.
+- [NIPs registry: delegation status](https://github.com/nostr-protocol/nips)
+- [AT Protocol specification](https://atproto.com/specs/atp)
+- [did:plc specification and directory implementation](https://github.com/did-method-plc/did-method-plc)
+- [Lexicon specification](https://atproto.com/specs/lexicon)
+- [PLC Directory](https://web.plc.directory/)
+- [AT Protocol account migration](https://atproto.com/guides/account-migration)
+- [W3C DID Core](https://www.w3.org/TR/did-core/)
+- [AT Protocol reference implementations](https://github.com/bluesky-social/atproto)
+- [AT Protocol cryptographic curves](https://atproto.com/specs/cryptography)
+- [AT Protocol repository specification](https://atproto.com/specs/repository)
+- [AT Protocol DID requirements](https://atproto.com/specs/did)

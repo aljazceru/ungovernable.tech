@@ -3,9 +3,10 @@ title: "Zero-Knowledge Proofs"
 slug: zero-knowledge-proofs
 type: explainer
 pillars: ["zk"]
+readiness: usable
 description: "Zero-knowledge proofs let you prove a statement is true without revealing why: the concepts, proof systems and the privacy applications they enable."
 dek: "Prove that a statement is true without revealing anything beyond its truth."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "09-Zero-Knowledge/Overview - Zero-Knowledge Proofs.md"
@@ -24,11 +25,11 @@ The practical win: a prover does work once, produces a tiny proof (hundreds of b
 | Family | Size | Prover | Verifier | Trusted Setup | Post-Quantum |
 |---|---|---|---|---|---|
 | **Groth16** | ~200 B | Slow | <5 ms | Per-circuit | No |
-| **PLONK / Halo2** | 1–5 KB | Moderate | ~10–50 ms | Universal (updatable) | No |
+| **PLONK / Halo2** | Construction-dependent | Moderate | Construction-dependent | PLONK: universal; original Halo2: none | No |
 | **STARKs** | 50–200 KB | Fast | ~10 ms | None | Yes (hash-based) |
 | **Bulletproofs** | ~1 KB (log n) | Fast | Linear verify | None | No |
-| **Nova / Folding** | Small | Incremental, fast | Fast | Per-circuit | No |
-| **SNARKs over FRI / Binius / Jolt** | Moderate | Very fast | Fast | None / universal | Mostly yes |
+| **Nova / Folding** | Small | Incremental, fast | Fast | Nova needs no trusted setup; compression backend can differ | No |
+| **SNARKs over FRI / Binius / Jolt** | Construction-dependent | Construction-dependent | Construction-dependent | Depends on commitment scheme | Hash-based variants can be; curve-based Jolt is not |
 
 ## What's built on them
 
@@ -97,10 +98,13 @@ A mature confidential-inference stack may use both: TEE for fast private inferen
 
 ## Primary sources
 
-- Groth: *On the Size of Pairing-Based Non-Interactive Arguments* — EUROCRYPT 2016
-- Ben-Sasson et al.: *Scalable, transparent, and post-quantum secure computational integrity* — IACR 2018 (STARKs)
-- Gabizon-Williamson-Ciobotaru: *PLONK* — IACR 2019
-- Bünz et al.: *Bulletproofs* — IEEE S&P 2018
-- a16z Crypto's ZK canon — `a16zcrypto.com/zero-knowledge-canon`
+- [On the Size of Pairing-based Non-interactive Arguments](https://eprint.iacr.org/2016/260)
+- [Scalable, transparent, and post-quantum secure computational integrity](https://eprint.iacr.org/2018/046)
+- [PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge](https://eprint.iacr.org/2019/953)
+- [Bulletproofs: Short Proofs for Confidential Transactions and More](https://eprint.iacr.org/2017/1066)
+- [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes](https://eprint.iacr.org/2021/370)
+- [Halo2 design documentation](https://zcash.github.io/halo2/)
+- [Jolt implementation and cryptographic design](https://github.com/a16z/jolt)
+- [Recursive Proof Composition without a Trusted Setup](https://eprint.iacr.org/2019/1021)
 
 For program identity, proof modes and outsourced proving, see [general-purpose zkVMs](/kb/zkvms/).

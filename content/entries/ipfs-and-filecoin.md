@@ -6,7 +6,7 @@ pillars: ["storage"]
 readiness: battle-tested
 description: "IPFS gives data a content address that anyone can serve; Filecoin pays providers to store it and prove they do. How the pair works and fails."
 dek: "IPFS gives data a content address. Filecoin pays storage providers to keep content-addressed data available and prove they are storing it. Together they form the Protocol Labs storage stack: retrieval and naming on one side, durable storage deals on the other."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-28
 origin: vault
 source: "12-Decentralized-Storage/IPFS and Filecoin.md"
@@ -98,12 +98,12 @@ For user-facing applications, the common stack is:
 | Malicious pinning provider | Multi-pin and audit availability |
 | Plaintext leak | Encrypt before publishing |
 
-## Primary Sources
+## Primary sources
 
-- Benet, *IPFS - Content Addressed, Versioned, P2P File System*, arXiv 2014.
-- Protocol Labs, *Filecoin: A Decentralized Storage Network*, 2017.
-- IPFS Docs — [docs.ipfs.tech](https://docs.ipfs.tech/)
-- Filecoin Docs — [docs.filecoin.io](https://docs.filecoin.io/)
-- Trautwein et al., *Design and Evaluation of IPFS: A Storage Layer for the Decentralized Web*, SIGCOMM CCR 2022.
+- [Benet: IPFS, Content Addressed, Versioned, P2P File System](https://arxiv.org/abs/1407.3561)
+- [IPFS persistence and pinning](https://docs.ipfs.tech/how-to/pin-files/)
+- [Filecoin storage proofs](https://docs.filecoin.io/basics/the-blockchain/proofs)
+- [Trautwein et al.: Design and Evaluation of IPFS](https://arxiv.org/abs/2208.05877)
+- [Filecoin protocol specification](https://spec.filecoin.io/intro/)
 
 Continue with [IPNS and DNSLink](/kb/ipns-dnslink/) for naming, [BitTorrent for Archive Distribution](/kb/bittorrent-archives/) for another distribution model, and [Choosing Decentralized Storage](/kb/compare-storage/) for the retention and privacy comparison.

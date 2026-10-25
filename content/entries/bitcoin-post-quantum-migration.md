@@ -3,6 +3,7 @@ title: "Bitcoin and the Post-Quantum Migration"
 slug: bitcoin-post-quantum-migration
 type: explainer
 pillars: ["pqc", "money"]
+readiness: research
 description: "Why a large quantum computer would break Bitcoin's signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys."
 dek: "Bitcoin's signatures are quantum-vulnerable. Shor's algorithm against secp256k1 collapses ECDSA and Schnorr in polynomial time on a sufficiently large quantum computer. This file looks at the actual proposals, address-type exposure, and the soft-fork-vs-hard-fork debate, with honest status as of early 2026."
 updated: 2026-10-25
@@ -31,7 +32,7 @@ Different Bitcoin address types expose pubkeys differently. **The pubkey is what
 
 | Address type | Pubkey on chain | Exposure |
 |--------------|-----------------|----------|
-| **P2PK** (pay-to-pubkey) | Always | Extreme. Pubkey is in the locking script. ~1.7M BTC sit in P2PK outputs (early Satoshi-era coins). All immediately at risk. |
+| **P2PK** (pay-to-pubkey) | Always | Extreme. Pubkey is in the locking script.  |
 | **P2PKH** (pay-to-pubkey-hash) | After first spend | Address is `HASH160(pubkey)`. Pubkey only revealed when spending. Reused addresses with prior spends are exposed. |
 | **P2SH-wrapped** | Depends on script | Varies. A common P2SH-P2WPKH still hides pubkey until spend. |
 | **P2WPKH** (native SegWit) | After first spend | Like P2PKH. Hash-only locking; pubkey in witness on spend. |
@@ -53,12 +54,12 @@ Unspent Taproot outputs belong in the exposed-public-key category. Never spendin
 
 ### BIP-360 — Pay-to-Merkle-Root (P2MR)
 
-**Hunter Beast, Ethan Heilman, and Isabel Foxen Duke**, *BIP-360: Pay-to-Merkle-Root*, draft on `github.com/bitcoin/bips/blob/master/bip-0360.mediawiki` (assigned December 18, 2024; version 0.11.0 checked April 2026).
+**Hunter Beast, Ethan Heilman, and Isabel Foxen Duke**, *BIP-360: Pay-to-Merkle-Root*, draft on [BIP 360: Pay-to-Merkle-Root](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki) (assigned December 18, 2024; version 0.12.1 checked October 2026).
 
 BIP-360 is narrower than the older "Pay-to-Quantum-Resistant-Hash" framing. The current draft introduces a new output type that keeps Taproot-style script trees but removes the key-path spend:
 
 ```
-P2MR script: OP_PUSHNUM_3 <32-byte Merkle root>
+P2MR script: OP_2 OP_PUSHBYTES_32 <32-byte Merkle root>
 ```
 
 That matters because Taproot outputs expose a long-lived x-only public key in the output itself. P2MR commits only to a script tree root. It protects against **long-exposure attacks** on public keys already visible on-chain, while preserving tapscript programmability.
@@ -71,7 +72,7 @@ The likely signature candidates remain:
 
 - **SLH-DSA** (FIPS 205) — conservative, very large signatures.
 - **ML-DSA** (FIPS 204) — general-purpose, large but practical in many protocols.
-- **FN-DSA / Falcon** (draft FIPS 206) — small signatures, attractive for block-space economics, harder to implement safely.
+- **FN-DSA / Falcon** (FIPS 206 under development) — small signatures, attractive for block-space economics, harder to implement safely.
 
 As of April 2026, no Bitcoin consensus proposal has selected one of these schemes for activation.
 
@@ -80,7 +81,7 @@ As of April 2026, no Bitcoin consensus proposal has selected one of these scheme
 A second proposal direction: keep classical Schnorr as the primary signature and add a PQ signature in witness data. The script would require both to be valid.
 
 Pros: smooth migration, backward-compatible with existing infrastructure.
-Cons: doubles signature size; doesn't actually protect existing addresses; just adds PQ to new addresses.
+Cons: adds the selected post-quantum signature's size to the classical signature; does not retroactively protect existing outputs.
 
 ### Lamport / hash-based signatures via script
 
@@ -109,9 +110,9 @@ Cons:
 - Doesn't protect already-exposed UTXOs (P2PK, reused) unless owners migrate before a CRQC can exploit them.
 - Anyone can in principle race a soft-forked transaction with a non-conforming spend (though current relay rules block this).
 
-### Hard fork (deprecate vulnerable signatures)
+### Deprecating vulnerable signatures
 
-A more aggressive proposal: at a flag day, deprecate ECDSA and Schnorr signature acceptance entirely. All UTXOs must be migrated to PQ addresses by date X.
+BIP-361 proposes a staged sunset of legacy signatures after a post-quantum output type is available. It describes the migration as a series of soft forks. Restricting previously valid spends does not inherently require a hard fork.
 
 Pros:
 - Forces migration of vulnerable UTXOs.
@@ -130,7 +131,7 @@ Most proposals split the difference:
 1. Soft-fork low-risk quantum-hardening steps such as P2MR so users can reduce long-exposure risk.
 2. Add a separate PQ-signature output once the scheme and block-space economics are agreed.
 3. Run for years with both signature systems active.
-4. Eventually hard-fork to deprecate ECDSA / Schnorr — but only after CRQC threat is imminent and coordination is feasible.
+4. Consider a separately agreed sunset of legacy signatures; BIP-361 describes a soft-fork approach.
 
 ## Block-space economics
 
@@ -193,7 +194,7 @@ This buys time, not safety. P2MR would reduce long-exposure risk for new script-
 
 1. Audit your UTXOs by exposure category. Identify any P2PK or reused-address UTXOs. These are first-priority migration targets.
 2. Don't reuse addresses; for cold storage, use a fresh address per deposit.
-3. Track BIP-360 P2MR status (`github.com/bitcoin/bips/blob/master/bip-0360.mediawiki`) and any separate PQ-signature BIPs.
+3. Track BIP-360 P2MR status ([BIP 360: Pay-to-Merkle-Root](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki)) and any separate PQ-signature BIPs.
 4. When a quantum-hardening output activates, migrate from hash-protected addresses to the new output type if your wallet and hardware stack support it.
 5. When PQ signatures exist: consider a policy that requires at least one PQ signer for very large holdings.
 
@@ -212,8 +213,8 @@ This buys time, not safety. P2MR would reduce long-exposure risk for new script-
 - Does not add PQ signatures or protect the short mempool exposure window.
 - A later PQ-signature path still faces block-space pressure from larger signatures.
 - Requires wallet, hardware-wallet, and L2 ecosystem support before ordinary users can benefit.
-- No clear answer for Satoshi-era P2PK coins (~1M+ BTC).
-- Hard-fork-to-deprecate option is politically untouchable for now.
+- Treatment of unmigrated P2PK coins remains a separate policy question.
+- A legacy-signature sunset requires a separate consensus decision.
 
 ## Attack surface
 
@@ -232,7 +233,7 @@ This buys time, not safety. P2MR would reduce long-exposure risk for new script-
 | **Bitcoin** | BIP-360 P2MR for long-exposure hardening; PQ signatures remain a separate proposal track | Draft; no activation timeline |
 | **Ethereum** | Account abstraction enables PQ via signature schemes; STARK-based zk-rollups have natural PQ paths | Research; multi-year roadmap |
 | **Monero** | Confidential signatures use Schnorr-like; PQ research ongoing | Pre-design |
-| **Zcash** | Sapling/Orchard rely on BLS12-381 pairings; full PQ migration would be a redesign | Long-term research |
+| **Zcash** | Sapling uses Groth16 over BLS12-381; Orchard uses Halo 2 over the Pasta curves. Both depend on quantum-vulnerable curve assumptions | Long-term research |
 | **Algorand** | Falcon supported in protocol since 2022 | Production |
 | **QRL (Quantum Resistant Ledger)** | XMSS-based from genesis | Production niche |
 | **IOTA** | Used WOTS+ historically; moved to Ed25519 in v1.5 (irony noted) | Mixed history |
@@ -242,13 +243,15 @@ Algorand's early Falcon adoption is the only major PQ deployment in production a
 ## Primary sources
 
 - [BIP 341: Taproot output keys and key-path validation](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
-
-- Beast, Heilman, Foxen Duke, *BIP-360: Pay-to-Merkle-Root (P2MR)*, draft assigned 2024-12-18; version 0.11.0 checked April 2026. `github.com/bitcoin/bips/blob/master/bip-0360.mediawiki`.
-- NIST FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA), FIPS 206 IPD (FN-DSA / Falcon).
-- Shor, *Algorithms for Quantum Computation: Discrete Logarithms and Factoring*, FOCS 1994.
-- bitcoin-dev mailing list, *Quantum-Resistant Signatures* threads, 2023-2025. `lists.linuxfoundation.org/pipermail/bitcoin-dev/`.
-- Wuille, Nick, Ruffing, *BIP-340: Schnorr Signatures for secp256k1*, 2020.
-- Aggarwal, Brennen, Lee, Santha, Tomamichel, *Quantum attacks on Bitcoin, and how to protect against them*, Ledger 2018. `arxiv.org/abs/1710.10377`.
-- Lopp, *Bitcoin and Quantum Computing*, `blog.lopp.net`, ongoing.
-- Bitcoin StackExchange: Pieter Wuille on PQ migration. `bitcoin.stackexchange.com`.
-- BIP-340 (Schnorr): `github.com/bitcoin/bips/blob/master/bip-0340.mediawiki`.
+- [BIP 360: Pay-to-Merkle-Root](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki)
+- [FIPS 203: ML-KEM](https://csrc.nist.gov/pubs/fips/203/final)
+- [FIPS 204: ML-DSA](https://csrc.nist.gov/pubs/fips/204/final)
+- [FIPS 205: SLH-DSA](https://csrc.nist.gov/pubs/fips/205/final)
+- [NIST post-quantum signature standardization](https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022)
+- [Shor: polynomial-time algorithms for factoring and discrete logarithms](https://arxiv.org/abs/quant-ph/9508027)
+- [BIP 340: Schnorr signatures for secp256k1](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki)
+- [Aggarwal et al.: Quantum attacks on Bitcoin, and how to protect against them](https://arxiv.org/abs/1710.10377)
+- [BIP 361: Post Quantum Migration and Legacy Signature Sunset](https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki)
+- [Pieter Wuille and other participants: Against Allowing Quantum Recovery of Bitcoin](https://groups.google.com/g/bitcoindev/c/uUK6py0Yjq0)
+- [Zcash protocol specification](https://zips.z.cash/protocol/protocol.pdf)
+- [FN-DSA implementation and standardization caveats](https://github.com/pornin/c-fn-dsa)

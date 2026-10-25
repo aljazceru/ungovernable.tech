@@ -6,7 +6,7 @@ pillars: ["pqc"]
 readiness: experimental
 description: "Merkle Tree Certificates batch many TLS certificates into one signed tree, keeping certificates small enough for post-quantum signatures."
 dek: "A new certificate format that batches many certificates into a single Merkle tree, signing only the root — making post-quantum web authentication practical without the signature-size explosion."
-updated: 2026-09-05
+updated: 2026-10-25
 created: 2026-08-01
 origin: vault
 source: "10-Post-Quantum/Merkle Tree Certificates.md"
@@ -64,6 +64,8 @@ A TLS certificate chain (root → intermediate → leaf) with ML-DSA signatures 
 
 ## Standardization
 
+As of October 25, 2026, the MTC specification is an active Internet-Draft, revision 07 dated October 7, 2026. The table below retains the earlier snapshot’s dates.
+
 | Entity | Role | Status (August 2026) |
 |--------|------|---------------------|
 | **IETF PLANTS WG** | Standardization of MTC format | `draft-ietf-plants-merkle-tree-certs-05` — **WG Document / I-D Exists** (no shepherd, no AD, no intended RFC status; last revision 2026-07-06). *Corrected 2026-09-05: earlier entries said WG Last Call.* |
@@ -72,7 +74,7 @@ A TLS certificate chain (root → intermediate → leaf) with ML-DSA signatures 
 | **Cloudflare** | CDN / edge | Testing MTCs on live internet traffic with Chrome |
 | **IETF LAMPS WG** | Composite ML-DSA X.509 certs (alternative) | `draft-ietf-lamps-pq-composite-sigs-19` — **RFC Editor queue** (RFC-Ed-Ack, First Edit, Proposed Standard) as of 2026-08-26 |
 
-**The PLANTS WG** (Post-quantum usE of oLder Protocol Number TerminalS — a backronym) was chartered specifically to develop the Merkle Tree Certificate standard. The draft defines:
+**The PLANTS WG** (PKI, Logs, And Tree Signatures) was chartered specifically to develop the Merkle Tree Certificate standard. The draft defines:
 - The MTC format (how certificates and inclusion proofs are encoded)
 - The issuance protocol (how a CA creates batches and signs roots)
 - The verification protocol (how a TLS client validates an MTC)
@@ -92,7 +94,7 @@ Let's Encrypt (the nonprofit CA operated by ISRG, securing 700M+ websites) publi
 
 Let's Encrypt has operated Certificate Transparency logs since 2019 — the same append-only Merkle tree data structure that underlies MTCs. This gives them operational experience with the core technology.
 
-**Quote** (Josh Aas, Let's Encrypt / ISRG head): *"Let's Encrypt is committed to a post-quantum-safe Web PKI. The path we're planning to take is Merkle Tree Certificates."*
+The roadmap, published by Andrew Gabbitas, identifies Merkle Tree Certificates as Let’s Encrypt’s planned approach to post-quantum web authentication.
 
 ## Enterprise Concerns (from IETF 126 MAPRG, July 2026)
 
@@ -141,7 +143,7 @@ MTCs are architecturally significant beyond Web PKI:
 
 1. **Decentralized identity**: The Merkle tree model — a compact commitment to a set of identities, verifiable without trusting each individual assertion — is philosophically aligned with decentralized identity. A Nostr relay could issue MTC-style batch proofs for its users. An ENS subdomain registrar could batch registrations into a Merkle root.
 
-2. **Mesh network node registries**: A mesh network (Meshtastic, Reticulum, cjdns) that needs to authenticate member nodes could use MTC-style batch proofs instead of individual certificates — reducing overhead on low-bandwidth links.
+2. **Mesh network node registries**: A mesh network ([Meshtastic](/kb/meshtastic/), [MeshCore](/kb/meshcore/), Reticulum, cjdns) that needs to authenticate member nodes could use MTC-style batch proofs instead of individual certificates — reducing overhead on low-bandwidth links.
 
 3. **Crypto-agility**: MTCs separate the signing algorithm (at the root) from the certificate format. If ML-DSA is later found weak, only the root signing algorithm changes — the certificate and proof infrastructure remains.
 
@@ -181,13 +183,15 @@ The full Google signature timeline (Domain 2, target end-2028): Binary Authoriza
 
 See [Post-Quantum Saturday — August 22 2026 Weekly Update](/briefings/post-quantum/2026-08-22/) §7 for the full roadmap analysis.
 
-## Primary Sources
+## Primary sources
 
-- Let's Encrypt blog (June 3, 2026): *A Post-Quantum Future for Let's Encrypt* — `letsencrypt.org/2026/06/03/pq-certs/`
-- IETF PLANTS WG: `datatracker.ietf.org/wg/plants/`
-- MTC draft: `datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/`
-- LAMPS composite sigs: `lamps-wg.github.io/draft-composite-sigs/`
-- Chrome MTC experiment: `blog.chromium.org/` (search "Merkle Tree Certificates")
-- Cloudflare PQ authentication: `blog.cloudflare.com/ml-dsa-will-have-to-do/`
-- IETF 126 MAPRG slides: `datatracker.ietf.org/meeting/126/materials/slides-126-maprg-`
-- Help Net Security coverage (June 5, 2026): `helpnetsecurity.com/2026/06/05/lets-encrypt-mcts-web-post-quantum-authentication/`
+- [Let's Encrypt: A Post-Quantum Future](https://letsencrypt.org/2026/06/03/pq-certs/)
+- [IETF PLANTS working group](https://datatracker.ietf.org/wg/plants/about/)
+- [Merkle Tree Certificates specification](https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/)
+- [LAMPS composite ML-DSA signatures](https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/)
+- [Cloudflare: ML-DSA will have to do](https://blog.cloudflare.com/ml-dsa-will-have-to-do/)
+- [IETF 126 MAPRG meeting materials](https://datatracker.ietf.org/meeting/126/session/maprg)
+- [Chrome post-quantum PKI design](https://www.chromium.org/Home/chromium-security/post-quantum-pki-design/)
+- [Chrome: quantum-safe HTTPS](https://blog.google/security/cultivating-a-robust-and-efficient-quantum-safe-https/)
+- [Google Cloud post-quantum roadmap](https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap)
+- [RFC 9925: Unsigned X.509 Certificates](https://www.rfc-editor.org/rfc/rfc9925.html)

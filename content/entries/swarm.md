@@ -6,7 +6,7 @@ pillars: ["storage"]
 readiness: usable
 description: "Swarm, Ethereum's content-addressed storage and messaging network with postage-stamp incentives and the Bee client: design and status."
 dek: "Ethereum's storage-and-communication sibling: a content-addressed chunk network with incentives, postage batches, and the Bee client. It targets dapp assets, web hosting, and Ethereum-adjacent data availability rather than generic cloud backup."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-28
 origin: vault
 source: "12-Decentralized-Storage/Swarm.md"
@@ -89,8 +89,9 @@ For large archival datasets, compare with [IPFS and Filecoin](/kb/ipfs-and-filec
 | Plaintext exposure | Encrypt before upload |
 | Economic underpayment | Use adequate postage and monitor retention |
 
-## Primary Sources
+## Primary sources
 
-- Swarm Docs — [docs.ethswarm.org](https://docs.ethswarm.org/)
-- Bee client — [github.com/ethersphere/bee](https://github.com/ethersphere/bee)
-- Trón et al., *Swarm: Storage and Communication Infrastructure for a Self-Sovereign Digital Society*.
+- [Bee client](https://github.com/ethersphere/bee)
+- [Swarm whitepaper](https://www.ethswarm.org/swarm-whitepaper.pdf)
+- [Swarm documentation](https://docs.ethswarm.org/)
+- [Swarm: postage stamps](https://docs.ethswarm.org/docs/desktop/postage-stamps)

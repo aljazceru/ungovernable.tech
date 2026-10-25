@@ -6,7 +6,7 @@ pillars: ["storage"]
 readiness: usable
 description: "Arweave, a permanent storage network funded by a one-time payment: how the blockweave and endowment work, and what permanence really guarantees."
 dek: "A blockchain-style permanent storage network. Users pay once, data is written into Arweave's blockweave, and miners are incentivized to retain and serve historical data through a storage endowment model."
-updated: 2026-04-28
+updated: 2026-10-25
 created: 2026-04-28
 origin: vault
 source: "12-Decentralized-Storage/Arweave.md"
@@ -94,11 +94,12 @@ The most important caveat is that public archival storage is intentionally hard 
 | Economic underfunding | Use Arweave for public archives with realistic risk tolerance; keep secondary copies |
 | Mutable-pointer hijack | Sign manifests and use hardware-backed keys |
 
-## Primary Sources
+## Primary sources
 
-- Williams, *Arweave: A Protocol for Economically Sustainable Information Permanence*, 2018.
-- Arweave Docs — [docs.arweave.org](https://docs.arweave.org/)
-- Arweave Yellow Paper and protocol documentation.
-- Trautwein et al., *Design and Evaluation of IPFS*, for comparison with content-addressed networks.
+- [Arweave whitepaper](https://www.arweave.org/files/arweave-lightpaper.pdf)
+- [Arweave protocol documentation](https://docs.arweave.org/developers/)
+- [Arweave yellow paper](https://www.arweave.org/yellow-paper.pdf)
+- [Trautwein et al.: Design and Evaluation of IPFS](https://arxiv.org/abs/2208.05877)
+- [Arweave protocol implementation](https://github.com/ArweaveTeam/arweave)
 
 For alternatives and their operating obligations, see [Choosing Decentralized Storage](/kb/compare-storage/) and [BitTorrent for Archive Distribution](/kb/bittorrent-archives/).

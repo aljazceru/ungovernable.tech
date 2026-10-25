@@ -3,9 +3,10 @@ title: "Confidential AI Inference"
 slug: confidential-ai-inference
 type: explainer
 pillars: ["confidential", "compute"]
+readiness: usable
 description: "Running AI inference so the provider cannot see your prompts and you cannot see the model weights: confidential GPUs, attestation and their limits."
 dek: "Running ML inference where the model owner does not see the inputs and the user does not see the weights, with both sides able to cryptographically verify the promise."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/Confidential-AI-Inference.md"
@@ -52,7 +53,7 @@ The whole model runs inside an Intel TDX or AMD SEV-SNP confidential VM. No GPU.
 
 ### 2. CPU-TEE plus GPU-TEE (the modern pattern)
 
-A confidential VM (TDX/SEV-SNP) is paired with a confidential GPU (NVIDIA H100 / H200 / Blackwell in CC mode). All PCIe traffic between them is AES-GCM encrypted; both endpoints attest jointly.
+A confidential VM (TDX/SEV-SNP) is paired with a confidential GPU (NVIDIA H100 / H200 / Blackwell in CC mode). Protected CPU–GPU transfers use encrypted bounce buffers over the untrusted link. The CPU and GPU supply attestation evidence that the deployment must validate and bind to its secure channel.
 
 - Fits: frontier LLMs, diffusion, multimodal — anything GPU-bound.
 - Providers: Azure NCC H100 v5, GCP A3 Confidential, Oracle OCI H100 CC, Coreweave/Lambda early access.
@@ -89,16 +90,16 @@ The most ambitious consumer deployment. An iPhone can offload an Apple-Intellige
 
 - Custom Apple Silicon server nodes run a hardened variant of iOS/Darwin with Secure Enclave, Secure Boot, and sealed memory.
 - Every build image is reproducibly hashed and published to a transparency log; clients refuse to send prompts to any node whose image hash is not in the log.
-- No persistent storage, no admin interface, no remote shell. Logging is structurally impossible, not merely policy-disabled.
+- No persistent storage, no admin interface, no remote shell. The design aims to prevent retention of user request data while allowing restricted operational metrics.
 - End-to-end encrypted session keyed to attestation.
 
-Why it matters: the first mass-market system where "the server operator genuinely cannot see your prompt" is a deployed guarantee rather than marketing. Threat model writeup: `security.apple.com/blog/private-cloud-compute`.
+Why it matters: the first mass-market system where "the server operator genuinely cannot see your prompt" is a deployed guarantee rather than marketing. Threat model writeup: [Apple Private Cloud Compute: security design](https://security.apple.com/blog/private-cloud-compute/).
 
 What it is not: open. Only Apple builds on Apple silicon can join. No third-party audit of running instances; you trust the transparency log and Apple's signing keys.
 
 ### NVIDIA H100 / H200 / Blackwell Confidential Computing
 
-NVIDIA's Hopper (and Blackwell) GPUs ship a hardware root of trust, encrypted PCIe (SPDM + AES-GCM), and attestable firmware. Paired with a TDX or SEV-SNP host, they form the only production GPU-TEE today. See [NVIDIA-GPU-TEE](/kb/nvidia-gpu-tee/) for the full mechanism.
+NVIDIA's Hopper (and Blackwell) GPUs ship a hardware root of trust, protected CPU–GPU data transfers (SPDM-established keys and AES-GCM), and attestable firmware. Paired with a TDX or SEV-SNP host, they form the only production GPU-TEE today. See [NVIDIA-GPU-TEE](/kb/nvidia-gpu-tee/) for the full mechanism.
 
 ### Tinfoil (tinfoil.sh)
 
@@ -191,11 +192,13 @@ Even a perfect TEE does not give you a perfect confidential-inference system. Mo
 | Output-correctness proof only | ZKML (no input privacy by itself) |
 | Maximum privacy, small model | On-device — don't use a TEE at all |
 
-## Primary Sources
+## Primary sources
 
-- Apple: *Private Cloud Compute Security Guide* — `security.apple.com/documentation/private-cloud-compute`
-- NVIDIA: *Confidential Computing on H100 GPUs* whitepaper (2023) — `docs.nvidia.com/confidential-computing`
-- Confidential Computing Consortium: *Technical Analyses* — `confidentialcomputing.io/resources`
-- Microsoft Azure: *Confidential inferencing with ONNX Runtime* — `learn.microsoft.com/azure/confidential-computing`
-- Costan & Devadas: *Intel SGX Explained* — IACR ePrint 2016/086
-- Li et al.: *A Survey of Secure Computation Using Trusted Execution Environments* — ACM CSUR 2023
+- [Apple: Private Cloud Compute Security Guide](https://security.apple.com/documentation/private-cloud-compute/)
+- [NVIDIA: Confidential Computing on H100 GPUs](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+- [Confidential Computing Consortium: Technical Analysis](https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/CCC-A-Technical-Analysis-of-Confidential-Computing-v1.3_unlocked.pdf)
+- [Intel SGX Explained](https://eprint.iacr.org/2016/086)
+- [Li et al.: A Survey of Secure Computation Using Trusted Execution Environments](https://arxiv.org/abs/2302.12150)
+- [Microsoft: Confidential AI](https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-ai)
+- [Apple Private Cloud Compute: security design](https://security.apple.com/blog/private-cloud-compute/)
+- [ONNX Runtime Open Enclave port for confidential inference](https://github.com/microsoft/onnxruntime-openenclave)

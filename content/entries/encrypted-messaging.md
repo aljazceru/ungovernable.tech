@@ -3,9 +3,10 @@ title: "Encrypted Messaging"
 slug: encrypted-messaging
 type: explainer
 pillars: ["messaging"]
+readiness: usable
 description: "How end-to-end encrypted messaging works, what it protects, and why identifiers, servers and metadata decide how private a messenger really is."
 dek: "Encrypted messaging makes sure only the intended recipients can read your communications."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-15
 origin: vault
 source: "07-Encrypted-Messaging/Overview - Encrypted Messaging.md"
@@ -49,20 +50,20 @@ The reference for asynchronous E2EE messaging. Deployed by Signal, WhatsApp (def
 Core components:
 
 - Double Ratchet — per-message key evolution; forward secrecy plus post-compromise security.
-- X3DH (Extended Triple DH) — asynchronous initial key agreement. Replaced in Signal by **PQXDH** (X25519 + ML-KEM-1024 hybrid) in late 2023.
+- X3DH (Extended Triple DH) — asynchronous initial key agreement. Replaced in Signal by **PQXDH** (initially X25519 + CRYSTALS-Kyber-1024) in 2023.
 - Sesame — session management for multi-device.
 
 How it works:
 
 1. Alice and Bob exchange long-term and one-time prekeys via the server.
 2. PQXDH/X3DH derives an initial shared secret asynchronously.
-3. Double Ratchet evolves a fresh key per message; compromise of any single key does not expose past or future messages.
+3. Double Ratchet evolves a fresh key per message; deleted message keys protect past traffic; recovery after compromise requires fresh ratchet contributions that the attacker no longer observes.
 
 Limitations:
 
 - Signal app itself requires a phone number (metadata).
 - Centralized servers (Signal, WhatsApp).
-- Not metadata-resistant beyond sealed-sender for the recipient identifier.
+- Sealed sender hides the sender identity inside the envelope; the service still sees the recipient.
 
 ### Matrix
 
@@ -72,7 +73,7 @@ Architecture:
 
 - Homeservers store message history; users pick or self-host one.
 - Bridges connect to IRC, Slack, Discord, XMPP, etc.
-- E2EE is on by default for new private rooms since Element X / Matrix 2.0 (2022). Public rooms remain unencrypted by design.
+- Element’s predecessor Riot enabled E2EE by default for new private rooms in May 2020. Public rooms remain unencrypted by design.
 - MLS profile (RFC 9420) in development to replace Megolm for groups.
 
 Trade-offs:
@@ -103,7 +104,7 @@ Encryption layers:
 Trade-offs:
 
 - Pros: censorship-resistant by relay redundancy; key-rooted identity (no phone, no server account); client and relay diversity; composes with Lightning zaps and other key-bound protocols.
-- Cons: legacy DMs (NIP-04) leak who-talks-to-whom to relays; NIP-44 still leaks recipient pubkey unless wrapped in NIP-17; no built-in spam control; relay discovery is application-defined.
+- Cons: legacy DMs (NIP-04) leak who-talks-to-whom to relays; NIP-17 hides the sender inside a gift wrap but still exposes its recipient tag; no built-in spam control; relay discovery is application-defined.
 
 Resources:
 
@@ -129,7 +130,7 @@ Trade-offs:
 
 ### Session
 
-X25519-keypair identity; no phone number, no email. Onion-routed over the Oxen Service Node network ([Session](/kb/session-messenger/)). Originally a Signal Protocol fork; replaced X3DH with a simpler onion-routed handshake; still uses Double Ratchet for direct messages. Group encryption is migrating to MLS-style designs in 2024-2026. Funded by the $OXEN token (a real critique line).
+Session uses public-key identifiers and onion-routed delivery without phone-number registration. Its threat model and protocol differ from Signal’s; consult the [metadata-resistance comparison](/kb/metadata-resistance/) for transport trade-offs.
 
 ### Cwtch
 
@@ -137,7 +138,7 @@ Tor v3 onion services as messaging substrate ([Cwtch](/kb/cwtch/)). Each user ru
 
 ### Wire (MLS)
 
-Wire is a Swiss / German enterprise messenger and the canonical production reference deployment of MLS (RFC 9420), alongside Cisco Webex ([Wire MLS](/kb/mls-wire/)). Distinct cryptographic lineage from Signal — Wire's earlier Proteus protocol ran in parallel for a decade before the MLS migration in 2022.
+Wire is a Swiss / German enterprise messenger and the canonical production reference deployment of MLS (RFC 9420), alongside Cisco Webex ([Wire MLS](/kb/mls-wire/)). A different group protocol from Signal — Wire's earlier Proteus protocol ran in parallel for a decade before the MLS migration in 2022.
 
 ## Network comparison
 
@@ -148,7 +149,7 @@ Wire is a Swiss / German enterprise messenger and the canonical production refer
 | Matrix | Moderate (server learns metadata) | Yes (federated) | Default-on for private rooms (Olm/Megolm) | Yes |
 | Nostr | Mixed — public posts are public; DMs depend on NIP used | Yes (relay-based) | Public posts: no (by design). DMs: NIP-44 / NIP-17. Groups: [Marmot Protocol](/kb/marmot-protocol/) (MLS) | Yes |
 | SimpleX | Good (no user IDs) | Partial (relays + clients) | Yes (Double Ratchet) | Yes |
-| Session | Good (no phone, onion-routed) | Yes (Oxen service nodes) | Yes (post-2023 group MLS-style; 1:1 lacks PFS) | Yes |
+| Session | Good (no phone, onion-routed) | Yes (distributed service nodes) | Yes; protocol differs from Signal | Yes |
 | Briar | Good (Tor + LAN + BLE + USB transports) | Yes (peer-to-peer) | Yes (BTP, Bramble) | Yes |
 | Cwtch | Good (Tor v3 hidden services) | Yes (peer-to-peer) | Yes | Yes |
 
@@ -181,17 +182,6 @@ Wire is a Swiss / German enterprise messenger and the canonical production refer
 | Cwtch | All | Tor v3 hidden services | Peer-to-peer over Tor |
 | [Briar](/kb/briar/) | Android, desktop (alpha) | Bramble (BTP/BSP/BQP) | Tor + Bluetooth + Wi-Fi LAN + USB |
 
-## Evidence at a glance
-
-| Technology | Maturity | Evidence |
-|------------|----------|----------|
-| Signal Protocol | Production | Billions of users via Signal/WhatsApp |
-| Matrix (Olm/Megolm) | Production | Active development; matrix.org + thousands of homeservers |
-| Nostr | Production | Active relay ecosystem; multi-million npubs published |
-| Marmot Protocol (MLS over Nostr) | Active | Spec stable; reference implementations shipping |
-| SimpleX | Production | ~250K users (2024 audit by Trail of Bits + Galois) |
-| Session | Production | Oxen network live since 2020 |
-| Briar | Production | F-Droid + Play Store; long-running Tor-based design |
 
 ## Trade-offs
 
@@ -208,6 +198,21 @@ Wire is a Swiss / German enterprise messenger and the canonical production refer
 - Endpoint compromise — E2EE does not help if the device is malware.
 - Identity binding — verifying that a key belongs to the intended human is out-of-band work.
 - Jurisdiction — app-store and provider availability varies.
+
+## Primary sources
+
+- [Signal: protocol specifications](https://signal.org/docs/)
+- [RFC 9420: Messaging Layer Security](https://www.rfc-editor.org/rfc/rfc9420.html)
+- [Matrix: end-to-end encryption implementation guide](https://matrix.org/docs/matrix-concepts/end-to-end-encryption/)
+- [SimpleX Messaging Protocol](https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md)
+- [Nostr NIP-17: private direct messages](https://github.com/nostr-protocol/nips/blob/master/17.md)
+- [Nostr NIP-59: gift wrap](https://github.com/nostr-protocol/nips/blob/master/59.md)
+- [Briar: transport and privacy](https://briarproject.org/how-it-works/)
+- [Signal: initial PQXDH deployment](https://signal.org/blog/pqxdh/)
+- [Signal: sealed sender](https://signal.org/blog/sealed-sender/)
+- [Matrix: encryption by default in May 2020](https://matrix.org/blog/2020/05/06/cross-signing-and-end-to-end-encryption-by-default-is-here/)
+- [Session cryptographic design](https://arxiv.org/abs/2002.04609)
+- [The Double Ratchet Algorithm](https://signal.org/docs/specifications/doubleratchet/)
 
 Two newer MLS-based projects on Nostr identities: [White Noise](/kb/white-noise/), a relay-native messenger built on Marmot, and [Cordn](/kb/cordn/), group messaging through a coordinator you can run yourself.
 

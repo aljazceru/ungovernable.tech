@@ -6,7 +6,7 @@ pillars: ["cryptography", "identity"]
 readiness: experimental
 description: "BBS+ signatures let a credential holder reveal only chosen attributes and prove the rest in zero knowledge: the scheme behind private verifiable credentials."
 dek: "A pairing-based signature scheme that lets a holder prove possession of a signature on a message vector while revealing only a chosen subset of the messages. The disclosed subset, the unrevealed messages, and the original signer's identity all bind together cryptographically — but the signer never learns which attributes were shown to which verifier."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "02-Cryptography/BBS Plus.md"
@@ -21,7 +21,7 @@ A BBS+ signature is over a *vector* of messages, not a single byte string. Given
 - The holder can derive a presentation that reveals any subset `D ⊂ {1, …, L}` and proves the rest exist without disclosing them.
 - The verifier learns the disclosed messages, the public key of the issuer, and a zero-knowledge proof that an issuer-signed vector satisfies the predicate.
 - The verifier learns nothing about the unrevealed messages beyond what the disclosed ones imply.
-- Signatures are short (one G1 point + one scalar ≈ 80 bytes for BLS12-381) and aggregatable.
+- The current BBS draft has 80-byte signatures over BLS12-381. The BBS+ construction shown below has one G1 point and two scalars, totaling 112 bytes.
 
 This is the cryptographic backbone of "show me your driver's license but only the over-21 bit and your photo, nothing else" — the mDL / EU Digital Identity Wallet pattern.
 
@@ -74,23 +74,12 @@ Both fix the curve and message-encoding to BLS12-381 G1 for the disclosed-attrib
 
 ### Hyperledger AnonCreds
 
-The AnonCreds credential format (used in Hyperledger Indy and the broader self-sovereign-identity stack) originally used CL signatures. The 2.0 line moves to BBS+. AnonCreds adds revocation registries (cryptographic accumulators) on top of BBS+ presentations.
+The published AnonCreds v1 specification uses CL signatures and revocation accumulators. Its properties should not be attributed to a deployed BBS+ replacement.
 
 ### W3C Verifiable Credentials with BBS+
 
 The W3C VC Data Model is signature-agnostic. A BBS+-signed VC profile lets the holder derive a redacted VC for each verifier. Reference work and demos by the DIF (Decentralized Identity Foundation) and MATTR.
 
-### EU Digital Identity Wallet (EUDI / eIDAS 2.0)
-
-The EUDI Wallet specifications (ARF — Architecture and Reference Framework) reference BBS+ as one of the privacy-preserving signature options alongside SD-JWT. Pilots launched 2024–2025 with member-state issuers; production timeline is staggered through 2026–2027.
-
-### mDL (ISO/IEC 18013-5) and adjacent profiles
-
-The base mDL spec uses CBOR Web Tokens with SHA-256 hash-based selective disclosure, not BBS+. However, the mDL ecosystem has explored BBS+ as a future profile for stronger unlinkability — current mDL presentations leak a per-credential identifier across verifiers, which BBS+ would eliminate.
-
-### MATTR, Trinsic, Spruce ecosystem
-
-Several SSI vendors ship BBS+ in production credential issuance flows for B2B identity. Volumes are in the millions, not billions.
 
 ## BBS+ vs SD-JWT
 
@@ -101,13 +90,12 @@ The two compete head-to-head for selective-disclosure credentials.
 | Cryptographic basis | pairing (BLS12-381) | hash + JWS (any curve) |
 | Selective disclosure | algebraic, signer-blind | hash-based (`_sd` claims) |
 | Cross-verifier unlinkability | yes (default) | no — the JWS stays the same |
-| Verifier sees presentation count | ZK each time | yes, identical artifact |
+| Presentations can be correlated cryptographically | Randomized proofs; disclosed data can still correlate | Reused issuer-signed JWT can correlate |
 | Predicates over hidden values | possible (range, set membership with extra ZK) | no |
 | Tooling maturity (2026) | growing, library-fragmented | broad — fits existing JWT stacks |
 | Quantum-safe | no (pairing-broken by Shor) | partial — JWS-PQ profile exists; hash side is PQ |
-| IETF status | CFRG draft | RFC 8949 + draft-ietf-oauth-selective-disclosure-jwt |
+| IETF status | CFRG draft | RFC 9901 |
 
-Pragmatically: SD-JWT is winning on adoption because it slots into existing OAuth/OIDC flows. BBS+ wins on cryptographic privacy guarantees. The EU and several national wallets carry both as parallel profiles.
 
 ## BBS+ vs CL signatures
 
@@ -121,9 +109,7 @@ CL is still in older AnonCreds deployments and in some legacy academic credentia
 
 ## Aggregation and threshold
 
-BBS+ supports **issuer aggregation** — multiple issuer signatures over the same message vector compress to a single proof of validity (with per-issuer public keys). Used for multi-issuer attestations.
-
-**Threshold BBS+** issuance is an active research area. Doerner, Kondi, Lee, Shelat and others have published threshold-friendly variants (2023–2024). Production implementations are sparse as of 2026.
+The BBS draft specifies signatures and selective-disclosure proofs. It does not define general issuer-signature aggregation or threshold issuance. Multi-issuer or threshold constructions require additional protocols and security analysis.
 
 ## Trade-offs
 
@@ -151,13 +137,13 @@ BBS+ supports **issuer aggregation** — multiple issuer signatures over the sam
 
 ## Primary sources
 
-- Boneh, Boyen, Shacham, *Short Group Signatures*, CRYPTO 2004.
-- Au, Susilo, Mu, *Constant-Size Dynamic k-TAA*, SCN 2006.
-- Camenisch, Drijvers, Lehmann, *Anonymous Attestation Using the Strong Diffie Hellman Assumption Revisited*, TRUST 2016.
-- Tessaro, Zhu, *Revisiting BBS Signatures*, EUROCRYPT 2023 — modern security proof.
-- IRTF/CFRG, *The BBS Signature Scheme*, draft-irtf-cfrg-bbs-signatures (active, 2025).
-- IRTF/CFRG, *BBS per-Verifier Linkability*, draft-irtf-cfrg-bbs-per-verifier-linkability.
-- ISO/IEC 18013-5, *Personal identification — ISO-compliant driving licence — Mobile driving licence (mDL) application*, 2021.
-- W3C Verifiable Credentials Data Model 2.0, 2024.
-- Reference Rust impl: [github.com/mattrglobal/pairing_crypto](https://github.com/mattrglobal/pairing_crypto).
-- Hyperledger AnonCreds: [github.com/hyperledger/anoncreds-spec](https://github.com/hyperledger/anoncreds-spec).
+- [Anonymous Attestation Using the Strong Diffie Hellman Assumption Revisited](https://eprint.iacr.org/2016/663)
+- [Revisiting BBS Signatures](https://eprint.iacr.org/2023/275)
+- [CFRG: The BBS Signature Scheme](https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-signatures/)
+- [W3C Verifiable Credentials Data Model v2.0](https://www.w3.org/TR/vc-data-model-2.0/)
+- [AnonCreds specification](https://github.com/anoncreds/anoncreds-spec)
+- [RFC 9901: Selective Disclosure for JSON Web Tokens](https://www.rfc-editor.org/rfc/rfc9901.html)
+- [W3C BBS cryptosuite](https://www.w3.org/TR/vc-di-bbs/)
+- [Short Group Signatures](https://eprint.iacr.org/2004/174)
+- [Constant-Size Dynamic $k$-TAA](https://eprint.iacr.org/2008/136)
+- [BBS Pseudonyms](https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-per-verifier-linkability/)

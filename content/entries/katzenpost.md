@@ -6,7 +6,7 @@ pillars: ["anonymity"]
 readiness: experimental
 description: "Katzenpost, a post-quantum mix network based on Loopix with hybrid key exchange built in: design, threat model and deployment status."
 dek: "A research-grade, post-quantum-secure mix network. Loopix-based design with hybrid PQ key exchange built in from the start, federated authority structure, and a clear separation between transport (mix) and applications."
-updated: 2026-09-04
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "08-Mix-Networks/Katzenpost.md"
@@ -95,7 +95,7 @@ The current Katzenpost documentation describes a deployable federation made of:
 
 Consensus currently operates in epochs; the admin guide describes 20-minute epochs where nodes upload descriptors, directory authorities vote, and clients retrieve signed consensus. Recommended PKI signatures include a hybrid `Ed25519 Sphincs+` option (`sphincs-shake-256f`), aligning the governance layer with the post-quantum design goal.
 
-As of 2026-05-01, GitHub metadata for `katzenpost/katzenpost` showed an active, non-archived Go repository with recent pushes in late April 2026. Maturity assessment: active research/engineering project suitable for pilots and federated deployments, not consumer-scale infrastructure.
+As of 2026-05-01, GitHub metadata for [Katzenpost implementation](https://github.com/katzenpost/katzenpost) showed an active, non-archived Go repository with recent pushes in late April 2026. Maturity assessment: active research/engineering project suitable for pilots and federated deployments, not consumer-scale infrastructure.
 
 ## Real-world deployments
 
@@ -187,9 +187,10 @@ See [Mix Networks Friday — September 04 2026 Weekly Update](/briefings/mix-net
 
 ## Primary sources
 
-- Katzenpost — [katzenpost.network](https://katzenpost.network)
-- Source — [github.com/katzenpost/katzenpost](https://github.com/katzenpost/katzenpost)
-- Piotrowska et al., *Loopix*, USENIX 2017.
-- Hashcloak / Katzenpost developers, *Post-Quantum Sphinx*, technical reports.
-- Reunion protocol specification — Katzenpost docs.
-- *CTIDH: Faster Constant-Time CSIDH*, IACR 2021/633.
+- [Katzenpost project documentation](https://katzenpost.network/docs/)
+- [Katzenpost implementation](https://github.com/katzenpost/katzenpost)
+- [The Loopix Anonymity System](https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska)
+- [CTIDH: faster constant-time CSIDH](https://eprint.iacr.org/2021/633)
+- [KEMSphinx specification](https://katzenpost.network/docs/specs/kemsphinx/)
+- [Sphinx packet specification](https://katzenpost.network/docs/specs/sphinx/)
+- [Reunion specification](https://github.com/katzenpost/reunion)

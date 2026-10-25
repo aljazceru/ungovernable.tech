@@ -3,9 +3,10 @@ title: "Confidential Computing Across Cloud Providers"
 slug: confidential-cloud-comparison
 type: comparison
 pillars: ["confidential"]
+readiness: usable
 description: "Confidential computing across AWS, Azure, Google Cloud and others: which silicon each uses, what attestation you get, and what the marketing omits."
 dek: "Which cloud does what, with which silicon, and what you actually get when the marketing page says \"confidential.\""
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/Cloud-Provider-Comparison.md"
@@ -20,10 +21,10 @@ State: early 2026. This space moves quarterly; verify before committing.
 | Capability                                           | Azure                              | AWS                                                                    | GCP                                              | Oracle OCI             | IBM Cloud              | Alibaba          |
 | ---------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------ | ---------------------- | ---------------------- | ---------------- |
 | **Intel SGX (app enclaves)**                         | DCsv3 (GA)                         | — (deprecated in cloud)                                                | —                                                | —                      | —                      | ECS ebmre6p (GA) |
-| **Intel TDX (CVM)**                                  | DCesv5 (GA)                        | Roadmap                                                                | C3 / C3D (GA)                                    | —                      | LinuxONE-adjacent only | ECS g8i (GA)     |
-| **AMD SEV-SNP (CVM)**                                | DCasv5 / ECasv5 (GA)               | M6a/C6a/R6a with Nitro+SNP (GA April 2023; later families add support) | N2D Milan (GA June 2024); C3D uses SEV (not SNP) | E5 (GA)                | Hyper Protect (GA)     | ECS g7a (GA)     |
+| **Intel TDX (CVM)**                                  | DCesv5 (GA)                        | Roadmap                                                                | c3-standard-* (TDX)                                    | —                      | LinuxONE-adjacent only | ECS g8i (GA)     |
+| **AMD SEV-SNP (CVM)**                                | DCasv5 / ECasv5 (GA)               | Selected M6a/C6a/R6a sizes; check tenancy and region requirements | N2D Milan (GA June 2024); C3D uses SEV (not SNP) | E5 (GA)                | — | ECS g7a (GA)     |
 | **NVIDIA H100 CC**                                   | NCC H100 v5 (GA)                   | — (roadmap)                                                            | A3 Confidential (preview as of late 2025)        | BM.GPU.H100.CC (GA)    | —                      | —                |
-| **Nitro Enclaves (non-DRAM-encrypted VM isolation)** | —                                  | GA (all Nitro instances)                                               | —                                                | —                      | —                      | —                |
+| **Nitro Enclaves (non-DRAM-encrypted VM isolation)** | —                                  | Supported Nitro instance types, with exclusions                                               | —                                                | —                      | —                      | —                |
 | **Attestation service**                              | Microsoft Azure Attestation (MAA)  | KMS attestation conditions + Nitro attestation                         | Confidential Space attestation                   | OCI attestation (beta) | HPVS attestation       | Alibaba-specific |
 | **Key release service**                              | Azure Key Vault Secure Key Release | AWS KMS with attestation conditions                                    | GCP KMS + Confidential Space                     | OCI Vault              | HPCS                   | KMS              |
 | **Confidential Containers / CoCo support**           | AKS CoCo preview                   | EKS via peer-pods (community)                                          | GKE Confidential GKE Nodes (SNP)                 | OKE (community)        | IBM HPVS               | ACK              |
@@ -42,7 +43,7 @@ State: early 2026. This space moves quarterly; verify before committing.
 ### AWS
 
 - Nitro Enclaves are AWS's in-house solution: isolated mini-VMs carved out of a parent EC2 instance, with signed attestation documents. Not encrypted DRAM. Isolation is hypervisor- and silicon-level via Nitro, not memory encryption. For many threat models this is enough because the Nitro hypervisor is smaller and more trusted than a general-purpose hypervisor, but it is a different model than SGX/TDX/SEV-SNP.
-- SEV-SNP went GA in April 2023 on M6a/C6a/R6a with deep Nitro integration (VLEK signing); later 7-gen families were validated subsequently.
+- AWS documents SEV-SNP support for selected M6a, C6a and R6a configurations, with separate requirements for Shared, Dedicated Instance and Dedicated Host tenancy.
 - KMS plus Nitro attestation conditions is the cleanest KMS-gated-key pattern in the industry. A single IAM policy clause can enforce "only release key to enclave with PCR0=X."
 - No GA H100 CC yet. Watch Trainium and Inferentia; AWS is building in-house confidential accelerators.
 
@@ -60,7 +61,7 @@ State: early 2026. This space moves quarterly; verify before committing.
 
 ### IBM Cloud
 
-- Hyper Protect Virtual Servers use IBM Z Secure Execution (s390x), a different TEE lineage from x86 with strong pedigree for regulated finance and health.
+- Hyper Protect Virtual Servers use IBM Z Secure Execution (s390x), a different TEE history from x86 with strong pedigree for regulated finance and health.
 - Not relevant to NVIDIA GPU confidential inference today.
 
 ### Alibaba / Tencent / Huawei
@@ -95,3 +96,13 @@ Every cloud provider controls:
 - Supply-chain access to silicon. A cloud can in principle receive silicon the vendor is not shipping elsewhere.
 
 Confidential computing reduces the cloud's plaintext-access surface dramatically; it does not remove the cloud from your threat model. Pair with transparency logs, multi-vendor quorum, or on-chain verification when you need to actually minimize cloud trust.
+
+## Primary sources
+
+- [Azure confidential computing products](https://learn.microsoft.com/en-us/azure/confidential-computing/overview-azure-products)
+- [AWS EC2: AMD SEV-SNP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html)
+- [AWS Nitro Enclaves requirements](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html)
+- [Google Cloud Confidential VM supported configurations](https://cloud.google.com/confidential-computing/confidential-vm/docs/supported-configurations)
+- [Google Cloud Confidential Space](https://cloud.google.com/confidential-computing/confidential-space/docs/confidential-space-overview)
+- [Oracle Cloud confidential computing](https://docs.oracle.com/en-us/iaas/Content/Compute/References/confidential_compute.htm)
+- [IBM Hyper Protect Virtual Servers](https://cloud.ibm.com/docs/vpc?topic=vpc-about-se)

@@ -6,7 +6,7 @@ pillars: ["identity", "endpoint"]
 readiness: usable
 description: "Remote signers and bunkers (NIP-46 and others) keep Nostr private keys on one device and sign for many apps, ending the habit of pasting keys."
 dek: "The ecosystem that replaced \"paste your nsec into every client\" with proper key custody. NIP-46 bunkers, NIP-07 browser extensions, Amber on Android, hardware-wallet signing — same goal, different threat models. This file maps the landscape and the trust calculus for each option."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "11-Identity/Remote Signing.md"
@@ -29,7 +29,7 @@ Remote signing fixes this. The signer holds the `nsec`; clients request signatur
 
 ## NIP-07 — browser extension signers
 
-**NIP-07** ("Window.nostr capability for web browsers") defines a browser API that web Nostr clients can call to request signatures from a browser extension. Spec: `github.com/nostr-protocol/nips/blob/master/07.md`.
+**NIP-07** ("Window.nostr capability for web browsers") defines a browser API that web Nostr clients can call to request signatures from a browser extension. Spec: [NIP-07: browser signing interface](https://github.com/nostr-protocol/nips/blob/master/07.md).
 
 ```javascript
 // Web client never touches the key directly:
@@ -47,8 +47,8 @@ The extension holds the key, prompts the user for confirmation (or auto-approves
 
 | Extension | Notes |
 |-----------|-------|
-| **Alby** (`getalby.com`) | Browser extension and self-hosted hub; also handles Lightning. Acquired by Open Sats steward; multi-key support. |
-| **nos2x** (`github.com/fiatjaf/nos2x`) | Minimal reference implementation by fiatjaf. |
+| **Alby** (`getalby.com`) | Browser extension and self-hosted hub; also handles Lightning. |
+| **nos2x** ([nos2x browser signer](https://github.com/fiatjaf/nos2x)) | Minimal reference implementation by fiatjaf. |
 | **Flamingo** | Newer entrant; emphasis on multi-account UX. |
 | **Nostore (iOS)** | Safari extension equivalent. |
 | **Horse** | Chrome extension with security-focused defaults. |
@@ -64,7 +64,7 @@ NIP-07 is the **convenience tier**: better than pasting nsec, worse than hardwar
 
 ## NIP-46 — Nostr Connect (the bunker pattern)
 
-**NIP-46** ("Nostr Connect / Remote Signing") is the protocol for remote signing over Nostr relays. Spec: `github.com/nostr-protocol/nips/blob/master/46.md`.
+**NIP-46** ("Nostr Connect / Remote Signing") is the protocol for remote signing over Nostr relays. Spec: [NIP-46: remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md).
 
 The flow:
 
@@ -86,7 +86,7 @@ Client (e.g., a web app)             Bunker (signer service)
 
 Key properties:
 
-- **Transport is Nostr relays.** Both sides connect to a shared relay; messages are encrypted (NIP-04 / NIP-44 ChaCha20-Poly1305 to a session key).
+- **Transport is Nostr relays.** Both sides connect to a shared relay; messages are encrypted (NIP-44 v2, which uses ChaCha20 and HMAC-SHA-256).
 - **Pairing**: the user gets a `bunker://` or `nostrconnect://` URI from the bunker, pastes it into the client. The URI contains the bunker's signing pubkey and a connection secret.
 - **The client never sees the nsec.** It only sends unsigned events to the bunker and gets signed events back.
 - **The bunker can enforce policy**: rate limits, allowed event kinds, approval prompts before signing.
@@ -98,7 +98,7 @@ Key properties:
 | **Amber** (Android) | User's phone | Key on phone; signing requires explicit approval per request. Strong UX. |
 | **Nsec.app** (`nsec.app`) | Self-hosted web bunker | Lightweight web app; key in browser local storage. Casual use. |
 | **Bunker.app** | Hosted service | Convenience custodial; trusts the operator. |
-| **Nsecbunker** (`github.com/kind-0/nsecbunkerd`) | Self-hosted daemon | Server-side bunker; key in a TEE-friendly process; multi-user policy. |
+| **Nsecbunker** ([nsecbunker implementation](https://github.com/kind-0/nsecbunkerd)) | Self-hosted daemon | Server-side bunker; key in a TEE-friendly process; multi-user policy. |
 | **Keychat / Khatru-bunker** | Self-hosted | Variations on the daemon pattern. |
 
 ### Self-hosted bunker in a TEE
@@ -122,7 +122,7 @@ It's the best-of-both-worlds option for users with serious operational threat mo
 
 ## Amber (Android) — the deep dive
 
-**Amber** (`github.com/greenart7c3/Amber`) is the dominant Android signer. It's not just a NIP-46 client; it can also act as a system-wide intent target, so any Nostr client on Android can request a signature via Android's intent mechanism.
+**Amber** ([Amber implementation](https://github.com/greenart7c3/Amber)) is the dominant Android signer. It's not just a NIP-46 client; it can also act as a system-wide intent target, so any Nostr client on Android can request a signature via Android's intent mechanism.
 
 Architecture:
 
@@ -141,15 +141,7 @@ The strongest custody option: the key never leaves a hardware wallet.
 
 ### Coldcard
 
-Coldcard added Nostr event signing in firmware 5.x (2024). Workflow:
-
-1. Generate Nostr key on Coldcard, derived from BIP-39 seed via a Nostr-specific derivation path.
-2. Construct unsigned event on a desktop client.
-3. Pass to Coldcard via QR code or microSD.
-4. Coldcard displays event content for review.
-5. User confirms; Coldcard returns signed event.
-
-The signing latency is meaningful (10-30 seconds per event), so Coldcard is impractical for high-frequency posting. It's the cold-storage option for high-stakes Nostr identities (long-form publishing, key witnesses, organizational accounts).
+Coldcard’s documented message-signing interface must not be assumed to implement Nostr event signing. Check the exact firmware and event format before designing a hardware-signing workflow; Bitcoin signed-message support alone does not establish NIP-01 compatibility.
 
 ### Foundation Passport
 
@@ -178,7 +170,7 @@ A research direction: a "**NSBT**" (Nostr-equivalent of PSBT) format that lets m
 
 ## Threshold signing — Frostr / FROST-Nostr
 
-A future-facing direction: **FROST** (Komlo & Goldberg, IACR 2020/852) threshold Schnorr signatures, applied to secp256k1 Nostr keys. The Frostr proposal (`github.com/cmdruid/frost`) and related drafts let `t-of-n` cosigners produce a Nostr signature without ever reconstructing the full nsec.
+A future-facing direction: **FROST** (Komlo & Goldberg, IACR 2020/852) threshold Schnorr signatures, applied to secp256k1 Nostr keys. The Frostr proposal ([Frostr FROST implementation](https://github.com/cmdruid/frost)) and related drafts let `t-of-n` cosigners produce a Nostr signature without ever reconstructing the full nsec.
 
 Use cases:
 
@@ -244,14 +236,16 @@ A typical recommendation: hardware wallet for high-stakes events (profile change
 
 ## Primary sources
 
-- fiatjaf et al., *Nostr Implementation Possibilities*, `github.com/nostr-protocol/nips`.
-- NIP-07: *window.nostr capability for web browsers*. `github.com/nostr-protocol/nips/blob/master/07.md`.
-- NIP-46: *Nostr Connect / Remote Signing*. `github.com/nostr-protocol/nips/blob/master/46.md`.
-- NIP-44: *Versioned encryption*. `github.com/nostr-protocol/nips/blob/master/44.md`.
-- Komlo, Goldberg, *FROST: Flexible Round-Optimized Schnorr Threshold Signatures*, IACR ePrint 2020/852.
-- Amber — `github.com/greenart7c3/Amber`.
-- Nsecbunker — `github.com/kind-0/nsecbunkerd`.
-- Alby — `github.com/getAlby/lightning-browser-extension`.
-- nos2x — `github.com/fiatjaf/nos2x`.
-- Frostr — `github.com/cmdruid/frost`.
-- Coldcard Nostr signing release notes — `coldcard.com/docs`.
+- [Nostr Implementation Possibilities registry](https://github.com/nostr-protocol/nips)
+- [NIP-07: browser signing interface](https://github.com/nostr-protocol/nips/blob/master/07.md)
+- [NIP-46: remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+- [NIP-44: versioned encryption](https://github.com/nostr-protocol/nips/blob/master/44.md)
+- [FROST: Flexible Round-Optimized Schnorr Threshold Signatures](https://eprint.iacr.org/2020/852)
+- [Amber implementation](https://github.com/greenart7c3/Amber)
+- [nsecbunker implementation](https://github.com/kind-0/nsecbunkerd)
+- [Alby browser extension](https://github.com/getAlby/lightning-browser-extension)
+- [nos2x browser signer](https://github.com/fiatjaf/nos2x)
+- [Frostr implementation](https://github.com/FROSTR-ORG/igloo-core)
+- [Coldcard firmware release history](https://coldcard.com/docs/upgrade/)
+- [Coldcard message signing](https://coldcard.com/docs/message-signing/)
+- [Frostr FROST implementation](https://github.com/cmdruid/frost)
