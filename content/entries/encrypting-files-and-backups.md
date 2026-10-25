@@ -56,6 +56,8 @@ Backups protect you from loss; encrypted backups protect you from the backup bei
 - **BorgBackup** (<https://www.borgbackup.org/>) offers deduplicated, authenticated encryption; often paired with a remote server you control.
 - **Test restores** regularly. A backup you have never restored is a hope, not a backup.
 
+For a worked synchronization and recovery setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/) and the [Syncthing](/kb/syncthing/) entry.
+
 ## 6. Passwords and second factors
 
 - Use a **password manager**. KeePassXC (<https://keepassxc.org/>) stores an encrypted database locally that you can sync however you like; Bitwarden is an open-source hosted option that can also be self-hosted.

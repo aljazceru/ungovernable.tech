@@ -201,6 +201,28 @@ ENTRY_APPEND = {
     'briar': 'For a phone-only Bluetooth mesh with multi-hop relaying, '
         'store-and-forward couriers and a Nostr fallback, compare '
         '[Bitchat](/kb/bitchat/).',
+    'decentralized-storage': 'For a practical selection table, see '
+        '[Choosing Decentralized Storage](/kb/compare-storage/). Continue with '
+        '[Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), '
+        '[Local-first Software and CRDTs](/kb/local-first-crdts/), '
+        '[BitTorrent for Archive Distribution](/kb/bittorrent-archives/), '
+        '[IPNS and DNSLink](/kb/ipns-dnslink/), [Hypercore and Hyperdrive]'
+        '(/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow '
+        '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).',
+    'ipfs-and-filecoin': 'Continue with [IPNS and DNSLink](/kb/ipns-dnslink/) '
+        'for naming, [BitTorrent for Archive Distribution]'
+        '(/kb/bittorrent-archives/) for another distribution model, and '
+        '[Choosing Decentralized Storage](/kb/compare-storage/) for the '
+        'retention and privacy comparison.',
+    'arweave': 'For alternatives and their operating obligations, see '
+        '[Choosing Decentralized Storage](/kb/compare-storage/) and '
+        '[BitTorrent for Archive Distribution](/kb/bittorrent-archives/).',
+    'blossom': 'Compare the storage and replication choices in '
+        '[Choosing Decentralized Storage](/kb/compare-storage/) and '
+        '[Hypercore and Hyperdrive](/kb/hypercore/).',
+    'sia-and-storj': 'For another encrypted storage design, see '
+        '[Tahoe-LAFS](/kb/tahoe-lafs/). For a device-based setup, follow '
+        '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).',
 }
 # vault slug -> related slugs written into the emitted front matter (shown first)
 ENTRY_RELATED = {
@@ -260,6 +282,35 @@ GLOSSARY_ADD = [
             'Compare them in [pluggable transports and bridges]'
             '(/kb/pluggable-transports/).',
         'see': ['pluggable-transports', 'tor'],
+    },
+    {
+        'term': 'Erasure coding',
+        'slug': 'erasure-coding',
+        'definition_md': 'Encoding data into N shares so that any k valid '
+            'shares can reconstruct it. [Tahoe-LAFS](/kb/tahoe-lafs/) uses '
+            'this to tolerate missing shares; availability still depends on '
+            'share placement and retention. '
+            '[Architecture](https://tahoe-lafs.readthedocs.io/en/latest/architecture.html).',
+        'see': ['tahoe-lafs', 'compare-storage'],
+    },
+    {
+        'term': 'Pinning',
+        'slug': 'pinning',
+        'definition_md': 'Protecting IPFS data from garbage collection on a '
+            'node. A pin is a local retention choice, not a guarantee that '
+            'another node will keep the data or stay online. '
+            '[IPFS persistence documentation](https://docs.ipfs.tech/concepts/persistence/).',
+        'see': ['ipfs-and-filecoin', 'ipns-dnslink', 'compare-storage'],
+    },
+    {
+        'term': 'Content addressing',
+        'slug': 'content-addressing',
+        'definition_md': 'Identifying data by an identifier derived from its '
+            'contents rather than its server location. In IPFS, changing '
+            'content changes its CID; the identifier does not itself keep '
+            'a copy available. '
+            '[IPFS content addressing](https://docs.ipfs.tech/concepts/content-addressing/).',
+        'see': ['ipfs-and-filecoin', 'bittorrent-archives', 'blossom'],
     },
 ]
 

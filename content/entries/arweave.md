@@ -100,3 +100,5 @@ The most important caveat is that public archival storage is intentionally hard 
 - Arweave Docs — [docs.arweave.org](https://docs.arweave.org/)
 - Arweave Yellow Paper and protocol documentation.
 - Trautwein et al., *Design and Evaluation of IPFS*, for comparison with content-addressed networks.
+
+For alternatives and their operating obligations, see [Choosing Decentralized Storage](/kb/compare-storage/) and [BitTorrent for Archive Distribution](/kb/bittorrent-archives/).

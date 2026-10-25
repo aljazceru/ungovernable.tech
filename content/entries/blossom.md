@@ -141,3 +141,5 @@ For a robust Nostr media identity:
 - BUD-08, *Nostr File Metadata Tags*.
 - BUD-11, *Nostr Authorization*.
 - Nostr NIPs — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)
+
+Compare the storage and replication choices in [Choosing Decentralized Storage](/kb/compare-storage/) and [Hypercore and Hyperdrive](/kb/hypercore/).

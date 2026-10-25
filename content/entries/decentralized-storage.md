@@ -117,3 +117,5 @@ Build static assets, publish to IPFS and Arweave, pin on multiple providers, and
 - Storj Labs, *Storj: A Decentralized Cloud Storage Network Framework*, 2018.
 - Trón et al., *Swarm: Storage and Communication Infrastructure for a Self-Sovereign Digital Society*, Ethereum Foundation.
 - Blossom BUD specifications — [github.com/hzrd149/blossom](https://github.com/hzrd149/blossom).
+
+For a practical selection table, see [Choosing Decentralized Storage](/kb/compare-storage/). Continue with [Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), [Local-first Software and CRDTs](/kb/local-first-crdts/), [BitTorrent for Archive Distribution](/kb/bittorrent-archives/), [IPNS and DNSLink](/kb/ipns-dnslink/), [Hypercore and Hyperdrive](/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/).

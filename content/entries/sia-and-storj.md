@@ -96,3 +96,5 @@ Storj is less trust-minimized than the purest P2P designs because satellites coo
 - Sia Docs — [docs.sia.tech](https://docs.sia.tech/)
 - Storj Labs, *Storj: A Decentralized Cloud Storage Network Framework*, 2018.
 - Storj Docs — [docs.storj.io](https://docs.storj.io/)
+
+For another encrypted storage design, see [Tahoe-LAFS](/kb/tahoe-lafs/). For a device-based setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/).

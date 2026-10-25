@@ -105,3 +105,5 @@ For user-facing applications, the common stack is:
 - IPFS Docs — [docs.ipfs.tech](https://docs.ipfs.tech/)
 - Filecoin Docs — [docs.filecoin.io](https://docs.filecoin.io/)
 - Trautwein et al., *Design and Evaluation of IPFS: A Storage Layer for the Decentralized Web*, SIGCOMM CCR 2022.
+
+Continue with [IPNS and DNSLink](/kb/ipns-dnslink/) for naming, [BitTorrent for Archive Distribution](/kb/bittorrent-archives/) for another distribution model, and [Choosing Decentralized Storage](/kb/compare-storage/) for the retention and privacy comparison.
