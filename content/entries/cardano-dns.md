@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: experimental
 description: "Cardano DNS from Blink Labs combines Handshake top-level domains with Cardano native assets: an experimental approach to blockchain-owned names."
 dek: "A young decentralized DNS effort from Blink Labs / Gimbalabs that combines Handshake top-level-domain ownership with Cardano native assets and smart contracts for second-level domains. The most concrete implementation is `cdnsd`, a DNS daemon that indexes Cardano data and serves records for configured TLD profiles."
-updated: 2026-05-04
+updated: 2026-10-25
 created: 2026-05-04
 origin: vault
 source: "03-Decentralized-DNS/Cardano DNS.md"
@@ -233,7 +233,7 @@ Because DNS data is derived from chain state, an adversary cannot simply coerce 
 | [Handshake](/kb/handshake/) | Handshake chain | HNS records | hnsd / custom resolvers | Niche but live |
 | Cardano DNS | Handshake TLD + Cardano contracts | Cardano native assets + inline datums | `cdnsd` | Experimental, active |
 | [PKARR](/kb/pkarr/) | Public key itself | BEP44 mutable item on Mainline DHT | pkdns/native clients | Emerging |
-| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet encrypted DHT records | GNUnet resolver/NSS | Niche, standardized |
+| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet encrypted DHT records | GNUnet resolver/NSS | Experimental |
 
 Cardano DNS is strongest where the desired product is not merely a name, but a marketplace or ownership system around names. For a single service endpoint, [PKARR](/kb/pkarr/) is simpler; for broad wallet identity, [ENS](/kb/ens/) has much more distribution.
 
@@ -249,6 +249,8 @@ If testing Cardano DNS:
 6. Keep conventional DNS, [Handshake](/kb/handshake/), or [PKARR](/kb/pkarr/) mirrors until user resolvers are common.
 
 ## Primary sources
+
+- [GNUnet software status](https://www.gnunet.org/en/about.html)
 
 - `cardano-dns` design repository — [github.com/blinklabs-io/cardano-dns](https://github.com/blinklabs-io/cardano-dns).
 - `cdnsd` resolver daemon — [github.com/blinklabs-io/cdnsd](https://github.com/blinklabs-io/cdnsd).

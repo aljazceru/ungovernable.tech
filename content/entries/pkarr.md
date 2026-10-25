@@ -81,7 +81,7 @@ For self-sovereign deployments, `pkdns` typically runs on the same host as the a
 | Privacy of lookup | Low (DHT lookups visible) | Medium (RPC) | Medium | High (queries opaque) |
 | Crypto | Ed25519 | secp256k1 + EVM | Schnorr / BLAKE2b + SHA3 PoW | Ed25519 / ECDSA |
 | Governance | None (protocol only) | DAO + smart contracts | UTXO consensus | None |
-| Maturity | Emerging (2025–26) | Production | Live mainnet | Standardized (RFC 9498) |
+| Maturity | Emerging (2025–26) | Production | Live mainnet | Experimental (RFC 9498) |
 | Production app stack | Pubky Core (SDKs, social, Ring, Nexus) | — | — | — |
 
 PKARR's pitch against the alternatives is the lowest-overhead option: no chain, no fees, no governance, just signed DNS records on a DHT that already exists. Pubky Core adds the application layer on top. The cost is the absence of a human-readable layer and a different threat model than chain-anchored systems.
@@ -160,6 +160,8 @@ The DNS / CA chain is replaced by a DHT lookup and a signature check against the
 ## Primary sources
 
 - [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+
+- [GNUnet software status](https://www.gnunet.org/en/about.html)
 
 - Aiello, Hartshorn et al., *PKARR — Public-Key-Addressable Resource Records*, 2023.
 - BEP 44 — *Storing arbitrary data in the DHT* (BitTorrent Enhancement Proposal).

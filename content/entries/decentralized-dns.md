@@ -289,12 +289,12 @@ The lesson for an Ungovernable.tech stack: **blockchain-anchored ownership is no
 || [PKARR](/kb/pkarr/) / [Pubky](/kb/pubky/) | DHT | Custom | None | Emerging | Active dev, Pubky Core suite (2025-26), Pubky Nexus pushed 2026-05-31 |
 || Tor v3 `.onion` | Overlay | .onion | None | Mature | Stable; v2 fully retired 2021-12-15 |
 || I2P `.b32.i2p` | Overlay | .b32.i2p | None | Mature | Stable; PQ migration in progress (Proposal 169) |
-|| [GNS](/kb/gnu-name-system/) | DHT | Custom | None | Mature | RFC 9498, GNUnet 0.27.0 (Mar 2026) |
+|| [GNS](/kb/gnu-name-system/) | DHT | Custom | None | Experimental | RFC 9498, GNUnet 0.27.0 (Mar 2026) |
 || [Nomen](/kb/nomen/) | Bitcoin + Nostr | Custom | Protocol only | Experimental | Low activity, useful design pattern |
 || [Cardano DNS](/kb/cardano-dns/) | Handshake + Cardano | HNS-backed TLDs | Contract / marketplace rules | Experimental | Active `cdnsd`, Catalyst funded |
 || [DNNS](/kb/dnns/) | Lithosphere L1 | Programmable | On-chain governance | Announced | No public repo yet |
 || [Slashtags](/kb/slashtags/) | Hyperswarm DHT | Custom | None | Historical | Superseded by Pubky Core; design pattern lives on |
-|| [Mesh & Off-Grid Naming](/kb/mesh-naming/) (Yggdrasil) | Encrypted IPv6 overlay | 200::/8 / 300::/8 (IPv6) | None | Active | v0.5.12 Dec 2024; embedded Go library |
+|| [Mesh & Off-Grid Naming](/kb/mesh-naming/) (Yggdrasil) | Encrypted IPv6 overlay | 200::/8 / 300::/8 (IPv6) | None | Experimental | v0.5.12 Dec 2024; embedded Go library |
 || [Mesh & Off-Grid Naming](/kb/mesh-naming/) (cjdns) | DHT-routed IPv6 overlay | fc00::/8 (IPv6) | None | Maintenance-mode | Hyperboria community; cryptoAuth |
 || [Mesh & Off-Grid Naming](/kb/mesh-naming/) (Briar) | Local petname + transport fallback | Local petname | None | Mature | Briar 1.5.17 Mar 2026; Desktop 0.6.0-beta 2026 |
 || [Unstoppable Domains](/kb/unstoppable-domains/) | Blockchain + company | .crypto, .wallet, .x, .bitcoin, … | Company + ICANN | Cautionary | 4.6M+ names; takedown patent filed 2024, published 2025 |
@@ -372,6 +372,8 @@ The lesson for an Ungovernable.tech stack: **blockchain-anchored ownership is no
 
 - [GNUnet software status](https://www.gnunet.org/en/about.html)
 
+- [Yggdrasil project status](https://yggdrasil-network.github.io/)
+
 ### Documentation and specs
 
 - ENS docs — `docs.ens.domains`
@@ -400,3 +402,5 @@ The lesson for an Ungovernable.tech stack: **blockchain-anchored ownership is no
 
 - Chor et al., *Private Information Retrieval*, JACM 1998.
 - GNUnet, *The GNU Name System* (RFC 9498, 2023).
+
+For renewal, resolution and key-recovery decisions, see [naming systems compared](/kb/compare-naming-systems/).

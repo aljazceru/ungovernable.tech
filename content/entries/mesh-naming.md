@@ -58,7 +58,7 @@ There is no built-in DNS. Naming happens at one of three layers:
 
 ### Maturity (2026)
 
-- Reference implementation `yggdrasil-go`: v0.5.x series, last release v0.5.12 (Dec 2024); active maintenance.
+- **Experimental.** Yggdrasil describes its software as alpha-stage and warns that future changes may break compatibility.
 - Mobile port `yggdrasil-android`: active, recent releases.
 - Embedded Go library release (Asciimoth, 2024–2025): lets you embed a Yggdrasil node in a Go application.
 - Cross-compilation for routers (OpenWrt) maintained.

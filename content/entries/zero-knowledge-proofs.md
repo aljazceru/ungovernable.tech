@@ -102,3 +102,5 @@ A mature confidential-inference stack may use both: TEE for fast private inferen
 - Gabizon-Williamson-Ciobotaru: *PLONK* — IACR 2019
 - Bünz et al.: *Bulletproofs* — IEEE S&P 2018
 - a16z Crypto's ZK canon — `a16zcrypto.com/zero-knowledge-canon`
+
+For program identity, proof modes and outsourced proving, see [general-purpose zkVMs](/kb/zkvms/).

@@ -220,7 +220,9 @@ ENTRY_APPEND = {
         '[BitTorrent for Archive Distribution](/kb/bittorrent-archives/), '
         '[IPNS and DNSLink](/kb/ipns-dnslink/), [Hypercore and Hyperdrive]'
         '(/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow '
-        '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).',
+        '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).' ' '
+        'For replicated code and collaboration records, '
+        'see [Radicle](/kb/radicle/).',
     'ipfs-and-filecoin': 'Continue with [IPNS and DNSLink](/kb/ipns-dnslink/) '
         'for naming, [BitTorrent for Archive Distribution]'
         '(/kb/bittorrent-archives/) for another distribution model, and '
@@ -272,7 +274,38 @@ ENTRY_APPEND = {
         'processor. The [P2P acquisition comparison]'
         '(/kb/compare-p2p-bitcoin-acquisition/) covers custody and identity '
         'disclosure when obtaining bitcoin.',
+    'decentralized-identity': 'For server-based social federation and its '
+        'migration boundaries, see [ActivityPub](/kb/activitypub/).',
+    'zero-knowledge-proofs': 'For program identity, proof modes and outsourced '
+        'proving, see [general-purpose zkVMs](/kb/zkvms/).',
+    'zkemail': 'For evidence from web sessions, compare '
+        '[TLSNotary](/kb/tlsnotary/).',
+    'private-information-retrieval': 'For privacy across storage reads and '
+        'writes, see [oblivious RAM](/kb/oblivious-ram/).',
+    'confidential-computing': 'For an SGX application environment, see '
+        '[Gramine](/kb/gramine/). For alternatives and their trust boundaries, '
+        'see [private computation compared](/kb/compare-private-computation/).',
+    'pir-use-cases': 'For separating a request from its network origin, '
+        'compare [Oblivious HTTP and DNS](/kb/oblivious-http/).',
+    'akash': 'For a deployment walkthrough with an exit plan, see '
+        '[deploying on decentralized compute]'
+        '(/guides/deploying-on-decentralized-compute/).',
+    'remote-attestation': 'For a concrete SGX verification workflow, see '
+        '[verifying a confidential workload]'
+        '(/guides/verifying-a-confidential-workload/).',
+    'semaphore': 'For an executable v4 example and application-level checks, '
+        'see [building a ZK membership proof]'
+        '(/guides/building-a-zk-membership-proof/).',
+    'decentralized-dns': 'For renewal, resolution and key-recovery decisions, '
+        'see [naming systems compared](/kb/compare-naming-systems/).',
+    'identity-and-pseudonymity': 'The glossary distinguishes '
+        '[pseudonymity](/glossary/#pseudonymity), '
+        '[Sybil attacks](/glossary/#sybil-attack) and '
+        '[Sybil resistance](/glossary/#sybil-resistance).',
 }
+ENTRY_APPEND['off-grid-networks'] += (
+    '\n\nFor reach, hardware, encryption and readiness across the options, see '
+    '[off-grid communication compared](/kb/compare-off-grid/).')
 # vault slug -> related slugs written into the emitted front matter (shown first)
 ENTRY_RELATED = {
     'tor': ['pluggable-transports', 'ooni', 'self-hosted-circumvention-server',
@@ -385,6 +418,40 @@ GLOSSARY_ADD = [
             '[Pfitzmann and Hansen\'s terminology paper]'
             '(https://dud.inf.tu-dresden.de/literatur/Anon_Terminology_v0.34.pdf).',
         'see': ['metadata-resistance', 'tor', 'mix-networks'],
+    },
+    {
+        'term': 'Sybil attack',
+        'slug': 'sybil-attack',
+        'definition_md': 'One participant presents multiple identities to gain '
+            'influence that a system intended to distribute among independent '
+            'participants. See [Douceur\'s original paper]'
+            '(https://www.microsoft.com/en-us/research/publication/the-sybil-attack/) '
+            'and [proof of personhood](/kb/proof-of-personhood/).',
+        'see': ['proof-of-personhood', 'web-of-trust'],
+    },
+    {
+        'term': 'Sybil resistance',
+        'slug': 'sybil-resistance',
+        'definition_md': 'Measures that limit the influence one participant can '
+            'gain through multiple identities. The assumption matters: '
+            '[Douceur\'s analysis]'
+            '(https://www.microsoft.com/en-us/research/publication/the-sybil-attack/) '
+            'examines identity certification and the limits of resource-based '
+            'tests. A [membership proof]'
+            '(/guides/building-a-zk-membership-proof/) alone does not establish '
+            'one identity per person.',
+        'see': ['proof-of-personhood', 'semaphore'],
+    },
+    {
+        'term': 'Pseudonymity',
+        'slug': 'pseudonymity',
+        'definition_md': 'Being identified by a pseudonym. Reusing it can link '
+            'activities even when a personal name is unknown; separate '
+            'pseudonyms can reduce linkage across contexts. See '
+            '[RFC 6973]'
+            '(https://www.rfc-editor.org/rfc/rfc6973.html) and '
+            '[identity and pseudonymity](/kb/identity-and-pseudonymity/).',
+        'see': ['identity-and-pseudonymity', 'metadata-resistance'],
     },
 ]
 

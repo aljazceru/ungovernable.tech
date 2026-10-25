@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: experimental
 description: "Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status."
 dek: "A small but conceptually interesting decentralized DNS protocol that composes two existing sovereign systems: Bitcoin for global ordering of name claims and Nostr for signed record updates. Nomen is not production-scale infrastructure today; its value is as a clean design pattern for globally unique names without launching a new chain or transport network."
-updated: 2026-05-04
+updated: 2026-10-25
 created: 2026-05-04
 origin: vault
 source: "03-Decentralized-DNS/Nomen.md"
@@ -194,7 +194,7 @@ This pattern may reappear in future Bitcoin, Nostr, or off-grid naming systems.
 | [ENS](/kb/ens/) | Ethereum contracts | Ethereum / CCIP-Read | Yes | High | Crypto-native identity and wallet names |
 | [Handshake](/kb/handshake/) | Handshake PoW chain | HNS DNS records | Yes | Niche | Permissionless TLD ownership |
 | [PKARR](/kb/pkarr/) | Ed25519 key | Mainline DHT | No | Emerging | Self-authenticating service discovery |
-| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet DHT | Local petnames | Niche but standardized | Privacy-preserving lookup |
+| [GNS](/kb/gnu-name-system/) | Zone keys + petnames | GNUnet DHT | Local petnames | Experimental (RFC 9498) | Privacy-preserving lookup |
 | Nomen | Bitcoin transaction ordering | Nostr signed events | Yes | Experimental | Nostr/Bitcoin-native naming experiments |
 
 ## Operational notes
@@ -209,6 +209,8 @@ If experimenting with Nomen:
 6. Mirror important endpoints in [PKARR](/kb/pkarr/), `.onion`, or conventional DNS until client support matures.
 
 ## Primary sources
+
+- [GNUnet software status](https://www.gnunet.org/en/about.html)
 
 - Nomen implementation — [github.com/ursuscamp/nomen](https://github.com/ursuscamp/nomen).
 - Nomen specifications — [github.com/ursuscamp/noms](https://github.com/ursuscamp/noms).

@@ -147,3 +147,5 @@ zkEmail is structurally similar to TLS-Notary-style approaches: extract a crypto
 - ZKP2P — [zkp2p.xyz](https://zkp2p.xyz) and [github.com/zkp2p](https://github.com/zkp2p).
 - PSE — [pse.dev](https://pse.dev).
 - Regex-circom compiler — [github.com/zkemail/zk-regex](https://github.com/zkemail/zk-regex).
+
+For evidence from web sessions, compare [TLSNotary](/kb/tlsnotary/).

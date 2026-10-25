@@ -143,7 +143,7 @@ When connectivity is intermittent, DTN protocols store and forward.
 | **Meshtastic** | LoRa | 2-10 km | No | Yes | Very active |
 | **MeshCore** | LoRa | 2-10+ km | No | App-level + examples | Active (growing 2026) |
 | **Reticulum** | WiFi/LoRa/BT | Varies | Optional | Yes | Active |
-| **Yggdrasil** | Overlay | N/A | Yes | Yes | Active |
+| **Yggdrasil** | Overlay | N/A | Yes | Yes | Experimental |
 | **cjdns** | Overlay | N/A | Optional | Yes | Moderate |
 | **Nostr VPN (FIPS)** | Overlay + mesh (Nostr discovery) | N/A (global via relays + direct) | Optional (relays for signaling) | Yes (dual layer) | Active (rapid 2026 releases) |
 | **Briar** | BT/WiFi | 10-100m | No | Yes | Active |
@@ -260,3 +260,5 @@ In areas with no internet infrastructure:
 For internet access built and owned by its users rather than a telco, see [Community Networks](/kb/community-networks/).
 
 MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside [Meshtastic](/kb/meshtastic/). Correction to the table above: MeshCore encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), not only at app level. Bitchat launched in July 2025; see [Bitchat](/kb/bitchat/).
+
+For reach, hardware, encryption and readiness across the options, see [off-grid communication compared](/kb/compare-off-grid/).

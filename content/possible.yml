@@ -31,7 +31,7 @@ scenarios:
     goal: "Carry an identity you own"
     dek: "Prove who you are across services with keys and reputation you control, not an account someone can revoke."
     pillars: [identity, naming]
-    blocks: [decentralized-identity, nostr-identity, web-of-trust, verifiable-credentials, proof-of-personhood]
+    blocks: [decentralized-identity, nostr-identity, nostr-key-custody, remote-signing, web-of-trust, verifiable-credentials, proof-of-personhood]
   - key: naming
     goal: "Name things without a registrar"
     dek: "Own a human-readable name that no central authority issued and none can seize."
@@ -87,3 +87,13 @@ scenarios:
     dek: "Compare server operating systems and plan application trust, remote access, updates and recoverable backups."
     pillars: [endpoint, compute]
     blocks: [startos, yunohost, openwrt, encrypting-files-and-backups, running-freedom-infrastructure]
+  - key: private-query
+    goal: "Query without revealing your interest"
+    dek: "Decide whether to hide the requested item, the request's network origin, or both, and check the assumptions of each layer."
+    pillars: [cryptography, anonymity]
+    blocks: [private-information-retrieval, pir-use-cases, oblivious-http]
+  - key: joint-compute
+    goal: "Compute jointly without pooling data"
+    dek: "Choose who contributes inputs, who may learn the result and which collusion or key-custody assumptions the computation needs."
+    pillars: [cryptography]
+    blocks: [multi-party-computation, private-set-intersection, fully-homomorphic-encryption, compare-private-computation]

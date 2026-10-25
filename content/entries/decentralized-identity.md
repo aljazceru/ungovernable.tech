@@ -105,3 +105,5 @@ Ledger / Infra (Bitcoin/ION, Ethereum/ENS, Sovrin, centralized PKI)
 - IETF: *SD-JWT* drafts
 - ISO 18013-5 (mDL)
 - DIF specifications — `identity.foundation`
+
+For server-based social federation and its migration boundaries, see [ActivityPub](/kb/activitypub/).

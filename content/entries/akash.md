@@ -298,3 +298,5 @@ The Akash chain coordinates payment; the TEE provides the integrity layer; the w
 - Source — [github.com/akash-network](https://github.com/akash-network).
 - SDL reference — [docs.akash.network/readme/stack-definition-language](https://docs.akash.network/readme/stack-definition-language).
 - Cosmos SDK — [docs.cosmos.network](https://docs.cosmos.network).
+
+For a deployment walkthrough with an exit plan, see [deploying on decentralized compute](/guides/deploying-on-decentralized-compute/).

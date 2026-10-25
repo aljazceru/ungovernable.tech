@@ -213,3 +213,5 @@ Query encrypted databases without decrypting the data, using enclaves combined w
 - Use the latest TEE generation (SEV-SNP > TDX > SGX).
 - Keep TCB updated.
 - Combine multiple TEE generations for defense in depth.
+
+For an SGX application environment, see [Gramine](/kb/gramine/). For alternatives and their trust boundaries, see [private computation compared](/kb/compare-private-computation/).

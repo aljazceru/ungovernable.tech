@@ -268,3 +268,5 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 
 - [Apple Swift Homomorphic Encryption, including PIR](https://github.com/apple/swift-homomorphic-encryption)
 - [Apple PIR Service Example and deployment limits](https://github.com/apple/pir-service-example)
+
+For separating a request from its network origin, compare [Oblivious HTTP and DNS](/kb/oblivious-http/).

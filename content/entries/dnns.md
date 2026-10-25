@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: experimental
 description: "DNNS, an experimental programmable identity and routing layer introduced in 2026: what it proposes, how it differs from DNS, and open questions."
 dek: "DNNS is a programmable identity and routing layer introduced by Lithosphere in March–April 2026. It replaces traditional centralized DNS with an on-chain naming framework designed for Web4 environments — where autonomous agents, decentralized services, and AI-readable identity require persistent, verifiable names that persist across blockchain networks and environments. See Overview - Decentralized DNS for how it fits in the broader naming landscape."
-updated: 2026-05-18
+updated: 2026-10-25
 created: 2026-05-18
 origin: vault
 source: "03-Decentralized-DNS/DNNS.md"
@@ -106,7 +106,7 @@ DNNS is currently at **announced / early development** stage — roughly equival
 | [ENS](/kb/ens/) | Ethereum L1 | Yes | Limited (CCIP-Read) | Emerging | High (EVM ecosystem) | Production |
 | [Handshake](/kb/handshake/) | Handshake PoW | Yes | No | No | No | Niche but live |
 | [PKARR](/kb/pkarr/) / [Pubky](/kb/pubky/) | Mainline DHT | No | No | No | Possible | Emerging |
-| [GNS](/kb/gnu-name-system/) | GNUnet DHT | Local petnames | No | No | No | Niche |
+| [GNS](/kb/gnu-name-system/) | GNUnet DHT | Local petnames | No | No | No | Experimental |
 | [Nomen](/kb/nomen/) | Bitcoin + Nostr | Yes | No | No | No | Experimental |
 | [Cardano DNS](/kb/cardano-dns/) | Handshake + Cardano | Yes | Via Cardano contracts | Possible | Possible | Experimental |
 | DNNS | Lithosphere L1 | Yes | Yes (on-chain) | Designed for | Very early |
@@ -131,6 +131,8 @@ DNNS's closest conceptual neighbor is Cardano DNS — both are blockchain-native
 - **Governance unclear.** How are conflicts resolved? How are squatting and migration handled? No published policy.
 
 ## Primary sources
+
+- [GNUnet software status](https://www.gnunet.org/en/about.html)
 
 - Lithosphere DNNS announcement (March 31, 2026) — Globe and Mail / Newsfile Corp.
 - Lithosphere DNNS routing announcement (April 21, 2026) — Globe and Mail / Newsfile Corp.

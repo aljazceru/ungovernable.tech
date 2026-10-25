@@ -157,3 +157,5 @@ Two or more independent TEEs (different vendors, e.g. TDX + SEV-SNP) must both a
 - AMD: *SEV Secure Nested Paging Firmware ABI Specification*
 - Project Veraison — `github.com/veraison`
 - CCC: *Common Terminology for Confidential Computing* (2022)
+
+For a concrete SGX verification workflow, see [verifying a confidential workload](/guides/verifying-a-confidential-workload/).

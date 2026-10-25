@@ -601,3 +601,5 @@ This means one human-readable handle anchors both the social layer and the payme
 - [Blockchain Commons Pseudonymity Guide](https://github.com/BlockchainCommons/Pseudonymity-Guide)
 - [draft-gallagher-openpgp-signatures-03](https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03) — OpenPGP signature updates, June 2026
 - [draft-gallagher-openpgp-messages-00](https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00) — OpenPGP message updates
+
+The glossary distinguishes [pseudonymity](/glossary/#pseudonymity), [Sybil attacks](/glossary/#sybil-attack) and [Sybil resistance](/glossary/#sybil-resistance).

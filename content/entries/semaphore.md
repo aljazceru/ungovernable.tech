@@ -151,3 +151,5 @@ Integrating Semaphore is mostly: deploy the verifier contract, define your group
 - [Semaphore reference proof generation](https://github.com/semaphore-protocol/semaphore/blob/main/packages/proof/src/generate-proof.ts)
 - [Semaphore v4 identity commitment implementation](https://github.com/semaphore-protocol/semaphore/blob/main/packages/identity/src/index.ts)
 - [Semaphore v4 Circom circuit](https://github.com/semaphore-protocol/semaphore/blob/main/packages/circuits/src/semaphore.circom)
+
+For an executable v4 example and application-level checks, see [building a ZK membership proof](/guides/building-a-zk-membership-proof/).
