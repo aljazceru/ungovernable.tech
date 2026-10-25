@@ -5,7 +5,7 @@ type: guide
 pillars: [endpoint, anonymity, messaging]
 description: "Start here. A practical way to decide what you are protecting, from whom, and which tools on this site are worth the effort for you."
 dek: "Before choosing a single tool, write down what you are protecting, who you are protecting it from, and what failure would cost you."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: beginner
@@ -86,6 +86,7 @@ Threat models expire. Revisit yours when your work changes, when you cross a bor
 
 ## Where to go next
 
+- For a possible incident already in progress, use [Responding to Suspected Device Compromise](/guides/suspected-device-compromise/). For documents you plan to share, use [Sanitizing Documents](/guides/sanitizing-documents/).
 - If you are worried about surveillance of your communications, follow the [Under Surveillance](/paths/under-surveillance/) path.
 - If the internet around you is censored or being shut down, follow [Behind the Firewall](/paths/behind-the-firewall/).
 - If you want to hold money nobody can freeze, follow [Sovereign Money](/paths/sovereign-money/).
@@ -94,4 +95,3 @@ Threat models expire. Revisit yours when your work changes, when you cross a bor
 
 - Electronic Frontier Foundation, *Surveillance Self-Defense: Your Security Plan*: <https://ssd.eff.org/module/your-security-plan>
 - Privacy Guides, *Threat Modeling*: <https://www.privacyguides.org/en/basics/threat-modeling/>
-- Adam Shostack, *Threat Modeling: Designing for Security* (Wiley, 2014), and the Threat Modeling Manifesto: <https://www.threatmodelingmanifesto.org/>

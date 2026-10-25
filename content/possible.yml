@@ -51,7 +51,7 @@ scenarios:
     goal: "Harden the device in your hands"
     dek: "Make the phone or laptop you actually use resistant to spyware, seizure and tampering."
     pillars: [endpoint]
-    blocks: [threat-modeling, grapheneos, tails-qubes-whonix, hardware-supply-chain-trust, encrypting-files-and-backups]
+    blocks: [threat-modeling, grapheneos, tails-qubes-whonix, hardware-supply-chain-trust, heads-firmware, encrypting-files-and-backups, passkeys-and-security-keys]
   - key: quantum
     goal: "Keep secrets safe from a future quantum computer"
     dek: "Protect today's encrypted data against an adversary who stores it now to break it later."
@@ -61,7 +61,7 @@ scenarios:
     goal: "Run the infrastructure others depend on"
     dek: "Operate relays, nodes and networks so they keep working through outages, seizure and censorship."
     pillars: [mesh, anonymity, circumvention]
-    blocks: [running-freedom-infrastructure, self-hosted-circumvention-server, pluggable-transports, resilient-infrastructure, community-networks, tor, nostr-protocol, cordn, xmpp-omemo]
+    blocks: [running-freedom-infrastructure, self-hosted-circumvention-server, pluggable-transports, resilient-infrastructure, community-networks, openwrt, tor, nostr-protocol, cordn, xmpp-omemo]
   - key: keep-files
     goal: "Keep working files and a way to recover them"
     dek: "Sync chosen devices, assess encrypted storage, and maintain a separate offline archive."
@@ -72,3 +72,18 @@ scenarios:
     dek: "Choose an onion-service submission tool, understand who sees plaintext, and plan how documents will be opened safely."
     pillars: [anonymity, storage, endpoint]
     blocks: [threat-modeling, using-tor-safely, onionshare, securedrop, tails-qubes-whonix, encrypting-files-and-backups]
+  - key: documents
+    goal: "Prepare documents for safer reading and sharing"
+    dek: "Use isolated conversion, metadata cleanup and proper redaction, then inspect the file you will send."
+    pillars: [endpoint]
+    blocks: [dangerzone, sanitizing-documents, tails-qubes-whonix, encrypting-files-and-backups]
+  - key: compromise
+    goal: "Respond to a suspected device compromise"
+    dek: "Move sensitive activity to a trusted device, preserve evidence and get help planning recovery."
+    pillars: [endpoint]
+    blocks: [suspected-device-compromise, threat-modeling, passkeys-and-security-keys, grapheneos]
+  - key: self-host
+    goal: "Run your own personal server"
+    dek: "Compare server operating systems and plan application trust, remote access, updates and recoverable backups."
+    pillars: [endpoint, compute]
+    blocks: [startos, yunohost, openwrt, encrypting-files-and-backups, running-freedom-infrastructure]

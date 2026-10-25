@@ -3,9 +3,9 @@ title: "Encrypting Files, Disks and Backups"
 slug: encrypting-files-and-backups
 type: guide
 pillars: [endpoint, cryptography]
-description: "Full-disk encryption, encrypted containers, file encryption with age, encrypted backups with restic or Borg, and password managers: what each protects against and how to use it."
+description: "A practical guide to protecting files, disks, backups and account credentials, with recovery planning and the limits of encryption at rest."
 dek: "Encryption at rest is what stands between a seized or stolen device and everything on it."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: beginner
@@ -67,6 +67,8 @@ For a worked synchronization and recovery setup, follow [Private File Sync and B
 ## 7. Look ahead to quantum computers
 
 Data encrypted today with classical public-key encryption could be decrypted later by a sufficiently large quantum computer ("harvest now, decrypt later"). Symmetric encryption such as AES-256 is not seriously threatened. For long-lived secrets encrypted to public keys, prefer tools that support post-quantum or hybrid key exchange as they become available. See [Post-Quantum Cryptography](/kb/post-quantum-cryptography/).
+
+For account authentication and spare-key planning, see [Passkeys and Security Keys](/kb/passkeys-and-security-keys/). Before sharing decrypted files, use [Sanitizing Documents](/guides/sanitizing-documents/).
 
 ## Sources
 

@@ -3,9 +3,9 @@ title: "Tails, Qubes OS and Whonix"
 slug: tails-qubes-whonix
 type: guide
 pillars: [endpoint, anonymity]
-description: "Three operating systems for high-risk work compared: Tails leaves no trace, Whonix forces everything through Tor, and Qubes OS isolates everything from everything."
+description: "Compare Tails, Qubes OS and Whonix for different workflows, then plan installation, updates, disk encryption and separation of identities."
 dek: "When a single mistake or a single exploit would be catastrophic, the operating system has to enforce the discipline for you."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: intermediate
@@ -62,6 +62,8 @@ Get it from <https://www.qubes-os.org/>.
 - **Do not mix identities** in one session or one qube.
 - **Encrypt the disk** of any persistent installation, with a long passphrase ([Encrypting Files, Disks and Backups](/guides/encrypting-files-and-backups/)).
 - **Remember the human layer:** none of them stops you from logging into a personal account or telling someone who you are.
+
+For untrusted attachments, see [Dangerzone](/kb/dangerzone/). Before releasing a document, follow [Sanitizing Documents](/guides/sanitizing-documents/) to review metadata and redaction.
 
 ## Sources
 

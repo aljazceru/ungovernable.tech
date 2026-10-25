@@ -3,9 +3,9 @@ title: "Hardware and Firmware Supply-Chain Trust"
 slug: hardware-supply-chain-trust
 type: explainer
 pillars: [endpoint]
-description: "The hardware and firmware beneath your operating system can be backdoored too. How reproducible builds, measured and verified boot, and open firmware let you check it."
+description: "Assess the hardware and firmware beneath your operating system, with measured boot, open firmware and explicit limits on what those checks establish."
 dek: "Your software is only as trustworthy as the firmware under it and the silicon under that. This is how that trust is earned, checked, and sometimes broken."
-updated: 2026-10-18
+updated: 2026-10-25
 created: 2026-10-18
 origin: original
 related: [grapheneos, tails-qubes-whonix, remote-attestation, open-source-tees, encrypting-files-and-backups, threat-modeling, building-a-mesh]
@@ -52,6 +52,8 @@ The firmware itself can be free software you can read, build reproducibly and in
 These do not eliminate trust — you still trust the silicon vendor, and much low-level code remains closed — but they shrink the opaque surface and make the parts that matter inspectable.
 
 ## What it trusts, and the limits
+
+For board-specific boot checks and token requirements, see [Heads Firmware](/kb/heads-firmware/). For router compatibility, packages and upgrades, see [OpenWrt](/kb/openwrt/).
 
 No consumer device is trustworthy "all the way down". Even with open firmware you typically still trust: the CPU microcode and any management engine (Intel ME, AMD PSP), the baseband on a phone, and the fab that made the chip. Hardware attacks with physical access — chip decapping, flash readback, cold-boot and side-channel attacks — remain possible against a well-resourced adversary. Guidance on how to reason about which of these actually apply to you is in [threat modeling](/guides/threat-modeling/).
 

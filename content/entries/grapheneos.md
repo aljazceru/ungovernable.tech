@@ -6,7 +6,7 @@ pillars: [endpoint]
 readiness: battle-tested
 description: "Why GrapheneOS is the strongest option for a private, hardened Android phone, how to install and verify it, and which settings matter most."
 dek: "Your phone knows more about you than anyone. GrapheneOS is a hardened, de-Googled Android that keeps it working for you."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: intermediate
@@ -56,6 +56,8 @@ Install only from grapheneos.org. Pre-installed "GrapheneOS phones" from third-p
 GrapheneOS secures the device; it does not anonymise you. Your mobile carrier still sees the phone's location and identity through the SIM. Apps you install and accounts you log into still learn what you tell them. Combine it with a messenger that does not need your number ([Choosing a Secure Messenger](/guides/choosing-a-secure-messenger/)), Tor or a VPN, and careful compartmentalisation.
 
 **If you use an iPhone,** Apple's *Lockdown Mode* is the closest equivalent: it disables many attack surfaces used by spyware at some cost in convenience.
+
+If you suspect the phone is already compromised, start with [Responding to Suspected Device Compromise](/guides/suspected-device-compromise/) before reinstalling or changing evidence. For account credentials and recovery planning, see [Passkeys and Security Keys](/kb/passkeys-and-security-keys/).
 
 ## Sources
 

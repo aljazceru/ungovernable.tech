@@ -63,6 +63,8 @@ Pin content that matters to you on IPFS, seed torrents of archives at risk of de
 - **Know your provider's terms** and your country's law before running anything that forwards other people's traffic.
 - **Be transparent where it helps:** Tor exit operators commonly publish contact information and an explanation page, which resolves most abuse complaints.
 
+For the server underneath your services, compare [StartOS](/kb/startos/) and [YunoHost](/kb/yunohost/). For supported router firmware and upgrade planning, see [OpenWrt](/kb/openwrt/).
+
 ## Primary sources
 
 - [Outline setup and access keys](https://getoutline.org/get-started/).
