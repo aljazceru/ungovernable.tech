@@ -5,7 +5,7 @@ type: explainer
 pillars: ["cryptography"]
 description: "Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more."
 dek: "Where private information retrieval is actually being used, tested, or planned for production. From Certificate Transparency auditing to Ethereum privacy to Apple device features."
-updated: 2026-08-19
+updated: 2026-10-25
 created: 2026-08-05
 origin: vault
 source: "13-Private-Information-Retrieval/PIR Use Cases and Deployments.md"
@@ -163,7 +163,7 @@ The system uses a combination of HE for server-side computation on encrypted dat
 
 ### Relevance to Freedom Tech
 
-Apple's deployment proves that PIR-class techniques can work at consumer scale on mobile devices with acceptable latency. This validates the deployment path for other privacy-preserving features. However, Apple's implementation is proprietary and not open for independent auditing.
+Apple publishes the Swift Homomorphic Encryption library, including PIR, and a PIR service example. These repositories make the library and example backend available for inspection. The example supports Live Caller ID Lookup and URL filtering; its README explicitly says it should not be run in production. Public example code does not establish that every component of Apple’s deployed services is open source.
 
 ## 5. Password Breach Checking
 
@@ -232,7 +232,7 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 | CT Log Auditing | Research→Pilot | YPIR (48× cost reduction) | Operator adoption |
 | Ethereum Private Reads | Design→Prototype | Sharded PIR, Kohaku, RisePIR | Performance at ETH state size |
 | Private Web Search | Prototype | Tiptoe (two-server) | Non-collusion requirement |
-| Apple Device Features | **Production** | HE+PIR (proprietary) | Closed-source, not auditable |
+| Apple Device Features | **Production** | HE+PIR; public Swift library and service example | Public code can be inspected; example backend is not for production |
 | Password Breach Check | Research | iSimplePIR | Incremental update performance |
 | Contact Discovery | Research | Respire, FrodoPIR | DB size (billions of entries) |
 | Private DNS | Research | Various | Latency (<100ms) + DB size |
@@ -263,3 +263,8 @@ PIR can make DNS lookups private: the resolver serves DNS records without learni
 - Each shard served by the optimal PIR scheme.
 - User submits real query to one shard + decoy queries to all others.
 - Best for: Complex, multi-type databases (Ethereum state).
+
+## Primary sources
+
+- [Apple Swift Homomorphic Encryption, including PIR](https://github.com/apple/swift-homomorphic-encryption)
+- [Apple PIR Service Example and deployment limits](https://github.com/apple/pir-service-example)

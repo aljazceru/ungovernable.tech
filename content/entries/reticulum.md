@@ -6,7 +6,7 @@ pillars: ["mesh"]
 readiness: usable
 description: "Reticulum, a transport-agnostic, encrypted-by-default networking stack that runs over LoRa, packet radio, Wi-Fi and the internet at once."
 dek: "A general-purpose, transport-agnostic, encrypted-by-default mesh networking stack. The link layer is treated as a commodity; identity, routing, and end-to-end secure transports are layered on top, running over LoRa, packet radio, TCP, serial, or anything else that delivers bytes."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "05-Off-Grid-Networks/Reticulum.md"
@@ -84,7 +84,7 @@ It is what makes Reticulum usable as messaging without a central server. LXMF ru
 | App | Type | Notes |
 |-----|------|-------|
 | **NomadNet** | Terminal UI | Browser for "pages" served over RNS, like an offline-first BBS |
-| **Sideband** | Cross-platform messenger | LXMF-based; iOS, Android, desktop |
+| **Sideband** | Cross-platform messenger | LXMF-based; Android, Linux, macOS and Windows |
 | **MeshChat** | Web UI messenger | Easier UX for non-technical users |
 | **rnsd** | Daemon | Headless transport node, runs the mesh |
 | **rnstatus / rncheck** | CLI | Diagnostic tools |
@@ -170,13 +170,16 @@ NomadNet pages served from a rnsd-equipped node. Forum-style content delivered o
 
 ## Recent developments (2024-2026)
 
-- Sideband 2.x: major UX improvements; iOS native.
+- Sideband’s official README lists Android, Linux, macOS and Windows; it does not list an iOS app.
 - MeshChat: friendlier web UX, raising the floor for new users.
 - rnsd packaging improvements for OpenWrt and embedded.
 - Performance: LoRa throughput optimizations under specific channel models.
 - Increasing Reticulum-over-TCP-over-Tor deployments.
 
 ## Primary sources
+
+- [Sideband README and supported platforms](https://github.com/markqvist/Sideband)
+- [Official Sideband site](https://unsigned.io/sideband/)
 
 - Markqvist, *Reticulum Network Stack Specification*. [reticulum.network/manual](https://reticulum.network/manual)
 - RNS source — [github.com/markqvist/Reticulum](https://github.com/markqvist/Reticulum)

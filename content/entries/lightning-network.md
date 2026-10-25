@@ -6,7 +6,7 @@ pillars: ["money"]
 readiness: battle-tested
 description: "The Lightning Network makes Bitcoin payments instant and cheap through payment channels and onion-routed HTLCs: how it works and what it reveals."
 dek: "Bitcoin's instant, low-fee, censorship-resistant payment layer. Built from bidirectional payment channels, HTLCs, and onion routing."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "06-Financial-Sovereignty/Lightning Network Deep Dive.md"
@@ -134,7 +134,7 @@ Channels need balance on the right side to forward and receive. The 2024-2026 ma
 | Eclipse attack | Isolate node from honest peers | Multiple gossip peers, Tor circuits |
 | Route probing | Send micropayments to map liquidity | Private channels, route blinding |
 | Mempool flooding at force-close | RBF/CPFP exploitation | Anchor outputs, package relay |
-| Custodial nodes (Wallet of Satoshi etc.) | KYC and takedown risk | Self-custody (Phoenix, Mutiny, Zeus) |
+| Custodial nodes (Wallet of Satoshi etc.) | KYC and takedown risk | Self-custody; check the wallet’s current support and custody model |
 
 ## Recent developments (2024-2026)
 
@@ -144,7 +144,9 @@ Channels need balance on the right side to forward and receive. The 2024-2026 ma
 - PTLC adoption: Schnorr-only Lightning targeting late 2026.
 - LSPs (Lightning Service Providers): non-custodial liquidity providers; standardized via LSPS.
 
-## Primary Sources
+## Primary sources
+
+- [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
 
 - Joseph Poon, Thaddeus Dryja, *The Bitcoin Lightning Network*, 2016. [lightning.network/lightning-network-paper.pdf](https://lightning.network/lightning-network-paper.pdf)
 - BOLT spec — [github.com/lightning/bolts](https://github.com/lightning/bolts)

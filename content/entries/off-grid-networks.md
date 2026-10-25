@@ -5,7 +5,7 @@ type: explainer
 pillars: ["mesh"]
 description: "Communication networks that work without the public internet: LoRa meshes, Bluetooth meshes, overlay networks, packet radio and satellite links."
 dek: "Off-grid networks are communication systems that work without depending on the public internet."
-updated: 2026-04-27
+updated: 2026-10-25
 created: 2026-04-15
 origin: vault
 source: "05-Off-Grid-Networks/Overview - Off-Grid Networks.md"
@@ -205,8 +205,8 @@ In areas with no internet infrastructure:
 | Meshtastic | Production | Thousands of users, active dev |
 | MeshCore | Production / active dev | Firmware shipping, flasher, clients, community hardware; MIT core |
 | Reticulum | Production | Working software, growing |
-| Yggdrasil | Production | Stable releases |
-| Briar | Production | Used in conflict zones |
+| [Yggdrasil](/kb/yggdrasil/) | Experimental | The project describes itself as alpha-stage |
+| [Briar](/kb/briar/) | Maintenance mode | Essential security updates and bug fixes |
 | SSB | Beta | Active community |
 
 ## Trade-offs
@@ -252,6 +252,10 @@ In areas with no internet infrastructure:
 - Bad hardware (counter: buy from reputable vendors, inspect board revisions, and keep spare known-good radios).
 - Compromised firmware (counter: reproducible builds).
 - User error (counter: training).
+
+## Primary sources
+
+- [Briar maintenance-mode announcement](https://briarproject.org/news/2026-maintenance-mode/)
 
 For internet access built and owned by its users rather than a telco, see [Community Networks](/kb/community-networks/).
 

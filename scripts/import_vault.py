@@ -30,6 +30,8 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAP_PATH = os.path.join(ROOT, 'scripts', 'vault_map.yml')
+FIXES_PATH = os.path.join(ROOT, 'content', 'vault_fixes.yml')
+AUX_FIXES_PATH = os.path.join(ROOT, 'content', 'vault_aux_fixes.yml')
 
 # ---------------------------------------------------------------- constants
 
@@ -794,6 +796,76 @@ def clean_title(t):
     return re.sub(r'^Overview\s*[-—–]\s*', '', t)
 
 
+def load_fixes(path):
+    """Read site-owned corrections; reject malformed records before writing."""
+    with open(path, encoding='utf-8') as f:
+        fixes = yaml.safe_load(f)
+    if fixes is None:
+        fixes = {}
+    if not isinstance(fixes, dict):
+        raise ValueError('%s: expected a mapping keyed by entry slug' % path)
+    for slug, fix in fixes.items():
+        if not isinstance(slug, str) or not isinstance(fix, dict):
+            raise ValueError('%s: invalid correction record %r' % (path, slug))
+        if set(fix) - {'replace', 'sources', 'updated'}:
+            raise ValueError('%s: unknown correction fields for %s' % (path, slug))
+        replacements = fix.get('replace', [])
+        if not isinstance(replacements, list):
+            raise ValueError('%s: %s.replace must be a list' % (path, slug))
+        for item in replacements:
+            if (not isinstance(item, dict) or set(item) != {'old', 'new'}
+                    or not isinstance(item['old'], str) or not item['old']
+                    or not isinstance(item['new'], str)):
+                raise ValueError('%s: invalid replacement for %s' % (path, slug))
+        if 'sources' in fix:
+            if not isinstance(fix['sources'], list):
+                raise ValueError('%s: %s.sources must be a list' % (path, slug))
+            for source in fix['sources']:
+                if (not isinstance(source, dict) or set(source) != {'title', 'url'}
+                        or not isinstance(source['title'], str) or not source['title']
+                        or not isinstance(source['url'], str)
+                        or not source['url'].startswith('https://')
+                        or '\n' in source['title'] or '\n' in source['url']):
+                    raise ValueError('%s: invalid source for %s' % (path, slug))
+        if 'updated' in fix:
+            try:
+                datetime.date.fromisoformat(str(fix['updated']))
+            except (TypeError, ValueError):
+                raise ValueError('%s: invalid updated date for %s' % (path, slug))
+    return fixes
+
+
+def apply_fixes(body, entry, fix, slug):
+    """Apply exact replacements to fresh output, never to a previous import.
+
+    A match in the body or either subtitle field is required for every item.
+    Call before ENTRY_APPEND so replacing a final sources section cannot eat
+    the existing appended cross-links.
+    """
+    for item in fix.get('replace', []):
+        old, new = item['old'], item['new']
+        if not any(old in text for text in
+                   (body, entry.get('dek', ''), entry.get('description', ''))):
+            raise ValueError('vault fix %s: old string not found: %r' % (slug, old))
+        body = body.replace(old, new)
+        for field in ('dek', 'description'):
+            if field in entry:
+                entry[field] = entry[field].replace(old, new)
+    if 'sources' in fix:
+        bullets = '\n'.join('- [%s](%s)' % (s['title'], s['url'])
+                            for s in fix['sources'])
+        section = re.compile(r'^##[ \t]+(?:Primary sources|Sources)[ \t]*(?:\n|\Z)'
+                             r'.*?(?=^#{1,2}[ \t]+|\Z)', re.M | re.S | re.I)
+        replacement = '## Primary sources\n\n' + bullets + '\n\n'
+        if section.search(body):
+            body = section.sub(lambda m: replacement, body)
+        else:
+            body = body.rstrip() + '\n\n' + replacement
+    if 'updated' in fix:
+        entry['updated'] = str(fix['updated'])
+    return body.rstrip()
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--vault', required=True)
@@ -803,6 +875,22 @@ def main():
     vmap = yaml.safe_load(open(MAP_PATH, encoding='utf-8'))
     vault = Vault(a.vault)
     index = LinkIndex(vmap, vault)
+    try:
+        fixes = load_fixes(FIXES_PATH)
+        aux_fixes = load_fixes(AUX_FIXES_PATH)
+        mapped = {spec['slug']: path for path, spec in index.entries.items()}
+        for slug in fixes:
+            if slug not in mapped or mapped[slug] not in vault.notes:
+                raise ValueError('vault fix %s: no mapped vault source' % slug)
+            output = os.path.join(ROOT, 'content', 'entries', slug + '.md')
+            if os.path.exists(output):
+                with open(output, encoding='utf-8') as f:
+                    existing_fm, _ = parse_note(f.read())
+                if existing_fm.get('origin') == 'original':
+                    raise ValueError('vault fix %s targets origin: original; edit it directly' % slug)
+    except (OSError, yaml.YAMLError, ValueError) as error:
+        print('WARN: %s' % error, file=sys.stderr)
+        return 1
 
     writes = {}   # rel output path -> content
     stats = {'entries': Counter(), 'types': Counter(), 'readiness': Counter(),
@@ -831,8 +919,6 @@ def main():
         pool = [dek] + ([first_para] if plain_md(first_para) != plain_md(dek) else [])
         description = HAND_DESCRIPTIONS.get(spec['slug']) or \
             make_description([plain_md(p) for p in pool if p], synthesized, spec['slug'])
-        if 'http' not in body:
-            no_sources.append(title)
         e = {
             'title': title,
             'slug': spec['slug'],
@@ -849,9 +935,16 @@ def main():
             'related': list(ENTRY_RELATED.get(spec['slug'], [])),
         }
         body_out = body.strip()
+        try:
+            body_out = apply_fixes(body_out, e, fixes.get(spec['slug'], {}), spec['slug'])
+        except ValueError as error:
+            print('WARN: %s' % error, file=sys.stderr)
+            return 1
         extra = ENTRY_APPEND.get(spec['slug'])
         if extra and extra not in body_out:
             body_out = body_out + '\n\n' + extra
+        if 'http' not in body_out:
+            no_sources.append(title)
         writes[os.path.join('content', 'entries', spec['slug'] + '.md')] = \
             emit_entry_fm(e) + body_out + '\n'
         for p in spec['pillars']:
@@ -918,6 +1011,32 @@ def main():
         'description: "Canonical bibliography for this library: papers, RFCs, standards '
         'and notable repositories behind the entries."\nupdated: %s\n---\n\n%s'
         % (norm_date(fm.get('updated')) or '2026-04-28', body.strip() + '\n'))
+
+    # The same strict hook for generated briefings and the shared bibliography.
+    # Entry corrections remain keyed by slug in vault_fixes.yml.
+    try:
+        for rel, fix in aux_fixes.items():
+            if rel not in writes or not (rel == 'content/sources.md'
+                                        or rel.startswith('content/briefings/')):
+                raise ValueError('auxiliary vault fix %s: no generated document' % rel)
+            header, separator, body = writes[rel].partition('\n---\n')
+            metadata, _ = parse_note(writes[rel])
+            before_metadata = metadata.copy()
+            body = apply_fixes(body, metadata, fix, rel)
+            for field in ('dek', 'description', 'updated'):
+                if metadata.get(field) == before_metadata.get(field):
+                    continue
+                value = str(metadata[field]) if field == 'updated' else yq(metadata[field])
+                line = field + ': ' + value
+                pattern = re.compile(r'^' + field + r':.*$', re.M)
+                if pattern.search(header):
+                    header = pattern.sub(lambda m: line, header)
+                else:
+                    header = header.rstrip() + '\n' + line
+            writes[rel] = header + separator + '\n' + body.strip() + '\n'
+    except ValueError as error:
+        print('WARN: %s' % error, file=sys.stderr)
+        return 1
 
     # ---- state + report ----------------------------------------------------
     state = {'vault_head': vault.head, 'entries': len(index.entries),
@@ -1025,4 +1144,4 @@ def build_report(vmap, stats, unresolved, synthesized, no_sources, n_entries, n_
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

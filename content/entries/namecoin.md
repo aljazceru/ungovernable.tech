@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: usable
 description: "Namecoin, the first fork of Bitcoin and the first blockchain naming system: how .bit names work, what it got right, and why adoption stayed small."
 dek: "The original blockchain DNS — the first Bitcoin fork (April 2011) and the first system to put human-meaningful names on a permissionless chain. Active development continues 15 years later, with Namecoin Core 28.0 released in December 2024; the user-facing ecosystem is small but the technical lineage runs through every chain-anchored name that followed. See Overview - Decentralized DNS for the comparative landscape; Handshake for the spiritual successor that replaced the DNS root zone."
-updated: 2026-08-24
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "03-Decentralized-DNS/Namecoin.md"
@@ -160,7 +160,7 @@ The September 2025 Encasha work extends off-chain TLSA to off-chain SSHFP, provi
 | System | Crypto | Naming model | HTTPS in stock browser | Maturity (2026) | Track record |
 |--------|--------|--------------|------------------------|-----------------|--------------|
 | [Namecoin](/kb/namecoin/) | SHA-256 PoW + merged mining | Key/value on chain | **Yes** (ncp11 + AIA) | Legacy-active; actively maintained | 15 years |
-| [Handshake](/kb/handshake/) | Cuckatoo32 PoW | UTXO chain; auction | Hard (DANE, niche browsers) | Niche; 2nd halving Jul 2026 | 8 years |
+| [Handshake](/kb/handshake/) | BLAKE2b + SHA3 PoW | UTXO chain; auction | Hard (DANE, niche browsers) | Niche; 2nd halving Jul 2026 | 8 years |
 | [ENS](/kb/ens/) | Ethereum PoS | Smart contract | Yes (any CA; CCIP-Read) | Mainstream | 9 years |
 | [Cardano DNS](/kb/cardano-dns/) | Cardano / Handshake | Native asset + plutus | Not yet | Experimental | 2–3 years |
 | [DNNS](/kb/dnns/) | Lithosphere PoS | On-chain | Unknown (no public repo) | Announced | 0 |
@@ -185,6 +185,8 @@ For a `.bit` site visitor:
 3. (Optional) Install `ncp11` in Firefox for the TLS verification path.
 
 ## Primary sources
+
+- [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
 
 - Namecoin website — `namecoin.org`.
 - Namecoin Core source — `github.com/namecoin/namecoin-core`.

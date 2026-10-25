@@ -6,7 +6,7 @@ pillars: ["anonymity"]
 readiness: research
 description: "Loopix, the 2017 design that revived mix networks with continuous-time mixing and three kinds of cover traffic, and the basis of Nym and Katzenpost."
 dek: "The 2017 academic design that revived high-latency mix networks. Continuous-time Poisson mixing plus three classes of cover traffic gave the first deployable mixnet with provable bounds against a global passive adversary. Loopix itself never shipped as a production system — its descendants did."
-updated: 2026-06-13
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "08-Mix-Networks/Loopix.md"
@@ -104,7 +104,7 @@ Loopix's continuous design achieves comparable anonymity at:
 
 The paper measures bandwidth-anonymity trade-offs empirically; for plausible parameter choices, Loopix delivers messaging-grade latency with bandwidth costs in the kilobits-per-second range per active client. Far higher than VPN, far lower than Mixmaster's effective overhead.
 
-## MOCHA: Client anonymity vs message anonymity (IH&MMSEC 2025 / ePrint 2026/861)
+## MOCHA: Client anonymity vs message anonymity (IH&MMSEC 2025 / ePrint 2025/861)
 
 The Loopix paper proved anonymity bounds for *messages* traversing the mixnet. MOCHA (Mixnet Optimization Considering Honest Client Anonymity, IH&MMSEC 2025) revealed that optimizing for message anonymity alone can produce configurations where *client* anonymity is dangerously low — and the two can diverge significantly.
 
@@ -119,7 +119,7 @@ MOCHA's concrete findings:
 
 MOCHA is the reason the [Mix Networks 2026 Research and Deployment Tracker](/kb/mix-networks-tracker/) flags parameter tuning as a live research question for production mixnets.
 
-**Primary source**: ePrint 2026/861, "MOCHA: Mixnet Optimization Considering Honest Client Anonymity," IH&MMSEC 2025. [eprint.iacr.org/2025/861](https://eprint.iacr.org/2025/861)
+**Primary source**: ePrint 2025/861, "MOCHA: Mixnet Optimization Considering Honest Client Anonymity," IH&MMSEC 2025. [eprint.iacr.org/2025/861](https://eprint.iacr.org/2025/861)
 
 ## What Loopix does *not* solve
 
@@ -181,9 +181,11 @@ The paper's lineage is Chaum 1981 → Mixmaster 1995 → Mixminion 2003 → Loop
 
 ## Primary sources
 
+- [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
+
 - Piotrowska, A., Hayes, J., Elahi, T., Meiser, S., Danezis, G. *The Loopix Anonymity System*. USENIX Security 2017. [usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska](https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska)
 - Danezis, G., Goldberg, I. *Sphinx: A Compact and Provably Secure Mix Format*. IEEE S&P 2009.
 - Kesdogan, D., Egner, J., Büschkes, R. *Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System*. Information Hiding 1998 (Poisson-mix precursor).
 - Das, D., Meiser, S., Mohammadi, E., Kate, A. *Anonymity Trilemma: Strong Anonymity, Low Bandwidth Overhead, Low Latency — Choose Two*. IEEE S&P 2018.
 - Shirazi, F., Simeonovski, M., Asghar, M.R., Backes, M., Diaz, C. *A Survey on Routing in Anonymous Communication Protocols*. ACM Computing Surveys, 2018.
-- ePrint 2026/861, *MOCHA: Mixnet Optimization Considering Honest Client Anonymity*, IH&MMSEC 2025. [eprint.iacr.org/2025/861](https://eprint.iacr.org/2025/861)
+- ePrint 2025/861, *MOCHA: Mixnet Optimization Considering Honest Client Anonymity*, IH&MMSEC 2025. [eprint.iacr.org/2025/861](https://eprint.iacr.org/2025/861)

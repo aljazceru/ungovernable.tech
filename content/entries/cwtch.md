@@ -6,7 +6,7 @@ pillars: ["messaging", "anonymity"]
 readiness: usable
 description: "Cwtch, from Open Privacy, builds metadata-resistant one-to-one and group messaging on Tor onion services, with no central servers learning who talks."
 dek: "A messenger that uses Tor v3 onion services as the messaging substrate. Each user runs their own onion service; conversations are direct onion-to-onion connections. Group chats use untrusted servers as relays — servers see encrypted blobs but cannot read content or membership. Built by Open Privacy Research Society (Sarah Jamie Lewis et al.), descendant in spirit of Ricochet, with explicit research grounding in metadata-resistant messaging design."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "07-Encrypted-Messaging/Cwtch.md"
@@ -18,7 +18,7 @@ The Welsh word "cwtch" means a hug or a safe place. The project's framing is tha
 
 ## Architecture
 
-Each Cwtch user is a **Tor v3 onion service**. A user's identifier is their onion address — a 56-character base32 string that is the SHA-3 hash of an Ed25519 public key:
+Each Cwtch user is a **Tor v3 onion service**. A user's identifier is their onion address — a 56-character base32 encoding of the Ed25519 public key, a two-byte SHA3-256 checksum and a version byte:
 
 ```
 mfrjeb7zfu3l3ec6ohm5zg7g4j7v...d.onion
@@ -84,9 +84,9 @@ Sarah Jamie Lewis and Open Privacy have published extensive design rationale, in
 | Identifier | Onion address | Onion address | Briar profile (TLS pubkey) | None (per-conversation queues) |
 | Group chat | Untrusted server (encrypted blobs) | Not really supported | Forums (P2P sync) | SMP-based groups |
 | Asynchronous delivery | Group server (or both online) | Both online required | Both online OR mailbox | SMP queues |
-| Mobile support | Android, iOS, desktop | Desktop primarily | Android primary; desktop limited; no iOS | iOS, Android, desktop |
+| Mobile support | Android; Linux, macOS and Windows desktop; no listed iOS client | Desktop primarily | Android primary; desktop limited; no iOS | iOS, Android, desktop |
 | Research lineage | Open Privacy / Lewis | Hermes Center / Stadler | Briar Project / Sussex | SimpleX Chat Ltd. |
-| Active dev | Yes | Quiet | Yes | Yes |
+| Maintenance status | See project releases | See project releases | Maintenance mode since 9 July 2026 | See project releases |
 
 Cwtch is the most actively developed and most research-grounded of the Tor-based messengers in 2026. Ricochet Refresh remains a credible if slower-moving alternative.
 
@@ -112,7 +112,7 @@ The published threat model also distinguishes "cryptographic correctness" from "
 
 ## Deployment
 
-- **Platforms**: Android, iOS (since 2023), desktop (Linux, macOS, Windows). The mobile port took years; the iOS version is more recent and has shipped in several iterations.
+- **Platforms**: Android, Linux, macOS and Windows. The official supported-platform list does not list an iOS client.
 - **License**: MIT for clients, BSD-style for server.
 - **Source**: [git.openprivacy.ca/cwtch.im](https://git.openprivacy.ca/cwtch.im) and mirrored on GitHub.
 - **Funding**: Open Privacy Research Society, a Canadian nonprofit; partly grant-funded (NLnet, NGI, occasional government research grants).
@@ -136,11 +136,7 @@ For activists, journalists, and anyone whose threat model includes "the messenge
 
 ## Primary sources
 
-- Lewis, "Cwtch: Privacy Preserving Infrastructure for Asynchronous, Decentralized, Multi-Party and Metadata Resistant Applications" (2018). [openprivacy.ca/assets/towards-cwtch.pdf](https://openprivacy.ca/assets/towards-cwtch.pdf).
-- Cwtch documentation — [docs.cwtch.im](https://docs.cwtch.im).
-- Cwtch threat model — [docs.cwtch.im/security/threat_model](https://docs.cwtch.im/security/threat_model/).
-- Source — [git.openprivacy.ca/cwtch.im](https://git.openprivacy.ca/cwtch.im).
-- Open Privacy Research Society — [openprivacy.ca](https://openprivacy.ca).
-- Lewis, "Queer Privacy" (2017) and subsequent articles on metadata resistance.
-- Tor v3 onion services specification — [spec.torproject.org/rend-spec-v3](https://spec.torproject.org/rend-spec-v3).
-- Ricochet Refresh (related project) — [ricochetrefresh.net](https://www.ricochetrefresh.net).
+- [Cwtch supported platforms](https://docs.cwtch.im/docs/getting-started/supported_platforms)
+- [Tor v3 onion-address encoding](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
+- [Briar maintenance-mode announcement](https://briarproject.org/news/2026-maintenance-mode/)
+- [Cwtch downloads for Android and desktop](https://cwtch.im/download/)

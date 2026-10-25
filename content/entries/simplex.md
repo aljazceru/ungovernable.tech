@@ -6,7 +6,7 @@ pillars: ["messaging"]
 readiness: usable
 description: "SimpleX Chat, a messenger with no user identifiers at all: one-way message queues on relays you can choose or run, and what that hides."
 dek: "A messenger built on a bet that the user-identifier is the wrong primitive: instead of \"user has a phone number / npub / pubkey, contacts route to that,\" each conversation gets its own pair of unidirectional queue addresses on relay servers, and a user has no global identifier at all. Relays cannot link conversations to a single user. Double Ratchet still encrypts content; the architectural innovation is what's removed, not what's added."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "07-Encrypted-Messaging/SimpleX.md"
@@ -148,9 +148,11 @@ The audit cadence is real and the company publishes results. That puts SimpleX a
 - Use the built-in Tor support if your network adversary worries you. SimpleX runs over SOCKS to a local Tor instance; queues remain reachable.
 - Self-host an SMP relay if you want a stable, jurisdiction-controlled queue host. Make sure clients configure it as part of their preset list.
 - Rotate contact addresses for high-risk public connect points; per-conversation queues already rotate.
-- For groups, SimpleX uses sender-keys-style group encryption similar to Signal's; metadata for group membership lives on the relay hosting the group, so group privacy depends on the chosen relay.
+- **Groups** are fully decentralized: each client stores the group profile and its pairwise connections to other members. An inviting member introduces a newcomer to existing members and forwards messages while their connections are established. Relays carry the connections’ queues; the protocol does not define a relay-owned group membership list or a shared sender-key group.
 
 ## Primary sources
+
+- [SimpleX Chat protocol: decentralized group design](https://simplex.chat/docs/protocol/simplex-chat.html)
 
 - SimpleX whitepaper — [simplex.chat/docs/protocol/simplex-chat.html](https://simplex.chat/docs/protocol/simplex-chat.html).
 - SimpleX Messaging Protocol (SMP) — [simplex.chat/docs/protocol/simplex-messaging.html](https://simplex.chat/docs/protocol/simplex-messaging.html).

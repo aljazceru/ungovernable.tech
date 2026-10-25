@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: cautionary
 description: "A cautionary case study: Unstoppable Domains sells blockchain-minted names, but the company's control over resolution undermines the sovereignty claim."
 dek: "A cautionary case study in decentralized naming. Unstoppable Domains sells blockchain-minted names (`.crypto`, `.wallet`, `.nft`, `.x`, `.bitcoin`, and more) on Polygon and other chains, marketed as censorship-resistant, and now (per a Sept 2025 patent filing) building a wallet-vote-based takedown mechanism. The lesson: blockchain-anchored ≠ decentralized governance. See Overview - Decentralized DNS for the comparative landscape; Namecoin for the original chain-DNS that has no company at all."
-updated: 2026-06-22
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "03-Decentralized-DNS/Unstoppable Domains.md"
@@ -46,7 +46,7 @@ UD satisfies (1) at the token level — the NFT is yours in your wallet — but 
 | Token/chain ownership | Yes (NFT) | Yes (NFT) | Yes (UTXO) | Yes (UTXO) |
 | Resolution independent of company | Limited (relying on UD resolver) | Yes (any RPC) | Yes (hnsd, public resolvers) | Yes (ncdns) |
 | Takedown by operator | **Yes (claimed in patent)** | No (no operator) | No (no operator) | No (no operator) |
-| Renewal required | No (one-time) | Yes (annual rent) | No (auction + burn) | Yes (every 200 days) |
+| Renewal required | No (one-time) | Yes (annual rent) | Yes (RENEW covenant; approximately two years on mainnet) | Yes (every 200 days) |
 | ICANN accreditation | Yes (also sells `.com`) | No | No | No |
 
 UD is also **ICANN-accredited** — the only blockchain-domain company with both the ICANN registrar credential *and* the ICANN 84 partner D3 Protocol partnership. This means UD can sell both legacy Web2 domains and Web3 names. It also means UD is bound by UDRP, court orders, and the ICANN contractual regime, like any other accredited registrar.
@@ -79,7 +79,7 @@ The patent suggests a quasi-decentralized mechanism (community voting + reviewin
 |--------|--------------------------------------|------------------|---------|-----------------------------|
 | **Unstoppable Domains** | **Yes (per Sept 2025 patent)** | UD resolver / DApps | No (one-time) | Weak — operator has takedown path |
 | [ENS](/kb/ens/) | No | Any RPC, CCIP-Read | Yes (annual rent) | Strong — chain + DAO |
-| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | No (auction + burn) | Strong — chain, no operator |
+| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | Yes (RENEW; approximately two years) | Strong — chain, no operator |
 | [Namecoin](/kb/namecoin/) | No | ncdns locally | Yes (every ~200 days) | Strongest — no operator, 15-year track record |
 | [GNS](/kb/gnu-name-system/) | N/A (no global namespace) | GNUnet resolver | No | Strong — petname system |
 | [PKARR](/kb/pkarr/) / [Pubky](/kb/pubky/) | No | pkdns, Mainline DHT | No | Strong — Ed25519, no operator |
@@ -161,6 +161,10 @@ The crypto-native users who wanted a "decentralized domain" generally migrated t
 - **2026**: UD continues to operate; the takedown mechanism remains in patent-pending state, not yet activated in production.
 
 ## Primary sources
+
+- [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+- [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+- [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)
 
 - Unstoppable Domains — `unstoppabledomains.com`.
 - "Deactivation of decentralized domains" patent — `domainnamewire.com/wp-content/Unstoppable-takedown-patent.pdf` (Domain Name Wire coverage Sept 2025).

@@ -6,13 +6,15 @@ pillars: ["identity"]
 readiness: experimental
 description: "How AI agents get cryptographic identities on Nostr: key pairs for non-human actors, delegation, payments and the trust questions this raises."
 dek: "Cryptographic identity for non-human economic actors. The same keypair primitives that serve sovereign individuals — npub/nsec, NIP-05, NIP-46, WoT, Lightning — now serve autonomous AI agents as reputation-bearing participants in open networks."
-updated: 2026-08-02
+updated: 2026-10-25
 created: 2026-08-02
 origin: vault
 source: "11-Identity/AI Agent Identity on Nostr.md"
 aliases: ["Agent Identity", "Nostr Agent Identity", "Autonomous Agent Identity", "AI Agent Reputation", "NIP-SA", "Kind 30085", "Kind 31339"]
 tags: ["identity", "ai-agents", "agent-identity", "nostr", "kind-30085", "kind-31339", "nip-sa", "reputation", "sovereign-agents", "kya", "autonomous-agents"]
 ---
+
+The NIPs README marks NIP-90 Data Vending Machines as **unrecommended**. References below describe that existing pattern, not an endorsement for new services.
 
 ## Why This Matters
 
@@ -185,7 +187,7 @@ NIP-SA composes with existing primitives:
 - **NIP-44**: encrypted payloads (for state and skill delivery)
 - **NIP-57**: Lightning payments tied to events
 - **NIP-89**: provider capability discovery
-- **NIP-90**: job request/result flow (kinds 5050/6050/7000)
+- **NIP-90**: historical job request/result flow; **unrecommended** in the NIPs README, which prefers use-case-specific microstandards.
 - **NIP-34**: Git collaboration (code artifacts)
 
 ## AgentDex — Agent Directory (Kind 31339)
@@ -354,7 +356,9 @@ A new agent starts with zero reputation. How does it earn its first attestations
 | Jul 2026 | Tiger Research publishes KYA report — agent identity enters mainstream analysis |
 | Late Jul 2026 | OpenSats Wave 17 funds Routstr (agent AI inference), NosCall, Wisp |
 
-## Primary Sources
+## Primary sources
+
+- [NIPs README: NIP-90 status](https://github.com/nostr-protocol/nips)
 
 - [NIP-XX: Agent Reputation Attestations (nips PR #2320)](https://github.com/nostr-protocol/nips/pull/2320) — Kind 30085 specification
 - [Kai — Autonomous Agent on Nostr](https://kai-familiar.github.io) — day 83, trust 100, libraries and tools

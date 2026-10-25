@@ -6,7 +6,7 @@ pillars: ["pqc"]
 readiness: usable
 description: "ML-KEM (FIPS 203), NIST's post-quantum key encapsulation standard: how it works, its parameter sets, and its use in hybrid TLS key exchange."
 dek: "The NIST-standardized post-quantum KEM (FIPS 203, finalized August 2024). Replaces ECDH and RSA-KEM for key establishment. Already deployed in TLS 1.3, SSH, Signal, and iMessage. The first NIST PQC standard to see real-world adoption at scale."
-updated: 2026-05-16
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "10-Post-Quantum/ML-KEM.md"
@@ -75,11 +75,11 @@ This is the harvest-now-decrypt-later defense. Even traffic recorded today and d
 || Protocol | Hybrid scheme | Status ||
 |----------|--------------|--------|
 | **TLS 1.3** | X25519MLKEM768 | Mainstream — Chrome, Firefox, Cloudflare (>65% traffic), AWS KMS/SecretsManager/ACM (April 2026), Google services |
-| **SSH (OpenSSH ≥ 9.0)** | sntrup761x25519-sha512 (NTRU-Prime hybrid; ML-KEM hybrid landing in 10.x) | Default in OpenSSH 9.x |
+| **SSH** | `mlkem768x25519-sha256` | Added in OpenSSH 9.9; default since 10.0 |
 | **Signal Protocol** | PQXDH (X3DH + ML-KEM-1024) | Production since fall 2023 |
 | **iMessage PQ3** | Custom hybrid Apple scheme | Production since Feb 2024; iOS 26 extends ML-KEM to TLS |
 | **WireGuard** | Research / experimental | No standardized native profile |
-| **age (encrypted files)** | age-plugin-pq experimental | Plugin-stage |
+| **age (encrypted files)** | Native hybrid ML-KEM-768 recipients | Available since age 1.3.0; generate with `age-keygen -pq` |
 | **OpenPGP** | Draft RFC; minimal adoption | Slow rollout |
 | **Bitcoin / Lightning** | Research; no deployment | Future |
 | **Kyber Ransomware** | ML-KEM-1024 + X25519 + AES-256 | Active since September 2025; confirmed April 2026 |
@@ -162,6 +162,9 @@ For a service operator in 2026:
 6. Plan re-encryption for archives with multi-decade secrecy horizons.
 
 ## Primary sources
+
+- [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)
+- [age v1.3.0 native post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
 
 - NIST, *FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard*, August 2024.
 - Bos et al., *CRYSTALS — Kyber: A CCA-secure module-lattice-based KEM*, IACR 2017/634.

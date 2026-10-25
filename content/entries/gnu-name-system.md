@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: experimental
 description: "The GNU Name System resolves petname-based, privacy-preserving names through GNUnet's distributed hash table, with no central root. How and why."
 dek: "A privacy-preserving, hierarchical, petname-based naming system that resolves through GNUnet's distributed hash table. Standardized as RFC 9498 in 2023. The most thought-through privacy story of any decentralized naming layer."
-updated: 2026-08-24
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "03-Decentralized-DNS/GNS.md"
@@ -68,7 +68,7 @@ Each zone publishes a signed namestore under its public key in GNUnet's DHT. Rec
 - Records are encrypted. Without knowing the queried label, an observer can't decrypt records.
 - Per-zone keys mean leaks don't cascade between zones.
 
-This privacy property is unique among production decentralized naming systems.
+GNUnet describes its software as early alpha; GNS remains experimental in this library’s readiness scale.
 
 ## RFC 9498 (2023)
 
@@ -150,7 +150,7 @@ Each user is a zone. Users delegate to other users they trust. The graph of cros
 - Privacy first. Queries are opaque to observers, including the DHT.
 - Petname-based, so it sidesteps Zooko's triangle (locally meaningful rather than globally unique).
 - Standardized as RFC 9498.
-- Production implementation in GNUnet 0.26.0.
+- Implemented in GNUnet, whose official project overview describes the software as early alpha. This library rates GNS as experimental.
 - Free, no chain, no fees.
 
 ### Limitations
@@ -204,6 +204,8 @@ Org members all have `org.gnu` as a petname for the org's zone. Internal service
 - Ongoing development despite small user base.
 
 ## Primary sources
+
+- [GNUnet: early-alpha software status](https://www.gnunet.org/en/about.html)
 
 - Schanzenbach, Grothoff, Fix, *The GNU Name System*, RFC 9498, IETF, September 2023.
 - GNUnet — [gnunet.org](https://www.gnunet.org).

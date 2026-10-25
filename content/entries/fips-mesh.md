@@ -6,7 +6,7 @@ pillars: ["mesh"]
 readiness: experimental
 description: "FIPS, a Rust mesh routing protocol that uses Nostr key pairs as node identities: how it routes, what it encrypts, and its experimental status."
 dek: "A Rust mesh routing protocol that uses Nostr keypairs as native node identities. Multi-transport (UDP / TCP / Ethernet / Tor / BLE), Noise-encrypted hop-to-hop and end-to-end, with an IPv6 TUN adapter that lets unmodified TCP/IP applications speak across the mesh."
-updated: 2026-04-27
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "05-Off-Grid-Networks/FIPS.md"
@@ -113,7 +113,7 @@ FIPS plays well with the rest of this library's primitives:
 | System | Identity | Routing | Encryption | Anonymity | Status |
 |--------|----------|---------|------------|-----------|--------|
 | **FIPS** | Nostr secp256k1 = npub | Spanning tree + bloom | Noise IK + XK | No | v0.2.0, active |
-| **Yggdrasil** | Ed25519 = IPv6 | Greedy on spanning tree | Noise + ChaCha20 | No | Stable |
+| **Yggdrasil** | Ed25519 = IPv6 | Greedy on spanning tree | Noise + ChaCha20 | No | Experimental (alpha) |
 | **Reticulum** | Curve25519 destinations | Path announce + transports | AES-256 + Curve25519 | No | Stable |
 | **cjdns** | Curve25519 = IPv6 | DHT + path-vector | Curve25519 | No | Maintained |
 | **Tor** | TLS to relays | Three-hop circuits | Layered AES | Yes | Stable |
@@ -167,6 +167,8 @@ K8s sidecar pattern: FIPS runs alongside an existing service, presenting `fips0`
 | Endpoint compromise | Standard hygiene; not different from any mesh |
 
 ## Primary sources
+
+- [Yggdrasil project status](https://yggdrasil-network.github.io/)
 
 - FIPS — [github.com/jmcorgan/fips](https://github.com/jmcorgan/fips)
 - Protocol design — `docs/design/` in the FIPS repository.

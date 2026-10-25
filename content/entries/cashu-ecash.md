@@ -6,7 +6,7 @@ pillars: ["money"]
 readiness: usable
 description: "Cashu brings Chaumian ecash to Bitcoin: blind-signed bearer tokens that give near-cash payment privacy, in exchange for trusting the mint with custody."
 dek: "Bearer-token ecash using blind signatures (Chaum 1982/83) backed by Bitcoin/Lightning. Private, offline-capable, small-to-medium value transfers with no on-chain footprint until redemption. 2026 milestone: first production-path \"unruggable\" mints running keys inside TEE enclaves."
-updated: 2026-06-22
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "06-Financial-Sovereignty/Cashu and Chaumian Ecash.md"
@@ -86,7 +86,7 @@ This makes ecash first-class in the sovereign social + money stack.
 - **Key loss / device loss**: No recovery unless you backed up the tokens or used multi-mint + social recovery patterns.
 - **Mint correlation**: A single mint sees all its issuances and redemptions. Use many small mints + swaps.
 - **Nostr metadata**: Without NIP-17 gift wrapping, ecash events leak graph. Use wrapped.
-- **Quantum**: Blind sig schemes (often RSA or similar in Cashu today) need PQ migration planning; symmetric parts inside proofs are easier.
+- **Cryptographic basis**: Cashu uses Blind Diffie-Hellman Key Exchange (BDHKE) on secp256k1, as specified by NUT-00. For migration considerations, see [Post-Quantum Cryptography](/kb/post-quantum-cryptography/).
 
 ### Operational hygiene
 - Verify mint URL + pubkey / attestation where provided.
@@ -125,3 +125,7 @@ See [Nostr Deep Dive](/kb/nostr-protocol/) and recent Identity weeklies for clie
 - Primary verification: run/test mints, inspect proofs, check attestation measurements when TEE mints publish them.
 
 *Ecash is production for small values today; TEE/federated backing is the active research-to-deployment frontier that directly strengthens the ungovernable claim.*
+
+## Primary sources
+
+- [Cashu NUT-00: BDHKE on secp256k1](https://github.com/cashubtc/nuts/blob/main/00.md)

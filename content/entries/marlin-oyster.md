@@ -6,7 +6,7 @@ pillars: ["compute", "confidential"]
 readiness: usable
 description: "Marlin Oyster, a decentralized confidential computing network offering TEE-backed virtual machines and serverless functions: design and trust model."
 dek: "A decentralized confidential computing protocol. Oyster provides TEE-backed Confidential Virtual Machines (CVMs) and a serverless option as an alternative to centralized cloud, with Verida and others using it to run private AI over sensitive user data without exposing it to the operator."
-updated: 2026-06-08
+updated: 2026-10-25
 created: 2026-06-08
 origin: vault
 source: "04-Decentralized-Compute/Marlin Oyster.md"
@@ -64,7 +64,7 @@ This enables patterns like:
 The broader Oyster protocol handles:
 
 - **Provider discovery**: finding TEE-enabled nodes in the network.
-- **Market and pricing**: compute is paid in the network's token (OAT).
+- **Market and pricing**: Oyster CVM documentation defines USDC as the payment token and POND as the staking token.
 - **Attestation verification**: on-chain or off-chain verification of provider quotes.
 - **Deployment lifecycle**: image management, scaling, health checking.
 
@@ -117,9 +117,9 @@ Oyster documentation includes production guides for:
 
 The CVM image format is EIF — a signed, reproducible build artifact. The same guarantees as reproducible Docker images apply: you can verify that a specific EIF was derived from specific source code via reproducible builds.
 
-## OAT token
+## Payment and staking tokens
 
-The Marlin network uses **OAT** (Oyster Asset Token) for staking, governance, and payment settlement. Providers stake OAT as collateral; requestors pay in OAT for compute. The token economics align provider incentives with network reliability.
+Oyster CVM uses **USDC** for payments. Its token definition identifies **POND** on Arbitrum One or through Symbiotic vaults on Ethereum as the staking token. Payment and staking are separate roles.
 
 ## Comparison
 
@@ -130,7 +130,7 @@ The Marlin network uses **OAT** (Oyster Asset Token) for staking, governance, an
 | Hardware | Intel TDX, AMD SEV-SNP | TDX, H100 CC | CPU first | GPU (H100) |
 | AI inference | Llama guide, agent | Production | Roadmap | Via containers |
 | Verida integration | Live 2026 | No | No | No |
-| Token | OAT | PHA | FLT | AKT |
+| Token | USDC (payments); POND (staking) | PHA | FLT | AKT |
 | Chain | P2P (own network) | Substrate/ETH L2 | Arbitrum Orbit | Cosmos |
 
 ## Trade-offs
@@ -164,6 +164,10 @@ The Marlin network uses **OAT** (Oyster Asset Token) for staking, governance, an
 | Side-channel (cache timing) | TDX cache partitioning; mitigation in spec |
 
 ## Primary sources
+
+- [Oyster CVM actors and operator staking](https://docs.marlin.org/oyster/protocol/cvm/actors)
+
+- [Oyster CVM definitions: payment token and staking token](https://docs.marlin.org/oyster/protocol/cvm/definitions)
 
 - Oyster docs — [docs.marlin.org/oyster](https://docs.marlin.org/oyster)
 - Marlin Oyster GitHub — [github.com/marlin-project/oyster](https://github.com/marlin-project/oyster)

@@ -6,7 +6,7 @@ pillars: ["endpoint", "cryptography"]
 readiness: battle-tested
 description: "age is a small, modern file-encryption tool built on X25519 and ChaCha20-Poly1305: how it works, how to use it, and where it beats PGP for files."
 dek: "A small, opinionated file-encryption format and CLI. Built around X25519 recipient keys, ChaCha20-Poly1305 streaming, and HMAC-SHA-256 header authentication. Designed as a replacement for `gpg -c` and ad-hoc OpenSSL pipelines for everyday encryption-at-rest."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "02-Cryptography/age Toolchain.md"
@@ -54,6 +54,8 @@ Recipient types defined in v1:
 - **scrypt** — passphrase-only mode (no public-key recipient; key derived from passphrase).
 - **ssh-rsa**, **ssh-ed25519** — derive an X25519 key from an SSH key for casual reuse.
 
+age 1.3.0 added native hybrid post-quantum recipients based on HPKE with ML-KEM-768. Generate one with `age-keygen -pq`: public recipients begin `age1pq1`, and secret identities begin `AGE-SECRET-KEY-PQ-1`. Older clients can use a compatibility plugin. See [Migrating to Hybrid Key Exchange](/guides/hybrid-kem-migration/).
+
 Plugins extend the recipient stanza set without bumping the format version.
 
 ## Cipher choices
@@ -66,7 +68,7 @@ Plugins extend the recipient stanza set without bumping the format version.
 | Header MAC | HMAC-SHA-256 | Authenticates the recipient list |
 | Passphrase mode | scrypt | Memory-hard, well-studied |
 
-No AES-GCM, no NIST P-curves, no choice of mode. Everything is fixed.
+The original recipient types and the native post-quantum recipient type have distinct specified constructions; use the recipient type supported by your implementation.
 
 ## Plugin ecosystem
 
@@ -155,6 +157,8 @@ For a 30-year-archive use case, CMS / S/MIME or OpenPGP remain the more conserva
 - **No signing.** If you need to assert *who* encrypted a file, sign with a separate primitive (minisign, signify, ssh-keygen -Y).
 
 ## Primary sources
+
+- [age v1.3.0 release: post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
 
 - Valsorda, Cartwright-Cox, *age v1 specification*, age-encryption.org/v1.
 - Bernstein, Hamburg, Krasnova, Lange, *Curve25519* and X25519 (RFC 7748, Jan 2016).

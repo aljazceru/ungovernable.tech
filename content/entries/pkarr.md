@@ -6,7 +6,7 @@ pillars: ["naming", "identity"]
 readiness: usable
 description: "PKARR turns an Ed25519 public key into a DNS zone: signed records are published to the BitTorrent Mainline DHT, with no registrar involved."
 dek: "A naming layer that uses an Ed25519 public key as the zone, signed DNS records as the payload, and the BitTorrent Mainline DHT as the registry."
-updated: 2026-09-21
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "03-Decentralized-DNS/PKARR.md"
@@ -79,7 +79,7 @@ For self-sovereign deployments, `pkdns` typically runs on the same host as the a
 | Resolution latency | DHT round-trip | RPC / CCIP-Read | SPV header sync | DHT round-trip (private) |
 | Human-readable | No (key only) — add petname/NIP-05 layer | Yes (`.eth`) | Yes (any TLD) | Yes (petnames) |
 | Privacy of lookup | Low (DHT lookups visible) | Medium (RPC) | Medium | High (queries opaque) |
-| Crypto | Ed25519 | secp256k1 + EVM | Schnorr / Cuckatoo32 PoW | Ed25519 / ECDSA |
+| Crypto | Ed25519 | secp256k1 + EVM | Schnorr / BLAKE2b + SHA3 PoW | Ed25519 / ECDSA |
 | Governance | None (protocol only) | DAO + smart contracts | UTXO consensus | None |
 | Maturity | Emerging (2025–26) | Production | Live mainnet | Standardized (RFC 9498) |
 | Production app stack | Pubky Core (SDKs, social, Ring, Nexus) | — | — | — |
@@ -158,6 +158,8 @@ The DNS / CA chain is replaced by a DHT lookup and a signature check against the
 - **No PQ-signature variant standardized yet.**
 
 ## Primary sources
+
+- [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
 
 - Aiello, Hartshorn et al., *PKARR — Public-Key-Addressable Resource Records*, 2023.
 - BEP 44 — *Storing arbitrary data in the DHT* (BitTorrent Enhancement Proposal).

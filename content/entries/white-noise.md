@@ -6,7 +6,7 @@ pillars: [messaging, identity]
 readiness: experimental
 description: "White Noise is an open-source messenger built on Marmot: MLS group encryption over Nostr relays, with no phone number, no email and no central server."
 dek: "The flagship Marmot client. MLS gives it Signal-class group encryption; Nostr gives it keys you own and relays you choose. It is audited, actively shipped, and still beta."
-updated: 2026-10-19
+updated: 2026-10-25
 created: 2026-10-19
 origin: original
 related: [marmot-protocol, mls-wire, cordn, nostr-protocol, nostr-identity, nostr-key-custody, encrypted-messaging, choosing-a-secure-messenger, metadata-resistance, signal-protocol, simplex]
@@ -34,7 +34,7 @@ White Noise is a private messenger for one-to-one and group chat that needs no p
 - **Identity capture.** There is no phone number or email to subpoena, SIM-swap or link back to a legal identity. There is no account server either.
 - **De-platforming and single points of failure.** Messages go out to several independent relays, and you can switch relays or self-host without losing your identity or contacts. Because the protocol is open, you can also change apps.
 - **Key compromise over time.** MLS forward secrecy and post-compromise security limit how much a stolen key exposes, in both directions in time.
-- **Casual membership mapping.** Gift-wrapped invitations and ephemeral sender keys keep group membership and per-message authorship off the public record.
+- **Invitation content.** Gift wrapping encrypts the invitation and conceals its original sender. A visible NIP-59 event still exposes the recipient public key in its `p` tag; observers can see recipient and timing metadata.
 
 ## What it trusts, and the limits
 
@@ -49,6 +49,8 @@ White Noise is a private messenger for one-to-one and group chat that needs no p
 **Experimental.** The cryptography is the IETF standard, the code is open and has had independent audits, and the apps are in active, frequent release. However, the project describes itself as beta, distributes on iOS through TestFlight, lacks linked-device support, and builds on a specification that is still changing week to week. It is a good choice for people who already live on Nostr and want encrypted groups without a phone number. For high-stakes use, run it alongside a battle-tested messenger rather than instead of one. See [Choosing a Secure Messenger](/guides/choosing-a-secure-messenger/).
 
 ## Primary sources
+
+- [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
 
 - White Noise: https://www.whitenoise.chat/ · FAQ: https://www.whitenoise.chat/faq · Privacy policy: https://www.whitenoise.chat/privacy · Downloads: https://www.whitenoise.chat/download
 - Marmot protocol specification: https://github.com/marmot-protocol/marmot · Nostr transport: https://github.com/marmot-protocol/marmot/blob/master/transports/nostr.md · Changelog: https://github.com/marmot-protocol/marmot/blob/master/changes.md

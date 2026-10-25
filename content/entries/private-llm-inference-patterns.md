@@ -5,7 +5,7 @@ type: explainer
 pillars: ["confidential", "cryptography"]
 description: "Concrete patterns for private LLM inference that combine TEEs, attestation, key management and transparency logs, each with an explicit threat model."
 dek: "Recipes, not frameworks. The patterns below combine TEEs, attestation, KMS, and transparency logs into concrete deployable services with explicit threat models."
-updated: 2026-04-27
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/Private-LLM-Inference-Patterns.md"
@@ -104,7 +104,7 @@ The UX trap to avoid: a green padlock labeled "Confidential" that does not actua
 Goal: run retrieval-augmented generation where the documents, the query, and the retrieval index are all confidential.
 
 Components:
-- Vector DB inside a CVM (TDX); index encrypted in HBM or on disk with a key released only to attested index enclaves.
+- Keep the vector index within the attested workload and encrypt its stored copy. On Hopper, plaintext in GPU HBM is protected by isolation rather than HBM encryption; release decryption keys only after verifying the required CPU and GPU evidence.
 - Retrieval and generation in the same enclave (or a federated pair over attested channels).
 - Ingestion pipeline also attested. Otherwise the threat model is "operator saw every document at ingest."
 
@@ -146,7 +146,9 @@ Tool use is where most "private inference" products quietly fail their threat mo
 - Logging "just prompts, no identity" — prompts are identity.
 - Debug or developer attestation in production. SGX, TDX, and SEV-SNP all have debug modes; production policy must reject them.
 
-## Primary Sources
+## Primary sources
+
+- [NVIDIA H100 confidential-computing boundary](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
 
 - Apple: *Private Cloud Compute Security Guide*
 - Microsoft: *Confidential AI and Inferencing* whitepapers (2024–)

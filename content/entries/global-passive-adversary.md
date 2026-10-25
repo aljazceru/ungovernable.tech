@@ -5,7 +5,7 @@ type: threat-model
 pillars: ["anonymity"]
 description: "What it takes to defeat an adversary who can watch the whole network: traffic correlation, cover traffic, mixing and the research frontier."
 dek: "Friday research: Mix networks that defend against a global passive adversary. The systems, the threat model, the research frontier (MOCHA, Outfox, Nox), and where this fits in the freedom-tech stack."
-updated: 2026-05-22
+updated: 2026-10-25
 created: 2026-05-22
 origin: vault
 source: "08-Mix-Networks/Mix Networks Friday - Global Passive Adversary Defense and Research Frontier.md"
@@ -128,9 +128,9 @@ Designed specifically to defeat a global passive adversary. Seconds-to-minutes l
 
 ## The Research Frontier: 2026 Papers
 
-### MOCHA (ePrint 2026/861, IH&MMSEC 2025)
+### MOCHA (ePrint 2025/861, IH&MMSEC 2025)
 
-**Mixnet Optimization Considering Honest Client Anonymity** — Rahimi, Kumar Sharma, Diaz.
+**Mixnet Optimization Considering Honest Client Anonymity** — Mahdi Rahimi.
 
 The paper's key insight: **message anonymity often provides an upper bound and can yield misleading results for mixnet optimization**. The existing standard for evaluating mixnet anonymity uses a discrete-event simulator to measure a target message's indistinguishability among output messages. MOCHA shows that the client (originator of messages) itself must be considered to gauge anonymity accurately.
 
@@ -324,7 +324,9 @@ Signal hides content but reveals your phone number to contacts and routes throug
 - A global active adversary who can modify traffic (replay + integrity helps, but not fully).
 - Real-time interactive protocols (VoIP, video) at anonymity-safe latency.
 
-## Primary Sources
+## Primary sources
+
+- [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
 
 ### Papers
 
@@ -332,7 +334,7 @@ Signal hides content but reveals your phone number to contacts and routes throug
 - Danezis & Goldberg. "Sphinx: A Compact and Provably Secure Mix Format." IEEE S&P 2009. — packet format.
 - Piotrowska et al. "The Loopix Anonymity System." USENIX Security 2017. — Poisson mixing, cover traffic, formal bounds.
 - Chen et al. "HORNET: High-speed Onion Routing at the Network Layer." ACM CCS 2015 / arXiv:1507.05724.
-- MOCHA: Rahimi, Kumar Sharma, Diaz. "Mixnet Optimization Considering Honest Client Anonymity." ePrint 2026/861 / IH&MMSEC 2025.
+- MOCHA: Mahdi Rahimi. "Mixnet Optimization Considering Honest Client Anonymity." ePrint 2025/861 / IH&MMSEC 2025.
 - Outfox: Rial, Piotrowska et al. "A Postquantum Packet Format for Layered Mixnets." ACM SIGCOMM 2025.
 - Nox: "Nox: A Sphinx Mixnet for Anonymous Blockchain Transaction Relay." 2024-2025.
 - Dingledine, Mathewson, Syverson. "Tor: The Second-Generation Onion Router." USENIX Security 2004.

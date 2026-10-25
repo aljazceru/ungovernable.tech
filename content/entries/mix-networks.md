@@ -5,7 +5,7 @@ type: explainer
 pillars: ["anonymity"]
 description: "Mix networks and onion routing explained: how anonymity systems defeat traffic analysis, from Tor's three hops to cover-traffic mixnets."
 dek: "Anonymity systems that defeat traffic analysis, not just content inspection. Complementary to TEEs and encrypted messaging. What encryption leaves visible (who talked to whom, when, how often), mixnets hide."
-updated: 2026-05-12
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "08-Mix-Networks/Overview - Mix Networks.md"
@@ -87,7 +87,7 @@ The largest anonymity network, with around 7,000 relays operated by volunteers w
 
 **2025-2026 developments**:
 
-- Tor Browser 15.0.13 emergency release (May 8, 2026) — rapid security patches following 15.0.12 and 15.0.11.
+- Tor Browser releases and platform downloads are published by the Tor Project; check the download page for the current release.
 - Arti 2.3.0 (May 7, 2026) — syslog logging, RPC tunnel-path inspection, directory authority and relay development ongoing.
 - FlashFlow research: Tor underestimates relay capacity by about 50%.
 - Around 6.7% of users connect to hidden services daily.
@@ -217,7 +217,7 @@ Client → [Mix 1] → [Mix 2] → [Mix 3] → Gateway → Internet
 
 ### Tor: rapid emergency releases, Arti 2.3.0, CGO in flight
 
-The most significant recent event is not a single release but a **rapid-response release cadence**: Tor Browser 15.0.11 (April 28), 15.0.12 (May 7), and 15.0.13 (May 8) followed each other within days, the latter two explicitly emergency patches. The Tails 7.7.x series (7.7, 7.7.1, 7.7.2, 7.7.3 — April-May 2026) similarly reflects emergency kernel and Tor Browser/client fixes. This is not a sign of systemic failure; it reflects an active attacker environment with a responsive security team.
+Tor Browser releases change over time. Use the Tor Project’s download page for the current platform-specific release and signature, rather than treating an older release snapshot as an installation target.
 
 Arti 2.3.0 (May 7, 2026) continues the relay/directory/RPC development arc described in earlier tracker entries. New features: syslog logging when the `syslog` feature is enabled, `logging.protocol_warnings` config option, RPC API for tunnel-path inspection. Ongoing: Arti as relay, Arti as directory authority. Flagged breaking change in the next release: `TorClient` will require explicit `Arc` wrapping — downstream `arti-client` crate users should monitor [#2469](https://gitlab.torproject.org/tpo/core/arti/-/work_items/2469).
 
@@ -348,6 +348,8 @@ Metadata leaks bind you to .eth / Handshake names and Akash/Fluence jobs. Same m
 - SCION architecture context — https://www.scion-architecture.net/
 
 ## Primary sources
+
+- [Tor Browser downloads](https://www.torproject.org/download/)
 
 ### Papers
 

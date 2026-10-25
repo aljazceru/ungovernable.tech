@@ -6,7 +6,7 @@ pillars: ["messaging", "identity"]
 readiness: experimental
 description: "Marmot layers MLS (RFC 9420) group encryption on Nostr identities and relays: end-to-end encrypted group chat without phone numbers or central servers."
 dek: "MLS (RFC 9420) layered on Nostr's identity and relay infrastructure to deliver end-to-end encrypted, scalable, metadata-protected group messaging without centralized servers."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "07-Encrypted-Messaging/Marmot Protocol.md"
@@ -68,7 +68,7 @@ kind: 1059 (gift wrap)
          └── kind: 444 (rumor — Welcome MLS message)
 ```
 
-NIP-59 gift-wrapping hides both the recipient and the fact that a Welcome happened from any relay or observer. The Welcome MUST be sent only after the corresponding MLS Commit has been confirmed by relays. Sending it earlier causes a state fork where the new member sits at one MLS epoch and existing members at another, and decryption breaks until manual recovery.
+NIP-59 encrypts the Welcome and conceals its original sender, but the outer gift-wrap event has a `p` tag naming the recipient’s public key. Relays and observers who can see the event can read that tag; the encrypted contents do not reveal which group the invitation concerns. The Welcome MUST be sent only after the corresponding MLS Commit has been confirmed by relays. Sending it earlier causes a state fork where the new member sits at one MLS epoch and existing members at another, and decryption breaks until manual recovery.
 
 ### Group events (MIP-03)
 
@@ -91,7 +91,7 @@ Each kind:445 event:
 | End-to-end encryption | MLS + ChaCha20-Poly1305 | Strong |
 | Forward secrecy | MLS ratchet | Strong |
 | Post-compromise security | MLS Commits rotate keys | Strong |
-| Membership privacy | NIP-59 gift wrap on Welcome | Strong; observers can't tell who's in which group from public events |
+| Membership privacy | NIP-59 gift wrap on Welcome | Welcome content is encrypted; the outer p tag exposes the recipient, so recipient and timing metadata remain visible |
 | Sender unlinkability per-message | Ephemeral keypairs on kind:445 | Strong, with per-epoch caveats — see below |
 | Group size privacy | Encrypted content; ephemeral senders | Strong against external observers |
 | Identity continuity | Nostr identity + distinct MLS signing key | Group compromise doesn't burn Nostr identity |
@@ -100,7 +100,7 @@ Each kind:445 event:
 ### What Marmot doesn't try to hide
 
 - The fact that you publish KeyPackages. Anyone can see your `kind:30443` events.
-- The fact you receive `kind:1059` gift wraps. Standard Nostr gift-wrap visibility.
+- The recipient public key in each visible `kind:1059` gift wrap’s `p` tag, and the timing of those events.
 - Endpoint compromise. Same as everywhere.
 
 ## Comparison
@@ -182,7 +182,9 @@ Group communication over the FIPS mesh: KeyPackages discovered via Nostr relays 
 - OpenMLS version compatibility maintained.
 - NIP-EE legacy: predecessor draft NIP for MLS-over-Nostr; superseded by Marmot's MIP organization.
 
-## Primary Sources
+## Primary sources
+
+- [NIP-59: gift-wrap routing tags and recipient metadata](https://github.com/nostr-protocol/nips/blob/master/59.md)
 
 - Marmot Protocol — [github.com/marmot-protocol/marmot](https://github.com/marmot-protocol/marmot) (MIP-00 through MIP-05).
 - RFC 9420, *Messaging Layer Security*, IETF, 2023.

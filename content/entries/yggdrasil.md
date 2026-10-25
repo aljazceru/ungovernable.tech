@@ -6,13 +6,17 @@ pillars: ["mesh"]
 readiness: experimental
 description: "Yggdrasil, an end-to-end encrypted IPv6 overlay mesh where every node's address is derived from its public key: how routing works and its alpha status."
 dek: "An end-to-end encrypted IPv6 overlay mesh. Every node has an IPv6 address derived from its public key, traffic is automatically encrypted between nodes, and the network self-organizes via greedy routing on a spanning tree."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "05-Off-Grid-Networks/Yggdrasil.md"
 aliases: ["Yggdrasil Network"]
 tags: ["yggdrasil", "overlay", "ipv6", "mesh", "off-grid", "deep-dive"]
 ---
+
+## Readiness
+
+**Experimental.** The project describes Yggdrasil as alpha-stage software and warns that future changes may break compatibility. It also reports day-to-day use, which does not change the alpha designation.
 
 ## What Yggdrasil is
 
@@ -142,6 +146,8 @@ Yggdrasil is not an anonymity tool. Use Tor or I2P for anonymity; use Yggdrasil 
 - OpenWrt packages: turnkey for routers.
 
 ## Primary sources
+
+- [Yggdrasil project status](https://yggdrasil-network.github.io/)
 
 - Yggdrasil Network — [yggdrasil-network.github.io](https://yggdrasil-network.github.io/)
 - Source — [github.com/yggdrasil-network/yggdrasil-go](https://github.com/yggdrasil-network/yggdrasil-go)

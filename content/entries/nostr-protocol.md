@@ -6,7 +6,7 @@ pillars: ["identity", "messaging"]
 readiness: usable
 description: "Nostr, a minimal protocol of signed events and relays with no accounts: how it works, why it resists censorship, and its weak points."
 dek: "\"Notes and Other Stuff Transmitted by Relays\" — a minimalist, pubkey-rooted social protocol with no accounts, no federation negotiation, and no central kill switch."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "07-Encrypted-Messaging/Nostr Deep Dive.md"
@@ -79,7 +79,7 @@ Three-layer envelope:
 2. Seal — rumor encrypted to the recipient's pubkey, signed by sender.
 3. Gift wrap — seal encrypted to the recipient's pubkey, signed by an *ephemeral* pubkey, kind=1059.
 
-The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. The social graph is hidden from the relay. The sender's identity is revealed only after the recipient decrypts.
+The relay sees a kind-1059 gift wrap signed by an ephemeral key and addressed to the recipient’s public key in a visible `p` tag. The original sender is encrypted, but recipient and timing metadata remain visible.
 
 This is a major step toward Signal-grade metadata properties without Signal's centralization.
 
@@ -131,7 +131,7 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 - Lossy persistence. Relays may delete or rate-limit; durability depends on which relays you use.
 - Sybil-prone. Anyone can mint an npub; spam mitigations live in client filters and WoT.
 - Discovery is hard. Without follow graphs, finding new accounts is non-trivial.
-- Key custody risk. Losing the key means losing identity. NIP-26 delegation, hardware-wallet-signed events, and account-recovery NIPs help.
+- Key custody risk. Losing the key means losing identity. Use a dedicated signer and a recovery plan; the NIPs README marks NIP-26 delegation as unrecommended. See [Nostr Key Custody and Recovery](/guides/nostr-key-custody/).
 - Metadata leaked outside NIP-17. Plain notes are public; even with gift-wrapped DMs, posting and follow lists leak.
 - Client diversity, bug surface. Many clients reimplement the protocol; some don't validate signatures correctly.
 
@@ -166,7 +166,10 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 - Decentralized recovery (NIP-XX drafts): Shamir / FROST-based key recovery.
 - Hardware-wallet signing: Coldcard and Keystone added Nostr event signing.
 
-## Primary Sources
+## Primary sources
+
+- [NIPs README: unrecommended proposals](https://github.com/nostr-protocol/nips)
+- [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
 
 - fiatjaf, *Nostr — Notes and Other Stuff Transmitted by Relays*, 2020. [github.com/nostr-protocol/nostr](https://github.com/nostr-protocol/nostr)
 - NIPs registry — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)

@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: battle-tested
 description: "The Ethereum Name Service, the largest deployed blockchain naming system: how registration and resolution work, and how it bridges to ordinary DNS."
 dek: "The largest deployed decentralized naming system."
-updated: 2026-09-21
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "03-Decentralized-DNS/ENS.md"
@@ -66,27 +66,11 @@ Effects:
 
 CCIP-Read became the dominant ENS pattern in 2024-2025.
 
-## ENSv2 and the Namechain reversal
+## ENSv2 and Namechain
 
-The original plan was to launch an L2 (Namechain) and migrate ENS off L1 for cheaper transactions.
+ENS’s 17 November 2025 post described a plan to build Namechain on Nethermind’s Surge. On 6 February 2026, ENS announced that ENSv2 would deploy exclusively on Ethereum L1 and that Namechain development would cease. ENSv2 itself remained on the roadmap.
 
-In February 2026, Nick Johnson announced ENS would abandon Namechain. The reasoning:
-
-- Ethereum gas costs had dropped ~99% with Dencun (blobs), Pectra, and Fusaka upgrades.
-- The December 2025 Fusaka upgrade raised the gas limit to 60 million (2x from early 2025).
-- 2026 targets: 200 million gas limit (3x increase), before ZK upgrades land.
-- Subdomains via CCIP-Read solved the scale problem without leaving L1.
-- Staying on L1 preserves the maximalist censorship-resistance story: ENS records anchored to Ethereum mainnet.
-
-Vitalik Buterin publicly supported the stay-on-L1 decision, noting that ETH names and records show high-value state that benefits from direct L1 accessibility.
-
-Net effect: ENS is Ethereum-L1-resident going forward, with off-chain backing for cheap subdomains.
-
-Resources:
-
-- [ENS abandons Namechain L2](https://cointelegraph.com/a/ens-abandons-plans-for-namechain-l2-citing-ethereum-scaling/) — Cointelegraph, Feb 2026
-- [Nick Johnson blog post](https://twitter.com/ nick.eth/status/1874567890123456789) — Feb 2026
-- [TradingView analysis](https://www.tradingview.com/news/cointelegraph:2f15d6047094b:0/) — Feb 2026
+The November Surge proposal predates the February decision. It is not evidence that Namechain was revived in August or September 2026.
 
 ## DNSSEC integration
 
@@ -222,7 +206,7 @@ A `.com` holder uses DNSSEC to claim the matching ENS namespace, then migrates s
 - **Institutional adoption signal (June 2026)** — The Republic of Türkiye Directorate of Communications registered `cbiletisim.eth` as its official decentralized identity, featured in Ankara at Türkiye's AI and blockchain initiative. First major government adoption of ENS.
 - **ENS Labs × Immunefi $70K audit competition (Aug 18–Sep 14, 2026)** — 4-week audit competition for the new ENS Manager + ENS Explorer + supporting app infrastructure (Workers, Transaction-manager, Smart-account). 137,845 LOC, 306 reports submitted, 20 confirmed valid, 56 under review (Aug 31 snapshot). **Closed Sep 14 11:00 UTC on schedule** (vault TVL $69,981.17 Sep 21, declined $8 from Sep 14 close). Sep 20 ENS deadline to resolve all reports; Sep 28 results frozen; Sep 29 final 48-hour dispute window closes; **Oct 26 payment + public results publication**. Gating step before ENSv2 mainnet deployment.
 - **"Next Era of ENS DAO" Foundation proposal PASSED Aug 9** (1.27M For / 480.69K Against) — ENS Foundation is now an operating entity with a five-seat board (Nick Johnson, Alexander Urbelis as Executive Director, Kartik Talwar, Brett Sun, Anthony Leutenegger); Foundation administers the ~$65M Endowment + 1M ENS for compensation; DAO keeps 54.6M ENS + $16M wallet.
-- **ENS→Namechain reversal revisited Aug-Sep 2026** — ENS Labs [blog post "Why We're Moving Namechain to Nethermind's Surge"](https://ens.domains/blog/post/namechain-nethermind-surge) confirms Stage-1 launch with Stage-2 path on Taiko-based stack; Nethermind is architect/builder. **Trade-off per ENS**: "more complex engineering, deeper coordination with Ethereum's roadmap, and potentially accepting some initial performance tradeoffs." This is a partial reversal of the Feb 2026 stay-on-L1 decision — Namechain returns as a ZK-rollup, but the v2 contracts stay on L1 with Namechain as the L2 they ultimately migrate to.
+- **Namechain status** — the Surge architecture post is dated 17 November 2025. ENS’s 6 February 2026 announcement supersedes it: ENSv2 on Ethereum L1, with Namechain development ceased.
 - **ENS DAO Newsletter #120 (Sep 15, 2026)** — most DAO-content-rich newsletter of Q3:
   - **ENS token-transparency filing** (Blockworks report) — investors told `$ENS` holders can delegate votes but have **no dividend or revenue-distribution rights**.
   - **ENS as Registry Layer for Tokenized Assets** (ENS Labs blog) — pitches ENSv2 hierarchical registries to the tokenized-asset issuer ecosystem.
@@ -238,11 +222,14 @@ A `.com` holder uses DNSSEC to claim the matching ENS namespace, then migrates s
   - **SafeNotes shutting down** (Meta-Governance declines continued support).
 - **ENSIP-31: Payment Preferences (Sep 17, 2026)** — Unruggable Labs / nxt3d. Standardizes **recipient-side chain routing** at the protocol layer via ENSIP-24 data records with key `payment-preference[<multichainTokenHash>]`. Recipients publish an ordered, token-specific list of preferred chains; wallets read before resolving the receiving address. **Open question** — how to fingerprint a multichain token (symbols aren't canonical; addresses are per-chain; ENSIP-31 currently hashes an immutable snapshot of chain-specific token representations). Draft PR [ensdomains/ensips#87](https://github.com/ensdomains/ensips/pull/87). Forum: [discuss.ens.domains/t/ensip-31-payment-preferences/22431](https://discuss.ens.domains/t/ensip-31-payment-preferences/22431). This is the **first ENSIP of 2026 to standardize recipient-side routing intent at the protocol layer**.
 - **ENSv2 plugin for MetaMask Agent Wallet v0.8.0 (Sep 15, 2026)** — package `@estmcmxci/mm-plugin-ensv2` adds Sepolia ENSv2 resolution, registration, records, primary names, and **ERC-8004 agent identity** to the MetaMask Agent Wallet CLI. First ENSv2 SDK path through the MetaMask Agent Wallet surface. **Sepolia only — mainnet blocked on audit close + ENS Labs + DAO go/no-go from Oct 26 onwards.**
-- **Nethermind Surge writeup (Sep 2026)** — formalizes Namechain architecture (based-rollup on Taiko Labs stack, Nethermind Client as foundational execution layer, Surge as the based-rollup framework). **Stage-1 launch** (Sepolia) with explicit Stage-2 path.
+- **Earlier Surge proposal** — the official ENS post describes a proposed rollup architecture in November 2025, before the February 2026 decision to stop Namechain development.
 - **ICANN TSG on gTLD Integrations with Alternative Naming Systems — public comment Aug 10–Sep 21, 2026** — the only formal ICANN venue open in Q3 2026 specifically addressing whether a gTLD can be integrated with the same domain name in an alternative naming system (blockchain, mesh, DHT-based). Closes TODAY Sep 21. This is the single highest-signal ICANN policy event for the decentralized-DNS stack in Q3 2026.
 - **Root KSK rollover — Oct 11, 2026 hard cutover; T-20 days as of Sep 21**; old-key retirement Jan 2027. Only scheduled global DNS event in 2026.
 
 ## Primary sources
+
+- [ENS is staying on Ethereum, 6 February 2026](https://ens.domains/blog/post/ens-staying-on-ethereum)
+- [Earlier Namechain/Surge proposal, 17 November 2025](https://ens.domains/blog/post/namechain-nethermind-surge)
 
 - ENS docs — [docs.ens.domains](https://docs.ens.domains).
 - ENS protocol — [ens.domains](https://ens.domains).

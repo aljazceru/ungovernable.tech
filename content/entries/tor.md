@@ -6,7 +6,7 @@ pillars: ["anonymity", "circumvention"]
 readiness: battle-tested
 description: "Tor, the most widely used anonymity network: three-hop onion routing, onion services, bridges and pluggable transports, and what it does not protect."
 dek: "The reference low-latency anonymity network. Three-hop onion-routed circuits, around 7000 relays, used by millions every day for browsing, hidden services, and as transport for many of the other systems in this library."
-updated: 2026-09-04
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "08-Mix-Networks/Tor.md"
@@ -104,7 +104,7 @@ For threat models that include a global passive adversary, see [Nym](/kb/nym/), 
 
 ## 2026 maintenance status
 
-Tor Browser 15.0.13 (2026-05-08) is the latest stable release, an emergency update following 15.0.12 and 15.0.11 in rapid succession. The 15.0.x series tracks Firefox ESR 140.x; 15.0.13 backports security fixes from Firefox and addresses a Tor Browser-specific vulnerability. The release cadence (three emergency patches in one week) reflects ongoing pressure on the browser attack surface rather than a systemic crisis.
+Use the [Tor Project download page](https://www.torproject.org/download/) for the current Tor Browser release and its signature. This entry does not pin a browser version.
 
 Arti 2.3.0 (2026-05-07) continues the relay/directory/RPC development trajectory. New in 2.3.0: `syslog` logging support, a `logging.protocol_warnings` option to surface protocol violations, RPC API additions for tunnel-path inspection, and ongoing work toward Arti-as-relay and Arti-as-directory-authority. The minimum macOS version bumped to 10.14. A breaking change is flagged for the next release: `TorClient` will explicitly require `Arc` wrapping instead of implicit `Arc`-like semantics — downstream `arti-client` crate users should monitor [#2469](https://gitlab.torproject.org/tpo/core/arti/-/work_items/2469).
 
@@ -173,21 +173,13 @@ Confidential-AI inference reachable only at a `.onion`, with attested TLS pinned
 - PoW for hidden-service DoS, which works around resource-exhaustion attacks during high-demand periods.
 - Vanguards-Lite, a second-layer guard discipline for hidden services.
 
-## September 04, 2026 Update — Arti 2.6.0; Tor Browser 15.0.21; 0.4.8 EOL; Tails 2-week cadence
+## Staying current
 
-Three Tor Project releases land within four days (Sep 1–3), all interlocking:
-
-- **Arti 2.6.0 (Sep 1)** — *Counter Galois Onion* and *Congestion Control* now **always-on** in `arti`. Both were opt-in/experimental in 2.5.x; promoting both in the same release is the prerequisite for using Arti as a relay — a relay that only understood CGO traffic and a client that only understood pre-CGO traffic would silently drop each other's cells. Other 2.6.0 work: document parsing, directory mirror support, DNS stream handling, RPC-based configuration. The relay + dirauth build-out continues.
-- **Tor Browser 15.0.21 (Sep 1)** — rebases stable onto **Firefox 140.15.0esr**, OpenSSL 3.5.8, NoScript 13.6.32.1984, Go 1.25.14, GeckoView 140.15.0esr; backports Firefox 155 security fixes; parent-process TorConnect redirection fix; 32-bit Linux retirement message adjusted.
-- **Tor Browser 16.0a11 (Sep 2)** — alpha that will become 16.0 stable; with the new cadence, 15.0.21 and 16.0a11 land in the same week.
-- **Tails 7.12 (Sep 3)** — *first release on Firefox's new 2-week release cadence*. Electrum 4.8.1, Tor Browser 15.0.21 inside. **Tails, Tor Browser, and Firefox now ship on the same clock**, so the lag from "Firefox security release" to "Tails users get the patch" drops from ~4–6 weeks to ~2 weeks.
-- **Tor 0.4.8 deprecation cut-off (Sep 1)** — un-upgraded relays, onion services, and Tor-embedded apps lose connectivity to the network once the deprecated directory fields are removed. Tor Project guidance is "upgrade to Tor 0.4.9 series or later before September 1, 2026." Tor Browser users are unaffected directly.
-
-**Network metrics (Sep 1)**: 10,137 relays (Exit 3,268 / Fast 9,987 / Guard 6,155 / HSDir 3,015 / Stable 9,059). Aug 31 dipped to 10,060 — likely the 0.4.8 EOL taking its first tranche — with Sep 1 partial recovery to 10,137. The network has absorbed the cut without drama.
-
-See [Mix Networks Friday — September 04 2026 Weekly Update](/briefings/mix-networks/2026-09-04/) for the full weekly delta.
+Get Tor Browser and release information from the Tor Project’s download page. Check the release offered for your platform when installing or updating.
 
 ## Primary sources
+
+- [Tor Browser downloads](https://www.torproject.org/download/)
 
 - Dingledine, Mathewson, Syverson, *Tor: The Second-Generation Onion Router*, USENIX Security 2004. [svn-archive.torproject.org/svn/projects/design-paper/tor-design.pdf](https://svn.torproject.org/svn/projects/design-paper/tor-design.pdf)
 - Tor Specification — [spec.torproject.org](https://spec.torproject.org)

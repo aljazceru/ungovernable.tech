@@ -5,7 +5,7 @@ type: explainer
 pillars: ["naming"]
 description: "Naming without ICANN, registrars or certificate authorities: blockchain registries, key-rooted names and overlay names compared by how sovereign they are."
 dek: "Naming systems that don't depend on ICANN, a TLD registrar, or a CA. Seizure, sanctions, and content-based takedowns flow through exactly those three places."
-updated: 2026-08-24
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "03-Decentralized-DNS/Overview - Decentralized DNS.md"
@@ -49,7 +49,7 @@ The structural issue is that legacy DNS ties a name to a registrar's database ro
 | 2023 | PKARR / Pubky | DHT-based naming on existing P2P infrastructure |
 | 2023 | GNS RFC 9498 | GNS standardized |
 | 2024 | ENS gas reductions | Lower registration cost after L1 throughput improvements |
-| 2025 | GNUnet 0.26.0 | RFC 9498 GNS in production |
+| 2025 | GNUnet 0.26.0 | GNS implementation; GNUnet remains early alpha |
 | Aug 2025 | Handshake soft fork | Airdrop claims ended; HNS supply cut ~56% (2.04B → 889M); bullish for miners and investors |
 | Feb 2026 | ENS stays on L1 | Nick Johnson abandons Namechain L2, focuses on L1 scaling |
 | Mar 2026 | GNUnet 0.27.0 | GNS improved; new major release |
@@ -107,7 +107,7 @@ Replaces the DNS root zone with a blockchain. You can own your own TLD.
 |---------|--------|
 | Registry | Handshake blockchain |
 | TLD | Any (you own your own root) |
-| Cost | One-time (auction + renewal) |
+| Registration and renewal | Auction followed by periodic renewal transactions; names expire without renewal |
 | Resolution | Handshake resolvers |
 | Mining | PoW-style mining |
 | Governance | Permissionless |
@@ -366,6 +366,11 @@ The lesson for an Ungovernable.tech stack: **blockchain-anchored ownership is no
 | DNS hijacking | Traditional resolvers | DNSSEC, DANE |
 
 ## Primary sources
+
+- [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+- [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+
+- [GNUnet software status](https://www.gnunet.org/en/about.html)
 
 ### Documentation and specs
 

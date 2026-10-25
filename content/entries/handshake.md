@@ -6,7 +6,7 @@ pillars: ["naming"]
 readiness: usable
 description: "Handshake replaces the DNS root zone with a permissionless blockchain auction of top-level domains: how it works, how to resolve names, and its adoption."
 dek: "The most ambitious decentralized naming project: replace the DNS root zone itself with a permissionless blockchain. Niche in adoption, distinctive in design, and architecturally relevant beyond its market footprint. As of August 2026: post-halving landscape (block reward halved Jul 22, 1000 HNS/block), Namecheap exited all HNS TLD support (Jun 10), token down 99.8% from ATH ($0.85 → ~$0.002), 62% weekly bounce from ATL on low volume. Community views the halving + infrastructure exits as opportunity for decentralization, but the browser integration gap remains the fundamental barrier."
-updated: 2026-08-03
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "03-Decentralized-DNS/Handshake.md"
@@ -49,7 +49,7 @@ Effects:
 
 ### Names
 
-Hundreds of thousands of TLDs are registered. The "good" ones (short, memorable, generic) went in early auctions for substantial HNS. The "bad" ones (long, niche) are essentially free.
+Names require renewal. hsd accepts a `RENEW` covenant and expires a name when the chain height reaches its last renewal height plus the mainnet renewal window: `(2 × 365) × blocksPerDay`, approximately two years. Ownership is not a permanent registration without renewal.
 
 ### Resolution
 
@@ -69,7 +69,7 @@ A user runs a local Handshake-aware resolver, configures their OS to use it, and
 
 ## Mining and consensus
 
-- PoW (Cuckoo Cycle variant; ASIC-friendly Cuckatoo32 since the early 2020s).
+- Proof of work combines BLAKE2b and SHA3 in hsd’s block-header hash.
 - Block time ~10 minutes.
 - Halving every 170,000 blocks (~3.25 years at 10-minute blocks).
 - Total supply 2.04B HNS, mostly distributed via auction-name burns.
@@ -152,7 +152,7 @@ Adoption is small but committed. Cloudflare experimentally resolved Handshake; t
 
 | Attack | Mitigation |
 |--------|-----------|
-| 51% attack on Handshake chain | Cuckatoo32 PoW raises cost; small attack-surface concern relative to ENS |
+| 51% attack on Handshake chain | BLAKE2b + SHA3 proof of work; mining remains a trust boundary |
 | Front-running auction reveals | Sealed bids; commit-reveal scheme |
 | Compromised resolver | Run your own |
 | Phishing via homoglyph TLD | Petname systems; resolver-side warnings |
@@ -181,7 +181,7 @@ Some Handshake names alias to ICANN names via DNS records. A user resolves `mybr
 ## Recent developments (2024-2026)
 
 - First halving (April 2024) cut supply.
-- Cuckatoo32 ASIC rollout has stabilized hashrate.
+- hsd implements BLAKE2b + SHA3 proof of work.
 - HNS-aware browsers (Beacon, Fingertip) are maintained but niche.
 - Cloudflare's HNS resolver retired; the community runs alternatives.
 - Handshake-as-identity experiments tying Handshake names to PGP and DID workflows; small-scale.
@@ -193,9 +193,7 @@ Some Handshake names alias to ICANN names via DNS records. A user resolves `mybr
 
 ## Primary sources
 
-- Handshake Whitepaper — [handshake.org](https://handshake.org/files/handshake.txt).
-- hsd (Handshake daemon) — [github.com/handshake-org/hsd](https://github.com/handshake-org/hsd).
-- hnsd (light client) — [github.com/handshake-org/hnsd](https://github.com/handshake-org/hnsd).
-- Cuckoo Cycle — Tromp, [github.com/tromp/cuckoo](https://github.com/tromp/cuckoo).
-- DANE — RFC 6698.
-- Beacon Browser — [beacon.cloud](https://beacon.cloud).
+- [hsd block-header proof-of-work hash](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+- [hsd mainnet name-renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+- [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+- [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)

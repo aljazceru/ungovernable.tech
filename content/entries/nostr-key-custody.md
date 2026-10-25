@@ -5,7 +5,7 @@ type: guide
 pillars: ["identity", "endpoint"]
 description: "Keeping a Nostr key safe and usable for years: signers, bunkers, hardware, backups, social recovery and what to do when a key is compromised."
 dek: "The hard part of key-rooted identity is not generating a key. It is keeping the key usable for years without turning every phone, web app, browser extension, and backup file into an account-takeover risk. Nostr is the best live laboratory for this problem because the public key is the account."
-updated: 2026-05-31
+updated: 2026-10-25
 created: 2026-05-03
 origin: vault
 source: "11-Identity/Nostr Key Custody and Recovery.md"
@@ -135,7 +135,7 @@ This is workable for low-stakes identities but fragile for high-reputation publi
 
 Possible mitigation patterns:
 
-- **Cold root + hot delegates**: use NIP-26 or app-specific delegation where supported.
+- **Separate signing from the client**: use a signer under your control. NIP-26 delegation is marked unrecommended; NIP-46 remote signing does not require NIP-26.
 - **Bunker root**: put the main key behind NIP-46 with strict policies.
 - **Threshold root**: use Frostr for the main identity and per-device authorization for daily apps.
 - **Pinned aliases**: maintain a website, NIP-05 record, ENS name, and OpenPGP/Keyoxide proof that can help humans discover a rotation.
@@ -166,7 +166,7 @@ For ungovernable infrastructure, this is important because agents will increasin
 | Igloo Server | Self-hostable signer | Active repo; MIT; TypeScript | Home-server custody without making the server the whole secret |
 | NIP-07 | Browser signer interface | Widely deployed | Lowest-friction web-client interoperability |
 | RFC 9591 (FROST) | Threshold Schnorr spec | IRTF stable since June 2024 | Normative reference for Frostr library implementations; nonce reuse is the critical implementation footgun |
-| NIP-26 revocation (issue #654) | Delegation revocation | Open NIP proposal | Root-key-signed revocation certificate would close the delegation expiry gap; currently no revocation mechanism |
+| NIP-26 delegation | Delegated event signing | Unrecommended | Do not base a new custody plan on this proposal |
 | rust-nostr/nostr-signer | CLI signer | Archived reference | Historical implementation; not the active path |
 | Keychat OpenClaw | Agent identity / E2EE | Early, AGPL, small repo | Shows agent-public-key pattern beyond human social clients |
 | FROST NIST submission | EdDSA threshold standard | Active NIST Threshold Call; MPTS 2026 preview | Path toward government-standardized threshold EdDSA; relevant for Frostr auditability |
@@ -226,13 +226,13 @@ FROSTR-ORG/bifrost shows a commit gap from February to May 2026. This likely ref
 
 [forgesworn/bark](https://github.com/forgesworn/bark) is a small but notable project: it bridges web apps that expect the NIP-07 `window.nostr` API to any NIP-46 bunker. This means any existing NIP-07 web client can immediately use a NIP-46 signer without code changes. The bridge pattern is important because it means the ecosystem doesn't need every client to implement NIP-46 natively — they just use NIP-07, and the bunker handles the NIP-46 protocol. Last push 2026-05-25 confirms active maintenance.
 
-### NIP-26 revocation: still open, still the critical gap
+### NIP-26: unrecommended
 
-GitHub issue nostr-protocol/nips#654 remains open. The proposed root-key-signed revocation certificate for NIP-26 delegation is the right design: it lets a compromised delegate key be burned immediately via a signed event distributed to relays, rather than waiting for natural expiry. This matters most in the NIP-46 remote signing flow where delegation keys are commonly used for UX convenience. Until this lands as a NIP, the practical mitigations are short-expiry delegations and monitoring for unexpected delegation use.
+The NIPs README marks NIP-26 as unrecommended. A revocation proposal does not change that status. NIP-46 provides remote signing without requiring delegated event signatures; use its own signing and permission model when evaluating a signer.
 
 ### Threshold signing for AI agents and organizations
 
-The custody patterns documented in this file apply equally to AI agents operating on Nostr. An agent with a raw `nsec` in a `.env` file has the same single-point-of-failure problem as a human pasting a key into every app. The emerging pattern: scoped delegate keys for agents (NIP-26), policy signers that approve or reject specific event kinds, and threshold custody for organizational Nostr identities where multiple operators must cooperate for high-impact posts or payments.
+For automated services and organizations, keep signing authority separate from application code and scope the signer’s permissions. Do not use unrecommended NIP-26 delegation as the default custody design.
 
 ### FROST at NIST MPTS 2026 — EdDSA threshold submission active
 
@@ -257,6 +257,9 @@ The Hermine team (including Guilhem Niot and collaborators) submitted Hermine as
 The Bitcoin 2026 Conference (May 15, 2026) featured a panel on "Protocol vs Platform: Nostr's Utility Beyond Social Media" covering Nostr-powered AI integrations, MLS encrypted messaging, WoT curation, decentralized GitHub alternatives, and the "Notes and Other Stuff" ecosystem. Panelists included William Casarin (Damus), Jeff Gardner (White Noise), and David Strayhorn (NosFabrica). The discussion specifically addressed how Nostr's key-based identity model extends beyond microblogging to decentralized exchange (Mostro P2P Bitcoin trading), AI agent identity, and open internet infrastructure — directly connecting custody solutions (NIP-46 bunkers, Amber, Frostr) to real-world use cases where losing the key means losing the business relationship.
 
 ## Primary sources
+
+- [NIPs README: NIP-26 is unrecommended](https://github.com/nostr-protocol/nips)
+- [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
 - [NIP-46 — Nostr Remote Signing](https://nips.nostr.com/46)
 - [NIP-07 — `window.nostr` browser signer API](https://nips.nostr.com/07)
 - [NIP-26 — Delegated Event Signing](https://nips.nostr.com/26)

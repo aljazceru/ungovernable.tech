@@ -6,7 +6,7 @@ pillars: ["identity"]
 readiness: usable
 description: "Bluesky's AT Protocol identity model: portable signed repositories anchored to did:plc or did:web, and how much of it depends on Bluesky itself."
 dek: "Bluesky's identity model: signed, portable user repositories anchored to a DID, with did:plc as the operationally centralized log Bluesky runs while the data model leaves room for future decentralization. This file looks at how the architecture actually works in 2026 and where the centralization sits."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "11-Identity/AT Protocol and did-plc.md"
@@ -168,7 +168,7 @@ The catch: **the migration depends on plc.directory**. Bluesky operating the log
 |----------|----------------------|---------------|
 | **Identifier** | Opaque DID + portable | Public key (npub) |
 | **Identity registry** | plc.directory (centralized) | None |
-| **Rotation** | Yes, via signed PLC operations | Not native (NIP-26 delegation; FROST experiments) |
+| **Rotation** | Yes, via signed PLC operations | Not native; NIP-26 delegation is unrecommended |
 | **Account portability** | Yes (PDS migration via DID update) | Trivial (key works on any relay) |
 | **Hosting** | PDS holds repository | Relays hold events; user-signed |
 | **Recovery** | Rotation keys held offline | None native; external schemes (FROST, multisig) |
@@ -237,6 +237,8 @@ As of early 2026, none of these have moved. plc.directory remains operationally 
 | End-to-end encrypted messaging | Not a fit; ATProto is public by design (use Marmot on Nostr or Signal) |
 
 ## Primary sources
+
+- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
 
 - Bluesky, *AT Protocol Specification*, `atproto.com/specs/atp`.
 - Bluesky, *did:plc method spec*, `github.com/did-method-plc/did-method-plc`.

@@ -6,7 +6,7 @@ pillars: ["zk", "identity"]
 readiness: usable
 description: "Semaphore lets a member of a group send a signal, such as a vote, proving membership in zero knowledge without revealing which member they are."
 dek: "A small, focused ZK primitive: prove \"I am a member of this group, and here is a fresh signal\" without revealing which member you are. Built by Privacy & Scaling Explorations (PSE) at the Ethereum Foundation. The construction is two pieces — a Merkle inclusion proof of group membership and a nullifier that prevents the same identity from signaling twice on the same topic. Almost every \"anonymous voting\" or \"sybil-resistant pseudonym\" system on Ethereum traces back to Semaphore."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "09-Zero-Knowledge/Semaphore.md"
@@ -24,7 +24,7 @@ A Semaphore proof attests three things at once:
 2. The prover is sending a *signal* (an arbitrary message or vote).
 3. The prover has produced a *nullifier* that uniquely identifies "this identity, on this external topic" — preventing them from signaling twice.
 
-The verifier learns the signal, the group root, the external topic (called the "external nullifier"), and the nullifier hash. The verifier does *not* learn which member of the group signaled.
+In Semaphore v4, the verifier learns the message, the group root, the scope and the nullifier. The verifier does *not* learn which member of the group signaled.
 
 That's the entire primitive. Everything else — anonymous voting, anonymous reputation, pseudonymous chat — is built by composing Semaphore with application logic.
 
@@ -32,53 +32,27 @@ That's the entire primitive. Everything else — anonymous voting, anonymous rep
 
 ### Identity
 
-A Semaphore identity is two secrets:
-
-- `trapdoor` — a random scalar.
-- `nullifier` — a random scalar (separate from the protocol-level nullifier hash).
-
-The *identity commitment* is `Poseidon(trapdoor, nullifier)`. This commitment is what gets added to the group's Merkle tree.
+A Semaphore v4 identity contains an EdDSA private key, its public key and an identity commitment. The commitment is the Poseidon hash of the public key and is the value added to the group’s Merkle tree. Keep the private key secret; the commitment is public.
 
 ### Group
 
-A group is a Merkle tree (Poseidon-hashed) of identity commitments. The group root is public. Adding/removing members updates the root.
+A group is a Merkle tree of identity commitments. A membership proof shows that the prover’s commitment belongs to the tree without revealing which leaf it is.
 
 ### Proving
 
-To signal, the prover:
+The circuit takes the EdDSA secret scalar derived from the private key and a private Merkle path. It derives the public key, hashes it into the identity commitment, and checks membership against the public Merkle root.
 
-1. Computes the Merkle path from their identity commitment to the root.
-2. Picks an *external nullifier* (the topic — a vote ID, a chat-room ID, a poll ID).
-3. Computes `nullifierHash = Poseidon(externalNullifier, identityNullifier)`.
-4. Generates a SNARK proving:
-   - I know `trapdoor`, `nullifier` such that `Poseidon(trapdoor, nullifier)` is in the Merkle tree at root `R`.
-   - `nullifierHash` is correctly computed from `externalNullifier` and `nullifier`.
-   - The `signal` is bound to the proof (committed in the public inputs).
-
-The proof is published with `(root, nullifierHash, externalNullifier, signal, proof)`. The verifier checks the SNARK and checks that `nullifierHash` hasn't been seen before for this `externalNullifier`.
+The public `scope` identifies the topic on which a member may act once. The circuit hashes the secret scalar with the scope to produce the `nullifier`, and binds the public `message` to the proof. The application checks the proof and rejects a nullifier already used for that scope.
 
 ### Proof system
 
-Original Semaphore (v1-v3, 2019-2023): **Groth16** circuits via Circom, BN254. See [SNARKs](/kb/snarks/).
-
-Semaphore v4 (2024): rewritten with a new circuit toolchain (Noir support, plus PLONK-derivative proving via Honk/UltraHonk for compatibility with newer SNARK stacks). The protocol-level construction is unchanged; the proof system is modernized for smaller proofs and faster client-side proving.
-
-The migration to a more modern proof system also enabled mobile-friendly proving times — Semaphore v3 took several seconds on a phone; v4 is targeting sub-second proofs for typical group sizes.
+The reference v4 implementation uses a Circom circuit and Groth16 proof generation through snarkjs. Its identity construction differs from the older trapdoor/nullifier identity model. See [SNARKs](/kb/snarks/) for the proof-system trade-offs.
 
 ## Group sizes and trade-offs
 
-Semaphore's circuit is parameterized by the Merkle tree depth `d`. Larger `d` allows more members but increases prover time roughly linearly in `d`.
+Proof generation selects artifacts for a circuit depth that accommodates the membership path. When no depth is supplied, the reference API chooses it from the actual Merkle proof length, with a minimum depth of one. It pads the path to the selected circuit depth before generating the proof.
 
-Typical depths:
-
-| Depth | Max group size | Use case |
-|-------|----------------|----------|
-| 16 | ~65k | small DAOs, voting committees |
-| 20 | ~1M | mid-size communities |
-| 30 | ~1B | large pseudonymous systems |
-| 32 | ~4B | hardware-limited maximum |
-
-The group's commitment tree is stored on-chain (or in a publicly verifiable database); the depth is fixed at deployment.
+This makes circuit capacity and the available proving artifacts relevant to group size; it does not require the group to remain at a single fixed tree depth throughout its lifetime.
 
 ## Applications
 
@@ -96,7 +70,7 @@ The collusion resistance comes from a separate mechanism (key-rotation messages)
 
 Heyanon and Sealcaster let a user post messages signed as "a member of [group X]" — for example, "a Uniswap LP holder," "a Farcaster early user." The proof attests group membership without revealing which member. Useful for whistleblowing, anonymous endorsements, or pseudonymous community participation.
 
-The signal is the message; the external nullifier is typically the topic or thread ID, so the same identity can post once per topic without being doxed across topics.
+The message is public; the scope can be a topic or thread ID. The verifier uses the scope-bound nullifier to reject repeated actions from the same identity.
 
 ### Anonymous attestations and credentials
 
@@ -146,8 +120,8 @@ Semaphore is the right tool when you have a known group, want anonymity within i
 - The group registry is a trust assumption. Whoever can add members controls who can speak.
 - Anonymity set bounded by group size and *active* members (a 1M-member group with 5 active users gives at-most-5 anonymity).
 - Same-identity-twice-on-same-topic is impossible by design — sometimes a feature, sometimes a constraint.
-- The Merkle tree depth is fixed; very large groups need re-deployment.
-- Proof size and prover cost scale with depth.
+- The membership path must fit the selected circuit depth and proving artifacts.
+- Proving requires the circuit artifacts for the selected depth.
 
 ## Implementation notes
 
@@ -155,7 +129,7 @@ The primary implementation is `semaphore-protocol/semaphore` on GitHub, maintain
 
 - Solidity contracts for on-chain group management and verifier.
 - JavaScript/TypeScript SDK for proof generation and verification.
-- Circom circuits (v3) and a v4 circuit set with newer proving stacks.
+- Circom circuits and Groth16 proof generation for v4.
 - Mobile (React Native) and Rust prover bindings.
 
 Integrating Semaphore is mostly: deploy the verifier contract, define your group-management logic, generate identity commitments client-side, generate proofs client-side, submit proofs to your application contract.
@@ -172,11 +146,8 @@ Integrating Semaphore is mostly: deploy the verifier contract, define your group
 
 ## Primary sources
 
-- Semaphore Protocol — [semaphore.pse.dev](https://semaphore.pse.dev).
-- Semaphore source — [github.com/semaphore-protocol/semaphore](https://github.com/semaphore-protocol/semaphore).
-- PSE — [pse.dev](https://pse.dev).
-- Buterin et al., *MACI: Minimal Anti-Collusion Infrastructure*, EthResearch 2019.
-- Liu et al., *UniRep: Universal Reputation Protocol*, PSE 2022 — [github.com/Unirep](https://github.com/Unirep).
-- Heyanon — [heyanon.xyz](https://heyanon.xyz).
-- Sealcaster (Farcaster integration).
-- Poseidon hash — Grassi, Khovratovich, Rechberger, Roy, Schofnegger, *Poseidon: A New Hash Function for Zero-Knowledge Proof Systems*, USENIX Security 2021.
+- [Semaphore v4 identities](https://docs.semaphore.pse.dev/guides/identities)
+- [Semaphore v4 circuit inputs and outputs](https://docs.semaphore.pse.dev/technical-reference/circuits)
+- [Semaphore reference proof generation](https://github.com/semaphore-protocol/semaphore/blob/main/packages/proof/src/generate-proof.ts)
+- [Semaphore v4 identity commitment implementation](https://github.com/semaphore-protocol/semaphore/blob/main/packages/identity/src/index.ts)
+- [Semaphore v4 Circom circuit](https://github.com/semaphore-protocol/semaphore/blob/main/packages/circuits/src/semaphore.circom)

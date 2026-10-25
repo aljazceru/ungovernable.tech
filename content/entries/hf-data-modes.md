@@ -6,7 +6,7 @@ pillars: ["mesh"]
 readiness: battle-tested
 description: "Text and email over shortwave radio, from Winlink to JS8Call and VARA: continental links that survive when the internet and local networks fail."
 dek: "Amateur-radio data over high-frequency shortwave (3-30 MHz). Continental and intercontinental text and email links that survive when the internet, cellular, and satellite paths are gone, at the cost of bandwidth measured in kilobits per second and a regulatory regime that prohibits encryption on most amateur bands."
-updated: 2026-04-26
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "05-Off-Grid-Networks/HF Data Modes.md"
@@ -36,13 +36,14 @@ The CEPT system harmonizes amateur licensing across most of Europe and reciproca
 
 The crucial constraint for security work: **47 CFR §97.113(a)(4)** in the US, and equivalent rules in most ITU jurisdictions, prohibit "messages encoded for the purpose of obscuring their meaning" on amateur bands. Authentication signatures and obfuscation for compression are tolerated; symmetric or public-key encryption of message content is not.
 
-This is fundamentally different from MURS, GMRS, FRS, ISM, or Part 15 unlicensed services, where encryption is permitted (or in some cases mandated by the carrier protocol). In the US:
+The US services have separate rules. GMRS explicitly prohibits coded messages or messages with hidden meanings, with an exception for “10 codes.” The cited FRS and MURS sections regulate other uses; neither section establishes a blanket permission to encrypt.
 
-| Service | Encryption legal? |
+| Service | What the cited rule says |
 |---------|--------------------|
 | Amateur HF/VHF/UHF (Part 97) | No (content obfuscation prohibited) |
-| MURS / GMRS / FRS | Voice yes (analog), commercial use restricted |
-| ISM 433/868/915 MHz (Part 15) | Yes (LoRa, Meshtastic) |
+| GMRS — §95.1733(a)(3) | Prohibits coded messages and messages with hidden meanings; “10 codes” are permissible. |
+| FRS — §95.533 | Prohibits one-way communications except the listed exceptions; it does not state an encryption permission. |
+| MURS — §95.2733 | Prohibits repeater and signal-booster operation, including store-and-forward packet operation; it does not state an encryption permission. |
 | Citizens Band (Part 95) | No |
 
 For privacy-sensitive traffic, the realistic threat model is: anyone within radio range, including state SIGINT, can read your HF data. Use HF for emergency coordination, position reports, and traffic that would already be plaintext on the public internet, not for confidential matter.
@@ -161,6 +162,10 @@ A complete portable HF data setup fits in a backpack at 7-10 kg.
 - FreeDATA: small but growing as an open-source escape hatch from VARA.
 
 ## Primary sources
+
+- [47 CFR 95.1733: prohibited GMRS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E/section-95.1733)
+- [47 CFR 95.533: prohibited FRS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-B/section-95.533)
+- [47 CFR 95.2733: prohibited MURS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-J/section-95.2733)
 
 - 47 CFR §97.113 — US amateur radio prohibitions on encrypted communications. [ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97)
 - ITU Radio Regulations, Article 25 — international amateur service definitions.

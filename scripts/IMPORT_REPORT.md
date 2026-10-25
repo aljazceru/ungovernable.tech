@@ -55,10 +55,8 @@ Vault links with no site target; rendered as plain text (0 occurrences).
 Entries whose meta description could not be taken verbatim from the dek (first sentence too long or too short; cut at a clause boundary instead):
 
 
-## Entries with no external links in the body (26)
+## Entries with no external links in the body (19)
 
-- Bitcoin and the Post-Quantum Migration
-- Cashu and Chaumian Ecash
 - Confidential AI Inference
 - Confidential Computing Across Cloud Providers
 - Confidential Containers (CoCo)
@@ -71,16 +69,11 @@ Entries whose meta description could not be taken verbatim from the dek (first s
 - Map: Metadata Privacy
 - Map: Threat Models
 - Merkle Tree Certificates
-- NVIDIA GPU TEEs
-- Namecoin
-- Naming on Mesh and Off-Grid Networks
-- Private LLM Inference Patterns
 - Remote Attestation Architecture
 - Remote Signing (NIP-46 and Friends)
 - SLH-DSA (FIPS 205)
 - Stateful Hash-Based Signatures (XMSS, LMS)
 - TEE Side-Channel Attacks
 - The Dihedral Coset Attack Line
-- Unstoppable Domains
 - Zero-Knowledge Proofs
 

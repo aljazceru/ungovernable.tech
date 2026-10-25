@@ -4,8 +4,8 @@ slug: mesh-naming
 type: explainer
 pillars: ["naming", "mesh"]
 description: "How mesh and off-grid networks name things without the global DNS: key-derived addresses, local registries and naming on Yggdrasil, cjdns and Reticulum."
-dek: "Mesh networks don't run on the global DNS — they have to invent their own naming because there's no ICANN root zone, no registrar, and often no working internet connection. The two production answers are Yggdrasil (key-derived IPv6 over an encrypted overlay) and cjdns (key-derived IPv6 over a DHT). On top of these sit application-layer naming systems — Briar's contact-graph, IPFS's content addressing, Nostr's NIP-05, and PKARR zones — that compose the broader off-grid identity stack. See Overview - Decentralized DNS for the comparative landscape; Overlay Naming - Tor .onion and I2P for the parallel hidden-service naming systems."
-updated: 2026-06-22
+dek: "Mesh networks don't run on the global DNS — they have to invent their own naming because there's no ICANN root zone, no registrar, and often no working internet connection. Two overlay approaches are Yggdrasil (key-derived IPv6 over an encrypted overlay) and cjdns (key-derived IPv6 over a DHT). On top of these sit application-layer naming systems — Briar's contact-graph, IPFS's content addressing, Nostr's NIP-05, and PKARR zones — that compose the broader off-grid identity stack. See Overview - Decentralized DNS for the comparative landscape; Overlay Naming - Tor .onion and I2P for the parallel hidden-service naming systems."
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "03-Decentralized-DNS/Mesh & Off-Grid Naming.md"
@@ -226,7 +226,7 @@ The mesh address is the network identity; the overlay names (onion, PKARR, ENS) 
 
 ## Recent developments (2024–2026)
 
-- **Yggdrasil v0.5.12 (Dec 2024)** — stable release, embedded Go library released.
+- **Yggdrasil** — experimental, alpha-stage software; future changes may break compatibility.
 - **Briar 1.5.17 (March 2026)**, **Briar Desktop 0.6.0-beta (2026)** — active development continues.
 - **Embedded Yggdrasil in Go applications** (Asciimoth, dev.to, 2024) — easier integration of Yggdrasil as a library.
 - **PKARR over Yggdrasil** — community work on using PKARR's signed DNS records as a service-discovery layer for Yggdrasil services.
@@ -234,6 +234,8 @@ The mesh address is the network identity; the overlay names (onion, PKARR, ENS) 
 - **I2P and Tor v3** continue to be the production overlays; the off-grid side is increasingly composed of Yggdrasil + Briar + Pubky.
 
 ## Primary sources
+
+- [Yggdrasil project status](https://yggdrasil-network.github.io/)
 
 - Yggdrasil addressing — `yggdrasil-network.github.io/2018/07/28/addressing.html`.
 - Yggdrasil `yggdrasil-go` — `github.com/yggdrasil-network/yggdrasil-go`.

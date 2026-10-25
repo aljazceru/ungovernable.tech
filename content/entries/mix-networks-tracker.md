@@ -5,7 +5,7 @@ type: reference
 pillars: ["anonymity"]
 description: "A tracker of deployed and near-deployed anonymity networks and mixnet research: Tor, I2P, Nym, Katzenpost, HOPR and the papers behind them."
 dek: "A current-state tracker for the deployed and near-deployed anonymity-routing ecosystem: Tor, I2P, Nym, Katzenpost, HORNET, HOPR, and adjacent anonymity-network research. The point is not to crown one winner; it is to map which systems are usable today, which threat models they actually satisfy, and where freedom-tech builders should integrate next."
-updated: 2026-06-12
+updated: 2026-10-25
 created: 2026-05-08
 origin: vault
 source: "08-Mix-Networks/Mix Networks 2026 Research and Deployment Tracker.md"
@@ -50,7 +50,7 @@ Recent developments are less about inventing brand-new primitives and more about
 
 | System | 2026 maturity | Main implementation signal | Threat model | Development signal observed 2026-05-08 | Best fit |
 |---|---:|---|---|---|---|
-| [Tor](/kb/tor/) / Arti | Production network; Arti 2.3.0 relay/directory/RPC in May 2026 | Tor Browser 15.0.13 (May 8, 2026 emergency), Arti 2.3.0 (May 7), Tails 7.7.3 emergency (May 12) | Local/partial observer; not global passive | Rapid emergency release cadence (15.0.11/12/13 within 10 days); Arti 2.3.0 syslog, protocol_warnings, tunnel-path RPC; CGO relay encryption in development | Censorship evasion, onion services, universal SOCKS/HTTP proxy |
+| [Tor](/kb/tor/) / Arti | Production network; Arti 2.3.0 relay/directory/RPC in May 2026 | Tor Browser: current platform releases on the Tor Project download page | Local/partial observer; not global passive | Rapid emergency release cadence (15.0.11/12/13 within 10 days); Arti 2.3.0 syslog, protocol_warnings, tunnel-path RPC; CGO relay encryption in development | Censorship evasion, onion services, universal SOCKS/HTTP proxy |
 | [I2P](/kb/i2p/) | Production P2P private network | Java I2P, i2pd, SAMv3 app APIs | Peer-to-peer internal anonymity; vulnerable to large Sybil/spam pressure | `i2p/i2p.i2p`: ~2.5k GitHub stars, non-archived, pushed 2026-05-07; I2P 2.12.0 released April 2026 | Anonymous in-network services, BitTorrent, Bitcoin app transport experiments |
 | [Nym](/kb/nym/) | Production network + consumer VPN | Nym mixnet, NymVPN, zk-nyms | Global passive adversary under Loopix/cover-traffic assumptions | `nymtech/nym`: ~1.7k stars, non-archived Rust repo, pushed 2026-05-08; NymVPN v2026.7 shipped PQ key-exchange testing | Metadata-private RPC, async apps, high-stakes browsing, VPN-like UX |
 | [Katzenpost](/kb/katzenpost/) | Research-grade / federated alpha | Go mixnet stack, hpqc, threat-model docs | Global passive + harvest-now-decrypt-later emphasis | `katzenpost/katzenpost`: active Go repo, pushed 2026-05-07; 2024 threat model/literature/hpqc docs remain primary references | Federated deployments, PQ mixnet research, app-specific privacy systems |
@@ -61,7 +61,7 @@ Recent developments are less about inventing brand-new primitives and more about
 
 ### Tor and Arti
 
-Tor's 2026 story is the **rapid-response release cadence**, not any single feature. Tor Browser 15.0.11 (April 28), 15.0.12 (May 7), and 15.0.13 (May 8) followed each other within 10 days — the latter two explicitly labeled emergency patches. The Tails 7.7.x series (7.7, 7.7.1, 7.7.2, 7.7.3 — April-May 2026) similarly reflects emergency kernel and Tor Browser/client fixes. This is not evidence of systemic failure; it reflects an active attacker environment with a responsive security team.
+For a current Tor Browser installation, use the Tor Project’s download page and verify the supplied signature. Dated release observations are historical snapshots, not a current version recommendation.
 
 Arti 2.3.0 (May 7, 2026) continues the relay/directory/RPC development arc:
 - `syslog` logging support when the `syslog` feature is enabled.
@@ -176,7 +176,7 @@ For mixnet operators, this has a parallel: if Nym or Katzenpost develop analogou
 
 Three research developments from 2026 remain the reference points for mixnet advancement:
 
-**MOCHA** (ePrint 2026/861, IH&MMSEC 2025): The key insight is that optimizing mixnet parameters for message anonymity alone can produce configurations where client anonymity is dangerously low. The paper provides an algorithm to simulate client anonymity for Loopix mixnets. For Nym and Katzenpost operators, MOCHA's finding means that Poisson rate μ, cover traffic ratio, and layer count tuning requires measuring both message and client anonymity — a more complex optimization than the Loopix paper implied.
+**MOCHA** (ePrint 2025/861, IH&MMSEC 2025): The key insight is that optimizing mixnet parameters for message anonymity alone can produce configurations where client anonymity is dangerously low. The paper provides an algorithm to simulate client anonymity for Loopix mixnets. For Nym and Katzenpost operators, MOCHA's finding means that Poisson rate μ, cover traffic ratio, and layer count tuning requires measuring both message and client anonymity — a more complex optimization than the Loopix paper implied.
 
 **Outfox** (ACM SIGCOMM 2025): A simplified Sphinx variant for post-quantum layered mixnets, using a PQ KEM at the key encapsulation layer while preserving Sphinx's provable security properties (bitwise indistinguishability, per-hop unlinkability, tagging-attack resistance). Outfox is the architectural direction for any new mixnet design that wants PQ from scratch without the compatibility burden of the original Sphinx spec. Nym's PQ roadmap will likely converge on this approach.
 
@@ -224,10 +224,14 @@ HOPR (https://github.com/hoprnet/hoprnet) remains active as the most visible inc
 
 ## Primary sources
 
+- [Tor Browser downloads](https://www.torproject.org/download/)
+
+- [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
+
 ### Project documentation and release notes
 
 - Tor Project — Arti 2.3.0 release: https://blog.torproject.org/arti_2_3_0_released/
-- Tor Project — Tor Browser 15.0.13: https://blog.torproject.org/new-release-tor-browser-15013/
+- [Tor Browser downloads](https://www.torproject.org/download/) — current platform releases and signatures.
 - Tor Project — Tor Browser 15.0.12: https://blog.torproject.org/new-release-tor-browser-15012/
 - Tor Project — Tails 7.7.3 emergency: https://blog.torproject.org/new-release-tails-7_7_3/
 - Tor Project — Counter Galois Onion announcement: https://blog.torproject.org/introducing-cgo/

@@ -6,7 +6,7 @@ pillars: ["identity"]
 readiness: experimental
 description: "How Nostr uses the social graph to fight spam and rank content without central moderation: trust scores, NIPs, implementations and attacks."
 dek: "Nostr's Web of Trust (WoT) is the practical answer to a problem created by the protocol's strongest property: anyone can create a keypair and publish signed events to relays without asking permission."
-updated: 2026-08-27
+updated: 2026-10-25
 created: 2026-05-07
 origin: vault
 source: "02-Cryptography/Nostr Web of Trust.md"
@@ -183,7 +183,7 @@ RFC 9591 (FROST Protocol) was published by the IRTF in June 2024, giving thresho
 
 ### NIP-26 Delegation Revocation Gap
 
-GitHub issue #654 on the NIPs repository proposes a revocation mechanism for NIP-26 delegated keys. NIP-26 currently only supports time-bounded expiry, not revocation. When NIP-46 bunker signers use long-expiry NIP-26 delegation keys for UX, a compromised delegate can operate until natural expiry. The proposed fix — root-key-signed revocation certificates distributed to relays — would let the root key burn a compromised delegate immediately. This is important for the custody model because delegation is central to the NIP-46 flow, and currently delegation has no consent revocation path.
+The NIPs README marks NIP-26 delegated event signing as unrecommended. Historical discussion of revocation does not make delegation a recommended custody mechanism. NIP-46 remote signing does not require NIP-26.
 
 ### Brainstorm WoT Relay (Freedom-Tech Specific)
 
@@ -239,7 +239,7 @@ A new production public WoT relay appeared at `wss://wot.nostr.net`, built and m
 
 ### NIP-26 Delegation Revocation: Issue #654 Still Open
 
-GitHub issue #654 in the NIPs repository proposing a revocation mechanism for NIP-26 delegated keys remains open as of early June 2026. NIP-26 currently only supports time-bounded expiry, not revocation. When long-expiry NIP-26 delegations are combined with NIP-46 bunker signers for UX, a compromised delegate can operate until natural expiry — the proposed root-key-signed revocation certificates distributed to relays would close this window. This is a known gap in Nostr's delegation model that matters directly for WoT-adjacent custody: NIP-26 delegation is central to the NIP-46 remote signing flow, and without revocation, a compromised delegate is a live attack surface until expiry.
+NIP-26 is an unrecommended proposal. For current custody decisions, use the NIPs README and the NIP-46 remote-signing specification rather than treating the earlier revocation discussion as endorsement.
 
 ## June 18, 2026 Update — Relatr, wot-scoring maturation, Fourteenth Wave grants
 
@@ -476,6 +476,9 @@ Re-measurement week. Every adoption indicator of the post-quantum stack went fla
 **Upstream.** NIPs PR #2434 untouched for 16 days (sole comment remains fiatjaf's rejection link). NIPs merged NIP-A3 payto (RFC-8905 payment targets), NIP-30 emoji on kind 1111, and NIP-22's kind-1 reply permission — nothing PQ. Obelisk: two maintenance commits (signer-latency fix, pm2 ops), still SDK-consuming — the "second independent implementation" threshold remains unmet.
 
 ## Primary sources
+
+- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+- [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
 
 - [NIP-85 — Trusted Assertions](https://nips.nostr.com/85)
 - [NIP-02 — Follow List](https://github.com/nostr-protocol/nips/blob/master/02.md)

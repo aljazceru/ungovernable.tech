@@ -6,7 +6,7 @@ pillars: [confidential, identity, compute]
 readiness: research
 description: "An open research note on running Nostr Data Vending Machine jobs inside confidential containers, so a provider can process private data it can never see."
 dek: "Can you rent a model and a GPU for one job, hand it private data, and be sure the provider never sees either the data or the result?"
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2024-06-27
 origin: original
 related: [confidential-containers, remote-attestation, confidential-ai-inference, private-llm-inference-patterns, nostr-protocol]
@@ -15,6 +15,8 @@ related: [confidential-containers, remote-attestation, confidential-ai-inference
 *This is a working research note from the ungovernable.tech project, not a finished design.*
 
 Data Vending Machines (DVMs) are a Nostr pattern (NIP-90) in which a user publishes a job request, such as "transcribe this audio" or "summarise these documents", and service providers compete to do it for a Lightning payment. Today the provider sees everything: the input, the output and often the identity of the requester.
+
+The NIPs README marks **NIP-90 as unrecommended** and recommends use-case-specific microstandards. This note explores an existing DVM pattern; it does not establish NIP-90 as a recommended foundation for a new service.
 
 Processing confidential data currently means one of two things: give up the privacy, or run everything locally. Local processing is viable for many tasks on consumer hardware, but not when the job is occasional and needs hardware you do not own, or when you want to use a model you cannot buy outright. Confidential computing offers a third way: both parties place their part (model and data) into an encrypted, attested virtual machine, and only the owner of the data receives the result.
 
@@ -44,6 +46,8 @@ A first proof of concept ("something works") lives in the repository's [`simple-
 ## Related reading
 
 - [Confidential AI Inference](/kb/confidential-ai-inference/) and [Private LLM Inference Patterns](/kb/private-llm-inference-patterns/)
-- NIP-90, *Data Vending Machines*: <https://github.com/nostr-protocol/nips/blob/master/90.md>
-- Data Vending Machines: <https://www.data-vending-machines.org/>
-- Confidential Containers: <https://github.com/confidential-containers/>
+- [NIP-90: Data Vending Machines](https://github.com/nostr-protocol/nips/blob/master/90.md) — unrecommended in the NIPs README.
+
+## Primary sources
+
+- [NIPs README: NIP-90 status](https://github.com/nostr-protocol/nips)

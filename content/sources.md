@@ -213,7 +213,7 @@ For [Overview - Mix Networks](/kb/mix-networks/) and [Mix Networks Friday - Glob
 
 - *CTIDH: Faster Constant-Time CSIDH*, IACR 2021/633 (Katzenpost PQ KEM).
 - Rial, Piotrowska et al., *Outfox: A Postquantum Packet Format for Layered Mixnets*, ACM SIGCOMM 2025. [arxiv.org/html/2412.19937](https://arxiv.org/html/2412.19937v2)
-- Rahimi, Kumar Sharma, Diaz, *MOCHA: Mixnet Optimization Considering Honest Client Anonymity*, ePrint 2026/861 / IH&MMSEC 2025. [eprint.iacr.org/2026/861](https://eprint.iacr.org/2026/861)
+- Mahdi Rahimi, *MOCHA: Mixnet Optimization Considering Honest Client Anonymity*, ePrint 2025/861 / IH&MMSEC 2025. [eprint.iacr.org/2025/861](https://eprint.iacr.org/2025/861)
 - *Nox: A Sphinx Mixnet for Anonymous Blockchain Transaction Relay*, 2024-2025. [papers.hisoka.io/nox.pdf](https://papers.hisoka.io/nox.pdf)
 
 ### Sphinx libraries
@@ -270,3 +270,7 @@ For [Overview - Decentralized Identity](/kb/decentralized-identity/) and [Overvi
 - [awesome-meshtastic](https://github.com/ajmcquilkin/awesome-meshtastic).
 - [awesome-zk](https://github.com/ventali/awesome-zk).
 - [awesome-bitcoin](https://github.com/igorbarinov/awesome-bitcoin).
+
+## Primary sources
+
+- [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)

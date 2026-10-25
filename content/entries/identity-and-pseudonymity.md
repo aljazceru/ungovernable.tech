@@ -5,7 +5,7 @@ type: explainer
 pillars: ["identity"]
 description: "Identity rooted in cryptographic keys instead of institutions: why pseudonymity matters, how identities get linked, and how to keep them apart."
 dek: "Identity rooted in cryptographic keys rather than institutional verification. Pseudonymity is treated as a feature, and reputation comes from behavior rather than credentials."
-updated: 2026-09-06
+updated: 2026-10-25
 created: 2026-04-19
 origin: vault
 source: "11-Identity/Overview - Identity & Pseudonymity.md"
@@ -179,7 +179,9 @@ Tools for managing multiple identities:
 
 A pattern that has emerged: AI agents get their own Nostr identity. Key developments:
 
-**NIP-26: Delegated Event Signing**
+**NIP-26: Delegated Event Signing — unrecommended**
+
+The NIPs README marks this proposal as unrecommended. The following describes the historical proposal, not a recommended custody pattern.
 - Allows key delegation: Authorize another keypair (agent) to publish on your behalf.
 - Time-bounded permissions (e.g., "can post for 30 days").
 - Used by AI agents that need to act on behalf of humans.
@@ -366,7 +368,7 @@ Proves Indian Aadhaar holdership without revealing the Aadhaar number. Use cases
 | **NIP-46** | Remote signer / bunker | Active | Standardized remote signing; avoids giving every client the raw `nsec` |
 | **Amber** | Android signer | Active | GitHub active through 2026-04-29; practical mobile custody |
 | **Frostr / Bifrost / Igloo** | Threshold key custody | Emerging | OpenSats-funded; active 2026 repos; solves single-device loss/compromise |
-| **NIP-26 delegation** | Agent / app delegation | Mature spec, patchy support | Useful for bounded agent/app permissions |
+| **NIP-26 delegation** | Delegated event signing | Unrecommended | The NIPs README advises against it |
 | **NIP-85** | Trusted assertions | Draft / optional | Signed reputation/ranking metrics; early services and repos |
 | **nostr-wot** | Trust scoring | Emerging | Active 2026 repos; social-distance / oracle pattern |
 | **wot-scoring (joelklabo)** | PageRank WoT scoring | Emerging | Publishes NIP-85 kind 30382/30383/30384/30385 events; browser extension |
@@ -413,7 +415,7 @@ The IRTF published [RFC 9591](https://datatracker.ietf.org/doc/rfc9591/) — the
 
 ### NIP-26 Delegation Revocation (GitHub Issue #654)
 
-An open GitHub issue ([nostr-protocol/nips#654](https://github.com/nostr-protocol/nips/issues/654)) proposes adding a revocation mechanism to NIP-26. The motivation is concrete: when using NIP-46 for remote signing, users often combine it with long-expiry NIP-26 delegation keys for UX convenience. If a delegated key is compromised via XSS or other means, the fixed expiry date means attackers can continue using the delegation until it naturally expires — long enough to cause real damage.
+NIP-26 is marked unrecommended in the NIPs README. Historical discussion of delegation revocation should not be read as current endorsement. NIP-46 remote signing does not depend on NIP-26 delegation.
 
 The proposed solution: the root private key can sign a revocation certificate for the delegation key, which is then distributed to relays. Clients must treat events signed by the revoked delegation key as invalid once the revocation certificate is validated. This adds a critical missing piece to the delegation model: consent revocation without waiting for expiry. The issue is open and awaiting NIP spec endorsement.
 
@@ -437,7 +439,7 @@ For WoT purposes, u4/u5 represents an attempt to build persistent pseudonymous i
 
 ### NIP-26 revocation as key-recovery partial
 
-NIP-26 currently has no revocation mechanism — only time-bounded expiry. GitHub issue #654 proposes adding a root-key-signed revocation certificate that clients and relays can validate. This would be a significant addition to the identity recovery toolkit: a compromised delegate key can be burned immediately rather than waiting for natural expiry. Until this lands as a NIP, the practical mitigation is using short-expiry delegations and monitoring for unexpected delegation use.
+NIP-26 is unrecommended; its proposed extensions are not a basis for a new recovery plan. See [Nostr Key Custody and Recovery](/guides/nostr-key-custody/) for signing-device and custody considerations.
 
 ## Early-June 2026 Developments
 
@@ -527,7 +529,7 @@ Primal Android (already noted as a NIP-46 + NIP-55 signing hub in the mid-May up
 
 ### NIP-39 External Identities: Moving to Dedicated Events
 
-A notable NIP evolution: NIP-39 (external identity claims — GitHub, Twitter, etc.) has moved identity tags from kind 0 (profile metadata) to **dedicated kind events**. This follows the pattern established by NIP-26 (delegation), NIP-85 (assertions), and NIP-51 (lists): separate the data type from the profile blob into its own event kind. The advantage: external identity proofs become independently addressable, delegable, and revokable without touching the user's profile. The privacy implication: external identity tags are no longer stuck in the profile that every relay stores permanently — they can be deleted by publishing a replacement kind 0 without the tags. For pseudonymous users who want to prove GitHub or Twitter ownership without permanent linkage, this is a meaningful privacy improvement.
+A notable NIP evolution: NIP-39 (external identity claims — GitHub, Twitter, etc.) has moved identity tags from kind 0 (profile metadata) to **dedicated kind events**. This separates the data type from the profile blob: separate the data type from the profile blob into its own event kind. The advantage: external identity proofs become independently addressable, delegable, and revokable without touching the user's profile. The privacy implication: external identity tags are no longer stuck in the profile that every relay stores permanently — they can be deleted by publishing a replacement kind 0 without the tags. For pseudonymous users who want to prove GitHub or Twitter ownership without permanent linkage, this is a meaningful privacy improvement.
 
 ### Anonymous Aadhaar: ZK Proof of Government ID Without Revealing ID
 
@@ -573,6 +575,9 @@ This means one human-readable handle anchors both the social layer and the payme
 | [nostr-wot extension](https://nostr-wot.com) | — | Active | Trust assertions, NIP-07, Lightning wallet |
 
 ## Primary sources
+
+- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+- [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
 
 - [Nostr NIPs](https://github.com/nostr-protocol/nips) and [Nostr protocol specifications](https://nips.nostr.com/)
 - [NIP-05](https://nips.nostr.com/05) — DNS-based key aliases

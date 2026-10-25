@@ -5,7 +5,7 @@ type: explainer
 pillars: ["pqc", "money"]
 description: "Why a large quantum computer would break Bitcoin's signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys."
 dek: "Bitcoin's signatures are quantum-vulnerable. Shor's algorithm against secp256k1 collapses ECDSA and Schnorr in polynomial time on a sufficiently large quantum computer. This file looks at the actual proposals, address-type exposure, and the soft-fork-vs-hard-fork debate, with honest status as of early 2026."
-updated: 2026-05-16
+updated: 2026-10-25
 created: 2026-04-26
 origin: vault
 source: "10-Post-Quantum/Bitcoin PQ Migration.md"
@@ -27,7 +27,7 @@ The standard PQ migration playbook (used by TLS) doesn't apply directly. Bitcoin
 
 ## Address-type exposure
 
-Different Bitcoin address types expose pubkeys differently. **The pubkey is what a quantum computer needs.** Hash-locked outputs (P2PKH, P2WPKH, P2TR) only expose the pubkey *when the output is spent*.
+Different Bitcoin address types expose pubkeys differently. **The pubkey is what a quantum computer needs.** P2PKH and P2WPKH outputs contain a public-key hash. P2TR outputs instead publish the tweaked public key when the output is created, before any spend.
 
 | Address type | Pubkey on chain | Exposure |
 |--------------|-----------------|----------|
@@ -35,7 +35,7 @@ Different Bitcoin address types expose pubkeys differently. **The pubkey is what
 | **P2PKH** (pay-to-pubkey-hash) | After first spend | Address is `HASH160(pubkey)`. Pubkey only revealed when spending. Reused addresses with prior spends are exposed. |
 | **P2SH-wrapped** | Depends on script | Varies. A common P2SH-P2WPKH still hides pubkey until spend. |
 | **P2WPKH** (native SegWit) | After first spend | Like P2PKH. Hash-only locking; pubkey in witness on spend. |
-| **P2TR** (Taproot) | After first spend | Address is the tweaked pubkey (`HASH(internal_pubkey \|\| merkle_root)`). On spend, the internal pubkey is revealed in some script paths. Key-path spends reveal less. |
+| **P2TR** (Taproot) | At output creation | The output contains the 32-byte tweaked public key Q. Key-path spending verifies a Schnorr signature against Q; Q is a curve point, not a public-key hash. |
 
 ### The "harvest" problem
 
@@ -44,10 +44,10 @@ For Bitcoin, "harvest now, decrypt later" plays out differently than TLS. Once a
 UTXO categorization for the migration discussion:
 
 - **Already exposed**: P2PK, all reused addresses with prior spends, all addresses with leaked pubkeys (e.g., signed messages, PSBTs shared publicly).
-- **Hash-protected for now**: hash-only addresses (P2PKH, P2WPKH, P2TR key-path) that have never been spent from.
+- **Hash-protected for now**: hash-only addresses (P2PKH, P2WPKH) that have never been spent from.
 - **Cold-storage-only**: hash-protected and never reused. The most defensible position pre-migration.
 
-Estimates as of 2025: roughly 25-30% of all BTC sits in already-exposed pubkeys (P2PK + reused addresses). The rest is hash-protected, which buys time but not safety once a CRQC exists.
+Unspent Taproot outputs belong in the exposed-public-key category. Never spending from a Taproot address does not hide its output key.
 
 ## The proposals
 
@@ -181,7 +181,7 @@ There is **no consensus** on:
 
 The honest position: **Bitcoin's quantum threat is real but deferred, and the migration path is being designed without urgency.** If you hold significant BTC long-term:
 
-- Use hash-protected addresses (P2PKH, P2WPKH, P2TR key-path).
+- Use hash-protected addresses (P2PKH, P2WPKH).
 - **Don't reuse addresses.**
 - Avoid posting pubkeys (signed messages, public PSBTs).
 - Move coins to fresh addresses after spends to "re-hide" the pubkey.
@@ -240,6 +240,8 @@ This buys time, not safety. P2MR would reduce long-exposure risk for new script-
 Algorand's early Falcon adoption is the only major PQ deployment in production at L1. Bitcoin's caution is partly due to scale (more value at stake than any other chain) and partly due to consensus coordination cost.
 
 ## Primary sources
+
+- [BIP 341: Taproot output keys and key-path validation](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
 
 - Beast, Heilman, Foxen Duke, *BIP-360: Pay-to-Merkle-Root (P2MR)*, draft assigned 2024-12-18; version 0.11.0 checked April 2026. `github.com/bitcoin/bips/blob/master/bip-0360.mediawiki`.
 - NIST FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA), FIPS 206 IPD (FN-DSA / Falcon).

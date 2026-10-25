@@ -6,7 +6,7 @@ pillars: ["confidential"]
 readiness: usable
 description: "NVIDIA's GPU confidential computing on Hopper and Blackwell: how the GPU TEE, encrypted transfers and attestation work, and what remains trusted."
 dek: "The only production GPU confidential-computing stack as of 2026. Every \"confidential LLM inference on frontier models\" deployment is built on it."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "01-Confidential-Computing/NVIDIA-GPU-TEE.md"
@@ -39,8 +39,8 @@ NVIDIA Confidential Computing first shipped on H100 / Hopper in 2023, expanded o
 │  │  │  - Attestation signing key   │     │  │
 │  │  └──────────────────────────────┘     │  │
 │  │  ┌──────────────────────────────┐     │  │
-│  │  │  HBM (encrypted & integrity   │     │  │
-│  │  │  protected via on-die engine)│     │  │
+│  │  │  Protected GPU memory      │     │  │
+│  │  │  Hopper HBM: unencrypted   │     │  │
 │  │  └──────────────────────────────┘     │  │
 │  └───────────────────────────────────────┘  │
 └─────────────────────────────────────────────┘
@@ -52,17 +52,17 @@ NVIDIA Confidential Computing first shipped on H100 / Hopper in 2023, expanded o
 |---|---|
 | **GPU Secure Processor (GSP)** | On-die microcontroller; the GPU's root of trust. Measures firmware, holds the per-device ECDSA P-384 attestation key, produces quotes. |
 | **Secure Boot** | GSP verifies signed firmware before CUDA is allowed to run; failure locks the GPU out of CC mode. |
-| **Encrypted HBM** | HBM contents encrypted + integrity-protected by hardware engine at memory-controller layer (AES-256-GCM, per-GPU key). |
-| **Encrypted PCIe** | SPDM 1.2 session between CPU TEE and GPU. Key exchange via ECDHE, bulk traffic AES-GCM. All CUDA H2D/D2H copies transparently encrypted. |
+| **Protected GPU memory** | Hopper HBM is not encrypted. NVIDIA’s threat model relies on on-package memory and access controls; memory protection must not be described as HBM encryption. |
+| **Encrypted CPU–GPU transfers** | The driver inside the CPU TEE stages encrypted data in shared-memory bounce buffers. Command buffers and CUDA kernels are also encrypted before crossing PCIe. This does not imply encryption of every PCIe transaction. |
 | **NVIDIA Remote Attestation Service (NRAS)** | Cloud service that verifies GSP-signed quotes and checks firmware versions against a known-good list; returns a JWT to the relying party. Local verification also supported. |
 | **Confidential Compute Mode** | Boolean state on the GPU. Set by privileged firmware command; once on, non-CC code paths are disabled and attestation becomes required for use. |
 
 ### Modes
 
 1. CC-Off: regular, non-confidential. Any mode switch wipes HBM.
-2. CC-On (protected PCIe): full TEE. Encrypted PCIe, attested, HBM encrypted.
+2. CC-On: GPU confidential-computing protections and attestation are enabled. CPU–GPU transfers use encryption; Hopper HBM remains unencrypted.
 3. CC-On (DevTools): looser mode for debugging. Do not ship production with this.
-4. Multi-GPU / NVLink CC (Blackwell): NVLink traffic between GPUs in the same confidential domain is also encrypted and attested. This enables multi-GPU models (tensor or pipeline parallel) inside a single TEE trust domain. Hopper's NVLink is not encrypted, so multi-GPU on H100 CC forces PCIe routing with a heavy perf cost. This is a major Blackwell upgrade.
+4. Multi-GPU: Hopper protected-PCIe (PPCIe) mode encrypts CPU–GPU traffic, while GPU–GPU traffic over NVLink remains unencrypted. Blackwell multi-GPU CC mode also encrypts NVLink traffic. Assess the supported hardware, firmware and driver configuration for each mode.
 
 ## The attestation flow (end to end)
 
@@ -91,7 +91,7 @@ Rough numbers (H100 CC, 70B-class dense LLM inference, published and independent
 
 Rule of thumb: for steady-state LLM serving, assume around 10% cost. For training or workloads that thrash PCIe, the cost is higher and may be prohibitive until Blackwell's encrypted NVLink is the norm.
 
-Blackwell improves this materially: encrypted NVLink, higher-throughput PCIe Gen5 crypto engines, and larger on-die attestation caches push steady-state overhead toward single digits even for multi-GPU MoE.
+Blackwell multi-GPU CC adds NVLink encryption. That protects a specific interconnect; it is not evidence that every GPU memory region or system link is encrypted.
 
 ## What NVIDIA CC does *not* protect against
 
@@ -123,7 +123,11 @@ Blackwell improves this materially: encrypted NVLink, higher-throughput PCIe Gen
 7. Rotate on CVE. When a GSP-firmware CVE drops, push a new minimum-firmware policy to your verifier. Old quotes become invalid automatically.
 8. Don't leak via logs. The confidential guarantee is worthless if the app logs prompts to stdout and a sidecar ships them to the cloud's logging service. Build with `nvidia-container-toolkit` in no-persistence mode.
 
-## Primary Sources
+## Primary sources
+
+- [NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+- [NVIDIA confidential VM threat model and interconnect limits](https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model)
+- [NVIDIA Hopper and Blackwell confidential-computing whitepaper](https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf)
 
 - NVIDIA: *Confidential Computing on NVIDIA H100 GPUs* (whitepaper, 2023)
 - NVIDIA: *Blackwell Architecture Technical Brief* (2024)

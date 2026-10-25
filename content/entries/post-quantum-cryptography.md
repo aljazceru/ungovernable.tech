@@ -5,7 +5,7 @@ type: explainer
 pillars: ["pqc"]
 description: "Replacing RSA and elliptic-curve cryptography with algorithms that survive quantum computers: the NIST standards, migration and harvest-now risk."
 dek: "Replacing RSA and elliptic-curve cryptography with algorithms that survive a cryptographically relevant quantum computer."
-updated: 2026-09-26
+updated: 2026-10-25
 created: 2026-04-17
 origin: vault
 source: "10-Post-Quantum/Overview - Post-Quantum Cryptography.md"
@@ -18,7 +18,7 @@ tags: ["pqc", "post-quantum", "ml-kem", "ml-dsa", "slh-dsa", "nist", "liboqs", "
 Shor's algorithm breaks RSA, Diffie-Hellman, and ECC in polynomial time on a sufficiently large quantum computer. Such a machine does not exist today and may not exist for a decade or longer, but:
 
 - "Harvest now, decrypt later." Adversaries record encrypted traffic today; any record will be readable the day a quantum computer comes online. Anything with a secrecy horizon beyond ~2030 must migrate now.
-- **Google tightened the Q-Day estimate in March 2026**: the company now targets completing PQC migration for authentication services by 2029, citing advances in quantum hardware (Willow chip), quantum error correction, and updated factoring resource estimates (estimated ~500,000 qubits for cryptographically relevant work). This is a meaningful acceleration from prior estimates of 2030+.
+- **Google set a 2029 PQC migration target on 25 March 2026.** Its announcement prioritizes authentication services as well as the existing store-now-decrypt-later threat. It does not predict that a cryptographically relevant quantum computer will arrive in 2029.
 - Symmetric crypto (AES-256, SHA-3) is largely unaffected; key length doubling (Grover) is enough.
 
 ## NIST standards (2024-2025)
@@ -39,7 +39,7 @@ STARK-based signatures, isogeny-based KEMs (SIKE was broken in 2022, a cautionar
 
 - TLS 1.3 hybrid KEMs (X25519+ML-KEM-768) shipped: Chrome, Firefox, Cloudflare, Google edge, AWS KMS. **RFC 10024 (PQ/T hybrid key agreement for TLS 1.3) published August 2026 as Proposed Standard** — the endorsed default is now citeable as an RFC.
 - **Pure ML-KEM for TLS**: IETF-wide Last Call closed **August 13, 2026**; IESG decision pending as of Aug 22. Code points would be `Recommended=N` in an Informational RFC. Most contentious PQC standards decision in IETF history — Bernstein's final filing documents 75 non-withdrawn objections and alleges the last-call list blocked it. See [Post-Quantum Saturday — August 22 2026 Weekly Update](/briefings/post-quantum/2026-08-22/) §3.
-- SSH (OpenSSH ≥ 9.0) offers `sntrup761x25519-sha512` hybrid; ML-KEM hybrids landing. Forescout data (July 2026): ~90% of SSH servers still not quantum-safe; IoT 28%, OT 16%, IoMT 6% PQC-capable.
+- SSH: OpenSSH added `mlkem768x25519-sha256` in 9.9 and made it the default in 10.0 (April 2025).
 - Signal Protocol: PQXDH in production since 2023, hybrid X3DH plus ML-KEM-1024 for initial keys.
 - iMessage PQ3 (Apple, 2024): post-quantum ratcheting.
 - **OpenPGP: RFC 9980 published June 30, 2026**. Hybrid-only (composite ML-DSA-65+Ed25519). But GnuPG has no PQ signature support — divergent LibrePGP track. Implementation gap is the blocker.
@@ -132,11 +132,11 @@ The reference implementation library for NIST algorithms. Actively maintained by
 
 ## Updated deployment status (June 2026)
 
-### Google: Q-Day moved to 2029 — authentication migration priority
+### Google: 2029 migration target, with authentication a priority
 
-Google's March 2026 blog post "Quantum frontiers may be closer than they appear" tightened the corporate Q-Day estimate: Google now targets completing PQC migration for **authentication services** by 2029. This is the first major hyperscaler to issue a specific near-term deadline for PQ authentication, distinct from the prior 2030+ estimates. The stated rationale includes Google Willow quantum chip progress, quantum error correction advances, and updated factoring resource estimates (~500K qubits for cryptographically relevant work). Google explicitly recommends that engineering teams prioritize PQC migration for authentication — digital signatures and certificates — ahead of key exchange. This is a meaningful signal: it shifts the urgency from "key exchange is urgent" to "authentication is also urgent" and aligns with NCSC/BSI guidance already in this library.
+Google’s 25 March 2026 post, “Quantum frontiers may be closer than they appear,” sets a 2029 timeline for post-quantum migration. It cites progress in quantum hardware, error correction and factoring resource estimates, and prioritizes migration of authentication services. This is a deployment target, not a dated Q-Day estimate; the post does not give a qubit count.
 
-**Relevance to ungovernable systems**: Any system with long-lived identity keys, code-signing chains, or certificate-based trust should treat Google's 2029 authentication deadline as a forcing function for PQ signature planning. This applies to Nostr npubs, ENS names, PGP key chains, and any decentralized identity system whose trust model depends on ECDSA/Ed25519 signatures.
+**Relevance to ungovernable systems**: Include authentication and long-lived signing keys in migration planning. Google’s target does not supply a countdown to a quantum break.
 
 ### Kyber ransomware: variant activity through June 2026
 
@@ -359,7 +359,7 @@ Go 1.27 adds `crypto/mldsa` to the standard library, following Go 1.24's `crypto
 
 ### Global Risk Institute: 28–49% CRQC probability in 10 years
 
-The GRI / evolutionQ Quantum Threat Timeline Report 2025 (published April 2026) puts expert-estimated CRQC probability at **28–49% within 10 years** (record high) and **51–70% within 15 years**. This is the survey cited in EO 14412's rationale and Google's 2029 timeline.
+The GRI / evolutionQ Quantum Threat Timeline Report 2025 (published April 2026) puts expert-estimated CRQC probability at **28–49% within 10 years** (record high) and **51–70% within 15 years**. Google’s March migration announcement does not cite this survey.
 
 ### EO 14412 milestones
 
@@ -452,6 +452,10 @@ The operational upshot: **ML-KEM + HQC hybrid is now the most explicitly-named d
 Full detail in [Post-Quantum Saturday — September 26 2026 Weekly Update](/briefings/post-quantum/2026-09-26/).
 
 ## Primary sources
+
+- [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)
+
+- [Google: Quantum frontiers may be closer than they appear, 25 March 2026](https://blog.google/innovation-and-ai/technology/safety-security/cryptography-migration-timeline/)
 
 - NIST FIPS 203 / 204 / 205 / 206 — `csrc.nist.gov/projects/post-quantum-cryptography`
 - NIST IR 8610 (Additional Signatures Round 2 Status Report, May 2026) — `nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf`

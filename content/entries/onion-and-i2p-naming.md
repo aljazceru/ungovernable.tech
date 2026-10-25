@@ -6,7 +6,7 @@ pillars: ["naming", "anonymity"]
 readiness: battle-tested
 description: "Tor .onion and I2P names are public keys, so no registrar can seize them: how overlay naming works, and its usability trade-offs."
 dek: "The only naming systems in production where the name is a public key, and where no third party can take the name down."
-updated: 2026-06-22
+updated: 2026-10-25
 created: 2026-06-22
 origin: vault
 source: "03-Decentralized-DNS/Overlay Naming - Tor .onion and I2P.md"
@@ -33,7 +33,7 @@ A v3 address is:
 ```
 
 - 32 bytes Ed25519 long-term identity public key.
-- 2-byte SHA-1 checksum of the public key.
+- A 2-byte checksum: the first two bytes of SHA3-256 over `".onion checksum" || public_key || version`.
 - 1-byte version byte (`0x03`).
 - Total: 35 bytes → 56 base32 characters.
 
@@ -244,6 +244,8 @@ This is the practical pattern: the `.onion` is the kill-switch-resistant address
 - **2026**: Tor's stable channel 0.4.8.x carries v3 + post-quantum handshake drafts. I2P ratchet (a replacement for the older ElGamal transport) gains hybrid X25519 + ML-KEM support on a development branch.
 
 ## Primary sources
+
+- [Tor specification: encoding v3 onion addresses](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
 
 - Tor Rendezvous Specification v3 — `spec.torproject.org/rend-spec-v3.html`.
 - Tor Onion Services v3 — `spec.torproject.org/v3 onion services`.

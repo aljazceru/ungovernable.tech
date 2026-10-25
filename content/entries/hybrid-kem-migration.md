@@ -5,7 +5,7 @@ type: guide
 pillars: ["pqc"]
 description: "A practical guide to migrating systems to post-quantum key exchange with hybrid KEMs such as X25519MLKEM768: where to start and what breaks."
 dek: "Operational guide to migrating real systems to post-quantum cryptography. Most engineers don't need to understand Module-LWE. They need to know which version of OpenSSL to install, when to enable PQ in their TLS profile, and what data to re-encrypt. This file is that."
-updated: 2026-05-16
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "10-Post-Quantum/Hybrid KEM Migration.md"
@@ -74,18 +74,20 @@ Don't deploy pure ML-KEM yet. Hybrid is the production pattern in 2026 and will 
 
 ## SSH migration
 
-OpenSSH ≥ 9.0 ships **sntrup761x25519-sha512** by default, a hybrid combining NTRU-Prime (a different PQ scheme) with X25519. ML-KEM hybrids are landing in OpenSSH 10.x.
+OpenSSH has offered post-quantum key agreement by default since 9.0. The ML-KEM/X25519 hybrid `mlkem768x25519-sha256` was added in 9.9 and became the default in OpenSSH 10.0 (April 2025).
+
+If you maintain an explicit algorithm list on OpenSSH 10.0 or later, include the default hybrid. Otherwise, use the upstream defaults.
 
 Server `sshd_config`:
 
 ```
-KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256
+KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512@openssh.com,curve25519-sha256
 ```
 
 Client config (`~/.ssh/config`):
 
 ```
-KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256
+KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512@openssh.com,curve25519-sha256
 ```
 
 Modern OpenSSH on both sides means already migrated. No further action for most users.
@@ -130,13 +132,13 @@ For long-lived embedded systems (cars, satellites, industrial control): re-sign 
 
 ## Encrypted backups and archives
 
-`age`, `gpg`, `7zip --encrypt`, and similar use pre-quantum KEMs by default. For long-secrecy archives:
+For long-secrecy archives, check the recipient type as well as the tool version. Existing classical recipients do not become post-quantum recipients after a software update.
 
-- **age**: `age-plugin-pq` provides ML-KEM hybrid wrapping. Plugin-stage but functional.
+- **age 1.3.0**: native hybrid post-quantum recipients use HPKE with ML-KEM-768. Generate a key pair with `age-keygen -pq`; its recipient begins `age1pq1`. A compatibility plugin exists for older clients.
 - **GPG**: OpenPGP PQ draft RFC; mainline OpenPGP support is emerging and remains outside routine production defaults.
 - **Roll-your-own with libsodium-PQ**: practical for new systems, not for migration.
 
-The pragmatic 2026 advice: re-encrypt critical archives using `age` with the PQ plugin once it stabilizes. For now, increase the symmetric key length to 256-bit and store the symmetric key with PQ-wrapped keys when possible.
+For age archives that need post-quantum recipients, use age 1.3.0 or later and generate a PQ key pair with `age-keygen -pq`. Re-encrypting an archive requires selecting the new recipient; changing the installed program alone does not change existing ciphertext. See [age File Encryption](/kb/age-encryption/).
 
 ## Bitcoin and crypto-currencies
 
@@ -200,6 +202,9 @@ The right architecture isn't "deploy ML-KEM today and forget it." It's crypto-ag
 ```
 
 ## Primary sources
+
+- [OpenSSH post-quantum cryptography](https://www.openssh.com/pq.html)
+- [age v1.3.0 release: native hybrid post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
 
 - IETF, *Hybrid key exchange in TLS 1.3*, draft-ietf-tls-hybrid-design.
 - Cloudflare PQC blogs — [blog.cloudflare.com](https://blog.cloudflare.com).

@@ -1,0 +1,1070 @@
+# Site-owned corrections to generated entries, keyed by entry slug.
+# Exact replacements are checked against fresh output before anything is written.
+age-encryption:
+  replace:
+  - new: |-
+      age 1.3.0 added native hybrid post-quantum recipients based on HPKE with ML-KEM-768. Generate one with `age-keygen -pq`: public recipients begin `age1pq1`, and secret identities begin `AGE-SECRET-KEY-PQ-1`. Older clients can use a compatibility plugin. See [Migrating to Hybrid Key Exchange](/guides/hybrid-kem-migration/).
+
+      Plugins extend the recipient stanza set without bumping the format version.
+    old: Plugins extend the recipient stanza set without bumping the format version.
+  - new: The original recipient types and the native post-quantum recipient type have distinct specified
+      constructions; use the recipient type supported by your implementation.
+    old: No AES-GCM, no NIST P-curves, no choice of mode. Everything is fixed.
+  - new: |-
+      ## Primary sources
+
+      - [age v1.3.0 release: post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+ai-agent-identity-nostr:
+  replace:
+  - new: '- **NIP-90**: historical job request/result flow; **unrecommended** in the NIPs README, which
+      prefers use-case-specific microstandards.'
+    old: '- **NIP-90**: job request/result flow (kinds 5050/6050/7000)'
+  - new: |-
+      The NIPs README marks NIP-90 Data Vending Machines as **unrecommended**. References below describe that existing pattern, not an endorsement for new services.
+
+      ## Why This Matters
+    old: '## Why This Matters'
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-90 status](https://github.com/nostr-protocol/nips)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+at-protocol:
+  replace:
+  - new: Not native; NIP-26 delegation is unrecommended
+    old: Not native (NIP-26 delegation; FROST experiments)
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+bitcoin-post-quantum-migration:
+  replace:
+  - new: P2PKH and P2WPKH outputs contain a public-key hash. P2TR outputs instead publish the tweaked
+      public key when the output is created, before any spend.
+    old: Hash-locked outputs (P2PKH, P2WPKH, P2TR) only expose the pubkey *when the output is spent*.
+  - new: '| **P2TR** (Taproot) | At output creation | The output contains the 32-byte tweaked public key
+      Q. Key-path spending verifies a Schnorr signature against Q; Q is a curve point, not a public-key
+      hash. |'
+    old: '| **P2TR** (Taproot) | After first spend | Address is the tweaked pubkey (`HASH(internal_pubkey
+      \|\| merkle_root)`). On spend, the internal pubkey is revealed in some script paths. Key-path spends
+      reveal less. |'
+  - new: P2PKH, P2WPKH
+    old: P2PKH, P2WPKH, P2TR key-path
+  - new: Unspent Taproot outputs belong in the exposed-public-key category. Never spending from a Taproot
+      address does not hide its output key.
+    old: 'Estimates as of 2025: roughly 25-30% of all BTC sits in already-exposed pubkeys (P2PK + reused
+      addresses). The rest is hash-protected, which buys time but not safety once a CRQC exists.'
+  - new: |-
+      ## Primary sources
+
+      - [BIP 341: Taproot output keys and key-path validation](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+briar:
+  replace:
+  - new: Account backup and export/import recovery are not available.
+    old: Migration via export/import (encrypted backup).
+  - new: Identity stays on the device. Uninstalling Briar or losing the password leaves no account-recovery
+      path.
+    old: No accounts. Identity local; recoverable from backup with passphrase.
+  - new: Two nearby phones can synchronize messages and forum posts.
+    old: Two phones in a building or a backpack can pass messages, attachments, and forum posts.
+  - new: Messaging only; account backup and file attachments remain missing features in the maintenance
+      announcement.
+    old: Text and small attachments only.
+  - new: |-
+      ## Readiness
+
+      Briar announced maintenance mode on 9 July 2026. The project continues, with essential security updates and bug fixes. Its announcement identifies account backup, file attachments, battery usage and reliable background operation as unresolved issues.
+
+      Briar Desktop is available as a beta; the project’s desktop release announcement calls it `0.6.0-beta`. Do not treat it as a stable desktop release.
+    old: |-
+      ## Recent developments (2024-2026)
+
+      - Briar Desktop: JavaFX-based stable client; cross-platform.
+      - Briar Mailbox: production for Android; consumer-friendly setup.
+      - Hybrid post-quantum handshake research.
+      - Native Tor in client: improved bootstrap and bridge support.
+      - Forum scalability improvements.
+  sources:
+  - title: Briar maintenance-mode announcement, 9 July 2026
+    url: https://briarproject.org/news/2026-maintenance-mode/
+  - title: 'Briar manual: account storage and recovery'
+    url: https://briarproject.org/manual/
+  - title: Briar Desktop beta release announcement
+    url: https://briarproject.org/news/2023-briar-desktop-0.6.0-released/
+  updated: '2026-10-25'
+cashu-ecash:
+  replace:
+  - new: '- **Cryptographic basis**: Cashu uses Blind Diffie-Hellman Key Exchange (BDHKE) on secp256k1,
+      as specified by NUT-00. For migration considerations, see [Post-Quantum Cryptography](/kb/post-quantum-cryptography/).'
+    old: '- **Quantum**: Blind sig schemes (often RSA or similar in Cashu today) need PQ migration planning;
+      symmetric parts inside proofs are easier.'
+  sources:
+  - title: 'Cashu NUT-00: BDHKE on secp256k1'
+    url: https://github.com/cashubtc/nuts/blob/main/00.md
+  updated: '2026-10-25'
+cwtch:
+  replace:
+  - new: '- **Platforms**: Android, Linux, macOS and Windows. The official supported-platform list does
+      not list an iOS client.'
+    old: '- **Platforms**: Android, iOS (since 2023), desktop (Linux, macOS, Windows). The mobile port
+      took years; the iOS version is more recent and has shipped in several iterations.'
+  - new: '| Mobile support | Android; Linux, macOS and Windows desktop; no listed iOS client |'
+    old: '| Mobile support | Android, iOS, desktop |'
+  - new: '| Maintenance status | See project releases | See project releases | Maintenance mode since
+      9 July 2026 | See project releases |'
+    old: '| Active dev | Yes | Quiet | Yes | Yes |'
+  - new: 'a 56-character base32 encoding of the Ed25519 public key, a two-byte SHA3-256 checksum and a
+      version byte:'
+    old: 'a 56-character base32 string that is the SHA-3 hash of an Ed25519 public key:'
+  - new: |-
+      ## Primary sources
+
+      - [Cwtch downloads for Android and desktop](https://cwtch.im/download/)
+    old: '## Primary sources'
+  sources:
+  - title: Cwtch supported platforms
+    url: https://docs.cwtch.im/docs/getting-started/supported_platforms
+  - title: Tor v3 onion-address encoding
+    url: https://spec.torproject.org/rend-spec/encoding-onion-addresses.html
+  - title: Briar maintenance-mode announcement
+    url: https://briarproject.org/news/2026-maintenance-mode/
+  - title: Cwtch downloads for Android and desktop
+    url: https://cwtch.im/download/
+  updated: '2026-10-25'
+decentralized-dns:
+  replace:
+  - new: GNS implementation; GNUnet remains early alpha
+    old: RFC 9498 GNS in production
+  - new: |-
+      ## Primary sources
+
+      - [GNUnet software status](https://www.gnunet.org/en/about.html)
+    old: '## Primary sources'
+  - new: '| Registration and renewal | Auction followed by periodic renewal transactions; names expire
+      without renewal |'
+    old: '| Cost | One-time (auction + renewal) |'
+  - new: |-
+      ## Primary sources
+
+      - [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+      - [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+ens:
+  replace:
+  - new: |-
+      ## ENSv2 and Namechain
+
+      ENS’s 17 November 2025 post described a plan to build Namechain on Nethermind’s Surge. On 6 February 2026, ENS announced that ENSv2 would deploy exclusively on Ethereum L1 and that Namechain development would cease. ENSv2 itself remained on the roadmap.
+
+      The November Surge proposal predates the February decision. It is not evidence that Namechain was revived in August or September 2026.
+    old: |-
+      ## ENSv2 and the Namechain reversal
+
+      The original plan was to launch an L2 (Namechain) and migrate ENS off L1 for cheaper transactions.
+
+      In February 2026, Nick Johnson announced ENS would abandon Namechain. The reasoning:
+
+      - Ethereum gas costs had dropped ~99% with Dencun (blobs), Pectra, and Fusaka upgrades.
+      - The December 2025 Fusaka upgrade raised the gas limit to 60 million (2x from early 2025).
+      - 2026 targets: 200 million gas limit (3x increase), before ZK upgrades land.
+      - Subdomains via CCIP-Read solved the scale problem without leaving L1.
+      - Staying on L1 preserves the maximalist censorship-resistance story: ENS records anchored to Ethereum mainnet.
+
+      Vitalik Buterin publicly supported the stay-on-L1 decision, noting that ETH names and records show high-value state that benefits from direct L1 accessibility.
+
+      Net effect: ENS is Ethereum-L1-resident going forward, with off-chain backing for cheap subdomains.
+
+      Resources:
+
+      - [ENS abandons Namechain L2](https://cointelegraph.com/a/ens-abandons-plans-for-namechain-l2-citing-ethereum-scaling/) — Cointelegraph, Feb 2026
+      - [Nick Johnson blog post](https://twitter.com/ nick.eth/status/1874567890123456789) — Feb 2026
+      - [TradingView analysis](https://www.tradingview.com/news/cointelegraph:2f15d6047094b:0/) — Feb 2026
+  - new: '- **Namechain status** — the Surge architecture post is dated 17 November 2025. ENS’s 6 February
+      2026 announcement supersedes it: ENSv2 on Ethereum L1, with Namechain development ceased.'
+    old: '- **ENS→Namechain reversal revisited Aug-Sep 2026** — ENS Labs [blog post "Why We''re Moving
+      Namechain to Nethermind''s Surge"](https://ens.domains/blog/post/namechain-nethermind-surge) confirms
+      Stage-1 launch with Stage-2 path on Taiko-based stack; Nethermind is architect/builder. **Trade-off
+      per ENS**: "more complex engineering, deeper coordination with Ethereum''s roadmap, and potentially
+      accepting some initial performance tradeoffs." This is a partial reversal of the Feb 2026 stay-on-L1
+      decision — Namechain returns as a ZK-rollup, but the v2 contracts stay on L1 with Namechain as the
+      L2 they ultimately migrate to.'
+  - new: '- **Earlier Surge proposal** — the official ENS post describes a proposed rollup architecture
+      in November 2025, before the February 2026 decision to stop Namechain development.'
+    old: '- **Nethermind Surge writeup (Sep 2026)** — formalizes Namechain architecture (based-rollup
+      on Taiko Labs stack, Nethermind Client as foundational execution layer, Surge as the based-rollup
+      framework). **Stage-1 launch** (Sepolia) with explicit Stage-2 path.'
+  - new: |-
+      ## Primary sources
+
+      - [ENS is staying on Ethereum, 6 February 2026](https://ens.domains/blog/post/ens-staying-on-ethereum)
+      - [Earlier Namechain/Surge proposal, 17 November 2025](https://ens.domains/blog/post/namechain-nethermind-surge)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+fips-mesh:
+  replace:
+  - new: '| **Yggdrasil** | Ed25519 = IPv6 | Greedy on spanning tree | Noise + ChaCha20 | No | Experimental
+      (alpha) |'
+    old: '| **Yggdrasil** | Ed25519 = IPv6 | Greedy on spanning tree | Noise + ChaCha20 | No | Stable
+      |'
+  - new: |-
+      ## Primary sources
+
+      - [Yggdrasil project status](https://yggdrasil-network.github.io/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+global-passive-adversary:
+  replace:
+  - new: 2025/861
+    old: 2026/861
+  - new: Mahdi Rahimi
+    old: Rahimi, Kumar Sharma, Diaz
+  - new: |-
+      ## Primary sources
+
+      - [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+gnu-name-system:
+  replace:
+  - new: '- Implemented in GNUnet, whose official project overview describes the software as early alpha.
+      This library rates GNS as experimental.'
+    old: '- Production implementation in GNUnet 0.26.0.'
+  - new: |-
+      ## Primary sources
+
+      - [GNUnet: early-alpha software status](https://www.gnunet.org/en/about.html)
+    old: '## Primary sources'
+  - new: GNUnet describes its software as early alpha; GNS remains experimental in this library’s readiness
+      scale.
+    old: This privacy property is unique among production decentralized naming systems.
+  updated: '2026-10-25'
+handshake:
+  replace:
+  - new: '- Proof of work combines BLAKE2b and SHA3 in hsd’s block-header hash.'
+    old: '- PoW (Cuckoo Cycle variant; ASIC-friendly Cuckatoo32 since the early 2020s).'
+  - new: '| 51% attack on Handshake chain | BLAKE2b + SHA3 proof of work; mining remains a trust boundary
+      |'
+    old: '| 51% attack on Handshake chain | Cuckatoo32 PoW raises cost; small attack-surface concern relative
+      to ENS |'
+  - new: '- hsd implements BLAKE2b + SHA3 proof of work.'
+    old: '- Cuckatoo32 ASIC rollout has stabilized hashrate.'
+  - new: 'Names require renewal. hsd accepts a `RENEW` covenant and expires a name when the chain height
+      reaches its last renewal height plus the mainnet renewal window: `(2 × 365) × blocksPerDay`, approximately
+      two years. Ownership is not a permanent registration without renewal.'
+    old: Hundreds of thousands of TLDs are registered. The "good" ones (short, memorable, generic) went
+      in early auctions for substantial HNS. The "bad" ones (long, niche) are essentially free.
+  sources:
+  - title: hsd block-header proof-of-work hash
+    url: https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js
+  - title: hsd mainnet name-renewal window
+    url: https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js
+  - title: hsd name-expiry rule
+    url: https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js
+  - title: hsd RENEW covenant validation
+    url: https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js
+  updated: '2026-10-25'
+hardware-wallets:
+  replace:
+  - new: '- A self-custody Lightning wallet can serve as the *hot* tier. Mutiny announced the shutdown
+      of its hosted wallet and mobile apps; its notice directs remaining users to self-host.'
+    old: '- Phoenix / Mutiny / Zeus: non-custodial mobile LN; use as the *hot* tier.'
+  - new: |-
+      ## Primary sources
+
+      - [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
+    old: '## Primary Sources'
+  - new: ''
+    old: |
+      - Andreas Antonopoulos, *Mastering Bitcoin*, 3rd ed. — chapters on key derivation and signing.
+  updated: '2026-10-25'
+hf-data-modes:
+  replace:
+  - new: The US services have separate rules. GMRS explicitly prohibits coded messages or messages with
+      hidden meanings, with an exception for “10 codes.” The cited FRS and MURS sections regulate other
+      uses; neither section establishes a blanket permission to encrypt.
+    old: 'This is fundamentally different from MURS, GMRS, FRS, ISM, or Part 15 unlicensed services, where
+      encryption is permitted (or in some cases mandated by the carrier protocol). In the US:'
+  - new: '| Service | What the cited rule says |'
+    old: '| Service | Encryption legal? |'
+  - new: |-
+      | GMRS — §95.1733(a)(3) | Prohibits coded messages and messages with hidden meanings; “10 codes” are permissible. |
+      | FRS — §95.533 | Prohibits one-way communications except the listed exceptions; it does not state an encryption permission. |
+      | MURS — §95.2733 | Prohibits repeater and signal-booster operation, including store-and-forward packet operation; it does not state an encryption permission. |
+    old: '| MURS / GMRS / FRS | Voice yes (analog), commercial use restricted |'
+  - new: ''
+    old: |
+      | ISM 433/868/915 MHz (Part 15) | Yes (LoRa, Meshtastic) |
+  - new: |-
+      ## Primary sources
+
+      - [47 CFR 95.1733: prohibited GMRS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E/section-95.1733)
+      - [47 CFR 95.533: prohibited FRS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-B/section-95.533)
+      - [47 CFR 95.2733: prohibited MURS uses](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-J/section-95.2733)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+hybrid-kem-migration:
+  replace:
+  - new: OpenSSH has offered post-quantum key agreement by default since 9.0. The ML-KEM/X25519 hybrid
+      `mlkem768x25519-sha256` was added in 9.9 and became the default in OpenSSH 10.0 (April 2025).
+    old: OpenSSH ≥ 9.0 ships **sntrup761x25519-sha512** by default, a hybrid combining NTRU-Prime (a different
+      PQ scheme) with X25519. ML-KEM hybrids are landing in OpenSSH 10.x.
+  - new: KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512@openssh.com,curve25519-sha256
+    old: KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256
+  - new: |-
+      If you maintain an explicit algorithm list on OpenSSH 10.0 or later, include the default hybrid. Otherwise, use the upstream defaults.
+
+      Server `sshd_config`:
+    old: 'Server `sshd_config`:'
+  - new: For long-secrecy archives, check the recipient type as well as the tool version. Existing classical
+      recipients do not become post-quantum recipients after a software update.
+    old: '`age`, `gpg`, `7zip --encrypt`, and similar use pre-quantum KEMs by default. For long-secrecy
+      archives:'
+  - new: '- **age 1.3.0**: native hybrid post-quantum recipients use HPKE with ML-KEM-768. Generate a
+      key pair with `age-keygen -pq`; its recipient begins `age1pq1`. A compatibility plugin exists for
+      older clients.'
+    old: '- **age**: `age-plugin-pq` provides ML-KEM hybrid wrapping. Plugin-stage but functional.'
+  - new: For age archives that need post-quantum recipients, use age 1.3.0 or later and generate a PQ
+      key pair with `age-keygen -pq`. Re-encrypting an archive requires selecting the new recipient; changing
+      the installed program alone does not change existing ciphertext. See [age File Encryption](/kb/age-encryption/).
+    old: 'The pragmatic 2026 advice: re-encrypt critical archives using `age` with the PQ plugin once
+      it stabilizes. For now, increase the symmetric key length to 256-bit and store the symmetric key
+      with PQ-wrapped keys when possible.'
+  - new: |-
+      ## Primary sources
+
+      - [OpenSSH post-quantum cryptography](https://www.openssh.com/pq.html)
+      - [age v1.3.0 release: native hybrid post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+identity-and-pseudonymity:
+  replace:
+  - new: |-
+      **NIP-26: Delegated Event Signing — unrecommended**
+
+      The NIPs README marks this proposal as unrecommended. The following describes the historical proposal, not a recommended custody pattern.
+    old: '**NIP-26: Delegated Event Signing**'
+  - new: '| **NIP-26 delegation** | Delegated event signing | Unrecommended | The NIPs README advises
+      against it |'
+    old: '| **NIP-26 delegation** | Agent / app delegation | Mature spec, patchy support | Useful for
+      bounded agent/app permissions |'
+  - new: NIP-26 is marked unrecommended in the NIPs README. Historical discussion of delegation revocation
+      should not be read as current endorsement. NIP-46 remote signing does not depend on NIP-26 delegation.
+    old: 'An open GitHub issue ([nostr-protocol/nips#654](https://github.com/nostr-protocol/nips/issues/654))
+      proposes adding a revocation mechanism to NIP-26. The motivation is concrete: when using NIP-46
+      for remote signing, users often combine it with long-expiry NIP-26 delegation keys for UX convenience.
+      If a delegated key is compromised via XSS or other means, the fixed expiry date means attackers
+      can continue using the delegation until it naturally expires — long enough to cause real damage.'
+  - new: NIP-26 is unrecommended; its proposed extensions are not a basis for a new recovery plan. See
+      [Nostr Key Custody and Recovery](/guides/nostr-key-custody/) for signing-device and custody considerations.
+    old: 'NIP-26 currently has no revocation mechanism — only time-bounded expiry. GitHub issue #654 proposes
+      adding a root-key-signed revocation certificate that clients and relays can validate. This would
+      be a significant addition to the identity recovery toolkit: a compromised delegate key can be burned
+      immediately rather than waiting for natural expiry. Until this lands as a NIP, the practical mitigation
+      is using short-expiry delegations and monitoring for unexpected delegation use.'
+  - new: 'This separates the data type from the profile blob:'
+    old: 'This follows the pattern established by NIP-26 (delegation), NIP-85 (assertions), and NIP-51
+      (lists):'
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+      - [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+lightning-network:
+  replace:
+  - new: Self-custody; check the wallet’s current support and custody model
+    old: Self-custody (Phoenix, Mutiny, Zeus)
+  - new: |-
+      ## Primary sources
+
+      - [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+loopix:
+  replace:
+  - new: 2025/861
+    old: 2026/861
+  - new: |-
+      ## Primary sources
+
+      - [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+marlin-oyster:
+  replace:
+  - new: '- **Market and pricing**: Oyster CVM documentation defines USDC as the payment token and POND
+      as the staking token.'
+    old: '- **Market and pricing**: compute is paid in the network''s token (OAT).'
+  - new: |-
+      ## Payment and staking tokens
+
+      Oyster CVM uses **USDC** for payments. Its token definition identifies **POND** on Arbitrum One or through Symbiotic vaults on Ethereum as the staking token. Payment and staking are separate roles.
+    old: |-
+      ## OAT token
+
+      The Marlin network uses **OAT** (Oyster Asset Token) for staking, governance, and payment settlement. Providers stake OAT as collateral; requestors pay in OAT for compute. The token economics align provider incentives with network reliability.
+  - new: '| Token | USDC (payments); POND (staking) | PHA | FLT | AKT |'
+    old: '| Token | OAT | PHA | FLT | AKT |'
+  - new: |-
+      ## Primary sources
+
+      - [Oyster CVM definitions: payment token and staking token](https://docs.marlin.org/oyster/protocol/cvm/definitions)
+    old: '## Primary sources'
+  - new: |-
+      ## Primary sources
+
+      - [Oyster CVM actors and operator staking](https://docs.marlin.org/oyster/protocol/cvm/actors)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+marmot-protocol:
+  replace:
+  - new: NIP-59 encrypts the Welcome and conceals its original sender, but the outer gift-wrap event has
+      a `p` tag naming the recipient’s public key. Relays and observers who can see the event can read
+      that tag; the encrypted contents do not reveal which group the invitation concerns.
+    old: NIP-59 gift-wrapping hides both the recipient and the fact that a Welcome happened from any relay
+      or observer.
+  - new: '| Membership privacy | NIP-59 gift wrap on Welcome | Welcome content is encrypted; the outer
+      p tag exposes the recipient, so recipient and timing metadata remain visible |'
+    old: '| Membership privacy | NIP-59 gift wrap on Welcome | Strong; observers can''t tell who''s in
+      which group from public events |'
+  - new: '- The recipient public key in each visible `kind:1059` gift wrap’s `p` tag, and the timing of
+      those events.'
+    old: '- The fact you receive `kind:1059` gift wraps. Standard Nostr gift-wrap visibility.'
+  - new: |-
+      ## Primary sources
+
+      - [NIP-59: gift-wrap routing tags and recipient metadata](https://github.com/nostr-protocol/nips/blob/master/59.md)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+mesh-naming:
+  replace:
+  - new: Two overlay approaches are Yggdrasil
+    old: The two production answers are Yggdrasil
+  - new: '- **Yggdrasil** — experimental, alpha-stage software; future changes may break compatibility.'
+    old: '- **Yggdrasil v0.5.12 (Dec 2024)** — stable release, embedded Go library released.'
+  - new: |-
+      ## Primary sources
+
+      - [Yggdrasil project status](https://yggdrasil-network.github.io/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+mix-networks:
+  replace:
+  - new: '- Tor Browser releases and platform downloads are published by the Tor Project; check the download
+      page for the current release.'
+    old: '- Tor Browser 15.0.13 emergency release (May 8, 2026) — rapid security patches following 15.0.12
+      and 15.0.11.'
+  - new: Tor Browser releases change over time. Use the Tor Project’s download page for the current platform-specific
+      release and signature, rather than treating an older release snapshot as an installation target.
+    old: 'The most significant recent event is not a single release but a **rapid-response release cadence**:
+      Tor Browser 15.0.11 (April 28), 15.0.12 (May 7), and 15.0.13 (May 8) followed each other within
+      days, the latter two explicitly emergency patches. The Tails 7.7.x series (7.7, 7.7.1, 7.7.2, 7.7.3
+      — April-May 2026) similarly reflects emergency kernel and Tor Browser/client fixes. This is not
+      a sign of systemic failure; it reflects an active attacker environment with a responsive security
+      team.'
+  - new: |-
+      ## Primary sources
+
+      - [Tor Browser downloads](https://www.torproject.org/download/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+mix-networks-tracker:
+  replace:
+  - new: 2025/861
+    old: 2026/861
+  - new: |-
+      ## Primary sources
+
+      - [MOCHA: ePrint 2025/861](https://eprint.iacr.org/2025/861)
+    old: '## Primary sources'
+  - new: 'Tor Browser: current platform releases on the Tor Project download page'
+    old: Tor Browser 15.0.13 (May 8, 2026 emergency), Arti 2.3.0 (May 7), Tails 7.7.3 emergency (May 12)
+  - new: For a current Tor Browser installation, use the Tor Project’s download page and verify the supplied
+      signature. Dated release observations are historical snapshots, not a current version recommendation.
+    old: Tor's 2026 story is the **rapid-response release cadence**, not any single feature. Tor Browser
+      15.0.11 (April 28), 15.0.12 (May 7), and 15.0.13 (May 8) followed each other within 10 days — the
+      latter two explicitly labeled emergency patches. The Tails 7.7.x series (7.7, 7.7.1, 7.7.2, 7.7.3
+      — April-May 2026) similarly reflects emergency kernel and Tor Browser/client fixes. This is not
+      evidence of systemic failure; it reflects an active attacker environment with a responsive security
+      team.
+  - new: '- [Tor Browser downloads](https://www.torproject.org/download/) — current platform releases
+      and signatures.'
+    old: '- Tor Project — Tor Browser 15.0.13: https://blog.torproject.org/new-release-tor-browser-15013/'
+  - new: |-
+      ## Primary sources
+
+      - [Tor Browser downloads](https://www.torproject.org/download/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+ml-kem:
+  replace:
+  - new: '| **SSH** | `mlkem768x25519-sha256` | Added in OpenSSH 9.9; default since 10.0 |'
+    old: '| **SSH (OpenSSH ≥ 9.0)** | sntrup761x25519-sha512 (NTRU-Prime hybrid; ML-KEM hybrid landing
+      in 10.x) | Default in OpenSSH 9.x |'
+  - new: '| **age (encrypted files)** | Native hybrid ML-KEM-768 recipients | Available since age 1.3.0;
+      generate with `age-keygen -pq` |'
+    old: '| **age (encrypted files)** | age-plugin-pq experimental | Plugin-stage |'
+  - new: |-
+      ## Primary sources
+
+      - [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)
+      - [age v1.3.0 native post-quantum recipients](https://github.com/FiloSottile/age/releases/tag/v1.3.0)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+namecoin:
+  replace:
+  - new: BLAKE2b + SHA3 PoW
+    old: Cuckatoo32 PoW
+  - new: |-
+      ## Primary sources
+
+      - [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+nostr-identity:
+  replace:
+  - new: |-
+      ### NIP-26 — unrecommended delegation
+
+      NIP-26 describes delegated event signing, but the NIPs README marks it **unrecommended**. It should not be the basis of a new key-custody plan. For signing from a separate device, see [Nostr Key Custody and Recovery](/guides/nostr-key-custody/) and NIP-46 remote signing.
+    old: |-
+      ### NIP-26 — delegation
+
+      The key holder signs a token authorizing another key to sign specific event kinds for a limited time. Useful for:
+
+      - Hot signing keys that don't put the master key at risk.
+      - Per-device keys that don't expose the root.
+      - Application-specific signing scopes.
+
+      NIP-26 is well-defined but client support is patchy.
+  - new: '- Your own Android phone running Amber. Amber keeps the private key in a dedicated app on the
+      device and signs for clients through Android signing interfaces and NIP-46; it is not a custodial
+      hosting service.'
+    old: '- A custodial service like Amber or Alby, which is convenient but means trusting a third party.'
+  - new: '- **Use one `npub` for everything.** Reusing a public identity across contexts links those activities.
+      Use separate keys when separation matters; NIP-26 delegation is unrecommended.'
+    old: '- **Use one `npub` for everything.** Signing a transaction, posting a hot take, and broadcasting
+      a FIPS routing announcement with the same key makes all three linkable. Use NIP-26 delegation or
+      per-context keys when that matters.'
+  - new: '- **Confuse a local signer with a custodian.** Amber keeps keys on your own device. Custody
+      depends on who controls the signing device and its keys.'
+    old: '- **Hand your key to a custodian.** A "Nostr account" hosted by Amber, Damus, or Iris that holds
+      your key is a custodian. Not your keys, not your identity.'
+  - new: '| Cross-context linkability | Separate keys for separate contexts; NIP-26 is unrecommended |'
+    old: '| Cross-context linkability | Per-context keys, NIP-26 delegation |'
+  - new: |-
+      ## Primary sources
+
+      - [Amber: local Android signer](https://github.com/greenart7c3/Amber)
+      - [NIP-55: Android signer interface](https://github.com/nostr-protocol/nips/blob/master/55.md)
+      - [NIP-46: remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+nostr-key-custody:
+  replace:
+  - new: '- **Separate signing from the client**: use a signer under your control. NIP-26 delegation is
+      marked unrecommended; NIP-46 remote signing does not require NIP-26.'
+    old: '- **Cold root + hot delegates**: use NIP-26 or app-specific delegation where supported.'
+  - new: '| NIP-26 delegation | Delegated event signing | Unrecommended | Do not base a new custody plan
+      on this proposal |'
+    old: '| NIP-26 revocation (issue #654) | Delegation revocation | Open NIP proposal | Root-key-signed
+      revocation certificate would close the delegation expiry gap; currently no revocation mechanism
+      |'
+  - new: The NIPs README marks NIP-26 as unrecommended. A revocation proposal does not change that status.
+      NIP-46 provides remote signing without requiring delegated event signatures; use its own signing
+      and permission model when evaluating a signer.
+    old: 'GitHub issue nostr-protocol/nips#654 remains open. The proposed root-key-signed revocation certificate
+      for NIP-26 delegation is the right design: it lets a compromised delegate key be burned immediately
+      via a signed event distributed to relays, rather than waiting for natural expiry. This matters most
+      in the NIP-46 remote signing flow where delegation keys are commonly used for UX convenience. Until
+      this lands as a NIP, the practical mitigations are short-expiry delegations and monitoring for unexpected
+      delegation use.'
+  - new: '### NIP-26: unrecommended'
+    old: '### NIP-26 revocation: still open, still the critical gap'
+  - new: For automated services and organizations, keep signing authority separate from application code
+      and scope the signer’s permissions. Do not use unrecommended NIP-26 delegation as the default custody
+      design.
+    old: 'The custody patterns documented in this file apply equally to AI agents operating on Nostr.
+      An agent with a raw `nsec` in a `.env` file has the same single-point-of-failure problem as a human
+      pasting a key into every app. The emerging pattern: scoped delegate keys for agents (NIP-26), policy
+      signers that approve or reject specific event kinds, and threshold custody for organizational Nostr
+      identities where multiple operators must cooperate for high-impact posts or payments.'
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-26 is unrecommended](https://github.com/nostr-protocol/nips)
+      - [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+nostr-protocol:
+  replace:
+  - new: '- Key custody risk. Losing the key means losing identity. Use a dedicated signer and a recovery
+      plan; the NIPs README marks NIP-26 delegation as unrecommended. See [Nostr Key Custody and Recovery](/guides/nostr-key-custody/).'
+    old: '- Key custody risk. Losing the key means losing identity. NIP-26 delegation, hardware-wallet-signed
+      events, and account-recovery NIPs help.'
+  - new: The relay sees a kind-1059 gift wrap signed by an ephemeral key and addressed to the recipient’s
+      public key in a visible `p` tag. The original sender is encrypted, but recipient and timing metadata
+      remain visible.
+    old: The relay sees only the gift wrap kind=1059 from a random ephemeral key to the recipient. The
+      social graph is hidden from the relay. The sender's identity is revealed only after the recipient
+      decrypts.
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: unrecommended proposals](https://github.com/nostr-protocol/nips)
+      - [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+nostr-web-of-trust:
+  replace:
+  - new: The NIPs README marks NIP-26 delegated event signing as unrecommended. Historical discussion
+      of revocation does not make delegation a recommended custody mechanism. NIP-46 remote signing does
+      not require NIP-26.
+    old: 'GitHub issue #654 on the NIPs repository proposes a revocation mechanism for NIP-26 delegated
+      keys. NIP-26 currently only supports time-bounded expiry, not revocation. When NIP-46 bunker signers
+      use long-expiry NIP-26 delegation keys for UX, a compromised delegate can operate until natural
+      expiry. The proposed fix — root-key-signed revocation certificates distributed to relays — would
+      let the root key burn a compromised delegate immediately. This is important for the custody model
+      because delegation is central to the NIP-46 flow, and currently delegation has no consent revocation
+      path.'
+  - new: NIP-26 is an unrecommended proposal. For current custody decisions, use the NIPs README and the
+      NIP-46 remote-signing specification rather than treating the earlier revocation discussion as endorsement.
+    old: 'GitHub issue #654 in the NIPs repository proposing a revocation mechanism for NIP-26 delegated
+      keys remains open as of early June 2026. NIP-26 currently only supports time-bounded expiry, not
+      revocation. When long-expiry NIP-26 delegations are combined with NIP-46 bunker signers for UX,
+      a compromised delegate can operate until natural expiry — the proposed root-key-signed revocation
+      certificates distributed to relays would close this window. This is a known gap in Nostr''s delegation
+      model that matters directly for WoT-adjacent custody: NIP-26 delegation is central to the NIP-46
+      remote signing flow, and without revocation, a compromised delegate is a live attack surface until
+      expiry.'
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+      - [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+nvidia-gpu-tee:
+  replace:
+  - new: |-
+      │  │  │  Protected GPU memory      │     │  │
+      │  │  │  Hopper HBM: unencrypted   │     │  │
+    old: |-
+      │  │  │  HBM (encrypted & integrity   │     │  │
+      │  │  │  protected via on-die engine)│     │  │
+  - new: '| **Protected GPU memory** | Hopper HBM is not encrypted. NVIDIA’s threat model relies on on-package
+      memory and access controls; memory protection must not be described as HBM encryption. |'
+    old: '| **Encrypted HBM** | HBM contents encrypted + integrity-protected by hardware engine at memory-controller
+      layer (AES-256-GCM, per-GPU key). |'
+  - new: '| **Encrypted CPU–GPU transfers** | The driver inside the CPU TEE stages encrypted data in shared-memory
+      bounce buffers. Command buffers and CUDA kernels are also encrypted before crossing PCIe. This does
+      not imply encryption of every PCIe transaction. |'
+    old: '| **Encrypted PCIe** | SPDM 1.2 session between CPU TEE and GPU. Key exchange via ECDHE, bulk
+      traffic AES-GCM. All CUDA H2D/D2H copies transparently encrypted. |'
+  - new: '2. CC-On: GPU confidential-computing protections and attestation are enabled. CPU–GPU transfers
+      use encryption; Hopper HBM remains unencrypted.'
+    old: '2. CC-On (protected PCIe): full TEE. Encrypted PCIe, attested, HBM encrypted.'
+  - new: '4. Multi-GPU: Hopper protected-PCIe (PPCIe) mode encrypts CPU–GPU traffic, while GPU–GPU traffic
+      over NVLink remains unencrypted. Blackwell multi-GPU CC mode also encrypts NVLink traffic. Assess
+      the supported hardware, firmware and driver configuration for each mode.'
+    old: '4. Multi-GPU / NVLink CC (Blackwell): NVLink traffic between GPUs in the same confidential domain
+      is also encrypted and attested. This enables multi-GPU models (tensor or pipeline parallel) inside
+      a single TEE trust domain. Hopper''s NVLink is not encrypted, so multi-GPU on H100 CC forces PCIe
+      routing with a heavy perf cost. This is a major Blackwell upgrade.'
+  - new: Blackwell multi-GPU CC adds NVLink encryption. That protects a specific interconnect; it is not
+      evidence that every GPU memory region or system link is encrypted.
+    old: 'Blackwell improves this materially: encrypted NVLink, higher-throughput PCIe Gen5 crypto engines,
+      and larger on-die attestation caches push steady-state overhead toward single digits even for multi-GPU
+      MoE.'
+  - new: |-
+      ## Primary sources
+
+      - [NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+      - [NVIDIA confidential VM threat model and interconnect limits](https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model)
+      - [NVIDIA Hopper and Blackwell confidential-computing whitepaper](https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+off-grid-networks:
+  replace:
+  - new: '| [Yggdrasil](/kb/yggdrasil/) | Experimental | The project describes itself as alpha-stage |'
+    old: '| Yggdrasil | Production | Stable releases |'
+  - new: '| [Briar](/kb/briar/) | Maintenance mode | Essential security updates and bug fixes |'
+    old: '| Briar | Production | Used in conflict zones |'
+  sources:
+  - title: Briar maintenance-mode announcement
+    url: https://briarproject.org/news/2026-maintenance-mode/
+  updated: '2026-10-25'
+onion-and-i2p-naming:
+  replace:
+  - new: '- A 2-byte checksum: the first two bytes of SHA3-256 over `".onion checksum" || public_key ||
+      version`.'
+    old: '- 2-byte SHA-1 checksum of the public key.'
+  - new: |-
+      ## Primary sources
+
+      - [Tor specification: encoding v3 onion addresses](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+phala-and-0g:
+  replace:
+  - new: '- GPU memory protection depends on the hardware and mode. On H100, access controls protect HBM
+      while CPU–GPU transfers are encrypted; HBM itself is not encrypted.'
+    old: '- The operator can''t extract model weights. GPU memory is encrypted.'
+  - new: H100 confidential computing protects GPU memory through isolation and encrypts transfers through
+      shared bounce buffers. NVIDIA explicitly states that Hopper HBM is not encrypted; do not describe
+      H100 support as GPU memory encryption.
+    old: Phala shipped production-grade **H100 Confidential Compute (CC)** VMs, making NVIDIA's highest-end
+      datacenter GPU available with memory encryption in-use.
+  - new: |-
+      ## Primary sources
+
+      - [NVIDIA H100 memory and transfer protections](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+pir-use-cases:
+  replace:
+  - new: Apple publishes the Swift Homomorphic Encryption library, including PIR, and a PIR service example.
+      These repositories make the library and example backend available for inspection. The example supports
+      Live Caller ID Lookup and URL filtering; its README explicitly says it should not be run in production.
+      Public example code does not establish that every component of Apple’s deployed services is open
+      source.
+    old: Apple's deployment proves that PIR-class techniques can work at consumer scale on mobile devices
+      with acceptable latency. This validates the deployment path for other privacy-preserving features.
+      However, Apple's implementation is proprietary and not open for independent auditing.
+  - new: '| Apple Device Features | **Production** | HE+PIR; public Swift library and service example
+      | Public code can be inspected; example backend is not for production |'
+    old: '| Apple Device Features | **Production** | HE+PIR (proprietary) | Closed-source, not auditable
+      |'
+  sources:
+  - title: Apple Swift Homomorphic Encryption, including PIR
+    url: https://github.com/apple/swift-homomorphic-encryption
+  - title: Apple PIR Service Example and deployment limits
+    url: https://github.com/apple/pir-service-example
+  updated: '2026-10-25'
+pkarr:
+  replace:
+  - new: BLAKE2b + SHA3 PoW
+    old: Cuckatoo32 PoW
+  - new: |-
+      ## Primary sources
+
+      - [hsd proof-of-work implementation](https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+post-quantum-cryptography:
+  replace:
+  - new: '- **Google set a 2029 PQC migration target on 25 March 2026.** Its announcement prioritizes
+      authentication services as well as the existing store-now-decrypt-later threat. It does not predict
+      that a cryptographically relevant quantum computer will arrive in 2029.'
+    old: '- **Google tightened the Q-Day estimate in March 2026**: the company now targets completing
+      PQC migration for authentication services by 2029, citing advances in quantum hardware (Willow chip),
+      quantum error correction, and updated factoring resource estimates (estimated ~500,000 qubits for
+      cryptographically relevant work). This is a meaningful acceleration from prior estimates of 2030+.'
+  - new: '### Google: 2029 migration target, with authentication a priority'
+    old: '### Google: Q-Day moved to 2029 — authentication migration priority'
+  - new: Google’s 25 March 2026 post, “Quantum frontiers may be closer than they appear,” sets a 2029
+      timeline for post-quantum migration. It cites progress in quantum hardware, error correction and
+      factoring resource estimates, and prioritizes migration of authentication services. This is a deployment
+      target, not a dated Q-Day estimate; the post does not give a qubit count.
+    old: 'Google''s March 2026 blog post "Quantum frontiers may be closer than they appear" tightened
+      the corporate Q-Day estimate: Google now targets completing PQC migration for **authentication services**
+      by 2029. This is the first major hyperscaler to issue a specific near-term deadline for PQ authentication,
+      distinct from the prior 2030+ estimates. The stated rationale includes Google Willow quantum chip
+      progress, quantum error correction advances, and updated factoring resource estimates (~500K qubits
+      for cryptographically relevant work). Google explicitly recommends that engineering teams prioritize
+      PQC migration for authentication — digital signatures and certificates — ahead of key exchange.
+      This is a meaningful signal: it shifts the urgency from "key exchange is urgent" to "authentication
+      is also urgent" and aligns with NCSC/BSI guidance already in this library.'
+  - new: '**Relevance to ungovernable systems**: Include authentication and long-lived signing keys in
+      migration planning. Google’s target does not supply a countdown to a quantum break.'
+    old: '**Relevance to ungovernable systems**: Any system with long-lived identity keys, code-signing
+      chains, or certificate-based trust should treat Google''s 2029 authentication deadline as a forcing
+      function for PQ signature planning. This applies to Nostr npubs, ENS names, PGP key chains, and
+      any decentralized identity system whose trust model depends on ECDSA/Ed25519 signatures.'
+  - new: Google’s March migration announcement does not cite this survey.
+    old: This is the survey cited in EO 14412's rationale and Google's 2029 timeline.
+  - new: |-
+      ## Primary sources
+
+      - [Google: Quantum frontiers may be closer than they appear, 25 March 2026](https://blog.google/innovation-and-ai/technology/safety-security/cryptography-migration-timeline/)
+    old: '## Primary sources'
+  - new: '- SSH: OpenSSH added `mlkem768x25519-sha256` in 9.9 and made it the default in 10.0 (April 2025).'
+    old: '- SSH (OpenSSH ≥ 9.0) offers `sntrup761x25519-sha512` hybrid; ML-KEM hybrids landing. Forescout
+      data (July 2026): ~90% of SSH servers still not quantum-safe; IoT 28%, OT 16%, IoMT 6% PQC-capable.'
+  - new: |-
+      ## Primary sources
+
+      - [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+pqc-deployment-tracker:
+  replace:
+  - new: '`mlkem768x25519-sha256` was added in OpenSSH 9.9 and became the default in OpenSSH 10.0 (April
+      2025).'
+    old: OpenSSH 10.x moves toward the standardized `mlkem768x25519-sha256` hybrid.
+  sources:
+  - title: OpenSSH post-quantum defaults
+    url: https://www.openssh.com/pq.html
+  updated: '2026-10-25'
+private-llm-inference-patterns:
+  replace:
+  - new: '- Keep the vector index within the attested workload and encrypt its stored copy. On Hopper,
+      plaintext in GPU HBM is protected by isolation rather than HBM encryption; release decryption keys
+      only after verifying the required CPU and GPU evidence.'
+    old: '- Vector DB inside a CVM (TDX); index encrypted in HBM or on disk with a key released only to
+      attested index enclaves.'
+  - new: |-
+      ## Primary sources
+
+      - [NVIDIA H100 confidential-computing boundary](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
+    old: '## Primary Sources'
+  updated: '2026-10-25'
+reticulum:
+  replace:
+  - new: '| **Sideband** | Cross-platform messenger | LXMF-based; Android, Linux, macOS and Windows |'
+    old: '| **Sideband** | Cross-platform messenger | LXMF-based; iOS, Android, desktop |'
+  - new: '- Sideband’s official README lists Android, Linux, macOS and Windows; it does not list an iOS
+      app.'
+    old: '- Sideband 2.x: major UX improvements; iOS native.'
+  - new: |-
+      ## Primary sources
+
+      - [Sideband README and supported platforms](https://github.com/markqvist/Sideband)
+      - [Official Sideband site](https://unsigned.io/sideband/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+semaphore:
+  replace:
+  - new: In Semaphore v4, the verifier learns the message, the group root, the scope and the nullifier.
+    old: The verifier learns the signal, the group root, the external topic (called the "external nullifier"),
+      and the nullifier hash.
+  - new: |-
+      ## Construction
+
+      ### Identity
+
+      A Semaphore v4 identity contains an EdDSA private key, its public key and an identity commitment. The commitment is the Poseidon hash of the public key and is the value added to the group’s Merkle tree. Keep the private key secret; the commitment is public.
+
+      ### Group
+
+      A group is a Merkle tree of identity commitments. A membership proof shows that the prover’s commitment belongs to the tree without revealing which leaf it is.
+
+      ### Proving
+
+      The circuit takes the EdDSA secret scalar derived from the private key and a private Merkle path. It derives the public key, hashes it into the identity commitment, and checks membership against the public Merkle root.
+
+      The public `scope` identifies the topic on which a member may act once. The circuit hashes the secret scalar with the scope to produce the `nullifier`, and binds the public `message` to the proof. The application checks the proof and rejects a nullifier already used for that scope.
+
+      ### Proof system
+
+      The reference v4 implementation uses a Circom circuit and Groth16 proof generation through snarkjs. Its identity construction differs from the older trapdoor/nullifier identity model. See [SNARKs](/kb/snarks/) for the proof-system trade-offs.
+    old: |-
+      ## Construction
+
+      ### Identity
+
+      A Semaphore identity is two secrets:
+
+      - `trapdoor` — a random scalar.
+      - `nullifier` — a random scalar (separate from the protocol-level nullifier hash).
+
+      The *identity commitment* is `Poseidon(trapdoor, nullifier)`. This commitment is what gets added to the group's Merkle tree.
+
+      ### Group
+
+      A group is a Merkle tree (Poseidon-hashed) of identity commitments. The group root is public. Adding/removing members updates the root.
+
+      ### Proving
+
+      To signal, the prover:
+
+      1. Computes the Merkle path from their identity commitment to the root.
+      2. Picks an *external nullifier* (the topic — a vote ID, a chat-room ID, a poll ID).
+      3. Computes `nullifierHash = Poseidon(externalNullifier, identityNullifier)`.
+      4. Generates a SNARK proving:
+         - I know `trapdoor`, `nullifier` such that `Poseidon(trapdoor, nullifier)` is in the Merkle tree at root `R`.
+         - `nullifierHash` is correctly computed from `externalNullifier` and `nullifier`.
+         - The `signal` is bound to the proof (committed in the public inputs).
+
+      The proof is published with `(root, nullifierHash, externalNullifier, signal, proof)`. The verifier checks the SNARK and checks that `nullifierHash` hasn't been seen before for this `externalNullifier`.
+
+      ### Proof system
+
+      Original Semaphore (v1-v3, 2019-2023): **Groth16** circuits via Circom, BN254. See [SNARKs](/kb/snarks/).
+
+      Semaphore v4 (2024): rewritten with a new circuit toolchain (Noir support, plus PLONK-derivative proving via Honk/UltraHonk for compatibility with newer SNARK stacks). The protocol-level construction is unchanged; the proof system is modernized for smaller proofs and faster client-side proving.
+
+      The migration to a more modern proof system also enabled mobile-friendly proving times — Semaphore v3 took several seconds on a phone; v4 is targeting sub-second proofs for typical group sizes.
+  - new: The message is public; the scope can be a topic or thread ID. The verifier uses the scope-bound
+      nullifier to reject repeated actions from the same identity.
+    old: The signal is the message; the external nullifier is typically the topic or thread ID, so the
+      same identity can post once per topic without being doxed across topics.
+  - new: '- Circom circuits and Groth16 proof generation for v4.'
+    old: '- Circom circuits (v3) and a v4 circuit set with newer proving stacks.'
+  - new: |-
+      ## Group sizes and trade-offs
+
+      Proof generation selects artifacts for a circuit depth that accommodates the membership path. When no depth is supplied, the reference API chooses it from the actual Merkle proof length, with a minimum depth of one. It pads the path to the selected circuit depth before generating the proof.
+
+      This makes circuit capacity and the available proving artifacts relevant to group size; it does not require the group to remain at a single fixed tree depth throughout its lifetime.
+    old: |-
+      ## Group sizes and trade-offs
+
+      Semaphore's circuit is parameterized by the Merkle tree depth `d`. Larger `d` allows more members but increases prover time roughly linearly in `d`.
+
+      Typical depths:
+
+      | Depth | Max group size | Use case |
+      |-------|----------------|----------|
+      | 16 | ~65k | small DAOs, voting committees |
+      | 20 | ~1M | mid-size communities |
+      | 30 | ~1B | large pseudonymous systems |
+      | 32 | ~4B | hardware-limited maximum |
+
+      The group's commitment tree is stored on-chain (or in a publicly verifiable database); the depth is fixed at deployment.
+  - new: '- The membership path must fit the selected circuit depth and proving artifacts.'
+    old: '- The Merkle tree depth is fixed; very large groups need re-deployment.'
+  - new: '- Proving requires the circuit artifacts for the selected depth.'
+    old: '- Proof size and prover cost scale with depth.'
+  sources:
+  - title: Semaphore v4 identities
+    url: https://docs.semaphore.pse.dev/guides/identities
+  - title: Semaphore v4 circuit inputs and outputs
+    url: https://docs.semaphore.pse.dev/technical-reference/circuits
+  - title: Semaphore reference proof generation
+    url: https://github.com/semaphore-protocol/semaphore/blob/main/packages/proof/src/generate-proof.ts
+  - title: Semaphore v4 identity commitment implementation
+    url: https://github.com/semaphore-protocol/semaphore/blob/main/packages/identity/src/index.ts
+  - title: Semaphore v4 Circom circuit
+    url: https://github.com/semaphore-protocol/semaphore/blob/main/packages/circuits/src/semaphore.circom
+  updated: '2026-10-25'
+simplepir-doublepir:
+  replace:
+  - new: The SimplePIR/DoublePIR paper uses LWE dimension **n = 1024**. This is the lattice security parameter,
+      distinct from database dimensions or record size.
+    old: For records longer than one entry, the paper describes a batching technique where multiple bits
+      are packed into each lattice element. SimplePIR's maximal throughput is achieved with n=22 (LWE
+      dimension) and d=2048 (record size in bits).
+  sources:
+  - title: 'Henzinger et al.: One Server for the Price of Two, USENIX Security 2023'
+    url: https://www.usenix.org/system/files/usenixsecurity23-henzinger.pdf
+  updated: '2026-10-25'
+simplex:
+  replace:
+  - new: '- **Groups** are fully decentralized: each client stores the group profile and its pairwise
+      connections to other members. An inviting member introduces a newcomer to existing members and forwards
+      messages while their connections are established. Relays carry the connections’ queues; the protocol
+      does not define a relay-owned group membership list or a shared sender-key group.'
+    old: '- For groups, SimpleX uses sender-keys-style group encryption similar to Signal''s; metadata
+      for group membership lives on the relay hosting the group, so group privacy depends on the chosen
+      relay.'
+  - new: |-
+      ## Primary sources
+
+      - [SimpleX Chat protocol: decentralized group design](https://simplex.chat/docs/protocol/simplex-chat.html)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+tor:
+  replace:
+  - new: Use the [Tor Project download page](https://www.torproject.org/download/) for the current Tor
+      Browser release and its signature. This entry does not pin a browser version.
+    old: Tor Browser 15.0.13 (2026-05-08) is the latest stable release, an emergency update following
+      15.0.12 and 15.0.11 in rapid succession. The 15.0.x series tracks Firefox ESR 140.x; 15.0.13 backports
+      security fixes from Firefox and addresses a Tor Browser-specific vulnerability. The release cadence
+      (three emergency patches in one week) reflects ongoing pressure on the browser attack surface rather
+      than a systemic crisis.
+  - new: |-
+      ## Staying current
+
+      Get Tor Browser and release information from the Tor Project’s download page. Check the release offered for your platform when installing or updating.
+    old: |-
+      ## September 04, 2026 Update — Arti 2.6.0; Tor Browser 15.0.21; 0.4.8 EOL; Tails 2-week cadence
+
+      Three Tor Project releases land within four days (Sep 1–3), all interlocking:
+
+      - **Arti 2.6.0 (Sep 1)** — *Counter Galois Onion* and *Congestion Control* now **always-on** in `arti`. Both were opt-in/experimental in 2.5.x; promoting both in the same release is the prerequisite for using Arti as a relay — a relay that only understood CGO traffic and a client that only understood pre-CGO traffic would silently drop each other's cells. Other 2.6.0 work: document parsing, directory mirror support, DNS stream handling, RPC-based configuration. The relay + dirauth build-out continues.
+      - **Tor Browser 15.0.21 (Sep 1)** — rebases stable onto **Firefox 140.15.0esr**, OpenSSL 3.5.8, NoScript 13.6.32.1984, Go 1.25.14, GeckoView 140.15.0esr; backports Firefox 155 security fixes; parent-process TorConnect redirection fix; 32-bit Linux retirement message adjusted.
+      - **Tor Browser 16.0a11 (Sep 2)** — alpha that will become 16.0 stable; with the new cadence, 15.0.21 and 16.0a11 land in the same week.
+      - **Tails 7.12 (Sep 3)** — *first release on Firefox's new 2-week release cadence*. Electrum 4.8.1, Tor Browser 15.0.21 inside. **Tails, Tor Browser, and Firefox now ship on the same clock**, so the lag from "Firefox security release" to "Tails users get the patch" drops from ~4–6 weeks to ~2 weeks.
+      - **Tor 0.4.8 deprecation cut-off (Sep 1)** — un-upgraded relays, onion services, and Tor-embedded apps lose connectivity to the network once the deprecated directory fields are removed. Tor Project guidance is "upgrade to Tor 0.4.9 series or later before September 1, 2026." Tor Browser users are unaffected directly.
+
+      **Network metrics (Sep 1)**: 10,137 relays (Exit 3,268 / Fast 9,987 / Guard 6,155 / HSDir 3,015 / Stable 9,059). Aug 31 dipped to 10,060 — likely the 0.4.8 EOL taking its first tranche — with Sep 1 partial recovery to 10,137. The network has absorbed the cut without drama.
+
+      See [Mix Networks Friday — September 04 2026 Weekly Update](/briefings/mix-networks/2026-09-04/) for the full weekly delta.
+  - new: |-
+      ## Primary sources
+
+      - [Tor Browser downloads](https://www.torproject.org/download/)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+unstoppable-domains:
+  replace:
+  - new: '| Renewal required | No (one-time) | Yes (annual rent) | Yes (RENEW covenant; approximately
+      two years on mainnet) | Yes (every 200 days) |'
+    old: '| Renewal required | No (one-time) | Yes (annual rent) | No (auction + burn) | Yes (every 200
+      days) |'
+  - new: |-
+      ## Primary sources
+
+      - [hsd mainnet renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
+      - [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
+      - [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)
+    old: '## Primary sources'
+  - new: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | Yes (RENEW; approximately two
+      years) | Strong — chain, no operator |'
+    old: '| [Handshake](/kb/handshake/) | No | hnsd, HNS-aware resolvers | No (auction + burn) | Strong
+      — chain, no operator |'
+  updated: '2026-10-25'
+web-of-trust-survey:
+  replace:
+  - new: NIP-26 delegated event signing is marked unrecommended in the NIPs README. Historical discussion
+      of revocation does not make it a recommended custody mechanism. NIP-46 remote signing does not require
+      NIP-26.
+    old: 'GitHub issue #654 on the NIPs repository proposes adding revocation to NIP-26 (Delegated Event
+      Signing). The problem: NIP-26 currently only supports time-bounded expiry, not revocation. When
+      NIP-46 bunker signers combine with long-expiry NIP-26 delegation keys for UX, a compromised delegate
+      can operate until natural expiry. The proposed fix — root-key-signed revocation certificates distributed
+      to relays — would let the root key burn a compromised delegate immediately without waiting for expiry.
+      This is a meaningful gap in the current delegation model because NIP-26 delegation is central to
+      the NIP-46 remote signing flow.'
+  - new: NIP-26 remains an unrecommended proposal. Use the current NIPs README for its status rather than
+      treating a historical revocation discussion as an endorsement of delegation.
+    old: 'GitHub issue #654 in the NIPs repository remains open and active as of early June 2026. The
+      proposed fix — root-key-signed revocation certificates distributed to relays — would let a delegating
+      key immediately invalidate a compromised delegate key before its natural expiry. This matters directly
+      for WoT-adjacent custody: if a delegate key is used for NIP-46 remote signing or NIP-07 identity,
+      and that delegate gets compromised, the window of abuse is currently bounded only by the delegation''s
+      expiry timestamp. Until this NIP is merged and widely implemented, long-expiry NIP-26 delegations
+      combined with NIP-46 bunker signers represent a known revocation gap.'
+  - new: |-
+      ## Primary sources
+
+      - [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+      - [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+    old: '## Primary sources'
+  updated: '2026-10-25'
+yggdrasil:
+  replace:
+  - new: |-
+      ## Readiness
+
+      **Experimental.** The project describes Yggdrasil as alpha-stage software and warns that future changes may break compatibility. It also reports day-to-day use, which does not change the alpha designation.
+
+      ## What Yggdrasil is
+    old: '## What Yggdrasil is'
+  - new: |-
+      ## Primary sources
+
+      - [Yggdrasil project status](https://yggdrasil-network.github.io/)
+    old: '## Primary sources'
+  updated: '2026-10-25'

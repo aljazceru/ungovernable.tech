@@ -5,7 +5,7 @@ type: reference
 pillars: ["pqc"]
 description: "A tracker of where post-quantum cryptography is actually shipping: TLS, SSH, messaging, libraries, hardware and government migration deadlines."
 dek: "Operational tracker for where post-quantum cryptography is actually shipping: protocol stacks, operating systems, libraries, messaging systems, VPNs, and compliance roadmaps. This complements Overview - Post-Quantum Cryptography, ML-KEM, ML-DSA, SLH-DSA, HQC, FN-DSA Falcon, and Hybrid KEM Migration."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-05-02
 origin: vault
 source: "10-Post-Quantum/PQC Deployment and Libraries Tracker.md"
@@ -168,7 +168,7 @@ Cloudflare's public docs describe PQ support for TLS 1.3 and HTTP/3, note that P
 
 ### SSH
 
-OpenSSH has been ahead of most infrastructure. Its PQ page says OpenSSH has offered PQ key agreement by default since 9.0 in April 2022, initially via `sntrup761x25519-sha512`. OpenSSH 10.x moves toward the standardized `mlkem768x25519-sha256` hybrid. This protects against store-now-decrypt-later for SSH session key establishment.
+OpenSSH has been ahead of most infrastructure. Its PQ page says OpenSSH has offered PQ key agreement by default since 9.0 in April 2022, initially via `sntrup761x25519-sha512`. `mlkem768x25519-sha256` was added in OpenSSH 9.9 and became the default in OpenSSH 10.0 (April 2025). This protects against store-now-decrypt-later for SSH session key establishment.
 
 **Important limitation:** SSH KEX migration does not automatically migrate host keys or user authentication keys. Ed25519/RSA host keys are still quantum-vulnerable signatures. For most users, confidentiality of captured sessions improves before authentication becomes PQ.
 
@@ -476,3 +476,7 @@ See [Post-Quantum Saturday — October 10 2026 Weekly Update](/briefings/post-qu
 - **IACR CHES 2026** (Oct 11-15 Antalya) + **LightSec 2026** (Oct 11) — SEALSQ "Cross-information lattice attack on ML-KEM" peer-reviewed paper
 
 See [Post-Quantum Saturday — October 17 2026 Weekly Update](/briefings/post-quantum/2026-10-17/) for the W42 detailed analysis and [Post-Quantum Saturday — October 10 2026 Weekly Update](/briefings/post-quantum/2026-10-10/) for the W41 cycle (the prior week).
+
+## Primary sources
+
+- [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)

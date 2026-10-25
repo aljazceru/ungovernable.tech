@@ -6,7 +6,7 @@ pillars: ["money", "endpoint"]
 readiness: battle-tested
 description: "Hardware wallets keep private keys on a dedicated device and confirm transactions on a trusted screen: architectures, threat model and trade-offs."
 dek: "Dedicated signing devices that keep private keys offline and approve transactions out-of-band. The practical foundation of self-custody."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "06-Financial-Sovereignty/Hardware Wallet Guide.md"
@@ -132,7 +132,7 @@ For multisig, use Shamir's Secret Sharing (SSSS) sparingly. Multiple cosigners a
 
 Lightning's online requirement conflicts with cold storage. Practical patterns:
 
-- Phoenix / Mutiny / Zeus: non-custodial mobile LN; use as the *hot* tier.
+- A self-custody Lightning wallet can serve as the *hot* tier. Mutiny announced the shutdown of its hosted wallet and mobile apps; its notice directs remaining users to self-host.
 - Voltage / Umbrel + Coldcard: the node holds channel state; Coldcard holds the recovery seed and signs forced closes.
 - PCC + LN: emerging, with phone signing backed by a hardware enclave (Apple Secure Enclave, StrongBox).
 
@@ -144,11 +144,12 @@ Lightning's online requirement conflicts with cold storage. Practical patterns:
 - Ledger Recover: opt-in custodial seed backup launched in 2023, controversial; users can verify it remains opt-in.
 - Reproducible builds: increasingly the norm. Trezor, Coldcard, Jade, and Passport publish bitwise-reproducible firmware builds.
 
-## Primary Sources
+## Primary sources
+
+- [Mutiny Wallet shutdown announcement](https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/)
 
 - BIP-32 (HD wallets) — [github.com/bitcoin/bips/blob/master/bip-0032.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)
 - BIP-39 (mnemonic seed) — [github.com/bitcoin/bips/blob/master/bip-0039.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
 - BIP-174 (PSBT) — [github.com/bitcoin/bips/blob/master/bip-0174.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)
-- Andreas Antonopoulos, *Mastering Bitcoin*, 3rd ed. — chapters on key derivation and signing.
 - Coldcard, Trezor, Jade, Passport documentation.
 - Kraken Security Labs, *Trezor Physical Extraction*, 2020.

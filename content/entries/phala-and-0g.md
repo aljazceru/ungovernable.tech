@@ -6,7 +6,7 @@ pillars: ["compute", "confidential"]
 readiness: usable
 description: "Phala and 0G, two TEE-first decentralized compute networks for confidential and AI workloads: architectures, attestation and track records."
 dek: "Two TEE-first decentralized compute networks. Phala has the longer track record and the more mature TEE marketplace; 0G adds a \"decentralized AI OS\" framing with Phala as one of its compute layers. Both pin attestation reports on-chain so workloads carry verifiable trust from the silicon up."
-updated: 2026-09-08
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "04-Decentralized-Compute/Phala and 0G.md"
@@ -59,7 +59,7 @@ This is the cleanest decentralized confidential-compute developer story in 2026.
 The flagship use case. A model owner ships an open-weights or proprietary LLM to a Phala dstack workload running TDX + H100 CC. End users connect over attested TLS, verify the attestation, and send prompts. Three properties hold:
 
 - The operator can't read prompts. TDX + H100 CC encrypts everything.
-- The operator can't extract model weights. GPU memory is encrypted.
+- GPU memory protection depends on the hardware and mode. On H100, access controls protect HBM while CPU–GPU transfers are encrypted; HBM itself is not encrypted.
 - The client can verify that the workload runs the published binary on the published model.
 
 Used in production by partners offering "open inference" services to users who don't want to send prompts to OpenAI.
@@ -198,7 +198,7 @@ OLLM, a privacy-first AI infrastructure firm, partnered with Phala to integrate 
 
 ### NVIDIA H100 CC Mainstream
 
-Phala shipped production-grade **H100 Confidential Compute (CC)** VMs, making NVIDIA's highest-end datacenter GPU available with memory encryption in-use.
+H100 confidential computing protects GPU memory through isolation and encrypts transfers through shared bounce buffers. NVIDIA explicitly states that Hopper HBM is not encrypted; do not describe H100 support as GPU memory encryption.
 
 ### dstack as the SDK Pattern
 
@@ -244,6 +244,8 @@ The Sept 2–8 weekly update confirmed three structural moves that harden Phala'
 See [Decentralized Compute Tuesday — September 08 2026 Weekly Update](/briefings/compute/2026-09-08/) for the full coverage including Phala's home-page token-trajectory table and the cross-cloud dstack comparison (AWS Nitro / GCP TDX / Phala native).
 
 ## Primary sources
+
+- [NVIDIA H100 memory and transfer protections](https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/)
 
 - Phala Network — [phala.network](https://phala.network).
 - Phala Cloud — [docs.phala.network/phala-cloud](https://docs.phala.network/phala-cloud).

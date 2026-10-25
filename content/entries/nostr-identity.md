@@ -6,7 +6,7 @@ pillars: ["identity"]
 readiness: usable
 description: "On Nostr an identity is just a secp256k1 key pair: no registrar, platform or issuer. How keys, names, verification and delegation work."
 dek: "A Nostr identity is just a secp256k1 keypair. No registrar, no platform, no issuer involved. This file looks at Nostr through the identity lens; the messaging side is in Nostr Deep Dive."
-updated: 2026-05-24
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "11-Identity/Nostr.md"
@@ -47,15 +47,9 @@ The trust is whatever TLS to that domain is worth, which means it falls back to 
 - Serve NIP-05 from a `.onion` address, removing DNS and CAs from the picture.
 - Have clients pin the `npub` on first contact (TOFU), so a later DNS attack doesn't silently swap the key.
 
-### NIP-26 — delegation
+### NIP-26 — unrecommended delegation
 
-The key holder signs a token authorizing another key to sign specific event kinds for a limited time. Useful for:
-
-- Hot signing keys that don't put the master key at risk.
-- Per-device keys that don't expose the root.
-- Application-specific signing scopes.
-
-NIP-26 is well-defined but client support is patchy.
+NIP-26 describes delegated event signing, but the NIPs README marks it **unrecommended**. It should not be the basis of a new key-custody plan. For signing from a separate device, see [Nostr Key Custody and Recovery](/guides/nostr-key-custody/) and NIP-46 remote signing.
 
 ## Using one key across multiple devices
 
@@ -71,7 +65,7 @@ A signer service holds the key, and the application calls a remote signing API. 
 
 - A separate device (phone, hardware wallet).
 - A self-hosted server, with the key in a TEE (see [Overview - Confidential Computing](/kb/confidential-computing/)).
-- A custodial service like Amber or Alby, which is convenient but means trusting a third party.
+- Your own Android phone running Amber. Amber keeps the private key in a dedicated app on the device and signs for clients through Android signing interfaces and NIP-46; it is not a custodial hosting service.
 
 ### Account recovery (FROST, draft NIP)
 
@@ -110,8 +104,8 @@ The practical effect is that Marmot lets you cleanly separate Nostr-the-identity
 
 ## Things not to do
 
-- **Use one `npub` for everything.** Signing a transaction, posting a hot take, and broadcasting a FIPS routing announcement with the same key makes all three linkable. Use NIP-26 delegation or per-context keys when that matters.
-- **Hand your key to a custodian.** A "Nostr account" hosted by Amber, Damus, or Iris that holds your key is a custodian. Not your keys, not your identity.
+- **Use one `npub` for everything.** Reusing a public identity across contexts links those activities. Use separate keys when separation matters; NIP-26 delegation is unrecommended.
+- **Confuse a local signer with a custodian.** Amber keeps keys on your own device. Custody depends on who controls the signing device and its keys.
 - **Send `nsec` to a relay.** Relays only need signed events. If a relay sees an `nsec`, you've already lost.
 - **Treat NIP-05 as authentication.** It's an alias, not a credential. Don't trust it for high-stakes verification without other corroboration.
 - **Announce a new account by posting "I left, my new account is X" from the old one.** Without a cryptographic delegation, the protocol can't verify the link; followers have to re-establish trust by hand.
@@ -152,7 +146,7 @@ The practical effect is that Marmot lets you cleanly separate Nostr-the-identity
 | NIP-05 DNS attack | Self-hosting, PKARR, `.onion` fallback |
 | Social-engineered pubkey | Cross-signing, WoT, out-of-band confirmation |
 | Sybil flood or spam | WoT-rooted feeds, paid relays, content filters |
-| Cross-context linkability | Per-context keys, NIP-26 delegation |
+| Cross-context linkability | Separate keys for separate contexts; NIP-26 is unrecommended |
 | Compromised signing service | Use only attested or self-hosted signers |
 | Quantum attack (future) | Migrating to a PQ signature scheme; no NIP yet |
 
@@ -165,6 +159,11 @@ The practical effect is that Marmot lets you cleanly separate Nostr-the-identity
 - NIP-05 served over PKARR via Pubky integration.
 
 ## Primary sources
+
+- [Amber: local Android signer](https://github.com/greenart7c3/Amber)
+- [NIP-55: Android signer interface](https://github.com/nostr-protocol/nips/blob/master/55.md)
+- [NIP-46: remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
+- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
 
 - fiatjaf, *Nostr — Notes and Other Stuff Transmitted by Relays*, 2020. [github.com/nostr-protocol/nostr](https://github.com/nostr-protocol/nostr)
 - NIPs registry — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)

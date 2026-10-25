@@ -6,7 +6,7 @@ pillars: ["mesh", "messaging"]
 readiness: battle-tested
 description: "Briar is a peer-to-peer messenger built for shutdowns and hostile networks: it syncs over Tor, Bluetooth and Wi-Fi, with no servers holding your messages."
 dek: "Peer-to-peer messaging built for the worst conditions: internet shutdowns, hostile networks, disrupted mesh. The same client switches between Tor, Bluetooth, and Wi-Fi-direct transparently."
-updated: 2026-04-25
+updated: 2026-10-25
 created: 2026-04-25
 origin: vault
 source: "05-Off-Grid-Networks/Briar.md"
@@ -47,7 +47,7 @@ Each Briar instance hosts a Tor v3 hidden service. Contacts connect to one anoth
 
 ### Bluetooth
 
-When in physical proximity, Briar can sync directly over Bluetooth. No internet required. Two phones in a building or a backpack can pass messages, attachments, and forum posts.
+When in physical proximity, Briar can sync directly over Bluetooth. No internet required. Two nearby phones can synchronize messages and forum posts.
 
 ### Wi-Fi (LAN / mobile hotspot)
 
@@ -95,8 +95,8 @@ Storage is encrypted with a passphrase-derived key. The passphrase is the only w
 
 ## What Briar doesn't do
 
-- Voice / video. Text and small attachments only. The threat model and constraints don't favor real-time media.
-- Multi-device. A single account is bound to a single device. Migration via export/import (encrypted backup).
+- Voice / video. Messaging only; account backup and file attachments remain missing features in the maintenance announcement. The threat model and constraints don't favor real-time media.
+- Multi-device. A single account is bound to a single device. Account backup and export/import recovery are not available.
 - Discovery. No directory; no search. Contacts are added intentionally.
 - Federation. Pure P2P; not a server-based protocol.
 
@@ -118,7 +118,7 @@ Storage is encrypted with a passphrase-derived key. The passphrase is the only w
 
 - Three transports plus transparent switching. Survives internet shutdowns.
 - No metadata server. Nothing to subpoena.
-- No accounts. Identity local; recoverable from backup with passphrase.
+- Identity stays on the device. Uninstalling Briar or losing the password leaves no account-recovery path.
 - Forums work offline via gossip.
 - Open source, Free Software. Auditable.
 - Designed for hostile environments, not retrofitted.
@@ -154,20 +154,16 @@ For higher-stakes scenarios (whistleblower, classified material): pair Briar wit
 
 In a regional internet outage, two Briar phones in the same building sync over Bluetooth. As mesh density grows, gossip carries forum updates across users.
 
-## Recent developments (2024-2026)
+## Readiness
 
-- Briar Desktop: JavaFX-based stable client; cross-platform.
-- Briar Mailbox: production for Android; consumer-friendly setup.
-- Hybrid post-quantum handshake research.
-- Native Tor in client: improved bootstrap and bridge support.
-- Forum scalability improvements.
+Briar announced maintenance mode on 9 July 2026. The project continues, with essential security updates and bug fixes. Its announcement identifies account backup, file attachments, battery usage and reliable background operation as unresolved issues.
+
+Briar Desktop is available as a beta; the project’s desktop release announcement calls it `0.6.0-beta`. Do not treat it as a stable desktop release.
 
 ## Primary sources
 
-- Briar Project — [briarproject.org](https://briarproject.org)
-- Source — [code.briarproject.org/briar](https://code.briarproject.org/briar)
-- Briar Protocol Specification — *Bramble, Briar's transport protocol*.
-- Mailbox documentation — [briarproject.org/manual/mailbox](https://briarproject.org/manual/mailbox)
-- Open Technology Fund audits.
+- [Briar maintenance-mode announcement, 9 July 2026](https://briarproject.org/news/2026-maintenance-mode/)
+- [Briar manual: account storage and recovery](https://briarproject.org/manual/)
+- [Briar Desktop beta release announcement](https://briarproject.org/news/2023-briar-desktop-0.6.0-released/)
 
 For a phone-only Bluetooth mesh with multi-hop relaying, store-and-forward couriers and a Nostr fallback, compare [Bitchat](/kb/bitchat/).

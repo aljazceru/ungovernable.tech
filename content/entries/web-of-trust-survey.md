@@ -5,7 +5,7 @@ type: reference
 pillars: ["identity"]
 description: "A long survey of webs of trust: how decentralized systems decide which keys and people to trust, from PGP to Nostr, with algorithms and attacks."
 dek: "A Web of Trust (WoT) is a decentralized answer to the question: \"which public keys, accounts, relays, merchants, or claims should I treat as credible?\" Instead of a certificate authority, government registry, platform moderation team, or KYC provider deciding for everyone, each participant starts with local trust anchors and extends outward through signed attestations, follow relationships, endorsements, mutes, reports, zaps, or other graph edges."
-updated: 2026-06-18
+updated: 2026-10-25
 created: 2026-04-16
 origin: vault
 source: "02-Cryptography/Overview - Web of Trust.md"
@@ -520,7 +520,7 @@ RFC 9591 (FROST Protocol) was published by the IRTF in June 2024, giving thresho
 
 ### NIP-26 Delegation Has No Revocation Mechanism
 
-GitHub issue #654 on the NIPs repository proposes adding revocation to NIP-26 (Delegated Event Signing). The problem: NIP-26 currently only supports time-bounded expiry, not revocation. When NIP-46 bunker signers combine with long-expiry NIP-26 delegation keys for UX, a compromised delegate can operate until natural expiry. The proposed fix — root-key-signed revocation certificates distributed to relays — would let the root key burn a compromised delegate immediately without waiting for expiry. This is a meaningful gap in the current delegation model because NIP-26 delegation is central to the NIP-46 remote signing flow.
+NIP-26 delegated event signing is marked unrecommended in the NIPs README. Historical discussion of revocation does not make it a recommended custody mechanism. NIP-46 remote signing does not require NIP-26.
 
 ### OpenPGP Key Replacement Draft-ietf-openpgp-replacementkey-07 (April 2026)
 
@@ -583,7 +583,7 @@ A technical critique from Vertex Lab (vertexlab.io) argues that NIP-85 trusted a
 
 #### NIP-26 Delegation Revocation: Issue #654 Active
 
-GitHub issue #654 in the NIPs repository remains open and active as of early June 2026. The proposed fix — root-key-signed revocation certificates distributed to relays — would let a delegating key immediately invalidate a compromised delegate key before its natural expiry. This matters directly for WoT-adjacent custody: if a delegate key is used for NIP-46 remote signing or NIP-07 identity, and that delegate gets compromised, the window of abuse is currently bounded only by the delegation's expiry timestamp. Until this NIP is merged and widely implemented, long-expiry NIP-26 delegations combined with NIP-46 bunker signers represent a known revocation gap.
+NIP-26 remains an unrecommended proposal. Use the current NIPs README for its status rather than treating a historical revocation discussion as an endorsement of delegation.
 
 #### GitHub Activity — Early June 2026
 
@@ -784,6 +784,9 @@ New primary sources added this week:
 - [LWN: Fedora and GPG 2.5](https://lwn.net/Articles/1055053) — distribution packaging implications
 
 ## Primary sources
+
+- [NIPs README: NIP-26 status](https://github.com/nostr-protocol/nips)
+- [NIP-46 remote signing](https://github.com/nostr-protocol/nips/blob/master/46.md)
 
 ### Standards and specs
 

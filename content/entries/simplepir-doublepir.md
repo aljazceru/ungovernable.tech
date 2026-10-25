@@ -6,7 +6,7 @@ pillars: ["cryptography"]
 readiness: research
 description: "SimplePIR and DoublePIR, single-server private information retrieval schemes that run close to memory bandwidth: how they work and their costs."
 dek: "The breakthrough single-server PIR schemes (USENIX Security 2023) that brought server throughput to near-memory-bandwidth limits, establishing the performance baseline that all subsequent PIR research measures against."
-updated: 2026-08-05
+updated: 2026-10-25
 created: 2026-08-05
 origin: vault
 source: "13-Private-Information-Retrieval/SimplePIR and DoublePIR.md"
@@ -83,7 +83,7 @@ This "square-root of square-root" approach means the hint only needs to cover th
 
 ### Long Records
 
-For records longer than one entry, the paper describes a batching technique where multiple bits are packed into each lattice element. SimplePIR's maximal throughput is achieved with n=22 (LWE dimension) and d=2048 (record size in bits).
+The SimplePIR/DoublePIR paper uses LWE dimension **n = 1024**. This is the lattice security parameter, distinct from database dimensions or record size.
 
 ### Batch Queries
 
@@ -162,3 +162,7 @@ import "github.com/ahenzinger/simplepir/pir"
 4. **Index-only**: The schemes retrieve by index, not by keyword. KPIR (2025) bridges this gap.
 
 5. **Single dimension**: SimplePIR uses a 2D matrix layout. Multi-dimensional approaches (TensorPIR, DoublePIR's two-level scheme) explore different dimensionality trade-offs.
+
+## Primary sources
+
+- [Henzinger et al.: One Server for the Price of Two, USENIX Security 2023](https://www.usenix.org/system/files/usenixsecurity23-henzinger.pdf)
