@@ -142,3 +142,5 @@ For users who want a fully working metadata-light messenger today and are uninte
 - Quarkslab audit (2020) — published in OPTF blog and GitHub.
 - Marlinspike & Perrin, "The Double Ratchet Algorithm" (2016).
 - Australian Assistance and Access Act 2018 — [legislation.gov.au](https://www.legislation.gov.au/Details/C2018A00148) (jurisdictional context).
+
+For a current comparison of identifiers, encryption defaults and network dependencies, see [Choosing a private messenger](/kb/compare-messengers/).

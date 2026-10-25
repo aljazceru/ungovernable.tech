@@ -17,6 +17,8 @@ End-to-end encryption is no longer what separates good messengers from bad ones;
 
 ## At a glance
 
+For the expanded comparison, including [Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/), [Jami](/kb/jami/) and the off-grid choices, see [Choosing a private messenger](/kb/compare-messengers/). For document submissions, compare [OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).
+
 | | Signal | SimpleX | Session | Briar | Cwtch | Matrix (Element) |
 |---|---|---|---|---|---|---|
 | Sign-up needs | Phone number | Nothing | Nothing (random ID) | Nothing | Nothing | Account on a homeserver (email optional) |

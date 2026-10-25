@@ -162,3 +162,5 @@ The audit cadence is real and the company publishes results. That puts SimpleX a
 - Trail of Bits audit (2024) — published in SimpleX blog, 2024 release notes.
 - SimpleX threat model — [simplex.chat/docs/glossary.html](https://simplex.chat/docs/glossary.html) and protocol documents.
 - Marlinspike & Perrin, "The Double Ratchet Algorithm" (2016) — the underlying content-encryption primitive.
+
+Compare this approach with [Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/) and [Jami](/kb/jami/) in [Choosing a private messenger](/kb/compare-messengers/).

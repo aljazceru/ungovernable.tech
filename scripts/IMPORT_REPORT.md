@@ -7,7 +7,7 @@ Re-running the importer refreshes this file.
 
 - Entries: **150**
 - Briefings: **100**
-- Glossary terms: **116**
+- Glossary terms: **118**
 
 ### By pillar
 

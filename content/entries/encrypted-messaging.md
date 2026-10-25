@@ -210,3 +210,5 @@ Wire is a Swiss / German enterprise messenger and the canonical production refer
 - Jurisdiction — app-store and provider availability varies.
 
 Two newer MLS-based projects on Nostr identities: [White Noise](/kb/white-noise/), a relay-native messenger built on Marmot, and [Cordn](/kb/cordn/), group messaging through a coordinator you can run yourself.
+
+For a current comparison of identifiers, metadata, encryption defaults and readiness, see [Choosing a private messenger](/kb/compare-messengers/). Additional entries cover [Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/), [Jami](/kb/jami/), [Tox](/kb/tox/), [Quiet](/kb/quiet/) and [Veilid](/kb/veilid/).

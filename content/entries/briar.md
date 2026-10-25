@@ -166,4 +166,4 @@ Briar Desktop is available as a beta; the project’s desktop release announceme
 - [Briar manual: account storage and recovery](https://briarproject.org/manual/)
 - [Briar Desktop beta release announcement](https://briarproject.org/news/2023-briar-desktop-0.6.0-released/)
 
-For a phone-only Bluetooth mesh with multi-hop relaying, store-and-forward couriers and a Nostr fallback, compare [Bitchat](/kb/bitchat/).
+For a phone-only Bluetooth mesh with multi-hop relaying, store-and-forward couriers and a Nostr fallback, compare [Bitchat](/kb/bitchat/). For the wider field, see [Choosing a private messenger](/kb/compare-messengers/).

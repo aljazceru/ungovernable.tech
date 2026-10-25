@@ -137,3 +137,5 @@ These motivate the federated and decentralized alternatives: [Matrix and E2EE](/
 - Cohn-Gordon et al., *A Formal Security Analysis of the Signal Messaging Protocol*, EuroS&P 2017.
 - RFC 9420, *Messaging Layer Security*.
 - libsignal — [github.com/signalapp/libsignal](https://github.com/signalapp/libsignal)
+
+For the distinction between the Signal app and other messenger architectures, see [Choosing a private messenger](/kb/compare-messengers/). Compare [XMPP with OMEMO](/kb/xmpp-omemo/) and [Delta Chat](/kb/delta-chat/).

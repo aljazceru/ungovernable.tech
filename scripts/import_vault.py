@@ -149,7 +149,12 @@ ENTRY_APPEND = {
         '(/guides/self-hosted-circumvention-server/) for setup and verification.',
     'metadata-resistance': 'For the specific technique of hiding *when* and '
         '*how much* you send, see [Cover Traffic and Constant-Rate Padding]'
-        '(/kb/cover-traffic/).',
+        '(/kb/cover-traffic/).\n\n'
+        'Compare identifiers, delivery services and exposed metadata in '
+        '[Choosing a private messenger](/kb/compare-messengers/), including '
+        '[Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/) '
+        'and [Jami](/kb/jami/). For submission workflows, see '
+        '[OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).',
     'off-grid-networks': 'For internet access built and owned by its users '
         'rather than a telco, see [Community Networks](/kb/community-networks/).' '\n\n' + (
         'MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside '
@@ -173,7 +178,12 @@ ENTRY_APPEND = {
     'encrypted-messaging': 'Two newer MLS-based projects on Nostr identities: '
         '[White Noise](/kb/white-noise/), a relay-native messenger built on '
         'Marmot, and [Cordn](/kb/cordn/), group messaging through a coordinator '
-        'you can run yourself.',
+        'you can run yourself.\n\n'
+        'For a current comparison of identifiers, metadata, encryption defaults '
+        'and readiness, see [Choosing a private messenger](/kb/compare-messengers/). '
+        'Additional entries cover [Delta Chat](/kb/delta-chat/), '
+        '[XMPP with OMEMO](/kb/xmpp-omemo/), [Jami](/kb/jami/), '
+        '[Tox](/kb/tox/), [Quiet](/kb/quiet/) and [Veilid](/kb/veilid/).',
     'nostr-protocol': 'For end-to-end encrypted group chat built on Nostr keys '
         'and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) '
         'and [Cordn](/kb/cordn/).',
@@ -200,7 +210,9 @@ ENTRY_APPEND = {
         'with a 2-byte MAC, no forward secrecy, active development.',
     'briar': 'For a phone-only Bluetooth mesh with multi-hop relaying, '
         'store-and-forward couriers and a Nostr fallback, compare '
-        '[Bitchat](/kb/bitchat/).',
+        '[Bitchat](/kb/bitchat/). '
+        'For the wider field, see [Choosing a private messenger]'
+        '(/kb/compare-messengers/).',
     'decentralized-storage': 'For a practical selection table, see '
         '[Choosing Decentralized Storage](/kb/compare-storage/). Continue with '
         '[Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), '
@@ -223,6 +235,23 @@ ENTRY_APPEND = {
     'sia-and-storj': 'For another encrypted storage design, see '
         '[Tahoe-LAFS](/kb/tahoe-lafs/). For a device-based setup, follow '
         '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).',
+    'signal-protocol': 'For the distinction between the Signal app and other '
+        'messenger architectures, see [Choosing a private messenger]'
+        '(/kb/compare-messengers/). Compare [XMPP with OMEMO](/kb/xmpp-omemo/) '
+        'and [Delta Chat](/kb/delta-chat/).',
+    'simplex': 'Compare this approach with [Delta Chat](/kb/delta-chat/), '
+        '[XMPP with OMEMO](/kb/xmpp-omemo/) and [Jami](/kb/jami/) in '
+        '[Choosing a private messenger](/kb/compare-messengers/).',
+    'session-messenger': 'For a current comparison of identifiers, encryption '
+        'defaults and network dependencies, see [Choosing a private messenger]'
+        '(/kb/compare-messengers/).',
+    'cwtch': 'Compare [Quiet](/kb/quiet/), [Jami](/kb/jami/) and the other '
+        'architectures in [Choosing a private messenger](/kb/compare-messengers/). '
+        'For document submissions, see [OnionShare](/kb/onionshare/) and '
+        '[SecureDrop](/kb/securedrop/).',
+    'matrix': 'Compare [XMPP with OMEMO](/kb/xmpp-omemo/) and '
+        '[Delta Chat](/kb/delta-chat/) in [Choosing a private messenger]'
+        '(/kb/compare-messengers/).',
 }
 # vault slug -> related slugs written into the emitted front matter (shown first)
 ENTRY_RELATED = {
@@ -311,6 +340,27 @@ GLOSSARY_ADD = [
             'a copy available. '
             '[IPFS content addressing](https://docs.ipfs.tech/concepts/content-addressing/).',
         'see': ['ipfs-and-filecoin', 'bittorrent-archives', 'blossom'],
+    },
+    {
+        'term': 'Post-compromise security',
+        'slug': 'post-compromise-security',
+        'definition_md': 'Recovery of confidentiality for future messages after '
+            'an attacker loses access and honest participants introduce fresh '
+            'secret key material. It does not repair an ongoing endpoint compromise '
+            'or erase previously exposed messages. See '
+            '[RFC 9420](https://www.rfc-editor.org/rfc/rfc9420.html).',
+        'see': ['signal-protocol', 'mls-wire', 'xmpp-omemo'],
+    },
+    {
+        'term': 'Anonymity set',
+        'slug': 'anonymity-set',
+        'definition_md': 'The possible subjects an observer cannot distinguish '
+            'as responsible for an action, such as sending a message. The set '
+            'depends on the observer\'s information and can change over time; '
+            'it is not automatically every user of a network. See '
+            '[Pfitzmann and Hansen\'s terminology paper]'
+            '(https://dud.inf.tu-dresden.de/literatur/Anon_Terminology_v0.34.pdf).',
+        'see': ['metadata-resistance', 'tor', 'mix-networks'],
     },
 ]
 

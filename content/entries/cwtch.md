@@ -140,3 +140,5 @@ For activists, journalists, and anyone whose threat model includes "the messenge
 - [Tor v3 onion-address encoding](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
 - [Briar maintenance-mode announcement](https://briarproject.org/news/2026-maintenance-mode/)
 - [Cwtch downloads for Android and desktop](https://cwtch.im/download/)
+
+Compare [Quiet](/kb/quiet/), [Jami](/kb/jami/) and the other architectures in [Choosing a private messenger](/kb/compare-messengers/). For document submissions, see [OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).

@@ -37,6 +37,7 @@ replace:
   https://github.com/nickvdyck/coracle: {url: "https://github.com/coracle-social/coracle", name: "Coracle"}
   https://github.com/openwalletfoundation/credo: {url: "https://github.com/openwallet-foundation/credo-ts", name: "Credo (TypeScript)"}
   https://katzenpost.network/docs/specs/mixspec.html: {url: "https://katzenpost.network/docs/", name: "Katzenpost documentation"}
+  https://github.com/TryQuiet/quiet: {url: "https://github.com/TryQuiet/quiet", name: "Quiet", desc: "Experimental team chat synchronised over Tor; unaudited and explicitly unsuitable for critical privacy or security needs"}
 # annotate: status = defunct | archived | caution, with a short reader-facing note
 annotate:
   https://github.com/MutinyWallet/mutiny-node: {status: defunct, note: "Mutiny announced the shutdown of its hosted wallet and mobile apps; the remaining option is self-hosting."}
@@ -75,12 +76,6 @@ add:
     - {section: "DNS", name: "DNSCrypt — dnscrypt-proxy", url: "https://github.com/DNSCrypt/dnscrypt-proxy", desc: "DNS proxy with support for DNSCrypt and DNS over HTTPS"}
     - {section: "DNS", name: "Quad9", url: "https://quad9.net/", desc: "Public recursive DNS service with malicious-domain filtering"}
     - {section: "DNS", name: "Cloudflare encrypted DNS documentation", url: "https://developers.cloudflare.com/1.1.1.1/encryption/", desc: "DNS over TLS, DNS over HTTPS and Oblivious DNS over HTTPS"}
-  messaging:
-    - {section: "Messaging Layer Security (MLS)", name: "White Noise", url: "https://www.whitenoise.chat/", desc: "Open-source messenger using MLS over Nostr relays (Marmot); no phone number or email, beta"}
-    - {section: "Messaging Layer Security (MLS)", name: "Marmot Protocol", url: "https://github.com/marmot-protocol/marmot", desc: "Specification for MLS group messaging with Nostr identities and relays"}
-    - {section: "Messaging Layer Security (MLS)", name: "MDK (Marmot Development Kit)", url: "https://github.com/marmot-protocol/mdk", desc: "Rust implementation of Marmot used by White Noise, with bindings"}
-    - {section: "Messaging Layer Security (MLS)", name: "Cordn", url: "https://cordn.net/", desc: "MLS group messaging via a self-hostable coordinator reached over Nostr relays (ContextVM); beta"}
-    - {section: "Messaging Layer Security (MLS)", name: "ContextVM", url: "https://contextvm.org/", desc: "Transport for exposing services over Nostr relays without domains or open ports; used by Cordn"}
   mesh:
     - {section: "MeshCore", name: "MeshCore documentation", url: "https://docs.meshcore.io/", desc: "Official docs: firmware roles, CLI, packet format and companion protocol"}
     - {section: "MeshCore", name: "MeshCore web flasher", url: "https://meshcore.io/flasher", desc: "Flash companion, repeater or room-server firmware from the browser"}
@@ -113,6 +108,20 @@ add:
     - {section: "Mutable names", name: "DNSLink specification", url: "https://dnslink.dev/", desc: "DNS TXT records that associate domains with content paths"}
     - {section: "Transfer and archive services", name: "Magic Wormhole documentation", url: "https://magic-wormhole.readthedocs.io/en/latest/", desc: "Transfer-tool documentation, CLI usage and protocol specifications"}
     - {section: "Transfer and archive services", name: "Internet Archive BitTorrent help", url: "https://help.archive.org/help/archive-bittorrents/", desc: "Archive torrent downloads, web seeds and problems caused by changed items"}
+  messaging:
+    - {section: "Messaging Layer Security (MLS)", name: "White Noise", url: "https://www.whitenoise.chat/", desc: "Open-source messenger using MLS over Nostr relays (Marmot); no phone number or email, beta"}
+    - {section: "Messaging Layer Security (MLS)", name: "Marmot Protocol", url: "https://github.com/marmot-protocol/marmot", desc: "Specification for MLS group messaging with Nostr identities and relays"}
+    - {section: "Messaging Layer Security (MLS)", name: "MDK (Marmot Development Kit)", url: "https://github.com/marmot-protocol/mdk", desc: "Rust implementation of Marmot used by White Noise, with bindings"}
+    - {section: "Messaging Layer Security (MLS)", name: "Cordn", url: "https://cordn.net/", desc: "MLS group messaging via a self-hostable coordinator reached over Nostr relays (ContextVM); beta"}
+    - {section: "Messaging Layer Security (MLS)", name: "ContextVM", url: "https://contextvm.org/", desc: "Transport for exposing services over Nostr relays without domains or open ports; used by Cordn"}
+    - {section: "Federated and Distributed Messengers", name: "Delta Chat", url: "https://delta.chat/en/help", desc: "Chat over email transport; default chatmail relays enforce end-to-end encryption, with documented metadata and forward-secrecy limits"}
+    - {section: "Federated and Distributed Messengers", name: "XMPP with OMEMO", url: "https://xmpp.org/extensions/xep-0384.html", desc: "Double Ratchet encryption for XMPP devices; the specification remains Experimental and excludes metadata protection"}
+    - {section: "Federated and Distributed Messengers", name: "Jami", url: "https://jami.net/", desc: "Distributed messaging and calls with device-held identities, OpenDHT discovery and swarm conversations"}
+    - {section: "Experimental Messaging", name: "Tox", url: "https://tox.chat/faq.html", desc: "Encrypted peer-to-peer messaging with public-key contacts; friends can see each other's IP addresses"}
+    - {section: "Experimental Messaging", name: "Veilid", url: "https://veilid.com/", desc: "Peer-to-peer application framework with encrypted private routing; VeilidChat is a separate beta application"}
+  anonymity:
+    - {section: "Anonymous Sharing and Submissions", name: "OnionShare", url: "https://docs.onionshare.org/2.6/en/features.html", desc: "Share or receive files, host static sites and run chat rooms through Tor onion services on your own computer"}
+    - {section: "Anonymous Sharing and Submissions", name: "SecureDrop", url: "https://docs.securedrop.org/en/stable/what_is_securedrop.html", desc: "Freedom of the Press Foundation's newsroom submission system with onion services and an isolated document-viewing workflow"}
 # insert_after: url -> items placed right after that item (same section)
 insert_after:
   https://meshtastic.org/:

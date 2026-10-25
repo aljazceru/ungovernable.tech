@@ -66,6 +66,8 @@ The whitepaper is unusually candid that **metadata is the weakest part of the de
 
 **Experimental.** It is easy to install, cross-platform, and in very active development, and the cryptography for live chats is sound. But the protocol is young and still changing: in June 2026 a fix broke wire compatibility between old and new versions. The project's own documentation lists serious metadata exposure on the radio layer. Audits have found critical flaws, and some findings are still open on Android. It works well as an outage, festival or protest backup channel among people who expect it. It is not the tool for high-risk conversations near a hostile listener. For those, [Briar](/kb/briar/) has the longer audit record. For kilometres of range, use LoRa ([Meshtastic](/kb/meshtastic/) or [MeshCore](/kb/meshcore/)).
 
+For the wider comparison of online and off-grid choices, see [Choosing a private messenger](/kb/compare-messengers/).
+
 ## Primary sources
 
 - Bitchat: https://bitchat.free/ · Whitepaper (v2.0, July 2026): https://github.com/permissionlesstech/bitchat/blob/main/WHITEPAPER.md

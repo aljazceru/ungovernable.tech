@@ -48,6 +48,8 @@ White Noise is a private messenger for one-to-one and group chat that needs no p
 
 **Experimental.** The cryptography is the IETF standard, the code is open and has had independent audits, and the apps are in active, frequent release. However, the project describes itself as beta, distributes on iOS through TestFlight, lacks linked-device support, and builds on a specification that is still changing week to week. It is a good choice for people who already live on Nostr and want encrypted groups without a phone number. For high-stakes use, run it alongside a battle-tested messenger rather than instead of one. See [Choosing a Secure Messenger](/guides/choosing-a-secure-messenger/).
 
+For a comparison of identifiers, relay exposure and readiness, see [Choosing a private messenger](/kb/compare-messengers/).
+
 ## Primary sources
 
 - [NIP-59: visible recipient tags](https://github.com/nostr-protocol/nips/blob/master/59.md)

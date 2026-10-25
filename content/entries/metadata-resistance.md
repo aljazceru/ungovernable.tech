@@ -154,3 +154,5 @@ For ultra-high-stakes work (whistleblowing, journalism in repressive regimes), t
 - Briar Project, *Briar protocol specification*.
 
 For the specific technique of hiding *when* and *how much* you send, see [Cover Traffic and Constant-Rate Padding](/kb/cover-traffic/).
+
+Compare identifiers, delivery services and exposed metadata in [Choosing a private messenger](/kb/compare-messengers/), including [Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/) and [Jami](/kb/jami/). For submission workflows, see [OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).

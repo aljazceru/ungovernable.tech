@@ -65,6 +65,8 @@ The practical upshot: MeshCore spends less airtime on busy meshes and gives repe
 
 **Usable.** MeshCore has shipped stable firmware releases since 2025 (v1.18.0 in October 2026). It runs on dozens of widely available boards and is deployed by tens of thousands of users. For off-grid text in an outage, at events or in the backcountry, it works today, and on large meshes it is often more airtime-efficient than Meshtastic. Its weaker, unaudited cryptography and partly closed client stack are the reasons to prefer Meshtastic (or [Reticulum](/kb/reticulum/)) when confidentiality really matters.
 
+For the wider comparison of online and off-grid choices, see [Choosing a private messenger](/kb/compare-messengers/).
+
 ## Primary sources
 
 - MeshCore (UK community hub, user guides, MeshOS): https://meshcore.co.uk/ · MeshOS: https://www.meshcore.co.uk/meshos.html

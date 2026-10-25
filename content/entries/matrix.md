@@ -163,3 +163,5 @@ Cross-signing plus key backup means recovery is possible from a Recovery Key (es
 - Hodgson, *Matrix.org: an open standard for decentralised communication*, FOSDEM talks 2014–2024.
 - Matrix Foundation reports — [matrix.org/blog](https://matrix.org/blog)
 - RFC 9420, *Messaging Layer Security* — for the MLS migration.
+
+Compare [XMPP with OMEMO](/kb/xmpp-omemo/) and [Delta Chat](/kb/delta-chat/) in [Choosing a private messenger](/kb/compare-messengers/).
