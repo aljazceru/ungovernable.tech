@@ -12,6 +12,7 @@ origin: vault
 source: "08-Mix-Networks/Tor.md"
 aliases: ["Tor Project", "Onion Routing"]
 tags: ["tor", "onion-routing", "anonymity", "mix-networks", "hidden-services", "deep-dive"]
+related: ["pluggable-transports", "ooni", "self-hosted-circumvention-server", "using-tor-safely"]
 ---
 
 ## What Tor provides
@@ -186,3 +187,5 @@ Get Tor Browser and release information from the Tor Project’s download page. 
 - *Onion Service v3 Specification* — same site.
 - The Tor Project — [torproject.org](https://www.torproject.org)
 - Arti — [gitlab.torproject.org/tpo/core/arti](https://gitlab.torproject.org/tpo/core/arti)
+
+For bridge distribution, transport choices and connection steps, see [Pluggable transports and bridges](/kb/pluggable-transports/). To contribute a bridge or Snowflake proxy, follow [Run a private circumvention server for people you know](/guides/self-hosted-circumvention-server/).

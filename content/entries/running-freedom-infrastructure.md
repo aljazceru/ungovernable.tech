@@ -3,14 +3,14 @@ title: "Running Infrastructure for Freedom"
 slug: running-freedom-infrastructure
 type: guide
 pillars: [anonymity, circumvention, mesh, money]
-description: "Ways to contribute capacity to free networks, from a Snowflake proxy in your browser to Tor bridges and relays, Nostr relays, Bitcoin nodes and solar mesh repeaters."
+description: "Run a private circumvention server, a Tor bridge or a Snowflake proxy, and learn the responsibilities of operating shared infrastructure."
 dek: "Every one of these networks is only as strong as the number of independent people running it. Here is how to become one of them."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: intermediate
 time: "10 minutes to a weekend"
-related: [tor, using-tor-safely, building-a-mesh, bitcoin-self-custody, nostr-getting-started, i2p, reticulum, nym, resilient-infrastructure, community-networks]
+related: [self-hosted-circumvention-server, outline, wireguard, pluggable-transports, ooni, tor, using-tor-safely, building-a-mesh, bitcoin-self-custody, nostr-getting-started, i2p, reticulum, nym, resilient-infrastructure, community-networks]
 ---
 
 Decentralised networks are not decentralised by design alone; they are decentralised because many independent people run parts of them, in many countries, on many providers. If you live somewhere with an open internet and some spare bandwidth, you can give people behind firewalls a way out, and make every network on this site harder to capture.
@@ -23,7 +23,13 @@ Snowflake lets censored Tor users connect through short-lived connections to vol
 
 ## An afternoon: a Tor bridge
 
-A bridge is an unlisted Tor entry point. It carries no exit traffic, so the legal exposure is low, and because bridge addresses are distributed carefully, each new bridge helps people whose known bridges have been blocked. obfs4 and WebTunnel bridges are the most needed. A small VPS or home server with a stable IP address is enough. Guides: <https://community.torproject.org/relay/setup/bridge/>
+A bridge is a Tor entry point absent from the public relay directory. Its role differs from an exit relay; review the [Tor Project's role guidance](https://community.torproject.org/relay/types-of-relays/) and your provider's terms before choosing a deployment. Compare obfs4 and WebTunnel in [Pluggable transports and bridges](/kb/pluggable-transports/), then follow the [bridge setup guide](https://community.torproject.org/relay/setup/bridge/).
+
+## A private server for people you know
+
+[Outline](/kb/outline/) offers Manager-assisted setup and access keys. [WireGuard](/kb/wireguard/) gives you explicit peer and routing configuration, with no built-in obfuscation. Follow [Run a private circumvention server for people you know](/guides/self-hosted-circumvention-server/) for setup, DNS and IPv6 checks, revocation, and the Tor bridge or Snowflake alternatives.
+
+Before asking users to test from a censored network, read [OONI's measurement and risk guide](/kb/ooni/). Agree on the test and what will be recorded or published.
 
 ## A weekend: a Tor relay
 
@@ -57,7 +63,10 @@ Pin content that matters to you on IPFS, seed torrents of archives at risk of de
 - **Know your provider's terms** and your country's law before running anything that forwards other people's traffic.
 - **Be transparent where it helps:** Tor exit operators commonly publish contact information and an explanation page, which resolves most abuse complaints.
 
-## Sources
+## Primary sources
+
+- [Outline setup and access keys](https://getoutline.org/get-started/).
+- [WireGuard's known limitations](https://www.wireguard.com/known-limitations/).
 
 - Tor Project, *Snowflake*: <https://snowflake.torproject.org/>
 - Tor Project, *Relay operations* (bridges, middle and exit relays, legal guidance): <https://community.torproject.org/relay/>

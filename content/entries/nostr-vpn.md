@@ -12,6 +12,7 @@ origin: vault
 source: "05-Off-Grid-Networks/Nostr VPN.md"
 aliases: ["nvpn", "NostrVPN"]
 tags: ["nostr-vpn", "fips", "mesh", "vpn", "nostr", "tailscale-alternative", "off-grid", "overlay", "deep-dive"]
+related: ["wireguard", "outline", "psiphon", "self-hosted-circumvention-server"]
 ---
 
 ## What it is and why it matters
@@ -91,3 +92,5 @@ See also [MOC - Composing Primitives](/kb/map-composing-primitives/) and [MOC - 
 - Community signals: recent X posts on multi-platform launch, Umbrel, resistance to central control.
 
 *Verify latest release notes and transport matrix before production reliance; the project moves fast.*
+
+For a VPN protocol and its operator trust model, read [WireGuard](/kb/wireguard/). Compare [Outline](/kb/outline/) and [Psiphon](/kb/psiphon/) for other circumvention approaches, or follow [the private-server guide](/guides/self-hosted-circumvention-server/) for setup and verification.

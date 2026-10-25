@@ -5,12 +5,12 @@ type: guide
 pillars: [circumvention, anonymity]
 description: "How censors block the internet, and how Tor bridges, Psiphon, Outline, Xray with REALITY, AmneziaWG and similar tools get around each kind of blocking."
 dek: "Censorship is an arms race between detection and disguise. Knowing which technique a censor is using tells you which tool will work."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: intermediate
 time: "30 minutes"
-related: [using-tor-safely, tor, internet-shutdown-preparedness, map-censorship-resistance, decentralized-dns]
+related: [pluggable-transports, outline, psiphon, wireguard, ooni, self-hosted-circumvention-server, using-tor-safely, tor, internet-shutdown-preparedness, map-censorship-resistance, decentralized-dns]
 ---
 
 There is no single best circumvention tool. Each one is a disguise, and a disguise works only until the censor learns to see through it. The useful question is not "which app is best?" but "how is my network being censored right now, and what does that rule out?"
@@ -35,17 +35,17 @@ Research from GFW Report and others has documented these techniques in detail, i
 ## The main tool families
 
 ### Tor with pluggable transports
-Tor plus a bridge is the most studied option and gives you anonymity, not just access. Built-in bridges are easy for censors to list, so request private bridges in advance. Snowflake and WebTunnel are often the transports that survive longest. Step by step: [Using Tor Safely](/guides/using-tor-safely/).
+Tor bridges provide entry points absent from the public relay directory. Pluggable transports change how the connection looks on the network; their effectiveness depends on local filtering. Compare obfs4, Snowflake, meek and WebTunnel in [Pluggable transports and bridges](/kb/pluggable-transports/), then follow [Using Tor Safely](/guides/using-tor-safely/).
 
 ### Psiphon and Lantern
-Psiphon (<https://psiphon.ca/>) and Lantern (<https://lantern.io/>) are free apps run by organisations that operate large, constantly changing server networks and switch transports automatically. They are often the easiest thing that works for non-technical users. The trade-off is trust: the operator can see your traffic metadata, and these tools are built for access, not anonymity.
+[Psiphon](/kb/psiphon/) tries different servers and transports to get through blocking. Its operator manages discovery and connection strategies; its own documentation says it is not an anonymity tool. The entry explains its open core and current metadata-retention policy. [Lantern](https://lantern.io/) is another app to consider, with its own operator and trust model.
 
 ### Your own server: Outline, Xray, AmneziaWG
-Running your own proxy on a rented server outside the censored country gives you an address no blocklist has seen yet, and lets you share it with a small, trusted group.
+Running your own proxy lets you choose a host and share access with a small group. A rented address is not guaranteed to be unknown to a censor. Follow [Run a private circumvention server for people you know](/guides/self-hosted-circumvention-server/) for deployment, routing checks and revocation.
 
-- **Outline** (<https://getoutline.org/>), from Google's Jigsaw, installs a Shadowsocks-based server with a manager app and shareable access keys. It is one of the simplest options to deploy.
+- [Outline](/kb/outline/), launched by Jigsaw and now owned by the Outline Foundation, pairs a Shadowsocks server with Manager and shareable access keys. You choose the host and remain responsible for its operation.
 - **Xray-core** (<https://github.com/XTLS/Xray-core>) implements VLESS with **REALITY**, which makes the server impersonate the TLS handshake of a real, popular website, so that an active probe sees a normal site. This family of tools is widely used where other tunnels are blocked, notably in Iran, Russia and China.
-- **AmneziaWG** (<https://docs.amnezia.org/>) is a fork of WireGuard that adds junk packets and randomised headers so that DPI cannot match WireGuard's fixed handshake pattern. The Amnezia VPN app can deploy it, and Xray, to a server you control.
+- [AmneziaWG](https://github.com/amnezia-vpn/amneziawg-go) is a WireGuard-Go fork that adds obfuscation to reduce recognisable packet signatures. Standard [WireGuard](/kb/wireguard/) has no built-in obfuscation; neither encryption nor a private server address guarantees resistance to blocking.
 - **Hysteria 2** (<https://v2.hysteria.network/>) is a QUIC-based proxy designed for lossy, throttled networks.
 
 Your own server gives you access, not anonymity: the hosting company and anyone watching the server can see the traffic leaving it. If you need anonymity too, run Tor over the tunnel.
@@ -55,7 +55,7 @@ A VPN moves trust from your ISP to the VPN company. Standard OpenVPN and WireGua
 
 ## Choosing, in practice
 
-1. **Find out what is blocked and how.** OONI Probe (<https://ooni.org/install/>) tests websites, messaging apps and circumvention tools from your connection and publishes the results, so you can see what others in your country are seeing.
+1. **Read existing measurements first.** [OONI](/kb/ooni/) explains how to investigate website, messaging and circumvention-tool reachability. An anomaly is not proof of censorship. Before running Probe yourself, review its visibility, publication settings and [documented risks](https://ooni.org/about/risks/).
 2. **Keep more than one option installed.** Censors change tactics during protests and elections. A second and third tool, set up in advance, are worth more than a perfect first one.
 3. **Get your bridges and keys before you need them.** Distribution channels are the first thing to be blocked.
 4. **Match the tool to the need.** For reading news, anything that works is fine. For organising or communicating with sources, use Tor or tunnel Tor through your proxy.
@@ -65,7 +65,12 @@ A VPN moves trust from your ISP to the VPN company. Standard OpenVPN and WireGua
 
 Circumvention also works the other way: make your own content hard to censor. Publish an onion service, mirror on several hosts and jurisdictions, use content-addressed storage, and avoid depending on a single domain name. See [Publishing an Uncensorable Website](/guides/uncensorable-website/) and [Map: Censorship Resistance](/kb/map-censorship-resistance/).
 
-## Sources
+## Primary sources
+
+- [Tor's current transport and bridge guide](https://support.torproject.org/tor-browser/circumvention/unblocking-tor/).
+- [Psiphon FAQ, trust model and data handling](https://psiphon.ca/en/faq.html).
+- [Outline FAQ and current ownership](https://getoutline.org/faq/).
+- [WireGuard's obfuscation limitations](https://www.wireguard.com/known-limitations/).
 
 - GFW Report, *How China Detects and Blocks Shadowsocks* (ACM IMC 2020): <https://gfw.report/publications/imc20/en/>
 - Wu et al., *How the Great Firewall of China Detects and Blocks Fully Encrypted Traffic* (USENIX Security 2023): <https://gfw.report/publications/usenixsecurity23/en/>

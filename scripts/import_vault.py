@@ -130,6 +130,23 @@ _WL_OVR_CI = {k.lower(): v for k, v in WIKILINK_OVERRIDES.items()}
 # they survive importer re-runs without hand-editing the generated files.
 # Keyed by entry slug; value is markdown appended as a final paragraph.
 ENTRY_APPEND = {
+    'tor': 'For bridge distribution, transport choices and connection steps, '
+        'see [Pluggable transports and bridges](/kb/pluggable-transports/). '
+        'To contribute a bridge or Snowflake proxy, follow '
+        '[Run a private circumvention server for people you know]'
+        '(/guides/self-hosted-circumvention-server/).',
+    'map-censorship-resistance': 'For the access layer, compare '
+        '[WireGuard](/kb/wireguard/), [Outline](/kb/outline/), '
+        '[Psiphon](/kb/psiphon/) and [Tor bridges and pluggable transports]'
+        '(/kb/pluggable-transports/). [OONI](/kb/ooni/) explains how to read '
+        'network measurements and assess the risks of collecting them. '
+        'For deployment, see [the private-server guide]'
+        '(/guides/self-hosted-circumvention-server/).',
+    'nostr-vpn': 'For a VPN protocol and its operator trust model, read '
+        '[WireGuard](/kb/wireguard/). Compare '
+        '[Outline](/kb/outline/) and [Psiphon](/kb/psiphon/) for other '
+        'circumvention approaches, or follow [the private-server guide]'
+        '(/guides/self-hosted-circumvention-server/) for setup and verification.',
     'metadata-resistance': 'For the specific technique of hiding *when* and '
         '*how much* you send, see [Cover Traffic and Constant-Rate Padding]'
         '(/kb/cover-traffic/).',
@@ -187,6 +204,13 @@ ENTRY_APPEND = {
 }
 # vault slug -> related slugs written into the emitted front matter (shown first)
 ENTRY_RELATED = {
+    'tor': ['pluggable-transports', 'ooni', 'self-hosted-circumvention-server',
+            'using-tor-safely'],
+    'map-censorship-resistance': ['pluggable-transports', 'outline', 'psiphon',
+                                 'wireguard', 'ooni',
+                                 'self-hosted-circumvention-server'],
+    'nostr-vpn': ['wireguard', 'outline', 'psiphon',
+                  'self-hosted-circumvention-server'],
     'meshtastic': ['meshcore', 'building-a-mesh', 'bitchat', 'reticulum',
                    'off-grid-networks', 'off-grid-messaging'],
     'off-grid-messaging': ['meshtastic', 'meshcore', 'bitchat', 'briar', 'reticulum'],
@@ -201,6 +225,43 @@ GLOSSARY_DEF = {
             'off-grid networks.',
 }
 GLOSSARY_SEE = {'lora': ['meshtastic', 'meshcore']}
+
+# Site terms absent from the read-only vault. These replace a matching slug
+# if the vault later adds it, so editorial definitions remain reproducible.
+GLOSSARY_ADD = [
+    {
+        'term': 'Deep packet inspection (DPI)',
+        'slug': 'deep-packet-inspection-dpi',
+        'definition_md': 'Inspection of network traffic to recognise protocols '
+            'from packet contents or patterns, including when the carried data '
+            'is encrypted. Censors can use it to identify and block tunnels. '
+            'See [WireGuard](/kb/wireguard/) and '
+            '[Psiphon\'s protocol explanation](https://psiphon.ca/en/faq.html).',
+        'see': ['wireguard', 'psiphon', 'pluggable-transports'],
+    },
+    {
+        'term': 'Bridge',
+        'slug': 'bridge',
+        'definition_md': 'A Tor relay omitted from the public relay directory, '
+            'providing an alternative entry when known relays are blocked. '
+            'See [pluggable transports and bridges](/kb/pluggable-transports/) '
+            'and [Tor\'s relay guide]'
+            '(https://community.torproject.org/relay/types-of-relays/).',
+        'see': ['tor', 'pluggable-transports'],
+    },
+    {
+        'term': 'Pluggable transport',
+        'slug': 'pluggable-transport',
+        'definition_md': 'A transport layer that changes how a connection '
+            'looks on the network to make blocking harder. Tor documents '
+            'obfs4, Snowflake, meek and WebTunnel in its '
+            '[circumvention guide]'
+            '(https://support.torproject.org/tor-browser/circumvention/unblocking-tor/). '
+            'Compare them in [pluggable transports and bridges]'
+            '(/kb/pluggable-transports/).',
+        'see': ['pluggable-transports', 'tor'],
+    },
+]
 
 
 _WL_PLAIN_CI = {k.lower() for k in WIKILINK_PLAIN}
@@ -760,6 +821,9 @@ def parse_glossary(text, index, unresolved):
                 see.append(x)
         terms.append({'term': term, 'slug': gslug,
                       'definition_md': definition_md, 'see': see})
+    for extra in GLOSSARY_ADD:
+        terms = [term for term in terms if term['slug'] != extra['slug']]
+        terms.append(dict(extra, see=list(extra['see'])))
     return terms
 
 

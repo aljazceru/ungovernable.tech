@@ -10,6 +10,7 @@ created: 2026-04-25
 origin: vault
 source: "00 - Meta/MOC - Censorship Resistance.md"
 tags: ["meta", "moc", "censorship-resistance", "overview"]
+related: ["pluggable-transports", "outline", "psiphon", "wireguard", "ooni", "self-hosted-circumvention-server"]
 ---
 
 > Censorship resistance is the property that no single entity (registrar, host, ISP, payment processor, app store) can unilaterally remove or block content. It comes from removing single points of control: decentralized naming, P2P transport, self-custodied keys, alternative payment rails.
@@ -109,3 +110,5 @@ See [MeshCore](/kb/meshcore/), [Cashu and Chaumian Ecash](/kb/cashu-ecash/), and
 - [Overview - Financial Sovereignty](/kb/financial-sovereignty/)
 - [Overview - Confidential Computing](/kb/confidential-computing/)
 - [Confidential-AI-Inference](/kb/confidential-ai-inference/)
+
+For the access layer, compare [WireGuard](/kb/wireguard/), [Outline](/kb/outline/), [Psiphon](/kb/psiphon/) and [Tor bridges and pluggable transports](/kb/pluggable-transports/). [OONI](/kb/ooni/) explains how to read network measurements and assess the risks of collecting them. For deployment, see [the private-server guide](/guides/self-hosted-circumvention-server/).

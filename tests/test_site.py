@@ -70,6 +70,20 @@ def test_build_is_idempotent():
     assert s1 == snap()
 
 
+def test_circumvention_directory_renders_in_both_locations():
+    """A pillar populated only by overrides must reach both directory views."""
+    with open(os.path.join(ROOT, 'content', 'directory', 'overrides.yml')) as f:
+        expected = {item['url'] for item in yaml.safe_load(f)['add']['circumvention']}
+    assert expected
+    for page, selector in [('pillars/circumvention/index.html', '#directory'),
+                           ('directory/index.html', '#circumvention')]:
+        with open(os.path.join(PUBLIC, page)) as f:
+            section = BeautifulSoup(f.read(), 'html.parser').select_one(selector)
+        assert section is not None, page
+        links = {a['href'] for a in section.select('a[href^="https://"]')}
+        assert links == expected, page
+
+
 def test_entry_pages_head_contract():
     for slug, fm in entries().items():
         p = os.path.join(PUBLIC, 'guides' if fm['type'] == 'guide' else 'kb',

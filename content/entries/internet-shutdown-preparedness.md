@@ -5,12 +5,12 @@ type: guide
 pillars: [circumvention, mesh, messaging]
 description: "What to set up before the network goes dark: offline-capable messengers, mesh radios, offline maps and knowledge, saved bridges and a plan for your group."
 dek: "When the network is switched off, the only tools that work are the ones you installed, tested and shared before it happened."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: beginner
 time: "1-2 hours to prepare"
-related: [off-grid-messaging, briar, bitchat, meshtastic, meshcore, building-a-mesh, censorship-circumvention]
+related: [pluggable-transports, outline, psiphon, wireguard, ooni, self-hosted-circumvention-server, off-grid-messaging, briar, bitchat, meshtastic, meshcore, building-a-mesh, censorship-circumvention]
 ---
 
 Governments shut down the internet during protests, elections, exams and conflicts. Access Now's #KeepItOn coalition documents hundreds of shutdowns every year, from regional mobile data cuts to nationwide blackouts lasting weeks. Shutdowns are rarely total and rarely instant: often mobile data goes first, then specific apps, then everything. Preparation is what separates a group that can still coordinate from one that cannot.
@@ -30,7 +30,7 @@ Do this while the internet works, and do it with the people you need to reach.
 1. **A messenger that works without the internet.** [Briar](/kb/briar/) syncs over Bluetooth and Wi-Fi when there is no internet, and over Tor when there is. [Bitchat](/kb/bitchat/) relays messages over a Bluetooth Low Energy mesh between nearby phones. Both need the other person nearby (or a chain of people). Exchange contacts in advance; you cannot add someone you cannot reach.
 2. **Mesh radios.** LoRa radios running [Meshtastic](/kb/meshtastic/) or [MeshCore](/kb/meshcore/) carry short text messages for kilometres between devices, without any infrastructure, paired to your phone over Bluetooth. A few radios on rooftops can cover a neighbourhood. See [Building a Local Mesh Network](/guides/building-a-mesh/).
 3. **Ways to share apps offline.** App stores may be unreachable. F-Droid's *Nearby* feature and Briar's built-in "share this app" let you pass installers phone to phone. Keep installer files on a USB stick.
-4. **Circumvention tools and private bridges, saved.** Partial shutdowns often leave some routes open. Install two or three tools and store private Tor bridge lines offline.
+4. **Circumvention tools and private bridges, saved.** Prepare [Tor bridges and pluggable transports](/kb/pluggable-transports/) and compare [Psiphon](/kb/psiphon/) with [Outline](/kb/outline/). If someone will operate a gateway, use the [private-server guide](/guides/self-hosted-circumvention-server/) to check setup and recovery, including [WireGuard's](/kb/wireguard/) limits. Save the configuration and test it with your group while a connection is available.
 5. **Offline maps and knowledge.** Download offline maps (Organic Maps, OsmAnd) for your area. Kiwix (<https://kiwix.org/>) serves Wikipedia and other references offline, including first-aid and medical material.
 6. **Power.** Power banks, solar chargers and spare cables. A radio or phone that is dead is no use.
 7. **A broadcast receiver.** Shortwave and FM radio still reach people when everything else is down; some international broadcasters increase shortwave service during crises.
@@ -50,13 +50,16 @@ Satellite internet terminals have kept people connected during shutdowns, but th
 
 - **Assume radio is visible.** Transmissions can be located with direction-finding equipment. Transmit briefly and only when needed.
 - **Assume devices can be searched.** Lock phones with a strong passcode, not just biometrics, and use disappearing messages.
-- **Document.** Note times, locations and what stopped working. Groups such as OONI and Access Now use reports from the ground to prove and publicise shutdowns.
+- **Document carefully.** Keep a record of what stopped working and when, if doing so is safe for you. [OONI](/kb/ooni/) explains how to read existing measurements. Running new probes is a separate decision: OONI warns that testing is visible and its results are public by default. Read its [risk statement](https://ooni.org/about/risks/) before collecting data.
 
 ## After
 
 Write down what worked and what did not, and fix the gaps before the next one. Shutdowns tend to repeat.
 
-## Sources
+## Primary sources
+
+- [Tor's transport and bridge guide](https://support.torproject.org/tor-browser/circumvention/unblocking-tor/).
+- [OONI Probe risk statement](https://ooni.org/about/risks/).
 
 - Access Now, *#KeepItOn* campaign and shutdown reports: <https://www.accessnow.org/campaign/keepiton/>
 - OONI, *Internet shutdowns and network measurement*: <https://ooni.org/>

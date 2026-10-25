@@ -168,8 +168,8 @@ def main():
     written = 0
     for pillar in sorted({p['key'] for p in yaml.safe_load(
             open(os.path.join(ROOT, 'content', 'pillars.yml'), encoding='utf-8'))}):
-        files = by_pillar.get(pillar)
-        if not files:
+        files = by_pillar.get(pillar) or []
+        if not files and not add.get(pillar):
             continue
         multi = len(files) > 1
         sections = []
