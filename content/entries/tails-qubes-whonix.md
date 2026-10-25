@@ -72,3 +72,5 @@ For untrusted attachments, see [Dangerzone](/kb/dangerzone/). Before releasing a
 - Whonix, *About Whonix*: <https://www.whonix.org/wiki/About>
 - Qubes OS, *Introduction* and *System requirements*: <https://www.qubes-os.org/intro/>, <https://www.qubes-os.org/doc/system-requirements/>
 - Freedom of the Press Foundation, *SecureDrop Workstation*: <https://securedrop.org/>
+
+Continue with [Verify software before installing it](/guides/verifying-software/).

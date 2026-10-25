@@ -50,3 +50,5 @@ A community network changes who holds the leverage over the physical layer:
 - **Agree the rules early.** The durable networks all have an explicit peering pact covering who carries whose traffic, how uplinks are funded, and how disputes are handled.
 
 For the radio and hardware details of building the links themselves, see [Building a Local Mesh Network](/guides/building-a-mesh/); for running the servers and relays a community depends on, see [Resilient and Relocatable Infrastructure](/guides/resilient-infrastructure/) and [Running Infrastructure for Freedom](/guides/running-freedom-infrastructure/).
+
+Continue with [LibreMesh](/kb/libremesh/), [Satellite broadband and direct-to-cell](/kb/satellite-broadband/) and [Build a community Wi-Fi network](/guides/community-wifi-network/).

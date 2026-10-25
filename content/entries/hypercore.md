@@ -50,3 +50,5 @@ Compare [BitTorrent](/kb/bittorrent-archives/) for fixed archive distribution, [
 - [Holepunch Hypercore repository: signed trees, sparse replication, encryption and truncation](https://github.com/holepunchto/hypercore).
 - [Holepunch Hyperdrive repository: file operations, versions and downloads](https://github.com/holepunchto/hyperdrive).
 - [Holepunch Hyperswarm repository: DHT discovery and Noise connections](https://github.com/holepunchto/hyperswarm).
+
+Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).

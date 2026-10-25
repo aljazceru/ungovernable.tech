@@ -178,3 +178,5 @@ For HF as an alternative (no per-message fee, no operator dependence, but no enc
 - Astrocast — [astrocast.com](https://astrocast.com).
 - Lacuna Space — [lacuna.space](https://lacuna.space). LoRaWAN spec — [lora-alliance.org](https://lora-alliance.org).
 - Inmarsat BGAN, Orbcomm, Sateliot — operator websites.
+
+Continue with [Satellite broadband and direct-to-cell](/kb/satellite-broadband/).

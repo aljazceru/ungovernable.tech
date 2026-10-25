@@ -160,3 +160,5 @@ Two or more independent TEEs (different vendors, e.g. TDX + SEV-SNP) must both a
 - [AMD SEV-SNP Firmware ABI Specification](https://www.amd.com/content/dam/amd/en/documents/developer/56860.pdf)
 
 For a concrete SGX verification workflow, see [verifying a confidential workload](/guides/verifying-a-confidential-workload/).
+
+Continue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).

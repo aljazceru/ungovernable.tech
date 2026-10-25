@@ -261,4 +261,6 @@ For internet access built and owned by its users rather than a telco, see [Commu
 
 MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside [Meshtastic](/kb/meshtastic/). Correction to the table above: MeshCore encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), not only at app level. Bitchat launched in July 2025; see [Bitchat](/kb/bitchat/).
 
+Continue with [LibreMesh](/kb/libremesh/), [APRS](/kb/aprs/) and [Secure Scuttlebutt](/kb/secure-scuttlebutt/).
+
 For reach, hardware, encryption and readiness across the options, see [off-grid communication compared](/kb/compare-off-grid/).

@@ -480,3 +480,5 @@ Full detail in [Post-Quantum Saturday — September 26 2026 Weekly Update](/brie
 - PostQuantum.com (Ivezic): ongoing analysis — `postquantum.com/security-pqc/`
 - AWS ML-KEM announcement (April 2026): `aws.amazon.com/about-aws/whats-new/2026/04/aws-secrets-manager-post-quantum-tls/`
 - OpenSSL 3.5 PQC integration: `openssl-corporation.org/files/ICMC2026-PQC.pdf`
+
+Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).

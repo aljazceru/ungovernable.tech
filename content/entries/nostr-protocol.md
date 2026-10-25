@@ -177,3 +177,5 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 - [Nostr NIP-05: DNS-based identifiers](https://github.com/nostr-protocol/nips/blob/master/05.md)
 
 For end-to-end encrypted group chat built on Nostr keys and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) and [Cordn](/kb/cordn/).
+
+Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).

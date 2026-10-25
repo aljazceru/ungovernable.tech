@@ -76,3 +76,5 @@ Run a drill: everyone switches phones to airplane mode with Bluetooth on, and th
 - MeshCore project: <https://github.com/meshcore-dev/MeshCore>
 - ETSI EN 300 220 (short range devices, 25 MHz to 1 GHz), duty-cycle limits in Europe: <https://www.etsi.org/>
 - Reticulum Network Stack manual: <https://reticulum.network/manual/>
+
+Continue with [APRS](/kb/aprs/) and [Build a community Wi-Fi network](/guides/community-wifi-network/).

@@ -2,7 +2,7 @@
 title: "Encrypting Files, Disks and Backups"
 slug: encrypting-files-and-backups
 type: guide
-pillars: [endpoint, cryptography]
+pillars: [endpoint, cryptography, storage]
 description: "A practical guide to protecting files, disks, backups and account credentials, with recovery planning and the limits of encryption at rest."
 dek: "Encryption at rest is what stands between a seized or stolen device and everything on it."
 updated: 2026-10-25
@@ -79,3 +79,5 @@ For account authentication and spare-key planning, see [Passkeys and Security Ke
 - EFF, *Dice-generated passphrases* and word lists: <https://www.eff.org/dice>
 - VeraCrypt documentation, *Hidden volume*: <https://veracrypt.fr/en/Hidden%20Volume.html>
 - restic documentation: <https://restic.readthedocs.io/>
+
+Continue with [Magic Wormhole](/kb/magic-wormhole/).

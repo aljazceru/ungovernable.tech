@@ -207,3 +207,5 @@ Aethir: enterprise-grade decentralized GPU cloud focused on enterprise customers
 - 0G — `0g.ai`
 - Render Network — `rendernetwork.com`
 - io.net — `io.net`
+
+Continue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).

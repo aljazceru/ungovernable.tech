@@ -63,3 +63,5 @@ Practical takeaways:
 - Replace unmaintained vendor firmware (routers especially) with **open, patched** firmware.
 - Treat **brief physical access** as a real compromise for high-risk work; a measured-boot device with a hardware token makes tampering detectable.
 - Keep secrets **sealed to measurements** or on a separate [hardware token](/kb/hardware-wallets/) rather than trusting the host blindly.
+
+Continue with [Verify software before installing it](/guides/verifying-software/).

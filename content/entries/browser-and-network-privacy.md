@@ -63,3 +63,5 @@ On phones, apps track far more than websites. Reduce the number of apps, prefer 
 - Mozilla, *DNS over HTTPS in Firefox*: <https://support.mozilla.org/kb/firefox-dns-over-https>
 - SearXNG: <https://docs.searxng.org/>
 - Privacy Guides, *Desktop browsers*: <https://www.privacyguides.org/en/desktop-browsers/>
+
+Continue with [DNSCrypt and dnscrypt-proxy](/kb/dnscrypt/) and [Mobile location privacy](/kb/mobile-location-privacy/).

@@ -75,3 +75,5 @@ If running a remote replica is unsuitable, compare [Tahoe-LAFS](/kb/tahoe-lafs/)
 - [Untrusted devices: setup, exposed metadata and recovery](https://docs.syncthing.net/users/untrusted.html).
 - [File versioning: configuration and local-change limitation](https://docs.syncthing.net/users/versioning.html).
 - [Syncthing FAQ: matching folder IDs and why sync is not a backup](https://docs.syncthing.net/users/faq.html).
+
+Continue with [CryptPad](/kb/cryptpad/).

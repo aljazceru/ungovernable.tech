@@ -79,3 +79,5 @@ Circumvention also works the other way: make your own content hard to censor. Pu
 - Project REALITY documentation (Xray-core): <https://github.com/XTLS/REALITY>
 - Amnezia, *AmneziaWG*: <https://docs.amnezia.org/documentation/amnezia-wg/>
 - IETF TLS Working Group, *TLS Encrypted Client Hello*: <https://datatracker.ietf.org/doc/draft-ietf-tls-esni/>
+
+Continue with [DNSCrypt and dnscrypt-proxy](/kb/dnscrypt/) and [Mullvad VPN](/kb/mullvad-vpn/).

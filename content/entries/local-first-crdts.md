@@ -53,3 +53,5 @@ Offline editing delays communication with collaborators. Automatic merging can s
 - [Automerge project](https://automerge.org/) and [core concepts](https://automerge.org/docs/hello).
 - [Yjs documentation](https://docs.yjs.dev/).
 - [CryptPad project](https://cryptpad.org/) and [security assumptions and metadata exposure](https://docs.cryptpad.org/en/user_guide/security.html).
+
+Continue with [CryptPad](/kb/cryptpad/).

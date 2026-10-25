@@ -480,3 +480,5 @@ See [Post-Quantum Saturday — October 17 2026 Weekly Update](/briefings/post-qu
 ## Primary sources
 
 - [OpenSSH post-quantum defaults](https://www.openssh.com/pq.html)
+
+Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).

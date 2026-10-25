@@ -76,3 +76,5 @@ For the wider comparison of online and off-grid choices, see [Choosing a private
 - App stores: https://apps.apple.com/us/app/bitchat-mesh/id6748219622 · https://play.google.com/store/apps/details?id=com.bitchat.droid
 - Security: Cure53 BCH-01 findings https://github.com/permissionlesstech/bitchat-android/issues?q=BCH-01 (open: https://github.com/permissionlesstech/bitchat-android/issues/589 and https://github.com/permissionlesstech/bitchat-android/issues/593) · June 2026 audit fixes https://github.com/permissionlesstech/bitchat/pull/1345 · Early impersonation flaw (SPR, July 2025) https://www.supernetworks.org/pages/blog/agentic-insecurity-vibes-on-bitchat
 - Noise Protocol Framework: https://noiseprotocol.org/
+
+Continue with [Delay-tolerant networking](/kb/delay-tolerant-networking/).

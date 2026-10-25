@@ -66,3 +66,5 @@ If you suspect the phone is already compromised, start with [Responding to Suspe
 - GrapheneOS, *FAQ* (supported devices): <https://grapheneos.org/faq>
 - GrapheneOS, *Web installer*: <https://grapheneos.org/install/web>
 - Apple, *About Lockdown Mode*: <https://support.apple.com/en-us/105120>
+
+Continue with [Mobile location privacy](/kb/mobile-location-privacy/) and [Verify software before installing it](/guides/verifying-software/).

@@ -40,3 +40,5 @@ Receiving a file does not make it safe to open. OnionShare explicitly provides n
 
 - [OnionShare modes, availability, chat encryption and malicious-file warning](https://docs.onionshare.org/2.6/en/features.html).
 - [OnionShare security design and limits](https://docs.onionshare.org/2.6/en/security.html).
+
+Continue with [Magic Wormhole](/kb/magic-wormhole/).

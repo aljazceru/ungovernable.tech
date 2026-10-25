@@ -212,3 +212,5 @@ Pick threshold BLS when aggregation matters and the verifier supports BLS (PoS c
 - multi-party-ecdsa (ZenGo / Coinbase): [github.com/ZenGo-X/multi-party-ecdsa](https://github.com/ZenGo-X/multi-party-ecdsa).
 - BLS reference: [github.com/supranational/blst](https://github.com/supranational/blst).
 - Frostr (Nostr): [github.com/cmdruid/frost](https://github.com/cmdruid/frost).
+
+Continue with [drand and tlock](/kb/drand-tlock/).

@@ -242,3 +242,5 @@ A French citizen presents EU-Digital-Wallet credentials in Germany at a hotel. B
 - OpenID for Verifiable Presentations / Issuance — [openid.net/specs](https://openid.net/specs).
 - Hyperledger AnonCreds — [hyperledger.github.io/anoncreds-spec](https://hyperledger.github.io/anoncreds-spec).
 - Anon Aadhaar — [anon-aadhaar.pse.dev](https://anon-aadhaar.pse.dev).
+
+Continue with [Biscuit authorization tokens](/kb/biscuit/).

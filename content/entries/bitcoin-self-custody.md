@@ -77,3 +77,5 @@ The "$5 wrench attack" (someone threatening you until you hand over keys) is rea
 - Sparrow Wallet documentation: <https://sparrowwallet.com/docs/>
 - Bitcoin Wiki, *Privacy*: <https://en.bitcoin.it/wiki/Privacy>
 - US Attorney's Office SDNY, *Founders of Samourai Wallet cryptocurrency mixing service plead guilty* (August 2025): <https://www.justice.gov/usao-sdny/pr/founders-samourai-wallet-cryptocurrency-mixing-service-plead-guilty>
+
+Continue with [Stablecoins and sovereignty](/kb/stablecoins-and-sovereignty/).

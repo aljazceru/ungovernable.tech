@@ -177,3 +177,5 @@ A complete portable HF data setup fits in a backpack at 7-10 kg.
 - FLDIGI / FLAMP / FLMSG — [w1hkj.com](http://www.w1hkj.com).
 - FreeDATA — [github.com/DJ2LS/FreeDATA](https://github.com/DJ2LS/FreeDATA).
 - ARDOP specification — [github.com/pflarue/ardop](https://github.com/pflarue/ardop).
+
+Continue with [APRS](/kb/aprs/).

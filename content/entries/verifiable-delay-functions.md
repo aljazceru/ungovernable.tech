@@ -145,3 +145,5 @@ The unsolved tension: any deployed VDF creates an incentive to build dedicated s
 - Malavolta, Thyagarajan, *Homomorphic Time-Lock Puzzles and Applications*, CRYPTO 2019.
 - Chia VDF reference: [github.com/Chia-Network/chiavdf](https://github.com/Chia-Network/chiavdf).
 - drand: [drand.love](https://drand.love), [github.com/drand/drand](https://github.com/drand/drand).
+
+Continue with [drand and tlock](/kb/drand-tlock/).

@@ -169,3 +169,5 @@ This section is practical. It covers patterns, tools, and operational guidance f
 - [learnmeabitcoin.com](https://learnmeabitcoin.com) — visual primer.
 
 What this section adds: self-custody operational practice, Lightning channel hygiene, CoinJoin discipline, hardware-wallet selection, and how Bitcoin combines with the rest of this library (mix networks, Nostr zaps, attested-TLS payment endpoints).
+
+Continue with [Stablecoins and sovereignty](/kb/stablecoins-and-sovereignty/).

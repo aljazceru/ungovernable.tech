@@ -238,3 +238,5 @@ A `.com` holder uses DNSSEC to claim the matching ENS namespace, then migrates s
 - Nick Johnson, *ENS Staying on Ethereum*, blog post Feb 6, 2026.
 - ENS DAO governance forum — [discuss.ens.domains](https://discuss.ens.domains).
 - Source — [github.com/ensdomains](https://github.com/ensdomains).
+
+Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).

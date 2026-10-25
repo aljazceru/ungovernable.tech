@@ -196,3 +196,5 @@ In practice, FHE is often combined with:
 - TEEs (confidential computing) for better performance.
 - Secure enclaves for key management.
 - ZK proofs for integrity verification.
+
+Continue with [Compare fully homomorphic encryption libraries](/kb/compare-fhe-libraries/).

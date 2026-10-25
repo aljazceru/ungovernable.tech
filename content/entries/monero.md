@@ -61,3 +61,5 @@ A planned upgrade, **FCMP++** (full-chain membership proofs), would replace ring
 - Möser et al., *An Empirical Analysis of Traceability in the Monero Blockchain* (PETS 2018): <https://arxiv.org/abs/1704.04299>
 - RandomX: <https://github.com/tevador/RandomX>
 - FCMP++ research and development: <https://www.getmonero.org/2024/04/27/fcmps.html>
+
+Continue with [Stablecoins and sovereignty](/kb/stablecoins-and-sovereignty/).

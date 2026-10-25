@@ -154,14 +154,21 @@ ENTRY_APPEND = {
         '[Choosing a private messenger](/kb/compare-messengers/), including '
         '[Delta Chat](/kb/delta-chat/), [XMPP with OMEMO](/kb/xmpp-omemo/) '
         'and [Jami](/kb/jami/). For submission workflows, see '
-        '[OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).',
+        '[OnionShare](/kb/onionshare/) and [SecureDrop](/kb/securedrop/).' + (
+        '\n\n'
+        'Continue with [Mobile location privacy](/kb/mobile-location-privacy/).'
+    ),
     'off-grid-networks': 'For internet access built and owned by its users '
         'rather than a telco, see [Community Networks](/kb/community-networks/).' '\n\n' + (
         'MeshCore is covered in depth at [MeshCore](/kb/meshcore/), beside '
         '[Meshtastic](/kb/meshtastic/). Correction to the table above: MeshCore '
         'encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), '
         'not only at app level. Bitchat launched in July 2025; see '
-        '[Bitchat](/kb/bitchat/).'),
+        '[Bitchat](/kb/bitchat/).') + (
+        '\n\n'
+        'Continue with [LibreMesh](/kb/libremesh/), [APRS](/kb/aprs/) and [Secure '
+        'Scuttlebutt](/kb/secure-scuttlebutt/).'
+    ),
     'marmot-protocol': '**Update, October 2026.** The numbered MIP documents '
         'described above are now deprecated: the Marmot repository holds a '
         'reorganised specification (foundation, protocol-core, transports, app '
@@ -186,7 +193,10 @@ ENTRY_APPEND = {
         '[Tox](/kb/tox/), [Quiet](/kb/quiet/) and [Veilid](/kb/veilid/).',
     'nostr-protocol': 'For end-to-end encrypted group chat built on Nostr keys '
         'and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) '
-        'and [Cordn](/kb/cordn/).',
+        'and [Cordn](/kb/cordn/).' + (
+        '\n\n'
+        'Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).'
+    ),
     'meshtastic': '**Sibling project: MeshCore.** [MeshCore](/kb/meshcore/) runs '
         'on the same LoRa boards but relays only through dedicated repeaters and '
         'learns direct routes instead of flooding. It is lighter on airtime, but '
@@ -203,7 +213,10 @@ ENTRY_APPEND = {
     'reticulum': 'The comparison above uses Meshtastic. Its sibling '
         '[MeshCore](/kb/meshcore/) sits in the same place relative to '
         'Reticulum: LoRa-only firmware with fixed repeaters, compared directly '
-        'with [Meshtastic](/kb/meshtastic/) in the MeshCore entry.',
+        'with [Meshtastic](/kb/meshtastic/) in the MeshCore entry.' + (
+        '\n\n'
+        'Continue with [Delay-tolerant networking](/kb/delay-tolerant-networking/).'
+    ),
     'fips-mesh': 'Beside [Meshtastic](/kb/meshtastic/) in the table above '
         'belongs its sibling [MeshCore](/kb/meshcore/): Ed25519 node keys, '
         'flood-then-learned-path routing through dedicated repeaters, AES-128 '
@@ -212,7 +225,10 @@ ENTRY_APPEND = {
         'store-and-forward couriers and a Nostr fallback, compare '
         '[Bitchat](/kb/bitchat/). '
         'For the wider field, see [Choosing a private messenger]'
-        '(/kb/compare-messengers/).',
+        '(/kb/compare-messengers/).' + (
+        '\n\n'
+        'Continue with [Delay-tolerant networking](/kb/delay-tolerant-networking/).'
+    ),
     'decentralized-storage': 'For a practical selection table, see '
         '[Choosing Decentralized Storage](/kb/compare-storage/). Continue with '
         '[Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), '
@@ -222,7 +238,10 @@ ENTRY_APPEND = {
         '(/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow '
         '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).' ' '
         'For replicated code and collaboration records, '
-        'see [Radicle](/kb/radicle/).',
+        'see [Radicle](/kb/radicle/).' + (
+        '\n\n'
+        'Continue with [CryptPad](/kb/cryptpad/).'
+    ),
     'ipfs-and-filecoin': 'Continue with [IPNS and DNSLink](/kb/ipns-dnslink/) '
         'for naming, [BitTorrent for Archive Distribution]'
         '(/kb/bittorrent-archives/) for another distribution model, and '
@@ -274,34 +293,37 @@ ENTRY_APPEND = {
         'processor. The [P2P acquisition comparison]'
         '(/kb/compare-p2p-bitcoin-acquisition/) covers custody and identity '
         'disclosure when obtaining bitcoin.',
-    'decentralized-identity': 'For server-based social federation and its '
-        'migration boundaries, see [ActivityPub](/kb/activitypub/).',
-    'zero-knowledge-proofs': 'For program identity, proof modes and outsourced '
-        'proving, see [general-purpose zkVMs](/kb/zkvms/).',
-    'zkemail': 'For evidence from web sessions, compare '
-        '[TLSNotary](/kb/tlsnotary/).',
-    'private-information-retrieval': 'For privacy across storage reads and '
-        'writes, see [oblivious RAM](/kb/oblivious-ram/).',
-    'confidential-computing': 'For an SGX application environment, see '
-        '[Gramine](/kb/gramine/). For alternatives and their trust boundaries, '
-        'see [private computation compared](/kb/compare-private-computation/).',
-    'pir-use-cases': 'For separating a request from its network origin, '
-        'compare [Oblivious HTTP and DNS](/kb/oblivious-http/).',
-    'akash': 'For a deployment walkthrough with an exit plan, see '
-        '[deploying on decentralized compute]'
-        '(/guides/deploying-on-decentralized-compute/).',
-    'remote-attestation': 'For a concrete SGX verification workflow, see '
-        '[verifying a confidential workload]'
-        '(/guides/verifying-a-confidential-workload/).',
-    'semaphore': 'For an executable v4 example and application-level checks, '
-        'see [building a ZK membership proof]'
-        '(/guides/building-a-zk-membership-proof/).',
-    'decentralized-dns': 'For renewal, resolution and key-recovery decisions, '
-        'see [naming systems compared](/kb/compare-naming-systems/).',
-    'identity-and-pseudonymity': 'The glossary distinguishes '
-        '[pseudonymity](/glossary/#pseudonymity), '
-        '[Sybil attacks](/glossary/#sybil-attack) and '
-        '[Sybil resistance](/glossary/#sybil-resistance).',
+    'decentralized-identity': 'For server-based social federation and its migration boundaries, see [ActivityPub](/kb/activitypub/).\n\nContinue with [Biscuit authorization tokens](/kb/biscuit/).',
+    'zero-knowledge-proofs': 'For program identity, proof modes and outsourced proving, see [general-purpose zkVMs](/kb/zkvms/).',
+    'zkemail': 'For evidence from web sessions, compare [TLSNotary](/kb/tlsnotary/).',
+    'private-information-retrieval': 'For privacy across storage reads and writes, see [oblivious RAM](/kb/oblivious-ram/).',
+    'confidential-computing': 'For an SGX application environment, see [Gramine](/kb/gramine/). For alternatives and their trust boundaries, see [private computation compared](/kb/compare-private-computation/).',
+    'pir-use-cases': 'For separating a request from its network origin, compare [Oblivious HTTP and DNS](/kb/oblivious-http/).',
+    'akash': 'For a deployment walkthrough with an exit plan, see [deploying on decentralized compute](/guides/deploying-on-decentralized-compute/).\n\nContinue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).',
+    'remote-attestation': 'For a concrete SGX verification workflow, see [verifying a confidential workload](/guides/verifying-a-confidential-workload/).\n\nContinue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).',
+    'semaphore': 'For an executable v4 example and application-level checks, see [building a ZK membership proof](/guides/building-a-zk-membership-proof/).',
+    'decentralized-dns': 'For renewal, resolution and key-recovery decisions, see [naming systems compared](/kb/compare-naming-systems/).',
+    'identity-and-pseudonymity': 'The glossary distinguishes [pseudonymity](/glossary/#pseudonymity), [Sybil attacks](/glossary/#sybil-attack) and [Sybil resistance](/glossary/#sybil-resistance).',
+    'opaque-and-pake': 'Continue with [Magic Wormhole](/kb/magic-wormhole/).',
+    'batman-adv-and-cjdns': 'Continue with [LibreMesh](/kb/libremesh/) and [Build a community Wi-Fi network](/guides/community-wifi-network/).',
+    'hf-data-modes': 'Continue with [APRS](/kb/aprs/).',
+    'verifiable-credentials': 'Continue with [Biscuit authorization tokens](/kb/biscuit/).',
+    'threshold-signatures': 'Continue with [drand and tlock](/kb/drand-tlock/).',
+    'verifiable-delay-functions': 'Continue with [drand and tlock](/kb/drand-tlock/).',
+    'satellite-iot': 'Continue with [Satellite broadband and direct-to-cell](/kb/satellite-broadband/).',
+    'financial-sovereignty': 'Continue with [Stablecoins and sovereignty](/kb/stablecoins-and-sovereignty/).',
+    'ens': 'Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).',
+    'handshake': 'Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).',
+    'pkarr': 'Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).',
+    'tee-technologies': 'Continue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).',
+    'tee-side-channel-attacks': 'Continue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).',
+    'post-quantum-cryptography': 'Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).',
+    'pqc-deployment-tracker': 'Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).',
+    'hybrid-kem-migration': 'Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).',
+    'fully-homomorphic-encryption': 'Continue with [Compare fully homomorphic encryption libraries](/kb/compare-fhe-libraries/).',
+    'fhe-bootstrapping-and-verification': 'Continue with [Compare fully homomorphic encryption libraries](/kb/compare-fhe-libraries/).',
+    'decentralized-compute': 'Continue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).',
+    'bacalhau': 'Continue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).',
 }
 ENTRY_APPEND['off-grid-networks'] += (
     '\n\nFor reach, hardware, encryption and readiness across the options, see '
@@ -452,6 +474,41 @@ GLOSSARY_ADD = [
             '(https://www.rfc-editor.org/rfc/rfc6973.html) and '
             '[identity and pseudonymity](/kb/identity-and-pseudonymity/).',
         'see': ['identity-and-pseudonymity', 'metadata-resistance'],
+    },
+    {
+        'term': 'Offline attenuation',
+        'slug': 'offline-attenuation',
+        'definition_md': (
+            'Adding restrictions to an authorization token without contacting its '
+            'issuer. Biscuit uses signed blocks and scoped policy checks so an appended '
+            'block can reduce authority. See [Biscuit](/kb/biscuit/) and its '
+            '[introduction](https://biscuitsec.org/docs/getting-started/introduction/).'
+        ),
+        'see': ['biscuit', 'verifiable-credentials'],
+    },
+    {
+        'term': 'Bundle Protocol',
+        'slug': 'bundle-protocol',
+        'definition_md': (
+            'A protocol for carrying application data across networks with intermittent '
+            'connectivity. Version 7 is specified in [RFC '
+            '9171](https://www.rfc-editor.org/rfc/rfc9171.html); custody transfer is '
+            'outside its base protocol. See [delay-tolerant '
+            'networking](/kb/delay-tolerant-networking/).'
+        ),
+        'see': ['delay-tolerant-networking', 'off-grid-networks'],
+    },
+    {
+        'term': 'Cryptographic inventory',
+        'slug': 'cryptographic-inventory',
+        'definition_md': (
+            'A maintained record of where systems depend on cryptography and which '
+            'implementations, owners and suppliers must participate in a migration. See '
+            'the [inventory workflow](/kb/pqc-cryptographic-inventory/) and [CISA, NSA '
+            'and NIST '
+            'guidance](https://www.cisa.gov/resources-tools/resources/quantum-readiness-migration-post-quantum-cryptography).'
+        ),
+        'see': ['pqc-cryptographic-inventory', 'post-quantum-cryptography'],
     },
 ]
 

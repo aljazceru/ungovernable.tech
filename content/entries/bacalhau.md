@@ -300,3 +300,5 @@ This is the bridge between Bacalhau and [Overview - Confidential Computing](/kb/
 - Filecoin Foundation ecosystem page — [Bacalhau](https://fil.org/ecosystem-explorer/bacalhau)
 - IPVM / Homestar — [github.com/ipvm-wg/homestar](https://github.com/ipvm-wg/homestar/)
 - IPVM specification — [github.com/ipvm-wg/spec](https://github.com/ipvm-wg/spec)
+
+Continue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).

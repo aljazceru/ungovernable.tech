@@ -414,3 +414,5 @@ Armv9 CCA:
 - [Occlum](https://occlum.io/)
 
 *Part of the Ungovernable.tech knowledge base. Last updated: April 2026*
+
+Continue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).

@@ -171,3 +171,5 @@ The DNS / CA chain is replaced by a DHT lookup and a signature check against the
 - pkdns — [github.com/pubky/pkdns](https://github.com/pubky/pkdns)
 - Pubky homeserver — [github.com/pubky/pubky](https://github.com/pubky/pubky)
 - docs.pubky.org
+
+Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).

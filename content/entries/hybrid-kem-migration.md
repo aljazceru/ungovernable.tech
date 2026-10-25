@@ -213,3 +213,5 @@ The right architecture isn't "deploy ML-KEM today and forget it." It's crypto-ag
 - NIST PQC project — [csrc.nist.gov/projects/post-quantum-cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography).
 - liboqs — [openquantumsafe.org](https://openquantumsafe.org).
 - *Migrating to Post-Quantum Cryptography* (NIST IR 8413, 2024).
+
+Continue with [Build a post-quantum cryptographic inventory](/kb/pqc-cryptographic-inventory/).

@@ -120,3 +120,5 @@ Build static assets, publish to IPFS and Arweave, pin on multiple providers, and
 - [Filecoin protocol specification](https://spec.filecoin.io/intro/)
 
 For a practical selection table, see [Choosing Decentralized Storage](/kb/compare-storage/). Continue with [Syncthing](/kb/syncthing/), [Tahoe-LAFS](/kb/tahoe-lafs/), [Local-first Software and CRDTs](/kb/local-first-crdts/), [BitTorrent for Archive Distribution](/kb/bittorrent-archives/), [IPNS and DNSLink](/kb/ipns-dnslink/), [Hypercore and Hyperdrive](/kb/hypercore/) and [Kiwix](/kb/kiwix/). For a worked setup, follow [Private File Sync and Backup](/guides/private-file-sync-and-backup/). For replicated code and collaboration records, see [Radicle](/kb/radicle/).
+
+Continue with [CryptPad](/kb/cryptpad/).

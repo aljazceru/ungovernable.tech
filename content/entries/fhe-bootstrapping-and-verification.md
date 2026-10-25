@@ -162,3 +162,5 @@ Knowing which one you're picking, and why, is the discipline.
 - OpenFHE: [openfhe.org](https://www.openfhe.org).
 - tfhe-rs (Zama Concrete): [github.com/zama-ai/tfhe-rs](https://github.com/zama-ai/tfhe-rs).
 - HElib: [github.com/homenc/HElib](https://github.com/homenc/HElib).
+
+Continue with [Compare fully homomorphic encryption libraries](/kb/compare-fhe-libraries/).

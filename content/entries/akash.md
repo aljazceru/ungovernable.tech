@@ -300,3 +300,5 @@ The Akash chain coordinates payment; the TEE provides the integrity layer; the w
 - Cosmos SDK — [docs.cosmos.network](https://docs.cosmos.network).
 
 For a deployment walkthrough with an exit plan, see [deploying on decentralized compute](/guides/deploying-on-decentralized-compute/).
+
+Continue with [Compare decentralized compute platforms](/kb/compare-decentralized-compute/).

@@ -197,3 +197,5 @@ Some Handshake names alias to ICANN names via DNS records. A user resolves `mybr
 - [hsd mainnet name-renewal window](https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js)
 - [hsd name-expiry rule](https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js)
 - [hsd RENEW covenant validation](https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js)
+
+Continue with [Sovereign name lifecycle](/kb/sovereign-name-lifecycle/).

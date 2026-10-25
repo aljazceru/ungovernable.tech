@@ -62,3 +62,5 @@ For an operator checklist, follow [Run a private circumvention server for people
 - [wg manual](https://git.zx2c4.com/wireguard-tools/about/src/man/wg.8) and [wg-quick manual](https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8).
 - [AmneziaWG implementation and configuration](https://github.com/amnezia-vpn/amneziawg-go).
 - [Ubuntu: using WireGuard as the default gateway](https://documentation.ubuntu.com/server/how-to/wireguard-vpn/vpn-as-the-default-gateway/).
+
+Continue with [DNSCrypt and dnscrypt-proxy](/kb/dnscrypt/) and [Mullvad VPN](/kb/mullvad-vpn/).

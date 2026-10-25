@@ -168,3 +168,5 @@ Yggdrasil ([Yggdrasil](/kb/yggdrasil/)) was started in 2018 by former cjdns cont
 - cjdns whitepaper — [docs/Whitepaper.md](https://github.com/cjdelisle/cjdns/blob/master/doc/Whitepaper.md).
 - Hyperboria — [hyperboria.net](https://hyperboria.net).
 - Neumann, Aichele, Lindner, Wunderlich, "Better Approach To Mobile Ad-hoc Networking" (IETF Internet-Draft, 2008).
+
+Continue with [LibreMesh](/kb/libremesh/) and [Build a community Wi-Fi network](/guides/community-wifi-network/).

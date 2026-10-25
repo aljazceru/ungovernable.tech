@@ -188,3 +188,5 @@ NomadNet pages served from a rnsd-equipped node. Forum-style content delivered o
 - Sideband — [github.com/markqvist/Sideband](https://github.com/markqvist/Sideband)
 
 The comparison above uses Meshtastic. Its sibling [MeshCore](/kb/meshcore/) sits in the same place relative to Reticulum: LoRa-only firmware with fixed repeaters, compared directly with [Meshtastic](/kb/meshtastic/) in the MeshCore entry.
+
+Continue with [Delay-tolerant networking](/kb/delay-tolerant-networking/).

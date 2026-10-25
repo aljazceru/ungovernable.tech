@@ -124,3 +124,5 @@ The most catastrophic class. A single compromised attestation signing key can mi
 - [NVIDIA security bulletins](https://www.nvidia.com/en-us/security/)
 - [Downfall: affected processors and mitigations](https://downfall.page/)
 - [BadRAM: Practical Memory Aliasing Attacks on Trusted Execution Environments](https://badram.eu/)
+
+Continue with [TEE state, recovery and revocation](/kb/tee-state-and-revocation/).

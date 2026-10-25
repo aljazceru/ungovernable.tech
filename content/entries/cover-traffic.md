@@ -42,3 +42,5 @@ This is the central tension of [metadata resistance](/kb/metadata-resistance/): 
 ## What it protects against, and what it does not
 
 Cover traffic defends against **traffic-analysis and end-to-end correlation** by an observer of the links. It does **not** hide content (that is encryption's job), does not protect against an endpoint that is itself compromised, and does not help if the padding is imperfect — a scheme that pads only in one direction, or whose dummies are distinguishable from real packets under load, can leak the very signal it was meant to bury. Padding is only as good as its indistinguishability.
+
+Continue with [Mullvad VPN](/kb/mullvad-vpn/).

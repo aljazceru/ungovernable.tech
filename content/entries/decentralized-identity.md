@@ -108,3 +108,5 @@ Ledger / Infra (Bitcoin/ION, Ethereum/ENS, Sovrin, centralized PKI)
 - [DIF DIDComm Messaging specification](https://identity.foundation/didcomm-messaging/spec/)
 
 For server-based social federation and its migration boundaries, see [ActivityPub](/kb/activitypub/).
+
+Continue with [Biscuit authorization tokens](/kb/biscuit/).

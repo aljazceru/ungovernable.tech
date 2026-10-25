@@ -11,37 +11,37 @@ scenarios:
     goal: "Stay connected when the network goes dark"
     dek: "Communicate when the internet is shut off, throttled or simply absent, using radios and local-first networks."
     pillars: [mesh, circumvention]
-    blocks: [internet-shutdown-preparedness, off-grid-networks, building-a-mesh, meshtastic, meshcore, bitchat, reticulum, community-networks, kiwix]
+    blocks: [internet-shutdown-preparedness, off-grid-networks, building-a-mesh, meshtastic, meshcore, bitchat, reticulum, community-networks, kiwix, libremesh, community-wifi-network, aprs, delay-tolerant-networking, satellite-broadband]
   - key: firewall
     goal: "Reach the internet through censorship"
     dek: "Reach the open internet from inside censorship, and help others do the same."
     pillars: [circumvention, anonymity]
-    blocks: [censorship-circumvention, ooni, pluggable-transports, psiphon, outline, wireguard, self-hosted-circumvention-server, map-censorship-resistance, tor, using-tor-safely, i2p]
+    blocks: [censorship-circumvention, ooni, pluggable-transports, psiphon, outline, wireguard, self-hosted-circumvention-server, map-censorship-resistance, tor, using-tor-safely, i2p, dnscrypt, mullvad-vpn]
   - key: publish
     goal: "Publish what cannot be taken down"
     dek: "Put words or files online so that no host, registrar or court can quietly erase them."
     pillars: [storage, naming]
-    blocks: [uncensorable-website, nostr-protocol, ipfs-and-filecoin, arweave, decentralized-storage, compare-storage, ipns-dnslink, bittorrent-archives]
+    blocks: [uncensorable-website, nostr-protocol, ipfs-and-filecoin, arweave, decentralized-storage, compare-storage, ipns-dnslink, bittorrent-archives, secure-scuttlebutt]
   - key: money
     goal: "Hold and move money with a clear trust model"
     dek: "Choose self-custody, compare peer-to-peer acquisition, and understand what shielded payments and custodial ecash protect."
     pillars: [money]
-    blocks: [financial-sovereignty, bitcoin-self-custody, hardware-wallets, compare-p2p-bitcoin-acquisition, bisq, robosats, lightning-network, monero, zcash, silent-payments, cashu-ecash, fedimint, btcpay-server, blockstream-satellite]
+    blocks: [financial-sovereignty, bitcoin-self-custody, hardware-wallets, compare-p2p-bitcoin-acquisition, bisq, robosats, lightning-network, monero, zcash, silent-payments, cashu-ecash, fedimint, btcpay-server, blockstream-satellite, stablecoins-and-sovereignty]
   - key: identity
     goal: "Carry an identity you own"
     dek: "Prove who you are across services with keys and reputation you control, not an account someone can revoke."
     pillars: [identity, naming]
-    blocks: [decentralized-identity, nostr-identity, nostr-key-custody, remote-signing, web-of-trust, verifiable-credentials, proof-of-personhood]
+    blocks: [decentralized-identity, nostr-identity, nostr-key-custody, remote-signing, web-of-trust, verifiable-credentials, proof-of-personhood, biscuit]
   - key: naming
     goal: "Name things without a registrar"
     dek: "Own a human-readable name that no central authority issued and none can seize."
     pillars: [naming]
-    blocks: [decentralized-dns, handshake, ens, gnu-name-system, pkarr]
+    blocks: [decentralized-dns, handshake, ens, gnu-name-system, pkarr, sovereign-name-lifecycle]
   - key: compute
     goal: "Compute on data the operator cannot read"
     dek: "Run workloads on someone else's hardware without that host seeing your inputs or your results."
     pillars: [confidential, compute]
-    blocks: [confidential-computing, remote-attestation, confidential-ai-inference, fully-homomorphic-encryption, private-information-retrieval]
+    blocks: [confidential-computing, remote-attestation, confidential-ai-inference, fully-homomorphic-encryption, private-information-retrieval, tee-state-and-revocation, compare-fhe-libraries, compare-decentralized-compute]
   - key: prove
     goal: "Prove something without revealing it"
     dek: "Convince someone a statement is true while disclosing nothing beyond the statement itself."
@@ -51,12 +51,12 @@ scenarios:
     goal: "Harden the device in your hands"
     dek: "Make the phone or laptop you actually use resistant to spyware, seizure and tampering."
     pillars: [endpoint]
-    blocks: [threat-modeling, grapheneos, tails-qubes-whonix, hardware-supply-chain-trust, heads-firmware, encrypting-files-and-backups, passkeys-and-security-keys]
+    blocks: [threat-modeling, grapheneos, tails-qubes-whonix, hardware-supply-chain-trust, heads-firmware, encrypting-files-and-backups, passkeys-and-security-keys, mobile-location-privacy, verifying-software]
   - key: quantum
     goal: "Keep secrets safe from a future quantum computer"
     dek: "Protect today's encrypted data against an adversary who stores it now to break it later."
     pillars: [pqc, cryptography]
-    blocks: [post-quantum-cryptography, ml-kem, ml-dsa, hybrid-kem-migration]
+    blocks: [post-quantum-cryptography, ml-kem, ml-dsa, hybrid-kem-migration, pqc-cryptographic-inventory]
   - key: run
     goal: "Run the infrastructure others depend on"
     dek: "Operate relays, nodes and networks so they keep working through outages, seizure and censorship."
@@ -66,7 +66,7 @@ scenarios:
     goal: "Keep working files and a way to recover them"
     dek: "Sync chosen devices, assess encrypted storage, and maintain a separate offline archive."
     pillars: [storage, cryptography]
-    blocks: [compare-storage, private-file-sync-and-backup, syncthing, tahoe-lafs, encrypting-files-and-backups, local-first-crdts, hypercore, kiwix]
+    blocks: [compare-storage, private-file-sync-and-backup, syncthing, tahoe-lafs, encrypting-files-and-backups, local-first-crdts, hypercore, kiwix, magic-wormhole, cryptpad]
   - key: confidential-submissions
     goal: "Receive documents from a confidential source"
     dek: "Choose an onion-service submission tool, understand who sees plaintext, and plan how documents will be opened safely."
@@ -97,3 +97,8 @@ scenarios:
     dek: "Choose who contributes inputs, who may learn the result and which collusion or key-custody assumptions the computation needs."
     pillars: [cryptography]
     blocks: [multi-party-computation, private-set-intersection, fully-homomorphic-encryption, compare-private-computation]
+  - key: timed-release
+    goal: "Release encrypted material after a chosen time"
+    dek: "Understand the threshold beacon that controls release timing and add recipient encryption when access must remain restricted."
+    pillars: [cryptography, storage]
+    blocks: [drand-tlock, age-encryption, threshold-signatures, verifiable-delay-functions]

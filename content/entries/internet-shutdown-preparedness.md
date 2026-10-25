@@ -67,3 +67,5 @@ Write down what worked and what did not, and fix the gaps before the next one. S
 - Meshtastic documentation: <https://meshtastic.org/docs/introduction/>
 - F-Droid documentation, *Nearby swap*: <https://f-droid.org/docs/>
 - Kiwix: <https://kiwix.org/>
+
+Continue with [Satellite broadband and direct-to-cell](/kb/satellite-broadband/).

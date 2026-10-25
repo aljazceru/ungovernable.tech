@@ -130,3 +130,5 @@ Modern passkey-style auth (WebAuthn, FIDO2) competes with OPAQUE on the same pro
 - [opaque-ke implementation](https://github.com/facebook/opaque-ke)
 - [RFC 9497: OPRFs using prime-order groups](https://www.rfc-editor.org/rfc/rfc9497.html)
 - [WhatsApp: encrypted backups design](https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/)
+
+Continue with [Magic Wormhole](/kb/magic-wormhole/).
