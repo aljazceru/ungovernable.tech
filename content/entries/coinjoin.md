@@ -12,6 +12,7 @@ origin: vault
 source: "06-Financial-Sovereignty/CoinJoin Implementation.md"
 aliases: ["CoinJoin", "Wabisabi", "Payjoin"]
 tags: ["coinjoin", "bitcoin", "privacy", "payjoin", "wabisabi", "joinmarket", "deep-dive", "financial"]
+related: ["silent-payments", "zcash", "btcpay-server", "compare-p2p-bitcoin-acquisition"]
 ---
 
 ## Why CoinJoin
@@ -144,3 +145,5 @@ Wallet hygiene matters as much as the join itself.
 - Ficsór, Kogman, Ontivero, Seres, *WabiSabi: Centrally Coordinated CoinJoins with Variable Amounts*, IACR ePrint 2021/206.
 - BIP-78 *Payjoin* — [github.com/bitcoin/bips/blob/master/bip-0078.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki)
 - Hill, *Joinstr: Coordinatorless CoinJoins via Nostr*, 2023.
+
+For related payment-privacy choices, see [Silent Payments](/kb/silent-payments/) for reusable Bitcoin addresses, [Zcash](/kb/zcash/) for shielded pools, and [BTCPay Server](/kb/btcpay-server/) for running a payment processor. The [P2P acquisition comparison](/kb/compare-p2p-bitcoin-acquisition/) covers custody and identity disclosure when obtaining bitcoin.

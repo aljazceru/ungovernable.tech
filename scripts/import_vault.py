@@ -252,6 +252,26 @@ ENTRY_APPEND = {
     'matrix': 'Compare [XMPP with OMEMO](/kb/xmpp-omemo/) and '
         '[Delta Chat](/kb/delta-chat/) in [Choosing a private messenger]'
         '(/kb/compare-messengers/).',
+    'lightning-network': 'For applications of Lightning, see '
+        '[Fedimint](/kb/fedimint/) for federated ecash and gateway contracts, '
+        '[RoboSats](/kb/robosats/) for peer-to-peer acquisition using hold '
+        'invoices, and [BTCPay Server](/kb/btcpay-server/) for accepting '
+        'payments. Their entries distinguish guardian, coordinator and '
+        'wallet custody.',
+    'cashu-ecash': 'For a dedicated account of guardian custody, threshold '
+        'blind signatures and Lightning gateway contracts, see '
+        '[Fedimint](/kb/fedimint/). Compare it with '
+        '[Bitcoin self-custody](/guides/bitcoin-self-custody/), '
+        '[BTCPay Server](/kb/btcpay-server/) and '
+        '[Zcash](/kb/zcash/) when deciding which custody and privacy '
+        'assumptions fit a payment.',
+    'coinjoin': 'For related payment-privacy choices, see '
+        '[Silent Payments](/kb/silent-payments/) for reusable Bitcoin '
+        'addresses, [Zcash](/kb/zcash/) for shielded pools, and '
+        '[BTCPay Server](/kb/btcpay-server/) for running a payment '
+        'processor. The [P2P acquisition comparison]'
+        '(/kb/compare-p2p-bitcoin-acquisition/) covers custody and identity '
+        'disclosure when obtaining bitcoin.',
 }
 # vault slug -> related slugs written into the emitted front matter (shown first)
 ENTRY_RELATED = {
@@ -267,6 +287,10 @@ ENTRY_RELATED = {
     'off-grid-messaging': ['meshtastic', 'meshcore', 'bitchat', 'briar', 'reticulum'],
     'off-grid-networks': ['meshtastic', 'meshcore', 'bitchat', 'reticulum',
                           'building-a-mesh'],
+    'lightning-network': ['fedimint', 'robosats', 'btcpay-server', 'cashu-ecash'],
+    'cashu-ecash': ['fedimint', 'bitcoin-self-custody', 'btcpay-server', 'zcash'],
+    'coinjoin': ['silent-payments', 'zcash', 'btcpay-server',
+                'compare-p2p-bitcoin-acquisition'],
 }
 
 # glossary slug -> replacement definition_md / extra see-slugs

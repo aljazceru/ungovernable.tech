@@ -12,6 +12,7 @@ origin: vault
 source: "06-Financial-Sovereignty/Lightning Network Deep Dive.md"
 aliases: ["Lightning", "LN", "BOLT"]
 tags: ["lightning", "bitcoin", "layer-2", "payment-channels", "htlc", "financial", "deep-dive"]
+related: ["fedimint", "robosats", "btcpay-server", "cashu-ecash"]
 ---
 
 ## Why Lightning matters
@@ -153,3 +154,5 @@ Channels need balance on the right side to forward and receive. The 2024-2026 ma
 - Olaoluwa Osuntokun et al., *Sphinx Mix Format*, BOLT 4.
 - Antoine Riard, *Channel Jamming Attacks*, lightning-dev mailing list.
 - Lightning Labs, ACINQ, Blockstream — implementation docs.
+
+For applications of Lightning, see [Fedimint](/kb/fedimint/) for federated ecash and gateway contracts, [RoboSats](/kb/robosats/) for peer-to-peer acquisition using hold invoices, and [BTCPay Server](/kb/btcpay-server/) for accepting payments. Their entries distinguish guardian, coordinator and wallet custody.

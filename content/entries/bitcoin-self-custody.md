@@ -5,12 +5,12 @@ type: guide
 pillars: [money, endpoint]
 description: "How to hold bitcoin that nobody can freeze: a hardware signer, your own node, a tested seed backup, multisig for larger amounts, and habits that protect privacy."
 dek: "Not your keys, not your coins. Holding your own keys is simple; holding them safely, privately and recoverably takes a plan."
-updated: 2026-10-17
+updated: 2026-10-25
 created: 2026-10-17
 origin: original
 level: intermediate
 time: "2-4 hours"
-related: [hardware-wallets, financial-sovereignty, coinjoin, lightning-network, cashu-ecash, threshold-signatures, monero]
+related: [hardware-wallets, financial-sovereignty, coinjoin, lightning-network, cashu-ecash, threshold-signatures, monero, compare-p2p-bitcoin-acquisition, bisq, robosats, silent-payments, btcpay-server, blockstream-satellite, fedimint, zcash]
 ---
 
 Money held by an exchange or bank can be frozen, seized, inflated away or lost when the custodian fails. Bitcoin lets you hold value as a secret only you know. The cost of that freedom is responsibility: there is no support desk, and a lost or stolen key is final. This guide walks through a setup that balances security, privacy and recoverability. For the background, read [Financial Sovereignty](/kb/financial-sovereignty/) and [Hardware Wallets](/kb/hardware-wallets/).
@@ -46,6 +46,8 @@ A wallet that queries someone else's server tells that server which addresses ar
 
 Pair it with desktop wallet software such as **Sparrow** (<https://sparrowwallet.com/>), which works with hardware signers, supports coin control and multisig, and can connect to your own node.
 
+For another way to receive the chain, see [Blockstream Satellite](/kb/blockstream-satellite/), including its receive-only link and hardware requirements. For accepting payments into your wallet, see [BTCPay Server](/kb/btcpay-server/).
+
 ## 5. For larger amounts, use multisig
 
 In a 2-of-3 multisig wallet, any two of three keys can spend. One key can be lost, stolen or destroyed without losing funds, and a single seized or coerced key is not enough. Use signers from **different manufacturers** and store them in **different places**. Back up the **wallet descriptor** (the description of which keys make up the wallet) as well as each seed: without it, recovery is much harder. Partially signed Bitcoin transactions (PSBT, BIP-174) let the signers co-sign without ever being connected to each other.
@@ -56,11 +58,11 @@ The Bitcoin blockchain is public and permanent. Chain analysis companies link ad
 
 - **Never reuse addresses.** Your wallet generates a new one for each payment.
 - **Use coin control and labels.** Know where each coin came from; do not merge coins from a KYC exchange with coins from private sources in one transaction.
-- **Payjoin** (BIP-78, and asynchronous BIP-77) breaks the common assumption that all inputs belong to the sender. **Silent Payments** (BIP-352) give you a reusable static address without address reuse on-chain.
+- **Payjoin** (BIP-78, and asynchronous BIP-77) breaks the common assumption that all inputs belong to the sender. [**Silent Payments**](/kb/silent-payments/) (BIP-352) give you a reusable static address without address reuse on-chain.
 - **CoinJoin** combines many users' transactions; see [CoinJoin and Payjoin](/kb/coinjoin/). The legal environment changed sharply in 2024: the Samourai Wallet founders were arrested on US charges (they pleaded guilty in 2025 to operating an unlicensed money-transmitting business), and the zkSNACKs coordinator used by Wasabi Wallet shut down. JoinMarket, which has no central coordinator, continues.
-- Buying without KYC (peer-to-peer markets such as Bisq, RoboSats and Hodl Hodl, or in person) avoids creating the link in the first place.
+- Buying without KYC (peer-to-peer markets such as [Bisq](/kb/bisq/), [RoboSats](/kb/robosats/) and Hodl Hodl, or in person) avoids creating the link in the first place. For custody and payment-privacy caveats, see [P2P Bitcoin acquisition](/kb/compare-p2p-bitcoin-acquisition/).
 
-For stronger on-chain privacy by default, see [Monero](/kb/monero/); for private everyday payments, see [Cashu and Chaumian Ecash](/kb/cashu-ecash/).
+For stronger on-chain privacy by default, see [Monero](/kb/monero/); compare [Zcash's shielded pools](/kb/zcash/) for another design. For private everyday payments, see [Cashu and Chaumian Ecash](/kb/cashu-ecash/) and [Fedimint](/kb/fedimint/), including the custody each mint requires you to trust.
 
 ## 7. Physical security
 

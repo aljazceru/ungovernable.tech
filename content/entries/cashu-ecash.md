@@ -12,6 +12,7 @@ origin: vault
 source: "06-Financial-Sovereignty/Cashu and Chaumian Ecash.md"
 aliases: ["Ecash", "Chaumian Ecash", "NIP-60"]
 tags: ["cashu", "ecash", "chaumian", "blind-signatures", "fedimint", "lightning", "nostr", "financial-privacy", "deep-dive"]
+related: ["fedimint", "bitcoin-self-custody", "btcpay-server", "zcash"]
 ---
 
 ## Why ecash for sovereignty
@@ -129,3 +130,5 @@ See [Nostr Deep Dive](/kb/nostr-protocol/) and recent Identity weeklies for clie
 ## Primary sources
 
 - [Cashu NUT-00: BDHKE on secp256k1](https://github.com/cashubtc/nuts/blob/main/00.md)
+
+For a dedicated account of guardian custody, threshold blind signatures and Lightning gateway contracts, see [Fedimint](/kb/fedimint/). Compare it with [Bitcoin self-custody](/guides/bitcoin-self-custody/), [BTCPay Server](/kb/btcpay-server/) and [Zcash](/kb/zcash/) when deciding which custody and privacy assumptions fit a payment.
