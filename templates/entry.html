@@ -1,0 +1,92 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}{{ e.title }} — ungovernable.tech{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld_article|safe }}</script>
+<script type="application/ld+json">{{ jsonld_crumb|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': primary_pillar.name, 'url': '/pillars/' ~ primary_pillar.key ~ '/'}, {'name': e.title}]) }}
+<header class="ahead tex">
+  <p class="kind">
+    {%- if e.type == 'guide' %}<span class="ktag ktag-k">Field guide</span>{% endif -%}
+    <span class="ktag">[ {{ type_labels[e.type]|upper }} ]</span>
+    {%- for pn in pillar_names %}<span class="ktag">[ {{ pn|upper }} ]</span>{% endfor -%}
+  </p>
+  <h1>{{ e.title }}</h1>
+  {% if e.aliases %}<p class="aka">Also {{ e.aliases|join(', ') }}.</p>{% endif %}
+  <p class="dek">{{ e.dek }}</p>
+  <div class="meta">
+    {% if e.readiness %}<span class="meta-r">{{ m.badge(e.readiness) }}</span>{% endif %}
+    <span>updated <b>{{ e.updated }}</b></span>
+    <span><b>{{ e.read_min }}</b> min read</span>
+    {% if e.level %}<span class="ktag">[ {{ e.level|upper }} ]</span>{% endif %}
+    {% if e.time %}<span class="ktag">[ {{ e.time|upper }} ]</span>{% endif %}
+  </div>
+</header>
+
+<div class="mono-grid">
+  {% if toc %}
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    {% for t in toc %}<a href="#{{ t.id }}">{{ t.title }}</a>{% endfor %}
+    </div>
+  </details>
+  {% endif %}
+
+  <article class="prose">
+    {{ body_html|safe }}
+
+    {% if related %}
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        {% for r in related %}{{ m.entry_row(r) }}{% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if also_pillars %}
+    <p class="chips">
+      <span class="label">Also in</span>
+      {% for p in also_pillars %}<a class="chip" href="/pillars/{{ p.key }}/">{{ p.name }}</a>{% endfor %}
+    </p>
+    {% endif %}
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>{{ e.updated }}</dd>
+        <dt>Origin</dt><dd>{{ origin_note }}</dd>
+        <dt>Improve this page</dt><dd><a href="{{ edit_url }}" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      {% if e.readiness %}
+      <div class="grade">
+        {{ m.badge(e.readiness, lg=True) }}
+        {{ m.meter(e.readiness) }}
+        <p>{{ readiness[e.readiness].full }}</p>
+      </div>
+      {% endif %}
+      <p class="def">{{ e.dek }}</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>{{ type_labels[e.type] }}</dd>
+        <dt>Pillars</dt><dd>{{ pillar_names|join(', ') }}</dd>
+        {% if e.level %}<dt>Level</dt><dd>{{ e.level }}</dd>{% endif %}
+        {% if e.time %}<dt>Time</dt><dd>{{ e.time }}</dd>{% endif %}
+        <dt>Updated</dt><dd>{{ e.updated }}</dd>
+        <dt>Sources linked</dt><dd>{{ n_sources }}</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+{% endblock %}

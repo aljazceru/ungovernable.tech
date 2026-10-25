@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}Pillars — ungovernable.tech{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><span class="here">Pillars</span></nav>
+<header class="page-head tex">
+  <p class="kicker">The fourteen pillars</p>
+  <h1>Pillars</h1>
+  <p class="dek">The library is organised by the question you bring to it, not by taxonomy. Each pillar is a hub: explainers to start, deep dives with a readiness rating, research notes, a curated link directory and the weekly briefing series.</p>
+</header>
+<div class="pgrid">
+  {% for p in pillar_stats %}
+  <a class="pcell" href="/pillars/{{ p.key }}/">
+    <span class="pc-top"><span class="pnum">0x{{ '%02x'|format(loop.index) }}</span>{{ m.glyph(p.key) }}</span>
+    <b>{{ p.name }}</b>
+    <span class="pq">{{ p.question }}</span>
+    <span class="pmeta">{{ p.n_entries }} entr{{ 'y' if p.n_entries == 1 else 'ies' }} · {{ p.n_guides }} guide{{ '' if p.n_guides == 1 else 's' }} · {{ p.n_links }} links</span>
+  </a>
+  {% endfor %}
+</div>
+</div></div>
+{% endblock %}

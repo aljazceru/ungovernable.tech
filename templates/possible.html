@@ -1,0 +1,58 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}What's Possible — ungovernable.tech{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+{{ m.crumb([{'name': "What's Possible"}]) }}
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">// MAP</span>Discover what exists</p>
+    <h1>What's possible</h1>
+    <p class="dek">{{ dek }}</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <div class="ident-wrap">{{ art|safe }}</div>
+    <p class="hexline">compose &rarr; don't trust</p>
+  </div>
+</header>
+
+<div class="possible">
+  <p class="pos-intro">{{ intro }}</p>
+
+  <div class="pos-controls" role="group" aria-label="Filter capabilities by pillar">
+    <button class="pos-chip" type="button" data-pillar="all" aria-pressed="true">All</button>
+    {% for p in pillars %}
+    <button class="pos-chip" type="button" data-pillar="{{ p.key }}" aria-pressed="false">{{ p.short }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="scn-grid" id="pos-grid">
+    {% for s in scenarios %}
+    <article class="scn" id="scn-{{ s.key }}" data-pillars="{{ s.pillar_keys|join(' ') }}">
+      <div class="scn-h">
+        <span class="scn-idx" aria-hidden="true">0x{{ '%02x'|format(loop.index) }}</span>
+        <h2>{{ s.goal }}</h2>
+      </div>
+      <p class="scn-dek">{{ s.dek }}</p>
+      <ol class="scn-blocks">
+        {% for b in s.blocks %}
+        <li>
+          <a href="{{ b.url }}">
+            <span class="sb-n" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+            <span class="sb-t">{{ b.title }}</span>
+            {% if b.readiness %}{{ m.badge(b.readiness) }}{% endif %}
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="scn-pills">{% for p in s.pillars %}<a class="scn-pill" href="/pillars/{{ p.key }}/">{{ m.glyph(p.key, 15) }}<span>{{ p.short }}</span></a>{% endfor %}</p>
+    </article>
+    {% endfor %}
+  </div>
+
+  <p class="pos-foot">Every capability above is built only from entries in this library. Browse them all by <a href="/pillars/">pillar</a>, or press <kbd>/</kbd> to search.</p>
+</div>
+</div></div>
+{% endblock %}

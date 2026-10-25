@@ -1,0 +1,144 @@
+{% extends "base.html" %}{% import "macros.html" as m with context %}
+{% block title %}ungovernable.tech — a library of technology for sovereign individuals{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld[0]|safe }}</script>
+{% endblock %}
+{% block main %}
+<div class="gut"><div class="wrap">
+
+<section class="hero tex">
+  <div class="hero-grid">
+    <div class="hero-l">
+      <p class="epigraph">&ldquo;Privacy is necessary for an open society in the electronic age.&rdquo; — <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">Eric Hughes, A Cypherpunk's Manifesto</a> (1993)</p>
+      <h1>Technology for people who refuse to be governed by <span class="hl">surveillance.</span></h1>
+      <p class="lede">ungovernable.tech is an independent library of the tools, protocols and cryptography that keep people private, connected and sovereign: from Tor and mesh radios to zero-knowledge proofs and post-quantum keys. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      <a class="bigsearch" href="/directory/" id="bigsearch">
+        <span class="pr" aria-hidden="true">&gt;</span>
+        <span class="bs-t">search the library — Tor, ecash, MLS, attestation…</span>
+        <span class="cursor" aria-hidden="true"></span>
+        <kbd>/</kbd>
+      </a>
+      <p class="stats">{{ counts.entries }} entries · {{ counts.guides }} guides · {{ counts.briefings }} briefings · {{ counts.links }} links · {{ counts.trackers }} trackers</p>
+    </div>
+    <div class="hero-r" aria-hidden="true">
+      <div class="armour scan">
+        <span class="a-line a-head">-----BEGIN UNGOVERNABLE SIGNED MESSAGE-----</span>
+        <span class="a-line a-meta">Hash: SHA256</span>
+        {% for l in armour %}<span class="a-line">{{ l }}</span>{% endfor %}
+        <span class="a-line a-head">-----END UNGOVERNABLE SIGNED MESSAGE-----</span>
+      </div>
+      <div class="hr-row">
+        <div class="cipher">{{ hero_grid|safe }}</div>
+        <div class="hexdump">{% for l in hexdump %}<span>{{ l }}</span>{% endfor %}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="band" id="possible">
+  <div class="band-h"><h2>What's possible</h2><a class="label more" href="/possible/">Open the map &rarr;</a></div>
+  <a class="possible-cta" href="/possible/">
+    <span class="label">[ MAP ]</span>
+    <b>See what you can actually do with all of this</b>
+    <p>Real capabilities &mdash; talk untraceably, stay online in a blackout, hold money nobody can freeze, compute on data a host can't read &mdash; each mapped to the working building blocks that compose it.</p>
+    <span class="meta">12 capabilities &middot; 14 pillars &rarr;</span>
+  </a>
+</section>
+
+{% if start_guide or paths %}
+<section class="band" id="start">
+  <div class="band-h"><h2>Start here</h2><span class="label">{{ paths|length }} learning paths</span></div>
+  <div class="cards">
+    {% if start_guide %}
+    <a class="card card-first" href="{{ start_guide.url }}">
+      <span class="label label-start">[ START ]</span>
+      <b>{{ start_guide.title }}</b>
+      <p>{{ start_guide.dek }}</p>
+      <span class="meta">{{ start_guide.time or 'Guide' }}</span>
+    </a>
+    {% endif %}
+    {% for p in paths %}
+    <a class="card" href="/paths/{{ p.key }}/">
+      <span class="label">[ PATH_{{ '%02d'|format(loop.index) }} ]</span>
+      <b>{{ p.name }}</b>
+      <p>{{ p.who }}</p>
+      <span class="meta">{{ p.steps|length }} steps</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="band" id="pillars">
+  <div class="band-h"><h2>The fourteen pillars</h2><a class="label more" href="/pillars/">Browse by question →</a></div>
+  <div class="pgrid">
+    {% for p in pillar_stats %}
+    <a class="pcell" href="/pillars/{{ p.key }}/">
+      <span class="pc-top"><span class="pnum">0x{{ '%02x'|format(loop.index) }}</span>{{ m.glyph(p.key) }}</span>
+      <b>{{ p.name }}</b>
+      <span class="pq">{{ p.question }}</span>
+      <span class="pmeta">{{ p.n_entries }} entr{{ 'y' if p.n_entries == 1 else 'ies' }} · {{ p.n_guides }} guide{{ '' if p.n_guides == 1 else 's' }} · {{ p.n_links }} links</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% if guides_new %}
+<section class="band" id="guides">
+  <div class="band-h"><h2>Guides</h2><a class="label more" href="/guides/">All guides →</a></div>
+  <div class="cards">
+    {% for g in guides_new %}
+    <a class="card" href="{{ g.url }}">
+      <span class="label">[ {{ (g.level or 'Guide')|upper }} ]</span>
+      <b>{{ g.title }}</b>
+      <p>{{ g.dek }}</p>
+      <span class="meta">{{ g.time or 'practical' }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="band cols2">
+  <div>
+    <div class="band-h"><h2>Recently updated</h2></div>
+    <div class="rows">
+      {% for e in recent %}{{ m.entry_row(e) }}{% endfor %}
+    </div>
+  </div>
+  <div>
+    <div class="band-h"><h2>Latest briefings</h2><a class="label more" href="/briefings/">All series →</a></div>
+    <div class="rows">
+      {% for b in latest_briefings %}
+      <a class="row" href="/briefings/{{ b.series }}/{{ b.date }}/">
+        <span class="nm">{{ b.series_name }}<small>{{ b.date }} — {{ b.first_line }}</small></span>
+        <span class="ty">Briefing</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="band" id="readiness">
+  <div class="band-h"><h2>How ready is it?</h2><a class="label more" href="/method/#readiness">The scale →</a></div>
+  <nav class="spec" aria-label="Readiness across the library">
+    <svg viewBox="0 0 1000 12" preserveAspectRatio="none" role="img" aria-label="{{ readiness_counts|dictsort|last }} of the library's rated entries are {{ readiness[readiness_order[0]].label|lower }}">
+      {% for seg in spec_segments %}
+      <a href="/method/#readiness" aria-label="{{ seg.label }}: {{ seg.n }} entries" title="{{ seg.label }}: {{ seg.n }} entries"><rect class="sg-{{ readiness_order[loop.index0] }}" x="{{ seg.x }}" y="0" width="{{ seg.w }}" height="12"{% if seg.n == 0 %} opacity="0.15"{% endif %}/></a>
+      {% endfor %}
+    </svg>
+  </nav>
+  <div class="scale">
+    {% for r in readiness_order %}
+    <a href="/method/#readiness">
+      <span class="sc-b">{{ m.badge(r) }}</span>
+      <span class="sc-t"><b>{{ readiness[r].label }}</b><p>{{ readiness[r].tail }}</p></span>
+      <span class="n">{{ readiness_counts[r] or 0 }}<span class="chev" aria-hidden="true">›</span></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+</div></div>
+{% endblock %}

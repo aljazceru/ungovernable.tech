@@ -1,0 +1,14 @@
+[Unit]
+Description=ungovernable.tech static site server
+After=network.target
+
+[Service]
+Type=simple
+User=exedev
+WorkingDirectory=/home/exedev/ungovernable.tech
+ExecStart=/usr/bin/python3 /home/exedev/ungovernable.tech/scripts/serve.py --port 8000 --root /home/exedev/ungovernable.tech/public
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
