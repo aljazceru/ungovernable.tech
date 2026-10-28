@@ -124,8 +124,15 @@ def test_no_external_assets():
     raw = re.compile(r'(?:script|iframe)[^>]+src=["\']https?://|'
                      r'link[^>]+href=["\']https?://.*\.css|'
                      r'img[^>]+src=["\']https?://', re.I)
+    # The one allowed third-party asset: cookieless self-hosted Plausible.
+    plausible = ('<script defer data-domain="ungovernable.tech" '
+                 'src="https://analytics.cypherpunk.cloud/js/script.js"></script>')
     for f in html_files():
         t = open(f, encoding='utf-8').read()
+        if not is_stub(f):
+            assert t.count(plausible) == 1, \
+                '%s: missing Plausible' % os.path.relpath(f, PUBLIC)
+        t = t.replace(plausible, '')
         assert not pat.search(t) and not raw.search(t), os.path.relpath(f, PUBLIC)
 
 

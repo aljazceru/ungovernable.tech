@@ -32,9 +32,9 @@ Entries are compiled from our ongoing research notes, which track these fields w
 
 It is not legal advice. Some of these tools are restricted, or their use is punished, in some countries. Know the law where you are and weigh it in your threat model. It is also not an endorsement: listing a project in the directory means it is relevant, not that we vouch for it.
 
-## No tracking
+## Privacy
 
-This site uses no analytics, no cookies, no third-party scripts, fonts or images. Your visit is not recorded beyond ordinary server logs.
+This site sets no cookies and loads no third-party fonts, images or ads. To see which pages are read, it uses [Plausible](https://plausible.io/data-policy), cookieless open-source analytics that we self-host at `analytics.cypherpunk.cloud`. It counts page views, referrers, country and browser type in aggregate; it stores no cookies or IP addresses and does not track you across sites. Blocking that script, or disabling JavaScript, opts you out without breaking anything.
 
 ## Contribute
 

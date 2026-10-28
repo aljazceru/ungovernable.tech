@@ -106,7 +106,7 @@ The first four render as a five-bar meter; historical renders hollow; cautionary
 - **Name the trust model.** A system is only as sovereign as its weakest trusted party; that party is named.
 - **Experimental is not production.** The meter separates the two; treat anything below *usable* as something to watch or prototype with, not depend on.
 - **No hype, no euphemism.** Seizures, raids and broken promises are described plainly.
-- **The site is static and self-contained.** No trackers, no cookies, no third-party requests; fonts are served from this domain.
+- **The site is static and self-contained.** No trackers, no cookies, no ads; fonts are served from this domain. The only outside request is cookieless, self-hosted Plausible page-view counting.
 
 ## Corrections
 
@@ -123,7 +123,7 @@ The world does not lack link lists. It lacks honest ones. This library keeps thr
 
 1. **Every entry names its threat model.** What a tool protects against, and what it quietly trusts, is the whole game. Encryption without an honest account of metadata is a half-answer.
 2. **Every entry carries a readiness rating** on a six-point scale from battle-tested to cautionary — see the [method](/method/). Experimental software is labelled experimental; dead software is kept for its lessons.
-3. **No trackers, ever.** The site is static HTML with no analytics, no cookies and no third-party requests. What you read here is between you and your network.
+3. **No trackers, ever.** The site is static HTML with no cookies, no ads and no tracking scripts; the only analytics is cookieless, self-hosted Plausible, which counts page views without identifying anyone. What you read here is between you and your network.
 
 ## How it is built
 
