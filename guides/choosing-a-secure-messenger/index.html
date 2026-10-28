@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Choosing a Secure Messenger — ungovernable.tech</title>
+<meta name="description" content="Signal, SimpleX, Session, Briar, Cwtch, Matrix and others compared by what they actually protect: content, identifiers, metadata and availability.">
+<link rel="canonical" href="https://ungovernable.tech/guides/choosing-a-secure-messenger/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Choosing a Secure Messenger — ungovernable.tech">
+<meta property="og:description" content="Signal, SimpleX, Session, Briar, Cwtch, Matrix and others compared by what they actually protect: content, identifiers, metadata and availability.">
+<meta property="og:url" content="https://ungovernable.tech/guides/choosing-a-secure-messenger/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Choosing a Secure Messenger — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Choosing a Secure Messenger — ungovernable.tech">
+<meta name="twitter:description" content="Signal, SimpleX, Session, Briar, Cwtch, Matrix and others compared by what they actually protect: content, identifiers, metadata and availability.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Choosing a Secure Messenger", "description": "Signal, SimpleX, Session, Briar, Cwtch, Matrix and others compared by what they actually protect: content, identifiers, metadata and availability.", "dateModified": "2026-10-19", "datePublished": "2026-10-17", "url": "https://ungovernable.tech/guides/choosing-a-secure-messenger/", "mainEntityOfPage": "https://ungovernable.tech/guides/choosing-a-secure-messenger/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}, {"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "beginner"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Choosing a Secure Messenger", "item": "https://ungovernable.tech/guides/choosing-a-secure-messenger/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Choosing a Secure Messenger</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ SECURE MESSAGING ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Choosing a Secure Messenger</h1>
+  
+  <p class="dek">Every serious messenger encrypts content. They differ in what they require from you, what their servers learn, and whether they work when the internet does not.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-19</b></span>
+    <span><b>5</b> min read</span>
+    <span class="ktag">[ BEGINNER ]</span>
+    <span class="ktag">[ 15 MINUTES ]</span>
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#at-a-glance">At a glance</a><a href="#recommendations-by-situation">Recommendations by situation</a><a href="#what-to-avoid-for-sensitive-work">What to avoid for sensitive work</a><a href="#settings-that-matter-more-than-the-app">Settings that matter more than the app</a><a href="#sources">Sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>End-to-end encryption is no longer what separates good messengers from bad ones; most mainstream apps have it. The questions that matter now are about <strong>identifiers</strong> (what do you have to hand over to sign up?), <strong>metadata</strong> (what does the service learn about who talks to whom, and when?), <strong>architecture</strong> (one company's servers, federated servers, or no servers at all?) and <strong>resilience</strong> (does it still work under censorship or a shutdown?).</p>
+<h2 id="at-a-glance">At a glance</h2>
+<p>For the expanded comparison, including <a href="/kb/delta-chat/">Delta Chat</a>, <a href="/kb/xmpp-omemo/">XMPP with OMEMO</a>, <a href="/kb/jami/">Jami</a> and the off-grid choices, see <a href="/kb/compare-messengers/">Choosing a private messenger</a>. For document submissions, compare <a href="/kb/onionshare/">OnionShare</a> and <a href="/kb/securedrop/">SecureDrop</a>.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>Signal</th>
+<th>SimpleX</th>
+<th>Session</th>
+<th>Briar</th>
+<th>Cwtch</th>
+<th>Matrix (Element)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign-up needs</td>
+<td>Phone number</td>
+<td>Nothing</td>
+<td>Nothing (random ID)</td>
+<td>Nothing</td>
+<td>Nothing</td>
+<td>Account on a homeserver (email optional)</td>
+</tr>
+<tr>
+<td>User identifier</td>
+<td>Phone number; optional username</td>
+<td>None: per-contact queues</td>
+<td>Session ID (public key)</td>
+<td>Key, exchanged in person or by link</td>
+<td>Onion address</td>
+<td>@user:server</td>
+</tr>
+<tr>
+<td>Content encryption</td>
+<td>Signal Protocol (double ratchet, PQXDH)</td>
+<td>Double ratchet with post-quantum key exchange</td>
+<td>Session protocol (see note)</td>
+<td>Bramble protocols, end-to-end</td>
+<td>End-to-end over Tor</td>
+<td>Olm/Megolm; MLS in development</td>
+</tr>
+<tr>
+<td>Who sees metadata</td>
+<td>Signal's servers see little by design (sealed sender) but you are tied to a phone number</td>
+<td>Relays see per-queue traffic, not identities or contact lists</td>
+<td>Onion-routed through Session network nodes</td>
+<td>No servers; peers connect directly over Tor</td>
+<td>No central servers; Tor onion services</td>
+<td>Homeservers store room membership and timing</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>Centralised (Signal Foundation)</td>
+<td>Relays anyone can run; you can choose them</td>
+<td>Decentralised node network</td>
+<td>Peer-to-peer</td>
+<td>Peer-to-peer over Tor</td>
+<td>Federated</td>
+</tr>
+<tr>
+<td>Works without internet</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes: Bluetooth and Wi-Fi</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>Yes, large</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes, small</td>
+<td>Yes</td>
+<td>Yes, very large</td>
+</tr>
+<tr>
+<td>Platforms</td>
+<td>Android, iOS, desktop</td>
+<td>Android, iOS, desktop</td>
+<td>Android, iOS, desktop</td>
+<td>Android; desktop beta</td>
+<td>Android, desktop</td>
+<td>All</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td><a href="/kb/signal-protocol/">Battle-tested</a></td>
+<td><a href="/kb/simplex/">Usable</a></td>
+<td><a href="/kb/session-messenger/">Usable</a></td>
+<td><a href="/kb/briar/">Battle-tested</a></td>
+<td><a href="/kb/cwtch/">Usable</a></td>
+<td><a href="/kb/matrix/">Battle-tested</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Note on Session: when Session forked from Signal in 2020 it replaced the Signal double ratchet with a simpler protocol and lost forward secrecy as a result. Check Session's current protocol documentation before relying on it for sensitive work.</p>
+<h2 id="recommendations-by-situation">Recommendations by situation</h2>
+<p><strong>For most people, most of the time: Signal.</strong> It has the strongest and most studied cryptography, a large user base (so using it is unremarkable), disappearing messages, and a service designed to hold almost nothing about you: Signal has published the subpoena responses showing it could provide only account creation date and last connection time. The weak point is the phone number. Since 2024 you can hide your number behind a username, but you still need one to register.</p>
+<p><strong>When you must not be linked to a phone number or identity: SimpleX.</strong> SimpleX has no user identifiers at all: each contact is reached through separate, one-way message queues on relays, so no server holds your contact list. You can choose or self-host relays. It has had independent security reviews by Trail of Bits. Its user base is smaller, which makes its use more noticeable.</p>
+<p><strong>When the internet may be cut: Briar.</strong> Briar connects peers directly over Tor when online, and over Bluetooth or Wi-Fi when not. Messages are stored on devices, not servers. It needs both parties to be online (or a Briar Mailbox to hold messages). Android only for practical purposes. See <a href="/guides/internet-shutdown-preparedness/">Internet Shutdown Preparedness</a>.</p>
+<p><strong>For metadata-resistant groups over Tor: Cwtch.</strong> Cwtch, from Open Privacy, builds peer-to-peer and group messaging on Tor onion services with the explicit goal of hiding metadata from servers. It is less polished than the others.</p>
+<p><strong>For communities and organisations that want to run their own servers: Matrix.</strong> Federation means no single company controls the network, and you can host your own homeserver. The trade-off is metadata: homeservers see who is in which room and when, and federated rooms copy that to every participating server.</p>
+<p><strong>For Nostr users: White Noise, Cordn and NIP-17.</strong> Encrypted messaging on Nostr is developing quickly. <a href="/kb/white-noise/">White Noise</a> is the most mature option: MLS group chat over relays you choose, built on <a href="/kb/marmot-protocol/">Marmot</a>, audited, but still beta. <a href="/kb/cordn/">Cordn</a> takes a different path, routing each group through one coordinator you can self-host anywhere. Both are experimental, so pair them with a battle-tested messenger for sensitive work. See also <a href="/guides/nostr-getting-started/">Getting Started on Nostr Safely</a>.</p>
+<h2 id="what-to-avoid-for-sensitive-work">What to avoid for sensitive work</h2>
+<ul>
+<li><strong>Telegram</strong> chats are not end-to-end encrypted by default; only one-to-one "secret chats" are, and groups never are. Telegram's servers can read everything else.</li>
+<li><strong>SMS and ordinary phone calls</strong> are readable by the carrier and anyone with access to it.</li>
+<li><strong>Email</strong> is not end-to-end encrypted unless both sides use PGP or a similar tool, and its metadata (who, when, subject lines) is always exposed.</li>
+<li><strong>WhatsApp</strong> uses the Signal Protocol for content, but Meta collects extensive metadata and links it to your phone number and contacts.</li>
+</ul>
+<h2 id="settings-that-matter-more-than-the-app">Settings that matter more than the app</h2>
+<ul>
+<li>Turn on <strong>disappearing messages</strong> for sensitive conversations.</li>
+<li>Use a <strong>registration lock</strong> or PIN where offered (Signal has one) to prevent account takeover through your phone number.</li>
+<li><strong>Verify safety numbers</strong> or keys in person with your most important contacts.</li>
+<li>Protect the <strong>device</strong>: a messenger cannot protect messages on an unlocked or compromised phone (<a href="/guides/threat-modeling/">Threat Modeling</a>, <a href="/guides/grapheneos/">GrapheneOS</a>).</li>
+<li>Remember that <strong>anyone in the chat</strong> can screenshot, forward or be arrested with their phone.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Signal, <em>Signal Protocol documentation</em> and <em>PQXDH specification</em>: <a href="https://signal.org/docs/" rel="noopener nofollow">https://signal.org/docs/</a></li>
+<li>Signal, <em>Government requests</em> (published subpoena responses): <a href="https://signal.org/bigbrother/" rel="noopener nofollow">https://signal.org/bigbrother/</a></li>
+<li>Signal, <em>Keep your phone number private with Signal usernames</em> (2024): <a href="https://signal.org/blog/phone-number-privacy-usernames/" rel="noopener nofollow">https://signal.org/blog/phone-number-privacy-usernames/</a></li>
+<li>SimpleX Chat, <em>Security reviews</em> and protocol documentation: <a href="https://simplex.chat/docs/protocol/simplex-chat.html" rel="noopener nofollow">https://simplex.chat/docs/protocol/simplex-chat.html</a></li>
+<li>Session, <em>Session protocol and whitepaper</em>: <a href="https://getsession.org/whitepaper" rel="noopener nofollow">https://getsession.org/whitepaper</a></li>
+<li>Briar Project, <em>How it works</em>: <a href="https://briarproject.org/how-it-works/" rel="noopener nofollow">https://briarproject.org/how-it-works/</a></li>
+<li>Cwtch documentation: <a href="https://docs.cwtch.im/" rel="noopener nofollow">https://docs.cwtch.im/</a></li>
+<li>Matrix, <em>End-to-end encryption</em>: <a href="https://matrix.org/docs/matrix-concepts/end-to-end-encryption/" rel="noopener nofollow">https://matrix.org/docs/matrix-concepts/end-to-end-encryption/</a></li>
+<li>Telegram FAQ, <em>Secret chats</em>: <a href="https://telegram.org/faq#secret-chats" rel="noopener nofollow">https://telegram.org/faq#secret-chats</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/signal-protocol/">
+  <span class="nm">The Signal Protocol</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/simplex/">
+  <span class="nm">SimpleX Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/session-messenger/">
+  <span class="nm">Session</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/briar/">
+  <span class="nm">Briar</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/cwtch/">
+  <span class="nm">Cwtch</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/matrix/">
+  <span class="nm">Matrix and End-to-End Encryption</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/metadata-resistance/">
+  <span class="nm">Metadata Resistance</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/delta-chat/">
+  <span class="nm">Delta Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/xmpp-omemo/">
+  <span class="nm">XMPP with OMEMO</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/jami/">
+  <span class="nm">Jami</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/anonymity/">Anonymity Networks</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-19</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Choosing%20a%20Secure%20Messenger" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Every serious messenger encrypts content. They differ in what they require from you, what their servers learn, and whether they work when the internet does not.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Secure Messaging, Anonymity Networks</dd>
+        <dt>Level</dt><dd>beginner</dd>
+        <dt>Time</dt><dd>15 minutes</dd>
+        <dt>Updated</dt><dd>2026-10-19</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

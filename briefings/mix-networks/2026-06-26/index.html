@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — June 26 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-06-26: Tor / Tor Browser: Tor Browser 15.0.16 released June 17, 2026 — incremental security and stability fixes.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-06-26/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — June 26 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-06-26: Tor / Tor Browser: Tor Browser 15.0.16 released June 17, 2026 — incremental security and stability fixes.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-06-26/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — June 26 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — June 26 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-06-26: Tor / Tor Browser: Tor Browser 15.0.16 released June 17, 2026 — incremental security and stability fixes.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — June 26 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-06-26: Tor / Tor Browser: Tor Browser 15.0.16 released June 17, 2026 — incremental security and stability fixes.", "datePublished": "2026-06-26", "dateModified": "2026-06-26", "url": "https://ungovernable.tech/briefings/mix-networks/2026-06-26/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-06-26/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-06-26", "item": "https://ungovernable.tech/briefings/mix-networks/2026-06-26/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-06-26</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — June 26 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-06-26</b></span>
+    <span><b>4</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-06-26 // may be outdated</p>
+  <p>This page reflects what was known on 2026-06-26. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong><a href="/kb/tor/">Tor</a> / Tor Browser</strong>: <strong>Tor Browser 15.0.16</strong> released June 17, 2026 — incremental security and stability fixes. The emergency cadence for v15 continues while v16 alphas progress on the Rapid Release Firefox base.</li>
+<li><strong>Tor Core</strong>: Major announcement June 23 — <strong>sunsetting Tor 0.4.8</strong>; all operators urged to migrate to 0.4.9 by September 2026. This accelerates the deprecation of legacy C tor code paths.</li>
+<li><strong>Tails</strong>: <strong>Tails 7.9</strong> shipped June 18 — includes latest Tor client and kernel security updates; follows the 7.8.1 emergency patch.</li>
+<li><strong><a href="/kb/nym/">Nym</a> / NymVPN</strong>: <strong>NymVPN v2026.10</strong> (June 11) continues the rapid iteration cycle with improved connection times, de-Googled Android support, and secure DNS tunneling. The March 2026 roadmap remains the guiding document: mixnet performance tuning, decentralization push, and phased PQ rollout via Lewes Protocol.</li>
+<li><strong><a href="/kb/i2p/">I2P</a></strong>: No new major release this week; 2.12.0 (April 2026) remains current with ongoing work toward 2.13.0 (SSU2-PQ transport targeted for August).</li>
+<li><strong>Research &amp; Ecosystem</strong>: Continued emphasis on hybrid PQ schemes (X25519 + ML-KEM) and cover-traffic innovations. No blockbuster new papers this week; USENIX Security 2026 and upcoming FOSDEM follow-ups remain key venues.</li>
+<li><strong>Freedom-tech takeaway</strong>: Legacy C tor is being actively retired; Arti and Nym represent the forward paths for programmable and incentivized anonymity. Use <a href="/kb/tor/">Tor</a>/<a href="/kb/i2p/">I2P</a> for broad compatibility; <a href="/kb/nym/">Nym</a> when metadata resistance is paramount.</li>
+</ul>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-project-browser-stabilization-legacy-sunsetting">Tor Project: Browser stabilization + legacy sunsetting</h3>
+<p><strong>Tor Browser 15.0.16</strong> (June 17) brings the usual mix of Mozilla security backports, NoScript updates, and Tor-specific hardening. The v15 series remains the stable workhorse while the team experiments with a faster alpha cadence based on Firefox Rapid Release for v16.</p>
+<p>Most significant this week: the June 23 blog post formally announcing the <strong>sunset of Tor 0.4.8</strong>. Operators running the older series have until September to upgrade to 0.4.9 (or later). This is part of a broader effort to reduce maintenance burden on the C implementation as Arti matures.</p>
+<p><strong>Arti status reminder</strong> (from prior week): 2.4.0 (June 1) brought relay and directory-authority code paths into the open. The project continues its API hardening; downstream Rust consumers should monitor the gitlab for breaking changes ahead of directory-authority enablement.</p>
+<p><strong>Tails 7.9</strong> (June 18) integrates the latest Tor client fixes and kernel patches, maintaining Tails as the gold-standard live OS for high-risk users.</p>
+<p><strong>GitHub / Primary Sources</strong>:
+- Tor Blog: <a href="https://blog.torproject.org/" rel="noopener nofollow">https://blog.torproject.org/</a>
+- Tor Browser 15.0.16 announcement
+- Sunsetting Tor 0.4.8 post (June 23, 2026)
+- Tails release notes</p>
+<h3 id="nym-productization-and-pq-momentum">Nym: Productization and PQ momentum</h3>
+<p>NymVPN v2026.10 (June 11) delivers practical usability wins:
+- Faster connection establishment
+- In-app creation flows for de-Googled Android devices
+- Secure DNS tunneling improvements (better ad-blocking and leak prevention)</p>
+<p>The 2026 roadmap (March 12) continues to drive development: revitalizing the $NYM token economy, mixnet performance optimizations (reduced latency, better cover traffic), and aggressive decentralization of the node operator set. Post-quantum key exchange via the <strong>Lewes Protocol</strong> is live in Fast mode; Anonymous (5-hop mixnet) mode PQ work is ongoing.</p>
+<p>Community and developer activity remains healthy on GitHub (nymtech/nym-vpn-client). Recent commits focus on Android stability and key management edge cases.</p>
+<p><strong>Primary sources</strong>:
+- Nym blog: <a href="https://nym.com/blog" rel="noopener nofollow">https://nym.com/blog</a>
+- NymVPN v2026.10 release notes
+- Nym 2026 Roadmap</p>
+<h3 id="i2p-and-other-projects">I2P and other projects</h3>
+<p><strong>I2P 2.12.0</strong> (April 2026 / recent GitHub activity) is the current stable. The project is preparing the <strong>SSU2-PQ transport</strong> (proposal 169) for the 2.13.0 release targeted for August — the first native post-quantum protection at the wire-protocol level.</p>
+<p><strong>Katzenpost / Loopix lineage</strong>: No headline code drops; the architectural reference implementation for federated, PQ-capable mixnets remains stable. Watch for hybrid PQ deployment announcements later in 2026.</p>
+<p><strong>HOPR</strong>: Steady maintenance; no major releases noted this week.</p>
+<h3 id="evidence-at-a-glance-weekly-snapshot">Evidence at a Glance (Weekly Snapshot)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Latest Release</th>
+<th>Date</th>
+<th>Key Focus</th>
+<th>PQ Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tor Browser</td>
+<td>15.0.16</td>
+<td>2026-06-17</td>
+<td>Security backports, stability</td>
+<td>Partial (via Arti path)</td>
+<td>v16 alphas on Rapid Release</td>
+</tr>
+<tr>
+<td>Tails</td>
+<td>7.9</td>
+<td>2026-06-18</td>
+<td>Kernel + Tor client updates</td>
+<td>Via Tor</td>
+<td>Emergency cadence normalized</td>
+</tr>
+<tr>
+<td>Tor Core</td>
+<td>0.4.9 series</td>
+<td>Ongoing</td>
+<td>0.4.8 sunset announced</td>
+<td>Hybrid work ongoing</td>
+<td>Arti relay milestone passed</td>
+</tr>
+<tr>
+<td>NymVPN</td>
+<td>v2026.10</td>
+<td>2026-06-11</td>
+<td>Connection speed, Android, DNS</td>
+<td>Lewes Protocol live (Fast)</td>
+<td>Roadmap execution active</td>
+</tr>
+<tr>
+<td>I2P</td>
+<td>2.12.0</td>
+<td>2026-04</td>
+<td>SSU2-PQ prep</td>
+<td>Wire-level PQ in progress</td>
+<td>2.13.0 target: August</td>
+</tr>
+<tr>
+<td>Arti</td>
+<td>2.4.0</td>
+<td>2026-06-01</td>
+<td>Relay + directory authority</td>
+<td>Future hybrid</td>
+<td>Breaking API changes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="forward-look-next-714-days">Forward Look (Next 7–14 Days)</h2>
+<ul>
+<li>Expect continued Tor Browser point releases and possible early v16 alpha builds.</li>
+<li>Nym team likely to iterate on v2026.10+ with further mixnet tuning and tokenomics experiments.</li>
+<li>I2P community preparing for the August 2.13.0 release with SSU2-PQ.</li>
+<li>Broader ecosystem: monitor USENIX Security 2026 submissions and any new ePrint papers on cover-traffic or statistical attacks against mixnets.</li>
+<li>Operational note for ungovernable deployments: prioritize Arti for new Rust-based clients; keep NymVPN in the toolkit for metadata-sensitive workflows; maintain Tails images for high-risk travel/use.</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-06-19/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — June 19 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-07-03/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — July 03 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

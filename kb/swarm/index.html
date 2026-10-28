@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Swarm — ungovernable.tech</title>
+<meta name="description" content="Swarm, Ethereum&#39;s content-addressed storage and messaging network with postage-stamp incentives and the Bee client: design and status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/swarm/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Swarm — ungovernable.tech">
+<meta property="og:description" content="Swarm, Ethereum&#39;s content-addressed storage and messaging network with postage-stamp incentives and the Bee client: design and status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/swarm/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-storage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Swarm — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Swarm — ungovernable.tech">
+<meta name="twitter:description" content="Swarm, Ethereum&#39;s content-addressed storage and messaging network with postage-stamp incentives and the Bee client: design and status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-storage.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Swarm", "description": "Swarm, Ethereum's content-addressed storage and messaging network with postage-stamp incentives and the Bee client: design and status.", "dateModified": "2026-10-25", "datePublished": "2026-04-28", "url": "https://ungovernable.tech/kb/swarm/", "mainEntityOfPage": "https://ungovernable.tech/kb/swarm/", "image": "https://ungovernable.tech/assets/og/pillar-storage.png", "about": [{"@type": "Thing", "name": "Decentralized Storage"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Storage", "item": "https://ungovernable.tech/pillars/storage/"}, {"@type": "ListItem", "position": 3, "name": "Swarm", "item": "https://ungovernable.tech/kb/swarm/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/storage/">Decentralized Storage</a><span aria-hidden="true">/</span><span class="here">Swarm</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ DECENTRALIZED STORAGE ]</span></p>
+  <h1>Swarm</h1>
+  <p class="aka">Also Ethereum Swarm, Bee.</p>
+  <p class="dek">Ethereum&#39;s storage-and-communication sibling: a content-addressed chunk network with incentives, postage batches, and the Bee client. It targets dapp assets, web hosting, and Ethereum-adjacent data availability rather than generic cloud backup.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>2</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-it-is">What It Is</a><a href="#how-it-works">How It Works</a><a href="#swarm-vs-ipfs">Swarm vs IPFS</a><a href="#use-cases">Use Cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack Surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-it-is">What It Is</h2>
+<p>Swarm stores data as chunks addressed by cryptographic hashes. A user uploads content through a Bee node, pays with <strong>postage batches</strong>, and the network distributes chunks to nodes whose overlay addresses are close to the chunk address.</p>
+<p>Core concepts:</p>
+<ul>
+<li><strong>Chunks.</strong> Fixed-size pieces addressed by hash.</li>
+<li><strong>Manifests.</strong> Directory-like structures mapping paths to chunks.</li>
+<li><strong>Postage batches.</strong> Prepaid stamps attached to chunks to signal storage payment.</li>
+<li><strong>Bee.</strong> Reference Swarm node implementation.</li>
+<li><strong>Neighborhoods.</strong> Overlay routing and storage based on proximity order.</li>
+</ul>
+<p>Swarm's conceptual home is Ethereum's decentralized web stack: smart contracts on Ethereum, names through ENS, storage through Swarm, and wallets for identity/payment.</p>
+<h2 id="how-it-works">How It Works</h2>
+<pre><code>file / directory
+  → chunk into Swarm data chunks
+  → build manifest
+  → attach postage stamps
+  → upload via Bee
+  → retrieve by content hash or manifest path
+</code></pre>
+<p>The content hash gives integrity. The postage system gives the network a way to price storage. Retrieval can be done through local Bee nodes or gateways.</p>
+<h2 id="swarm-vs-ipfs">Swarm vs IPFS</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Swarm</th>
+<th>IPFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Ethereum ecosystem</td>
+<td>Protocol Labs</td>
+</tr>
+<tr>
+<td>Addressing</td>
+<td>Content hash</td>
+<td>CID / multihash</td>
+</tr>
+<tr>
+<td>Incentives</td>
+<td>Built-in postage/stamps</td>
+<td>External pinning or Filecoin</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Bee</td>
+<td>Kubo, Helia, many clients</td>
+</tr>
+<tr>
+<td>Best fit</td>
+<td>Ethereum dapp assets</td>
+<td>Broad content-addressed distribution</td>
+</tr>
+<tr>
+<td>Ecosystem size</td>
+<td>Smaller</td>
+<td>Larger</td>
+</tr>
+</tbody>
+</table></div>
+<p>Swarm is more opinionated and Ethereum-native. IPFS has broader ecosystem gravity and more tooling.</p>
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+<li>Static dapp frontends paired with ENS.</li>
+<li>Public assets for Ethereum applications.</li>
+<li>Signed manifests for web apps.</li>
+<li>Data blobs that should be content-addressed and paid for at upload time.</li>
+</ul>
+<p>For large archival datasets, compare with <a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a> and <a href="/kb/arweave/">Arweave</a>. For private backups, compare with <a href="/kb/sia-and-storj/">Sia and Storj</a>.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Content addressing and manifest model are natural for dapp frontends.</li>
+<li>Ethereum-native payment and naming integrations.</li>
+<li>Postage model ties storage to explicit payment.</li>
+<li>Bee gives a self-hostable node path.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Smaller network and ecosystem than IPFS.</li>
+<li>Public data needs local encryption for privacy.</li>
+<li>Gateway UX can hide the trust model from casual users.</li>
+<li>Dapp developers often choose IPFS/Arweave because tooling is broader.</li>
+</ul>
+<h2 id="attack-surface">Attack Surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gateway censorship</td>
+<td>Use local Bee node or multiple gateways</td>
+</tr>
+<tr>
+<td>Chunk loss</td>
+<td>Monitor availability and re-upload/stamp as needed</td>
+</tr>
+<tr>
+<td>Manifest hijack</td>
+<td>Sign manifests or anchor roots in ENS / smart contracts</td>
+</tr>
+<tr>
+<td>Plaintext exposure</td>
+<td>Encrypt before upload</td>
+</tr>
+<tr>
+<td>Economic underpayment</td>
+<td>Use adequate postage and monitor retention</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/ethersphere/bee" rel="noopener nofollow">Bee client</a></li>
+<li><a href="https://www.ethswarm.org/swarm-whitepaper.pdf" rel="noopener nofollow">Swarm whitepaper</a></li>
+<li><a href="https://docs.ethswarm.org/" rel="noopener nofollow">Swarm documentation</a></li>
+<li><a href="https://docs.ethswarm.org/docs/desktop/postage-stamps" rel="noopener nofollow">Swarm: postage stamps</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/ipfs-and-filecoin/">
+  <span class="nm">IPFS and Filecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/arweave/">
+  <span class="nm">Arweave</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/sia-and-storj/">
+  <span class="nm">Sia and Storj</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Swarm" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Ethereum&#39;s storage-and-communication sibling: a content-addressed chunk network with incentives, postage batches, and the Bee client. It targets dapp assets, web hosting, and Ethereum-adjacent data availability rather than generic cloud backup.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Decentralized Storage</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

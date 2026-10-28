@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bacalhau and Compute-over-Data — ungovernable.tech</title>
+<meta name="description" content="Bacalhau and compute-over-data: moving jobs to where data lives instead of moving data to the compute, and how it underpins decentralized networks.">
+<link rel="canonical" href="https://ungovernable.tech/kb/bacalhau/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Bacalhau and Compute-over-Data — ungovernable.tech">
+<meta property="og:description" content="Bacalhau and compute-over-data: moving jobs to where data lives instead of moving data to the compute, and how it underpins decentralized networks.">
+<meta property="og:url" content="https://ungovernable.tech/kb/bacalhau/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bacalhau and Compute-over-Data — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bacalhau and Compute-over-Data — ungovernable.tech">
+<meta name="twitter:description" content="Bacalhau and compute-over-data: moving jobs to where data lives instead of moving data to the compute, and how it underpins decentralized networks.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Bacalhau and Compute-over-Data", "description": "Bacalhau and compute-over-data: moving jobs to where data lives instead of moving data to the compute, and how it underpins decentralized networks.", "dateModified": "2026-05-12", "datePublished": "2026-05-05", "url": "https://ungovernable.tech/kb/bacalhau/", "mainEntityOfPage": "https://ungovernable.tech/kb/bacalhau/", "image": "https://ungovernable.tech/assets/og/pillar-compute.png", "about": [{"@type": "Thing", "name": "Decentralized Compute"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Compute", "item": "https://ungovernable.tech/pillars/compute/"}, {"@type": "ListItem", "position": 3, "name": "Bacalhau and Compute-over-Data", "item": "https://ungovernable.tech/kb/bacalhau/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/compute/">Decentralized Compute</a><span aria-hidden="true">/</span><span class="here">Bacalhau and Compute-over-Data</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ DECENTRALIZED COMPUTE ]</span></p>
+  <h1>Bacalhau and Compute-over-Data</h1>
+  <p class="aka">Also Bacalhau, Compute-over-Data, CoD, Distributed Compute Orchestration.</p>
+  <p class="dek">Distributed compute orchestration for the data-gravity problem: instead of pulling terabytes out of S3, Filecoin, IPFS, edge boxes, or regional data stores, ship the job to the machine that already has the data and publish only the result.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-05-12</b></span>
+    <span><b>13</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context">Historical context</a><a href="#architecture">Architecture</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#major-implementations-and-related-projects">Major implementations and related projects</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface-and-mitigations">Attack surface and mitigations</a><a href="#maturity-assessment">Maturity assessment</a><a href="#how-bacalhau-compares-to-other-compute-notes">How Bacalhau compares to other compute notes</a><a href="#practical-patterns">Practical patterns</a><a href="#open-questions">Open questions</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p><strong>Bacalhau</strong> is an open-source distributed compute orchestration framework built around <strong>Compute-over-Data (CoD)</strong>. Its core claim is simple: large datasets are slow, expensive, and often legally awkward to move, so computation should be scheduled near the data rather than the other way around. In the <a href="/kb/decentralized-compute/">Overview - Decentralized Compute</a> landscape, Bacalhau is not a token-first GPU marketplace like <a href="/kb/akash/">Akash</a>, <a href="/kb/render-network/">Render Network</a>, <a href="/kb/io-net/">io.net</a>, or <a href="/kb/aethir/">Aethir</a>. It is closer to an orchestration layer for <em>federated infrastructure</em>: one binary can act as client, orchestrator, or compute node; jobs can run as Docker containers or WebAssembly; inputs can come from S3, HTTP, local volumes, and IPFS CIDs; outputs can be published back to storage.</p>
+<p>For ungovernable infrastructure, Bacalhau matters because it attacks a different bottleneck than most DePIN compute projects. The practical question is not always “where can I buy the cheapest GPU?” but “how do I process data that is already scattered across homes, edge devices, Filecoin/IPFS, observability pipelines, or jurisdictionally constrained regions without centralizing it first?” That makes Bacalhau a natural companion to <a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a>, <a href="/kb/decentralized-storage/">Overview - Decentralized Storage</a>, <a href="/kb/private-llm-inference-patterns/">Private-LLM-Inference-Patterns</a>, <a href="/kb/confidential-ai-inference/">Confidential-AI-Inference</a>, and <a href="/kb/map-composing-primitives/">MOC - Composing Primitives</a>.</p>
+<p>Current maturity is <strong>active but infrastructure-layer</strong>. The GitHub repository <code>bacalhau-project/bacalhau</code> is Apache-2.0, written in Go, not archived, with 858 stars / 100 forks and a fresh push on 2026-04-29 (GitHub API check, 2026-05-05). Documentation describes Bacalhau as a single-binary orchestrator with modular execution engines, storage integrations, multiple job types, declarative YAML job specs, and a data-centric scheduler. It is useful today for controlled distributed fleets and compute-over-data workflows; it is not yet a fully permissionless, cryptoeconomic, adversarial marketplace in the same sense as Akash or Golem.</p>
+<h2 id="historical-context">Historical context</h2>
+<h3 id="from-distributed-computing-to-data-gravity">From distributed computing to data gravity</h3>
+<p>Classic volunteer computing — SETI@home, Folding@home, BOINC — proved that loosely coordinated machines can perform useful work. But those systems generally assume the dataset is small enough to broadcast or that work units can be prepackaged centrally. Modern data is different: observability logs, genomic datasets, sensor streams, model artifacts, blockchain archives, and media corpora can be many terabytes or petabytes. The bottleneck becomes <strong>data movement</strong>, not CPU cycles.</p>
+<p>Cloud vendors solved this by co-locating data and compute inside one provider boundary: keep data in S3, run EMR / Athena / Lambda / Batch / SageMaker near it, pay egress if you leave. That works operationally but deepens lock-in and surveillance risk. Compute-over-data generalizes the useful part — run close to the data — without requiring a single hyperscaler trust domain.</p>
+<h3 id="ipfs-filecoin-roots">IPFS / Filecoin roots</h3>
+<p>Bacalhau emerged from the Filecoin/IPFS orbit. IPFS documentation frames CoD as processing near content-addressed data, especially where moving large volumes over networks is inefficient. The IPFS CoD page names Bacalhau and IPVM as the two relevant pieces: Bacalhau as a practical platform that runs Docker or WASM jobs where data is generated and stored, and IPVM/Homestar as a more capability-oriented specification/runtime for content-addressed compute.</p>
+<p>This lineage matters because content addressing gives a stronger primitive than location addressing. A job can refer to an IPFS CID and know what bytes it is supposed to process, independent of which node supplies them. Bacalhau's IPFS input source lets a job mount a CID into the task environment via YAML or CLI, making CIDs feel like ordinary input directories.</p>
+<h3 id="shift-from-public-filecoin-demos-to-enterprisefleet-orchestration">Shift from public Filecoin demos to enterprise/fleet orchestration</h3>
+<p>The current docs emphasize Bacalhau as a general distributed compute orchestration framework rather than only a Filecoin compute market. Expanso, Inc. produces commercial Bacalhau offerings from the open-source software, while the repository remains Apache-2.0 with trademark caveats. The product framing is now broader: process logs at the source, query regional datasets, manage distributed nodes, run ML workloads across a fleet, and support edge/low-connectivity environments.</p>
+<p>That evolution is important for maturity analysis. Bacalhau's strongest near-term use case may be not “anonymous strangers run jobs over arbitrary decentralized data” but “an organization, DAO, research consortium, or sovereign cloud operator controls many heterogeneous locations and needs a common job plane.”</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="single-binary-multiple-roles">Single binary, multiple roles</h3>
+<p>Bacalhau's architecture is built around a single self-contained binary that can serve multiple roles:</p>
+<ul>
+<li><strong>Client / CLI</strong> — submits jobs imperatively (<code>bacalhau docker run ...</code>) or declaratively (<code>bacalhau job run &lt;job-spec&gt;</code>).</li>
+<li><strong>Orchestrator</strong> — schedules work onto suitable compute nodes based on locality, availability, constraints, and job policy.</li>
+<li><strong>Compute node</strong> — runs the actual task, fetches/mounts inputs, executes the container or WASM module, and publishes outputs.</li>
+</ul>
+<p>This is operationally valuable because decentralized deployments tend to fail at packaging complexity. A one-binary design lowers the cost of running nodes in labs, homes, ships, field deployments, or small data centers.</p>
+<h3 id="execution-engines">Execution engines</h3>
+<p>The docs and README emphasize modular execution:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Role</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker containers</td>
+<td>General workload compatibility</td>
+<td>Most existing batch jobs, data pipelines, ML scripts, and CLI tools can be containerized.</td>
+</tr>
+<tr>
+<td>WebAssembly (WASM)</td>
+<td>Sandboxed / portable execution</td>
+<td>Better fit for deterministic, constrained, capability-style tasks; aligns with IPVM direction.</td>
+</tr>
+<tr>
+<td>Custom engines</td>
+<td>Extension point</td>
+<td>The architecture exposes interfaces so new runtimes can be added without rewriting the scheduler.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Docker gives immediate pragmatism. WASM points toward a more verifiable/capability-oriented future, especially when combined with content-addressed inputs and outputs.</p>
+<h3 id="input-and-output-model">Input and output model</h3>
+<p>Bacalhau jobs can consume data from multiple sources:</p>
+<ul>
+<li><strong>IPFS</strong> — mount an IPFS CID into the task environment, e.g. <code>ipfs://&lt;CID&gt;:/data</code>.</li>
+<li><strong>S3 / object storage</strong> — practical for enterprise and regional data lakes.</li>
+<li><strong>HTTP/HTTPS</strong> — simple remote fetches.</li>
+<li><strong>Local mounted data</strong> — the most important edge/fleet pattern: data already on a node does not need to move.</li>
+</ul>
+<p>Outputs can be written to local storage, object stores, or other publishers. The important pattern is that outputs should usually be <strong>smaller than inputs</strong>: summaries, aggregates, model checkpoints, indexes, Merkle roots, signatures, or reports.</p>
+<h3 id="job-types">Job types</h3>
+<p>The GitHub README and docs list several job shapes:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Job type</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Batch</td>
+<td>One-off analytics, transforms, rendering, ETL, scientific jobs.</td>
+</tr>
+<tr>
+<td>Ops</td>
+<td>Fleet operations and maintenance tasks run across nodes.</td>
+</tr>
+<tr>
+<td>Daemon</td>
+<td>Long-lived agents or local services.</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>Network-facing workloads; less central than batch CoD but useful for edge services.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Compared with <a href="/kb/akash/">Akash</a>, which exposes a Kubernetes-flavored deployment abstraction, Bacalhau feels closer to a distributed batch/fleet orchestrator optimized around data locality.</p>
+<h3 id="scheduling-principle-locality-first">Scheduling principle: locality first</h3>
+<p>The scheduler's conceptual job is to answer: <em>which node can run this job with the least unnecessary data movement?</em> Relevant constraints include:</p>
+<ul>
+<li>where the input data already exists;</li>
+<li>whether the node has required CPU/GPU/memory/runtime capabilities;</li>
+<li>whether the data can legally leave a region;</li>
+<li>whether a network partition is expected;</li>
+<li>whether outputs need to be published to a particular sink.</li>
+</ul>
+<p>This is the central difference from raw compute markets. A GPU marketplace asks “who has an H100 at the best price?” Compute-over-data asks “who already has the data, and can they run this code safely enough?”</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Maturity / caveat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bacalhau is actively developed open-source infrastructure</td>
+<td><code>bacalhau-project/bacalhau</code>, Go, Apache-2.0, not archived, 858 stars / 100 forks, pushed 2026-04-29, updated 2026-05-01.</td>
+<td>Active small-to-mid infrastructure project; not as visible as tokenized DePIN networks.</td>
+</tr>
+<tr>
+<td>CoD reduces bandwidth and egress costs</td>
+<td>Bacalhau docs claim log processing can reduce bandwidth usage up to 93%; IPFS docs explain CoD avoids moving large volumes.</td>
+<td>Plausible and workload-dependent; verify with local benchmarks before production budgeting.</td>
+</tr>
+<tr>
+<td>IPFS integration is first-class</td>
+<td>Bacalhau IPFS input source mounts CIDs into tasks via YAML or CLI.</td>
+<td>Useful for content-addressed pipelines; availability still depends on pinning / retrieval.</td>
+</tr>
+<tr>
+<td>DuckDB integration supports distributed analytics</td>
+<td>Bacalhau docs describe DuckDB partition UDFs, distributed query execution, and stateless SQL jobs.</td>
+<td>Practical for partitionable datasets; not a replacement for a full distributed database.</td>
+</tr>
+<tr>
+<td>Filecoin ecosystem recognizes Bacalhau</td>
+<td>Filecoin Foundation ecosystem page describes Bacalhau as fast, cost-efficient computation for Filecoin data and says compute providers can participate even without hosting Filecoin data.</td>
+<td>Ecosystem listing, not proof of large independent demand.</td>
+</tr>
+<tr>
+<td>Security model is not inherently confidential</td>
+<td>Docs emphasize private clusters and data locality, not TEE-by-default confidentiality.</td>
+<td>For sensitive workloads, compose with <a href="/kb/confidential-containers/">Confidential-Containers</a>, <a href="/kb/confidential-ai-inference/">Confidential-AI-Inference</a>, or trusted internal nodes.</td>
+</tr>
+<tr>
+<td>Strongest real-world fit is federated/fleet compute</td>
+<td>Docs emphasize logs, multi-region queries, edge nodes, ML fleets, and low-connectivity environments.</td>
+<td>Better near-term fit than anonymous adversarial open markets.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="major-implementations-and-related-projects">Major implementations and related projects</h2>
+<h3 id="bacalhau">Bacalhau</h3>
+<ul>
+<li><strong>Website:</strong> <a href="https://bacalhau.org/" rel="noopener nofollow">bacalhau.org</a></li>
+<li><strong>Docs:</strong> <a href="https://bacalhau.org/docs/" rel="noopener nofollow">bacalhau.org/docs</a></li>
+<li><strong>GitHub:</strong> <a href="https://github.com/bacalhau-project/bacalhau" rel="noopener nofollow">bacalhau-project/bacalhau</a></li>
+<li><strong>License:</strong> Apache-2.0 with trademark/logo caveats.</li>
+<li><strong>Language:</strong> Go.</li>
+<li><strong>Status:</strong> active, usable, infrastructure-layer.</li>
+</ul>
+<p>Bacalhau is the implementation this note is about: a distributed compute orchestrator for running jobs near data. It is not primarily a blockchain; it can be used with decentralized storage and decentralized infrastructure, but the core abstraction is job orchestration.</p>
+<h3 id="ipfs-compute-over-data">IPFS Compute-over-Data</h3>
+<ul>
+<li><strong>Docs:</strong> <a href="https://docs.ipfs.tech/concepts/cod/" rel="noopener nofollow">Compute-over-Data with content-addressed data</a></li>
+</ul>
+<p>IPFS provides the content-addressed data substrate. Bacalhau jobs can mount CIDs, run Docker/WASM tasks, and publish compact outputs. The key win is reproducibility: if a job says it processed CID <code>X</code>, the input bytes are cryptographically named.</p>
+<h3 id="ipvm-homestar">IPVM / Homestar</h3>
+<ul>
+<li><strong>Homestar GitHub:</strong> <a href="https://github.com/ipvm-wg/homestar/" rel="noopener nofollow">ipvm-wg/homestar</a></li>
+<li><strong>IPVM spec:</strong> <a href="https://github.com/ipvm-wg/spec" rel="noopener nofollow">ipvm-wg/spec</a></li>
+<li><strong>Workflow spec:</strong> <a href="https://github.com/ipvm-wg/workflow" rel="noopener nofollow">ipvm-wg/workflow</a></li>
+</ul>
+<p>IPVM is the more explicitly content-addressed, capability-oriented compute specification. IPFS docs describe it as an open, decentralized, local-first competitor to AWS Lambda using WASM, content addressing, SPKI, and object capabilities. Bacalhau is the practical orchestrator; IPVM/Homestar is the architectural direction for open-world compute.</p>
+<h3 id="duckdb-bacalhau">DuckDB + Bacalhau</h3>
+<ul>
+<li><strong>Integration docs:</strong> <a href="https://bacalhau.org/integrations/duckdb/" rel="noopener nofollow">Bacalhau DuckDB integration</a></li>
+</ul>
+<p>DuckDB is an in-process analytical database. Bacalhau extends it by partitioning datasets across nodes and running SQL jobs near storage. The docs list partitioning UDFs for hash, regex, and date-based splits, enabling workloads like distributed log analysis over Parquet.</p>
+<h3 id="filecoin-integration">Filecoin integration</h3>
+<ul>
+<li><strong>Filecoin ecosystem page:</strong> <a href="https://fil.org/ecosystem-explorer/bacalhau" rel="noopener nofollow">Bacalhau — Filecoin Foundation</a></li>
+</ul>
+<p>Filecoin's page describes Bacalhau as supporting large-scale parallel compute of Filecoin data, with compute providers able to run Bacalhau nodes regardless of whether they host Filecoin data. This is useful because Filecoin's hard problem is not only storing data but making stored data computationally useful without extracting everything to a centralized cloud.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="1-log-processing-at-the-edge">1. Log processing at the edge</h3>
+<p>A network of nodes generates logs locally: relays, gateways, LoRa base stations, IPFS gateways, Nostr relays, Bitcoin nodes, or application servers. Shipping raw logs to a central analytics cluster is expensive and privacy-invasive. With Bacalhau, each node can run a container that extracts aggregates, anomaly summaries, or compressed features locally, then publish only the result.</p>
+<p>This pairs naturally with <a href="/kb/map-metadata-privacy/">MOC - Metadata Privacy</a>: do not centralize unnecessary metadata if local aggregation is enough.</p>
+<h3 id="2-multi-region-analytics-without-data-export">2. Multi-region analytics without data export</h3>
+<p>Organizations often keep datasets in specific jurisdictions for compliance. Bacalhau can run the same DuckDB or Python job in each region and combine only aggregate outputs. This is not cryptographic privacy by itself, but it reduces the blast radius of data movement and can be composed with <a href="/kb/multi-party-computation/">Multi-Party Computation</a>, <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a>, or TEEs when stronger guarantees are required.</p>
+<h3 id="3-ipfsfilecoin-batch-processing">3. IPFS/Filecoin batch processing</h3>
+<p>A dataset pinned to IPFS or stored through Filecoin can be processed by CID. This is useful for:</p>
+<ul>
+<li>generating indexes over archived content;</li>
+<li>transcoding or thumbnailing media;</li>
+<li>extracting embeddings from open datasets;</li>
+<li>verifying datasets before retrieval deals;</li>
+<li>running scientific transforms where the input should remain content-addressed.</li>
+</ul>
+<p>The output can be another CID plus a signed manifest, giving a reproducible pipeline.</p>
+<h3 id="4-distributed-ml-preprocessing">4. Distributed ML preprocessing</h3>
+<p>Training pipelines often spend huge time on preprocessing: deduplication, tokenization, filtering, embedding extraction, feature generation. These jobs are embarrassingly parallel and data-heavy, so they fit CoD well. Bacalhau is less about all-reduce training than about preparing data where it lives, then feeding a later <a href="/kb/decentralized-training/">Decentralized Training</a> run.</p>
+<h3 id="5-sovereign-research-consortia">5. Sovereign research consortia</h3>
+<p>A consortium of universities, hospitals, or civic labs may not be allowed to pool raw data. Bacalhau can coordinate jobs across members' machines and return aggregate statistics or model updates. On its own, this is a governance/trust pattern; with <a href="/kb/confidential-computing/">Overview - Confidential Computing</a>, <a href="/kb/multi-party-computation/">Multi-Party Computation</a>, or <a href="/kb/fully-homomorphic-encryption/">Overview - Fully Homomorphic Encryption</a>, it becomes a stronger privacy-preserving computation stack.</p>
+<h3 id="6-off-grid-and-intermittently-connected-environments">6. Off-grid and intermittently connected environments</h3>
+<p>Because the architecture emphasizes network resilience and local execution, Bacalhau is conceptually useful for <a href="/kb/off-grid-networks/">Overview - Off-Grid Networks</a> scenarios: ships, field labs, disaster zones, local-first mesh clusters. Jobs can execute when links are up, continue locally through disruption, and publish outputs later.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li><strong>Attacks the right bottleneck for big data:</strong> bandwidth, egress, and jurisdictional movement often dominate compute cost.</li>
+<li><strong>Works with existing tooling:</strong> Docker, YAML job specs, S3, HTTP, IPFS, local mounts, and DuckDB are pragmatic choices.</li>
+<li><strong>Single-binary deployment:</strong> lowers operational friction for edge/fleet deployments.</li>
+<li><strong>Content-addressed compatibility:</strong> IPFS CIDs provide verifiable input references.</li>
+<li><strong>Composable:</strong> can sit underneath privacy layers (TEE/MPC/FHE) or above decentralized storage.</li>
+<li><strong>No token dependency for core utility:</strong> easier to adopt inside institutions that cannot touch crypto payment rails.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Not a trustless marketplace by default:</strong> if a compute node is malicious, Bacalhau alone does not magically prove correct execution.</li>
+<li><strong>No confidentiality by default:</strong> the node running the job can usually see input data and code unless additional isolation is used.</li>
+<li><strong>Data availability remains hard:</strong> IPFS CIDs are only useful if someone pins/serves the data reliably.</li>
+<li><strong>Result verification is application-specific:</strong> deterministic jobs can be rerun; ML and floating-point jobs need tolerances; adversarial jobs may need TEEs or proofs.</li>
+<li><strong>Less direct GPU marketplace liquidity:</strong> for raw H100 rental, <a href="/kb/akash/">Akash</a>, <a href="/kb/io-net/">io.net</a>, <a href="/kb/render-network/">Render Network</a>, <a href="/kb/aethir/">Aethir</a>, or centralized clouds are more direct.</li>
+<li><strong>Enterprise/fleet bias:</strong> the current strongest use cases are controlled fleets and consortia, not anonymous open compute.</li>
+</ul>
+<h2 id="attack-surface-and-mitigations">Attack surface and mitigations</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack / failure mode</th>
+<th>Why it matters</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compute node lies about output</td>
+<td>A malicious node can skip work or alter results.</td>
+<td>Deterministic replay, redundant execution on multiple nodes, signed outputs, application-level checks, TEEs.</td>
+</tr>
+<tr>
+<td>Compute node reads sensitive data</td>
+<td>Bacalhau moves code to data, but the local node still sees the data.</td>
+<td>Use trusted nodes, private clusters, <a href="/kb/confidential-containers/">Confidential-Containers</a>, <a href="/kb/remote-attestation/">Attestation-Architecture</a>, <a href="/kb/multi-party-computation/">Multi-Party Computation</a>.</td>
+</tr>
+<tr>
+<td>Malicious job attacks provider</td>
+<td>Running arbitrary containers is dangerous for node operators.</td>
+<td>Sandboxing, least privilege, WASM where possible, cgroups/seccomp, no host mounts unless needed.</td>
+</tr>
+<tr>
+<td>CID unavailable or slow</td>
+<td>Content addressing does not guarantee retrieval.</td>
+<td>Pinning, Filecoin deals, multiple gateways, local caching.</td>
+</tr>
+<tr>
+<td>Output tampering during publication</td>
+<td>Results can be modified if publisher/storage is compromised.</td>
+<td>Hash outputs, sign manifests, publish CIDs, append audit logs.</td>
+</tr>
+<tr>
+<td>Scheduler centralization</td>
+<td>Orchestrator becomes a policy chokepoint.</td>
+<td>Federated orchestrators, local queues, open specs, run your own control plane.</td>
+</tr>
+<tr>
+<td>Compliance theater</td>
+<td>Data “stays local” but outputs may leak sensitive aggregates.</td>
+<td>Differential privacy, query review, aggregation thresholds, red-team output channels.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="maturity-assessment">Maturity assessment</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development activity</td>
+<td>Active. GitHub API on 2026-05-05: pushed 2026-04-29, updated 2026-05-01, 858 stars, 100 forks, not archived.</td>
+</tr>
+<tr>
+<td>Open-source posture</td>
+<td>Strong. Apache-2.0 core repository; commercial product/trademark caveats from Expanso.</td>
+</tr>
+<tr>
+<td>Production readiness</td>
+<td>Good for controlled fleets, edge jobs, and batch pipelines. Evaluate carefully for adversarial open networks.</td>
+</tr>
+<tr>
+<td>Ecosystem fit</td>
+<td>Strong with IPFS/Filecoin, DuckDB, edge analytics, and decentralized storage.</td>
+</tr>
+<tr>
+<td>Privacy guarantees</td>
+<td>Weak by default; strong only when composed with TEEs/MPC/FHE or trusted local operators.</td>
+</tr>
+<tr>
+<td>Decentralization</td>
+<td>Medium. Distributed execution is real; trustless economic settlement and adversarial verification are not the main product focus.</td>
+</tr>
+<tr>
+<td>Best current use</td>
+<td>Compute-over-data orchestration for logs, analytics, ML preprocessing, and regional/federated datasets.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-bacalhau-compares-to-other-compute-notes">How Bacalhau compares to other compute notes</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Primary abstraction</th>
+<th>Best fit</th>
+<th>Trust model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/bacalhau/">Bacalhau and Compute-over-Data</a></td>
+<td>Job near data</td>
+<td>Distributed analytics, IPFS/Filecoin jobs, edge/fleet compute</td>
+<td>Trust node / replay / add TEE</td>
+</tr>
+<tr>
+<td><a href="/kb/akash/">Akash</a></td>
+<td>Kubernetes-style lease marketplace</td>
+<td>General containers, web services, GPUs</td>
+<td>Trust provider unless adding attestation</td>
+</tr>
+<tr>
+<td><a href="/kb/golem/">Golem</a></td>
+<td>Requestor/provider task market</td>
+<td>Generic batch CPU jobs</td>
+<td>Trust provider + sandbox</td>
+</tr>
+<tr>
+<td><a href="/kb/render-network/">Render Network</a></td>
+<td>GPU rendering / GPU jobs</td>
+<td>Rendering, creator workloads, some AI</td>
+<td>Trust render service/provider network</td>
+</tr>
+<tr>
+<td><a href="/kb/io-net/">io.net</a></td>
+<td>Aggregated GPU cloud</td>
+<td>AI inference/training on distributed GPUs</td>
+<td>Provider verification + staking; no confidentiality</td>
+</tr>
+<tr>
+<td><a href="/kb/phala-and-0g/">Phala and 0G</a></td>
+<td>TEE-attested workloads</td>
+<td>Confidential AI / verifiable off-chain compute</td>
+<td>Trust TEE vendor + attestation chain</td>
+</tr>
+<tr>
+<td><a href="/kb/decentralized-training/">Decentralized Training</a></td>
+<td>Distributed model optimization</td>
+<td>Open model training / RL swarms</td>
+<td>Algorithmic verification, TEEs, reputation</td>
+</tr>
+</tbody>
+</table></div>
+<p>The dividing line: Bacalhau is <strong>data-local orchestration</strong>, not just compute rental.</p>
+<h2 id="practical-patterns">Practical patterns</h2>
+<h3 id="content-addressed-transform">Content-addressed transform</h3>
+<ol>
+<li>Pin dataset to IPFS and record CID.</li>
+<li>Submit Bacalhau job that mounts the CID into <code>/data</code>.</li>
+<li>Run deterministic container/WASM transform.</li>
+<li>Publish output directory to IPFS/S3.</li>
+<li>Sign manifest containing input CID, container digest, output CID, parameters, and timestamp.</li>
+</ol>
+<p>This creates a reproducible provenance chain. It is especially useful for public archives and research datasets.</p>
+<h3 id="regional-aggregate-query">Regional aggregate query</h3>
+<ol>
+<li>Deploy Bacalhau compute nodes in each region.</li>
+<li>Keep raw data local.</li>
+<li>Run DuckDB query partitions locally.</li>
+<li>Return aggregate rows only.</li>
+<li>Combine aggregates centrally.</li>
+<li>Apply differential privacy or thresholding if outputs are sensitive.</li>
+</ol>
+<p>This pattern is weaker than cryptographic privacy but much easier to deploy.</p>
+<h3 id="confidential-cod-composition">Confidential CoD composition</h3>
+<ol>
+<li>Run Bacalhau on nodes with TEE support.</li>
+<li>Schedule jobs only onto attested nodes.</li>
+<li>Verify quote binds the expected container/WASM digest.</li>
+<li>Encrypt inputs to enclave-held keys.</li>
+<li>Publish signed outputs.</li>
+</ol>
+<p>This is the bridge between Bacalhau and <a href="/kb/confidential-computing/">Overview - Confidential Computing</a>. It is not “Bacalhau by default”; it is a composed architecture.</p>
+<h2 id="open-questions">Open questions</h2>
+<ul>
+<li>Will Bacalhau grow into a permissionless public marketplace, or remain mostly a fleet/enterprise orchestration layer?</li>
+<li>How should result verification be standardized for deterministic CoD jobs?</li>
+<li>Can IPVM/Homestar-style object capabilities give a cleaner security model than Docker containers?</li>
+<li>What is the right payment/settlement layer when jobs are run across mutually distrustful organizations?</li>
+<li>How should data-local jobs express privacy budgets, output restrictions, and compliance constraints?</li>
+<li>Can Bacalhau become a standard preprocessing plane for <a href="/kb/decentralized-training/">Decentralized Training</a> datasets?</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Bacalhau docs — <a href="https://bacalhau.org/docs/" rel="noopener nofollow">What is Bacalhau?</a></li>
+<li>Bacalhau architecture — <a href="https://bacalhau.org/docs/overview/architecture/" rel="noopener nofollow">bacalhau.org/docs/overview/architecture</a></li>
+<li>Bacalhau GitHub — <a href="https://github.com/bacalhau-project/bacalhau" rel="noopener nofollow">github.com/bacalhau-project/bacalhau</a></li>
+<li>Bacalhau IPFS input source — <a href="https://bacalhau.org/docs/sources/ipfs/" rel="noopener nofollow">bacalhau.org/docs/sources/ipfs</a></li>
+<li>Bacalhau DuckDB integration — <a href="https://bacalhau.org/integrations/duckdb/" rel="noopener nofollow">bacalhau.org/integrations/duckdb</a></li>
+<li>IPFS docs — <a href="https://docs.ipfs.tech/concepts/cod/" rel="noopener nofollow">Compute-over-Data with content-addressed data</a></li>
+<li>Filecoin Foundation ecosystem page — <a href="https://fil.org/ecosystem-explorer/bacalhau" rel="noopener nofollow">Bacalhau</a></li>
+<li>IPVM / Homestar — <a href="https://github.com/ipvm-wg/homestar/" rel="noopener nofollow">github.com/ipvm-wg/homestar</a></li>
+<li>IPVM specification — <a href="https://github.com/ipvm-wg/spec" rel="noopener nofollow">github.com/ipvm-wg/spec</a></li>
+</ul>
+<p>Continue with <a href="/kb/compare-decentralized-compute/">Compare decentralized compute platforms</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/akash/">
+  <span class="nm">Akash Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/render-network/">
+  <span class="nm">Render Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/io-net/">
+  <span class="nm">io.net</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/aethir/">
+  <span class="nm">Aethir</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ipfs-and-filecoin/">
+  <span class="nm">IPFS and Filecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/decentralized-storage/">
+  <span class="nm">Decentralized Storage</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/private-llm-inference-patterns/">
+  <span class="nm">Private LLM Inference Patterns</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-ai-inference/">
+  <span class="nm">Confidential AI Inference</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/confidential-containers/">
+  <span class="nm">Confidential Containers (CoCo)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-05-12</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Bacalhau%20and%20Compute-over-Data" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Distributed compute orchestration for the data-gravity problem: instead of pulling terabytes out of S3, Filecoin, IPFS, edge boxes, or regional data stores, ship the job to the machine that already has the data and publish only the result.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Decentralized Compute</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-05-12</dd>
+        <dt>Sources linked</dt><dd>11</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

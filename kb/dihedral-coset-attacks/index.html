@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Dihedral Coset Attack Line — ungovernable.tech</title>
+<meta name="description" content="The dihedral coset problem and the line of quantum attacks on lattice cryptography it inspires: what has been claimed, refuted and still matters.">
+<link rel="canonical" href="https://ungovernable.tech/kb/dihedral-coset-attacks/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="The Dihedral Coset Attack Line — ungovernable.tech">
+<meta property="og:description" content="The dihedral coset problem and the line of quantum attacks on lattice cryptography it inspires: what has been claimed, refuted and still matters.">
+<meta property="og:url" content="https://ungovernable.tech/kb/dihedral-coset-attacks/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dihedral Coset Attack Line — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Dihedral Coset Attack Line — ungovernable.tech">
+<meta name="twitter:description" content="The dihedral coset problem and the line of quantum attacks on lattice cryptography it inspires: what has been claimed, refuted and still matters.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "The Dihedral Coset Attack Line", "description": "The dihedral coset problem and the line of quantum attacks on lattice cryptography it inspires: what has been claimed, refuted and still matters.", "dateModified": "2026-10-25", "datePublished": "2026-08-22", "url": "https://ungovernable.tech/kb/dihedral-coset-attacks/", "mainEntityOfPage": "https://ungovernable.tech/kb/dihedral-coset-attacks/", "image": "https://ungovernable.tech/assets/og/pillar-pqc.png", "about": [{"@type": "Thing", "name": "Post-Quantum Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Post-Quantum Cryptography", "item": "https://ungovernable.tech/pillars/pqc/"}, {"@type": "ListItem", "position": 3, "name": "The Dihedral Coset Attack Line", "item": "https://ungovernable.tech/kb/dihedral-coset-attacks/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/pqc/">Post-Quantum Cryptography</a><span aria-hidden="true">/</span><span class="here">The Dihedral Coset Attack Line</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ POST-QUANTUM CRYPTOGRAPHY ]</span></p>
+  <h1>The Dihedral Coset Attack Line</h1>
+  <p class="aka">Also DCP Attack Line, Dihedral Coset Problem Attack Line, The EDCP Research Program.</p>
+  <p class="dek">Deep-dive companion to Post-Quantum Saturday — August 22 2026 Weekly Update and Overview - Post-Quantum Cryptography. This note consolidates the twenty-year research program connecting the Dihedral Coset Problem to lattice problems and LWE — Regev 2004 → BKSW 2018 → Chen 2024 → Bai et al. 2025 → Wen–Zheng 2026 → Simon 2026 → GRZ 2026 — including what was claimed, what survived, and where the live edges are. Flagged as a needed deep-dive in the August 15 update (§Next Steps #4).</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>10</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-this-line-matters">Why this line matters</a><a href="#the-problem-chain-from-scratch">The problem chain, from scratch</a><a href="#the-papers-in-order">The papers, in order</a><a href="#post-refutation-exposure-map">Post-refutation exposure map</a><a href="#what-would-actually-change-the-picture">What would actually change the picture</a><a href="#historical-pattern-the-claim-survival-table">Historical pattern — the claim survival table</a><a href="#deployment-guidance-unchanged-now-boringly-so">Deployment guidance (unchanged, now boringly so)</a><a href="#open-questions">Open questions</a><a href="#related">Related</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-this-line-matters">Why this line matters</h2>
+<p>The single most important open question in quantum lattice cryptanalysis is whether dihedral hidden-subgroup-type techniques can solve lattice problems faster than classical BKZ. If yes, most deployed PQC (ML-KEM, ML-DSA, and much else) rests on weakened foundations. If no, the quantum threat to lattices remains "Shor-for-ECC/RSA plus nothing for lattices," and the migration calculus barely changes.</p>
+<p>For twenty years the answer has been "no": the best quantum algorithm for the dihedral problem was Kuperberg's 2005 subexponential 2^O(√n), and for polynomial-factor approximate SVP nothing beat fully exponential. That was the load-bearing assumption under FIPS 203/204/206 and the entire NIST lattice portfolio.</p>
+<p>Three attempts in three years (Chen 2024, Luo 2026, Simon 2026) have now pushed directly on this assumption. All three died under scrutiny. But each attempt narrowed the gap between the abstract problem and ML-KEM's exact mathematics, and the bridge paper that would make a future attempt consequential — Wen–Zheng — survived peer review at CRYPTO 2026. This note is the map of that territory.</p>
+<h2 id="the-problem-chain-from-scratch">The problem chain, from scratch</h2>
+<p><strong>DCP (Dihedral Coset Problem).</strong> Given quantum coset states for the dihedral group D_N = ℤ_N ⋊ ℤ_2, recover the hidden subgroup element s ∈ ℤ_N. The "extrapolated" variant (EDCP) allows multiple samples per coset and different moduli; "IP-M-EDCP" is Wen–Zheng's integer-polynomial module variant.</p>
+<p>The connection to lattices runs one direction: quantum reductions <em>from</em> lattice problems <em>to</em> DCP-family problems. If someone builds a fast DCP solver, the reductions turn it into a lattice attack. If nobody does, the reductions are elegant mathematics with no customer. That asymmetry — twenty years of bridge-building waiting for a solver — is the shape of this whole research line.</p>
+<pre><code>   DEPLOYED CRYPTO                     ABSTRACT PROBLEMS                    SOLVERS
+   ──────────────                      ────────────────                    ────────
+   ML-KEM / ML-DSA          Wen–Zheng 2026 (↔, CRYPTO '26)
+        Module-LWE  ───────────────────→  IP-M-EDCP
+                                         (search, power-of-two      ↓
+                                          cyclotomic, const rank)  EDCP   ←── Bai et al. 2025
+                                                                    ↓        (quasi-poly, CRYPTO '25)
+        plain LWE  ── BKSW 2018 (↔) ──────────────────────→        DCP    ←── Kuperberg 2005
+        unique-SVP ── Regev 2004 (→)                                ↑        (subexp 2^O(√n))
+                                                                    └──────── Simon 2026 (poly claim)
+                                                                             REFUTED Aug 15 (GRZ no-go)
+</code></pre>
+<h2 id="the-papers-in-order">The papers, in order</h2>
+<h3 id="regev-2004-the-bridge-is-built">Regev 2004 — the bridge is built</h3>
+<p>Oded Regev, "Quantum Computation and Lattice Problems," SIAM Journal on Computing 2004 (FOCS 2003 history). Polynomial-time <strong>quantum reduction</strong> from approximate unique-SVP (and related lattice problems) to the Dihedral Subgroup Problem — conditional on an efficient coherent solver for average-case modular subset-sum. No such solver existed. The result sat for twenty years as elegant mathematics with the attack-shaped hole where a solver should be.</p>
+<p><strong>Why it still matters</strong>: every subsequent paper in this line is either strengthening the reduction (BKSW, Wen–Zheng) or trying to fill the solver hole (Kuperberg-line, Chen, Bai, Simon).</p>
+<h3 id="kuperberg-2005-the-floor">Kuperberg 2005 — the floor</h3>
+<p>Greg Kuperberg's subexponential 2^O(√n)-time algorithm for the dihedral hidden subgroup problem. Improved constants followed (Kuperberg 2011 ~2^(√2·√log N)), but the shape never changed: subexponential, not polynomial. For two decades this defined "the best a quantum computer does against the dihedral problem."</p>
+<p><strong>Status 2026</strong>: still the best actual algorithm. Unchanged in essence for 21 years.</p>
+<h3 id="bksw-2018-the-equivalence-tightened">BKSW 2018 — the equivalence tightened</h3>
+<p>Brakerski, Kirshanova, Stehlé, Wen, "Learning With Errors and Extrapolated Dihedral Cosets," PKC 2018. Proved LWE ⇄ EDCP quantum-polynomially for suitable parameters — deepening the connection from "lattice problems reduce to DCP" to "LWE and the extrapolated problem are essentially the same difficulty quantumly." Elena Kirshanova (co-author) became one of the central verifiers of the Simon claim in Aug 2026 — the same research program, continuing.</p>
+<p><strong>Note</strong>: Wen (Télécom Paris) is a co-author of both BKSW 2018 and Wen–Zheng 2026. This is one research history, not independent arrival.</p>
+<h3 id="chen-2024-first-poly-time-claim-first-death">Chen 2024 — first poly-time claim, first death</h3>
+<p>Yilei Chen, "Quantum Algorithms for Lattice Problems," ePrint 2024/555 (April 2024). Claimed polynomial-time quantum algorithms for approximate SVP via a variant of EDCP. <strong>Withdrawn within days</strong>: Hongxun Wu and Thomas Vidick found the flaw (in the LWE-to-EDCP step's analysis of the Gaussian sampling subroutine). Vidick is thanked in Simon's acknowledgments — the community's failure-detection loop is tight and self-aware.</p>
+<h3 id="bai-et-al-2025-the-real-advance-honestly-bounded">Bai et al. 2025 — the real advance, honestly bounded</h3>
+<p>Bai, Jangir, Kirshanova, Ngo, Youmans, "A Quasi-Polynomial Quantum Algorithm for the Extrapolated Dihedral Coset Problem," CRYPTO 2025 (ePrint 2025/1046). A genuine algorithmic improvement: quasi-polynomial time for EDCP over power-of-two moduli. The authors' own constraints (sample counts, modulus bounds) prevent it from reaching standard LWE parameters. This is what a credible step forward in this line looks like: new algorithm, explicit parameter limits, no overclaim.</p>
+<p><strong>Status 2026</strong>: the strongest actual algorithmic result in the line. Un-refuted, bounded.</p>
+<h3 id="wenzheng-2026-the-bridge-reaches-ml-kems-ring">Wen–Zheng 2026 — the bridge reaches ML-KEM's ring</h3>
+<p>Weiqiang Wen, Jinwei Zheng (Télécom Paris), "Module Learning With Errors and Structured Extrapolated Dihedral Cosets," CRYPTO 2026 (ePrint 2026/155).</p>
+<ul>
+<li><strong>Theorem 1</strong>: quantum-polynomial <strong>equivalence</strong> between search Module-LWE and Gaussian IP-M-EDCP, for f(x) = x^d + 1 with d a power of two, module rank n = O(1), q = poly(d). <em>This is ML-KEM's exact setting</em>: ℤ_3329[x]/(x²⁵⁶+1), ranks 2/3/4.</li>
+<li><strong>Theorem 2</strong>: IP-M-EDCP reduces to plain EDCP (dimension-modulus switching).</li>
+<li><strong>Sample amplification</strong> via Lyubashevsky–Peikert–Regev regularity — why the result needs cyclotomics.</li>
+<li><strong>Limits, in the authors' own words</strong>: search (not decision) Module-LWE; Rényi divergence "does not naturally extend to decision variants"; the converse of Theorem 2 unproven — IP-M-EDCP may be strictly easier than EDCP.</li>
+<li><strong>The invitation</strong>: they name adapting Kuperberg and adapting Bai et al. as the two promising attack directions, and explicitly invite cryptanalysts to attack IP-M-EDCP.</li>
+</ul>
+<p><strong>Why it survived the Simon refutation untouched</strong>: it is a reduction, not a solver. Its truth does not depend on whether anyone has a fast DCP algorithm. Its <em>consequence</em> does — which is why the refutation demoted it from "route to a poly-time attack" back to "map waiting for a traveler."</p>
+<h3 id="simon-2026-the-claim-that-wasnt">Simon 2026 — the claim that wasn't</h3>
+<p>Daniel R. Simon (AWS Cryptography), "A Polynomial-Time Quantum Algorithm for the Dihedral Coset Problem," ePrint 2026/1591 (submitted Aug 3, approved Aug 6; manuscript dated Jul 31). Claimed to replace Regev's subset-sum oracle requirement with Hadamard transforms plus a grouping strategy tolerating faulty-sample rates up to 1/O(log n), composing with Regev + BKSW to poly-time algorithms for approximate SVP (factor O(√n polylog n)) and LWE (α = O(√n polylog n)).</p>
+<p><strong>Author credibility was maximal</strong> — creator of Simon's algorithm (1994), the result Shor built on. Acknowledgments thanked Micciancio, Vaikuntanathan, Vidick, Ragavan, Menda. The final corollary rested on unpublished personal communications from Ragavan and Micciancio.</p>
+<p><strong>Death by no-go theorem, Aug 15</strong> (full timeline in the <a href="/briefings/post-quantum/2026-08-22/">August 22 update</a> §1): Gupte–Ragavan–Zhandry (ePrint 2026/1693) proved the algorithm itself cannot work —</p>
+<ul>
+<li>after step 3 it never touches the classical Fourier labels, using them only via top log n bits of block inner products;</li>
+<li>implementable up to error poly(n)·2^(−n/3) from the top third of labels alone;</li>
+<li>any Regev-template algorithm keeping only that much cannot distinguish the secret's LSB (advantage ≤ poly(n)·2^(−n/3));</li>
+<li>discarding ω(log n) bits per label hides the answer information-theoretically;</li>
+<li>dichotomy: wrong, or Ω(2^(n/9)) runtime — not both subexponential and correct;</li>
+<li><strong>Lean 4 machine-check code released</strong> (github.com/sragavan99/lean-ePrint-2026-1591-refutation).</li>
+</ul>
+<p>Ragavan — a personal-communication source for Simon's corollary — co-authored the refutation. For the detailed nine-day verification arc (Discord, Overleaf, Apon's "The Search for Simon" AQSE paper, the Lemma-3 one-page counterexample, the Lemma-4 non-negativity substitution defect), see the August 22 update.</p>
+<h3 id="grz-2026-the-refutation-as-a-positive-result">GRZ 2026 — the refutation as a positive result</h3>
+<p>Read as more than a rebuttal, ePrint 2026/1693 contributes a reusable insight: <strong>any DCP algorithm on Regev's template must make extensive use of the classical Fourier labels in the uncomputation stage</strong>. That is a design constraint for every future attempt — it tells the next Simon where not to look. No-go theorems shape search spaces; this one is now the guardrail for the entire line, and it is machine-checked.</p>
+<h2 id="post-refutation-exposure-map">Post-refutation exposure map</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Family / Scheme</th>
+<th>Assumption</th>
+<th>DCP-line exposure</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM (FIPS 203)</strong></td>
+<td>Module-LWE, power-of-two cyclotomic, rank 2/3/4</td>
+<td><strong>Bridge exists (Wen–Zheng), no solver</strong></td>
+<td>Composition at real parameters unproven even before the refutation (decision vs search, CBD vs Gaussian, sample budget); now also solver-less</td>
+</tr>
+<tr>
+<td><strong>ML-DSA (FIPS 204)</strong></td>
+<td>Module-LWE/SIS + SelfTargetMSIS</td>
+<td>One step removed</td>
+<td>A Module-LWE break ≠ automatic forgery; forgery needs its own analysis</td>
+</tr>
+<tr>
+<td><strong>FN-DSA / Falcon (FIPS 206 under development)</strong></td>
+<td>NTRU</td>
+<td><strong>Not implicated by this path</strong></td>
+<td>No published DCP-line reduction to NTRU; separate assessment required</td>
+</tr>
+<tr>
+<td>FrodoKEM</td>
+<td>plain LWE</td>
+<td>Nearest Simon's direct corollary</td>
+<td>The "conservative" unstructured choice sat closest to the (now-dead) claim — an inversion of the usual hierarchy worth remembering</td>
+</tr>
+<tr>
+<td><strong>HQC</strong></td>
+<td>quasi-cyclic codes</td>
+<td>Untouched</td>
+<td>Code-based; standard expected 2026–27; see the McEliece distinguisher backfill for the code-side margin story</td>
+</tr>
+<tr>
+<td>Classic McEliece</td>
+<td>binary Goppa codes</td>
+<td>Untouched by DCP line</td>
+<td>New quasipoly distinguisher (Aug 2026) is a separate, non-break development</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA, LMS/XMSS</strong></td>
+<td>hash functions</td>
+<td>Untouched</td>
+<td>The conservative backbone assumption holds regardless</td>
+</tr>
+<tr>
+<td>AES / SHA-2 / SHA-3</td>
+<td>symmetric</td>
+<td>Untouched</td>
+<td>Grover halvings only; 7-round AES-128 margin result is reduced-round</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-would-actually-change-the-picture">What would actually change the picture</h2>
+<p>Ordered by what a watcher should rank as signal:</p>
+<ol>
+<li><strong>A repaired or new DCP solver that provably uses the Fourier labels extensively in uncomputation</strong> — the GRZ constraint is the entry ticket. Anything claiming poly or quasi-poly time that doesn't address it is dead on arrival.</li>
+<li><strong>Any composition result at ML-KEM's concrete parameters</strong> — decision Module-LWE (not search), centered-binomial noise, fixed small sample budget, ℤ_3329[x]/(x²⁵⁶+1). Even a quasi-polynomial composed attack at real parameters would reprice risk.</li>
+<li><strong>Bai et al. line extensions</strong> — the 2025 quasi-poly EDCP result relaxing its sample/modulus constraints toward cryptographic parameters.</li>
+<li><strong>IP-M-EDCP-specific attacks</strong> — the Wen–Zheng open problem: is their structured variant strictly easier than EDCP? A yes with an algorithm attached is the next bridge to cross.</li>
+<li><strong>Circuit-level resource estimates for any of the above</strong> — without qubit counts and depth, nothing changes CRQC timelines (the mitten-codes lesson from the Aug 15 update: qLDPC overhead is compressible, uncertainty bands are wide).</li>
+</ol>
+<h2 id="historical-pattern-the-claim-survival-table">Historical pattern — the claim survival table</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Author stature</th>
+<th>Venue</th>
+<th>Survival</th>
+<th>Time to death</th>
+<th>Detected by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Poly-time quantum lattice (2024)</td>
+<td>Yilei Chen (Tsinghua)</td>
+<td>ePrint 2024/555</td>
+<td>✗ Withdrawn</td>
+<td>~days</td>
+<td>Wu &amp; Vidick expert read</td>
+</tr>
+<tr>
+<td>LWE attack (Jan 2026)</td>
+<td>Luo</td>
+<td>ePrint</td>
+<td>✗ Fatally flawed</td>
+<td>~days</td>
+<td>Community</td>
+</tr>
+<tr>
+<td><strong>Poly-time DCP (Aug 2026)</strong></td>
+<td><strong>Daniel Simon (AWS)</strong></td>
+<td>ePrint 2026/1591</td>
+<td>✗ <strong>No-go theorem</strong></td>
+<td><strong>9 days</strong></td>
+<td>Discord verification → Apon counterexample → GRZ theorem (Lean 4)</td>
+</tr>
+<tr>
+<td>Quasi-poly EDCP (2025)</td>
+<td>Bai et al.</td>
+<td>CRYPTO 2025</td>
+<td>✓ Standing (bounded)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Kuperberg subexp (2005)</td>
+<td>Kuperberg</td>
+<td>—</td>
+<td>✓ Standing (21 years)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>The pattern: extraordinary claims die fast and publicly; incremental honest results survive with explicit bounds. The 2024→2026 sequence also shows verification <em>accelerating</em> — from expert-read (days) to machine-checked no-go (nine days, with Lean).</p>
+<h2 id="deployment-guidance-unchanged-now-boringly-so">Deployment guidance (unchanged, now boringly so)</h2>
+<ul>
+<li><strong>Transport</strong>: hybrid <code>X25519MLKEM768</code> — now <strong>RFC 10024</strong> (Proposed Standard, Aug 2026). See <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>.</li>
+<li><strong>Signatures</strong>: hybrid Ed25519+ML-DSA for high-value long-lived keys (Bernstein's bug-economics argument, June 2026); SLH-DSA as conservative backup.</li>
+<li><strong>Diversification</strong>: HQC when standardized (2026–27); SLH-DSA now. Keep the "entire estate = one assumption family" concentration risk on the register — the refutation removed the urgency, not the epistemics.</li>
+<li><strong>Crypto-agility</strong>: architecture, not library swap. The nine-day arc is the argument: whatever the next claim is, the response window will be shorter than a procurement cycle.</li>
+<li><strong>What NOT to do</strong>: pause migrations over cryptanalysis news. Every HNDL clock (2030/2031/2035 regulatory deadlines) runs through the debate.</li>
+</ul>
+<h2 id="open-questions">Open questions</h2>
+<ol>
+<li>How does Simon’s October 7, 2026 revision address the no-go result? The ePrint record now includes an author response; that response alone does not establish a working attack.</li>
+<li>Does anyone take Wen–Zheng's IP-M-EDCP invitation? Watch ePrint for 2026/1693-citing work.</li>
+<li>
+<p>Will the GRZ Lean artifact set precedent — machine-checked refutations as the new norm for extraordinary claims?</p>
+</li>
+<li>
+<p>HQC standardization (2026–27): does the McEliece distinguisher line change NIST's code-based timing or messaging?</p>
+</li>
+</ol>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/briefings/post-quantum/2026-08-22/">Post-Quantum Saturday — August 22 2026 Weekly Update</a> — the refutation week in detail</li>
+<li><a href="/briefings/post-quantum/2026-08-15/">Post-Quantum Saturday — August 15 2026 Weekly Update</a> — Simon claim + Wen–Zheng first analysis</li>
+<li><a href="/briefings/post-quantum/2026-08-08/">Post-Quantum Saturday — August 08 2026 Weekly Update</a> — the Luo preprint; ML-DSA bug economics</li>
+<li><a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a> — standards and deployment context</li>
+<li><a href="/kb/ml-kem/">ML-KEM</a> / <a href="/kb/ml-dsa/">ML-DSA</a> / <a href="/kb/fn-dsa-falcon/">FN-DSA Falcon</a> / <a href="/kb/hqc/">HQC</a> / <a href="/kb/slh-dsa/">SLH-DSA</a> — the exposed algorithms</li>
+<li><a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> — operational playbook (RFC 10024)</li>
+<li><a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a> — the PQ Web PKI track that proceeds regardless</li>
+<li><a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a> — the deployment map</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2026/1693" rel="noopener nofollow">The ePrint:2026/1591 Quantum Algorithm Does Not Solve DCP</a></li>
+<li><a href="https://eprint.iacr.org/2026/1591" rel="noopener nofollow">A Polynomial-Time Quantum Algorithm for the Dihedral Coset Problem</a></li>
+<li><a href="https://eprint.iacr.org/2026/155" rel="noopener nofollow">Module Learning With Errors and Structured Extrapolated Dihedral Cosets</a></li>
+<li><a href="https://eprint.iacr.org/2025/1046" rel="noopener nofollow">A Quasi-polynomial Time Algorithm for the Extrapolated Dihedral Coset Problem over Power-of-Two Moduli</a></li>
+<li><a href="https://eprint.iacr.org/2024/555" rel="noopener nofollow">Quantum Algorithms for Lattice Problems</a></li>
+<li><a href="https://arxiv.org/abs/cs/0304005" rel="noopener nofollow">Regev: Quantum Computation and Lattice Problems</a></li>
+<li><a href="https://arxiv.org/abs/quant-ph/0302112" rel="noopener nofollow">Kuperberg: A Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem</a></li>
+<li><a href="https://arxiv.org/abs/1112.3333" rel="noopener nofollow">Kuperberg: Another Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem</a></li>
+<li><a href="https://github.com/sragavan99/lean-ePrint-2026-1591-refutation" rel="noopener nofollow">Lean verification of the Simon refutation</a></li>
+<li><a href="https://github.com/a-as-plus-e/lemma3-objection" rel="noopener nofollow">Lemma 3 objection</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc10024.html" rel="noopener nofollow">RFC 10024: Hybrid key exchange</a></li>
+<li><a href="https://arxiv.org/abs/1710.08223" rel="noopener nofollow">Learning With Errors and Extrapolated Dihedral Cosets</a></li>
+<li><a href="https://github.com/pornin/c-fn-dsa" rel="noopener nofollow">FN-DSA implementation and standardization caveats</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/guides/hybrid-kem-migration/">
+  <span class="nm">Migrating to Hybrid Key Exchange</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/post-quantum-cryptography/">
+  <span class="nm">Post-Quantum Cryptography</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/ml-kem/">
+  <span class="nm">ML-KEM (FIPS 203)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ml-dsa/">
+  <span class="nm">ML-DSA (FIPS 204)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/fn-dsa-falcon/">
+  <span class="nm">FN-DSA (Falcon)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/hqc/">
+  <span class="nm">HQC</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/slh-dsa/">
+  <span class="nm">SLH-DSA (FIPS 205)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/merkle-tree-certificates/">
+  <span class="nm">Merkle Tree Certificates</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pqc-deployment-tracker/">
+  <span class="nm">PQC Deployment and Libraries Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=The%20Dihedral%20Coset%20Attack%20Line" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-research bdg-lg" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+        <span class="m m-research" role="img" aria-label="Readiness: Research" title="Research: papers and prototypes; not something to rely on yet."><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <p>Research: papers and prototypes; not something to rely on yet.</p>
+      </div>
+      
+      <p class="def">Deep-dive companion to Post-Quantum Saturday — August 22 2026 Weekly Update and Overview - Post-Quantum Cryptography. This note consolidates the twenty-year research program connecting the Dihedral Coset Problem to lattice problems and LWE — Regev 2004 → BKSW 2018 → Chen 2024 → Bai et al. 2025 → Wen–Zheng 2026 → Simon 2026 → GRZ 2026 — including what was claimed, what survived, and where the live edges are. Flagged as a needed deep-dive in the August 15 update (§Next Steps #4).</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Post-Quantum Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>13</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

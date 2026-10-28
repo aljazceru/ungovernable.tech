@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — September 06 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-06: NIPs repository merged four PRs in six days (Sep 1 – Sep 4), and AUTH is the connective tissue.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-09-06/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — September 06 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-06: NIPs repository merged four PRs in six days (Sep 1 – Sep 4), and AUTH is the connective tissue.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-09-06/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — September 06 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — September 06 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-06: NIPs repository merged four PRs in six days (Sep 1 – Sep 4), and AUTH is the connective tissue.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — September 06 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-06: NIPs repository merged four PRs in six days (Sep 1 – Sep 4), and AUTH is the connective tissue.", "datePublished": "2026-09-06", "dateModified": "2026-09-06", "url": "https://ungovernable.tech/briefings/identity/2026-09-06/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-09-06/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-06", "item": "https://ungovernable.tech/briefings/identity/2026-09-06/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-09-06</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — September 06 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-06</b></span>
+    <span><b>28</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-06 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-06. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The weekly companion to <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, covering August 31 – September 6, 2026 (since the <a href="/briefings/identity/2026-08-30/">August 30 update</a>). Three threads converged this week. First: <strong>the NIPs repository shipped four merged PRs in six days, and every one of them now travels under the NIP-42 AUTH wire</strong> — NIP-67 gained the <code>"auth"</code> EOSE hint (<a href="https://github.com/nostr-protocol/nips/pull/2371" rel="noopener nofollow">PR #2371</a>, merged Sep 1, opened by fiatjaf Jun 6 and stalled for 87 days before this), NIP-84 expanded its reference surface to NIP-73 <code>i</code> tags and loosened <code>r</code> (<a href="https://github.com/nostr-protocol/nips/pull/2454" rel="noopener nofollow">PR #2454</a>, merged Sep 1, opened by staab of Coracle), NIP-78 became a relay-keyworded specification requiring AUTH for kinds 78 and 30078 (<a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">PR #2458</a>, merged Sep 3, second-implementation evidence from alexgleason on Ditto), and PR #2460 (mattn, merged Sep 4) clarified that <code>limit: 0</code> skips stored events while leaving the subscription live. Second: <strong>strfry 1.1.2</strong> shipped Aug 27 (one day before last week's window) and fixed a WebSocket continuation-frame memory-DoS reachable from any unauthenticated client, plus a reconnect loop that wedged the uv event loop on strfry's hub thread. Third: <strong>Leon Acosta and QuantaKrypto published "<a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">Post-quantum Nostr identities, from your seed where possible</a>"</strong> on Sep 4, the longest write-up to date of why the kind 10203 attestation is a <em>workaround</em> — a necessary one — for an identity layer that never declared its own algorithm. The companion piece, "<a href="https://nostr-wot.com/blog/opt-in-quantum-resistant-direct-messages" rel="noopener nofollow">Post-quantum direct messages should not be opt-in</a>", frames the same problem as a structural failure of cryptographic agility: Nostr versioned its encryption (NIP-44 carries a version byte) and left its keys unversioned, so PQ has to ride as a bolt-on whose negotiation is itself the scar tissue. The shape of the week: relay-side AUTH stops being optional in the spec text; a relay-class WebSocket DoS gets a CVE-grade patch; and the most thoughtful argument yet appears for <em>why the kind 10203 attestation is correct as a workaround and wrong as a destination</em>.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>NIPs repository merged four PRs in six days (Sep 1 – Sep 4), and AUTH is the connective tissue.</strong> <a href="https://github.com/nostr-protocol/nips/pull/2371" rel="noopener nofollow">NIP-67 PR #2371</a> (fiatjaf, opened Jun 6, merged Sep 1, 87 days open) adds a third hint value <code>"auth"</code> to EOSE — relays send a NIP-42 AUTH challenge <em>before</em> the EOSE that carries the hint, telling the client "more stored events are waiting behind authentication". <a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">NIP-78 PR #2458</a> (iqbqioza, merged Sep 3) gains the new <code>## AUTH</code> section requiring NIP-42 for kinds 78 <em>and</em> 30078, the <code>relay</code> header keyword, and a guidance paragraph against using these kinds as a generic interchange format. <a href="https://github.com/nostr-protocol/nips/pull/2454" rel="noopener nofollow">NIP-84 PR #2454</a> (staab, merged Sep 1) splits the reference section into three: <code>a</code>/<code>e</code> for Nostr events, <code>i</code> (per NIP-73) for structured non-Nostr sources like ISBNs and DOIs, and <code>r</code> as the catch-all that may now hold a URL <em>or</em> text. <a href="https://github.com/nostr-protocol/nips/pull/2460" rel="noopener nofollow">NIP-01 PR #2460</a> (mattn, merged Sep 4) clarifies <code>limit: 0</code> as "skip stored events, keep subscription live", matching strfry, nostr-rs-relay, Khatru, Nostream and rnostr plus all seven public relays tested. AUTH moved from a relay feature into the normative layer of the spec.</li>
+<li><strong>strfry 1.1.2 (Aug 27) fixed three bugs, two reachable from any connected client.</strong> The most severe: a WebSocket DoS in <code>handleFragment</code> of the vendored uWebSockets (<code>golpe</code> submodule) where continuation frames were each tested against the payload limit but the accumulating <code>fragmentBuffer</code> was never checked — a client could send FIN-less continuation frames indefinitely and grow the relay's buffer without ceiling. The fix is five lines in <code>src/WebSocket.cpp</code> that test the buffer length after each append and force-close with <code>payload size exceeded</code> past <code>maxPayload</code>. Second: a negentropy-session crash when a client opened a new session with a <code>subId</code> whose previous query was still in flight — fixed by clearing <code>queries</code> and <code>views</code> before the new session registers. Third: a reconnect loop that wedged the uv event loop on <code>std::this_thread::sleep_for</code> and armed the 5000ms connection timer against a clock already made stale by the sleep, so the timer fired the moment it was set and tore down the socket that had just opened. The replacement defers with a non-blocking <code>uS::Timer</code> and splits <code>connectNow()</code> out. The WebSocket DoS needs no authentication and costs the relay memory rather than the sender — this is the one worth acting on.</li>
+<li><strong>Nostr WoT + QuantaKrypto published the PQ-identity writeup of the year.</strong> "<a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">Post-quantum Nostr identities, from your seed where possible</a>" (Leon Acosta, joint with QuantaKrypto, Sep 4) makes two arguments the <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> overview has been tracking but never spelled out at this depth: (a) the obvious derivation <code>pq_key = KDF(nsec)</code> is circular because Shor recovers <code>nsec</code> from <code>npub</code> and the attacker reruns the same KDF, so the post-quantum key falls with the identity; the fix is to derive secp256k1 <em>and</em> ML-KEM/ML-DSA as <strong>siblings from the BIP-39 seed</strong>, with domain-separated HKDF-SHA256 (<code>info = "nip-pqc/v1/ml-kem-1024/0"</code> and <code>"nip-pqc/v1/ml-dsa-87/0"</code>); (b) the kind 10203 attestation is the right artifact because the identity layer cannot host algorithm identifiers — most clients rebuild kind 0 from fields they know about, so a <code>pq_kem</code> field would silently vanish on the first profile edit. The companion piece "<a href="https://nostr-wot.com/blog/opt-in-quantum-resistant-direct-messages" rel="noopener nofollow">Post-quantum direct messages should not be opt-in</a>" argues the corollary: because identity cannot declare its algorithms, PQ has to ride as <code>window.nostr.nip44.encrypt(pubkey, plaintext, { scheme: 'pq', recipientKemKey })</code>, JavaScript discards the third argument, and silent downgrades are the predictable failure mode. The honest framing: kind 10203 works, needs no relay changes, and should be replaced by something structural. <strong>NIP #2434 (post-quantum identity keys, <a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">ConorClancy89</a>, opened Aug 11) is now 26 days frozen with only fiatjaf's early redirect comment.</strong></li>
+<li><strong>Nostr WoT newsroom published four pieces in five days</strong> — <a href="https://nostr-wot.com/news/nip-67-adds-an-auth-hint" rel="noopener nofollow">NIP-67 adds an auth hint to EOSE</a> (Sep 1), <a href="https://nostr-wot.com/news/nip-84-adds-i-tags-to-highlights" rel="noopener nofollow">NIP-84 adds i tags to highlights and loosens r</a> (Sep 2), <a href="https://nostr-wot.com/news/strfry-1-1-2-fixes-a-websocket-memory-dos" rel="noopener nofollow">strfry 1.1.2 fixes a WebSocket memory DoS</a> (Sep 3), <a href="https://nostr-wot.com/news/nip-78-puts-app-data-behind-auth" rel="noopener nofollow">NIP-78 puts custom app data behind AUTH</a> (Sep 4). Four pieces, all sourced to primary commits and PR diffs, with the AUTH thread visible across three of them.</li>
+<li><strong>NIP/identity watch list updated</strong>: PR #2434 (PQ identity keys) — <strong>26 days frozen</strong>; PR #2431 (NIP-07 pinning) — frozen; PR #2439 (NIP-86 assign/unassign) — frozen; PR #2440 (NIP-29 roles/permissions decoupling) — frozen. <strong>New merges this window</strong>: #2371 (NIP-67 auth hint), #2454 (NIP-84 i tags + loose r), #2458 (NIP-78 AUTH + relay keyword), #2460 (NIP-01 limit:0 semantics). <strong>NIPs PR #2447 (NIP-17 gift-wrap meta on outer event)</strong> still draft; <strong>PR #2452 (NIP-89 app handler), #2453 (NIP-50 search synonyms)</strong> opened last week still draft.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>AUTH stops being optional in the spec text this week</strong>. Four NIP merges, and three of them route through NIP-42's relay-side authentication gate — the EOSE hint tells the client <em>when</em> to authenticate, NIP-78 turns authentication into a SHOULD for the user's own app data, and NIP-01's <code>limit: 0</code> clarification formalizes the live-subscription contract that NIP-78 relies on. The relay-side defense is being built in the open: a WebSocket DoS that needed no authentication to grow the relay's memory was patched in 5 lines of uWebSockets. And the most rigorous argument yet for <em>why</em> the kind 10203 attestation exists was published on the same days — not as a destination, but as a workaround for an identity layer that never declared its own algorithm.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="the-four-pr-auth-wave-nip-67-nip-78-nip-84-nip-01">The four-PR AUTH wave: NIP-67, NIP-78, NIP-84, NIP-01</h3>
+<p><strong>NIP-67 PR #2371</strong> — <em>"auth" hint</em> — was opened by fiatjaf on June 6, 2026, reviewed by pablof7z and Semisol across multiple long threads (the privacy-leak debate around June 7–9 is the loudest), and merged 87 days later on September 1 by fiatjaf himself. The change is small on paper — 12 lines added, 16 removed across two files — and it touches both NIP-67 and NIP-42. The substance:</p>
+<p>The existing two NIP-67 hints answer a question about the relay's storage. <code>"finish"</code> says the relay has sent every stored event matching the subscription's filters, so the client should stop paginating. <code>"more"</code> says the relay is holding matching stored events it did not send, so the client should paginate to get them. The new value answers a question about the <em>client</em> instead:</p>
+<blockquote>
+<p><code>"auth"</code>: the relay may have more stored events matching the subscription's filters if the user performs <code>AUTH</code> (NIP-42).</p>
+</blockquote>
+<p>That is a different kind of incompleteness. <code>"more"</code> describes a result truncated by the relay's own limits, which paginating will eventually exhaust. <code>"auth"</code> describes a result truncated by <em>who the client is</em>, which paginating will never fix. Before this hint existed, the two were indistinguishable from the client side: an unauthenticated subscription that returned a partial view of a relay's data ended with the same <code>EOSE</code> as one that returned everything.</p>
+<p>The normative sentence is the part with teeth. Relays MUST ensure an <code>AUTH</code> challenge is sent <em>before</em> the <code>EOSE</code> that carries the <code>"auth"</code> hint. NIP-42 picks up a matching <code>auth</code> hint in <code>EOSE</code> section that restates the same rule from the authentication side and points at NIP-67 for the definition. Relays MAY use the hint; if they do, the AUTH challenge goes first. The example added ends with <code>["EOSE", "sub4", ["auth", "finish"]</code> — both values at once. Read together they say the relay has sent everything it will send at the client's current authentication level, and that a higher one may reveal more. <code>"finish"</code> is therefore <em>relative to the requester</em>, not an absolute statement about the relay's storage.</p>
+<p>The reason this matters for the identity layer: clients that read both AUTH signals now have a unified model — <code>auth-required</code> in <code>CLOSED</code>/<code>OK</code> (NIP-42) for hard refusals, <code>auth</code> hint in <code>EOSE</code> (NIP-67) for soft "more available behind AUTH". A NIP-78 read flow that gets <code>["auth"]</code> now knows <em>exactly</em> what to do: ask the user, run NIP-42, requery. Before this PR, the same flow had to either re-query everything or guess.</p>
+<p><strong>NIP-78 PR #2458</strong> — <em>NIP-78: require AUTH for kind 30078</em> — was opened by iqbqioza on Sep 2 and merged Sep 3 by fiatjaf, with alexgleason (Ditto) committing the second implementation evidence the spec needs. The interesting bit is the <em>shape</em> of the merge: alexgleason commented "<em>Very good.</em>" on Sep 2, then disclosed "<em>I updated Ditto Relay to require AUTH for NIP-78 events (relay.ditto.pub). Need a second implementation to merge this.</em>" iqbqioza asked whether Ditto covered both <code>kind 78</code> and <code>kind 30078</code>; alexgleason replied "<em>Oh wow, I didn't know kind 78 existed. I only did 30078.</em>" and committed a second change. The PR title was misleading — only <code>30078</code> was in the diff when first opened — so iqbqioza updated the title and the normative sentence to cover both. fiatjaf merged within 24 hours.</p>
+<p>The new section is three sentences under a new <code>## AUTH</code> heading:</p>
+<blockquote>
+<p>Because this data is private to the user, relays SHOULD require clients to perform the <a href="https://github.com/nostr-protocol/nips/blob/master/42.md" rel="noopener nofollow">NIP-42</a> <code>AUTH</code> flow before accepting or serving <code>kind 78</code> and <code>kind 30078</code> events, and SHOULD only serve these events to the authenticated owner, i.e. the client must authenticate with the same pubkey as the event author.</p>
+</blockquote>
+<p>Two obligations sit in that sentence, and they are not the same one stated twice. The first covers the gate: run the authentication handshake before the relay will take one of these events in, or hand one out. The second covers the <em>match</em>: having authenticated, the client only gets the events it wrote. A relay that required AUTH and then served every user's stored settings to anyone who bothered to log in would satisfy the first and fail the second.</p>
+<p>The pubkey comparison is against the event <em>author</em>, not against a tag. The nearest existing precedent — NIP-17 gift wrap — keys on the recipient in a <code>p</code> tag because the gift-wrap author is a throwaway key and the author field is useless. NIP-78 events are signed by the user, so the author field <em>is</em> the owner.</p>
+<p>The second half of the change is a paragraph inserted near the top, before the event definitions: <em>"These kinds are not meant to be used as a generic interchange format for data that should be public or exchanged between different applications. Applications that need such interoperability should use dedicated kinds instead."</em> This is guidance rather than a normative rule (no MUST/SHOULD), but it is the part that has practical teeth once relays act on the section below. Data written to <code>30078</code> on the assumption that other applications would read it stops being readable by them the moment a relay starts enforcing owner-only reads. The spec now says in advance that such use was out of scope.</p>
+<p>The header keyword line changed from <code>draft</code> <code>optional</code> to <code>draft</code> <code>optional</code> <code>relay</code>. NIP-78 previously described only what clients put in an event; it now tells relays what to do with one. Nineteen spec files currently carry the <code>relay</code> keyword, including NIP-01, NIP-42, NIP-17. NIP-78 is now in that list.</p>
+<p>The Ditto implementation is the operative answer to "<em>how quickly will enforcement spread?</em>" The user's own stored NIP-78 data on relay.ditto.pub is now owner-only-readable. The fallback path for a client that hits this on an unaware query is the lighter <code>["auth", "finish"]</code> hint NIP-67 just added: the relay returns nothing rather than <code>CLOSED</code>, and signals that authenticating would return more.</p>
+<p><strong>NIP-84 PR #2454</strong> — <em>Add i tags to highlights, clarify that r is whatever</em> — was opened by staab (Coracle) on Sep 1 with the disclosure that drove the change: <em>"I've been publishing highlights for a long time with a non-url source which amethyst and jumble fail to interpret because they assume it's a valid url. The sources I'm highlighting don't have a URL, so I can't follow the spec."</em> Merged the same day by pablof7z with fiatjaf review.</p>
+<p>The old text in the reference section was two sentences covering two cases: <code>a</code> or <code>e</code> tags for Nostr events, <code>r</code> tags for URLs. The replacement is a three-item list: <code>a</code>/<code>e</code> for Nostr events, <code>i</code> (per NIP-73) for structured non-Nostr sources like ISBNs and DOIs, and <code>r</code> as the catch-all that may now hold a URL <em>or</em> text. Two things happened at once — a case was added (the NIP-73 <code>i</code> vocabulary: <code>isbn:</code>, <code>doi:</code>, <code>isan:</code>, <code>geo:</code>, <code>iso3166:</code>, <code>podcast:guid:</code>, blockchain tx/address forms, <code>web</code> for normalized URL), and an existing case was redefined (<code>r</code> is no longer the URL tag).</p>
+<p>What <code>r</code> loses is the only tracker-stripping guidance in NIP-84 — a <code>SHOULD</code> to clean trackers and obvious non-useful query-string fragments from highlighted URLs was <em>also</em> removed with no relocation. Clients that strip tracking parameters from highlight sources are now doing so on their own judgement rather than on a <code>SHOULD</code> in the specification. NIP-73's normalized <code>web</code> URL form, which the <code>i</code> path now covers, drops the fragment but says nothing about query strings. There is also a leftover: the closing paragraph of NIP-84 still reads that <code>r</code>-tag URLs from the comment MUST have a <code>mention</code> attribute and the source URL MUST have the <code>source</code> attribute — that language assumes <code>r</code> holds a URL, which the reference section above it no longer requires. pablof7z noted in a follow-up that they have been posting with <code>i</code> for ISBN anyway; the PR's job is to make that practice normative.</p>
+<p>The second normative change is in the quote highlight section. A <code>comment</code> tag turns a highlight into a quote highlight, and the rendering rule went from <code>MUST</code> ("rendered like a quote repost with the highlight as the quoted note") to <code>SHOULD</code>. The reason — one highlight action should not produce two notes — survives in the surrounding prose; a client that renders quote highlights some other way is no longer out of compliance. The remaining edit is a typo fix (<code>creation and multiple notes</code> to <code>creation of multiple notes</code>) in that same paragraph.</p>
+<p><strong>NIP-01 PR #2460</strong> — <em>Clarify zero limit behavior</em> — was opened by mattn on Sep 4 and merged Sep 4 by fiatjaf with alexgleason review. The change is a one-paragraph clarification that <code>limit: 0</code> skips stored events while the relay still sends <code>EOSE</code> and keeps the subscription active for future matching events. The PR description is the proof: <em>"This matches strfry, nostr-rs-relay, Khatru, Nostream, and rnostr, as well as all seven public relays whose behavior was conclusively tested."</em> The norm lands <em>after</em> the implementations converged on it — NIP-01 is now stating what was already true. The downstream effect: clients that want "live only, no history" can use <code>limit: 0</code> with confidence it does the right thing on every mainstream relay. The NIP-78 AUTH flow on a freshly-AUTH'd subscription now has a documented <code>limit: 0</code> baseline it can rely on for "show me new events of my own kind 30078 since I AUTHed" without a separate <code>since</code> cursor.</p>
+<p>The connective tissue across all four: AUTH stops being optional in the spec text this week. Three of the four merged PRs route through NIP-42's relay-side authentication gate. The EOSE hint tells the client <em>when</em> to authenticate; NIP-78 turns authentication into a SHOULD for the user's own app data; NIP-01's <code>limit: 0</code> clarification formalizes the live-subscription contract that NIP-78's "show me my own data" flow relies on.</p>
+<h3 id="strfry-112-three-fixes-two-reachable-from-any-client">strfry 1.1.2 — three fixes, two reachable from any client</h3>
+<p><a href="https://github.com/hoytech/strfry/releases/tag/1.1.2" rel="noopener nofollow">strfry 1.1.2</a> was tagged Aug 27, 2026 — one day before last week's window opened — but the newsroom wrote it up on Sep 3 because the WebSocket-DoS fix is the kind of thing that needs to be on operator dashboards <em>now</em>. Five commits separate it from 1.1.1, touching four paths: <code>CHANGES</code>, the <code>golpe</code> submodule pointer, <code>src/WSConnection.h</code> and <code>src/apps/relay/RelayNegentropy.cpp</code>.</p>
+<p><strong>The WebSocket continuation-frame DoS</strong> is the headline. strfry vendors its WebSocket stack through <code>golpe</code>, and the tag bumps that submodule, which in turn bumps <a href="https://github.com/hoytech/uWebSockets/commit/1ef91686be0d1ceadf18a035616b96258e68fd1e" rel="noopener nofollow">uWebSockets</a>. The commit adds five lines to <code>handleFragment</code> in <code>src/WebSocket.cpp</code>:</p>
+<pre><code class="language-cpp">if (webSocket-&gt;fragmentBuffer.length() &gt; group-&gt;maxPayload) {
+    forceClose(webSocketState, (char*)"payload size exceeded", 21);
+    return true;
+}
+</code></pre>
+<p>The WebSocket protocol lets a single logical message arrive as a first frame followed by any number of continuation frames, with a final frame carrying the FIN bit. Until it is complete, the pieces accumulate in <code>fragmentBuffer</code>. The payload limit was being applied to frames, not to the buffer they were being appended to, so a client that sent continuation frames and never set FIN could push the buffer up indefinitely while every individual frame stayed under the limit. The new check tests the accumulated length after each append and force-closes with <code>payload size exceeded</code> once it passes <code>maxPayload</code>.</p>
+<p>This is the one worth acting on. It needs no authentication and no unusual protocol behavior beyond declining to finish a message, and the cost falls on relay memory rather than on the sender. Relay operators running strfry should be on 1.1.2 before the next DoS run, not after. The submodule bump means a rebuild has to pull it explicitly — a cached checkout won't pick it up.</p>
+<p><strong>The negentropy-session crash</strong> is the second fix. Negentropy is the set reconciliation protocol strfry uses for syncing, and each session is keyed by the subscription id the client chose. When a client opened a new session reusing an id whose previous query was still being processed, the relay crashed. The fix is three lines in <code>RelayNegentropy.cpp</code>:</p>
+<pre><code class="language-cpp">queries.removeSub(connId, subId);
+views.removeView(connId, subId);
+</code></pre>
+<p>Both calls sit immediately before the log line that records a new negentropy session, so a reused id now displaces whatever was under it instead of colliding with it. The subscription and the view are removed as a pair, which matches how they are created.</p>
+<p><strong>The reconnect loop</strong> is the third fix and the largest diff of the five commits. The old code took a delay before retrying a failed connection and implemented it with <code>std::this_thread::sleep_for</code> on the hub thread. That thread also runs the uv event loop. Sleeping on it stalls the loop's cached clock for the length of the delay, and the <code>hub.connect()</code> call that follows then arms its 5000ms connection timeout against a clock that is already stale. The timer is expired the moment it is set, fires on the next loop tick, and tears down the socket that had just been opened, before the WebSocket handshake completes.</p>
+<p>The first connection attempt used a delay of zero and so never slept, which is why it worked. Every reconnect after a disconnect failed the same way, permanently. The process keeps retrying and never exits, so a supervisor sees a running program and does not restart it. The replacement defers the retry with a non-blocking <code>uS::Timer</code> on the hub's loop, leaving the loop clock accurate, and splits the connect itself into <code>connectNow()</code>. A follow-up commit stores the pending timer on the connection so that <code>terminate()</code> can stop and close it rather than leaving it armed against an object that is going away.</p>
+<p>This path is the one used by strfry's <code>stream</code> and <code>sync</code> commands — so the symptom was a router or sync process that survived a relay restart in name only. Stream-based fanout pipelines (the canonical Nostr relay-to-relay topology) are exactly the deployment where this matters most.</p>
+<h3 id="the-pq-identity-writeup-of-the-year">The PQ-identity writeup of the year</h3>
+<p>The two Sept 4 pieces from <a href="https://nostr-wot.com" rel="noopener nofollow">Nostr WoT</a> are the week-end deeper read. The first, "<a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">Post-quantum Nostr identities, from your seed where possible</a>", is a joint proposal with QuantaKrypto that the <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> overview has been tracking but never spelled out at this depth. Two arguments drive it:</p>
+<p><strong>(a) The obvious derivation is circular.</strong> The natural thing to try is <code>pq_key = KDF(nsec)</code>. An adversary recovers <code>nsec</code> from <code>npub</code> (Shor's algorithm on secp256k1), runs the same KDF, and has your post-quantum key too. You have added computation and no security. Paul Millr — whose <a href="https://github.com/paulmillr/noble-post-quantum" rel="noopener nofollow"><code>@noble/post-quantum</code></a> most of this ecosystem depends on — opened <a href="https://github.com/nostr-protocol/nips/issues/1971" rel="noopener nofollow">issue #1971</a> on exactly this in July 2025. It has been running ever since with fiatjaf, Vitor Pamplona and Mike Dilger in the thread. The circular-derivation objection has killed every proposal in that thread. Working prototypes exist; a NIP does not.</p>
+<p><strong>(b) The fix is a change of shape, not of algorithm.</strong> NIP-06 already derives the Nostr key from a BIP-39 mnemonic at <code>m/44'/1237'/0'/0/0</code>. That derivation runs through HMAC-SHA512 and is <em>one-way</em> — given the resulting private key, you cannot walk back to the seed. So take the <em>same seed</em> and expand it a second time, with domain separation, into post-quantum keys:</p>
+<pre><code class="language-text">kem_seed = HKDF-SHA256(seed, info = "nip-pqc/v1/ml-kem-1024/0", 64 bytes)
+dsa_seed = HKDF-SHA256(seed, info = "nip-pqc/v1/ml-dsa-87/0", 32 bytes)
+</code></pre>
+<p>Both keys are children of the seed. Neither is a child of the other. An adversary who breaks secp256k1 and recovers the Nostr private key learns nothing about the seed (that would mean inverting HMAC-SHA512) and therefore nothing about the post-quantum keys. Messages encrypted to the ML-KEM key stay confidential <em>permanently</em>, even after the identity key is gone. And the user never touches the words — the same mnemonic restores the Nostr key and both post-quantum keys.</p>
+<p>The piece is honest about what this doesn't do: an adversary with a quantum computer can still sign events as you and publish a <em>replacement</em> attestation. This protects <strong>past</strong> messages permanently. It does not protect future messages against someone who has already broken secp256k1. Any proposal claiming otherwise is overselling, and the post is careful to say so.</p>
+<p>The 24-words piece is the second honest admission. BIP-39 expands any mnemonic to a 64-byte seed, so a 12-word phrase derives working post-quantum keys. But a 12-word phrase carries only 128 bits, and Grover gives a quadratic speedup on unstructured search — the seed, not the lattice, becomes the weakest link. So the first concrete change is boring: <em>generate 24 words by default</em>. That change is <a href="https://github.com/nostr-wot/nostr-wot-extension/pull/12" rel="noopener nofollow">already open against the nostr-wot-extension</a>.</p>
+<p>12-word identities are not abandoned, but they are handled differently. A 12-word phrase carries 128 bits, so the proposal refuses to derive from it rather than issue a key that looks full-strength and is not. Those accounts generate an <em>independent</em> post-quantum key instead, and their attestation is tagged <code>origin: independent</code> with no seed-strength claim, so a reader can tell the two provenances apart. The cost is real: an independent key cannot be recovered from the mnemonic, so it needs its own separate backup. Same situation as the large number of Nostr identities that have no mnemonic at all — most of them.</p>
+<p>Where the key goes is the third honest admission. Tempting answer: a field in your kind 0 profile, since that content is free-form JSON. Wrong answer. Most clients rebuild the profile object from the fields <em>they</em> know about and republish it. The first time a user changes their display name in a client that hasn't implemented this, the post-quantum key silently vanishes. The user still thinks they're reachable; senders stop seeing a key and quietly fall back to classic encryption. So the keys live in a dedicated replaceable event, <code>kind:10203</code>, signed by the normal key. Nothing else has a reason to overwrite it, and it carries what kind 0 can't — algorithm identifiers, seed strength, versioning for rotation.</p>
+<p>Proving you hold the key is the fourth: a secp256k1 signature proves you published those bytes but doesn't prove you hold the post-quantum keys. Someone could advertise a key they can't decrypt with — by bug or on purpose — and people would send them messages nobody can read. So the ML-DSA key counter-signs, over a message binding your <code>npub</code> and both post-quantum keys together. The reasoning follows Vitor Pamplona's <a href="https://github.com/nostr-protocol/nips/pull/2424" rel="noopener nofollow">Key Set Declaration proposal</a>, which makes the same argument about unilateral key claims.</p>
+<p>Hybrid, on purpose: the post-quantum shared secret is never used alone. It gets combined with the existing NIP-44 conversation key through a KDF, so the result is no weaker than either input. Lattice schemes are young and they do break — HAWK, a third-round NIST candidate, fell in July. A flaw in a new scheme must not make Nostr messaging <em>worse</em> than today.</p>
+<p>And critically: <em>"The whole thing rides inside the existing <a href="https://github.com/nostr-protocol/nips/blob/master/59.md" rel="noopener nofollow">gift wrap</a> machinery. Outer layers stay secp256k1, so post-quantum messages cross today's relay network unmodified and clients that ignore all of this are unaffected. <strong>No relay changes. No flag day.</strong>"</em> That last sentence is the identity-week consequence: the AUTH work that landed this week (NIP-67 hint, NIP-78 SHOULD) is <em>independent</em> of this PQ proposal — no relay change is needed for kind 10203 to land.</p>
+<p>The companion piece, "<a href="https://nostr-wot.com/blog/opt-in-quantum-resistant-direct-messages" rel="noopener nofollow">Post-quantum direct messages should not be opt-in</a>", makes the structural argument: Nostr versioned its encryption (NIP-44 carries a version byte) and left its keys unversioned. That inconsistency is internal to Nostr, not a matter of hindsight. Versioning was a known idea, applied to the payload and skipped on the key.</p>
+<p>The PQ consequence is mechanical:</p>
+<blockquote>
+<p>Additive is optional by definition. Optional means somebody has to choose. That is what "opt-in" means here: not a stance on user consent, but the absence of anywhere else to put the decision.</p>
+</blockquote>
+<p>Opt-in security protects the wrong people — it reaches people who already read about the threat, already understand harvest-now-decrypt-later, and already went looking. The journalist, the activist, the person whose messages will matter to somebody in fifteen years, are exactly the population least likely to have found a checkbox. And this particular protection has an expiry attached: confidentiality against a future break can only be applied <em>before</em> the message is sent.</p>
+<p>The piece frames the signer negotiation as scar tissue:</p>
+<blockquote>
+<p>Because post-quantum had to be a bolt-on, it rides on an optional third argument to an existing call:</p>
+<p><code>window.nostr.nip44.encrypt(pubkey, plaintext, { scheme: 'pq', recipientKemKey })</code></p>
+<p>JavaScript discards surplus arguments. A signer that has never heard of post-quantum takes that call, ignores the third argument, encrypts the ordinary way, and returns a perfectly valid ciphertext. No error. Nothing in the return value distinguishes it.</p>
+<p>A client that assumed support would then badge the message as quantum-protected when it is not. So we had to add a way to ask:</p>
+<p><code>window.nostr.nip44.schemes  // ["nip44", "pq"]</code></p>
+<p>That marker is not a feature. It is scar tissue. In a protocol where identity declared its own algorithms, no client would need to interrogate a signer about what it can do, because the identity would already say.</p>
+</blockquote>
+<p>The conclusion — <em>"Put the algorithm identifier in the identity on day one, before you have any users. It costs almost nothing while the network is empty and becomes nearly impossible once every client, relay and stored event assumes one curve"</em> — is the kind of line that should be quoted in the <a href="/pillars/pqc/">Migration Plan — PQ Encryption for Existing Nostr-Clients</a> file next time it is updated.</p>
+<p>The Obelisk three-state classification the post introduces is worth recording:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>State</th>
+<th>What holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Extra safe</strong></td>
+<td>Unreadable, nobody sees who you talk to, and a future quantum computer could not open it</td>
+</tr>
+<tr>
+<td><strong>Safe</strong></td>
+<td>Unreadable and nobody sees who you talk to, but a quantum computer could open it one day</td>
+</tr>
+<tr>
+<td><strong>Basic</strong></td>
+<td>Unreadable, but the servers carrying it see who you talk to</td>
+</tr>
+</tbody>
+</table></div>
+<p>NIP-17 gift wrap already hides who is talking to whom, which is genuine protection working <em>now</em>. Collapsing that into "quantum-safe or not" would erase it and turn the ordinary case into a permanent warning nobody reads.</p>
+<p>The honest framing matters: kind 10203 works, needs no relay changes, and <em>should be replaced by something structural</em>. The NIPs PR #2434 freeze (26 days, since Aug 11, with only fiatjaf's redirect comment) is the price the structural layer is paying for being unable to declare itself.</p>
+<h3 id="the-week-in-summary-three-threads-deeper">The week in summary, three threads deeper</h3>
+<p><strong>Thread 1 — AUTH stops being optional.</strong> Four NIPs PRs merged in six days. Three of them route through NIP-42's authentication gate. The EOSE hint tells the client <em>when</em> to authenticate. NIP-78 turns authentication into a SHOULD for the user's own app data. NIP-01's <code>limit: 0</code> clarification formalizes the live-subscription contract that NIP-78's "show me my own data" flow relies on. The relay-side enforcement story is being built in the open, with second-implementation evidence (Ditto on NIP-78) gating the merge. The interesting operational point: the same week saw a WebSocket DoS in strfry that needed <em>no</em> authentication and cost the relay memory. AUTH additions tighten the <em>authorized</em> path; relay-class buffer-bugs like the uWebSockets fix tighten the <em>unauthenticated</em> path. Both are getting attention in the same week.</p>
+<p><strong>Thread 2 — Hardware-ish relay hardening.</strong> strfry 1.1.2 is a relay-side hardening release, not a feature release. WebSocket frame accounting, negentropy session lifecycle, and uv loop clock hygiene are not user-visible. The exposure surface they close — a memory-DoS reachable from any connected client, a session collision crash from a reused subscription id, a reconnect loop that wedges the hub thread — is the kind of thing that shows up in postmortems after the next relay outage. The <code>golpe</code> submodule bump is the mechanism: the fix lives in the vendored uWebSockets, not in strfry's own code, and a rebuild has to pull it. Operators running strfry from a cached checkout who skip the submodule update stay on the vulnerable code.</p>
+<p><strong>Thread 3 — PQ Nostr as a structural argument.</strong> The two Sept 4 Nostr WoT pieces are the most rigorous write-ups of the kind-10203 attestation and its limits to date. The argument is <em>not</em> "kind 10203 is the answer" — it is "kind 10203 is a workaround for an identity layer that never declared its own algorithm, and the workaround works, needs no relay changes, and should be replaced by something structural". The proposed NIP-PR #2434 still hasn't moved in 26 days. Three independent implementations exist (nostr-wot-extension 0.4.0, NDK PR #713, Gleez blog reference); three open standardization proposals (kind 10203 attestation, key-set declaration, payto/identity alt); and one structural debate (Leon Acosta + QuantaKrypto's kind 10203 specification vs the Vitor Pamplona Key Set Declaration alternative). The window for the structural layer to pick one is closing slowly. The AUTH work in NIPs this week is independent of all of it — kind 10203 lands without touching NIP-42.</p>
+<h2 id="watch-list-updated">Watch List (Updated)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Source</th>
+<th>Status</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NIP-67 PR #2371 — "auth" EOSE hint</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Merged Sep 1</strong></td>
+<td>Opened Jun 6 by fiatjaf, 87-day window; third hint value, AUTH challenge-before-EOSE ordering</td>
+</tr>
+<tr>
+<td>NIP-78 PR #2458 — AUTH required for kinds 78/30078</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Merged Sep 3</strong></td>
+<td>Two-implementation evidence (Ditto + iqbqioza engine); relay keyword added</td>
+</tr>
+<tr>
+<td>NIP-84 PR #2454 — i tags + loose r</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Merged Sep 1</strong></td>
+<td>NIP-73 i-tag vocabulary for non-Nostr sources; tracker-stripping <code>SHOULD</code> removed; closing paragraph has leftover <code>mention</code>/<code>source</code> language</td>
+</tr>
+<tr>
+<td>NIP-01 PR #2460 — <code>limit: 0</code> semantics</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Merged Sep 4</strong></td>
+<td>Matches strfry, nostr-rs-relay, Khatru, Nostream, rnostr + seven public relays</td>
+</tr>
+<tr>
+<td>strfry 1.1.2</td>
+<td>github.com/hoytech/strfry</td>
+<td><strong>Tagged Aug 27</strong></td>
+<td>WebSocket continuation-frame DoS fix; negentropy session crash fix; reconnect-loop fix</td>
+</tr>
+<tr>
+<td>"Post-quantum Nostr identities, from your seed where possible"</td>
+<td>nostr-wot.com/blog</td>
+<td><strong>Published Sep 4</strong></td>
+<td>Leon Acosta + QuantaKrypto; sibling-derivation rationale; 24-word vs 12-word handling; kind 10203 framed as workaround</td>
+</tr>
+<tr>
+<td>"Post-quantum direct messages should not be opt-in"</td>
+<td>nostr-wot.com/blog</td>
+<td><strong>Published Sep 4</strong></td>
+<td>Same authors; structural argument for cryptographic agility; Obelisk three-state classification</td>
+</tr>
+<tr>
+<td>Nostr WoT newsroom (4 pieces, Sep 1–4)</td>
+<td>nostr-wot.com/news</td>
+<td><strong>Published</strong></td>
+<td>Three of four cover the AUTH thread; one covers strfry hardening</td>
+</tr>
+<tr>
+<td>NIP #2434 (PQ identity keys)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>26 days frozen</strong></td>
+<td>Only fiatjaf's early redirect comment; implementations lead by 3</td>
+</tr>
+<tr>
+<td>NIP #2431 (NIP-07 pinning)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Frozen</strong></td>
+<td>Companion to #2434</td>
+</tr>
+<tr>
+<td>NIP #2439 (NIP-86 assign/unassign)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Frozen</strong></td>
+<td>Identity-adjacent</td>
+</tr>
+<tr>
+<td>NIP #2440 (NIP-29 roles/permissions)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Frozen</strong></td>
+<td>Identity-adjacent</td>
+</tr>
+<tr>
+<td>NIP-17 outer-event metadata (#2447)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Draft</strong></td>
+<td>Outer envelope hints for clients</td>
+</tr>
+<tr>
+<td>NIP-89 app handler (#2452)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Draft (last week)</strong></td>
+<td>Application metadata — not identity</td>
+</tr>
+<tr>
+<td>NIP-50 search synonyms (#2453)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Draft (last week)</strong></td>
+<td>Search ranking signal</td>
+</tr>
+<tr>
+<td>NIP-65 relay-list dedupe (#2454)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Note: PR #2454 is NIP-84, not NIP-65</strong></td>
+<td>Watch list housekeeping — last week's column was wrong; #2454 was the NIP-84 merge this week</td>
+</tr>
+<tr>
+<td><strong>New: NIP-17 review thread on kind:1059 + p-tag scoping</strong></td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>No PR open this week</strong></td>
+<td>Semisol's June discussion on AUTH-with-reason touched it; worth re-reading now that NIP-67 hint lands</td>
+</tr>
+<tr>
+<td><strong>New: NIP-78 second-implementation roster</strong></td>
+<td>alexgleason/Ditto, iqbqioza/nostr-engine</td>
+<td><strong>Implementing</strong></td>
+<td>Both relays updated; relay-tools cookiecutter implementation pending</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sources-cross-references">Sources &amp; Cross-References</h2>
+<h3 id="primary-sources">Primary sources</h3>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2371" rel="noopener nofollow">NIP-67 PR #2371 — "auth" EOSE hint</a> (opened Jun 6 by fiatjaf, merged Sep 1)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">NIP-78 PR #2458 — require AUTH for kind 30078</a> (opened Sep 2 by iqbqioza, merged Sep 3; second-implementation evidence from alexgleason/Ditto)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2454" rel="noopener nofollow">NIP-84 PR #2454 — Add i tags to highlights</a> (opened Sep 1 by staab/Coracle, merged Sep 1 by pablof7z)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2460" rel="noopener nofollow">NIP-01 PR #2460 — Clarify zero limit behavior</a> (opened Sep 4 by mattn, merged Sep 4 by fiatjaf)</li>
+<li><a href="https://github.com/hoytech/strfry/releases/tag/1.1.2" rel="noopener nofollow">strfry 1.1.2 tag</a> (Aug 27)</li>
+<li><a href="https://github.com/hoytech/strfry/compare/1.1.1...1.1.2" rel="noopener nofollow">strfry compare 1.1.1...1.1.2</a> — five commits</li>
+<li><a href="https://github.com/hoytech/uWebSockets/commit/1ef91686be0d1ceadf18a035616b96258e68fd1e" rel="noopener nofollow">uWebSockets commit 1ef9168</a> — <code>handleFragment</code> fix</li>
+<li><a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">"Post-quantum Nostr identities, from your seed where possible"</a> (Sep 4, Leon Acosta + QuantaKrypto)</li>
+<li><a href="https://nostr-wot.com/blog/opt-in-quantum-resistant-direct-messages" rel="noopener nofollow">"Post-quantum direct messages should not be opt-in"</a> (Sep 4, Leon Acosta)</li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-extension/pull/12" rel="noopener nofollow">nostr-wot-extension PR #12 — 24-word default</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">NIPs PR #2434 — NIP-XX: Post-Quantum Identity Keys</a> (opened Aug 11 by ConorClancy89; references <a href="https://github.com/nostr-protocol/nips/issues/1971" rel="noopener nofollow">issue #1971</a>)</li>
+<li><a href="https://quantakrypto.com/blog/obelisk-first-nostr-client-post-quantum-dms" rel="noopener nofollow">QuantaKrypto Obelisk writeup</a> (referenced in the Nostr WoT post)</li>
+<li><a href="https://obelisk.ar/guides/quantum-safe-dms" rel="noopener nofollow">Obelisk guide: Quantum-safe DMs</a></li>
+<li>Nostr-wot newsroom pieces:</li>
+<li><a href="https://nostr-wot.com/news/nip-67-adds-an-auth-hint" rel="noopener nofollow">NIP-67 adds an auth hint to EOSE</a> (Sep 1)</li>
+<li><a href="https://nostr-wot.com/news/nip-84-adds-i-tags-to-highlights" rel="noopener nofollow">NIP-84 adds i tags to highlights and loosens r</a> (Sep 2)</li>
+<li><a href="https://nostr-wot.com/news/strfry-1-1-2-fixes-a-websocket-memory-dos" rel="noopener nofollow">strfry 1.1.2 fixes a WebSocket memory DoS</a> (Sep 3)</li>
+<li><a href="https://nostr-wot.com/news/nip-78-puts-app-data-behind-auth" rel="noopener nofollow">NIP-78 puts custom app data behind AUTH</a> (Sep 4)</li>
+</ul>
+<h3 id="related-weekly-updates">Related weekly updates</h3>
+<ul>
+<li><a href="/briefings/identity/2026-08-30/">Identity and Pseudonymity Sunday — August 30 2026 Weekly Update</a> — three-NIP block (NIP-22 deletion, NIP-30 emoji, NIP-A3 payto rewrite); Foundation Passport Nostr Signer; Gleez PQ Nostr reference architecture</li>
+<li><a href="/briefings/identity/2026-08-23/">Identity and Pseudonymity Sunday — August 23 2026 Weekly Update</a> — DCP refutation (ePrint 2026/1693); NDK PR #713 second PQ implementation; Amber 6.5.x; Cambium 0.4.x</li>
+<li><a href="/briefings/identity/2026-08-16/">Identity and Pseudonymity Sunday — August 16 2026 Weekly Update</a> — nostr-wot-extension 0.4.0 ships production PQ identity keys; World ID 4.0; LFDT DTG</li>
+<li><a href="/briefings/identity/2026-08-09/">Identity and Pseudonymity Sunday — August 09 2026 Weekly Update</a> — Buzz agent-as-keypair; Concord replaces Marmot; FROST consumer onboarding</li>
+<li><a href="/briefings/post-quantum/2026-09-05/">Post-Quantum Saturday — September 05 2026 Weekly Update</a> — ML-KEM draft-10 / ML-DSA-in-TLS appeal 59 days; ML-DSA in RFC Ed Queue; SVP / WeaveTLS / McEliece</li>
+<li><a href="/briefings/web-of-trust/2026-09-03/">WoT Thursday — September 03 2026 Weekly Update</a> — kind:10203 plateau 22→24; GnuPG 2.5.22; Sequoia 16 PQC commits</li>
+</ul>
+<h3 id="related-vault-files">Related vault files</h3>
+<ul>
+<li><a href="/kb/nostr-identity/">Nostr</a> — primary protocol reference</li>
+<li><a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> — key-rooted identity architecture; updated <code>updated:</code> stamp is <em>this week</em></li>
+<li><a href="/kb/decentralized-identity/">Overview - Decentralized Identity</a> — formal DID/VC stack; companion file to the key-rooted lens</li>
+<li><a href="/kb/web-of-trust/">Overview - Web of Trust</a> — PGP and Nostr follow graphs, the <a href="/kb/nostr-web-of-trust/">nostr-wot-extension</a> lineage</li>
+<li><a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> — NIP-46 bunkers, Amber, Frostr/Bifrost, threshold signing, migration</li>
+<li><a href="/kb/remote-signing/">Remote Signing</a> — NIP-46 bunker topologies; the third hardware path (Passport) lands here too</li>
+<li><a href="/kb/pubky/">Pubky</a> — Ed25519 + Mainline DHT (PKARR), alternative identity architecture</li>
+<li><a href="/kb/verifiable-credentials/">Verifiable Credentials</a> — profile claims riding the same identity surface; NIP-A3 (kind 10133) is the payto cousin</li>
+<li><a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a> — agent-as-keypair; Foundation Passport <em>could</em> sign kind 30085 events for agents</li>
+<li><a href="/kb/buzz/">Buzz</a> — Block's agent workspace; Obelisk is a QuantaKrypto alternative</li>
+<li><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst</a> — NIP-84 highlight reader; consumer of the kind 1111 / i tag vocabulary</li>
+<li><a href="https://coracle.social" rel="noopener nofollow">Coracle</a> — staab's client; PR #2454 origin</li>
+<li><a href="https://github.com/soapbox-pub/ditto" rel="noopener nofollow">Ditto</a> — alexgleason's relay; second-implementation evidence for NIP-78 AUTH</li>
+<li>DCP — Simon's claimed post-quantum signature scheme; ePrint 2026/1693 refutation context</li>
+<li><a href="/kb/marmot-protocol/">Marmot Protocol</a> — MLS over Nostr; NIP-104</li>
+<li><a href="/pillars/pqc/">Migration Plan — PQ Encryption for Existing Nostr-Clients</a> — Gleez + nostr-wot-extension 0.4.0 + NDK PR #713 + kind 10203 spec = four references now</li>
+<li><a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> — interop salt/info coordination problem; now a four-implementation problem (Gleez HKDF <code>nip44-hybrid-v1</code>/<code>nostr-hybrid-chat</code>, NDK PR #713, nostr-wot-extension 0.4.0, Obelisk kind 10203)</li>
+<li><a href="/kb/hardware-wallets/">Hardware Signers</a> — Heartwood, Amber, Passport are the canonical three</li>
+<li><a href="/kb/did-methods/">DID Methods</a> — did:nostr, did:pubky; kind 10203 (NIP-A3 cousin) as the missing algorithm-identifier slot</li>
+<li><a href="/guides/hybrid-kem-migration/">Cryptographic Agility</a> — new related concept worth a vault page; "Put the algorithm identifier in the identity on day one" is the line that anchors it</li>
+<li><a href="https://github.com/uNetworking/uWebSockets" rel="noopener nofollow">uWebSockets</a> — relay-side WebSocket stack; the strfry DoS fix landed in this vendored library</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-08-30/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — August 30 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-09-13/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — September 13 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

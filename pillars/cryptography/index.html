@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Privacy-Enhancing Cryptography — Pillar — ungovernable.tech</title>
+<meta name="description" content="How do I compute on, query or share data without revealing it? Fully homomorphic encryption, multi-party computation, private information retrieval, private set intersection, threshold signatures and the primitives underneath them. Math instead of trust.">
+<link rel="canonical" href="https://ungovernable.tech/pillars/cryptography/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Privacy-Enhancing Cryptography — Pillar — ungovernable.tech">
+<meta property="og:description" content="How do I compute on, query or share data without revealing it? Fully homomorphic encryption, multi-party computation, private information retrieval, private set intersection, threshold signatures and the primitives underneath them. Math instead of trust.">
+<meta property="og:url" content="https://ungovernable.tech/pillars/cryptography/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Privacy-Enhancing Cryptography — Pillar — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy-Enhancing Cryptography — Pillar — ungovernable.tech">
+<meta name="twitter:description" content="How do I compute on, query or share data without revealing it? Fully homomorphic encryption, multi-party computation, private information retrieval, private set intersection, threshold signatures and the primitives underneath them. Math instead of trust.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Pillars", "item": "https://ungovernable.tech/pillars/"}, {"@type": "ListItem", "position": 3, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/">Pillars</a><span aria-hidden="true">/</span><span class="here">Privacy-Enhancing Cryptography</span></nav>
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x0b / 0x0e</span>How do I compute on, query or share data without revealing it?</p>
+    <h1>Privacy-Enhancing Cryptography</h1>
+    <p class="dek">Fully homomorphic encryption, multi-party computation, private information retrieval, private set intersection, threshold signatures and the primitives underneath them. Math instead of trust.</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon"><svg class="glyph g-cryptography" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><rect x="5.5" y="10.5" width="13" height="9.5"/><path d="M9 10.5V8a3 3 0 0 1 6 0v2.5"/><path d="M9.3 14h.01M12 14h.01M14.7 14h.01M9.3 16.8h.01M12 16.8h.01M14.7 16.8h.01" stroke-linecap="round"/></svg></span><div class="ident-wrap"><svg class="identicon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="0" y="0" width="1" height="1" opacity="0.90"/><rect x="11" y="0" width="1" height="1" opacity="0.90"/><rect x="1" y="0" width="1" height="1" opacity="0.30"/><rect x="10" y="0" width="1" height="1" opacity="0.30"/><rect x="5" y="0" width="1" height="1" opacity="0.55"/><rect x="6" y="0" width="1" height="1" opacity="0.55"/><rect x="0" y="1" width="1" height="1" opacity="0.90"/><rect x="11" y="1" width="1" height="1" opacity="0.90"/><rect x="0" y="2" width="1" height="1" opacity="0.90"/><rect x="11" y="2" width="1" height="1" opacity="0.90"/><rect x="5" y="2" width="1" height="1" opacity="0.30"/><rect x="6" y="2" width="1" height="1" opacity="0.30"/><rect x="2" y="3" width="1" height="1" opacity="0.30"/><rect x="9" y="3" width="1" height="1" opacity="0.30"/><rect x="5" y="3" width="1" height="1" opacity="0.90"/><rect x="6" y="3" width="1" height="1" opacity="0.90"/><rect x="0" y="4" width="1" height="1" opacity="0.30"/><rect x="11" y="4" width="1" height="1" opacity="0.30"/><rect x="4" y="4" width="1" height="1" opacity="0.55"/><rect x="7" y="4" width="1" height="1" opacity="0.55"/><rect x="1" y="6" width="1" height="1" opacity="0.30"/><rect x="10" y="6" width="1" height="1" opacity="0.30"/><rect x="4" y="6" width="1" height="1" opacity="0.30"/><rect x="7" y="6" width="1" height="1" opacity="0.30"/><rect x="0" y="7" width="1" height="1" opacity="0.30"/><rect x="11" y="7" width="1" height="1" opacity="0.30"/><rect x="3" y="7" width="1" height="1" opacity="0.30"/><rect x="8" y="7" width="1" height="1" opacity="0.30"/><rect x="4" y="7" width="1" height="1" opacity="0.55"/><rect x="7" y="7" width="1" height="1" opacity="0.55"/><rect x="5" y="7" width="1" height="1" opacity="0.55"/><rect x="6" y="7" width="1" height="1" opacity="0.55"/><rect x="2" y="8" width="1" height="1" opacity="0.55"/><rect x="9" y="8" width="1" height="1" opacity="0.55"/><rect x="4" y="8" width="1" height="1" opacity="0.55"/><rect x="7" y="8" width="1" height="1" opacity="0.55"/><rect x="5" y="8" width="1" height="1" opacity="0.30"/><rect x="6" y="8" width="1" height="1" opacity="0.30"/><rect x="5" y="9" width="1" height="1" opacity="0.55"/><rect x="6" y="9" width="1" height="1" opacity="0.55"/><rect x="0" y="10" width="1" height="1" opacity="0.90"/><rect x="11" y="10" width="1" height="1" opacity="0.90"/><rect x="5" y="10" width="1" height="1" opacity="0.30"/><rect x="6" y="10" width="1" height="1" opacity="0.30"/><rect x="0" y="11" width="1" height="1" opacity="0.30"/><rect x="11" y="11" width="1" height="1" opacity="0.30"/><rect x="2" y="11" width="1" height="1" opacity="0.90"/><rect x="9" y="11" width="1" height="1" opacity="0.90"/><rect x="5" y="11" width="1" height="1" opacity="0.30"/><rect x="6" y="11" width="1" height="1" opacity="0.30"/></svg></div>
+    <p class="hexline">e0 65 54 81 8e 90 2b 4b a3 39 f0 66 96 7c 00 00</p>
+  </div>
+</header>
+
+<div class="hub">
+
+
+<section>
+  <h2 class="sec-h">Start here</h2>
+  <div class="rows">
+    <a class="row" href="/kb/authenticated-data-structures/">
+  <span class="nm">Authenticated Data Structures</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/fully-homomorphic-encryption/">
+  <span class="nm">Fully Homomorphic Encryption</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/multi-party-computation/">
+  <span class="nm">Multi-Party Computation</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/oblivious-ram/">
+  <span class="nm">Oblivious RAM</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/pir-use-cases/">
+  <span class="nm">PIR Use Cases and Deployments</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/private-set-intersection/">
+  <span class="nm">Private Set Intersection</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/threshold-signatures/">
+  <span class="nm">Threshold Signatures</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/verifiable-delay-functions/">
+  <span class="nm">Verifiable Delay Functions (VDFs)</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/verifiable-random-functions/">
+  <span class="nm">Verifiable Random Functions (VRFs)</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Guides</h2>
+  <div class="rows">
+    <a class="row" href="/guides/encrypting-files-and-backups/">
+  <span class="nm">Encrypting Files, Disks and Backups<small class="also">Encryption at rest is what stands between a seized or stolen device and everything on it.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">1 hour</span>
+</a><a class="row" href="/guides/private-file-sync-and-backup/">
+  <span class="nm">Private File Sync and Backup<small class="also">Maintain useful working copies, limit what a remote storage host can read, and preserve a way back from mistakes.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">None</span>
+</a><a class="row" href="/guides/verifying-software/">
+  <span class="nm">Verify software before installing it<small class="also">Confirm who signed the bytes you will run, then ask whether those bytes can be rebuilt from the published source.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">None</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Technologies</h2>
+  <div class="rows">
+    <a class="row" href="/kb/age-encryption/">
+  <span class="nm">age: Modern File Encryption<small class="also">also in opsec</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/monero/">
+  <span class="nm">Monero<small class="also">also in money</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/openpgp-web-of-trust/">
+  <span class="nm">The OpenPGP Web of Trust<small class="also">also in identity</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/biscuit/">
+  <span class="nm">Biscuit authorization tokens<small class="also">also in identity</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/drand-tlock/">
+  <span class="nm">drand and tlock</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/fedimint/">
+  <span class="nm">Fedimint<small class="also">also in money</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/magic-wormhole/">
+  <span class="nm">Magic Wormhole<small class="also">also in storage</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/opaque-and-pake/">
+  <span class="nm">OPAQUE and PAKEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bbs-signatures/">
+  <span class="nm">BBS+ Signatures</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/fhe-bootstrapping-and-verification/">
+  <span class="nm">FHE Bootstrapping and Verification</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/pir-research-frontier/">
+  <span class="nm">PIR Research Frontier</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/simplepir-doublepir/">
+  <span class="nm">SimplePIR and DoublePIR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Reference and research</h2>
+  <div class="rows">
+    <a class="row" href="/kb/compare-fhe-libraries/">
+  <span class="nm">Compare fully homomorphic encryption libraries<small class="also">also in confidential computing</small></span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pir-implementations/">
+  <span class="nm">PIR Implementations and Libraries</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/compare-private-computation/">
+  <span class="nm">Private computation compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/pir-survey/">
+  <span class="nm">Private Information Retrieval: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+  </div>
+</section>
+
+
+
+<section id="directory">
+  <h2 class="sec-h">Directory<span class="count">78 curated links</span></h2>
+  
+  <div class="dsub">
+    <h3>FHE: Research</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://fhe.org/resources/" rel="noopener nofollow">Full Homomorphic Encryption resources</a>
+        
+        <span class="ldesc"> — tons of FHE resources</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.zama.ai/post/dark-market-tfhe-rs" rel="noopener nofollow">Dark market implementation with FHE</a>
+        
+        
+        
+      </li>
+      
+      <li>
+        <a href="https://research.ibm.com/topics/fully-homomorphic-encryption" rel="noopener nofollow">IBM Research FHE</a>
+        
+        <span class="ldesc"> — IBM&#39;s comprehensive resource on Fully Homomorphic Encryption, addressing the security gap when processing data. Their implementation provides security and privacy for data at rest, in transit, and during processing. IBM&#39;s work builds on Craig Gentry&#39;s groundbreaking 2009 research that introduced the first plausible fully homomorphic scheme.</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.fau.edu/engineering/senior-design/projects/spring2024/homomorphic-encryption-at-scale/" rel="noopener nofollow">Homomorphic Encryption at Scale</a>
+        
+        <span class="ldesc"> — Florida Atlantic University&#39;s project exploring advancements in FHE, focusing on overcoming computational inefficiency challenges. Their research team has implemented bootstrapping techniques to reduce noise and incorporated parallel processing to enhance function optimization, particularly for linear regression models.</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.hes-so.ch/en/recherche-innovation/research-projects/detail-projet-recherche/cryptml-an-hybrid-machine-learning-model-using-homomorphic-encryption" rel="noopener nofollow">CRYPTML</a>
+        
+        <span class="ldesc"> — A hybrid machine learning model using homomorphic encryption developed at HES-SO. This project explores a hybrid client-server architecture enabling machine learning computation on encrypted data, addressing the challenges of preserving privacy in AI applications.</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>FHE: Libraries and Tools</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/google/heir" rel="noopener nofollow">google/heir</a>
+        
+        <span class="ldesc"> — A compiler for homomorphic encryption from Google, enabling automatic compilation of programs to work on encrypted data</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://paperswithcode.com/paper/openfhe-open-source-fully-homomorphic" rel="noopener nofollow">OpenFHE</a>
+        
+        <span class="ldesc"> — A comprehensive open-source FHE software library incorporating design ideas from prior FHE projects like PALISADE, HElib, and HEAAN. OpenFHE includes features like automatic maintenance operations and hardware acceleration support through a standard Hardware Abstraction Layer (HAL).</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://dl.acm.org/doi/10.1145/3560827.3563379" rel="noopener nofollow">OpenFHE v2.0</a>
+        
+        <span class="ldesc"> — Major December 2025 update with improved performance and new features (ACM TOPS 2025)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://inpher.io/tfhe-library/" rel="noopener nofollow">TFHE Library by Inpher</a>
+        
+        <span class="ldesc"> — One of the world&#39;s fastest open-source Fully Homomorphic Encryption libraries, maintained by Inpher&#39;s team with contributions from leading universities and privacy-first enterprises worldwide. The library implements the scheme described in the best paper from IACR&#39;s Asiacrypt 2016 conference.</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://sefiks.com/2023/04/10/a-step-by-step-fully-homomorphic-encryption-example-with-tenseal-in-python/" rel="noopener nofollow">TenSEAL</a>
+        
+        <span class="ldesc"> — A practical FHE library for Python that allows performing both addition and multiplication on encrypted data. Unlike partially homomorphic encryption algorithms like RSA, ElGamal, or Paillier, TenSEAL offers fully homomorphic capabilities for real-world applications.</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/FHE-Postgres/pg_fhe" rel="noopener nofollow">PostgreSQL Fully Homomorphic Encryption</a>
+        
+        
+        
+      </li>
+      
+      <li>
+        <a href="https://www.highgo.ca/2019/09/30/the-transparent-data-encryption-in-postgresql/" rel="noopener nofollow">The Transparent data encryption in PostgreSQL - Highgo Software Inc.</a>
+        
+        
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/zama-ai/tfhe-rs" rel="noopener nofollow">tfhe-rs</a>
+        
+        <span class="ldesc"> — TFHE-rs: A Pure Rust implementation of the TFHE Scheme for Boolean and Integer Arithmetics Over Encrypted Data.</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/wgxli/simple-fhe" rel="noopener nofollow">wgxli/simple-fhe</a>
+        
+        <span class="ldesc"> — A dead-simple library for full homomorphic encryption (FHE) in Python</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/hung-ngm/fhe-darkpool" rel="noopener nofollow">hung-ngm/fhe-darkpool</a>
+        
+        <span class="ldesc"> — Test implementation of dark pool using Full Homomorphic Encryption (FHE)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/FeanorTheElf/fheanor" rel="noopener nofollow">FeanorTheElf/fheanor</a>
+        
+        <span class="ldesc"> — A modular library for designing and optimising homomorphic encryption schemes</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/cipherflow-fhe/latti-ai" rel="noopener nofollow">cipherflow-fhe/latti-ai</a>
+        
+        <span class="ldesc"> — Framework for performing AI model inference on encrypted data using FHE</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/danieleschmidt/homomorphic-llm-proxy" rel="noopener nofollow">danieleschmidt/homomorphic-llm-proxy</a>
+        
+        <span class="ldesc"> — GPU-accelerated gateway for FHE of LLM inference — process prompts on untrusted cloud infrastructure while maintaining complete privacy</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/tuneinsight/lattigo" rel="noopener nofollow">Lattigo</a>
+        
+        <span class="ldesc"> — Open-source lattice-based homomorphic encryption library in Go, maintained by Tune Insight (originally EPFL)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/openfheorg/openfhe-development" rel="noopener nofollow">OpenFHE</a>
+        
+        <span class="ldesc"> — Comprehensive open-source FHE library supporting all major schemes (BGV, BFV, CKKS, FHEW, TFHE) with hardware acceleration HAL</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/FhenixProtocol/fhenix-confidential-contracts" rel="noopener nofollow">Fhenix Confidential Contracts</a>
+        
+        <span class="ldesc"> — Solidity smart contracts for confidential ERC-20 tokens using FHE on the Fhenix L2 network</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>FHE: FHE Ecosystem Updates</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.zama.org/post/zama-at-fhe-org-2026-eight-contributions-from-taipei" rel="noopener nofollow">Zama at FHE.org 2026: Eight Contributions from Taipei</a>
+        
+        <span class="ldesc"> — New sorting-based techniques for faster TFHE deployments</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://fhe.org/conferences/conference-2025/program.html" rel="noopener nofollow">FHE.org 2026 Taipei</a>
+        
+        <span class="ldesc"> — 5th Annual FHE conference colocated with Real World Crypto 2026</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.ainvest.com/news/zama-fhe-technology-enables-private-computation-institutional-adoption-2026-2604/" rel="noopener nofollow">Zama FHE Technology Enables Private Computation</a>
+        
+        <span class="ldesc"> — Institutional adoption in 2026, confidential smart contracts in Solidity</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://cn.tradingview.com/news/panews:4ada7974fe3f9:0/" rel="noopener nofollow">Mind Network FHE A2A</a>
+        
+        <span class="ldesc"> — First FHE-based A2A privacy solution with x402 protocol</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://blockeden.xyz/blog/2026/01/05/zama-protocol/" rel="noopener nofollow">Inco Network</a>
+        
+        <span class="ldesc"> — Confidentiality-as-a-service using Zama&#39;s fhEVM for existing chains</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.openzeppelin.com/networks/zama" rel="noopener nofollow">OpenZeppelin Zama Networks</a>
+        
+        <span class="ldesc"> — OpenZeppelin audited smart contracts for Zama FHEVM</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://cryptorank.io/news/feed/521c5-zama-rwa-privacy-trex-ledger" rel="noopener nofollow">Zama T-REX Ledger Integration</a>
+        
+        <span class="ldesc"> — FHE-powered RWA tokenization for institutional finance</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://x.com/cxmrondlls/status/1978506404400136611" rel="noopener nofollow">Zama $57M Series B</a>
+        
+        <span class="ldesc"> — Zama raised $57M B轮融资,估值超过$1B for FHE区块链应用</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.zama.org/post/announcing-the-zama-confidential-blockchain-protocol" rel="noopener nofollow">Zama Confidential Blockchain Protocol</a>
+        
+        <span class="ldesc"> — Mainnet launch December 2025 for confidential smart contracts on any L1/L2</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.kucoin.com/news/articles/fhe-in-2026-computing-on-encrypted-data-and-the-projects-making-private-blockchains-a-reality" rel="noopener nofollow">Zama Confidential USDT Transfers</a>
+        
+        <span class="ldesc"> — First confidential USDT transfers on mainnet</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://phemex.com/academy/what-is-zama" rel="noopener nofollow">ZAMA Token Launch</a>
+        
+        <span class="ldesc"> — ZAMA token launched February 2026 for protocol fees, staking, and operator incentives</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>MPC: MPC Overviews</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://securecomputation.org/" rel="noopener nofollow">A Pragmatic Introduction to Secure Multi-Party Computation</a>
+        
+        <span class="ldesc"> — Free book introducing secure computation protocols and applications</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/rdragos/awesome-mpc" rel="noopener nofollow">awesome-mpc</a>
+        
+        <span class="ldesc"> — Curated list of MPC software, papers, tutorials, and workshops</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://mpc.cs.berkeley.edu/" rel="noopener nofollow">MPC Deployments</a>
+        
+        <span class="ldesc"> — UC Berkeley hub for real-world secure multi-party computation deployments</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>MPC: MPC Frameworks</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/data61/MP-SPDZ" rel="noopener nofollow">MP-SPDZ</a>
+        
+        <span class="ldesc"> — Versatile framework for benchmarking MPC protocols across honest/dishonest majority and active/passive security models</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/emp-toolkit/emp-agmpc" rel="noopener nofollow">EMP Toolkit</a>
+        
+        <span class="ldesc"> — Global-scale secure multi-party computation toolkit in C++</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://crypten.ai/" rel="noopener nofollow">CrypTen</a>
+        
+        <span class="ldesc"> — PyTorch-based research framework for secure and privacy-preserving machine learning with MPC</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/KULeuven-COSIC/SCALE-MAMBA" rel="noopener nofollow">SCALE-MAMBA</a>
+        
+        <span class="ldesc"> — MPC system supporting SPDZ-family protocols and malicious-security settings</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/aicis/fresco" rel="noopener nofollow">FRESCO</a>
+        
+        <span class="ldesc"> — Java framework for efficient secure computation applications and protocol suites</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/encryptogroup/ABY" rel="noopener nofollow">ABY</a>
+        
+        <span class="ldesc"> — Mixed-protocol secure two-party computation framework combining arithmetic sharing, Boolean sharing, and Yao circuits</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/encryptogroup/MOTION" rel="noopener nofollow">MOTION</a>
+        
+        <span class="ldesc"> — C++ framework for mixed-protocol MPC with GMW, BMR, arithmetic sharing, and OT-based protocols</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>MPC: MPC Applications</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://tlsnotary.org/" rel="noopener nofollow">TLSNotary</a>
+        
+        <span class="ldesc"> — MPC-based protocol for proving facts about HTTPS sessions without revealing private data</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/privacy-scaling-explorations/mpc-framework" rel="noopener nofollow">PSE MPC Framework</a>
+        
+        <span class="ldesc"> — TypeScript framework and demos for MPC-powered applications (sunset but useful reference)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/privacy-scaling-explorations/Trinity" rel="noopener nofollow">Trinity</a>
+        
+        <span class="ldesc"> — Two-party computation design combining laconic OT, garbled circuits, and PLONK</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>PIR: Implementations</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/ishtiyaque/FastPIR" rel="noopener nofollow">FastPIR</a>
+        
+        <span class="ldesc"> — An efficient computational private information retrieval (CPIR) library  in C++</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">SimplePIR</a>
+        
+        <span class="ldesc"> — One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/exo-explore/private-search/" rel="noopener nofollow">private-search</a>
+        
+        <span class="ldesc"> — Private Web Search for Local LLMs</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/secretflow/psi" rel="noopener nofollow">secretflow/psi</a>
+        
+        <span class="ldesc"> — Private Set Intersection (PSI) and Private Information Retrieval (PIR) from SecretFlow</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/vt-asaplab/pirex" rel="noopener nofollow">vt-asaplab/pirex</a>
+        
+        <span class="ldesc"> — Client-Efficient Private Information Retrieval (PETS 2025)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/ahenzinger/finite-diffs-pir" rel="noopener nofollow">ahenzinger/finite-diffs-pir</a>
+        
+        <span class="ldesc"> — Reference PIR implementation: two-server PIR in sublinear time and quasilinear space (EUROCRYPT 2026)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/google/private-retrieval" rel="noopener nofollow">google/private-retrieval</a>
+        
+        <span class="ldesc"> — Google C++ PIR library using SHELL homomorphic encryption components</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenMined/PIR" rel="noopener nofollow">OpenMined/PIR</a>
+        
+        <span class="ldesc"> — OpenMined private information retrieval protocol implementations across shared project requirements</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/microsoft/SealPIR" rel="noopener nofollow">microsoft/SealPIR</a>
+        
+        <span class="ldesc"> — Research implementation of SealPIR with low communication costs using Microsoft SEAL</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/XPIR-team/XPIR" rel="noopener nofollow">XPIR</a>
+        
+        <span class="ldesc"> — Ring-LWE computational PIR library from the POPETS 2016 XPIR paper</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/mhmughees/Onion-PIR" rel="noopener nofollow">Onion-PIR</a>
+        
+        <span class="ldesc"> — Lattice-based single-server PIR composing two SHE schemes for smaller replies</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/PIR-PIXR/CPIR" rel="noopener nofollow">PIR-PIXR/CPIR</a>
+        
+        <span class="ldesc"> — Reference code for committed private information retrieval</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/itzmeanjan/ChalametPIR" rel="noopener nofollow">ChalametPIR</a>
+        
+        <span class="ldesc"> — Stateful single-server keyword PIR scheme built on top of FrodoPIR</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>PIR: Academic Papers and Surveys</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://arxiv.org/abs/2509.06514" rel="noopener nofollow">IM-PIR: In-Memory Private Information Retrieval</a>
+        
+        <span class="ldesc"> — PIM-based multi-server PIR with 3.7x query throughput improvement</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2025/2074" rel="noopener nofollow">Communication-Efficient Single-Server PIR</a>
+        
+        <span class="ldesc"> — VIA scheme eliminating offline communication with Oλ(log N) online cost</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2025/1201" rel="noopener nofollow">Efficient Batch Symmetric Private Information Retrieval from PSI</a>
+        
+        <span class="ldesc"> — SPIR variant with database privacy beyond retrieved entry</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2022/368" rel="noopener nofollow">Spiral: Fast, High-Rate Single-Server PIR via FHE Composition</a>
+        
+        
+        
+      </li>
+      
+      <li>
+        <a href="https://arxiv.org/abs/2304.14397" rel="noopener nofollow">Private Information Retrieval and Its Applications: An Introduction</a>
+        
+        <span class="ldesc"> — A 2023 paper introducing PIR fundamentals, variants, and discussing conceptual extensions and potential research directions</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://iacr.org/archive/pkc2007/44500393/44500393.pdf" rel="noopener nofollow">A Survey of Single-Database PIR: Techniques and Applications</a>
+        
+        <span class="ldesc"> — This paper surveys Single-Database PIR techniques, exploring connections to other cryptographic primitives like collision-resistant hash functions and oblivious transfer</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://crypto.stanford.edu/~dabo/courses/cs355_fall07/pir.pdf" rel="noopener nofollow">A Survey on Private Information Retrieval</a>
+        
+        <span class="ldesc"> — A comprehensive survey by William Gasarch exploring different PIR models including multiple non-communicating databases and computationally bounded single databases</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.zora.uzh.ch/id/eprint/221280/1/ZORA_s00200_021_00508_5.pdf" rel="noopener nofollow">A survey on single server PIR in a coding theory perspective</a>
+        
+        <span class="ldesc"> — Presents a new perspective on single server PIR schemes using linear error-correcting codes</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.ndss-symposium.org/wp-content/uploads/2017/09/On-the-Practicality-of-Private-Information-Retrieval-Radu-Sion.pdf" rel="noopener nofollow">On the Computational Practicality of Private Information Retrieval</a>
+        
+        <span class="ldesc"> — Explores the practical limits of single-server computational PIR for preserving client access patterns</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://arxiv.org/abs/2302.01733" rel="noopener nofollow">Committed Private Information Retrieval</a>
+        
+        <span class="ldesc"> — A 2023 paper proposing a generic construction combining linear map commitment and linear PIR schemes to produce verifiable PIR</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://dspace.mit.edu/handle/1721.1/151392" rel="noopener nofollow">Private Information Retrieval with Access Control</a>
+        
+        <span class="ldesc"> — Presents Pirac, a novel framework for access control in PIR that restricts database record access to authorized users while maintaining privacy</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.cs.cmu.edu/~csd-phd-blog/2024/piano-private-information-retrieval/" rel="noopener nofollow">Piano: Extremely Simple, Single-Server PIR</a>
+        
+        <span class="ldesc"> — A 2024 article describing a simple approach to single-server Private Information Retrieval</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://ishtiyaque.github.io/files/VLDB_2023_Tutorial.pdf" rel="noopener nofollow">Private Information Retrieval in Large Scale Data Repositories</a>
+        
+        <span class="ldesc"> — A tutorial addressing how clients can privately retrieve values corresponding to given keys or locations in large public data repositories</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://people.csail.mit.edu/nickolai/papers/henzinger-tiptoe.pdf" rel="noopener nofollow">Private Web Search with Tiptoe</a>
+        
+        <span class="ldesc"> — Privacy-preserving web search using PIR techniques</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://arxiv.org/html/2604.04696v1" rel="noopener nofollow">GPIR: Enabling Practical PIR with GPUs</a>
+        
+        <span class="ldesc"> — GPU-accelerated private information retrieval achieving practical performance (2026)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2025/1695" rel="noopener nofollow">Mk-PIR: Multi-Keyword Private Information Retrieval</a>
+        
+        <span class="ldesc"> — Enables private conjunctive queries with multiple keywords (IACR 2025)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2026/030" rel="noopener nofollow">Incremental Single-Server PIR</a>
+        
+        <span class="ldesc"> — Extends incremental preprocessing to single-server PIR for efficient updates (2026)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://dl.acm.org/doi/abs/10.1007/978-981-95-7072-0_30" rel="noopener nofollow">NewtonPIR: Communication Efficient Single-Server PIR</a>
+        
+        <span class="ldesc"> — PETS 2025 paper on efficient single-server PIR</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Access-pattern Privacy</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://eprint.iacr.org/2013/280" rel="noopener nofollow">Path ORAM</a>
+        
+        <span class="ldesc"> — Stefanov and colleagues&#39; oblivious read/write storage construction</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Threshold beacons and timed release</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/drand/tlock" rel="noopener nofollow">drand tlock</a>
+        
+        <span class="ldesc"> — Timelock encryption using future signatures from a threshold randomness beacon</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <p class="more-links"><a href="/directory/">Full directory, all pillars →</a></p>
+</section>
+
+
+
+<section id="briefings">
+  <h2 class="sec-h">Briefings<span class="count">6 latest</span></h2>
+  <div class="rows">
+    
+    <a class="row" href="/briefings/pir/2026-10-14/">
+      <span class="nm">PIR Wednesday — October 14 2026 Weekly Update<small>2026-10-14</small></span>
+      <span class="ty">2026-10-14</span>
+    </a>
+    
+    <a class="row" href="/briefings/pir/2026-10-07/">
+      <span class="nm">PIR Wednesday — October 07 2026 Weekly Update<small>2026-10-07</small></span>
+      <span class="ty">2026-10-07</span>
+    </a>
+    
+    <a class="row" href="/briefings/pir/2026-09-30/">
+      <span class="nm">PIR Wednesday — September 30 2026 Weekly Update<small>2026-09-30</small></span>
+      <span class="ty">2026-09-30</span>
+    </a>
+    
+    <a class="row" href="/briefings/pir/2026-09-23/">
+      <span class="nm">PIR Wednesday — September 23 2026 Weekly Update<small>2026-09-23</small></span>
+      <span class="ty">2026-09-23</span>
+    </a>
+    
+    <a class="row" href="/briefings/pir/2026-09-16/">
+      <span class="nm">PIR Wednesday — September 16 2026 Weekly Update<small>2026-09-16</small></span>
+      <span class="ty">2026-09-16</span>
+    </a>
+    
+    <a class="row" href="/briefings/pir/2026-09-09/">
+      <span class="nm">PIR Wednesday — September 9 2026 Weekly Update<small>2026-09-09</small></span>
+      <span class="ty">2026-09-09</span>
+    </a>
+    
+  </div>
+  <p class="more-links"><a href="/briefings/pir/">All PIR Wednesday briefings →</a></p>
+</section>
+
+
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

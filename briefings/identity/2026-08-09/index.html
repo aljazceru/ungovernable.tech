@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — August 09 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-09: Buzz by Block (July 21, 2026): Open-sourced under Apache 2.0.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-08-09/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — August 09 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-09: Buzz by Block (July 21, 2026): Open-sourced under Apache 2.0.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-08-09/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — August 09 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — August 09 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-09: Buzz by Block (July 21, 2026): Open-sourced under Apache 2.0.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — August 09 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-09: Buzz by Block (July 21, 2026): Open-sourced under Apache 2.0.", "datePublished": "2026-08-09", "dateModified": "2026-08-09", "url": "https://ungovernable.tech/briefings/identity/2026-08-09/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-08-09/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-09", "item": "https://ungovernable.tech/briefings/identity/2026-08-09/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-08-09</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — August 09 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-09</b></span>
+    <span><b>21</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-09 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-09. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The seven-week companion to <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>. This note captures the period since the <a href="/briefings/identity/2026-06-21/">June 21 weekly update</a>. The headline pattern is clear: <strong>AI agent identity has gone from experimental to load-bearing in one quarter</strong>. Block open-sourced Buzz (July 21) — a Nostr-native workspace where every participant, human or AI, is a keypair — and it crossed 21,000 GitHub stars in one week. Nous Research shipped Hermes Agent integration with Buzz (July 31). The encrypted community layer has bifurcated: Concord (an open, MIT-licensed protocol) replaced Marmot as the default group-chat transport in Vector, with Amethyst shipping a clean-room implementation days later. Relay-level identity and access control finally standardized with the NIP-42 + NIP-43 pair, and nostream shipped both halves. The Worldcoin/World ID track reached 30M+ verified humans and a Grayscale ETF filing — while WLD's token collapsed 97% from peak, raising the perennial question: does PoP need a token at all? Below: the detail, the threat model, and the ungovernable-tech takeaway.</em></p>
+<h2 id="tldr-this-period">TL;DR — This Period</h2>
+<ul>
+<li><strong><a href="/kb/buzz/">Buzz</a> by Block (July 21, 2026)</strong>: Open-sourced under Apache 2.0. A self-hostable Nostr relay workspace where humans and AI agents share the same rooms. Every message is a signed Nostr event. Agents are cryptographic identities (keypairs), not bot tokens. <strong>21,599 GitHub stars in one week.</strong> The most significant AI-agent-identity deployment to date.</li>
+<li><strong><a href="https://nousresearch.com" rel="noopener nofollow">Nous Research</a> ships Hermes Agent + Buzz integration (July 31)</strong>: Three integration paths connecting autonomous AI agents to Buzz workspaces. Agents publish, review code (NIP-34), and participate in workflows as first-class Nostr citizens with their own npubs.</li>
+<li><strong><a href="/kb/concord-protocol/">Concord Protocol</a> replaces Marmot for group chat (July 15)</strong>: Vector v0.4.0 retires MLS-over-Nostr in favor of Concord (CORD-01 through CORD-07 specs). Amethyst ships a clean-room implementation (PR #3566). Three independent Concord implementations within days: Vector, Armada, Amethyst. MIT-licensed, serverless, E2E encrypted communities.</li>
+<li><strong>NIP-42 + NIP-43: relay access control standardizes (July 22)</strong>: NIP-42 (AUTH) is the identity proof; NIP-43 (Relay Access Metadata) is the policy layer. nostream shipped both. Private and paid relays now have a standardized membership model instead of ad-hoc whitelists.</li>
+<li><strong>NIP-29 group chat spec matures (July 22)</strong>: Five PRs merged — subgroups, message pinning, banners, invite codes. Nostrord v2.3.0 ships group moderation, NIP-51 mute lists, and Tor .onion relay support.</li>
+<li><strong><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a> v6.3.0</strong>: Grouped bunker-signing approvals (batch multiple NIP-46 requests), Expert List (kind 12022) support, privacy mode hiding sensitive content on screen, NIP-65 relay list fetch before profile metadata.</li>
+<li><strong><a href="/kb/threshold-signatures/">FROST</a> threshold custody reaches consumer onboarding</strong>: Keep Android v1.1.8 adds first-run FROST onboarding — the first consumer app to ship threshold key creation as part of initial setup. Combined with Nostr WoT 0.3.86 hardening key backups to NIP-49 format, the custody stack is reaching production maturity.</li>
+<li><strong>RustSec RUSTSEC-2026-0216</strong>: Remote DoS via malformed NIP-44 v2 payload in <code>rust-nostr</code> (versions 0.26.0 through 0.44.4). Fixed in 0.44.5. Any rust-nostr consumer (relays, clients, signers) must upgrade. No key material leaked, but the panic is remotely triggerable via relay-delivered events.</li>
+<li><strong>NIP-90 deprecated</strong>: Marked "unrecommended" in the nips repo — "this got totally out of control, prefer use-case-specific microstandards." The Data Vending Machine concept (kinds 5000-7000) is being replaced by narrower, purpose-specific NIPs for AI agent services.</li>
+<li><strong><a href="/kb/proof-of-personhood/">Worldcoin</a> / <a href="/kb/proof-of-personhood/">World ID</a></strong>: World Chain live (since October 2024) with 605M+ cumulative transactions, 30M+ World App users. Grayscale filed for a WLD ETF. Integrations with Tinder, Zoom, DocuSign, Shopify. Orb hardware/software open-sourced, unverify option added. WLD token at ~$0.30 (August 2026), down 97% from peak. The identity network works; the token economics do not (yet).</li>
+<li><strong><a href="https://www.w3.org" rel="noopener nofollow">W3C</a> DID Resolution v1</strong>: Candidate Recommendation Snapshot published August 6, 2026. DIDs v1.1 at CR since March 5, 2026. The formal DID stack continues to mature alongside the cypherpunk key-rooted alternatives.</li>
+<li><strong><a href="https://iris.to" rel="noopener nofollow">Iris Stack</a> ships three libraries in one week (July 22)</strong>: nostr-pubsub (transport-neutral pub/sub), fips-ts (browser FIPS runtime with WebRTC), nostr-social-graph v2.0.0 (signed roster operations, device-approval flows). A web app can now discover peers, open encrypted FIPS channels, and maintain a signed social graph — all in TypeScript.</li>
+<li><strong>Nostr publishing users (late July 2026)</strong>: 6.39M publishing users (−16.5% week-over-week), all-time zap count 6.97M. The user-base dip is seasonal/normal; the protocol layer continues to harden.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>the most important identity development of Q3 2026 is that AI agents now have production-grade sovereign identity on Nostr</strong>. Buzz proves that the keypair-as-identity model works not just for human pseudonyms but for autonomous economic actors. The Concord protocol's rapid multi-implementation shows the Nostr community can produce open encrypted-community specs that compete with centralized alternatives. And the standardization of relay access control (NIP-42/43) means the identity layer now has both sides of the trust boundary: who you are (AUTH) and what you can do (policy).</p>
+<h2 id="the-period-in-detail">The Period in Detail</h2>
+<h3 id="buzz-by-block-ai-agents-as-first-class-nostr-citizens">Buzz by Block: AI agents as first-class Nostr citizens</h3>
+<p><a href="https://github.com/block/buzz" rel="noopener nofollow">Buzz</a> is the most consequential identity development of Q3 2026. Block (formerly Square) open-sourced it on July 21, 2026, under Apache 2.0. The repo description is the thesis: <em>"A workspace where humans and agents build together, on a relay you own."</em></p>
+<p><strong>What it is:</strong></p>
+<p>Buzz is a self-hostable Nostr relay workspace. Under the hood, it is a standard Nostr relay — every message, code review, workflow step, and file operation is a signed NIP-01 event on a relay the operator controls. The radical part is the participant model: every participant, whether human or AI agent, is a cryptographic keypair. There are no bot tokens. Agents get their own npub, their own channel memberships, their own audit trail.</p>
+<p><strong>What this means for identity architecture:</strong></p>
+<ol>
+<li><strong>The bot-token model is obsolete.</strong> In Slack/Discord/Teams, a bot is a token issued by the platform to a developer. The platform can revoke it. The bot has no identity independent of the platform. In Buzz, an agent IS its keypair. The agent's identity persists across relay migrations, operator changes, and platform forks.</li>
+<li><strong>Agent reputation is portable.</strong> An agent that builds reputation on one Buzz relay can carry that reputation to any other Nostr-speaking system. The npub is the reputation anchor, not the relay membership.</li>
+<li><strong>Audit trails are cryptographic.</strong> Every action by every participant is a signed event. There is no "who did what" ambiguity — the signature proves authorship.</li>
+<li><strong>NIP-34 integration</strong>: Buzz reads repository announcements, patches, pull requests, and issues directly from the relay (NIP-34). Code review happens on the same Nostr transport as conversation. The git workflow and the messaging workflow share an identity layer.</li>
+</ol>
+<p><strong>Hermes Agent integration (July 31, 2026):</strong></p>
+<p><a href="https://www.marktechpost.com/2026/07/31/nous-research-ships-three-integration-paths-for-hermes-agent-and-buzz-blocks-open-source-nostr-workspace-for-humans-and-agents" rel="noopener nofollow">Nous Research shipped three integration paths</a> connecting autonomous AI agents (Hermes Agent) to Buzz workspaces. Agents can:
+- Publish to channels as sovereign Nostr identities
+- Open repos and send code reviews via NIP-34
+- Participate in multi-agent workflows with full channel scoping (NIP-29)
+- Maintain their own audit trail separate from human participants</p>
+<p><strong>Adoption signal</strong>: 21,599 GitHub stars in one week (August 3, 2026 data), making it one of the fastest-growing open-source projects of 2026. The star count reflects developer interest in the agent-as-keypair model, not just the workspace UX.</p>
+<p>For ungovernable system design: <strong>Buzz is the production proof that the Nostr identity model generalizes to autonomous agents</strong>. If you are building any system where AI agents need sovereign identity — trading bots, content curation agents, infrastructure monitors, DAO governors — the Buzz architecture is the reference. The keypair-as-identity primitive works for any autonomous economic actor, not just humans.</p>
+<h3 id="concord-protocol-the-open-encrypted-community-layer">Concord Protocol: the open encrypted-community layer</h3>
+<p>The most significant protocol-level development in the identity-adjacent messaging space is the emergence of the <a href="https://github.com/concord-protocol/concord" rel="noopener nofollow">Concord Protocol</a>, which defines encrypted community communication over Nostr relays.</p>
+<p><strong>What happened:</strong></p>
+<ul>
+<li><strong>Vector v0.4.0</strong> (July 15): retired Marmot (MLS-over-Nostr) as the default transport for Group Chats in favor of Concord. Existing Marmot group history does not carry over.</li>
+<li><strong>Vector v0.4.1</strong> (July 19): shipped Concord v2 with slash-command picker for bots, self-destruct timer, NIP-58 badges.</li>
+<li><strong>Amethyst PR #3566</strong> (July 15-16): clean-room, wire-compatible Concord implementation covering CORD-01 through CORD-07. Protocol code in <code>quartz/</code>, state in <code>commons/</code>, UI in <code>amethyst/</code>.</li>
+<li><strong>Armada v0.37.0</strong> (July 22): Discord-style client using Concord for its Communities feature.</li>
+</ul>
+<p>Three independent implementations in one week, all wire-compatible. Armada's test vectors were ported into Amethyst's unit tests to confirm interoperability.</p>
+<p><strong>What Concord specifies (CORD-01 through CORD-07):</strong></p>
+<ul>
+<li>Serverless, end-to-end encrypted communities over ordinary relays</li>
+<li>Gift-wrapped control, chat, and guestbook planes</li>
+<li>Owner-rooted role and ban enforcement — every client verifies locally instead of trusting a server</li>
+<li>Rekeying to cut off removed members</li>
+<li>No central server, no platform operator that can shut it down</li>
+</ul>
+<p><strong>The Marmot → Concord transition matters for identity because:</strong></p>
+<p>Marmot (MLS-over-Nostr) uses MLS group keys with their own key agreement, decoupled from Nostr identity keys. Concord uses NIP-17 gift-wrap, binding community membership directly to Nostr npubs. This means: community reputation, roles, and bans are portable Nostr identity attributes, not MLS-specific group state. A user's Concord community membership is part of their Nostr social graph.</p>
+<p>For ungovernable system design: <strong>Concord is the encrypted-community layer that Nostr has been missing.</strong> The combination of Buzz (agent workspace) + Concord (encrypted communities) + NIP-42/43 (relay access control) gives the Nostr ecosystem a complete identity + access + community stack that no single company controls.</p>
+<h3 id="nip-42-nip-43-relay-access-control-standardizes">NIP-42 + NIP-43: relay access control standardizes</h3>
+<p>Nostr Compass #32 (July 22) featured a deep dive on the relay access-control pair that finally standardizes how relays authenticate and authorize users.</p>
+<p><strong>NIP-42 (AUTH)</strong> — the identity proof:
+- A relay sends a <code>AUTH</code> challenge containing a random event tag
+- The client signs a kind 22242 ephemeral event proving control of the claimed pubkey
+- The relay validates the signature and timestamp (within a few minutes)
+- This is scoped to one connection, one challenge — it proves identity, says nothing about policy</p>
+<p><strong>NIP-43 (Relay Access Metadata)</strong> — the policy layer:
+- Kind 13534: relay-signed member list with optional role tags
+- Kind 33534: role definitions
+- Kind 8000/8001: member add/remove events
+- Kind 28934: join request with invite code
+- Kind 28935: ephemeral invite-code event
+- Kind 28936: leave request
+- Users request join/leave; relays update the member list; clients consult both the relay's kind 13534 and the member's own events to determine membership</p>
+<p><strong>Implementations:</strong>
+- nostream (Cameri): shipped both NIP-42 and NIP-43 in PR #676 — the first relay with the full access-control stack
+- strfry: NIP-42 support in ingester
+- nostr-rs-relay: NIP-42 with challenge/timestamp tests
+- khatru (Go relay framework): tracks authenticated pubkey per connection
+- Amethyst: signs kind 22242 responses, including for Concord encrypted communities</p>
+<p><strong>Why this matters for identity:</strong></p>
+<p>Before NIP-42/43, private and paid relays used ad-hoc whitelists. There was no standard way for a relay to say "this pubkey is a member" or for a user to request membership. NIP-42/43 gives relays a standardized identity-and-access layer. Combined with NIP-65 (relay list metadata) and NIP-05 (human-readable verification), the Nostr identity stack now has:</p>
+<pre><code>NIP-05: human-readable name → pubkey mapping
+NIP-65: pubkey → relay list
+NIP-42: pubkey → relay authentication
+NIP-43: pubkey → relay membership/role
+Concord: pubkey → community roles/bans
+WoT: pubkey → trust score
+</code></pre>
+<p>For ungovernable system design: <strong>the Nostr relay is now a first-class access-control point</strong>. Private relays, paid relays, community relays, and organizational relays can all use the same standardized protocol for membership. This eliminates the need for platform-specific auth integrations.</p>
+<h3 id="amber-v630-batch-approvals-and-expert-lists">Amber v6.3.0: batch approvals and Expert Lists</h3>
+<p><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a> v6.3.0 (late July 2026) continues the signer hardening trajectory documented in the June 21 update. Key additions:</p>
+<ul>
+<li><strong>Grouped multi-request approval</strong>: users can review and approve a batch of bunker signatures at once, rather than approving each NIP-46 request individually. This is the UX fix for the "signing fatigue" problem that made NIP-46 impractical for high-frequency operations (Marmot/Concord group ops, multiple zap requests).</li>
+<li><strong>Expert List (kind 12022) and Expert Pack (kind 32022) support</strong>: extends Amber beyond pure signing into trust-assertion territory. Expert Lists are a NIP-85-adjacent mechanism for publishing and consuming trusted attestations.</li>
+<li><strong>Privacy mode</strong>: hides sensitive content on screen (prevents shoulder-surfing during signing approvals).</li>
+<li><strong>NIP-65 relay list fetch before profile metadata</strong>: signer flows now start from the user's actual relay set, not a hardcoded default.</li>
+</ul>
+<p>Combined with the Foundation Passport NIP-07 hardware signer (updated July 2026 — full BIP-340 Schnorr, NIP-06 derivation, AES-GCM identity encryption, narrow auto-sign rules with expiry and hourly cap), the signer ecosystem now spans:
+- <strong>Mobile</strong>: Amber (Android), Clave (iOS), Coop Mobile
+- <strong>Browser</strong>: nos2x, Alby, Flamingo, Horse, Nostr WoT extension
+- <strong>Desktop</strong>: Signet, n_cord (NSEC Bunker support), Cambium/Heartwood (keyless NIP-55)
+- <strong>Hardware</strong>: Foundation Passport, Coldcard, Keystone</p>
+<p>For ungovernable system design: <strong>the signer is no longer the bottleneck</strong>. Every platform has at least one production-grade signer. The remaining gap is cross-signer session portability — a user should be able to move between Amber and Clave without re-pairing.</p>
+<h3 id="frost-threshold-custody-consumer-onboarding-ships">FROST threshold custody: consumer onboarding ships</h3>
+<p>The most important custody development this period is that <strong>FROST threshold signing has reached consumer-grade onboarding</strong>:</p>
+<ul>
+<li><strong>Keep Android v1.1.8</strong>: adds first-run FROST onboarding. This is the first consumer Nostr app to ship threshold key creation as part of the initial setup flow. Users create a FROST-based identity on first launch, with shares distributed across devices.</li>
+<li><strong>Nostr WoT 0.3.86</strong>: hardens key backups to NIP-49 format, ensuring threshold-share backups are standardized.</li>
+<li><strong>N_cord v1.1</strong>: adds NSEC Bunker support, providing another path to non-custodial remote signing.</li>
+</ul>
+<p>This matters because the Frostr/Bifrost/Igloo stack documented in <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> has been "promising but emerging" for over a year. Consumer onboarding (Keep Android) is the transition signal from "research project" to "production option."</p>
+<p>Meanwhile, the FROST NIST submission (previewed at MPTS 2026, January 2026) continues through the NIST Threshold Call (NIST IR 8214C). Chelsea Komlo presented updates at MPTS 2026 covering adaptive security of threshold Schnorr signatures. The FROST Team (Komlo, Goldberg, Katz, Maller, Crites, Gouvea, Grigg, Rastikian, Sorokovikov, Tessaro, Varlakov, Zhu) published version 0.1 of the preview writeup targeting Category N1.1 (Threshold EdDSA Signing).</p>
+<p>For ungovernable system design: <strong>FROST threshold custody is crossing the chasm from research to production</strong>. The combination of Keep Android's consumer onboarding, the NIST standardization track, and Hermine (the post-quantum FROST counterpart, eprint 2026/419) means the long-term custody architecture for high-value Nostr identities is now buildable. The recommendation: for any identity that would cause real harm if lost or compromised, use FROST threshold custody with 2-of-3 or 3-of-5 shares across independent devices/services.</p>
+<h3 id="nip-90-deprecation-the-ai-agent-standardization-pivot">NIP-90 deprecation: the AI agent standardization pivot</h3>
+<p>NIP-90 (Data Vending Machine) has been marked "unrecommended" in the nips repository with the note: <em>"this got totally out of control, prefer use-case-specific microstandards."</em></p>
+<p>NIP-90 reserved kinds 5000-7000 for "data vending machine" interactions — customers send computation requests, service providers (including AI agents) perform computation and return results for payment via Lightning. The idea was ambitious: a single NIP covering all agent-mediated computation.</p>
+<p>The deprecation signals a maturation of the Nostr approach to AI agent standards. Instead of one mega-NIP, the ecosystem is moving toward narrower, purpose-specific standards:</p>
+<ul>
+<li><strong>NIP-34</strong> (Repository Annotations): git patches, pull requests, issues over Nostr — used by Buzz for agent code review</li>
+<li><strong>NIP-29</strong> (Relay-based Groups): agent channel scoping and workspace membership</li>
+<li><strong>NIP-89</strong> (Recommended Application Handlers): clients can discover which apps handle which event kinds</li>
+<li><strong>ai.wot (aiwot.org)</strong>: cross-platform trust attestations using NIP-32 labeling — agents rate each other's service quality, creating a decentralized reputation graph</li>
+</ul>
+<p>For ungovernable system design: <strong>the AI agent identity stack is being built from composable NIPs, not a monolithic standard</strong>. Buzz's architecture (agents as keypairs, NIP-34 for code, NIP-29 for channels, NIP-01 for everything) is the working proof of concept. The deprecation of NIP-90 is not a retreat from AI agents — it's a refinement of how the Nostr ecosystem standardizes agent interactions.</p>
+<h3 id="iris-stack-full-typescript-identity-transport-social-graph">Iris Stack: full TypeScript identity + transport + social graph</h3>
+<p>The Iris orbit shipped three interlocking libraries in a single week (July 22):</p>
+<p><strong>nostr-pubsub</strong> (<a href="https://github.com/mmalmi/nostr-pubsub" rel="noopener nofollow">mmalmi/nostr-pubsub</a>):
+- Transport-neutral publish/subscribe library for Nostr events
+- Browser relay carrier built on nostr-tools' SimplePool
+- Event verification at the transport boundary (invalid signatures never reach subscribers)
+- Bounded historical queries</p>
+<p><strong>fips-ts</strong> (<a href="https://github.com/mmalmi/fips-ts" rel="noopener nofollow">mmalmi/fips-ts</a>):
+- Brings FIPS (the Noise-over-secp256k1 peer transport) into the browser as a TypeScript runtime
+- WebRTC datachannel carrier, Nostr-based signaling for peer discovery
+- IndexedDB adapter for browser storage
+- Wire-compatible with the reference Rust FIPS implementation</p>
+<p><strong>nostr-social-graph v2.0.0</strong> (<a href="https://github.com/mmalmi/nostr-social-graph" rel="noopener nofollow">mmalmi/nostr-social-graph</a>):
+- Signed roster operations for Nostr identity graphs
+- Device-approval flows bootstrapped from a canonical three-field URI
+- FIPS transport identity facets with shared Rust and TypeScript test vectors</p>
+<p>The connective framing is the <a href="https://stack.iris.to/" rel="noopener nofollow">Iris Stack</a>, tying these libraries together with Blossom, Hashtree, and encrypted messaging.</p>
+<p>For ungovernable system design: <strong>a web app can now discover peers over Nostr, open an encrypted FIPS channel, and maintain a signed social graph — all in TypeScript, no native dependencies</strong>. This is the foundation for browser-native Nostr identity applications that don't require browser extensions or mobile apps.</p>
+<h3 id="worldcoin-world-id-identity-network-vs-token-economics">Worldcoin / World ID: identity network vs token economics</h3>
+<p>The World/Worldcoin track continued to diverge in Q3 2026: the identity infrastructure matured while the token economics deteriorated.</p>
+<p><strong>Identity infrastructure (growing):</strong>
+- World App: 30M+ users (official stats, July 2025 baseline)
+- World Chain: 605M+ cumulative transactions (July 2026 third-party analysis)
+- Orb hardware and software open-sourced
+- Unverify option: users can delete their iris codes
+- Age verification product deployed
+- Third-party audits commissioned repeatedly
+- Integrations: Tinder, Zoom, DocuSign, Shopify
+- Grayscale filed for a WLD ETF (2026)</p>
+<p><strong>Token economics (struggling):</strong>
+- WLD at ~$0.30 (August 1, 2026), down 97% from March 2024 peak ($10.46)
+- Market cap: $1.094B, circulating supply: 3.573B, max supply: 10B
+- Only ~35% of supply unlocked; years of emissions ahead
+- On-chain ownership remains concentrated
+- No proven mechanism by which the token captures value from identity adoption
+- July 2026 emission cut: active supply management, but not enough to reverse the trend</p>
+<p><strong>The divergence matters for PoP design:</strong></p>
+<p>World ID is the largest production proof-of-personhood deployment by user count. The ZK-proof-based credential system works — users can prove uniqueness without revealing identity. The Orb's open-sourcing and the unverify option address some privacy concerns.</p>
+<p>But the token economics reveal a structural problem: <strong>PoP infrastructure does not naturally capture value through a token</strong>. The identity verification is a public good; the value accrues to applications that use the credential (anti-bot, fair airdrops, age gates), not to the credential issuer. This is the same pattern as TLS certificate authorities — the infrastructure is essential but commodity-priced.</p>
+<p>For ungovernable system design: <strong>World ID is the right PoP system for applications that need biometric-grade Sybil resistance at scale. But don't assume the WLD token will capture the value of the identity network.</strong> The credential is the product; the token is a speculative instrument tied to it.</p>
+<p>See <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a> for the full PoP landscape comparison.</p>
+<h3 id="security-nip-44-v2-dos-vulnerability">Security: NIP-44 v2 DoS vulnerability</h3>
+<p><a href="https://rustsec.org/advisories/RUSTSEC-2026-0216.html" rel="noopener nofollow">RUSTSEC-2026-0216</a> documents a remote denial-of-service vulnerability in the <code>rust-nostr</code> crate's NIP-44 v2 decryption. A malformed NIP-44 payload can produce a 0 or 1-byte decrypted buffer, causing an index-out-of-bounds panic.</p>
+<p><strong>Scope:</strong>
+- Affected: <code>nostr</code> versions 0.26.0 through 0.44.4, and alpha releases 0.45.0-alpha.1 through 0.45.0-alpha.4
+- Fixed in: 0.44.5 and 0.45.0-alpha.5
+- Attack vector: any relay delivering a crafted event to a victim's client
+- Impact: panic (DoS), no key material leaked, no plaintext recovered, no memory corruption
+- Discovered and responsibly disclosed by Muhammed Shekho</p>
+<p><strong>Why this matters for identity:</strong></p>
+<p>NIP-44 is the encryption layer for NIP-17 (gift-wrapped DMs), NIP-46 (remote signing), and most Concord community operations. A remotely-triggerable panic in the decryption path means an attacker can crash any rust-nostr-based client, relay, or signer by sending a crafted encrypted event. This is not a key-compromise vulnerability, but it is a liveness attack against the identity infrastructure.</p>
+<p>Any rust-nostr consumer — relays (strfry plugins, khatru-based relays), clients (Amethyst's Rust components, various desktop clients), and signers — must upgrade to 0.44.5 or later.</p>
+<h2 id="cross-cutting-themes">Cross-cutting themes</h2>
+<h3 id="ai-agent-identity-is-now-production-infrastructure">AI agent identity is now production infrastructure</h3>
+<p>The seven-week gap since the June 21 update has seen the most significant shift in the identity landscape since Nostr's inception: <strong>AI agents have gone from experimental NIP proposals to production deployments with sovereign identity</strong>.</p>
+<p>The evidence:
+- <strong>Buzz</strong> (21K+ stars, Block-backed, Apache 2.0): agents are keypairs, not bot tokens
+- <strong>Hermes Agent + Buzz integration</strong>: autonomous agents operating in production workspaces
+- <strong>NIP-90 deprecation</strong>: the ecosystem chose composable microstandards over monolithic agent specs
+- <strong>ai.wot</strong>: agent-to-agent trust attestations via NIP-32 labeling
+- <strong>AgentDex (Kind 31339)</strong>: agent directory on Nostr, established earlier in 2026</p>
+<p>The pattern: <strong>the same keypair-as-identity primitive that serves human pseudonyms serves autonomous agents</strong>. No separate identity infrastructure is needed. An agent's npub is its identity; its relay event history is its reputation; its NIP-34 patches are its work product.</p>
+<h3 id="the-encrypted-community-layer-has-settled-on-concord">The encrypted-community layer has settled on Concord</h3>
+<p>The Marmot-vs-Concord competition that dominated Q2 2026 has effectively resolved. Vector (the privacy-first messenger) moved from Marmot to Concord. Amethyst shipped a clean-room Concord implementation. Armada uses Concord for its Communities feature. MDK (the Marmot SDK) continues to harden but is no longer the default for new group-chat deployments.</p>
+<p>This matters for identity because Concord binds community membership to Nostr npubs via NIP-17 gift-wrap, while Marmot used MLS group keys decoupled from Nostr identity. The Concord model means community roles, bans, and reputation are Nostr-native identity attributes.</p>
+<h3 id="relay-access-control-completes-the-identity-stack">Relay access control completes the identity stack</h3>
+<p>With NIP-42 (AUTH) and NIP-43 (Relay Access Metadata) standardized and implemented, the Nostr relay is now a full access-control point. The identity stack has:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>NIP</th>
+<th>What it provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naming</td>
+<td>NIP-05</td>
+<td>Human-readable → pubkey</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>NIP-65</td>
+<td>Pubkey → relay list</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>NIP-42</td>
+<td>Pubkey → relay session proof</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>NIP-43</td>
+<td>Pubkey → relay membership/role</td>
+</tr>
+<tr>
+<td>Community</td>
+<td>Concord</td>
+<td>Pubkey → community roles/bans</td>
+</tr>
+<tr>
+<td>Reputation</td>
+<td>NIP-85, WoT</td>
+<td>Pubkey → trust score</td>
+</tr>
+<tr>
+<td>Custody</td>
+<td>NIP-46, NIP-07, FROST</td>
+<td>Key isolation, threshold signing</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is a complete identity infrastructure stack, all rooted in cryptographic keypairs, with no central authority required for any layer.</p>
+<h2 id="evidence-at-a-glance-june-21-august-9-2026">Evidence at a Glance (June 21 – August 9, 2026)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>This-period signal</th>
+<th>Threat model</th>
+<th>Development signal</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buzz (Block)</strong></td>
+<td><strong>Open-sourced July 21</strong>, 21K+ stars in one week; Hermes Agent integration July 31</td>
+<td>Agent identity sovereignty, audit trail</td>
+<td>Most significant AI-agent-identity deployment to date</td>
+<td>Any system where AI agents need sovereign identity</td>
+</tr>
+<tr>
+<td><strong>Concord Protocol</strong></td>
+<td>Vector, Amethyst, Armada ship implementations; Marmot retired in Vector</td>
+<td>Encrypted community comms</td>
+<td>Three independent wire-compatible implementations in one week</td>
+<td>Serverless encrypted communities on Nostr</td>
+</tr>
+<tr>
+<td><strong>NIP-42 + NIP-43</strong></td>
+<td>Deep Dive in Compass #32; nostream ships both halves</td>
+<td>Relay access control</td>
+<td>First standardized relay membership model</td>
+<td>Private/paid/community relays</td>
+</tr>
+<tr>
+<td><strong>Amber v6.3.0</strong></td>
+<td>Grouped batch approvals, Expert List, privacy mode</td>
+<td>Signer UX fatigue</td>
+<td>Resolves the "signing fatigue" NIP-46 complaint</td>
+<td>Android signer daily driver</td>
+</tr>
+<tr>
+<td><strong>Keep Android v1.1.8</strong></td>
+<td>First-run FROST onboarding</td>
+<td>Single-device key compromise</td>
+<td>First consumer app with threshold key creation in onboarding</td>
+<td>High-value identity protection</td>
+</tr>
+<tr>
+<td><strong>Foundation Passport</strong></td>
+<td>NIP-07 hardware signer (July 2026 update)</td>
+<td>Cold-storage key custody</td>
+<td>Full BIP-340 Schnorr, NIP-06 derivation, auto-sign rules</td>
+<td>Cold-storage Nostr identity</td>
+</tr>
+<tr>
+<td><strong>NIP-90 deprecated</strong></td>
+<td>Marked "unrecommended" in nips repo</td>
+<td>AI agent standardization</td>
+<td>Ecosystem chose composable microstandards over monolithic spec</td>
+<td>Agent interactions via NIP-34, NIP-29, NIP-89</td>
+</tr>
+<tr>
+<td><strong>Iris Stack</strong></td>
+<td>nostr-pubsub + fips-ts + social-graph v2.0.0 in one week</td>
+<td>Browser-native identity</td>
+<td>Full TypeScript identity + transport + social graph stack</td>
+<td>Browser-native Nostr identity apps</td>
+</tr>
+<tr>
+<td><strong>Worldcoin / World ID</strong></td>
+<td>30M+ users; World Chain 605M+ txns; Grayscale ETF filing; WLD −97% from peak</td>
+<td>Biometric PoP at scale</td>
+<td>Identity infrastructure growing; token economics struggling</td>
+<td>Sybil-resistant airdrops, age verification (use the credential, not the token)</td>
+</tr>
+<tr>
+<td><strong>W3C DID Resolution</strong></td>
+<td>CR Snapshot August 6, 2026; DID v1.1 CR since March 5</td>
+<td>Formal DID interop</td>
+<td>Standards continuing to mature alongside cypherpunk alternatives</td>
+<td>Government/enterprise identity systems</td>
+</tr>
+<tr>
+<td><strong>RustSec NIP-44 DoS</strong></td>
+<td>RUSTSEC-2026-0216; rust-nostr 0.26.0–0.44.4</td>
+<td>Remote crash via malformed encrypted event</td>
+<td>Fixed in 0.44.5; all rust-nostr consumers must upgrade</td>
+<td>Security hygiene for NIP-44 consumers</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-research-questions-updated">Open research questions (updated)</h2>
+<ol>
+<li><strong>Can Buzz's agent-as-keypair model scale beyond developer workspaces?</strong> Buzz proves the architecture for code-centric collaboration. Whether the same model works for consumer-facing agent interactions (trading, content curation, DAO governance) is the next question.</li>
+<li><strong>Will Concord's community-roles-as-Nostr-identity-attributes pattern gain cross-client adoption?</strong> Amethyst, Vector, and Armada implement it. If Damus, Primal, and Iris adopt it, Concord becomes the de facto community layer.</li>
+<li><strong>Can FROST threshold custody reach consumer-grade UX beyond Keep Android?</strong> Keep proves onboarding is possible. The question is whether Amber, Clave, and other signers add FROST support, or whether threshold custody remains a niche option for high-value identities.</li>
+<li><strong>How does NIP-43 membership interact with Concord community roles?</strong> NIP-43 is relay-level membership; Concord is community-level roles. If a user is a member of a relay (NIP-43) but banned from a community on that relay (Concord), which wins? The interaction needs specification.</li>
+<li><strong>Will the World ID credential decouple from the WLD token?</strong> If the PoP credential is useful independently of the token's price, the identity network can survive the token's collapse. If the token funds the Orb operations, the identity network depends on token sustainability.</li>
+<li><strong>Can the Iris Stack's TypeScript-only approach compete with native implementations?</strong> Browser-native FIPS + social graph is a developer-experience breakthrough. Whether it achieves production performance for large-scale social graphs is the test.</li>
+<li><strong>What replaces NIP-90 for AI agent service discovery?</strong> The Data Vending Machine is deprecated. ai.wot (NIP-32 labeling) and AgentDex (Kind 31339) are candidates, but neither has the economic-layer (payment-for-computation) scope that NIP-90 attempted.</li>
+</ol>
+<h2 id="what-to-watch-in-the-next-7-14-days">What to watch in the next 7-14 days</h2>
+<ol>
+<li><strong>Buzz ecosystem growth</strong>: Watch for additional agent framework integrations (Claude Code, OpenAI Codex, OpenCode) connecting to Buzz relays.</li>
+<li><strong>Concord spec evolution</strong>: The CORD-01 through CORD-07 specs are published but young. Watch for v2/v3 refinements driven by real-world deployment feedback from Vector, Armada, and Amethyst.</li>
+<li><strong>NIP-43 production relay deployments</strong>: nostream has the implementation. Watch for the first public relay to advertise NIP-43 in its NIP-11 metadata and accept join requests.</li>
+<li><strong>Amber v6.4+</strong>: Amber's grouped approval and Expert List support are new. Watch for client-side adoption of batch signing requests and Expert List consumption.</li>
+<li><strong>Keep Android FROST adoption data</strong>: How many users complete FROST onboarding vs. falling back to single-key? This is the first real-world data point on consumer threshold-custody UX.</li>
+<li><strong>W3C DID Resolution v1 advancement</strong>: The CR Snapshot was published August 6. It can advance to Recommendation no earlier than September 3, 2026.</li>
+<li><strong>Crypto 2026 (August 17–20)</strong>: While primarily a PQC venue, any results on threshold signature security or identity-adjacent cryptography (ZK proofs, anonymous credentials) are relevant.</li>
+</ol>
+<h2 id="primary-sources-this-period">Primary sources (this period)</h2>
+<h3 id="releases-and-announcements">Releases and announcements</h3>
+<ul>
+<li><a href="https://github.com/block/buzz" rel="noopener nofollow">Buzz by Block — open-sourced July 21, 2026</a> — Apache 2.0; Nostr-native workspace for humans and AI agents</li>
+<li><a href="https://www.marktechpost.com/2026/07/31/nous-research-ships-three-integration-paths-for-hermes-agent-and-buzz-blocks-open-source-nostr-workspace-for-humans-and-agents" rel="noopener nofollow">Nous Research Hermes Agent + Buzz integration (July 31, 2026)</a> — three integration paths</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-07-15-newsletter/" rel="noopener nofollow">Nostr Compass #31 (July 15, 2026)</a> — Vector → Concord, Amethyst Concord, Sonar, Divine, Bitchat</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-07-22-newsletter/" rel="noopener nofollow">Nostr Compass #32 (July 22, 2026)</a> — IndieSats, Nostrord, Zapstore, Iris Stack, NIP-42/43 Deep Dive</li>
+<li><a href="https://github.com/greenart7c3/Amber/releases/tag/v6.3.0" rel="noopener nofollow">Amber v6.3.0</a> — grouped bunker approvals, Expert List, privacy mode</li>
+<li><a href="https://github.com/VectorPrivacy/Vector/releases" rel="noopener nofollow">Vector v0.4.0 / v0.4.1</a> — Concord migration, Concord v2</li>
+<li><a href="https://github.com/concord-protocol/concord" rel="noopener nofollow">Concord Protocol specs</a> — CORD-01 through CORD-07, MIT-licensed</li>
+<li><a href="https://github.com/barrydeen/wisp" rel="noopener nofollow">Keep Android v1.1.8</a> — first-run FROST onboarding</li>
+<li><a href="https://foundation.xyz/app-showcase/nostr-signer/" rel="noopener nofollow">Foundation Passport NIP-07 signer</a> — hardware NIP-07, updated July 2026</li>
+<li><a href="https://github.com/mmalmi/nostr-pubsub" rel="noopener nofollow">Iris Stack: nostr-pubsub</a>, <a href="https://github.com/mmalmi/fips-ts" rel="noopener nofollow">fips-ts</a>, <a href="https://github.com/mmalmi/nostr-social-graph/releases/tag/v2.0.0" rel="noopener nofollow">nostr-social-graph v2.0.0</a></li>
+</ul>
+<h3 id="nips-and-protocol-specs">NIPs and protocol specs</h3>
+<ul>
+<li><a href="https://nips.nostr.com/42" rel="noopener nofollow">NIP-42 (AUTH)</a> — relay authentication</li>
+<li><a href="https://nips.nostr.com/43" rel="noopener nofollow">NIP-43 (Relay Access Metadata)</a> — relay membership and access policy</li>
+<li><a href="https://nips.nostr.com/29" rel="noopener nofollow">NIP-29 (Relay-based Groups)</a> — five PRs merged: subgroups, pinning, banners, invite codes</li>
+<li><a href="https://nips.nostr.com/90" rel="noopener nofollow">NIP-90 (Data Vending Machine)</a> — marked "unrecommended"</li>
+<li><a href="https://nips.nostr.com/34" rel="noopener nofollow">NIP-34 (Repository Annotations)</a> — git patches and PRs over Nostr (used by Buzz)</li>
+<li><a href="https://nips.nostr.com/17" rel="noopener nofollow">NIP-17 (Gift-wrapped Direct Messages)</a> — basis for Concord community transport</li>
+</ul>
+<h3 id="security-advisories">Security advisories</h3>
+<ul>
+<li><a href="https://rustsec.org/advisories/RUSTSEC-2026-0216.html" rel="noopener nofollow">RUSTSEC-2026-0216 — NIP-44 v2 Remote DoS</a> — rust-nostr 0.26.0–0.44.4; fixed in 0.44.5</li>
+<li>Discovered and disclosed by Muhammed Shekho (mhd-shekho.com)</li>
+</ul>
+<h3 id="w3c-and-formal-standards">W3C and formal standards</h3>
+<ul>
+<li><a href="https://www.w3.org/TR/did-resolution-1.0" rel="noopener nofollow">W3C DID Resolution v1 — Candidate Recommendation Snapshot, August 6, 2026</a></li>
+<li><a href="https://www.w3.org/TR/did-1.1" rel="noopener nofollow">W3C DIDs v1.1 — Candidate Recommendation Snapshot, March 5, 2026</a></li>
+</ul>
+<h3 id="worldcoin-world-id">Worldcoin / World ID</h3>
+<ul>
+<li><a href="https://world.org/world-id" rel="noopener nofollow">World ID</a> — primary source</li>
+<li><a href="https://world.org/blog/announcements/introducing-world-chain" rel="noopener nofollow">Introducing World Chain</a> — World Chain announcement</li>
+<li><a href="https://coinstats.app/ai/a/investment-analysis-worldcoin-wld" rel="noopener nofollow">CoinStats Worldcoin Analysis (August 2026)</a> — market data and adoption metrics</li>
+<li><a href="https://x.com/0xchainink/status/2079567199682105466" rel="noopener nofollow">Chain INK WLD Review (2026)</a> — Grayscale ETF, integrations, supply analysis</li>
+</ul>
+<h3 id="threshold-cryptography">Threshold cryptography</h3>
+<ul>
+<li><a href="https://csrc.nist.gov/csrc/media/Projects/threshold-cryptography/documents/TCall-1/FROST-PW01.pdf" rel="noopener nofollow">FROST NIST MPTS 2026 preview writeup</a> — version 0.1, March 2026</li>
+<li><a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">Hermine: Lattice-based FROST-like Threshold Signatures</a> — eprint 2026/419</li>
+<li><a href="https://hermine-th.org" rel="noopener nofollow">Hermine project website</a></li>
+<li><a href="https://developer.blockchaincommons.com/frost" rel="noopener nofollow">Blockchain Commons FROST developer resources</a> — ZF FROST, Hubert CLI, Gordian tools</li>
+</ul>
+<h3 id="repositories-and-project-pages">Repositories and project pages</h3>
+<ul>
+<li>Nostr signers: <a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a>, <a href="https://foundation.xyz/app-showcase/nostr-signer/" rel="noopener nofollow">Foundation Passport</a>, <a href="https://nostr-wot.com/download" rel="noopener nofollow">Nostr WoT extension</a></li>
+<li>AI agent infrastructure: <a href="https://github.com/block/buzz" rel="noopener nofollow">Buzz</a>, <a href="https://aiwot.org" rel="noopener nofollow">ai.wot</a></li>
+<li>Encrypted communities: <a href="https://github.com/concord-protocol/concord" rel="noopener nofollow">Concord Protocol</a>, <a href="https://github.com/VectorPrivacy/Vector" rel="noopener nofollow">Vector</a>, <a href="https://gitlab.com/soapbox-pub/armada" rel="noopener nofollow">Armada</a></li>
+<li>Iris Stack: <a href="https://github.com/mmalmi/nostr-pubsub" rel="noopener nofollow">nostr-pubsub</a>, <a href="https://github.com/mmalmi/fips-ts" rel="noopener nofollow">fips-ts</a>, <a href="https://github.com/mmalmi/nostr-social-graph" rel="noopener nofollow">nostr-social-graph</a></li>
+<li>Threshold custody: <a href="https://github.com/barrydeen/wisp" rel="noopener nofollow">Keep Android</a>, <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a>, <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a></li>
+<li>Relay access control: <a href="https://github.com/Cameri/nostream" rel="noopener nofollow">nostream</a>, <a href="https://github.com/hoytech/strfry" rel="noopener nofollow">strfry</a>, <a href="https://github.com/fiatjaf/khatru" rel="noopener nofollow">khatru</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-08-02/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — August 02 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-08-16/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — August 16 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

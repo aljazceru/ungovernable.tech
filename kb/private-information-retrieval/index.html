@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Private Information Retrieval — ungovernable.tech</title>
+<meta name="description" content="Private information retrieval lets you fetch a record from a database without the server learning which record you asked for. How it works.">
+<link rel="canonical" href="https://ungovernable.tech/kb/private-information-retrieval/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Private Information Retrieval — ungovernable.tech">
+<meta property="og:description" content="Private information retrieval lets you fetch a record from a database without the server learning which record you asked for. How it works.">
+<meta property="og:url" content="https://ungovernable.tech/kb/private-information-retrieval/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Private Information Retrieval — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Private Information Retrieval — ungovernable.tech">
+<meta name="twitter:description" content="Private information retrieval lets you fetch a record from a database without the server learning which record you asked for. How it works.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Private Information Retrieval", "description": "Private information retrieval lets you fetch a record from a database without the server learning which record you asked for. How it works.", "dateModified": "2026-08-26", "datePublished": "2026-07-08", "url": "https://ungovernable.tech/kb/private-information-retrieval/", "mainEntityOfPage": "https://ungovernable.tech/kb/private-information-retrieval/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Private Information Retrieval", "item": "https://ungovernable.tech/kb/private-information-retrieval/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Private Information Retrieval</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Private Information Retrieval</h1>
+  <p class="aka">Also PIR, Private Information Retrieval.</p>
+  <p class="dek">Allowing clients to retrieve specific database records without revealing the queried index or item to the server(s). A core primitive for privacy-preserving search, metadata-hiding systems, and decentralized applications.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-08-26</b></span>
+    <span><b>11</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-pir-matters">Why PIR Matters</a><a href="#historical-context-and-evolution">Historical Context and Evolution</a><a href="#major-implementations-and-libraries">Major Implementations and Libraries</a><a href="#use-cases-and-trade-offs">Use Cases and Trade-offs</a><a href="#evidence-at-a-glance">Evidence at a Glance</a><a href="#research-frontier-august-2026">Research Frontier (August 2026)</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-pir-matters">Why PIR Matters</h2>
+<p>Traditional database queries leak the client's interest to the server. PIR protocols cryptographically hide the query while still returning the correct record. This enables:</p>
+<ul>
+<li>Private web search / Wikipedia browsing</li>
+<li>Private DNS lookups</li>
+<li>Private contact discovery and blocklist checks</li>
+<li>Certificate Transparency auditing without leaking watched domains</li>
+<li>Private blockchain state queries (balances, UTXOs)</li>
+<li>Metadata-hiding messaging and media consumption</li>
+<li>Password breach checking without revealing passwords</li>
+</ul>
+<p>PIR has seen major practical advances since ~2022, moving from theoretical curiosity to deployable systems with multi-GB/s throughput on commodity hardware. The field is now in a phase of rapid diversification: incremental preprocessing, GPU acceleration, hardware-coupled designs, keyword PIR, and verifiable variants are all active frontiers as of August 2026.</p>
+<h2 id="historical-context-and-evolution">Historical Context and Evolution</h2>
+<p><strong>Information-theoretic PIR (IT-PIR)</strong>: Introduced in 1995 (Chor et al.). Requires multiple non-colluding servers; communication and computation scale with database size. Early schemes (CGKS 1998, etc.) were impractical for large DBs.</p>
+<p><strong>Computational PIR (CPIR)</strong>: Single-server, relies on cryptographic hardness (e.g., LWE, DDH). Early schemes (Kushilevitz &amp; Ostrovsky 1997) had prohibitive computation.</p>
+<p><strong>Modern era (2010s–2020s)</strong>:
+- XPIR (2014): First practical CPIR using lattice crypto.
+- SealPIR (2018, Microsoft): Optimized query compression + amortized computation using Microsoft SEAL FHE. ~36ms per query on modest hardware.
+- SimplePIR / DoublePIR (USENIX Security 2023, Henzinger et al.): Breakthrough single-server schemes achieving near-memory-bandwidth throughput (10 GB/s/core for SimplePIR) under LWE. Hint-based preprocessing enables unbounded queries after initial download.
+- YPIR (USENIX Security 2024, Menon &amp; Wu): Eliminates hints entirely via silent preprocessing; 12 GB/s/core throughput (83% of memory bandwidth); 10–15× faster preprocessing than SimplePIR family.
+- ThorPIR (CCS 2024, Fisch et al.): First sublinear server-time scheme with sublinear offline communication via homomorphic Thorp shuffles.
+- WhisPIR (ePrint 2024/266, de Castro et al.): Stateless PIR with low communication; ephemeral clients.
+- VeriSimplePIR (USENIX Security 2024, de Castro et al.): Verifiability added to SimplePIR at no online cost.
+- Respire (CCS 2024, Burton et al.): Optimized for small records (~256 B) — relevant for blockchain Merkle trees.</p>
+<p><strong>2025–2026 wave</strong>:
+- FlashPIR (Cybersecurity journal, May 2026): Low-latency FHE-based PIR with low client overhead; 2.6× throughput over WhisPIR.
+- ZipPIR (arXiv, March 2026): High-throughput without client preprocessing or server-side per-client state.
+- RotPIR (ePrint 2026/1336): Up to 1000× preprocessing speedup via oblivious homomorphic rotation.
+- iSimplePIR (ePrint 2026/030): First formal single-server incremental PIR — real-time entry-level database updates without full re-preprocessing.
+- OnionPIRv2 (ePrint 2025/1142): Optimized single-server PIR using SHE advances.
+- PIRCOR/RECPIR (ePrint 2025/756): Communication-optimal hintless PIR via homomorphic rotation.
+- VIA (ePrint 2025/2074, to appear S&amp;P 2026): Communication-efficient single-server PIR.
+- Improved TensorPIR (ePrint 2026/912): 45.5% communication reduction over original TensorPIR.
+- InsPIRe (ePrint 2025/1352): Server-side preprocessing for communication-efficient PIR.
+- Pirouette (FHE.org 2026): Query-efficient PIR, novel alternative to transciphering for query compression.
+- Conflux (HPCA 2026): Keyword PIR for dynamic datasets via protocol-architecture co-design with computational storage devices.
+- PIRacle (IEEE TC 2026): Fast scalable PIR for key-value stores.
+- GPIR (arXiv 2604.04696): GPU-accelerated, up to 305× throughput over prior GPU PIR.
+- SmartPIR (MICRO 2025): PIR on computational storage devices (CSDs) — reducing data movement.
+- KPIR (USENIX Security 2025): Practical keyword PIR from key-to-index mappings (KPIRkvs, KPIRhash, KPIRindex).
+- IM-PIR (arXiv 2509.06514): Processing-in-memory PIR using DPUs.
+- Conflux (HPCA 2026, Chen et al.): High-performance keyword PIR for dynamic datasets.
+- Applebaum–Ishai–Shechter arithmetic PIR (CRYPTO 2026): single-server code-based PIR provably cannot beat n download; breaks ISIT'20/'24 code-based schemes in minutes. See <a href="/briefings/pir/2026-08-19/">PIR Wednesday — August 19 2026 Weekly Update</a>.
+- Chen–Ishai–Jain–Mour–Rosen–Xing doubly-efficient SK-PIR (ePrint 2026/1480): first benchmarked SK-PIR — 4.2× storage overhead on 37 GB DB, &lt;600 KB server reads per query.
+- UC VPIR / UVPIR (ePrint 2026/1651): first universally-composable verifiable PIR, with authorized database updates.
+- GPU DPF-PIR (TCHES 2026(3), Tan et al.): 8.2–9.4× throughput over prior GPU SOTA on RTX 4090; pipelined variant uses 99% less memory.</p>
+<p>Key shift: From "impractical" to "practical for medium databases" with acceptable bandwidth and server throughput approaching raw memory speed. The 2025–2026 frontier focuses on: (1) removing preprocessing/hint dependencies, (2) keyword (not just index) PIR, (3) verifiable PIR against malicious servers, (4) GPU/CSD/PIM hardware acceleration, (5) incremental updates for dynamic databases, (6) real-world deployment in Ethereum privacy infrastructure, and (7) <strong>information-theoretic PIR resurgence</strong> — Henzinger &amp; Ragavan (EUROCRYPT 2026) achieved the first IT-PIR with quasilinear storage and polynomially sublinear time, while Bitansky &amp; Mazor (2026) proved SK-PIR needs only one-way functions.</p>
+<h2 id="major-implementations-and-libraries">Major Implementations and Libraries</h2>
+<h3 id="reference-foundational">Reference / Foundational</h3>
+<ul>
+<li><strong>SealPIR</strong> (Microsoft Research, 2018)</li>
+<li><a href="https://github.com/microsoft/SealPIR" rel="noopener nofollow">https://github.com/microsoft/SealPIR</a></li>
+<li>Uses Microsoft SEAL for RLWE-based CPIR. Compressed queries, amortized server work.</li>
+<li>
+<p>Still widely referenced; research library (not production).</p>
+</li>
+<li>
+<p><strong>SimplePIR &amp; DoublePIR</strong> (2023)</p>
+</li>
+<li><a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">https://github.com/ahenzinger/simplepir</a> — 100 stars, MIT license, Go implementation.</li>
+<li>Fastest known single-server throughput: SimplePIR ~10 GB/s/core; DoublePIR trades some speed for smaller hints (~16 MB fixed hint).</li>
+<li>Paper: <a href="https://eprint.iacr.org/2022/949" rel="noopener nofollow">https://eprint.iacr.org/2022/949</a></li>
+<li>
+<p>See <a href="/kb/simplepir-doublepir/">SimplePIR and DoublePIR</a> for the deep dive.</p>
+</li>
+<li>
+<p><strong>FrodoPIR</strong> (Brave)</p>
+</li>
+<li><a href="https://github.com/brave-experiments/frodo-pir" rel="noopener nofollow">https://github.com/brave-experiments/frodo-pir</a></li>
+<li>
+<p>Stateful single-server scheme with offline phase. Highly configurable.</p>
+</li>
+<li>
+<p><strong>hintless_pir</strong> (Google)</p>
+</li>
+<li><a href="https://github.com/google/hintless_pir" rel="noopener nofollow">https://github.com/google/hintless_pir</a></li>
+<li>
+<p>Implements Li &amp; Micciancio et al. (CRYPTO 2024) protocols. No client hints, no client-dependent server state.</p>
+</li>
+<li>
+<p><strong>YPIR</strong> (Blyss / UT Austin)</p>
+</li>
+<li><a href="https://eprint.iacr.org/2024/270" rel="noopener nofollow">https://eprint.iacr.org/2024/270</a></li>
+<li>
+<p>Silent preprocessing (no hint download); 12 GB/s/core; reduces CT log auditing cost by 48× vs prior art.</p>
+</li>
+<li>
+<p><strong>ThorPIR</strong> (Yale)</p>
+</li>
+<li><a href="https://eprint.iacr.org/2024/482" rel="noopener nofollow">https://eprint.iacr.org/2024/482</a> — CCS 2024.</li>
+<li>
+<p>Sublinear server time + sublinear offline communication via homomorphic Thorp shuffles.</p>
+</li>
+<li>
+<p><strong>WhisPIR</strong> (de Castro, Lewi, Suh)</p>
+</li>
+<li><a href="https://eprint.iacr.org/2024/266" rel="noopener nofollow">https://eprint.iacr.org/2024/266</a></li>
+<li>
+<p>Stateless, ephemeral clients, low communication. Implementation not publicly available.</p>
+</li>
+<li>
+<p><strong>VeriSimplePIR</strong> (de Castro et al.)</p>
+</li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity24/presentation/de-castro" rel="noopener nofollow">https://www.usenix.org/conference/usenixsecurity24/presentation/de-castro</a> — USENIX Security 2024.</li>
+<li>Verifiable PIR: guarantees consistency with a fixed database at no online overhead.</li>
+<li>
+<p>Follow-up: "Verifiable PIR with Small Client Storage" (IEEE S&amp;P 2026) — reduces client state from &gt;1 GiB by orders of magnitude.</p>
+</li>
+<li>
+<p><strong>OnionPIRv2</strong> (Chen &amp; Ren)</p>
+</li>
+<li><a href="https://github.com/chenyue42/OnionPIRv2" rel="noopener nofollow">https://github.com/chenyue42/OnionPIRv2</a></li>
+<li>
+<p><a href="https://eprint.iacr.org/2025/1142" rel="noopener nofollow">https://eprint.iacr.org/2025/1142</a> — optimized single-server PIR using SHE.</p>
+</li>
+<li>
+<p><strong>mpc4j</strong> (Alibaba)</p>
+</li>
+<li><a href="https://github.com/alibaba-edu/mpc4j" rel="noopener nofollow">https://github.com/alibaba-edu/mpc4j</a></li>
+<li>
+<p>Contains incremental/offline-online PIR and other MPC primitives.</p>
+</li>
+<li>
+<p><strong>hybridpir</strong></p>
+</li>
+<li><a href="https://github.com/KoffeinFlummi/hybridpir" rel="noopener nofollow">https://github.com/KoffeinFlummi/hybridpir</a></li>
+<li>Combines CIP-PIR (multi-server) and SealPIR (single-server).</li>
+</ul>
+<h3 id="recent-specialized-20252026">Recent / Specialized (2025–2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Venue / Source</th>
+<th>Key Innovation</th>
+<th>Repo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FlashPIR</td>
+<td>Cybersecurity journal, May 2026</td>
+<td>Low-latency FHE PIR, 2.6× over WhisPIR</td>
+<td>—</td>
+</tr>
+<tr>
+<td>ZipPIR</td>
+<td>arXiv 2603.09190, Mar 2026</td>
+<td>High-throughput without client storage</td>
+<td>—</td>
+</tr>
+<tr>
+<td>RotPIR</td>
+<td>ePrint 2026/1336</td>
+<td>1000× preprocessing speedup via homomorphic rotation</td>
+<td>—</td>
+</tr>
+<tr>
+<td>iSimplePIR</td>
+<td>ePrint 2026/030</td>
+<td>First single-server incremental PIR (entry-level updates)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>GPIR (GPU)</td>
+<td>arXiv 2604.04696</td>
+<td>GPU-accelerated, 305× over prior GPU PIR</td>
+<td>—</td>
+</tr>
+<tr>
+<td>SmartPIR</td>
+<td>MICRO 2025</td>
+<td>PIR on computational storage devices (CSDs)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Conflux</td>
+<td>HPCA 2026</td>
+<td>Keyword PIR for dynamic datasets (CSD co-design)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>PIRacle</td>
+<td>IEEE TC 2026</td>
+<td>Fast scalable PIR for key-value stores</td>
+<td>—</td>
+</tr>
+<tr>
+<td>KPIR</td>
+<td>USENIX Security 2025</td>
+<td>Practical keyword PIR (kvs/hash/index)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Respire</td>
+<td>CCS 2024</td>
+<td>Optimized for small records (~256 B)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>VIA</td>
+<td>ePrint 2025/2074 (S&amp;P 2026)</td>
+<td>Communication-efficient single-server PIR</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Improved TensorPIR</td>
+<td>ePrint 2026/912</td>
+<td>45.5% communication reduction</td>
+<td>—</td>
+</tr>
+<tr>
+<td>InsPIRe</td>
+<td>ePrint 2025/1352</td>
+<td>Server-side preprocessing, communication-efficient</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Pirouette</td>
+<td>FHE.org 2026</td>
+<td>Query-efficient, transciphering alternative</td>
+<td>—</td>
+</tr>
+<tr>
+<td>IM-PIR</td>
+<td>arXiv 2509.06514</td>
+<td>Processing-in-memory PIR using DPUs</td>
+<td>—</td>
+</tr>
+<tr>
+<td>ChalametPIR</td>
+<td>ePrint 2024/092</td>
+<td>Rust impl, keyword PIR</td>
+<td>available</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Stanford PIR Library</strong> (survey &amp; pointers): <a href="https://crypto.stanford.edu/pir-library/" rel="noopener nofollow">https://crypto.stanford.edu/pir-library/</a></p>
+<p><strong>UT Austin PIR tutorial</strong> (Wu, June 2024): <a href="https://www.cs.utexas.edu/~dwu4/talks/PIRGeneral0624.pdf" rel="noopener nofollow">https://www.cs.utexas.edu/~dwu4/talks/PIRGeneral0624.pdf</a> — comprehensive overview slide deck covering 25 years of PIR research with throughput evolution.</p>
+<h2 id="use-cases-and-trade-offs">Use Cases and Trade-offs</h2>
+<h3 id="high-value-use-cases">High-value use cases</h3>
+<ul>
+<li><strong>Certificate Transparency</strong>: Private SCT auditing. YPIR specifically reduces server costs for private CT log auditing by 48×. This is the most concrete near-term deployment vector.</li>
+<li><strong>Private search</strong>: Tiptoe (SOSP 2023) demonstrates fully private web search using two non-colluding servers and PIR; ~57 MiB client state.</li>
+<li><strong>Apple / device features</strong>: Logo lookup, caller ID lookup, content filtering via HE + PIR (iOS 18 Live Caller ID).</li>
+<li><strong>Password breach checking</strong>: Checking credentials against breach databases without revealing the password. iSimplePIR explicitly targets this use case.</li>
+<li><strong>Ethereum / blockchain</strong>: Private RPC reads so nodes don't learn what state the user queries. PSE project "PIR for Ethereum Data"; Vitalik's Kohaku privacy toolkit (2025); the sharded PIR design (ethresear.ch, Ali Atiia &amp; Keewoo Lee) proposes sharding Ethereum state across multiple PIR schemes. See <a href="/kb/pir-use-cases/">PIR Use Cases and Deployments</a>.</li>
+<li><strong>Decentralized apps</strong>: Private smart contract state queries, private contact discovery (Signal-style).</li>
+<li><strong>Ad / analytics</strong>: Privacy-preserving measurement without leaking user interests.</li>
+</ul>
+<h3 id="trade-offs">Trade-offs</h3>
+<ul>
+<li><strong>Single-server vs multi-server</strong>: Single-server (most practical) requires computational assumptions (LWE); multi-server offers information-theoretic security but deployment friction (non-collusion).</li>
+<li><strong>Hint size vs query cost</strong>: SimplePIR has large per-client hints (~4N KB for N-byte DB) but tiny queries. DoublePIR shrinks hints at modest query cost increase. YPIR eliminates hints entirely via silent preprocessing. ZipPIR eliminates both hints and per-client server state.</li>
+<li><strong>Preprocessing / incremental updates</strong>: Most schemes assume static DB. iSimplePIR (2026) is the first formal single-server incremental scheme — entry-level updates without full re-preprocessing. Conflux targets dynamic datasets for keyword PIR.</li>
+<li><strong>Throughput vs bandwidth</strong>: Modern schemes achieve near-memory-bandwidth server throughput; client bandwidth is the remaining bottleneck for very large DBs.</li>
+<li><strong>GPU / hardware acceleration</strong>: GPIR (GPU, 305×), SmartPIR (CSDs), IM-PIR (processing-in-memory) — emerging for high-scale deployments.</li>
+<li><strong>Security model</strong>: Semi-honest servers assumed in most practical schemes. VeriSimplePIR adds verifiability (detects malicious server cheating) at no online cost. "Verifiable PIR with Small Client Storage" (S&amp;P 2026) extends this with covert security for stateless clients.</li>
+<li><strong>Keyword vs index PIR</strong>: Index PIR (retrieve by position) is the classical formulation. Keyword PIR (retrieve by key) is the practical need. KPIR (USENIX Security 2025) and Conflux (HPCA 2026) bridge this gap via key-to-index mappings.</li>
+</ul>
+<p><strong>Maturity (August 2026)</strong>: Research-to-early-production. The performance frontier has shifted from raw throughput (SimplePIR-class) to practical deployment concerns: incremental updates, keyword lookups, verifiability, and hardware acceleration. Production use is growing in Ethereum privacy layers (Kohaku, PSE PIR), Apple device features, and CT log auditing. Tiptoe demonstrates private web search is architecturally feasible but requires non-colluding server operators.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Servers</th>
+<th>Throughput (approx)</th>
+<th>Hint Size</th>
+<th>Query Comm.</th>
+<th>DB Size Tested</th>
+<th>Year</th>
+<th>Notes / Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SealPIR</td>
+<td>1</td>
+<td>~MB/s range</td>
+<td>Small</td>
+<td>Low</td>
+<td>Medium</td>
+<td>2018</td>
+<td>Microsoft SEAL-based</td>
+</tr>
+<tr>
+<td>SimplePIR</td>
+<td>1</td>
+<td>10 GB/s/core</td>
+<td>~4N KB</td>
+<td>~242 KB</td>
+<td>1 GB</td>
+<td>2023</td>
+<td><a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">https://github.com/ahenzinger/simplepir</a></td>
+</tr>
+<tr>
+<td>DoublePIR</td>
+<td>1</td>
+<td>7.4 GB/s/core</td>
+<td>~16 MB fixed</td>
+<td>~345 KB</td>
+<td>1 GB</td>
+<td>2023</td>
+<td>Same repo</td>
+</tr>
+<tr>
+<td>FrodoPIR</td>
+<td>1</td>
+<td>Configurable</td>
+<td>Stateful</td>
+<td>Varies</td>
+<td>Varies</td>
+<td>~2023</td>
+<td>Brave experiments</td>
+</tr>
+<tr>
+<td>YPIR</td>
+<td>1</td>
+<td>12 GB/s/core</td>
+<td>Silent (no hint)</td>
+<td>~2.5 MB</td>
+<td>32 GB</td>
+<td>2024</td>
+<td>USENIX Sec '24, silent preprocessing</td>
+</tr>
+<tr>
+<td>ThorPIR</td>
+<td>1</td>
+<td>Sublinear server time</td>
+<td>Sublinear offline</td>
+<td>Sublinear</td>
+<td>Large</td>
+<td>2024</td>
+<td>CCS '24, Thorp shuffles</td>
+</tr>
+<tr>
+<td>WhisPIR</td>
+<td>1</td>
+<td>~1 GB/s</td>
+<td>Stateless</td>
+<td>Low</td>
+<td>1–8 GB</td>
+<td>2024</td>
+<td>Stateless, ephemeral clients</td>
+</tr>
+<tr>
+<td>VeriSimplePIR</td>
+<td>1</td>
+<td>Same as SimplePIR</td>
+<td>Same as SimplePIR + digest</td>
+<td>Same</td>
+<td>8 GB</td>
+<td>2024</td>
+<td>USENIX Sec '24, verifiable</td>
+</tr>
+<tr>
+<td>Respire</td>
+<td>1</td>
+<td>High for small records</td>
+<td>Configurable</td>
+<td>Low</td>
+<td>Medium</td>
+<td>2024</td>
+<td>CCS '24, optimized for ~256 B records</td>
+</tr>
+<tr>
+<td>GPIR (GPU)</td>
+<td>1</td>
+<td>305× prior GPU</td>
+<td>—</td>
+<td>—</td>
+<td>Large</td>
+<td>2026</td>
+<td>arXiv 2604.04696</td>
+</tr>
+<tr>
+<td>Pirex (OO)</td>
+<td>2</td>
+<td>High (client opt)</td>
+<td>Low client</td>
+<td>Very low</td>
+<td>1 TB</td>
+<td>2025</td>
+<td>55 ms for 4 KB entry</td>
+</tr>
+<tr>
+<td>NPiR</td>
+<td>1</td>
+<td>High-rate</td>
+<td>Optimized</td>
+<td>Moderate</td>
+<td>Medium</td>
+<td>2026</td>
+<td>eprint 2025/2257</td>
+</tr>
+<tr>
+<td>Distributional PIR</td>
+<td>1</td>
+<td>Faster under skew</td>
+<td>Varies</td>
+<td>Lower</td>
+<td>Large</td>
+<td>2025</td>
+<td>USENIX Sec '25</td>
+</tr>
+<tr>
+<td>FlashPIR</td>
+<td>1</td>
+<td>2.6× WhisPIR</td>
+<td>Low</td>
+<td>Low</td>
+<td>1–8 GB</td>
+<td>2026</td>
+<td>Cybersecurity journal</td>
+</tr>
+<tr>
+<td>ZipPIR</td>
+<td>1</td>
+<td>High</td>
+<td>None</td>
+<td>Low</td>
+<td>Large</td>
+<td>2026</td>
+<td>arXiv 2603.09190, no client storage</td>
+</tr>
+<tr>
+<td>RotPIR</td>
+<td>1</td>
+<td>Sublinear online</td>
+<td>1000× faster preprocessing</td>
+<td>Sublinear</td>
+<td>Large</td>
+<td>2026</td>
+<td>ePrint 2026/1336</td>
+</tr>
+<tr>
+<td>iSimplePIR</td>
+<td>1</td>
+<td>Same as SimplePIR</td>
+<td>Incremental updates</td>
+<td>Same</td>
+<td>Medium</td>
+<td>2026</td>
+<td>ePrint 2026/030, entry-level updates</td>
+</tr>
+<tr>
+<td>VIA</td>
+<td>1</td>
+<td>High</td>
+<td>Optimized</td>
+<td>Low</td>
+<td>Large</td>
+<td>2026</td>
+<td>S&amp;P 2026, ePrint 2025/2074</td>
+</tr>
+<tr>
+<td>Improved TensorPIR</td>
+<td>1</td>
+<td>High</td>
+<td>Optimized</td>
+<td>45.5% of original</td>
+<td>Large</td>
+<td>2026</td>
+<td>ePrint 2026/912</td>
+</tr>
+<tr>
+<td>KPIR</td>
+<td>1</td>
+<td>High (keyword)</td>
+<td>Varies</td>
+<td>Low</td>
+<td>2^20 entries</td>
+<td>2025</td>
+<td>USENIX Sec '25, keyword PIR</td>
+</tr>
+<tr>
+<td>Conflux</td>
+<td>1</td>
+<td>High (keyword)</td>
+<td>Dynamic</td>
+<td>Low</td>
+<td>Dynamic</td>
+<td>2026</td>
+<td>HPCA '26, CSD co-design</td>
+</tr>
+<tr>
+<td>Henzinger &amp; Ragavan IT-PIR</td>
+<td>2</td>
+<td>Sublinear: 12·n^0.63</td>
+<td>1.5·√(log n)·n</td>
+<td>4.4 MB (11 GB DB)</td>
+<td>11 GB</td>
+<td>2026</td>
+<td>EUROCRYPT '26, first sublinear-time IT-PIR</td>
+</tr>
+<tr>
+<td>Bitansky &amp; Mazor SK-PIR</td>
+<td>1 (SK)</td>
+<td>Sublinear</td>
+<td>Secret key offline</td>
+<td>Õ(√N)</td>
+<td>Theoretical</td>
+<td>2026</td>
+<td>ePrint 2026/865, from OWFs</td>
+</tr>
+<tr>
+<td>Döttling Minicrypt Batch</td>
+<td>2</td>
+<td>Batch-amortized</td>
+<td>—</td>
+<td>Batch-efficient</td>
+<td>Large</td>
+<td>2025</td>
+<td>ePrint 2025/1406, Minicrypt</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="research-frontier-august-2026">Research Frontier (August 2026)</h2>
+<p>The field is in an explosive diversification phase. Key open problems being actively addressed:</p>
+<ol>
+<li><strong>Incremental / dynamic databases</strong>: iSimplePIR (entry-level updates), Conflux (keyword PIR for dynamic data), PIRacle (key-value stores). The static-DB assumption is being dismantled.</li>
+<li><strong>Keyword PIR</strong>: KPIR, Conflux, ChalametPIR. Practical systems need keyword lookup, not just index-based retrieval.</li>
+<li><strong>Verifiability</strong>: VeriSimplePIR, "Verifiable PIR with Small Client Storage" (S&amp;P 2026), covert vPIR. Detecting malicious servers that return wrong results.</li>
+<li><strong>Hardware acceleration</strong>: GPIR (GPU), SmartPIR (CSDs), IM-PIR (processing-in-memory), IVE (custom ASIC, Kim et al. 2026). PIR's memory-bound nature makes it ideal for near-data processing.</li>
+<li><strong>Communication reduction</strong>: FlashPIR, ZipPIR, VIA, Pirouette, InsPIRe, Improved TensorPIR. Reducing client-to-server communication remains the primary deployment bottleneck.</li>
+<li><strong>Preprocessing elimination</strong>: YPIR (silent), WhisPIR (stateless), ZipPIR (no client storage). Removing the hint download barrier.</li>
+<li><strong>Ethereum integration</strong>: Sharded PIR design (ethresear.ch), Kohaku privacy toolkit, PSE PIR project, Oblivious Labs → Kohaku pipeline (EF Q1 2026 funded). The first major platform-level deployment target.</li>
+<li><strong>Information-theoretic PIR resurgence</strong> (NEW Aug 2026): Henzinger &amp; Ragavan (EUROCRYPT 2026) achieved first IT-PIR with quasilinear storage n^{1+o(1)} and polynomially sublinear server time n^{1-Ω(1)} using just 2 servers — 4.5M× smaller data structure than prior IT-PIR. Reopens two-server deployment paradigm.</li>
+<li><strong>Foundational cryptographic requirements</strong> (NEW Aug 2026): Bitansky &amp; Mazor proved SK-PIR needs only one-way functions (ePrint 2026/865). Chen et al. (STOC 2026) construct SK-PIR from LPN. Evidence mounting that secret-key PIR is fundamentally easier than public-key PIR.</li>
+<li><strong>Batch PIR from Minicrypt</strong> (NEW Aug 2026): Döttling's batch two-server PIR from Minicrypt assumptions (ePrint 2025/1406). Amortized batch retrieval without public-key crypto.</li>
+<li><strong>Negative results &amp; arithmetic PIR</strong> (NEW Aug 19 2026): Applebaum–Ishai–Shechter (CRYPTO 2026, ePrint 2026/1224) prove no single-server arithmetic PIR beats n download — killing code-based single-server PIR (ISIT'20/'24 schemes broken in minutes). Meanwhile PIR research <em>exported</em> a quasipolynomial McEliece distinguisher (ePrint 2026/1630), born from a failed PIR-from-LDC attempt.</li>
+<li><strong>Benchmarked secret-key PIR</strong> (NEW Aug 19 2026): ePrint 2026/1480 gives the first doubly-efficient SK-PIR with constant (→1×) storage overhead and concrete benchmarks — 37 GB DB at 4.2× overhead, &lt;600 KB server reads/query — from new t-smooth LDCs (concatenated-curve Reed–Muller, curve-lifted codes).</li>
+<li><strong>Composable verifiable PIR</strong> (NEW Aug 19 2026): UC-secure VPIR + Updatable VPIR (ePrint 2026/1651); Updatable OKVS with access control powering PIR-based multi-key searchable encryption (ePrint 2026/1590, FrodoPIR backend).</li>
+<li><strong>Fewer-server IT-PIR</strong> (NEW Aug 19 2026): ePrint 2026/1515 achieves prior communication with exponentially fewer servers (2^{O(s)} → s), unconditional for s ≤ 15; quantum ceiling set by QPIR-from-OWFs note (ePrint 2026/1524).</li>
+<li><strong>t-private wall + LPN consolidation</strong> (NEW Aug 26 2026): Alon (ePrint 2026/1780) proves no t-private Z_m→F_q share conversion for t≥2 — the matching-vector framework cannot yield t-private PIR. On the positive side, RC-PIR (ePrint 2026/1372, Applebaum–Shechter) grounds two-server non-collusion in a retrieval-only static host under ternary LPN, and the SK-PIR secret-dual-code toolbox exports to encrypted matrix-vector products at &lt;2× plaintext cost (ePrint 2025/858). LPN now carries SK-PIR, batch PIR, EMVP, and RC-PIR simultaneously.</li>
+<li><strong>OKVS goes dynamic</strong> (NEW Aug 26 2026): Multi-PGBF (ePrint 2026/1774, encode 65–78% faster than RR; decode ~90–96% faster than RB-OKVS) and updatable one-pass multi-party PSI (ePrint 2026/1772), joining UOKVS (2026/1590) — three updatable/fast OKVS results in 14 days.</li>
+</ol>
+<p>For privacy across storage reads and writes, see <a href="/kb/oblivious-ram/">oblivious RAM</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/simplepir-doublepir/">
+  <span class="nm">SimplePIR and DoublePIR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/pir-use-cases/">
+  <span class="nm">PIR Use Cases and Deployments</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/oblivious-ram/">
+  <span class="nm">Oblivious RAM</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cardano-dns/">
+  <span class="nm">Cardano DNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-private-computation/">
+  <span class="nm">Private computation compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/mix-networks-tracker/">
+  <span class="nm">Mix Networks Research and Deployment Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/oblivious-http/">
+  <span class="nm">Oblivious HTTP and DNS</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pir-research-frontier/">
+  <span class="nm">PIR Research Frontier</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-08-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Private%20Information%20Retrieval" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Allowing clients to retrieve specific database records without revealing the queried index or item to the server(s). A core primitive for privacy-preserving search, metadata-hiding systems, and decentralized applications.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-08-26</dd>
+        <dt>Sources linked</dt><dd>15</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

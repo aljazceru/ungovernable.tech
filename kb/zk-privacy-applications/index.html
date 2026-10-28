@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zero-Knowledge Privacy Applications — ungovernable.tech</title>
+<meta name="description" content="Chains and protocols that use zero-knowledge proofs for shielded transactions, private smart contracts and shielded pools, compared by design.">
+<link rel="canonical" href="https://ungovernable.tech/kb/zk-privacy-applications/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Zero-Knowledge Privacy Applications — ungovernable.tech">
+<meta property="og:description" content="Chains and protocols that use zero-knowledge proofs for shielded transactions, private smart contracts and shielded pools, compared by design.">
+<meta property="og:url" content="https://ungovernable.tech/kb/zk-privacy-applications/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zero-Knowledge Privacy Applications — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zero-Knowledge Privacy Applications — ungovernable.tech">
+<meta name="twitter:description" content="Chains and protocols that use zero-knowledge proofs for shielded transactions, private smart contracts and shielded pools, compared by design.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Zero-Knowledge Privacy Applications", "description": "Chains and protocols that use zero-knowledge proofs for shielded transactions, private smart contracts and shielded pools, compared by design.", "dateModified": "2026-04-27", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/zk-privacy-applications/", "mainEntityOfPage": "https://ungovernable.tech/kb/zk-privacy-applications/", "image": "https://ungovernable.tech/assets/og/pillar-zk.png", "about": [{"@type": "Thing", "name": "Zero-Knowledge Proofs"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Zero-Knowledge Proofs", "item": "https://ungovernable.tech/pillars/zk/"}, {"@type": "ListItem", "position": 3, "name": "Zero-Knowledge Privacy Applications", "item": "https://ungovernable.tech/kb/zk-privacy-applications/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/zk/">Zero-Knowledge Proofs</a><span aria-hidden="true">/</span><span class="here">Zero-Knowledge Privacy Applications</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ ZERO-KNOWLEDGE PROOFS ]</span></p>
+  <h1>Zero-Knowledge Privacy Applications</h1>
+  <p class="aka">Also Privacy L1s, Privacy L2s, Shielded Chains.</p>
+  <p class="dek">Six chains and protocols that use zero-knowledge proofs to deliver shielded transactions, private smart contracts, or shielded pools on top of public chains. Each picks a different point on the shielded-UTXO vs. shielded-account axis, a different proof system, and a different deployment surface (own L1, Cosmos zone, EVM L2, smart-contract overlay). The result is a fragmented landscape: each project has real users, none has won.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-04-27</b></span>
+    <span><b>9</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-design-space">The design space</a><a href="#aztec-privacy-by-default-l2">Aztec — privacy-by-default L2</a><a href="#penumbra-cosmos-shielded-zone">Penumbra — Cosmos shielded zone</a><a href="#aleo-snarky-program-l1">Aleo — Snarky-program L1</a><a href="#iron-fish-sapling-derived-shielded-chain">Iron Fish — Sapling-derived shielded chain</a><a href="#namada-multi-asset-shielded-pool-for-cosmos">Namada — multi-asset shielded pool for Cosmos</a><a href="#railgun-privacy-on-existing-evms">RailGun — privacy on existing EVMs</a><a href="#comparison">Comparison</a><a href="#cross-cutting-notes">Cross-cutting notes</a><a href="#where-each-fits">Where each fits</a><a href="#trade-offs">Trade-offs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-design-space">The design space</h2>
+<p>A privacy application on a public chain has to answer five questions:</p>
+<ol>
+<li><strong>State model.</strong> Shielded UTXOs (Zcash-style notes) or shielded accounts (encrypted balances per address)?</li>
+<li><strong>Proof system.</strong> Groth16, PLONK, Halo2, or custom? See <a href="/kb/snarks/">SNARKs</a> for the trade-offs.</li>
+<li><strong>Deployment surface.</strong> Own L1, Cosmos zone, EVM L2, or smart-contract pool on existing chains?</li>
+<li><strong>Shielded asset support.</strong> Single native asset only, or multi-asset shielded pool?</li>
+<li><strong>Programmability.</strong> Payments only, or full private smart contracts?</li>
+</ol>
+<p>The six projects below sit at different points across these axes.</p>
+<h2 id="aztec-privacy-by-default-l2">Aztec — privacy-by-default L2</h2>
+<p>Aztec is the longest-running attempt at a private-by-default Ethereum L2. Founded 2018 (Aztec Protocol), it shipped Aztec Connect in 2022 (a shielded pool overlay on Ethereum, sunset 2024) and then pivoted to Aztec Network — a full L2 with hybrid public/private state.</p>
+<p><strong>State model.</strong> Hybrid. Each contract has a public state component (Merkle tree of slots, like Ethereum) and a private state component (encrypted notes, Zcash-style). A function call can read and write both, with private reads/writes proven inside a SNARK and public ones executed by the sequencer.</p>
+<p><strong>Proof system.</strong> Recursive Halo2 derivative (UltraHonk, then Honk). Each user produces a client-side proof of their private function call; the sequencer recursively aggregates these into a rollup proof. See <a href="/kb/snarks/">SNARKs</a> for Halo2 specifics.</p>
+<p><strong>Language.</strong> Noir, a Rust-flavored DSL designed by the Aztec team for writing both private and public functions. Compiles to ACIR (Abstract Circuit Intermediate Representation), which the proving stack consumes.</p>
+<p><strong>Status (early 2026).</strong> Public testnet running since mid-2024. Mainnet launch has been "imminent" multiple times across 2024-2025 and was targeted for late 2025 / early 2026 with phased rollout. As of the cutoff, the network is in a public-launch phase with sequencer decentralization and full programmability still maturing. The Noir language and ACIR toolchain are mature and used by other projects independently of the L2.</p>
+<p><strong>Real adoption.</strong> Significant developer interest pre-mainnet (Noir is used outside Aztec for general SNARK app development). On-chain user adoption depends on mainnet stability. Honest read: Aztec has shipped less than its timeline promised, but the technology stack — particularly the hybrid private/public state model and the Noir tooling — is among the most ambitious in this list.</p>
+<h2 id="penumbra-cosmos-shielded-zone">Penumbra — Cosmos shielded zone</h2>
+<p>Penumbra is a Cosmos SDK chain focused on shielded multi-asset transactions and a shielded DEX. Built by Penumbra Labs starting 2021, mainnet launched mid-2024.</p>
+<p><strong>State model.</strong> Shielded UTXO (notes), Sapling-derived. Each note commits to (asset, amount, address). Spent notes produce nullifiers; the chain tracks a nullifier set to prevent double-spends.</p>
+<p><strong>Proof system.</strong> Groth16 over BLS12-377 (Penumbra's "decree" circuits). Per-circuit trusted setup ran in 2023. The team chose Groth16 for proof size and verifier efficiency given the constrained set of action types (spend, output, swap, delegate).</p>
+<p><strong>Distinctive features.</strong></p>
+<ul>
+<li><strong>ZSwap.</strong> A shielded DEX where individual user swaps are batched into a single per-block clearing price. Front-running and MEV are mitigated because individual orders are only revealed in aggregate. The mechanism is closer to a sealed-bid batch auction than to a CFMM.</li>
+<li><strong>Shielded staking.</strong> Delegations and undelegations stay private; only the validator's total stake is public.</li>
+<li><strong>Shielded IBC.</strong> Tokens bridged from other Cosmos chains via IBC become shielded notes in Penumbra, with unshielding back.</li>
+</ul>
+<p><strong>Status.</strong> Mainnet live since 2024, validator set decentralized, IBC connections to Cosmos Hub and other zones. Niche but real usage.</p>
+<p><strong>Honest read.</strong> Penumbra is the most cryptographically distinctive project in this list — the shielded-DEX construction is genuinely novel work. Adoption is small relative to Cosmos as a whole; positioning as "the shielded zone" depends on bridging interest from other Cosmos chains, which is slow.</p>
+<h2 id="aleo-snarky-program-l1">Aleo — Snarky-program L1</h2>
+<p>Aleo is an L1 designed by the team that built ZEXE (the Decentralized Private Computation primitive, Bowe et al. 2018). Mainnet launched in 2024 after extended testnet phases.</p>
+<p><strong>State model.</strong> Records (shielded UTXOs) plus public state for programs. A "transition" consumes input records and produces output records with a SNARK proof; programs (Leo or Aleo Instructions) define the transition logic.</p>
+<p><strong>Proof system.</strong> snarkVM, with a Halo2-derivative arithmetization (Marlin originally, then their own variant). Aleo invested heavily in custom proving infrastructure, including hardware acceleration via the snarkOS prover network.</p>
+<p><strong>Language.</strong> Leo, a Rust-inspired DSL for writing private programs that compile to AVM (Aleo Virtual Machine) bytecode and snarkVM circuits. Aleo Instructions is the lower-level bytecode.</p>
+<p><strong>Tokenomics.</strong> ARC tokens stake into the consensus; provers earn rewards via a coinbase puzzle (a SNARK-friendly proof-of-work-ish mechanism). The puzzle has been re-tuned multiple times across 2024-2025 because of ASIC and GPU concentration concerns.</p>
+<p><strong>Status.</strong> Mainnet live since early 2024. Programmatic activity has been slower than initial targets; the prover network is heavily concentrated in specialized hardware operators.</p>
+<p><strong>Honest read.</strong> The cryptographic engineering is serious (snarkVM is one of the more capable production zkVMs), but the deployment has been bumpy: token launch issues, prover concentration, and an ecosystem that hasn't yet produced a flagship application. The "snarky programs as L1 primitives" thesis has not been validated at scale.</p>
+<h2 id="iron-fish-sapling-derived-shielded-chain">Iron Fish — Sapling-derived shielded chain</h2>
+<p>Iron Fish is an L1 launched April 2023, targeting a Zcash-like shielded payment system with a different chain and a different incentive model.</p>
+<p><strong>State model.</strong> Sapling-derived shielded UTXO. Notes commit to (asset, amount, viewing key); spends produce nullifiers. The construction is close to Zcash Sapling (Groth16 over BLS12-381), with multi-asset support added.</p>
+<p><strong>Proof system.</strong> Groth16 with the Sapling circuits, lightly modified for multi-asset. Per-circuit trusted setup completed in 2022 with a 1000+ participant ceremony.</p>
+<p><strong>Multi-asset.</strong> A single shielded pool holds multiple assets (custom asset issuance plus bridged assets); transactions reveal asset type only inside the encrypted note.</p>
+<p><strong>View keys.</strong> Iron Fish foregrounds <em>viewing keys</em> — selective-disclosure keys that let an auditor or counterparty see specified incoming/outgoing transactions. This is positioned as a compliance feature.</p>
+<p><strong>Status.</strong> Mainnet live since 2023. Trading volume and active addresses are small compared to Zcash or Monero. The team has emphasized regulatory dialog (viewing keys) over feature growth.</p>
+<p><strong>Honest read.</strong> Technically conservative — basically Sapling-on-its-own-chain — and small in adoption. The viewing-key compliance angle is interesting as a design choice but hasn't visibly broadened the user base.</p>
+<h2 id="namada-multi-asset-shielded-pool-for-cosmos">Namada — multi-asset shielded pool for Cosmos</h2>
+<p>Namada is a Cosmos SDK chain built by Heliax (the Anoma team's privacy-focused offshoot). Mainnet phased launch began late 2023.</p>
+<p><strong>State model.</strong> Multi-Asset Shielded Pool (MASP), a Sapling derivative supporting multiple asset types in one shielded set. MASP was first prototyped for Zcash and productionized by Namada.</p>
+<p><strong>Proof system.</strong> Groth16 with the MASP circuits.</p>
+<p><strong>Distinctive features.</strong></p>
+<ul>
+<li><strong>Shielded actions for IBC.</strong> Assets bridged in via IBC can be shielded into the MASP and unshielded back, providing privacy as a service to the wider Cosmos ecosystem.</li>
+<li><strong>Shielded rewards.</strong> A shielding incentive program rewarded users for keeping balances in the MASP, growing the anonymity set during early mainnet. The program has been periodically re-tuned.</li>
+<li><strong>Cubic proof-of-stake slashing.</strong> Unrelated to privacy but distinctive economically.</li>
+</ul>
+<p><strong>NAM token.</strong> Used for staking, governance, and shielded rewards. Genesis distribution was complex and phased.</p>
+<p><strong>Status.</strong> Mainnet live; MASP shielded pool is functional; IBC privacy bridge is the headline use case.</p>
+<p><strong>Honest read.</strong> Namada's MASP work is real cryptographic engineering and the IBC privacy story is a genuine niche. Adoption is bounded by Cosmos overall and by the operational complexity of using shielded balances.</p>
+<h2 id="railgun-privacy-on-existing-evms">RailGun — privacy on existing EVMs</h2>
+<p>RailGun is the outlier in this list: not a new chain, but a smart-contract privacy system deployed on Ethereum, Polygon PoS, and BNB Chain. Deployed since 2021, with significant protocol upgrades through 2023-2024.</p>
+<p><strong>State model.</strong> Shielded UTXOs implemented as contract state. Each shielded balance is a note (encrypted commitment) tracked in a Merkle tree inside the RailGun contract. To shield, deposit ERC-20s and produce a note. To transfer privately, prove ownership of input notes and produce output notes with a SNARK. To unshield, prove a note's destruction and withdraw the underlying ERC-20.</p>
+<p><strong>Proof system.</strong> Groth16 over BN254 (Ethereum-friendly pairing curve). Per-circuit trusted setup; circuits are fixed (transfer, shield, unshield).</p>
+<p><strong>No L2 required.</strong> RailGun runs as a contract on each chain it deploys to. Withdrawals and deposits go to/from the host chain's account model. The trade-off is that gas costs are paid in the host chain's native token, which is significantly higher than in a dedicated shielded chain.</p>
+<p><strong>RAIL token.</strong> Governance and fee-relay incentives. Relayers process transactions on behalf of users to break the link between shielded operations and the user's gas-paying address.</p>
+<p><strong>Status.</strong> Live and used. The 0xPARC and RailGun communities have shipped wallet integrations (Railway Wallet) and have a small but real user base of EVM users wanting privacy without bridging to a new chain.</p>
+<p><strong>Honest read.</strong> The on-existing-EVMs design is the pragmatic choice: no bridge, no new validator set, no token launch friction. The trade-off is the OFAC-pressure surface — see <a href="/kb/tornado-and-privacy-pools/">Tornado and Privacy Pools</a> for what happens when sanctions land on a smart-contract privacy pool. RailGun has tried to differentiate via private-balance abstractions but operates in the same regulatory shadow.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Layer</th>
+<th>State model</th>
+<th>Proof system</th>
+<th>Setup</th>
+<th>Asset model</th>
+<th>Status (Q1 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aztec</strong></td>
+<td>Ethereum L2</td>
+<td>Hybrid public + private</td>
+<td>Halo2 / Honk</td>
+<td>Universal/none</td>
+<td>Multi-asset</td>
+<td>Mainnet rollout</td>
+</tr>
+<tr>
+<td><strong>Penumbra</strong></td>
+<td>Cosmos L1</td>
+<td>Shielded UTXO + ZSwap</td>
+<td>Groth16 (BLS12-377)</td>
+<td>Per-circuit</td>
+<td>Multi-asset</td>
+<td>Mainnet (2024)</td>
+</tr>
+<tr>
+<td><strong>Aleo</strong></td>
+<td>Own L1</td>
+<td>Records + programs</td>
+<td>snarkVM (Marlin/Halo2)</td>
+<td>Universal</td>
+<td>Multi-asset</td>
+<td>Mainnet (2024)</td>
+</tr>
+<tr>
+<td><strong>Iron Fish</strong></td>
+<td>Own L1</td>
+<td>Sapling shielded UTXO</td>
+<td>Groth16 (BLS12-381)</td>
+<td>Per-circuit</td>
+<td>Multi-asset + view keys</td>
+<td>Mainnet (2023)</td>
+</tr>
+<tr>
+<td><strong>Namada</strong></td>
+<td>Cosmos L1</td>
+<td>MASP shielded UTXO</td>
+<td>Groth16</td>
+<td>Per-circuit</td>
+<td>Multi-asset (IBC)</td>
+<td>Mainnet (2023)</td>
+</tr>
+<tr>
+<td><strong>RailGun</strong></td>
+<td>EVM contracts</td>
+<td>Shielded UTXOs in contract</td>
+<td>Groth16 (BN254)</td>
+<td>Per-circuit</td>
+<td>ERC-20s shielded</td>
+<td>Live since 2021</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cross-cutting-notes">Cross-cutting notes</h2>
+<h3 id="proof-system-choice">Proof system choice</h3>
+<p>Five of six pick Groth16. The exception is Aztec, which needs a universal/recursion-friendly system because of its programmable model. Groth16 wins for fixed-circuit shielded payments on size and verifier cost; Halo2 wins when you need recursion or a wider circuit space. See <a href="/kb/snarks/">SNARKs</a> for the trade-off in detail.</p>
+<h3 id="per-circuit-trusted-setup">Per-circuit trusted setup</h3>
+<p>Penumbra, Iron Fish, Namada, and RailGun all rely on per-circuit MPC ceremonies. Aztec uses a universal setup (powers-of-tau) for its Halo2 stack. Aleo's snarkVM uses a universal setup as well. The operational pain of per-circuit setups is one reason newer designs lean toward universal or transparent proof systems.</p>
+<h3 id="anonymity-set-economics">Anonymity-set economics</h3>
+<p>A shielded pool is only as private as its anonymity set. RailGun on Ethereum competes with the legacy Tornado Cash anonymity sets (now sanctioned, see <a href="/kb/tornado-and-privacy-pools/">Tornado and Privacy Pools</a>); Penumbra and Namada's anonymity sets are bounded by their own user counts. The shielding-incentive programs (Namada) try to grow the set artificially. This is a coordination problem more than a cryptographic one.</p>
+<h3 id="compliance-posture">Compliance posture</h3>
+<p>Iron Fish (viewing keys) and the Privacy Pools design (see <a href="/kb/tornado-and-privacy-pools/">Tornado and Privacy Pools</a>) are two attempts at "privacy with selective disclosure". Penumbra and Aztec are largely silent on compliance; RailGun has tried to engineer relay-based privacy that doesn't require chain-level cooperation. None of these has produced a clean regulatory equilibrium yet.</p>
+<h2 id="where-each-fits">Where each fits</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>If you want…</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Programmable private contracts on Ethereum</td>
+<td>Aztec when mainnet stabilizes</td>
+</tr>
+<tr>
+<td>Shielded DEX with batch-clearing privacy</td>
+<td>Penumbra</td>
+</tr>
+<tr>
+<td>Custom shielded programs with dedicated infra</td>
+<td>Aleo</td>
+</tr>
+<tr>
+<td>Conservative Sapling-style shielded payments + view keys</td>
+<td>Iron Fish</td>
+</tr>
+<tr>
+<td>Privacy as an IBC service for Cosmos</td>
+<td>Namada</td>
+</tr>
+<tr>
+<td>Shielded balances on existing EVMs without bridging</td>
+<td>RailGun</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths-across-the-field">Strengths (across the field)</h3>
+<ul>
+<li>Shielded UTXO + nullifier set is a battle-tested construction (Zcash since 2016).</li>
+<li>Multiple proof systems give designers real choice based on circuit shape.</li>
+<li>Some genuinely novel designs (ZSwap, Aztec hybrid state, MASP-on-IBC).</li>
+</ul>
+<h3 id="limitations-across-the-field">Limitations (across the field)</h3>
+<ul>
+<li>Each project's anonymity set is bounded by its own user count — fragmentation hurts privacy.</li>
+<li>Per-circuit trusted setups are operational debt.</li>
+<li>Compliance pressure is real (see <a href="/kb/tornado-and-privacy-pools/">Tornado and Privacy Pools</a>); no project has produced an equilibrium.</li>
+<li>Wallet UX for shielded chains lags transparent chains by years.</li>
+<li>Multi-chain support means users have to pick which privacy island to live on.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Bowe, Chiesa, Green, Miers, Mishra, Wu, <em>ZEXE: Enabling Decentralized Private Computation</em>, IEEE S&amp;P 2020.</li>
+<li>Hopwood, Bowe, Hornby, Wilcox, <em>Zcash Protocol Specification</em> (Sapling) — <a href="https://zips.z.cash" rel="noopener nofollow">zips.z.cash</a>.</li>
+<li>Penumbra protocol docs — <a href="https://protocol.penumbra.zone" rel="noopener nofollow">protocol.penumbra.zone</a>.</li>
+<li>Aleo Developer Docs — <a href="https://developer.aleo.org" rel="noopener nofollow">developer.aleo.org</a>.</li>
+<li>Iron Fish whitepaper — <a href="https://ironfish.network" rel="noopener nofollow">ironfish.network</a>.</li>
+<li>Namada specs — <a href="https://specs.namada.net" rel="noopener nofollow">specs.namada.net</a>.</li>
+<li>Aztec Network docs — <a href="https://docs.aztec.network" rel="noopener nofollow">docs.aztec.network</a>.</li>
+<li>Noir language docs — <a href="https://noir-lang.org" rel="noopener nofollow">noir-lang.org</a>.</li>
+<li>RailGun docs — <a href="https://docs.railgun.org" rel="noopener nofollow">docs.railgun.org</a>.</li>
+<li>MASP specification — <a href="https://github.com/anoma/masp" rel="noopener nofollow">github.com/anoma/masp</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/snarks/">
+  <span class="nm">SNARKs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/tornado-and-privacy-pools/">
+  <span class="nm">Tornado Cash and Privacy Pools</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-27</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Zero-Knowledge%20Privacy%20Applications" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Six chains and protocols that use zero-knowledge proofs to deliver shielded transactions, private smart contracts, or shielded pools on top of public chains. Each picks a different point on the shielded-UTXO vs. shielded-account axis, a different proof system, and a different deployment surface (own L1, Cosmos zone, EVM L2, smart-contract overlay). The result is a fragmented landscape: each project has real users, none has won.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Zero-Knowledge Proofs</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-27</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

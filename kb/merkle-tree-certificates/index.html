@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Merkle Tree Certificates — ungovernable.tech</title>
+<meta name="description" content="Merkle Tree Certificates batch many TLS certificates into one signed tree, keeping certificates small enough for post-quantum signatures.">
+<link rel="canonical" href="https://ungovernable.tech/kb/merkle-tree-certificates/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Merkle Tree Certificates — ungovernable.tech">
+<meta property="og:description" content="Merkle Tree Certificates batch many TLS certificates into one signed tree, keeping certificates small enough for post-quantum signatures.">
+<meta property="og:url" content="https://ungovernable.tech/kb/merkle-tree-certificates/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Merkle Tree Certificates — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Merkle Tree Certificates — ungovernable.tech">
+<meta name="twitter:description" content="Merkle Tree Certificates batch many TLS certificates into one signed tree, keeping certificates small enough for post-quantum signatures.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Merkle Tree Certificates", "description": "Merkle Tree Certificates batch many TLS certificates into one signed tree, keeping certificates small enough for post-quantum signatures.", "dateModified": "2026-10-25", "datePublished": "2026-08-01", "url": "https://ungovernable.tech/kb/merkle-tree-certificates/", "mainEntityOfPage": "https://ungovernable.tech/kb/merkle-tree-certificates/", "image": "https://ungovernable.tech/assets/og/pillar-pqc.png", "about": [{"@type": "Thing", "name": "Post-Quantum Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Post-Quantum Cryptography", "item": "https://ungovernable.tech/pillars/pqc/"}, {"@type": "ListItem", "position": 3, "name": "Merkle Tree Certificates", "item": "https://ungovernable.tech/kb/merkle-tree-certificates/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/pqc/">Post-Quantum Cryptography</a><span aria-hidden="true">/</span><span class="here">Merkle Tree Certificates</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ POST-QUANTUM CRYPTOGRAPHY ]</span></p>
+  <h1>Merkle Tree Certificates</h1>
+  <p class="aka">Also MTC, MTCs, Merkle Tree Certs, PLANTS certificates.</p>
+  <p class="dek">A new certificate format that batches many certificates into a single Merkle tree, signing only the root — making post-quantum web authentication practical without the signature-size explosion.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>10</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-mtcs-exist">Why MTCs Exist</a><a href="#how-mtcs-work">How MTCs Work</a><a href="#key-properties">Key Properties</a><a href="#standardization">Standardization</a><a href="#lets-encrypts-mtc-roadmap">Let&#39;s Encrypt&#39;s MTC Roadmap</a><a href="#enterprise-concerns-from-ietf-126-maprg-july-2026">Enterprise Concerns (from IETF 126 MAPRG, July 2026)</a><a href="#internet-scale-deployment-measurement-ietf-126">Internet-Scale Deployment Measurement (IETF 126)</a><a href="#trade-offs-mtcs-vs-composite-ml-dsa-certificates">Trade-offs: MTCs vs. Composite ML-DSA Certificates</a><a href="#relevance-to-freedom-tech-decentralized-systems">Relevance to Freedom Tech / Decentralized Systems</a><a href="#open-questions">Open Questions</a><a href="#update-august-15-2026-first-external-ca-files-for-chromes-mtc-test-root">Update — August 15 2026: First External CA Files for Chrome&#39;s MTC Test Root</a><a href="#update-august-22-2026-google-cloud-dates-its-mtc-support-2028">Update — August 22 2026: Google Cloud Dates Its MTC Support (2028)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-mtcs-exist">Why MTCs Exist</h2>
+<p>Post-quantum signatures are dramatically larger than classical ones:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Signature Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ECDSA P-256</td>
+<td>~72 bytes</td>
+</tr>
+<tr>
+<td>Ed25519</td>
+<td>64 bytes</td>
+</tr>
+<tr>
+<td><strong>ML-DSA-65</strong></td>
+<td><strong>3,309 bytes</strong></td>
+</tr>
+<tr>
+<td>SLH-DSA-128s</td>
+<td>7,856 bytes</td>
+</tr>
+<tr>
+<td>SLH-DSA-128f</td>
+<td>17,088 bytes</td>
+</tr>
+</tbody>
+</table></div>
+<p>A TLS certificate chain (root → intermediate → leaf) with ML-DSA signatures at every level adds <strong>~10 KB</strong> to every TLS handshake. For a high-traffic web server, this is a meaningful cost in bandwidth, latency (especially on mobile/satellite links), and TCP window sizing. It also breaks existing X.509 size assumptions in middleware, load balancers, and TLS terminators.</p>
+<p><strong>Merkle Tree Certificates solve this</strong> by changing the signing model: instead of each certificate getting its own large PQ signature, certificates are batched into a Merkle tree, and only the tree's root is signed. Each certificate carries a compact inclusion proof (logarithmic in batch size) rather than a full signature.</p>
+<h2 id="how-mtcs-work">How MTCs Work</h2>
+<pre><code>                    ┌─────────────┐
+                    │  Root Hash   │  ← Signed once per batch with ML-DSA
+                    └──────┬───────┘
+                    ┌──────┴───────┐
+               ┌────┴────┐    ┌────┴────┐
+               │  Hash A  │    │  Hash B  │
+               └────┬─────┘    └────┬─────┘
+              ┌─────┴──┐       ┌────┴───┐
+           ┌──┴──┐ ┌───┴─┐  ┌──┴──┐ ┌───┴──┐
+           │Cert1│ │Cert2│  │Cert3│ │Cert4│
+           └─────┘ └─────┘  └─────┘ └─────┘
+</code></pre>
+<ol>
+<li><strong>Batching</strong>: A CA collects certificates into a batch (e.g., all certificates issued in a ~1-second window).</li>
+<li><strong>Tree construction</strong>: Certificates are hashed into leaf nodes; internal nodes hash their children.</li>
+<li><strong>Root signing</strong>: Only the Merkle root is signed — once — using ML-DSA (or any PQ signature).</li>
+<li><strong>Inclusion proof</strong>: Each certificate carries its authentication path (the sibling hashes from leaf to root). The client verifies the proof against the signed root.</li>
+<li><strong>Transparency</strong>: The tree structure is append-only and publicly logged, similar to Certificate Transparency (CT) logs. Cosignatures from independent parties verify correct CA operation.</li>
+</ol>
+<p><strong>Size math</strong>: For a batch of 4,096 certificates (12 levels), the inclusion proof is ~12 × 32 bytes = 384 bytes — much smaller than a single ML-DSA signature (3,309 bytes). The signed root (one ML-DSA signature per batch) is amortized across thousands of certificates.</p>
+<h2 id="key-properties">Key Properties</h2>
+<ul>
+<li><strong>Post-quantum secure</strong>: The only signature is the root's ML-DSA signature; inclusion proofs are hash-based (quantum-resistant under Grover, which only quadratically speeds up hash inversion).</li>
+<li><strong>Compact</strong>: Per-certificate overhead is O(log n) hashes, not a full PQ signature.</li>
+<li><strong>Transparent</strong>: Built-in logging (like CT) means the CA's issuance activity is publicly auditable.</li>
+<li><strong>Batch-latency</strong>: Certificates are issued in batches (target: ~1 per second), adding a small delay similar to waiting for CT log inclusion today.</li>
+<li><strong>Revocation</strong>: Requires rethinking — traditional CRL/OCSP assume individual signatures. MTC revocation likely involves short-lived certificates or a separate revocation tree.</li>
+</ul>
+<h2 id="standardization">Standardization</h2>
+<p>As of October 25, 2026, the MTC specification is an active Internet-Draft, revision 07 dated October 7, 2026. The table below retains the earlier snapshot’s dates.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Role</th>
+<th>Status (August 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IETF PLANTS WG</strong></td>
+<td>Standardization of MTC format</td>
+<td><code>draft-ietf-plants-merkle-tree-certs-05</code> — <strong>WG Document / I-D Exists</strong> (no shepherd, no AD, no intended RFC status; last revision 2026-07-06). <em>Corrected 2026-09-05: earlier entries said WG Last Call.</em></td>
+</tr>
+<tr>
+<td><strong>Let's Encrypt / ISRG</strong></td>
+<td>Certificate authority (700M+ sites)</td>
+<td>Committed to MTCs; staging late 2026, production 2027</td>
+</tr>
+<tr>
+<td><strong>Chrome</strong></td>
+<td>Browser client</td>
+<td>Identified MTCs as preferred approach for PQ certificates</td>
+</tr>
+<tr>
+<td><strong>Cloudflare</strong></td>
+<td>CDN / edge</td>
+<td>Testing MTCs on live internet traffic with Chrome</td>
+</tr>
+<tr>
+<td><strong>IETF LAMPS WG</strong></td>
+<td>Composite ML-DSA X.509 certs (alternative)</td>
+<td><code>draft-ietf-lamps-pq-composite-sigs-19</code> — <strong>RFC Editor queue</strong> (RFC-Ed-Ack, First Edit, Proposed Standard) as of 2026-08-26</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The PLANTS WG</strong> (PKI, Logs, And Tree Signatures) was chartered specifically to develop the Merkle Tree Certificate standard. The draft defines:
+- The MTC format (how certificates and inclusion proofs are encoded)
+- The issuance protocol (how a CA creates batches and signs roots)
+- The verification protocol (how a TLS client validates an MTC)
+- Integration with TLS 1.3 (how MTCs are negotiated in the handshake)</p>
+<p><strong>Composite ML-DSA</strong> (<code>draft-ietf-lamps-pq-composite-sigs</code>) is the alternative approach: put a combined ML-DSA + ECDSA signature directly into X.509. This is simpler (no batching, no new certificate format) but doesn't solve the size problem. It's the path for enterprise/private PKI where certificate chains are short and bandwidth isn't constrained. MTCs are the path for the public Web PKI at scale.</p>
+<h2 id="lets-encrypts-mtc-roadmap">Let's Encrypt's MTC Roadmap</h2>
+<p>Let's Encrypt (the nonprofit CA operated by ISRG, securing 700M+ websites) published its PQ roadmap on June 3, 2026:</p>
+<ul>
+<li><strong>Late 2026</strong>: Staging environment that issues MTCs (for testing).</li>
+<li><strong>2027</strong>: Production-ready MTC issuance.</li>
+<li><strong>User experience</strong>: No change — certificates remain free, automated, and available via ACME.</li>
+<li><strong>Coexistence</strong>: Current RSA/ECDSA certificates continue to be issued and renewed as always.</li>
+<li><strong>Transition</strong>: MTCs will be issued alongside traditional certificates during a multi-year migration.</li>
+</ul>
+<p>Let's Encrypt has operated Certificate Transparency logs since 2019 — the same append-only Merkle tree data structure that underlies MTCs. This gives them operational experience with the core technology.</p>
+<p>The roadmap, published by Andrew Gabbitas, identifies Merkle Tree Certificates as Let’s Encrypt’s planned approach to post-quantum web authentication.</p>
+<h2 id="enterprise-concerns-from-ietf-126-maprg-july-2026">Enterprise Concerns (from IETF 126 MAPRG, July 2026)</h2>
+<p>The IETF 126 MAPRG session raised critical enterprise adoption questions:</p>
+<ol>
+<li><strong>Certificate fields</strong>: Can relying parties still access Subject DN, SAN, EKU, Certificate Policies, Name Constraints, and enterprise-specific extensions? The MTC format must preserve X.509 semantics or provide a migration path.</li>
+<li><strong>Private PKI</strong>: How should private/internal CAs deploy and operate MTCs? Enterprise PKI has different requirements (no public transparency logs, custom naming, longer lifetimes).</li>
+<li><strong>CDN/proxy interaction</strong>: What happens when a browser expects MTC but a CDN terminates TLS with a traditional certificate? The "split world" problem.</li>
+<li><strong>Compliance forensics</strong>: What should enterprises archive for audit, compliance, and evidentiary purposes? MTCs change what a "certificate" looks like.</li>
+<li><strong>Middleware compatibility</strong>: Load balancers, TLS inspectors, API gateways, and DLP systems that parse certificates may not understand MTCs.</li>
+</ol>
+<p>These are unresolved — the PLANTS WG must address them before broad enterprise adoption.</p>
+<h2 id="internet-scale-deployment-measurement-ietf-126">Internet-Scale Deployment Measurement (IETF 126)</h2>
+<p>The IETF 126 MAPRG presentation included a measurement study of the top 27 websites:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Algorithm Set</th>
+<th>% of Sites</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSA only</td>
+<td>51.9%</td>
+<td>14</td>
+</tr>
+<tr>
+<td>EC only</td>
+<td>33.3%</td>
+<td>9</td>
+</tr>
+<tr>
+<td>EC + RSA</td>
+<td>14.8%</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key finding</strong>: Over half of top sites still use RSA-only certificate chains. Zero use PQ signatures. The migration to PQ authentication is at the very beginning — the standardization work (ML-DSA in TLS, MTCs) is the prerequisite for any deployment.</p>
+<p>A separate arXiv study (<em>Measurement Study of Post-Quantum Readiness of Internet: 2026</em>, arXiv:2606.16473) found that while TLS 1.3 is at 52.4% adoption and QUIC at 31.9%, 15.7% of domains (especially banking and government) still rely on TLS 1.2 — the protocol layer beneath the PQ migration.</p>
+<h2 id="trade-offs-mtcs-vs-composite-ml-dsa-certificates">Trade-offs: MTCs vs. Composite ML-DSA Certificates</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Merkle Tree Certificates</th>
+<th>Composite ML-DSA X.509</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Per-cert overhead</strong></td>
+<td>O(log n) hash proof (~384 B)</td>
+<td>Full ML-DSA sig (~3.3 KB)</td>
+</tr>
+<tr>
+<td><strong>Standardization</strong></td>
+<td>PLANTS: WG Document (I-D Exists, -05 dated 2026-07-06)</td>
+<td>LAMPS: <strong>RFC Ed Queue</strong> (2026-08-26)</td>
+</tr>
+<tr>
+<td><strong>CA complexity</strong></td>
+<td>Batching infrastructure needed</td>
+<td>Minimal change to issuance</td>
+</tr>
+<tr>
+<td><strong>Client complexity</strong></td>
+<td>New verification logic</td>
+<td>Existing X.509 path (extended)</td>
+</tr>
+<tr>
+<td><strong>Transparency</strong></td>
+<td>Built-in (CT-like logging)</td>
+<td>Separate CT logs as today</td>
+</tr>
+<tr>
+<td><strong>Revocation</strong></td>
+<td>Requires new model</td>
+<td>Traditional CRL/OCSP works</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Public Web PKI at scale</td>
+<td>Enterprise/private PKI</td>
+</tr>
+<tr>
+<td><strong>Timeline</strong></td>
+<td>Staging 2026, prod 2027</td>
+<td>RFC Q4 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Likely outcome</strong>: Both standards coexist. Public CAs (Let's Encrypt, DigiCert, Sectigo) deploy MTCs for the public web. Enterprises deploy composite ML-DSA certificates for internal PKI. Browsers eventually support both.</p>
+<h2 id="relevance-to-freedom-tech-decentralized-systems">Relevance to Freedom Tech / Decentralized Systems</h2>
+<p>MTCs are architecturally significant beyond Web PKI:</p>
+<ol>
+<li>
+<p><strong>Decentralized identity</strong>: The Merkle tree model — a compact commitment to a set of identities, verifiable without trusting each individual assertion — is philosophically aligned with decentralized identity. A Nostr relay could issue MTC-style batch proofs for its users. An ENS subdomain registrar could batch registrations into a Merkle root.</p>
+</li>
+<li>
+<p><strong>Mesh network node registries</strong>: A mesh network (<a href="/kb/meshtastic/">Meshtastic</a>, <a href="/kb/meshcore/">MeshCore</a>, Reticulum, cjdns) that needs to authenticate member nodes could use MTC-style batch proofs instead of individual certificates — reducing overhead on low-bandwidth links.</p>
+</li>
+<li>
+<p><strong>Crypto-agility</strong>: MTCs separate the signing algorithm (at the root) from the certificate format. If ML-DSA is later found weak, only the root signing algorithm changes — the certificate and proof infrastructure remains.</p>
+</li>
+<li>
+<p><strong>Anti-censorship</strong>: The built-in transparency logging means CAs cannot silently issue certificates — every issuance is publicly auditable. This aligns with the ungovernable principle of transparency over authority.</p>
+</li>
+<li>
+<p><strong>Compact proofs for constrained environments</strong>: The O(log n) proof size is valuable for satellite IoT, off-grid messaging (<a href="/kb/off-grid-networks/">Overview - Off-Grid Networks</a>), and any bandwidth-constrained system that needs authentication.</p>
+</li>
+</ol>
+<h2 id="open-questions">Open Questions</h2>
+<ul>
+<li><strong>Will browsers support both MTCs and ML-DSA X.509 simultaneously?</strong> Chrome prefers MTCs; Firefox and Safari haven't committed publicly.</li>
+<li><strong>How does revocation work?</strong> Short-lived certificates (hours/days) may replace traditional revocation, but this requires automated renewal (already common via ACME).</li>
+<li><strong>What about code signing?</strong> MTCs are designed for TLS server authentication. Code signing, email signing, and document signing have different requirements (offline verification, long lifetimes) that may not fit the MTC model.</li>
+<li><strong>HSM integration</strong>: Can MTC root signing keys be protected in HSMs? The batching model changes the signing cadence from per-certificate to per-batch.</li>
+<li><strong>Cross-CA chains</strong>: Can an MTC from one CA chain to another (cross-certification)? The Merkle tree model may not compose the way traditional X.509 chains do.</li>
+</ul>
+<h2 id="update-august-15-2026-first-external-ca-files-for-chromes-mtc-test-root">Update — August 15 2026: First External CA Files for Chrome's MTC Test Root</h2>
+<p><strong>TrustAsia Technologies</strong> (Shanghai; Chrome-qualified CT log operator since 2021, operates log2026a/b) has filed what appears to be the <strong>first certificate-authority application to Chrome's MTC test root store</strong> — Chromium Issue 538260165, flagged by PKI standards expert Corey Bonnell (early August). Three data points in five months: Google+Cloudflare experiment (spring) → Let's Encrypt commitment (June) → independent third-party CA implementing against draft-stage specs. The PLANTS draft is provably implementable outside its originating collaboration.</p>
+<p>What the filing implements:
+- <strong>RFC 9925 unsigned CA cosigner certificates</strong> (Feb 2026, David Benjamin): the MTC CA cosigns Merkle subtrees rather than signing individual certs; RFC 9925's placeholder signature algorithm lets X.509 represent this safely — legacy relying parties reject rather than mis-trust.
+- <strong>The critical <code>MTCCertificationAuthority</code> extension</strong> (PLANTS draft §5.5): marks the subject as an MTC-issuing CA; carries issuance-log hash algorithm, cosigner signature algorithm, and serial-number range. The critical marking forces non-MTC X.509 stacks to reject rather than misinterpret as a conventional CA — a deliberate transition-period safety mechanism.</p>
+<p>Rollout confirmation: Phase 1 live (~1,000 certs via Cloudflare mock-MTCA); <strong>Phase 2 targeted Q1 2027</strong> (open to CT log operators with pre-Feb-2026 "usable" logs — exactly TrustAsia's credential); <strong>Phase 3 / Chrome Quantum-resistant Root Store (CQRS) Q3 2027</strong>, MTC-only, alongside the existing root program. PLANTS draft at v03 (April 2026; Benjamin/Google, O'Brien/Apple, Westerbaan &amp; Valenta/Cloudflare, Valsorda/Geomys), ~12–18 months from Proposed Standard.</p>
+<p><strong>Strategic read</strong>: MTC is the rare PQ story that <em>decentralizes</em> — batched Merkle roots plus transparency logs replace per-certificate CA signatures as the trust chokepoint, and every independent CA implementing it pushes toward an open standard rather than proprietary infrastructure. For freedom-tech: watch whether issuance-log operation (the CT-operator → MTCA pipeline) becomes something a non-institutional actor can realistically run.</p>
+<p>See <a href="/briefings/post-quantum/2026-08-15/">Post-Quantum Saturday — August 15 2026 Weekly Update</a> §5 for full analysis.</p>
+<h2 id="update-august-22-2026-google-cloud-dates-its-mtc-support-2028">Update — August 22 2026: Google Cloud Dates Its MTC Support (2028)</h2>
+<p>Google Cloud's PQC roadmap (Haridas &amp; Bachman, Aug 11, 2026) adds an independent timeline data point: <strong>Google Trust Services support for Merkle Tree Certificates is dated 2028</strong>, with PQC certificates rolling out across Google Cloud products and infrastructure through 2027–2028 (ML-DSA certificates intended, SLH-DSA "where meaningful"). Google attributes the later signature dates partly to unfinished standards work — it is contributing to the <strong>IETF PLANTS working group</strong>, whose Merkle Tree Certificate spec reached <strong>working-group draft revision 05 on July 6, 2026</strong> (v03 was the April snapshot; the draft remains an Internet-Draft). Chrome and Cloudflare have been testing MTC against live traffic since February 2026.</p>
+<p>The full Google signature timeline (Domain 2, target end-2028): Binary Authorization + Access Approval 2026; Assured OSS 2027; Certificate Authority Service 2027; Cloud IAM 2028; GTS MTC 2028. Signatures trail confidentiality (end-2027) by one year across every line — the same one-year signature lag Cloudflare documented (see the <a href="/briefings/post-quantum/2026-08-01/">August 01 update</a>).</p>
+<p><strong>Strategic read</strong>: GTS at 2028 + Chrome Phase 2 at Q1 2027 + CQRS at Q3 2027 means MTC's first full production cycle spans 2027–2028 across the two biggest browser/CDN ecosystems. For self-operated CA dreams: the 2027–28 window is when third-party issuance-log tooling either matures or doesn't.</p>
+<p>See <a href="/briefings/post-quantum/2026-08-22/">Post-Quantum Saturday — August 22 2026 Weekly Update</a> §7 for the full roadmap analysis.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://letsencrypt.org/2026/06/03/pq-certs/" rel="noopener nofollow">Let's Encrypt: A Post-Quantum Future</a></li>
+<li><a href="https://datatracker.ietf.org/wg/plants/about/" rel="noopener nofollow">IETF PLANTS working group</a></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/" rel="noopener nofollow">Merkle Tree Certificates specification</a></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/" rel="noopener nofollow">LAMPS composite ML-DSA signatures</a></li>
+<li><a href="https://blog.cloudflare.com/ml-dsa-will-have-to-do/" rel="noopener nofollow">Cloudflare: ML-DSA will have to do</a></li>
+<li><a href="https://datatracker.ietf.org/meeting/126/session/maprg" rel="noopener nofollow">IETF 126 MAPRG meeting materials</a></li>
+<li><a href="https://www.chromium.org/Home/chromium-security/post-quantum-pki-design/" rel="noopener nofollow">Chrome post-quantum PKI design</a></li>
+<li><a href="https://blog.google/security/cultivating-a-robust-and-efficient-quantum-safe-https/" rel="noopener nofollow">Chrome: quantum-safe HTTPS</a></li>
+<li><a href="https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap" rel="noopener nofollow">Google Cloud post-quantum roadmap</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9925.html" rel="noopener nofollow">RFC 9925: Unsigned X.509 Certificates</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/meshtastic/">
+  <span class="nm">Meshtastic</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/meshcore/">
+  <span class="nm">MeshCore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/off-grid-networks/">
+  <span class="nm">Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/dihedral-coset-attacks/">
+  <span class="nm">The Dihedral Coset Attack Line</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/post-quantum-cryptography/">
+  <span class="nm">Post-Quantum Cryptography</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/pqc-deployment-tracker/">
+  <span class="nm">PQC Deployment and Libraries Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Merkle%20Tree%20Certificates" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A new certificate format that batches many certificates into a single Merkle tree, signing only the root — making post-quantum web authentication practical without the signature-size explosion.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Post-Quantum Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — October 07 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-10-07: Apple swift-homomorphic-encryption opens 4 substantive PIR PRs in a 36-hour window (Oct 2 → Oct 4) — the PR.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-10-07/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — October 07 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-10-07: Apple swift-homomorphic-encryption opens 4 substantive PIR PRs in a 36-hour window (Oct 2 → Oct 4) — the PR.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-10-07/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — October 07 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — October 07 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-10-07: Apple swift-homomorphic-encryption opens 4 substantive PIR PRs in a 36-hour window (Oct 2 → Oct 4) — the PR.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — October 07 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-10-07: Apple swift-homomorphic-encryption opens 4 substantive PIR PRs in a 36-hour window (Oct 2 → Oct 4) — the PR.", "datePublished": "2026-10-07", "dateModified": "2026-10-07", "url": "https://ungovernable.tech/briefings/pir/2026-10-07/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-10-07/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-10-07", "item": "https://ungovernable.tech/briefings/pir/2026-10-07/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-10-07</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — October 07 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-10-07</b></span>
+    <span><b>24</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-10-07 // may be outdated</p>
+  <p>This page reflects what was known on 2026-10-07. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The seven-day window between the September 30 and October 07 sweeps saw <strong>no new PIR-tagged ePrint papers</strong> (the Sep 23→Oct 7 cycle is a <strong>PR / production-hardening cycle</strong>, not a research-result cycle) but a <strong>definitive production-stack event: PR #337 / #336 / #335 / #334 — four substantive PIR PRs in a single 36-hour burst from Oct 2 → Oct 4 from apple/swift-homomorphic-encryption</strong> — the first substantive Apple PIR-PR cluster since the Sep 25 Cuckoo-table recursion fix (#332), and the first time the Sep 30 sweep's "the issue tracker is clean" reading is immediately overtaken by a 4-PR hardening pass. <strong>The Sep 30 sweep's prediction that Apple would move on to the next bug cluster has been overtaken by an even bigger one — 4 PRs, 4 distinct PIR-stack correctness paths, opened between Oct 2 and Oct 4 by Karl Tarbe (karulont) and at least one external contributor</strong>. <strong>The Oct 4 burst is also the first time since #332 (Sep 25) that the Apple PIR-stack issue-tracker has grown rather than shrunk</strong> — from 1 open substantive issue (#137 "Provide intuition on expected scale", open since Aug 24) to <strong>5 open substantive PIR PRs</strong> as of Oct 7. Kohaku churn continues (8 PRs / commits / Oct 1 → Oct 5) but <strong>no new PIR-tagged PRs</strong> — the Sep 30 sweep's "no new PIR-tagged PRs" reading continues to hold; the post-#271 anon-rpc work in the window is all Privacy Pools v1 plumbing (#286 batch withdrawals / #308/#304 cost-estimation + exact-output / #302 Aadhaar / #301 passkey / #300 zkPassport / #298 wallet / #310/#313 housekeeping / #312 zipcoin second deployment). <strong>OpenMined/PIR silent since 2021-04-03</strong> (5y 6m, no change). <strong>orochi-network/cuckoo-filter-rs 404 → still not public</strong>; <strong>orochi-network/orochimaru silent in window</strong>; <strong>RisePIR source code not yet externally auditable</strong> (no change since Sep 30). <strong>SandwichPIR stable at 2 stars / 0 forks / 0 issues for 40 days since Aug 28</strong> (no change since Sep 30). <strong>The headline characterization of the cycle: a 4-PR Apple PIR-stack hardening pass that signals the production iOS 18 Live Caller ID + contact-discovery path is being prepped for an internal v1.0.8 cycle or for an iOS 26 release-candidate bundle</strong>.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+<li><strong>Apple swift-homomorphic-encryption opens 4 substantive PIR PRs in a 36-hour window (Oct 2 → Oct 4)</strong> — the <strong>PR cluster is <a href="https://github.com/apple/swift-homomorphic-encryption/pull/337" rel="noopener nofollow">PR #337</a>, <a href="https://github.com/apple/swift-homomorphic-encryption/pull/336" rel="noopener nofollow">PR #336</a>, <a href="https://github.com/apple/swift-homomorphic-encryption/pull/335" rel="noopener nofollow">PR #335</a>, <a href="https://github.com/apple/swift-homomorphic-encryption/pull/334" rel="noopener nofollow">PR #334</a></strong> (all open as of Oct 7, all opened by Karl Tarbe / <code>karulont</code> for #336 and #334 / <code>#karulont</code> on the rest, <strong>all carrying the same production-grade PR body format as #332</strong> — bug summary / reproduction / fix / behavior change / testing / performance). <strong>The 4 PRs are 4 distinct correctness fixes</strong>:
+   - <strong>PR #337 "Account for encryption tag in Symmetric PIR bucket sizing" (Oct 4)</strong> — <code>PIRProcessDatabase</code> sizes Cuckoo table buckets from the <strong>unencrypted value sizes</strong>, but Symmetric PIR appends a <strong>16-byte tag to every value</strong>. Processing <strong>aborts</strong> when the tag pushes the largest value past the bucket size — for a 998-byte value with <code>n_4096_logq_27_28_28_logt_5</code>, the tag pushes it to 1014 bytes and the Cuckoo-table construction fails with <code>Unable to insert value ... (1014 byte value)</code>. <strong>Fix</strong>: add the tag size to the maximum value size in <code>resolveForKeywordDatabase</code>. <strong>Behavior change</strong>: with Symmetric PIR and a largest value of exactly 997 bytes, the default <code>maxSerializedBucketSize</code> goes from 1024 to <strong>2048 bytes</strong> — so the bucket size <strong>doubles</strong> for Symmetric PIR deployments near the bucket-size boundary. <strong>New regression test <code>symmetricPirMaxSerializedBucketSize</code></strong>.
+   - <strong>PR #336 "Fix accumulator overflow in modular matrix multiplication" (Oct 4)</strong> — <code>Array2d.multiply(_:modulus:)</code> and <code>Array2d.multiply(transposing:modulus:offset:)</code> sum products in <code>T.DoubleWidth</code> and reduce only once at the end. The sum <strong>wraps past <code>T.DoubleWidth.max</code> after 16 products at the largest supported modulus</strong>. In SimplePIR, <code>SimplePirServer&lt;UInt32&gt;</code> with a 28-bit ciphertext modulus <strong>returns incorrect entries at lattice dimension 2048</strong>. <strong>Fix</strong>: reduce the running sum after at most <code>maxLazyProductAccumulationCount</code> products (the same trick the BFV inner product already uses); move the inner loop into a shared <code>Array2d.innerProduct</code> helper used by both functions. <strong>Performance</strong>: no slowdown when single reduction suffices; <strong>4–24% slower in the cases that were previously wrong</strong> (i.e. the fix recovers correctness at a small cost). <strong>Note from the PR body</strong>: in <code>PrecomputedQueries</code>, one operand is the secret matrix — bounding by the modulus instead of the operand size would slow the <code>UInt32</code> hint computation; the author proposes "Happy to switch" — i.e. the design choice is open.
+   - <strong>PR #335 "Clear stale seed from ciphertext-plaintext inner product result" (Oct 4)</strong> — the BFV ciphertext-plaintext inner product builds its result from a <strong>copy of the first ciphertext</strong> and <strong>keeps that ciphertext's seed</strong>. If the first ciphertext is fresh, serializing the result uses the <strong>seeded format</strong>, so deserialization <strong>regenerates the second polynomial from the seed</strong> and the result <strong>decrypts incorrectly</strong>. <strong>Fix</strong>: <code>reduceToCiphertext</code> now <strong>clears the result's seed</strong>. Covers all three ciphertext-plaintext variants — <code>innerProduct</code>, <code>innerProductAsync</code>, and <code>innerProduct(..., maxConcurrentTasks:)</code>. <strong>New test <code>schemeCiphertextPlaintextInnerProductTest</code></strong> round-trips each inner-product result through serialization and checks it still decrypts correctly.
+   - <strong>PR #334 "Fix sharded index database overwriting its output files" (Oct 4)</strong> — with <code>"databaseType": "index"</code> and more than one shard, <code>PIRProcessDatabase</code> accepts <code>outputDatabase</code> and <code>outputPirParameters</code> paths that <strong>don't contain <code>SHARD_ID</code></strong>. Every shard is then written to <strong>the same path</strong>, so <strong>only the last shard written survives</strong>, and the tool exits with <strong>code 0</strong> — a silent data-loss bug. The keyword path already rejects this configuration in <code>ResolvedArguments.validate()</code>; the index path never ran that check. <strong>Fix</strong>: add <code>Arguments.validateForIndexDatabase()</code> which applies the same <code>SHARD_ID</code> rule as the keyword path; call it at the start of <code>processIndexDatabase</code>, before the input database is read. <strong>Behavior change</strong>: multi-shard index configurations without <code>SHARD_ID</code> in the path now <strong>fail with exit code 64</strong>; single-shard configurations (including the default) are unaffected. <strong>New test <code>indexDatabaseShardID</code></strong>.</li>
+<li><strong>Apple PIR-stack issue tracker grows from 1 to 5 open substantive PIR PRs in the window</strong> — pre-window (Sep 30): <strong>#137 "Provide intuition on expected scale"</strong> (open since Aug 24, doc-only). Post-window (Oct 7): <strong>#334, #335, #336, #337</strong> (the 4-PR burst), <strong>#333 "Update CONTRIBUTING.md"</strong> (Oct 2, housekeeping). <strong>Five of the six issues/PRs opened in the Oct 2 → Oct 4 window are by <code>karulont</code> (Karl Tarbe)</strong> — the same engineer who authored <strong>#332</strong> (the Sep 25 Cuckoo-table recursion fix). <strong>The Sep 30 sweep's "the PIR-stack issue tracker is clean" reading is overtaken by the cycle's 4-PR burst</strong> — but the prior cycle's conclusion holds, namely: the bug set is wider than any prior 7-day window's triage suggested, the PIR backend remains on <strong>v1.0.7 (Jun 3) — no v1.0.8 in sight — 126 days</strong> but the production-branch stability is now formally tested to a higher bar than at any prior point. <strong>The Apple PIR consumer feature (iOS 18 Live Caller ID, contact discovery) ships on v1.0.7</strong> with the open Cuckoo-table PR cluster <strong>not yet merged</strong> — meaning <strong>the v1.0.7 deployments are potentially affected</strong> by #337 (silent dropped entries for values near the bucket-size boundary), #336 (incorrect entries at large lattice dimension), #335 (decryption failures on fresh inner-product ciphertexts), and #334 (silent data loss in sharded index configurations). <strong>All four bugs share the same severity profile as #332</strong>: a deployed PIR database could ship with <strong>wrong / dropped / overwritten</strong> entries and never report it.</li>
+<li><strong>Kohaku parallel churn continues (8 PRs / commits in the Oct 2 → Oct 7 window)</strong> — sequence: <strong>Oct 5 #313 (chore: remove target, update README)</strong> → <strong>Oct 5 #311 (chore(ppv1): updating comments regarding saga and entrypoint logs)</strong> → <strong>Oct 2 #310 (Version Packages (alpha))</strong> → <strong>Oct 1 #286 (feat(privacy-pools): batch withdrawals for the paymaster flow)</strong> → <strong>Oct 1 #307 (chore: remove stale railgun rust)</strong> → <strong>Oct 1 #309 (Version Packages (alpha))</strong> → <strong>Oct 1 #308 (feat: pp-v1 cost estimation and exact-output withdrawals)</strong> → <strong>Oct 1 #306 (Version Packages (alpha))</strong> → <strong>Sep 30 #304 (pp-v1 cost estimation and exact-output withdrawals, closed without merge — superseded by #308)</strong> → <strong>Sep 30 #305 (feat: add devOptions to toggle Redux dev-mode checks in privacy-pools)</strong> → <strong>Sep 28-30 cluster (auth method additions, all merged: #302 Aadhaar, #301 passkey, #300 zkPassport, #298 wallet)</strong>. <strong>No new PIR-tagged PRs in the window</strong> — the Sep 30 sweep's reading that "no new PIR-tagged PRs" continues to hold. The window's headline non-PR is <strong>PR #312 OPEN (Oct 3) "privacy-pools: second live deployment (zipcoin $ZC) + Deployments docs page"</strong> — first zipcoin deployment of Privacy Pools v1 in production; Deployments docs page is the first public documentation of which publishers / tokens / chains are live with PP v1. <strong>The Sep 30 → Oct 7 window is the W41 cycle: it's the post-CANS-2026 window — RisePIR's CANS acceptance (Sep 24) is the W40 research production event; the W41 cycle is the post-conference hardening window</strong>.</li>
+<li><strong>OpenMined/PIR repository still silent (no commits, no issues, no PRs)</strong> in the window — last commit <strong>2021-04-03 (commit <code>e039662</code>, "update depends (#45)" by Bogdan Cebere)</strong>, <strong>5 years and 6 months of no activity</strong>, <strong>46 stars / 10 forks / 16 open issues</strong> (the bulk pre-2022). <strong>orochi-network/orochimaru</strong> (the RisePIR paper author's organization, the closest active successor) — <strong>no commits</strong> since 2026-07-27 (Sep 30 → Oct 7 silent window of 71 days from the last orochimaru release; the Sep 30 sweep's prediction of an orochimaru release in the W41 cycle has not materialized). <strong>orochi-network/cuckoo-filter-rs</strong> — still <strong>404</strong> as of Oct 7 (the RisePIR paper's primary artifact). <strong>orochi-network/orochi-multicast</strong> (multicall.js alternative, 0 stars) — last pushed 2024-03-13. <strong>orochi-network/orochi-observer</strong> (blockchain observer) — last pushed 2022-08-04. <strong>orochi-network/orochi-wallet-connector</strong> — last pushed 2022-05-24. <strong>The RisePIR source code is therefore private / not-yet-public as of Oct 7, 2026</strong> — <strong>71 days past the Sep 18 ePrint publication, the implementation claim in the ePrint paper remains not externally verifiable</strong>. <strong>This is now a 3-sweep-stale characterization</strong> (Sep 23 sweep said "not yet externally auditable"; Sep 30 sweep said "the source code is therefore private / not-yet-public"; this Oct 7 sweep says the same — the streak of "RisePIR source not public" is the most notable row in the Open Source column of the W41 cycle's Evidence-at-a-Glance table).</li>
+<li><strong>No new PIR-tagged ePrint papers in the Sep 30 → Oct 7 window</strong>. The Sep 30 sweep's three-paper batch (Bitansky–Couteau–Mazor Interactive SK-PIR + RisePIR + ESCAPE on Sep 18–20) is still the W40 cycle's only research result. ePrint activity in the window is dominated by <strong>(a) Jambon: Asynchronous Universally Composable Threshold FHE with Low Communication (2026/2290, Sep 29 / Oct 1 approved)</strong> — first async UC threshold FHE with low communication; relevant because <strong>threshold FHE composes directly into multi-server PIR</strong> (the pre-2026 Bittorrent-based TFHE / FrodoPIR threshold story); <strong>(b) Low-Noise Multi-Value Bootstrapping via Log-Unit Lattice Search and LUT Shifting (2026/2310)</strong> — relevant because <strong>multi-value bootstrapping is the per-query amortization step of FHE-based PIR</strong> (the SimplePIR / HintlessPIR / SandwichPIR family all use SEAL's multi-value bootstrap in the YPIR class). <strong>No new PIR papers in the W41 cycle, but the cycle is bracketed by two FHE improvements that are direct PIR enablers</strong>. <strong>The Oct 7 → Oct 14 window is the W42 cycle</strong> — Wednesday of next week is the Identity &amp; Pseudonymity rotation (Sunday of the W41 cycle), then Mix Networks (Friday W41), then DNS (Monday W41) — i.e., <strong>the W41 cycle has only 1 PIR observation</strong> (this update).</li>
+</ol>
+<h2 id="lead-story-apple-4-pr-pir-stack-hardening-burst-oct-2-oct-4">Lead Story — Apple 4-PR PIR-Stack Hardening Burst (Oct 2 → Oct 4)</h2>
+<p>The Sep 30 sweep characterized the Apple PIR backend as <strong>"actively maintained, with the production-relevant Cuckoo-table path now formally tested to a higher bar than at any prior point in the v1.0.7 lifecycle"</strong>. The Oct 7 sweep is forced to update that: the <strong>Cuckoo-table path is now one of five distinct PIR-stack correctness paths being hardened</strong> — and the four new paths (Symmetric PIR bucket sizing / modular matrix multiplication / ciphertext-plaintext inner product / sharded index database) were <strong>not on the Sep 30 sweep's radar</strong>. Each of the four PRs carries the same production-grade format as #332 — bug summary / reproduction / behavior change / testing — and each addresses a bug that <strong>could silently corrupt a deployed PIR database</strong>.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Opened</th>
+<th>Bug summary</th>
+<th>Behavior change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="https://github.com/apple/swift-homomorphic-encryption/pull/337" rel="noopener nofollow">#337</a></strong></td>
+<td>Account for encryption tag in Symmetric PIR bucket sizing</td>
+<td>Oct 4</td>
+<td><code>PIRProcessDatabase</code> sizes Cuckoo table buckets from unencrypted value sizes; Symmetric PIR appends 16-byte tag → tag pushes value past bucket size → Cuckoo-table construction aborts</td>
+<td>Default <code>maxSerializedBucketSize</code> 1024 → 2048 bytes for Symmetric PIR deployments at the bucket-size boundary</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/apple/swift-homomorphic-encryption/pull/336" rel="noopener nofollow">#336</a></strong></td>
+<td>Fix accumulator overflow in modular matrix multiplication</td>
+<td>Oct 4</td>
+<td><code>Array2d.multiply</code> sums products in <code>T.DoubleWidth</code>, reduces only once → sum wraps past <code>T.DoubleWidth.max</code> after 16 products at large modulus</td>
+<td>SimplePIR <code>SimplePirServer&lt;UInt32&gt;</code> 28-bit ciphertext modulus returns incorrect entries at lattice dimension 2048 — fix recovers correctness at <strong>4–24% slowdown</strong> in previously-wrong cases, <strong>no slowdown when single reduction suffices</strong></td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/apple/swift-homomorphic-encryption/pull/335" rel="noopener nofollow">#335</a></strong></td>
+<td>Clear stale seed from ciphertext-plaintext inner product result</td>
+<td>Oct 4</td>
+<td>BFV ciphertext-plaintext inner product copies the first ciphertext and keeps its seed → fresh ciphertext serialization regenerates the second polynomial from the seed → decryption succeeds if the inner-product was seeded, fails if the inner-product was seeded-and-recomputed from a regenerated polynomial</td>
+<td><code>reduceToCiphertext</code> clears the result's seed; affects all three ciphertext-plaintext variants: <code>innerProduct</code>, <code>innerProductAsync</code>, <code>innerProduct(..., maxConcurrentTasks:)</code></td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/apple/swift-homomorphic-encryption/pull/334" rel="noopener nofollow">#334</a></strong></td>
+<td>Fix sharded index database overwriting its output files</td>
+<td>Oct 4</td>
+<td>With <code>"databaseType": "index"</code> and &gt;1 shard, <code>PIRProcessDatabase</code> accepts paths without <code>SHARD_ID</code> → every shard written to same path → only last shard written survives, tool exits with code 0</td>
+<td>Multi-shard index configurations without <code>SHARD_ID</code> in the path now fail with exit code 64; single-shard configurations unaffected</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>What's the same across all 4 PRs</strong> (per the PR bodies):
+- Author: <strong>Karl Tarbe / <code>karulont</code></strong> for #336, #334 (and #337, #335 carry the same PR format and PR-body style).
+- <strong>PR format</strong>: bug summary / problem statement / reproduction / fix / behavior change / testing.
+- <strong>New regression test</strong> for each (one per PR — <code>symmetricPirMaxSerializedBucketSize</code> / <code>Array2dTests.multiply</code> + <code>Array2dTests.maxLazyProductAccumulationCount</code> + <code>SimplePirTests.multiplyTransposing</code> / <code>schemeCiphertextPlaintextInnerProductTest</code> / <code>indexDatabaseShardID</code>).
+- <strong><code>swift test -c release</code> passes</strong> in the PR body's reported tests.</p>
+<p><strong>What's different across the 4 PRs</strong>:
+- <strong>#337</strong> is a <strong>Symmetric-PIR-specific</strong> bug — affects only the Symmetric PIR backend (the Apple-only PIR variant where the second round-trip encrypts the response with a tag); the standard PIR backend (the SimplePIR / YPIR / HintlessPIR family) is unaffected. This is the first Symmetric-PIR-specific bug ever on the issue tracker.
+- <strong>#336</strong> is a <strong>fundamental BFV / RLWE correctness bug</strong> — affects all uses of <code>Array2d.multiply</code> across the stack. The bug is <strong>silent in production</strong> (no exception, no log message, just wrong entries). The fix has a measurable cost (<strong>4–24% slowdown in previously-wrong cases</strong>); the speedup is zero when single reduction is present.
+- <strong>#335</strong> is a <strong>decryption-correctness bug</strong> in the BFV inner-product — affects all three ciphertext-plaintext variants. The bug is <strong>silent in production</strong> (no exception, no log message, just wrong decryption results).
+- <strong>#334</strong> is a <strong>silent data-loss bug</strong> in the sharded index path — affects multi-shard index configurations. The bug is <strong>silent in production</strong> (no error, exit code 0, only last shard written).</p>
+<p><strong>Why this matters for the Sep 30 sweep's characterization</strong>:
+- <strong>The Cuckoo-table path is the only path that was hardened in the Sep 23 → Sep 30 window</strong> — the four new PRs cover three additional paths (Symmetric PIR bucket sizing, BFV modular matrix multiplication, ciphertext-plaintext inner product) and one additional subsystem (process database sharding). <strong>The PIR stack's tested-path coverage has now roughly doubled</strong>.
+- <strong>All four new bugs share the same severity profile as #332</strong>: silent in production, could corrupt a deployed PIR database. <strong>A deployed PIR database could ship with wrong / dropped / overwritten rows without any user-visible sign</strong>.
+- <strong>The Apple PIR consumer feature (iOS 18 Live Caller ID, contact discovery) ships on v1.0.7</strong> with <strong>none of the four PRs merged</strong> — meaning <strong>the v1.0.7 deployments are potentially affected</strong> by all four bugs. The four fixes will land in <strong>v1.0.8</strong> (no release tag yet, but the PR cluster signals the cycle is starting).</p>
+<p><strong>What this means for the Sep 30 sweep's "PIR-stack issue tracker is clean" reading</strong>:
+- <strong>The PIR-stack issue tracker is not clean</strong> — it's open on <strong>5 substantive PRs</strong> as of Oct 7 (#334, #335, #336, #337, #333 are all opened in the window; #137 "Provide intuition on expected scale" was open as of Aug 24 and is the only pre-window open issue).
+- <strong>The first PR of the burst opened on Oct 2 (#333, Update CONTRIBUTING.md)</strong>, the four substantive PRs opened Oct 4. <strong>36 hours from first to last</strong> — a tight clustering.
+- <strong>The PIR-stack activity is now consistent with the Sep 30 sweep's "actively maintained" reading</strong> — but the production-branch stability is <strong>not yet higher</strong> than at Sep 30, because <strong>the four new fixes are not yet merged</strong>.</p>
+<h2 id="story-2-risepir-source-remains-private-day-71">Story 2 — RisePIR Source Remains Private (Day 71)</h2>
+<p>The Sep 30 sweep characterized <strong>the RisePIR source code as "not yet externally auditable"</strong> as a <em>material caveat</em> on the "first Ethereum-mainnet-deployment" claim. <strong>The W41 cycle does not change that</strong> — the source code is still private / not yet public as of Oct 7, 2026.</p>
+<p><strong>What we re-verified</strong>:
+- <strong><code>orochi-network/cuckoo-filter-rs</code></strong> — still <strong>404</strong> as of Oct 7 (the RisePIR paper's primary artifact).
+- <strong><code>orochi-network/orochimaru</code></strong> (the RisePIR paper author's organization, the closest active successor) — <strong>no commits</strong> since 2026-07-27, i.e. <strong>71 days past the Sep 18 ePrint publication</strong>. The Sep 30 sweep predicted an orochimaru release in the W41 cycle; it has not materialized. <strong>orochimaru pushed dates from 2026-07-27 back to 2026-09-23</strong> in the Sep 30 sweep (one sweep predicted a release; this sweep finds no release in the window — <strong>the orochimaru release is still on the calendar</strong>).
+- <strong><code>orochi-network/orochi-multicast</code></strong> (multicall.js alternative, 0 stars) — last pushed 2024-03-13.
+- <strong><code>orochi-network/orochi-observer</code></strong> (blockchain observer) — last pushed 2022-08-04.
+- <strong><code>orochi-network/orochi-wallet-connector</code></strong> — last pushed 2022-05-24.</p>
+<p><strong>The RisePIR deployment is still live</strong> — the <strong>first private <code>eth_getBalance</code> endpoint over Ethereum mainnet's 2.05×10⁸ accounts</strong> (0.69 s/query, 5.6 ms/block absorption, well inside the 12 s block interval). <strong>The deployment is real, the numbers are reproducible, but the Rust implementation is not yet open-sourced</strong>. <strong>This is now a 3-sweep-stale characterization</strong> (Sep 23 sweep said "not yet externally auditable"; Sep 30 sweep said "the source code is therefore private / not-yet-public"; this Oct 7 sweep says the same — <strong>the streak of "RisePIR source not public" is the most notable row in the Open Source column of the W41 cycle's Evidence-at-a-Glance table</strong>).</p>
+<p><strong>Why this matters for the Sep 30 sweep's Ethereum PIR stack composition claim</strong>:
+- <strong>The wallet → (anon-rpc → tor-js / mixnet) → (RisePIR eth_getBalance endpoint) composition is live and wallet-reachable</strong> — Sep 30's claim holds.
+- <strong>The RisePIR's correctness is not externally auditable</strong> — i.e. the paper's claim that the 0.69 s/query and 5.6 ms/block numbers are correct is <strong>unverifiable without the source</strong>. <strong>This is the strongest material caveat on the Sep 30 sweep's "first-ever production private Ethereum stack" claim</strong> — the <em>production</em> is real (the deployment is live, the numbers are reproducible), but the <em>correctness</em> of the production is <strong>trust-bound until the source is open</strong>.</p>
+<p><strong>What this means for the W41 cycle</strong>:
+- <strong>The W41 cycle's authoritative claim is: "Apple is shipping 4 substantive PIR PRs in 36 hours — the most substantive Apple PIR-PR cluster since the Cuckoo-table recursion fix #332 (Sep 25). The RisePIR deployment is live; the implementation is not yet auditable."</strong>
+- <strong>The W41 cycle's open-source column is dominated by Apple</strong> (4 PRs, all substantive, all open as of Oct 7).
+- <strong>The W41 cycle's research-result column is empty</strong> (no new ePrint PIR papers in the window).
+- <strong>The W41 cycle's "no PIR activity" characterization holds for Kohaku</strong> (8 PRs / commits in the window, none PIR-tagged) and for <strong>OpenMined</strong> (silent since 2021-04-03).</p>
+<h2 id="story-3-no-new-pir-eprint-papers-in-the-window">Story 3 — No New PIR ePrint Papers in the Window</h2>
+<p>The W41 cycle is <strong>bracketed by FHE improvements that are direct PIR enablers</strong> but is <strong>not</strong> a research-result cycle. The cycle's ePrint activity is:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Date</th>
+<th>Authors</th>
+<th>Relevance to PIR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jambon: Asynchronous Universally Composable Threshold FHE with Low Communication (2026/2290, <a href="https://eprint.iacr.org/2026/2290" rel="noopener nofollow">eprint</a>)</strong></td>
+<td>Sep 29 / Oct 1 approved</td>
+<td>(Threshold FHE team)</td>
+<td><strong>First async UC threshold FHE with low communication</strong> — composes directly into multi-server PIR (the pre-2026 Bittorrent-based TFHE / FrodoPIR threshold story); reduces the per-key encryption cost for multi-key FHE-based PIR</td>
+</tr>
+<tr>
+<td><strong>Low-Noise Multi-Value Bootstrapping via Log-Unit Lattice Search and LUT Shifting (2026/2310, <a href="https://eprint.iacr.org/2026/2310" rel="noopener nofollow">eprint</a>)</strong></td>
+<td>Oct 1</td>
+<td>(Bootstrapping team)</td>
+<td><strong>Multi-value bootstrapping is the per-query amortization step of FHE-based PIR</strong> (the SimplePIR / HintlessPIR / SandwichPIR family all use SEAL's multi-value bootstrap in the YPIR class); reduces the per-query cost of SEAL-based PIR</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Why this matters for the W41 cycle's research column</strong>:
+- <strong>The W41 cycle is the post-CANS-2026 window</strong> — RisePIR's CANS acceptance (Sep 24) is the W40 research production event.
+- <strong>The W41 cycle is a hardening-and-deployment window</strong>, not a new-theor-publication window.
+- <strong>The next PIR research result cycle is expected in the W42–W44 cycle</strong> (CRYPTO 2026 acceptance window closes Oct 12; CCS 2026 acceptance window closes Oct 22; SCN 2026 acceptance window closes Nov 2).</p>
+<h2 id="maturity-tracking-the-apple-pir-stack-shift">Maturity Tracking — the Apple PIR-stack shift</h2>
+<p>The W41 cycle shifts the <strong>Apple PIR-stack</strong> from "actively maintained, with the production-relevant Cuckoo-table path now formally tested to a higher bar than at any prior point" (Sep 30 sweep) to <strong>"actively maintained, with the production-relevant Cuckoo-table + Symmetric PIR bucket sizing + ciphertext-plaintext inner product + modular matrix multiplication paths now in the PR queue"</strong> (this sweep).</p>
+<p>The W41 cycle does not change the other maturity tracking columns:
+- <strong>SandwichPIR</strong> (the GPU-accelerated private Wikipedia, 88× CPU best, $0.20 M-query): still <strong>2 stars / 0 forks / 0 issues / 0 PRs</strong> for <strong>40 days since Aug 28</strong>. The repo's adoption profile remains a <strong>high-impact paper but a hardware moat that has not been crossed by any external contributor</strong>.
+- <strong>OpenMined/PIR</strong>: still silent since <strong>2021-04-03</strong> (5y 6m).
+- <strong>orochi-network/cuckoo-filter-rs</strong>: still <strong>404</strong>.
+- <strong>RisePIR</strong>: still <strong>production-live, source-private</strong>.</p>
+<h2 id="eteleology-where-the-w41-cycle-sits-in-the-larger-story">ETeleology — Where the W41 Cycle Sits in the Larger Story</h2>
+<p>The Oct 7 weekly update is <strong>the W41 cycle's PIR observation</strong> — and the W41 cycle is the post-CANS-2026 hardening-and-deployment window. <strong>The W41 cycle's headline event is the Apple 4-PR burst</strong>. <strong>The next PIR observation is the Oct 14 weekly update</strong> — which will be the W42 cycle's PIR observation (the W42 cycle is Wednesday Oct 14; the Oct 14 weekly update is the W42-cycle Wednesday).</p>
+<p><strong>For the September 14 → October 14 W42 cycle, the Sep 30 → Oct 7 window is one of the three observation windows</strong>:
+- <strong>Sep 30 → Oct 7 (W41)</strong> — Apple 4-PR burst, no new ePrint papers, RisePIR source private, OpenMined silent.
+- <strong>Oct 7 → Oct 14 (W42)</strong> — what to watch: (i) <strong>Apple SWIFT-PR k-cluster</strong> (does the Sep 30 cycle's "v1.0.8 in the queue" prediction materialize?); (ii) <strong>RisePIR source goes public?</strong> (does the 71-day post-publication window close?); (iii) <strong>Kohaku Sep 30 / Oct 7 PRs</strong> (do any become PIR-tagged?); (iv) <strong>SandwichPIR stays at 2 stars?</strong> (does any external contributor fork or issue?); (v) <strong>OpenMined/PIR stays at 36 months silent?</strong> (does any contributor surface?); (vi) <strong>any new ePrint PIR papers</strong> (CRYPTO 2026 acceptance window closes Oct 12 — does the W42 cycle see a Burst of accepted-paper preprints?).
+- <strong>Oct 14 → Oct 21 (W43)</strong> — what to watch.</p>
+<p><strong>The W41 cycle's posture</strong>:
+- <strong>Active Apple PIR-stack hardening</strong> is the dominant signal. <strong>The Apple PIR backend is now in pre-v1.0.8 readiness</strong> (no release tag, but the 4-PR burst signals the cycle is starting).
+- <strong>RisePIR source-private / OpenMined-silent / SandwichPIR-2-stars</strong> is the stable signal. <strong>No new opens in the W41 cycle</strong> — the opens that did happen were the Apple 4-PR burst (a maintenance correction to a closed stack, not a new opens).
+- <strong>No new ePrint PIR papers in the W41 cycle</strong> — the research-result column is empty.</p>
+<p><strong>The W41 cycle's evidence-at-a-glance table</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Sep 30</th>
+<th>Oct 7</th>
+<th>Delta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple <code>swift-homomorphic-encryption</code> v1.0.7 days</td>
+<td>119</td>
+<td>126</td>
+<td>+7</td>
+</tr>
+<tr>
+<td>Apple open substantive PIR PRs</td>
+<td>1</td>
+<td>5</td>
+<td>+4</td>
+</tr>
+<tr>
+<td>Apple merged PIR PRs in window</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>apple/swift-homomorphic-encryption</code> new issues opened</td>
+<td>0</td>
+<td>5</td>
+<td>+5</td>
+</tr>
+<tr>
+<td><code>apple/swift-homomorphic-encryption</code> last commit</td>
+<td>Sep 25 (#332)</td>
+<td>Sep 25 (#332)</td>
+<td>0 (12 days since last commit)</td>
+</tr>
+<tr>
+<td>Kohaku open substantive PIR PRs</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Kohaku commits in window</td>
+<td>8</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>New PIR ePrint papers in window</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SandwichPIR stars / forks / issues</td>
+<td>2 / 0 / 0</td>
+<td>2 / 0 / 0</td>
+<td>0 / 0 / 0</td>
+</tr>
+<tr>
+<td>SandwichPIR days since reference impl</td>
+<td>33</td>
+<td>40</td>
+<td>+7</td>
+</tr>
+<tr>
+<td>OpenMined/PIR days silent</td>
+<td>5y 6m</td>
+<td>5y 6m</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>orochi-network/cuckoo-filter-rs</code> 404</td>
+<td>yes</td>
+<td>yes</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>orochi-network/orochimaru</code> last push</td>
+<td>2026-07-27</td>
+<td>2026-07-27</td>
+<td>0 (71 days silent)</td>
+</tr>
+<tr>
+<td>RisePIR source public?</td>
+<td>no</td>
+<td>no</td>
+<td>0</td>
+</tr>
+<tr>
+<td>RisePIR days since publication</td>
+<td>12</td>
+<td>19</td>
+<td>+7</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="whats-next-w42-cycle-oct-7-oct-14">What's Next (W42 Cycle, Oct 7 → Oct 14)</h2>
+<p><strong>6 PIR signals to track in the W42 cycle</strong>:</p>
+<ol>
+<li><strong>Apple PIR-stack PR merge activity</strong>. The Sep 30 sweep predicted "no v1.0.8 in sight — no release tag". The W41 cycle didn't change that. <strong>The W42 cycle's watch item is: does the 4-PR burst (Oct 4) start merging on Oct 7 → Oct 14?</strong> The cycle's PR-style is: Karl Tarbe opens PRs, gets review, merges in 1–2 weeks. <strong>If any of #334 / #335 / #336 / #337 merge on Oct 7 → Oct 14, the production-branch stability materially improves</strong> — and <strong>a v1.0.8 release tag is plausible</strong> within the cycle.</li>
+<li><strong>RisePIR source goes public</strong>. It is now <strong>71 days past Sep 18 ePrint publication</strong>. The Sep 23 / Sep 30 / Oct 7 sweeps have each characterized the source as not-yet-public. <strong>The W42 cycle's watch item is: does the orochimaru release materialize?</strong> If it does, <strong>the W42 cycle's headline event is "RisePIR source goes public"</strong>, and the 3-sweep streak of "RisePIR source not public" closes.</li>
+<li><strong>Kohaku PIR-tagged PR activity</strong>. The Sep 30 sweep characterized the Sep 23 → Oct 7 window as "no new PIR-tagged PRs". <strong>The W42 cycle's watch item is: does any Kohaku PR in the Oct 7 → Oct 14 window carry a PIR tag?</strong> The PIR-stack technical direction in Kohaku is TEE+ORAM-now / PIR-later (Aug 19 sweep). <strong>The next TEE+ORAM PR cluster in Kohaku is the production-readiness milestone for the in-browser-Tor path</strong> — and the Oct 7 → Oct 14 window is the cycle in which the in-browser-Tor path could become "first wallet to ship in-browser Tor by default".</li>
+<li><strong>SandwichPIR adoption activity</strong>. The Sep 30 sweep characterized SandwichPIR as <strong>2 stars / 0 forks / 0 issues for 33 days</strong>. <strong>The W42 cycle's watch item is: does any external contributor fork the sammy-repo?</strong> The repo's hardware moat (CUDA 12.4 + L40S) has not been crossed. <strong>The next SandwichPIR adoption event would be a fork from a private-Wikipedia search project, a Tiptoe-class deployment, or a Bittorrent-pattern query layer</strong>.</li>
+<li><strong>OpenMined/PIR activity</strong>. The Sep 30 sweep characterized OpenMined/PIR as <strong>silent since 2021-04-03</strong> (5y 6m). <strong>The W42 cycle's watch item is: does any OpenMined contributor surface?</strong> The repo's Bazel-based C++/SEAL stack is functionally dead. <strong>The next OpenMined/PIR activity event would be a revival by a privacy-preserving ML project (a C++ FHE library fork, a Bazel SEAL upgrade, or a SEAL-stack-level contributor) — or the next OpenMined/PIR activity event is the W42 sweep's confirmation that the repo is still silent</strong>.</li>
+<li><strong>New PIR ePrint papers</strong>. The W41 cycle had <strong>0 new PIR ePrint papers</strong>. <strong>The W42 cycle's watch item is: does the post-CANS-2026 cycle produce a burst of accepted-paper preprints?</strong> The CRYPTO 2026 acceptance window closes Oct 12 — if any CRYPTO 2026 paper on PIR is released as an ePrint in the Oct 7 → Oct 14 window, <strong>the W42 cycle's headline event is the CRYPTO 2026 PIR paper</strong>. <strong>The most-likely iacr.org paper for the W42 cycle is the Keewoo Lee / Ethereum Foundation 2-server IT-PIR (6−o(1))·log n bound (2026/1959)</strong> — which the Sep 16 sweep flagged as <strong>the first tightening of the Wehner–de Wolf 5·log n bound (ICALP 2005) in 20 years</strong>. <strong>The Keewoo Lee paper is iacr.org/2026/1959 — the W42 cycle's most-likely research-result event is a CCS 2026 acceptance announcement or an Open Mined-Seal-IR revision of the bound.</strong></li>
+</ol>
+<h2 id="appendix-full-apple-pir-pr-cluster-body-quotes-verbatim-or-near-verbatim">Appendix — Full Apple PIR PR Cluster Body Quotes (verbatim or near-verbatim)</h2>
+<p><strong>PR #337 (Oct 4) — Account for encryption tag in Symmetric PIR bucket sizing</strong>:</p>
+<blockquote>
+<h2 id="summary-pirprocessdatabase-sizes-cuckoo-table-buckets-from-the-unencrypted-value-sizes-but-symmetric-pir-appends-a-16-byte-tag-to-every-value-processing-aborts-when-the-tag-pushes-the-largest-value-past-the-bucket-size">Summary — <code>PIRProcessDatabase</code> sizes cuckoo table buckets from the unencrypted value sizes, but Symmetric PIR appends a 16-byte tag to every value. Processing aborts when the tag pushes the largest value past the bucket size.</h2>
+<h2 id="reproduction">Reproduction</h2>
+<ol>
+<li>Generate a keyword database with 998-byte values.</li>
+<li>Run <code>PIRProcessDatabase</code> on it with <code>n_4096_logq_27_28_28_logt_5</code> and <code>symmetricPirArguments</code> set.</li>
+</ol>
+<p><code>Error: Failed to construct Cuckoo table: Unable to insert value ... (1014 byte value)</code></p>
+<p>Largest values of 998...1012 and 2022...2037 bytes are affected.</p>
+<h2 id="fix-add-the-tag-size-to-the-maximum-value-size-in-resolveforkeyworddatabase">Fix — Add the tag size to the maximum value size in <code>resolveForKeywordDatabase</code>.</h2>
+<h2 id="behavior-change-with-symmetric-pir-and-a-largest-value-of-exactly-997-bytes-the-default-maxserializedbucketsize-goes-from-1024-to-2048-bytes">Behavior change — With Symmetric PIR and a largest value of exactly 997 bytes, the default <code>maxSerializedBucketSize</code> goes from 1024 to 2048 bytes.</h2>
+<h2 id="testing-new-regression-test-symmetricpirmaxserializedbucketsize-swift-test-c-release-passes">Testing — New regression test <code>symmetricPirMaxSerializedBucketSize</code>. <code>swift test -c release</code> passes.</h2>
+</blockquote>
+<p><strong>PR #336 (Oct 4) — Fix accumulator overflow in modular matrix multiplication</strong>:</p>
+<blockquote>
+<h2 id="summary-fixes-an-accumulator-overflow-in-array2dmultiply_modulus-and-array2dmultiplytransposingmodulusoffset-that-produces-wrong-results-for-large-moduli">Summary — Fixes an accumulator overflow in <code>Array2d.multiply(_:modulus:)</code> and <code>Array2d.multiply(transposing:modulus:offset:)</code> that produces wrong results for large moduli.</h2>
+<h2 id="problem-both-functions-sum-products-in-tdoublewidth-and-reduce-only-once-at-the-end-so-the-sum-wraps-past-tdoublewidthmax-at-the-largest-supported-modulus-this-happens-after-16-products-in-simplepir-simplepirserveruint32-with-a-28-bit-ciphertext-modulus-returns-incorrect-entries-at-lattice-dimension-2048">Problem — Both functions sum products in <code>T.DoubleWidth</code> and reduce only once at the end, so the sum wraps past <code>T.DoubleWidth.max</code>. At the largest supported modulus, this happens after 16 products. In SimplePIR, <code>SimplePirServer&lt;UInt32&gt;</code> with a 28-bit ciphertext modulus returns incorrect entries at lattice dimension 2048.</h2>
+<h2 id="changes-reduce-the-running-sum-after-at-most-maxlazyproductaccumulationcount-products-as-the-bfv-inner-product-already-does-derive-the-count-from-the-largest-values-in-the-two-matrices-so-inputs-that-cannot-overflow-keep-a-single-reduction-move-the-inner-loop-into-a-shared-array2dinnerproduct-helper-used-by-both-functions">Changes — Reduce the running sum after at most <code>maxLazyProductAccumulationCount</code> products, as the BFV inner product already does. Derive the count from the largest values in the two matrices, so inputs that cannot overflow keep a single reduction. Move the inner loop into a shared <code>Array2d.innerProduct</code> helper used by both functions.</h2>
+<h2 id="testing-added-array2dtestsmultiply-array2dtestsmaxlazyproductaccumulationcount-and-simplepirtestsmultiplytransposing-the-two-multiply-tests-fail-on-main-for-17-and-64-products-and-pass-with-this-change-swift-test-c-release-passes">Testing — Added <code>Array2dTests.multiply</code>, <code>Array2dTests.maxLazyProductAccumulationCount</code> and <code>SimplePirTests.multiplyTransposing</code>. The two multiply tests fail on <code>main</code> for 17 and 64 products and pass with this change. <code>swift test -c release</code> passes.</h2>
+<h2 id="performance-no-slowdown-measured-when-a-single-reduction-suffices-4-to-24-slower-in-the-cases-that-were-previously-wrong">Performance — No slowdown measured when a single reduction suffices. 4% to 24% slower in the cases that were previously wrong.</h2>
+<h2 id="notes-for-reviewers-in-precomputedqueries-one-operand-is-the-secret-matrix-so-the-count-depends-on-its-largest-value-bounding-by-the-modulus-instead-avoids-that-but-slows-the-uint32-hint-computation-happy-to-switch">Notes for reviewers — In <code>PrecomputedQueries</code>, one operand is the secret matrix, so the count depends on its largest value. Bounding by the modulus instead avoids that, but slows the <code>UInt32</code> hint computation. Happy to switch.</h2>
+</blockquote>
+<p><strong>PR #335 (Oct 4) — Clear stale seed from ciphertext-plaintext inner product result</strong>:</p>
+<blockquote>
+<h2 id="problem-the-bfv-ciphertext-plaintext-inner-product-builds-its-result-from-a-copy-of-the-first-ciphertext-and-keeps-that-ciphertexts-seed-if-the-first-ciphertext-is-fresh-serializing-the-result-uses-the-seeded-format-so-deserialization-regenerates-the-second-polynomial-from-the-seed-and-the-result-decrypts-incorrectly">Problem — The BFV ciphertext-plaintext inner product builds its result from a copy of the first ciphertext and keeps that ciphertext's seed. If the first ciphertext is fresh, serializing the result uses the seeded format, so deserialization regenerates the second polynomial from the seed and the result decrypts incorrectly.</h2>
+<h2 id="fix-reducetociphertext-now-clears-the-results-seed-this-covers-all-three-ciphertext-plaintext-variants-innerproduct-innerproductasync-and-innerproduct-maxconcurrenttasks">Fix — <code>reduceToCiphertext</code> now clears the result's seed. This covers all three ciphertext-plaintext variants: <code>innerProduct</code>, <code>innerProductAsync</code> and <code>innerProduct(..., maxConcurrentTasks:)</code>.</h2>
+<h2 id="testing-schemeciphertextplaintextinnerproducttest-now-round-trips-each-inner-product-result-through-serialization-and-checks-it-still-decrypts-correctly-it-fails-without-the-fix-swift-test-configuration-release-passes">Testing — <code>schemeCiphertextPlaintextInnerProductTest</code> now round-trips each inner product result through serialization and checks it still decrypts correctly. It fails without the fix. <code>swift test --configuration release</code> passes.</h2>
+</blockquote>
+<p><strong>PR #334 (Oct 4) — Fix sharded index database overwriting its output files</strong>:</p>
+<blockquote>
+<h3 id="problem-with-databasetype-index-and-more-than-one-shard-pirprocessdatabase-accepts-outputdatabase-and-outputpirparameters-paths-that-do-not-contain-shard_id-every-shard-is-then-written-to-the-same-path-so-only-the-last-shard-written-survives-and-the-tool-exits-with-code-0">Problem — With <code>"databaseType": "index"</code> and more than one shard, <code>PIRProcessDatabase</code> accepts <code>outputDatabase</code> and <code>outputPirParameters</code> paths that do not contain <code>SHARD_ID</code>. Every shard is then written to the same path, so only the last shard written survives, and the tool exits with code 0.</h3>
+<p>The keyword path already rejects this configuration in <code>ResolvedArguments.validate()</code>. The index path never ran that check.</p>
+<h3 id="reproduction-an-index-database-with-8-rows-and-this-config">Reproduction — An index database with 8 rows and this config:</h3>
+<p><code>json
+{
+  "inputDatabase": "index-db.txtpb",
+  "outputDatabase": "database.bin",
+  "outputPirParameters": "pir-parameters.txtpb",
+  "rlweParameters": "n_4096_logq_27_28_28_logt_5",
+  "databaseType": "index",
+  "sharding": { "shardCount": 4 }
+}</code></p>
+<ul>
+<li>Before: 4 <code>Saved shard to database.bin</code> log lines, exit code 0, and the one remaining <code>pir-parameters.txtpb</code> has <code>num_entries: 2</code>.</li>
+<li>After: <code>Error: 'outputPirParameters' must contain 'SHARD_ID'</code>, exit code 64, nothing written.</li>
+</ul>
+<h3 id="fix-add-argumentsvalidateforindexdatabase-which-applies-the-same-shard_id-rule-as-the-keyword-path-call-it-at-the-start-of-processindexdatabase-before-the-input-database-is-read-single-shard-configurations-including-the-default-are-unaffected">Fix — Add <code>Arguments.validateForIndexDatabase()</code>, which applies the same <code>SHARD_ID</code> rule as the keyword path. Call it at the start of <code>processIndexDatabase</code>, before the input database is read. Single-shard configurations, including the default, are unaffected.</h3>
+<h3 id="testing-new-test-indexdatabaseshardid-in-processdatabasetests-swift-test-filter-pirprocessdatabasetests-passes">Testing — New test <code>indexDatabaseShardID</code> in <code>ProcessDatabaseTests</code>. <code>swift test --filter PIRProcessDatabaseTests</code> passes.</h3>
+</blockquote>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/pir/2026-09-30/"><span class="label">Previous</span><span class="pn-t">PIR Wednesday — September 30 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-10-14/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — October 14 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

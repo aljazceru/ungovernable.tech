@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — October 02 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-10-02: Tor Browser 16.0a13 (Sep 30) — first alpha to ship with the new gpg subkey (tor-browser-build#41847 signs all.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-10-02/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — October 02 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-10-02: Tor Browser 16.0a13 (Sep 30) — first alpha to ship with the new gpg subkey (tor-browser-build#41847 signs all.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-10-02/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — October 02 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — October 02 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-10-02: Tor Browser 16.0a13 (Sep 30) — first alpha to ship with the new gpg subkey (tor-browser-build#41847 signs all.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — October 02 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-10-02: Tor Browser 16.0a13 (Sep 30) — first alpha to ship with the new gpg subkey (tor-browser-build#41847 signs all.", "datePublished": "2026-10-02", "dateModified": "2026-10-02", "url": "https://ungovernable.tech/briefings/mix-networks/2026-10-02/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-10-02/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-10-02", "item": "https://ungovernable.tech/briefings/mix-networks/2026-10-02/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-10-02</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — October 02 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-10-02</b></span>
+    <span><b>24</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-10-02 // may be outdated</p>
+  <p>This page reflects what was known on 2026-10-02. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This week is <strong>"Tor 15.0.24 + 16.0a13 ship on the same day with a new gpg subkey + Tails 7.14 catches the wave + Nym sphinx 0.8.0 removes legacy SURBs + NymVPN credential-issuer key rotation pre-announcement + Katzenpost Windows race-detector lands + HOPR StalledSink + return-path WIP + I2P i2psnark request-throttle tuning"</strong>. <strong>Tor Browser 16.0a13 (Sep 30)</strong> lands <strong>the day before the new gpg subkey</strong> rolls out — and the <strong>Windows code-signing cert renewal</strong> is finally in place (tor-browser-build#41890 + tor-browser-build#41883 + tor-browser-build#41847 signs all releases with the new gpg subkey). It also flips the <code>proxy resolution fast-path</code> off in Gecko (tor-browser#45333), which means Firefox will now actually attempt the SOCKS proxy when no explicit proxy config tells it to do something different — a small but consequential default for Tor Browser, where "no proxy" leaking traffic has been a recurring bug class. <strong>Tor Browser 15.0.24 (Sep 29, by morgan)</strong> lands the stable counterpart and <strong>Tails 7.14 (Sep 30)</strong> picks it up the same day plus Tor 0.4.9.13 and Linux 6.12.111. <strong>Nym merges the <strong>Sphinx 0.8.0</strong> upgrade (PR #7197, Oct 1)</strong> that removes support for the legacy SURB format; repliable messages are now V2-only and the V1 data/additional-SURB/heartbeat formats are no longer supported. Incoming V2 data messages are now reconstructed with reply SURBs forwarded. <strong>Nym also merges the threat-model transport docs correction (PR #7192, Sep 29)</strong> that finally distinguishes what adversaries see over direct connections vs. mixnet-mode (direct destinations see the client's IP; mixnet destinations see only the exit gateway's IP). <strong>Nym publishes a pre-announced NymVPN credential-issuer key rotation (Sep 24 blog)</strong> requiring v2026.12.4 or newer for a credential-issuance outage-free transition. <strong>Katzenpost #1182 (Oct 1)</strong> fixes five races in <code>client/thin</code> by reading <code>t.conn</code> under <code>connMu</code>, restores Windows unit tests under <code>-race</code>, and bumps the Go directive to <strong>1.26.8</strong> so <code>make check</code> passes off the CI image. <strong>HOPR #8463 + #8464 + #8453 + #8471 (Oct 1)</strong> ship a stalled write-pump sink timeout, return-path relayer-diversity blind-spot diagnostics, and a SURB store eviction counter in the flow estimator. <strong>I2P i2psnark (Sep 9)</strong> adjusts the request throttles.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Tor Browser 16.0a13 (Sep 30)</strong> — first alpha to ship <strong>with the new gpg subkey</strong> (tor-browser-build#41847 signs all releases using the new key) + <strong>Windows code-signing cert renewal</strong> (tor-browser-build#41890 + #41883). <strong>tor-browser#45333 disables the fast-path to skip proxy resolution</strong> — Firefox will now attempt the SOCKS proxy even when no explicit proxy config tells it to do something different; a small default-flip with large consequences for "no proxy" leakage. Updates <strong>Tor to 0.4.9.13</strong>, <strong>NoScript to 13.6.34.90101984</strong>, <strong>OpenSSL to 3.5.9</strong>, <strong>Firefox to 153.4.0esr</strong>; backports <strong>Firefox 157 security fixes</strong> (tor-browser#45366); <strong>rebases onto 153.4.0esr</strong> (tor-browser#45359); <strong>disable harmful addon URL blocking</strong> (tor-browser#44815); <strong>disable the Reporting API</strong> (tor-browser#45080); <strong>account for onion aliases in NoScript site parsing</strong> (tor-browser#45368); <strong>hook CharacterData/Range insertion sinks for content patches propagation</strong> (tor-browser#45371); <strong>review preference changes between Firefox 141 and 153</strong> (tor-browser#45073); <strong>hide verifier + related error for self-signed onion cert case</strong> (tor-browser#45343); <strong>fix crash when clicking "Learn more…" in onion site error page</strong> (tor-browser#45346); <strong>port language preference customization to the new settings design</strong> (tor-browser#45360); <strong>YEC 2026 Takeover for Desktop Stable</strong> (tor-browser#45218). Linux: <strong>drop Linux 32-bit deprecation notice</strong> (carried over from last week's #44887). Android: <strong>GeckoView 153.4.0esr</strong>, <strong>share selected text fix</strong> (tor-browser#40627), <strong>disable import bookmarks until stable</strong> (tor-browser#45363). Build system: <strong>update marionette harness to accept multiple tags</strong> (tor-browser#45334), <strong>mach lint fix for rumdl 0.1.91</strong> (tor-browser#45367). Sign-exe wrapper updates to the new Windows signing cert.</li>
+<li><strong>Tor Browser 15.0.24 (Sep 29, by morgan)</strong> — stable counterpart. The blog explains the <strong>Tor Project is now on a 2-week stable cadence</strong> (paired with Firefox's new schedule), so the week-gap from 14-25 → 14-30-23 → 16-01 was the alpha cadence and 15-09 → 15-22 → 15-23 → 15-24 is the stable side. <strong>Stable now picks up the 0.4.9.13 + NoScript 13.6.34.90101984 + OpenSSL 3.5.9 stack</strong>, so users get the same Tor + OpenSSL level as the alpha; the gap to Tor Browser 16.x has been compressing rather than widening.</li>
+<li><strong>Tails 7.14 (Sep 30)</strong> — <strong>second release on the new 2-week cadence</strong>. Bundles <strong>Tor Browser 15.0.24 + Tor client 0.4.9.13 + Linux kernel 6.12.111</strong>; <strong>fixes the default keyboard input method when starting a session in Korean</strong> (#21779). Per the Sep 16 release-schedule mail, intrigeri was the RM; the Sep 18 → Oct 1 window is the milestone.</li>
+<li><strong>Nym sphinx 0.8.0 lands (PR #7197, merged Oct 1)</strong> — <code>bump sphinx to 0.8.0 / Remove support for legacy SURB format / Config fields are kept as-is to avoid another migration, it will disappear with LP</code>. <strong>Repliable messages now use V2 content; V1 data, additional-SURB, and heartbeat formats are no longer supported.</strong> Incoming V2 data messages are reconstructed with reply SURBs forwarded. Additional-SURB and heartbeat messages forward associated SURBs according to content type, with heartbeat SURBs handled separately from request-originated batches. <strong>Config fields are kept as-is</strong> — the change is in the protocol-level format, not in the persisted config schema; the LP replacement will remove the config field entirely. <strong>41 lines added, 532 lines removed across 23 files</strong> — large net-removal because the legacy format code paths come out.</li>
+<li><strong>Nym threat-model transport docs (PR #7192, merged Sep 29)</strong> — <code>Max/threat model transport corrections</code>. Threat-model references now distinguish what adversaries cannot observe over direct connections versus when the client uses the mixnet. Actor descriptions clarify that <strong>direct destinations can see the client's IP</strong>, while <strong>mixnet destinations see the exit gateway's IP</strong>. They also explain how mixing and cover traffic limit network observers' visibility into routes, packet correspondence, and communication activity. <strong>The primary adversary is now labeled explicitly</strong>. Reviewed by merve64.</li>
+<li><strong>Nym sphinx-stack builds (crates 1.22.1, PR #7191)</strong> — <code>crates release: bump version to 1.22.1</code>. Follows the #7139 (1.22.0, Sep 7) SDK-feature-gating release from two weeks ago.</li>
+<li><strong>NymVPN credential-issuer key rotation pre-announcement (Sep 24 blog, "Update NymVPN ahead of an upcoming network upgrade")</strong> — Nym is <strong>rotating the zk-nym signing keys and refreshing the decentralized set of operators</strong> that issue the anonymous credentials. <strong>Upgrade is invisible if you're on v2026.12.4 or newer</strong>. Older versions may be briefly unable to fetch new credentials, which can interrupt new connections or fresh sign-ins. <strong>Exact date not yet announced</strong>; user-action is to upgrade now and be ready.</li>
+<li><strong>Katzenpost #1182 (Oct 1, by tirewapped)</strong> — <code>client/thin: read conn under connMu, run windows under -race, move to go 1.26.8</code>. <strong>Five places read <code>t.conn</code> without holding <code>connMu</code> while <code>Dial</code> and <code>redial</code> write it under the lock</strong> — likely the cause of the intermittent <code>found pointer to free object</code> crash in the Windows <code>client/thin</code> job. Reads of <code>t.conn</code> in <code>Dial</code> (handshake-timeout path), <code>writeMessage</code>, and <code>readMessage</code> (two sites) now go through a <code>connMu.RLock()</code> snapshot. <strong>Restores Windows unit-test runs under <code>-race</code></strong> (was dropped, like the other platforms). <strong>Go directive bumped 1.26.2 → 1.26.8</strong> so <code>make check</code> passes off the CI image.</li>
+<li><strong>Katzenpost CI hardening sweep (Sep 27, by ioerror)</strong> — <code>ci: include ci.mk by its own path</code> (GNU make resolves <code>include</code> against CWD; <code>make -f</code> from anywhere but the repo root couldn't find the file), <code>ci: give every remaining job a target and a config on both other forges</code>, plus a <code>deps: move the go directive to 1.26.8</code> follow-up on Sep 30 — the go-version bump was previewed here before the <code>client/thin</code> race fixes in #1182 wrapped the go-version + Windows-race work together.</li>
+<li><strong>HOPR #8471 (Oct 1, by jeandemeusy)</strong> — <code>chore: bump hopr-* crates</code>. Stack-wide crate version bump after the Sep 23–25 SURB/PIX cluster.</li>
+<li><strong>HOPR #8464 (Oct 1)</strong> — <code>feat(transport): surface return-path relayer-diversity blind spots</code>. The companion metric to #8463's egress-side stalled-sink fix: when a return path is missing or thin, the diagnostic surfaces that explicitly. Co-authored by Claude.</li>
+<li><strong>HOPR #8463 (Oct 1)</strong> — <code>fix(transport): time out and evict a stalled write-pump sink to stop egress head-of-line blocking</code>. <strong>A stalled write-pump sink can now block egress for new packets behind it</strong> — the fix timeouts and evicts the stalled sink so head-of-line blocking ends. Co-authored by Claude.</li>
+<li><strong>HOPR #8453 (Oct 1)</strong> — <code>fix(session): count SURB store evictions in the flow estimator</code>. The flow estimator previously missed SURB store evictions; the rate now reflects what's actually happening.</li>
+<li><strong>HOPR #8468 (Oct 1)</strong> — <code>chore: replace bug.md with the A2 bug-report issue form</code>. Governance: bug reports now route through the issue form rather than a static template.</li>
+<li><strong>HOPR #8313 (Sep 29)</strong> — <code>fix: set HOPR packet payload size to 3248 bytes</code>. <strong>The packet-payload size was hard-coded at one value and breaks interop with peers running the new code</strong>; fixed by setting the constant explicitly to 3248 bytes (the canonical value the protocol expects). Co-authored by Claude + tolbrino.</li>
+<li><strong>HOPR #8460 (Sep 29)</strong> — <code>feat(start)!: extend StartInitiation additional_data to 128 bits</code>. <strong>Breaking change</strong>: the <code>StartInitiation</code> payload's <code>additional_data</code> is extended from the prior bit-width to <strong>128 bits</strong> — the field carries session-advertisement information and was undersized. Co-authored by Claude.</li>
+<li><strong>I2P (Sep 9 history.txt)</strong> — <code>i2psnark: Request throttle adjustments</code>. The throttling heuristics that govern i2psnark's BitTorrent-like throughput were tuned. Last i2p.i2p commit was Sep 9; the most recent Java release is 2.13.0 (Jul 20); I2P 2.14.0 is targeted for late October per the I2P roadmap (no movement this period).</li>
+<li><strong>Tor network at 9,487 running relays on Oct 2</strong> (onionoo <code>relays_published: 2026-10-02 00:00:00</code>) — <strong>+54 from 9,433 on Sep 25</strong> (+0.6 % over 10 days), <strong>continuing the post-EOL recovery</strong> that started after 0.4.8 EOL drained the network on Sep 1. <strong>+557 since the 9,330 low on Sep 19</strong>.</li>
+<li><strong>Research scan (Sep 25 – Oct 2)</strong> — <strong>arXiv 2609.01326 (Sep 1) "Hidden Services Protocol for Mixnets"</strong> (NymHS: first practical and secure hidden-service protocol for mixnets built on SURBs; identifies two practical attacks on naive SURB use and develops defenses; implements on open-source Nym codebase, evaluates 118 websites × 27 configurations = 9,558 page loads; increasing Sphinx payload from 2 KiB to 10 KiB reduces mean page-load latency 5.2× and decreases communication overhead from 21.7 % to 4.3 % vs current Nym baseline); <strong>arXiv 2609.01075 (Sep 1) "Lacan: Making Accountability in Anonymous Networks Real"</strong> (reconciles anonymity and accountability via off-path trustee + chain of successor proofs + traceable signatures + key-committing encryption, reducing public-key operations from per-packet to per-session); <strong>PoPETs 2026(4) "Breaking and (Partially) Fixing Onion Routing with Fragmentation"</strong> (the "Fragging attack": suppressing single fragments lets a malicious receiver confirm the sender; designed and proved Scylla, a Sphinx-derived mix format with all-or-nothing-transform fragmentation, with same performance characteristics as Sphinx).</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: This is <strong>"the boring part matters — third week"</strong> but with a <strong>protocol-upgrade payload</strong>. The week ships <strong>two Tor Browser releases on the same day</strong> (16.0a13 + 15.0.24, both Sep 30), one Tails release, the <strong>Nym sphinx 0.8.0 protocol upgrade</strong> (legacy SURB formats removed, V2-only repliable), the <strong>NymVPN credential-issuer key rotation pre-announcement</strong>, the <strong>Katzenpost Windows race-detector + Go 1.26.8 upgrade</strong>, and a <strong>HOPR cluster</strong> that closes return-path visibility gaps and fixes a stalled-sink head-of-line-blocking bug. <strong>The banner story is "protocol-level shaping is consolidating"</strong>: Tor Browser 16.0a13 flips <code>proxy resolution fast-path</code> off in Gecko (a small default-flip with large consequences for "no proxy" leakage), Nym removes V1 SURB formats from sphinx 0.8.0 (a protocol-level break with backward-compatible config), Nym's threat-model docs finally distinguish direct vs. mixnet destination visibility, HOPR extends <code>StartInitiation additional_data</code> to 128 bits (breaking change), and Katzenpost's <code>client/thin</code> reads <code>t.conn</code> under <code>connMu</code> (race fix). <strong>Each is a small change to a number the field already used</strong> — but together they sharpen the difference between "the protocol did X last year" and "the protocol does X today." For downstream integrators, this is the week to verify that any code that touches Sphinx SURB-format selection handles the V2-only world cleanly; that any NymVPN client below v2026.12.4 upgrades in time for the credential-issuer key rotation; and that any Windows-side Katzenpost thin client deployment runs against the post-#1182 race-fixed build.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-browser-15024-160a13-same-day-stable-alpha-on-the-new-subkey-windows-cert-renewal-proxy-fast-path-off">Tor Browser 15.0.24 + 16.0a13: Same-Day Stable + Alpha on the New Subkey + Windows Cert Renewal + Proxy Fast-Path Off</h3>
+<p>Tor Browser shipped <strong>two releases on the same day</strong>: <strong>15.0.24 stable on Sep 29</strong> (by morgan) and <strong>16.0a13 alpha on Sep 30</strong> (also by morgan). Both bundle <strong>Tor 0.4.9.13 + NoScript 13.6.34.90101984 + OpenSSL 3.5.9</strong>; the alpha additionally rebases onto <strong>Firefox 153.4.0esr</strong> and backports <strong>Firefox 157 security fixes</strong>.</p>
+<p><strong>The 16.0a13 changelog</strong> (from <a href="https://lists.torproject.org/mailman3/hyperkitty/list/tor-announce@lists.torproject.org/thread/AVPDO7WEAG47GGNKE4SDCQY242DH3CKX/" rel="noopener nofollow">tor-announce</a> and <a href="https://blog.torproject.org/new-alpha-release-tor-browser-160a13/" rel="noopener nofollow">blog.torproject.org</a>):</p>
+<pre><code>Tor Browser 16.0a13 - September 30 2026
+
+* All Platforms
++ Updated NoScript to 13.6.34.90101984
++ Updated Tor to 0.4.9.13
++ Updated OpenSSL to 3.5.9
++ Bug 44815: Disable harmful addon URL blocking [tor-browser]
++ Bug 45073: Review preference changes between Firefox 141 and 153 [tor-browser]
++ Bug 45080: Keep the Reporting API disabled. [tor-browser]
++ Bug 45333: Disable the fast-path to skip proxy resolution [tor-browser]
++ Bug 45359: Rebase alpha onto 153.4.0esr [tor-browser]
++ Bug 45366: Backport Security Fixes from Firefox 157 [tor-browser]
++ Bug 45368: Account for onion aliases in NoScript site parsing [tor-browser]
++ Bug 45371: Hook CharacterData/Range insertion sinks for content patches propagation [tor-browser]
+* Windows + macOS + Linux
++ Updated Firefox to 153.4.0esr
++ Bug 45218: Implement YEC 2026 Takeover for Desktop Stable [tor-browser]
++ Bug 45343: Hide verifier and the related error for self-signed onion cert case [tor-browser]
++ Bug 45346: Crash when clicking "Learn more…" in onion site error page [tor-browser]
++ Bug 45360: Port our language preference customization to the new settings design [tor-browser]
+* Windows
++ Bug 45293: Set widget.windows.tablet_detection_override to -1 [tor-browser]
+* Android
++ Updated GeckoView to 153.4.0esr
++ Bug 40627: [Android] "share" selected text only works once [tor-browser]
++ Bug 44913: Review Mozilla 2019009: Enable Download location Settings on Nightly [tor-browser]
++ Bug 45363: Disable import bookmarks in Android until stable [tor-browser]
+* Build System
+* All Platforms
++ Bug 45334: Update marionette harness to accept multiple tags [tor-browser]
++ Bug 45367: Backport Bugzilla 2075120: mach lint fails to create the lint virtualenv because rumdl 0.1.91 is no longer available on PyPI [tor-browser]
++ Bug 41847: Sign all releases using new gpg subkey [tor-browser-build]
++ Bug 41890: Update sign-exe wrapper to use new Windows signing cert [tor-browser-build]
++ Bug 41883: Fix sha256sum definition in projects/hfsplus-tools/config [tor-browser-build]
+</code></pre>
+<p><strong>The headline is <code>tor-browser#45333: Disable the fast-path to skip proxy resolution</code></strong> — paired with <code>tor-browser#45336</code> from last week's 16.0a12 (<code>Pass --disable-proxy-direct-failover</code> in mozconfigs). Together they form a <strong>two-pronged default change</strong>: Gecko's proxy-resolution fast-path (which could skip proxy resolution under specific conditions) is disabled, AND the direct-fallback on proxy failure is disabled. Both are Gecko-level command-line flags; both flip to "always attempt the SOCKS proxy through failures and through fast-paths." For Tor Browser — where a fast-path that bypasses SOCKS and a direct-fallback on proxy failure are both ways traffic could leave the Tor circuit — this is <strong>a hardening pass on the proxy resolution layer itself</strong>. The Oct 1 Windows cert renewal (tor-browser-build#41890 + #41883) <strong>finally closes the "bad signature" workaround story</strong> that has been active since the Sep 1 cert expiry: Windows users installing 16.0a13 from scratch will no longer see the "bad signature" warning; auto-update from a previous version has been unaffected the entire time; the blog from last week telling users to install 16.0a10 and let auto-update bring them up is now obsolete.</p>
+<p><strong>The Sep 30 gpg subkey rotation (tor-browser-build#41847)</strong> signs <strong>all releases</strong> with the new key — the alpha-only rotation from 16.0a12 (last week) is now applied to every release channel. Downstream verifiers that pinned the old subkey need to update.</p>
+<p><strong>Tor Browser 15.0.24 (Sep 29, by morgan)</strong> is the stable counterpart, picking up the <strong>0.4.9.13 + NoScript 13.6.34.90101984 + OpenSSL 3.5.9</strong> stack. <strong>The 2-week stable cadence is now in steady-state</strong>: 15.0.22 (Sep 9) → 15.0.23 (Sep 15) → 15.0.24 (Sep 29). The gap to Tor Browser 16.x stable continues to compress as the alpha cadence (16.0a10 → 16.0a11 → 16.0a12 → 16.0a13) gets the alpha to the same place the stable is at.</p>
+<h3 id="tails-714-sep-30-second-release-on-the-new-cadence">Tails 7.14 (Sep 30): Second Release on the New Cadence</h3>
+<p><a href="https://blog.torproject.org/new-release-tails-7_14/" rel="noopener nofollow">Tails 7.14</a> released <strong>Sep 30</strong> by tails (RM was intrigeri; build images started Sep 29; release scheduled Sep 30 per the <a href="https://lists.torproject.org/mailman3/hyperkitty/list/tails-dev@lists.torproject.org/message/RCZN2I7HIASZ2KK7ALTDAT65ZNEQXXQF/" rel="noopener nofollow">Sep 16 release-schedule mail</a>). <strong>Second release on the new 2-week cadence</strong> (7.12 was Sep 3, 7.13 was Sep 16, 7.14 is Sep 30 — the cadence is exactly 13-14 days).</p>
+<p><strong>Changes</strong>:
+- <strong>Tor Browser 15.0.24</strong> (the same Sep 29 stable that ships to all platforms).
+- <strong>Tor client 0.4.9.13</strong> (the same Tor version in 16.0a13).
+- <strong>Linux kernel 6.12.111</strong>.
+- <strong>Fix the default keyboard input method when starting a session in Korean</strong> (tails#21779).</p>
+<p><strong>Tails 7.14 picks up the entire Sep 29-30 Tor Browser + Tor release stack the day after it ships</strong> — the fastest possible propagation. <strong>The "Tails every 13-14 days" cadence is now load-bearing</strong>: it means every Tails user is on Tor 0.4.9.13 + Tor Browser 15.0.24 within ~14 days of any upstream Tor release.</p>
+<h3 id="nym-sphinx-080-pr-7197-merged-oct-1-legacy-surb-formats-removed">Nym sphinx 0.8.0 (PR #7197, merged Oct 1): Legacy SURB Formats Removed</h3>
+<p>Nym merged <strong>#7197 (Oct 1 14:08 UTC)</strong> <code>bump sphinx to 0.8.0</code> by simonwicky. The PR description is two lines and a diff of <strong>+41/-532 across 23 files</strong> — a <strong>large net-removal</strong> because the legacy format code paths come out entirely.</p>
+<blockquote>
+<p>Bump sphinx to 0.8.0
+Remove support for legacy SURB format
+Config fields are kept as-is to avoid another migration, it will disappear with LP</p>
+</blockquote>
+<p>The CodeRabbit summary:</p>
+<blockquote>
+<p><strong>Protocol Changes</strong>
+- Packet creation and reply SURBs now use the current payload-key format; legacy format selection is no longer available.
+- Repliable messages now use V2 content. V1 data, additional-SURB, and heartbeat formats are no longer supported.
+- Incoming V2 data messages are reconstructed with their reply SURBs forwarded. Additional-SURB and heartbeat messages forward associated SURBs according to their content type, with heartbeat SURBs handled separately from request-originated batches.</p>
+</blockquote>
+<p><strong>The headline is "V2-only repliable"</strong>: the protocol now speaks only the current payload-key format for repliable messages. <strong>Config fields are kept as-is to avoid another migration</strong> — the persisted config schema is not changed; the LP (likely "legacy payload" or "legacy protocol") replacement will remove the config field entirely later.</p>
+<p><strong>Why this is consequential</strong>: any Nym client that spoke V1 SURBs (or used <code>additional-SURB</code> / <code>heartbeat</code> formats) cannot interoperate with post-#7197 nodes. The deployable surface is the v2026.17-djibouti (Sep 2) release, which predates the merge — so the <strong>first Nym Binaries release with the V2-only world is the next one after v2026.17-djibouti</strong> (the v2026.18 or v2026.19 release). The changelog at <a href="https://nym.com/blog/nymvpn-roadmap" rel="noopener nofollow">https://nym.com/blog/nymvpn-roadmap</a> lists v2026.18 as September 2026 and v2026.19 as October 2026 — so the deployable release is imminent.</p>
+<p><strong>Co-deployed with #7191</strong> <code>crates release: bump version to 1.22.1</code> — the public crates.io version bump that mirrors the in-tree 1.22.1 crates release.</p>
+<h3 id="nym-threat-model-transport-docs-correction-pr-7192-merged-sep-29-direct-vs-mixnet-visibility-finally-explicit">Nym Threat-Model Transport Docs Correction (PR #7192, merged Sep 29): Direct vs. Mixnet Visibility, Finally Explicit</h3>
+<p>Nym merged <strong>#7192 (Sep 29 11:10 UTC)</strong> <code>Max/threat model transport corrections</code> by mfahampshire (reviewed by merve64). +63/-17 across 5 files.</p>
+<blockquote>
+<p><strong>Documentation</strong>
+- Threat-model references now distinguish what adversaries cannot observe over direct connections versus when the client uses the mixnet.
+- Actor descriptions clarify that <strong>direct destinations can see the client's IP</strong>, while <strong>mixnet destinations see the exit gateway's IP</strong>. They also explain how mixing and cover traffic limit network observers' visibility into routes, packet correspondence, and communication activity.
+- <strong>The primary adversary is now labeled explicitly</strong>.</p>
+</blockquote>
+<p><strong>Why this matters</strong>: the previous threat-model docs treated the destination's visibility as a single statement that was technically wrong in two cases — it overclaimed the destination's view over direct connections (the destination sees the client's IP) and it overclaimed the destination's view over mixnet-mode (the destination sees the exit gateway's IP, not the client's). The PR corrects both. <strong>The primary adversary is now labeled explicitly</strong> — readers no longer have to infer it from context.</p>
+<p>For builders integrating Nym, the corrected model is: <strong>direct connections leak the client's IP to the destination; mixnet connections leak only the exit gateway's IP to the destination; the network observer sees different information in each mode</strong>.</p>
+<h3 id="nymvpn-network-upgrade-pre-announcement-sep-24-blog-credential-issuer-key-rotation">NymVPN Network Upgrade Pre-Announcement (Sep 24 blog): Credential-Issuer Key Rotation</h3>
+<p><a href="https://nym.com/blog/nymvpn-network-upgrade" rel="noopener nofollow">Nym published a blog post on Sep 24</a> titled "Update NymVPN for an upcoming network upgrade". The headline:</p>
+<blockquote>
+<p>Nym will be rotating that system's signing keys and refreshing the operators who run it. The result is a more robust, more decentralized foundation for the credentials that protect your privacy. For most people this upgrade will be invisible. If you're on the latest version, your connection keeps working throughout the upgrade. Older versions may be briefly unable to fetch new credentials while it happens, which can interrupt new connections or fresh sign-ins.</p>
+</blockquote>
+<p><strong>The action item</strong> is <code>update to v2026.12.4 or newer</code>. The exact date is <strong>not yet announced</strong> ("We will announce the exact date soon. There's nothing to wait for: updating now means you're ready whenever it happens.").</p>
+<p><strong>Why this matters</strong>: NymVPN v2026.12.6 (Sep 21) was an Android-only fix (prefer Wi-Fi over cellular when binding the cover tunnel, PR #6421). <strong>The Sep 24 pre-announcement targets the credential-issuer side of the network, not the client-app side</strong>. The credential issuer is the decentralized set of operators that issue zk-nyms through the credential proxy — the anonymous-credentials layer that lets a NymVPN user authenticate without revealing their identity to the network. <strong>Rotating the signing keys + refreshing the operator set</strong> is a credential-network hygiene event: it limits the blast radius of any single operator compromise and re-randomizes the trust set.</p>
+<p><strong>Practical impact</strong>: any NymVPN user below v2026.12.4 (the Sept 1 release that fixed pinned-gateway bypass-of-blacklist, and the Sep 17 / 18 / 21 .5 / .6 stack) should upgrade before the announced key rotation date.</p>
+<h3 id="katzenpost-1182-oct-1-by-tirewapped-clientthin-race-fix-windows-race-go-1268">Katzenpost #1182 (Oct 1, by tirewapped): client/thin Race Fix + Windows <code>-race</code> + Go 1.26.8</h3>
+<p>Katzenpost merged <strong>#1182 (Oct 1)</strong> <code>client/thin: read conn under connMu, run windows under -race, move to go 1.26.8</code> by tirewapped.</p>
+<blockquote>
+<p>I count <strong>five places</strong> that read <code>t.conn</code> without holding <code>connMu</code> while <code>Dial</code> and <code>redial</code> write it under the lock. This is likely the cause of the intermittent <code>found pointer to free object</code> crash in the Windows <code>client/thin</code> job. Also we restore runs of the Windows unit tests to be performed under <code>-race</code> like every other platform. This also moves the go directive to 1.26.8 so <code>make check</code> passes off the CI image and we have 1.26.8 rather than an older version with outstanding issues that (likely) caused the CI to fail.</p>
+</blockquote>
+<p>The five sites are in <code>client/thin/thin.go</code>:
+- <code>Dial()</code> — the handshake-timeout path reads <code>t.conn</code> to call <code>SetDeadline</code> on it. Snapshot under <code>connMu.RLock()</code>.
+- <code>writeMessage(request)</code> — reads <code>t.conn</code> for <code>Write</code>. Snapshot under <code>connMu.RLock()</code>.
+- <code>readMessage()</code> — two reads (the <code>ReadFull</code> of the 4-byte prefix, then the <code>ReadFull</code> of the message body). Both now snapshot under <code>connMu.RLock()</code>.</p>
+<p>The pattern is: <strong>read <code>t.conn</code> under <code>connMu.RLock()</code>, copy the local <code>conn</code> value, release the lock, operate on the local</strong>. This eliminates the data race where a concurrent <code>Dial</code>/<code>redial</code> writes a new value to <code>t.conn</code> while another goroutine is reading the old value (which can produce the "found pointer to free object" symptom if the old value was finalized between the read and the use).</p>
+<p><strong>Windows unit tests + <code>-race</code></strong> — the CI workflow now runs Windows unit tests under the race detector like every other platform; previously they ran without <code>-race</code>, which means Windows race regressions could ship undetected.</p>
+<p><strong>Go 1.26.2 → 1.26.8</strong> — the module <code>go</code> directive moves forward to 1.26.8 so <code>make check</code> passes against the CI image. The Go 1.26.8 bump is paired with the race-detector work to ensure the codebase is race-free under the newer Go.</p>
+<h3 id="katzenpost-ci-hardening-sweep-sep-27-by-ioerror">Katzenpost CI Hardening Sweep (Sep 27, by ioerror)</h3>
+<p>Katzenpost shipped a <strong>CI-hardening sweep on Sep 27</strong> by ioerror (the same maintainer who landed the Sep 17 / Sep 24 dirauth sweep):
+- <strong><code>ci: include ci.mk by its own path</code></strong> — <code>GNU make</code> resolves an <code>include</code> against the working directory; <code>make -f</code> from anywhere but the repo root could not find the file, and any sub-make in a dispatch lost the makefile too.
+- <strong><code>ci: give every remaining job a target and a config on both other forges</code></strong> — every CI job now has a target and a config on both non-GitHub forges, so the same job can run on either.
+- <strong><code>deps: move the go directive to 1.26.8</code></strong> (Sep 30) — preview of the Go bump that #1182 (Oct 1) would finalize.</p>
+<p><strong>The Sep 27 sweep is the runup to the Sep 30 go-version bump</strong> and the Oct 1 #1182 race-fix. The Katzenpost maintainer is converging on a stable CI + race-free baseline before the next release cut.</p>
+<h3 id="hopr-oct-1-cluster-stalled-sink-head-of-line-blocking-fix-return-path-blind-spot-diagnostics-crate-bump-surb-eviction-counting">HOPR Oct 1 Cluster: Stalled-Sink Head-of-Line-Blocking Fix + Return-Path Blind-Spot Diagnostics + Crate Bump + SURB Eviction Counting</h3>
+<p>HOPR shipped <strong>5 merged PRs on Oct 1</strong> plus the Sep 29 <strong>StartInitiation additional_data 128-bit extension</strong> breaking change.</p>
+<p><strong>#8463 (Oct 1)</strong> — <code>fix(transport): time out and evict a stalled write-pump sink to stop egress head-of-line blocking</code>. A stalled write-pump sink can block egress for new packets behind it (head-of-line blocking). The fix <strong>timeouts and evicts the stalled sink</strong> so head-of-line blocking ends. Co-authored by Claude.</p>
+<p><strong>#8464 (Oct 1)</strong> — <code>feat(transport): surface return-path relayer-diversity blind spots</code>. <strong>The companion metric to #8463's egress-side stalled-sink fix</strong>: when a return path is missing or thin, the diagnostic surfaces that explicitly. Co-authored by Claude.</p>
+<p><strong>#8453 (Oct 1)</strong> — <code>fix(session): count SURB store evictions in the flow estimator</code>. The flow estimator previously missed SURB store evictions; the rate now reflects what's actually happening.</p>
+<p><strong>#8471 (Oct 1)</strong> — <code>chore: bump hopr-* crates</code>. Stack-wide crate version bump after the Sep 23–25 SURB/PIX cluster.</p>
+<p><strong>#8468 (Oct 1)</strong> — <code>chore: replace bug.md with the A2 bug-report issue form</code>. Governance: bug reports now route through the issue form rather than a static template.</p>
+<p><strong>#8313 (Sep 29)</strong> — <code>fix: set HOPR packet payload size to 3248 bytes</code>. <strong>The packet-payload size was hard-coded at one value and breaks interop with peers running the new code</strong>; fixed by setting the constant explicitly to 3248 bytes (the canonical value the protocol expects). Co-authored by Claude + tolbrino.</p>
+<p><strong>#8460 (Sep 29)</strong> — <code>feat(start)!: extend StartInitiation additional_data to 128 bits</code>. <strong>Breaking change</strong>: the <code>StartInitiation</code> payload's <code>additional_data</code> is extended from the prior bit-width to <strong>128 bits</strong> — the field carries session-advertisement information and was undersized. The bang (<code>!</code>) in the commit subject signals the breaking-change convention. Co-authored by Claude.</p>
+<p><strong>The week's HOPR story</strong>: <strong>transport-side head-of-line-blocking fix</strong> + <strong>return-path visibility</strong> + <strong>breaking protocol-level field-width extension</strong> + <strong>interop hard-coded payload-size fix</strong>. HOPR is converging on a clean 4.x release with stable transport + return-path semantics, before continuing toward PIX/Session performance work.</p>
+<h3 id="i2p-i2psnark-request-throttle-adjustments-sep-9-historytxt">I2P i2psnark Request-Throttle Adjustments (Sep 9 history.txt)</h3>
+<p>I2P's most recent Java I2P commit was <strong>Sep 9</strong>: <code>i2psnark: Request throttle adjustments</code>. The throttling heuristics that govern i2psnark's BitTorrent-like throughput were tuned.</p>
+<p><strong>Last full I2P Java release is 2.13.0 (Jul 20)</strong>; <strong>I2P 2.14.0 is targeted for late October per the I2P roadmap</strong>. The most recent i2pd release is <strong>2.61.0 (Jul 20)</strong>. <strong>The I2P side is quiet</strong> in this period: no new releases, no major changes; the next significant event is the late-October 2.14.0 release.</p>
+<h3 id="tor-network-at-9487-running-relays-oct-2-54-over-sep-25-557-over-the-post-eol-low">Tor Network at 9,487 Running Relays (Oct 2, +54 over Sep 25, +557 over the post-EOL Low)</h3>
+<p>Onionoo (<code>relays_published: 2026-10-02 00:00:00</code>) reports <strong>10,640 relays in consensus, 9,487 currently running</strong>. This is <strong>+54 from 9,433 on Sep 25</strong> (+0.6 % over 10 days), <strong>+557 since the 9,330 low on Sep 19</strong>, and continues the <strong>post-0.4.8-EOL recovery</strong> that started after Sep 1. The network is <strong>back above 9,400 and rising</strong>.</p>
+<p><strong>Bridges published <code>2026-10-01 23:45:27</code></strong> with the bridge count not visible from the summary endpoint (the bridge entries are hashed fingerprints, not nicknames). Snowflake volunteer bridge count is not in this snapshot.</p>
+<h3 id="research-scan-sep-25-oct-2">Research Scan (Sep 25 – Oct 2)</h3>
+<p><strong>arXiv 2609.01326 (Sep 1) "Hidden Services Protocol for Mixnets"</strong> by Constantinides et al. (Brave NewCoin research via Nym):</p>
+<blockquote>
+<p>Mix networks (mixnets) provide network-level privacy by routing each communication packet through a sequence of intermediaries, called mixnodes, that randomly delay and cryptographically transform packets before forwarding them, making it difficult for observers to link mixnet entries to exits. While this mechanism protects sender privacy from both external adversaries and the receiver, existing mixnets lack a secure and practical protocol that simultaneously protects receiver (destination) privacy, particularly from the sender. We close this gap. We introduce the first practical and secure hidden-service protocol for mixnets, providing receiver privacy alongside sender anonymity. Our design builds on Single-Use Reply Blocks (SURBs), which enable anonymous replies without revealing the receiver's address. We show, however, that existing approaches to using SURBs expose two practical attacks that can compromise sender or receiver anonymity when the opposing party controls only a single mixnode. We develop defenses against both vulnerabilities. Building on these defenses, we introduce NymHS, a secure and practical hidden-service protocol for mixnets that supports anonymous service discovery, authenticated bidirectional sessions, and asynchronous SURB replenishment. We implement NymHS on the open-source Nym codebase and evaluate its practicality through web-browsing experiments across 118 websites, measuring each of the 27 configurations three times (9,558 page loads). Our results demonstrate that hidden services can be deployed efficiently over mixnets. In particular, increasing the Sphinx payload from 2 KiB to 10 KiB reduces mean page-load latency by approximately 5.2x and decreases communication overhead from 21.7 % to 4.3 % relative to the current Nym baseline.</p>
+</blockquote>
+<p><strong>The relevance to Nym's sphinx 0.8.0 upgrade</strong>: the paper's headline result is that <strong>increasing Sphinx payload from 2 KiB to 10 KiB reduces latency 5.2× and overhead from 21.7 % to 4.3 %</strong>. Nym's prior payload size was 2 KiB; the paper's proposed 10 KiB payload is closer to Nym's 0.8.0 direction. <strong>The Sphinx 0.8.0 upgrade is potentially the deployable path for the larger-payload result</strong> — if Nym adopts 10 KiB Sphinx payloads, the hidden-service protocol from the paper becomes deployable on the open-source Nym codebase.</p>
+<p><strong>arXiv 2609.01075 (Sep 1) "Lacan: Making Accountability in Anonymous Networks Real"</strong> by Takada, Yoshinaka, Kita, Takemasa, Koizumi, Hasegawa:</p>
+<blockquote>
+<p>Anonymity and accountability are essential properties for our everyday activity on the Internet. However, they appear contradictory, and their reconciliation remains far from reality. Existing approaches fall short in this regard, as they either rely on an on-path trustee, per-packet authorization, per-packet public-key cryptography, or per-session intervention by a central authority. We propose Lacan, a protocol that reconciles anonymity and accountability within a realistic design. In Lacan, a sender enjoys anonymity provided by on-path relays, as long as she complies with a contract established with the receiver. Upon a contract violation, the verifier, an off-path trustee on behalf of the receiver, links the malicious message to the sender's identity indirectly via the packet, path, and session, thereby reducing public-key operations from per-packet to per-session.</p>
+</blockquote>
+<p><strong>PoPETs 2026(4) "Breaking and (Partially) Fixing Onion Routing with Fragmentation"</strong> — the "Fragging attack":</p>
+<blockquote>
+<p>Mix networks are a cornerstone of anonymous communication, protecting users' relationships by relaying their messages through a series of mix nodes. To accommodate large payloads, deployed systems rely on message fragmentation, but this seemingly benign feature unwittingly opens a subtle door for adversaries. In this paper, we show that fragmentation enables adversaries to tag messages by suppressing single fragments and thereby break sender-recipient unlinkability, striking at the core privacy guarantee of mix networks. We demonstrate the practicality of this attack on Nym, a real-world deployed mix network. To address this threat, we design a lightweight mitigation that incurs only little overhead in both packet size and processing time. We provide a formal model of fragmentation in mix networks and prove that our mitigation restores unlinkability in this model.</p>
+</blockquote>
+<p><strong>The paper's mitigation is Scylla</strong>, a Sphinx-derived mix format with all-or-nothing-transform fragmentation that ensures all fragments arrive before revealing the recipient or the message. <strong>Same performance characteristics as Sphinx</strong>; same-fragment drop losses turn from privacy leakage to DoS. <strong>Direct Nym relevance</strong>: Nym uses Sphinx fragmentation to handle multi-M messages, and the "Fragging attack" lets a malicious Nym server drop single fragments to confirm sender-receiver pairings.</p>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-09-25/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — September 25 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-10-09/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — October 09 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

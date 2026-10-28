@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — August 08 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-08: The Pure ML-KEM for TLS fight reaches its climax.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-08-08/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — August 08 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-08: The Pure ML-KEM for TLS fight reaches its climax.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-08-08/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — August 08 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — August 08 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-08: The Pure ML-KEM for TLS fight reaches its climax.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — August 08 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-08: The Pure ML-KEM for TLS fight reaches its climax.", "datePublished": "2026-08-08", "dateModified": "2026-08-08", "url": "https://ungovernable.tech/briefings/post-quantum/2026-08-08/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-08-08/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-08", "item": "https://ungovernable.tech/briefings/post-quantum/2026-08-08/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-08-08</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — August 08 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-08</b></span>
+    <span><b>22</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-08 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-08. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ol>
+<li>
+<p><strong>The Pure ML-KEM for TLS fight reaches its climax.</strong> On July 30, the IESG issued an IETF-wide Last Call for <code>draft-ietf-tls-mlkem-09</code>, the specification defining standalone (non-hybrid) ML-KEM key establishment for TLS 1.3. Comments close <strong>August 13</strong>. This is the most contentious PQC standardization decision in IETF history: three Working Group Last Calls, a contested rough-consensus determination (chairs found "roughly 7/10" support among experts but refused to release the underlying numbers), appeals to both the IESG and IAB at every stage, and a European Commission official formally requesting the vote tally. The code points are marked <strong>Recommended=N</strong> in an <strong>Informational</strong> RFC — while the hybrid <code>X25519MLKEM768</code> remains on the <strong>standards track at Recommended=Y</strong>. The practical message: the IETF is documenting what it declines to endorse. Read the registry, not the RFC number.</p>
+</li>
+<li>
+<p><strong>RFC 9980 brings post-quantum cryptography to OpenPGP (June 30, 2026).</strong> The IETF published "Post-Quantum Cryptography in OpenPGP" as a Proposed Standard. It mandates <strong>composite ML-DSA-65 + Ed25519</strong> for signatures and ML-KEM for encryption — notably, <strong>hybrid-only</strong>, the opposite of what TLS is getting. The catch: GnuPG (the engine behind most of the world's package verification) has <strong>no PQ signature support</strong> and is on a divergent LibrePGP track. The standard exists; the implementation gap is enormous.</p>
+</li>
+<li>
+<p><strong>The lattice cryptanalysis debate intensifies.</strong> Three developments reshape the risk picture: (a) Bernstein's 59-page "Exploiting ML-DSA bugs" paper (June 2026) demonstrates key recovery in under one second from software bugs that pass all standard tests; (b) the Ogilvie "Concrete Hardness Gap between MLWE and LWE" paper (ePrint 2026/279) proves the assumed equivalence between Module-LWE and plain LWE does not hold, saving the attacker bits; (c) the Luo preprint claiming to break ML-KEM with ~1,400 qubits was shown to have fatal flaws (the attack target is provably independent of the secret key), but the episode reinforced that plausible-looking attacks on lattice structure can appear. Together, these make the case for hybrid ECC+PQ deployment quantitatively, not just rhetorically.</p>
+</li>
+<li>
+<p><strong>Kobeissi's "Verification Theatre" exposes gaps in formally verified PQC code.</strong> Nadim Kobeissi's paper (ePrint 2026/192, February 2026) found 13 vulnerabilities in Cryspen's libcrux — the library used by Firefox and OpenSSH that advertises formal verification. Four bugs were inside the formal verification boundary itself, including a wrong multiplication specification in ML-DSA that rendered AVX2 proofs unsound. If "formally verified" PQC code ships with exploitable bugs, the unverified majority will fare worse.</p>
+</li>
+<li>
+<p><strong>Forescout data: 90% of SSH servers still not quantum-safe.</strong> New measurement data (July 2026) shows the PQC adoption gap in stark numbers. While 50% of IT devices have PQC-capable OpenSSH, adoption drops to 28% for IoT, 16% for OT, and 6% for IoMT. Two-thirds of OT devices in enterprise networks are both high-risk and not PQC-capable on TLS. The migration is happening, but unevenly.</p>
+</li>
+<li>
+<p><strong>MAS Singapore targets quantum resilience by end of decade.</strong> The Monetary Authority of Singapore (July 28, 2026) announced it will issue formal supervisory expectations later in 2026, aiming for quantum resilience across the financial sector before 2030. This aligns with the global regulatory consensus (US EO 14412, EU roadmap, ANSSI, BSI, NCSC).</p>
+</li>
+<li>
+<p><strong>Crypto 2026 (August 17–20) and AM-PQC 2026 (August 10–14) are imminent.</strong> These are the venues where the next wave of lattice cryptanalysis results will surface. Expect papers that could tighten or loosen security estimates for ML-KEM and ML-DSA parameters.</p>
+</li>
+</ol>
+<p><em>Freedom-tech implication: the pure-vs-hybrid ML-KEM debate is the single most important standards decision for anyone building decentralized privacy infrastructure. If you operate Nostr relays, mesh networks, or any system relying on TLS, the IETF is about to bless a standalone PQ option that drops the classical safety net. The recommendation remains unchanged: deploy hybrid X25519MLKEM768 everywhere, treat pure ML-KEM as a compliance profile for CNSA 2.0-style regimes, and build crypto-agility so you can flip modes per environment.</em></p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-the-pure-ml-kem-for-tls-last-call-a-standards-saga">1. The Pure ML-KEM for TLS Last Call — A Standards Saga</h3>
+<p>This is the most consequential IETF PQC decision since the NIST standards were finalized, and it deserves full context.</p>
+<h4 id="what-the-draft-does">What the draft does</h4>
+<p><code>draft-ietf-tls-mlkem</code> defines ML-KEM-512, ML-KEM-768, and ML-KEM-1024 as <code>NamedGroup</code> values for TLS 1.3 key establishment — <strong>without</strong> combining them with a classical algorithm. This is "pure" or "standalone" ML-KEM: the confidentiality of the TLS session rests entirely on the lattice scheme, with no ECC fallback.</p>
+<p>The hybrid counterpart, <code>draft-ietf-tls-ecdhe-mlkem</code> (currently at version -05, May 2026), defines <code>X25519MLKEM768</code> — the code point already deployed by Chrome, Cloudflare, AWS, and Apple. It is on the <strong>standards track</strong> with <code>Recommended=Y</code> in the IANA TLS Supported Groups registry.</p>
+<h4 id="the-dispute-in-three-acts">The dispute in three acts</h4>
+<p>The pure ML-KEM draft has been fought over at every stage:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>December 2025</td>
+<td>1st Working Group Last Call</td>
+<td>Chairs found <strong>no consensus</strong> to publish</td>
+</tr>
+<tr>
+<td>Early 2026</td>
+<td>2nd WGLC</td>
+<td>Still contested</td>
+</tr>
+<tr>
+<td>June 24 – July 8, 2026</td>
+<td>3rd WGLC</td>
+<td>57 responses; more supported than opposed</td>
+</tr>
+<tr>
+<td><strong>July 19, 2026</strong></td>
+<td>Chair determination</td>
+<td><strong>Rough consensus to advance</strong> ("roughly 7/10" among experts)</td>
+</tr>
+<tr>
+<td>July 20, 2026</td>
+<td>Draft -09 published</td>
+<td>Two changes: RFC 9847 N-marking definition added; randomness/Dual EC citation inserted</td>
+</tr>
+<tr>
+<td><strong>July 30, 2026</strong></td>
+<td><strong>IETF-wide Last Call issued</strong></td>
+<td><strong>Comments due August 13, 2026</strong></td>
+</tr>
+<tr>
+<td>Throughout</td>
+<td>Appeals</td>
+<td>Bernstein appealed to IESG (Oct 2025) and IAB (Jan 2026, denied Jun 30 2026)</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="who-opposed-and-why">Who opposed and why</h4>
+<p>The sustained opposition came from cryptographers who argue that shipping a standalone PQ option in the internet's default encryption protocol is a bet nobody was forced to make:</p>
+<ul>
+<li><strong>Daniel J. Bernstein</strong> (UIC / Academia Sinica): Has fought the document since adoption. His argument: a solo PQ handshake fails completely if ML-KEM has an undiscovered weakness, while a hybrid remains secure as long as either component holds. His blog series ("NSA and IETF," parts 1–8) and his "Understanding lattice risks" post (June 30, 2026) provide the technical foundation. He has called for volunteers to oppose.</li>
+<li><strong>Tanja Lange</strong> (TU Eindhoven): Wrote on July 6 that none of her concerns had been addressed and she does not support publication. Anticipated the exact failure mode: readers will treat an RFC as IETF endorsement regardless of the <code>Recommended=N</code> marking.</li>
+<li><strong>Nadim Kobeissi</strong> (Symbolic Software): Blocking objection centered on compositional security. His updated ProVerif model of TLS 1.3 supports results showing hybrid groups stay secure even when one component is compromised — the property pure deployment gives up.</li>
+</ul>
+<p>Not every earlier critic stayed opposed: Muhammad Usama Sardar, who pressed for formal-analysis reports in previous rounds, wrote that draft -08 resolved his technical objections.</p>
+<h4 id="the-counting-controversy">The counting controversy</h4>
+<p>Hours after the July 19 determination, <strong>Fabiana Da Pieve</strong>, Team Leader for Post-Quantum Cryptography at the European Commission's DG CNECT, asked the chairs on the record for the numbers behind the call and the method used to weigh responses. Chair Joseph Salowey replied on July 20: the mail is public, no specific threshold defines rough consensus, and the chairs "do not intend to release any further detailed analysis" of numbers, weights, or methods.</p>
+<p>This is significant. The chairs introduced the "7/10" fraction themselves — once you publish a number, you own the question of how it was produced. Declaring roughly seven in ten among a chair-selected cohort, then telling a European Commission official that nothing further will be released, is Exhibit A for any future appeal.</p>
+<h4 id="the-demand-side">The demand side</h4>
+<p>Three standards bodies filed liaison statements supporting publication:
+- <strong>3GPP</strong>: Asked for stable references for its post-quantum work
+- <strong>IEEE 802.11</strong>: Supporting publication
+- <strong>O-RAN</strong>: Supporting publication</p>
+<p>The chairs cited all three as evidence that downstream standards bodies need a stable normative reference — the draft will be cited by procurement regimes (especially CNSA 2.0) that prescribe standalone ML-KEM.</p>
+<h4 id="what-happens-after-august-13">What happens after August 13</h4>
+<p>After the comment window closes, the IESG decides whether to publish. Objectors may appeal. The intended status is <strong>Informational RFC</strong> — not Standards Track. The code points are already in the IANA registry with <code>Recommended=N</code>. The key distinction:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Hybrid (<code>X25519MLKEM768</code>)</th>
+<th>Pure (<code>ML-KEM-768</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RFC type</td>
+<td>Standards Track</td>
+<td><strong>Informational</strong></td>
+</tr>
+<tr>
+<td>IANA marking</td>
+<td><strong>Recommended=Y</strong></td>
+<td><strong>Recommended=N</strong></td>
+</tr>
+<tr>
+<td>Security property</td>
+<td>Secure if <em>either</em> component holds</td>
+<td>Secure <em>only if</em> ML-KEM holds</td>
+</tr>
+<tr>
+<td>Deployed by</td>
+<td>Chrome, Cloudflare, AWS, Apple</td>
+<td>Not yet deployed at scale</td>
+</tr>
+</tbody>
+</table></div>
+<p>Read the pair together: the IETF is documenting what it declines to endorse. Procurement officers tend to read "RFC" and stop. Auditors and architects should read the registry instead.</p>
+<h4 id="freedom-tech-relevance">Freedom-tech relevance</h4>
+<p>For decentralized systems using TLS (Nostr over wss, ENS-connected services, mesh network gateways): the recommendation is unchanged. Deploy hybrid X25519MLKEM768. Treat pure ML-KEM as a compliance profile for CNSA 2.0-style regimes that prescribe it, once the RFC ships. Build crypto-agility to flip modes per deployment environment. The harvest-now-decrypt-later threat means the consequences of betting on pure ML-KEM are retroactive: a break that recovers shared secrets from recorded handshakes would expose every pure-ML-KEM session captured since deployment.</p>
+<p><strong>Sources</strong>: IETF TLS mailing list archives (<code>mailarchive.ietf.org/arch/msg/tls/</code>); IETF Datatracker (<code>datatracker.ietf.org/doc/draft-ietf-tls-mlkem/</code>); PostQuantum.com analysis (Ivezic, July 30, 2026); Bernstein blog (<code>blog.cr.yp.to/20260630-risk.html</code>); freenode.net analysis; LWN.net.</p>
+<h3 id="2-rfc-9980-post-quantum-cryptography-in-openpgp">2. RFC 9980 — Post-Quantum Cryptography in OpenPGP</h3>
+<p>On June 30, 2026, the IETF published <strong>RFC 9980</strong> ("Post-Quantum Cryptography in OpenPGP") as a Proposed Standard, extending RFC 9580 (the 2024 OpenPGP revision). This is the post-quantum extension the OpenPGP WG has been building since mid-2022.</p>
+<h4 id="what-it-specifies">What it specifies</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Algorithm</th>
+<th>Construction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key encapsulation</td>
+<td>ML-KEM-768, ML-KEM-1024</td>
+<td>PQ/T hybrid with X25519</td>
+</tr>
+<tr>
+<td>Signatures (mandatory)</td>
+<td><strong>Composite ML-DSA-65 + Ed25519</strong></td>
+<td>PQ/T hybrid (composite)</td>
+</tr>
+<tr>
+<td>Signatures (optional)</td>
+<td>SLH-DSA</td>
+<td>Hash-based, for root-of-trust conservatism</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Notably: OpenPGP went hybrid-only.</strong> The mandatory signature algorithm is a composite construction combining ML-DSA-65 with Ed25519 — the system is only broken if <em>both</em> components fail. This is the opposite of what TLS is getting with the pure ML-KEM draft. The OpenPGP WG made the deliberate choice that no standalone PQ option would be defined.</p>
+<p>The RFC was a joint effort by MTG AG, the German Federal Office for Information Security (BSI), and Proton AG. The first version was published as an Internet Draft in December 2022.</p>
+<h4 id="the-gnupg-problem">The GnuPG problem</h4>
+<p>The new signature algorithms require <strong>v6 keys</strong> with no v4 carve-out. <strong>GnuPG</strong> — the engine inside most of the world's package verification, Debian/Ubuntu apt, RPM, and Git commit signing — currently has <strong>no post-quantum signature support at all</strong>. Werner Koch (GnuPG maintainer) has been open about the ordering: encryption first, signatures later.</p>
+<p>GnuPG has diverged onto a separate <strong>LibrePGP</strong> track, which has its own ML-KEM key and signature formats based on SHA-3 — incompatible with RFC 9980's v6 key structure. This means the OpenPGP ecosystem is split:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>PQC Signatures</th>
+<th>PQC Encryption</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RFC 9580 + RFC 9980</strong></td>
+<td>✅ Composite ML-DSA+Ed25519</td>
+<td>✅ ML-KEM hybrid</td>
+<td>Sequoia, GopenPGP, Proton, BSI</td>
+</tr>
+<tr>
+<td><strong>LibrePGP (GnuPG)</strong></td>
+<td>❌ None yet</td>
+<td>⚠️ Different ML-KEM format</td>
+<td>GnuPG 2.3+</td>
+</tr>
+</tbody>
+</table></div>
+<p>For freedom-tech: OpenPGP is the backbone of decentralized trust for software distribution, encrypted email, and key verification. The standard now has PQ support, but the implementation gap means practical quantum-safe email and package signing remain years away for most users. The GnuPG/LibrePGP split is the single biggest obstacle.</p>
+<p><strong>Sources</strong>: RFC 9980 (<code>rfc-editor.org/rfc/rfc9980</code>); IETF Datatracker; MTG AG announcement (July 29, 2026); PostQuantum.com analysis; OpenPGP.org standard page; GnuPG mailing list archives.</p>
+<h3 id="3-bernsteins-exploiting-ml-dsa-bugs-the-quantitative-case-for-hybrid">3. Bernstein's "Exploiting ML-DSA bugs" — The Quantitative Case for Hybrid</h3>
+<p>Daniel J. Bernstein's 59-page paper (June 1, 2026, <code>cr.yp.to/papers.html#mldsa</code>) provides the strongest evidence yet that deploying solo ML-DSA without retaining ECC as a safety layer creates measurable, quantifiable risk.</p>
+<h4 id="the-attacks">The attacks</h4>
+<p>Two open-source attack demonstrations, each targeting a different class of ML-DSA software bug:</p>
+<p><strong>Attack 1 — The "AABBCC" bug</strong>: Coefficients in the secret polynomial end up repeating in pairs. This is an ML-DSA-specific version of a vulnerability announced in 2018 by Dilithium co-designer Vadim Lyubashevsky, who said it "can easily be exploited to recover the secret key." Lyubashevsky never published a working demo. Bernstein does. The attack inspects a public key and two signatures, solves a system of linear equations over the polynomial ring, and recovers the four secret polynomials needed to forge signatures on arbitrary messages. Ran successfully on 50 consecutive randomly generated keys. Completes in <strong>under one second</strong> on a single laptop core.</p>
+<p><strong>Attack 2 — Nonce repetition</strong>: The ML-DSA analog of the Sony PlayStation 3 ECDSA disaster (2010). If ML-DSA signature software accidentally reuses the secret nonce, the attacker recovers the secret key by simple polynomial division. Works ~80% of the time from two signatures.</p>
+<p>Both attacks produce <strong>universal forgeries</strong> — the attacker can sign any message under the victim's public key.</p>
+<h4 id="why-these-bugs-pass-all-tests">Why these bugs pass all tests</h4>
+<p>The critical insight: these bugs are invisible to standard testing. An ML-DSA signature generated with the AABBCC bug is a <em>valid</em> ML-DSA signature. It interoperates with correct verifiers. It passes known-answer tests if those tests were generated by code with the same bug (which is exactly what happened with both official Dilithium 1.0 implementations in 2017). The only tests that reliably catch these bugs are <strong>cross-implementation checksum comparisons using derandomized RNGs</strong> — and Bernstein documents how inconsistently such tests are applied.</p>
+<p>The Wycheproof test suite, cited by some as evidence of "better testing infrastructure," <strong>does not include ML-DSA key-generation tests</strong> and uses a nonstandard interface for signature-generation tests that many implementations will skip.</p>
+<h4 id="the-quantitative-model">The quantitative model</h4>
+<p>Bernstein builds a statistical model from published CVE data:</p>
+<ul>
+<li><strong>Blessing, Specter, Weitzner (2021)</strong>: 0.45–1.19 CVEs per 1,000 lines of code added across 8 major crypto libraries; average exploitable lifetime 5.13 years.</li>
+<li><strong>ML-DSA ecosystem</strong>: ~50 libraries, each with 2,000–4,000 lines of ML-DSA-specific code → 100,000–200,000 lines aggregate.</li>
+<li><strong>Prediction</strong>: ~100 new vulnerabilities ecosystem-wide (~2 per library). If 1/8 are severe: <strong>~25% of ML-DSA libraries ship with at least one severe vulnerability at initial release</strong>.</li>
+<li><strong>Ed25519 comparison</strong>: 1–2 severe vulnerabilities across ~100 libraries over 10+ years → ~2% severe-vulnerability rate.</li>
+<li><strong>2027 estimate</strong>: Ed25519 keys face ~2% probability of running on vulnerable software; ML-DSA keys face ~18%.</li>
+<li><strong>Bottom line</strong>: Solo ML-DSA produces roughly an <strong>order of magnitude more breakable keys</strong> than hybrid Ed25519+ML-DSA for at least the next five years.</li>
+</ul>
+<h4 id="what-it-challenges">What it challenges</h4>
+<p>The paper directly challenges two positions staked out in April 2026:
+- <strong>Filippo Valsorda</strong> argued hybrid ECC+ML-DSA signatures are unnecessary and would slow PQC deployment.
+- <strong>Sophie Schmieg</strong> (Google) argued hybrid signatures are less necessary than hybrid key exchange because signature forgery damage is bounded by key revocation.</p>
+<p>Bernstein dismantles both. The code required for Ed25519+ML-DSA is almost entirely the same code required for solo ML-DSA. Adding Ed25519 to an ML-DSA-44 signature increases size by 64 bytes (2,420 → 2,484 bytes = 2.6%). DigiNotar compromised hundreds of thousands of users before revocation — revocation bounds the <em>visibility</em> of forgery, not the <em>consequence</em>.</p>
+<p><strong>Sources</strong>: Bernstein, "Exploiting ML-DSA bugs" (<code>cr.yp.to/papers.html#mldsa</code>, June 2026); PostQuantum.com analysis (Ivezic, June 4, 2026); PQC Migration Brief (Ivezic, June 6, 2026); Blessing, Specter, Weitzner, arXiv:2107.04940.</p>
+<h3 id="4-lattice-cryptanalysis-the-risk-landscape">4. Lattice Cryptanalysis — The Risk Landscape</h3>
+<p>Three papers reshape the security assessment of lattice-based PQC:</p>
+<h4 id="a-ogilvie-concrete-hardness-gap-between-mlwe-and-lwe-eprint-2026279">(a) Ogilvie — "Concrete Hardness Gap Between MLWE and LWE" (ePrint 2026/279)</h4>
+<p>Published February 2026, this paper demonstrates that the widely assumed equivalence between Learning With Errors (LWE) and Module-LWE (MLWE) in power-of-two cyclotomics <strong>does not hold</strong> at concrete parameters. The gap saves the attacker up to <strong>15 bits</strong> compared to generic lattice attacks by exploiting the module structure of ML-KEM.</p>
+<p>This directly refutes claims like "there is no known cryptanalysis currently exploiting rank ≥2 module structure at these parameters that performs better than generic lattice reduction." As Bernstein noted in his June 30 blog post: "Oops." The module structure that was supposed to be a feature (enabling efficient arithmetic) is also an attack surface.</p>
+<h4 id="b-luo-module-lattice-security-arxiv-may-2026">(b) Luo — "Module Lattice Security" (arXiv, May 2026)</h4>
+<p>A four-part preprint series by Ming-Xing Luo (Southwest Jiaotong University) claimed to break ML-KEM, Falcon, Hawk, and NTRU at all standardized parameter sets using ~1,400 logical qubits and ~10⁸ gates via an extension of the CDPR quantum attack. If correct, this would be the most consequential PQC result since Shor's algorithm.</p>
+<p><strong>Status: fatally flawed, not peer-reviewed.</strong> By May 25, 2026, two experts independently confirmed fatal problems:</p>
+<ul>
+<li><strong>Daniel Apon</strong> (Anduril, former NIST cryptographer): The attack target is <strong>independent of the secret key</strong>. The determinant ideal being attacked is identical for any two ML-KEM instances sharing the same public matrix, regardless of the secret. Whatever the attack extracts has nothing to do with what it's trying to recover.</li>
+<li><strong>Thomas Espitau</strong> (co-author of the EUROCRYPT 2025 Hawk paper Luo cites): The reduction is <strong>dimensionally wrong</strong> — the algorithm outputs a single ring element, but Module-SVP requires a short vector in a rank-d module. He also confirmed the Hawk section fabricates a result from his own paper.</li>
+</ul>
+<p>The resource estimate is also internally inconsistent: the algorithm's own precision formula requires ~2.9 million qubits at the top tower level, three orders of magnitude more than the headline ~1,400 figure.</p>
+<p><strong>Assessment</strong>: Not a real break. But the episode reinforces that plausible-looking attacks on lattice algebraic structure can appear, and that the cryptographic community's response time matters. The correct response: read the paper, check the math, wait for community verification, and don't change migration plans based on preprints.</p>
+<h4 id="c-bernstein-understanding-lattice-risks-blog-june-30-2026">(c) Bernstein — "Understanding lattice risks" (blog, June 30, 2026)</h4>
+<p>Bernstein's blog post dismantles a specific paragraph used to justify solo ML-KEM over hybrid. The paragraph claimed Module-LWE has a "worst-case-to-average-case reduction — something neither RSA nor ECDLP had," implying proactive protection. Bernstein shows:</p>
+<ol>
+<li><strong>"Known"</strong> is a risk-management error — it asks us to react to known failures rather than proactively protect against unknown ones.</li>
+<li><strong>"Cryptanalysis"</strong> excludes timing attacks (KyberSlash 1/2, Clangover — the majority of ML-KEM libraries have issued KyberSlash patches) and implementation bugs.</li>
+<li>The worst-case-to-average-case reduction is <strong>not</strong> a protective feature — historically, reductions have been used to <em>build</em> attacks (e.g., square-root discrete-log via worst-case-to-average-case reduction).</li>
+<li>Module-LWE is <strong>harder</strong> than ideal-LWE (Langlois-Stehlé 2015), which is why it was chosen. But the Ogilvie paper shows the gap is smaller than assumed.</li>
+</ol>
+<p><strong>Freedom-tech implication</strong>: The lattice security story is not "proven secure." It is "no known attack currently works at scale, but the mathematical structure is rich and still being explored, and the software is new and buggy." This is exactly why hybrid (ECC+PQ) is the right default. The cost is negligible; the insurance is against both mathematical breaks and software bugs.</p>
+<p><strong>Sources</strong>: Ogilvie, ePrint 2026/279; Luo, arXiv:2605.17412 (and parts I–III); PostQuantum.com analysis (Ivezic, May 25, 2026); Bernstein, <code>blog.cr.yp.to/20260630-risk.html</code>; Apon and Espitau via LinkedIn (May 2026).</p>
+<h3 id="5-kobeissis-verification-theatre-formal-verification-isnt-a-silver-bullet">5. Kobeissi's "Verification Theatre" — Formal Verification Isn't a Silver Bullet</h3>
+<p>Nadim Kobeissi's paper (ePrint 2026/192, first received February 2026, 16 revisions through June 25) examines the gap between formal verification marketing and engineering reality through a case study of <strong>Cryspen's libcrux</strong> — a Rust library marketed as "formally verified" and "high-assurance," used by <strong>Firefox</strong> and <strong>OpenSSH</strong>.</p>
+<h4 id="what-was-found">What was found</h4>
+<p>13 vulnerabilities across libcrux and hpke-rs, including:
+- A platform-dependent cryptographic output failure in SHA-3 intrinsics (discovered by an independent researcher, November 2025)
+- Missing mandatory validation for X25519 DH outputs
+- Nonce reuse vulnerability via integer overflow
+- ECDSA signature malleability (absent low-S normalization)
+- <strong>An Ed25519 key generation defect</strong>
+- <strong>A wrong multiplication specification in ML-DSA</strong> that rendered axiomatized AVX2 proofs unsound</p>
+<p>Four bugs were <strong>inside the formal verification boundary itself</strong> — meaning the proofs were checking the wrong thing. If "formally verified" ML-DSA code can ship with exploitable bugs, the prospects for the dozens of unverified implementations are bleak.</p>
+<h4 id="the-dispute">The dispute</h4>
+<p>The findings triggered a public conflict between Kobeissi and Cryspen, and a RustSec moderation controversy (Kobeissi was temporarily banned from RustSec advisory submission). Cryspen initially denied any bugs in verified code, then filed security advisories for the hpke-rs vulnerabilities in March 2026. Cryspen published a response ("The strengths and limits of formal verification," February 12, 2026) acknowledging the verification boundary doesn't cover all code paths.</p>
+<p><strong>Relevance</strong>: Formal verification is valuable but not sufficient. The verification <em>boundary</em> matters as much as the proofs within it. For PQC code, where the signing procedures are unusually complex and the ecosystem is adding hundreds of thousands of lines of new algorithm-specific code, formal verification should be one layer of testing — not a replacement for cross-implementation checksum comparisons, differential testing, and adversarial code review.</p>
+<p><strong>Sources</strong>: Kobeissi, ePrint 2026/192; The Register (March 20, 2026); Cryspen blog (February 12, 2026); Symbolic Software blog (February 5, 2026).</p>
+<h3 id="6-nist-additional-signatures-round-3-the-nine-survivors">6. NIST Additional Signatures Round 3 — The Nine Survivors</h3>
+<p>On May 14, 2026, NIST released <strong>NIST IR 8610</strong>, advancing nine candidates to the third round of the Additional Digital Signatures process. Five were eliminated.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th>Family</th>
+<th>PK (bytes)</th>
+<th>Sig (bytes)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FAEST</strong></td>
+<td>Symmetric (AES)</td>
+<td>48–64</td>
+<td>~5–9 KB</td>
+<td>Fast; relies only on AES. Conservative assumption.</td>
+</tr>
+<tr>
+<td><strong>HAWK</strong></td>
+<td>Lattice (integer)</td>
+<td>1,024</td>
+<td>555</td>
+<td>No floating-point; simpler than Falcon. Different assumption than ML-DSA.</td>
+</tr>
+<tr>
+<td><strong>MAYO</strong></td>
+<td>Multivariate</td>
+<td>1,420</td>
+<td>454</td>
+<td>Competitive sizes; UOV-derived.</td>
+</tr>
+<tr>
+<td><strong>MQOM</strong></td>
+<td>MPC-in-the-head</td>
+<td>varies</td>
+<td>varies</td>
+<td>Code-based diversity.</td>
+</tr>
+<tr>
+<td><strong>QR-UOV</strong></td>
+<td>Multivariate</td>
+<td>varies</td>
+<td>varies</td>
+<td>Structured UOV variant.</td>
+</tr>
+<tr>
+<td><strong>SDitH</strong></td>
+<td>MPC-in-the-head</td>
+<td>varies</td>
+<td>varies</td>
+<td>Syndrome decoding.</td>
+</tr>
+<tr>
+<td><strong>SNOVA</strong></td>
+<td>Multivariate</td>
+<td>varies</td>
+<td>varies</td>
+<td>NIST signaled caution here.</td>
+</tr>
+<tr>
+<td><strong>SQIsign</strong></td>
+<td>Isogeny</td>
+<td>65</td>
+<td><strong>148</strong></td>
+<td>Smallest PQ signature (beats RSA-2048!). But extremely slow signing (~44 billion cycles).</td>
+</tr>
+<tr>
+<td><strong>UOV</strong></td>
+<td>Multivariate</td>
+<td>~66,576</td>
+<td><strong>96</strong></td>
+<td>Tiny signatures, huge keys. Verification-heavy workloads.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Diversity is the point</strong>: 4 multivariate, 3 MPC-in-the-head, 1 isogeny, 1 lattice. If any single mathematical family falls, alternatives exist in the pipeline. The third round is expected to last ~2 years (standardization ~2027–2028).</p>
+<p>Cloudflare's analysis (July 2026) provides a sober assessment: none of these will be production-ready in time for the first migration wave. ML-DSA is the only game in town for 2026–2028. But the pipeline matters for algorithm agility — if ML-DSA's lattice assumptions weaken, SQIsign (148-byte signatures) or FAEST (AES-based, no lattice assumptions) could replace it.</p>
+<p><strong>Sources</strong>: NIST IR 8610 (<code>nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf</code>); NIST CSRC news (May 14, 2026); PostQuantum.com analysis; Cloudflare blog ("Another look at PQ signatures").</p>
+<h3 id="7-forescout-pqc-adoption-data-the-gap-in-numbers">7. Forescout PQC Adoption Data — The Gap in Numbers</h3>
+<p>Forescout Research / Vedere Labs published updated PQC adoption measurements (July 2026), using Censys, Shodan, and Forescout Device Cloud data:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH hosts on internet (May 2026)</td>
+<td>160M+</td>
+<td>Censys/Shodan</td>
+</tr>
+<tr>
+<td>SSH servers <strong>not</strong> quantum-safe</td>
+<td><strong>~90%</strong></td>
+<td>Forescout</td>
+</tr>
+<tr>
+<td>IT devices with PQC-capable OpenSSH</td>
+<td>50%</td>
+<td>Device Cloud</td>
+</tr>
+<tr>
+<td>IoT devices with PQC-capable OpenSSH</td>
+<td>28%</td>
+<td>Device Cloud</td>
+</tr>
+<tr>
+<td>OT devices with PQC-capable OpenSSH</td>
+<td>16%</td>
+<td>Device Cloud</td>
+</tr>
+<tr>
+<td>IoMT devices with PQC-capable OpenSSH</td>
+<td><strong>6%</strong></td>
+<td>Device Cloud</td>
+</tr>
+<tr>
+<td>OT devices high-risk AND not PQC-capable on TLS</td>
+<td><strong>2/3</strong></td>
+<td>Device Cloud</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key finding</strong>: PQC adoption is concentrating in IT and cloud infrastructure (browsers, CDN edges) but lagging severely in operational technology, IoT, and medical devices — exactly the sectors with the longest equipment lifecycles and the most difficulty patching. Manufacturing, oil and gas, and mining have the lowest PQC adoption rates.</p>
+<p><strong>Freedom-tech relevance</strong>: Mesh networking hardware, embedded devices, and IoT gateways — the backbone of off-grid and decentralized infrastructure — are precisely the categories where PQC adoption is slowest. Anyone building privacy infrastructure on embedded platforms should be testing ML-KEM performance and footprint now (see the RP2040 / Cortex-M0+ benchmarking paper, arXiv:2603.19340).</p>
+<p><strong>Sources</strong>: Forescout blog ("PQC Adoption Gaps," July 2026); Forescout press release; arXiv:2606.16473 (Measurement Study of Post-Quantum Readiness, 2026).</p>
+<h3 id="8-mas-singapore-financial-sector-quantum-resilience">8. MAS Singapore — Financial-Sector Quantum Resilience</h3>
+<p>On July 28, 2026, the Monetary Authority of Singapore (MAS) announced it will issue formal supervisory expectations later in 2026 to guide financial institutions' migration toward quantum-resilient cryptography, with the stated aim of achieving quantum resilience across the financial sector <strong>before the end of this decade</strong>.</p>
+<p>MAS is treating quantum migration not as a standalone exercise but as one component of a technology-risk governance mandate covering AI, operational resilience, scam defenses, and third-party risk management. This is consistent with the global regulatory picture:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Jurisdiction</th>
+<th>Deadline</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>US (EO 14412)</strong></td>
+<td>Key establishment: 2030; Signatures: 2031</td>
+<td>White House, June 22, 2026</td>
+</tr>
+<tr>
+<td><strong>EU</strong></td>
+<td>Critical infrastructure by end 2030</td>
+<td>Coordinated PQC Transition Roadmap</td>
+</tr>
+<tr>
+<td><strong>France (ANSSI)</strong></td>
+<td>No certification without PQC from 2027; quantum-safe only by 2030</td>
+<td>ANSSI</td>
+</tr>
+<tr>
+<td><strong>Germany (BSI)</strong></td>
+<td>Full migration by 2030; hybrid during transition</td>
+<td>BSI</td>
+</tr>
+<tr>
+<td><strong>UK (NCSC)</strong></td>
+<td>"Start planning now" for long-lived data</td>
+<td>NCSC</td>
+</tr>
+<tr>
+<td><strong>Canada</strong></td>
+<td>Migration plan by April 2026; high-priority by end 2031</td>
+<td>Government of Canada</td>
+</tr>
+<tr>
+<td><strong>Singapore (MAS)</strong></td>
+<td>Quantum resilience by end of decade</td>
+<td>MAS, July 28, 2026</td>
+</tr>
+<tr>
+<td><strong>Japan (FSA)</strong></td>
+<td>Financial institutions formulate migration plans</td>
+<td>FSA</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Sources</strong>: MAS FY2025/2026 Annual Report; PostQuantum.com analysis (July 28, 2026); RegTech.com (July 29, 2026); Charter of Trust "Decrypting the Future 2026."</p>
+<h3 id="9-upcoming-conferences-where-the-next-breaks-will-surface">9. Upcoming Conferences — Where the Next Breaks Will Surface</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Conference</th>
+<th>Dates</th>
+<th>Location</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AM-PQC 2026</strong></td>
+<td>August 10–14</td>
+<td>Ohrid, Macedonia</td>
+<td>Algebraic methods in PQC — lattice cryptanalysis central</td>
+</tr>
+<tr>
+<td><strong>Crypto 2026</strong></td>
+<td>August 17–20</td>
+<td>Santa Barbara, USA</td>
+<td>Flagship IACR conference. New cryptanalysis results expected.</td>
+</tr>
+<tr>
+<td><strong>Math of PQC</strong></td>
+<td>September 7–11</td>
+<td>Raitenhaslach, Germany</td>
+<td>Mathematical foundations</td>
+</tr>
+<tr>
+<td><strong>GSA 2026 PQC Summit</strong></td>
+<td>September 16</td>
+<td>Washington DC (in-person + virtual)</td>
+<td>Federal PQC adoption — operational guidance for agencies</td>
+</tr>
+<tr>
+<td><strong>2026 PQC Forum</strong></td>
+<td>TBD</td>
+<td>PQCC</td>
+<td>Industry/government coordination</td>
+</tr>
+</tbody>
+</table></div>
+<p>AM-PQC 2026 and Crypto 2026 are the most likely venues for results that could tighten or loosen security estimates for ML-KEM and ML-DSA parameters. The Ogilvie "concrete hardness gap" paper and any follow-up to the Luo preprint would surface here.</p>
+<p><strong>Sources</strong>: <code>pqcrypto.cs.ru.nl/ampqc</code>; <code>crypto.iacr.org/2026</code>; <code>gsa.gov/events/2026-postquantum-cryptography-summit</code>; <code>pqcc.org/2026-pqc-forum</code>.</p>
+<h3 id="10-implementation-ecosystem-update">10. Implementation Ecosystem Update</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+<th>Date</th>
+<th>Key Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>liboqs</strong></td>
+<td>0.16.0</td>
+<td>July 9, 2026</td>
+<td>SPHINCS+ removed in favor of SLH-DSA (FIPS 205). FIPS-aligned ML-KEM, ML-DSA, SLH-DSA. Next release (0.17.0) in progress — milestones include Classic McEliece status, memory-optimized mldsa-native, derandomized keygen for signatures.</td>
+</tr>
+<tr>
+<td><strong>oqs-provider</strong></td>
+<td>0.10.0+</td>
+<td>July 2025</td>
+<td>OpenSSL 3 provider for PQ TLS 1.3, X.509, CMS.</td>
+</tr>
+<tr>
+<td><strong>OpenSSL</strong></td>
+<td>4.0.0</td>
+<td>April 14, 2026</td>
+<td>Native ML-KEM, ML-DSA, SLH-DSA. FIPS 140-3 module. <code>curveSM2MLKEM768</code> hybrid.</td>
+</tr>
+<tr>
+<td><strong>Go stdlib</strong></td>
+<td>1.27</td>
+<td>2026</td>
+<td><code>crypto/mldsa</code> added (following <code>crypto/mlkem</code> in 1.24). Cloud-native PQ signatures without external deps.</td>
+</tr>
+<tr>
+<td><strong>pyca/cryptography</strong></td>
+<td>tracking</td>
+<td>Issue #14690 (Apr 2026)</td>
+<td>Working on exposing OpenSSL 3.5+ PQ APIs through Python.</td>
+</tr>
+<tr>
+<td><strong>mlkem-native (PQCP)</strong></td>
+<td>active</td>
+<td>2026</td>
+<td>Formally verified portable C, AVX2, AArch64 ML-KEM implementations. Integrated into liboqs.</td>
+</tr>
+<tr>
+<td><strong>libcrux (Cryspen)</strong></td>
+<td>active</td>
+<td>2026</td>
+<td>Formally verified Rust PQC library (Firefox, OpenSSH). 13 vulnerabilities found by Kobeissi; 4 inside verification boundary.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Testing infrastructure note</strong>: Bernstein's ML-DSA bugs paper highlights that standard interop tests and Wycheproof cannot catch the AABBCC and nonce-reuse bug classes. Cross-implementation checksum comparisons using derandomized RNGs are necessary. Organizations deploying ML-DSA should require vendors to demonstrate this level of testing.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Status (Aug 8 2026)</th>
+<th>Key Driver</th>
+<th>Freedom-Tech Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pure ML-KEM TLS</strong></td>
+<td>IETF Last Call closes Aug 13; Informational RFC, Recommended=N</td>
+<td>IESG / TLS WG</td>
+<td>Use hybrid X25519MLKEM768; pure = compliance profile only</td>
+</tr>
+<tr>
+<td><strong>ML-DSA in TLS</strong></td>
+<td>Active WG draft; RFC expected ~Aug 2026</td>
+<td>IETF TLS WG + Cloudflare</td>
+<td>Plan for PQ cert migration; use hybrid Ed25519+ML-DSA</td>
+</tr>
+<tr>
+<td><strong>RFC 9980 OpenPGP PQC</strong></td>
+<td><strong>Published June 30, 2026</strong> (Proposed Standard)</td>
+<td>IETF OpenPGP WG</td>
+<td>Hybrid-only standard; GnuPG implementation gap is the blocker</td>
+</tr>
+<tr>
+<td><strong>Bernstein ML-DSA bugs</strong></td>
+<td>Paper published June 2026; attack code available</td>
+<td>Bernstein (UIC)</td>
+<td>Deploy hybrid; invest in cross-implementation testing</td>
+</tr>
+<tr>
+<td><strong>Lattice cryptanalysis</strong></td>
+<td>Ogilvie: 15-bit gap MLWE/LWE; Luo preprint refuted</td>
+<td>Academic research</td>
+<td>Reinforces hybrid; build crypto-agility</td>
+</tr>
+<tr>
+<td><strong>Verification Theatre</strong></td>
+<td>ePrint 2026/192; 13 bugs in libcrux</td>
+<td>Kobeissi (Symbolic Software)</td>
+<td>Formal verification ≠ bug-free; require differential testing</td>
+</tr>
+<tr>
+<td><strong>NIST Addtl. Sig. Round 3</strong></td>
+<td>9 candidates; ~2-year evaluation</td>
+<td>NIST IR 8610 (May 14, 2026)</td>
+<td>Pipeline for algorithm diversity; SQIsign/FAEST most promising</td>
+</tr>
+<tr>
+<td><strong>Forescout adoption data</strong></td>
+<td>90% SSH servers not quantum-safe</td>
+<td>Forescout / Vedere Labs</td>
+<td>IoT/OT/mesh hardware = slowest migration; test embedded PQ now</td>
+</tr>
+<tr>
+<td><strong>MAS Singapore</strong></td>
+<td>Supervisory expectations by end 2026</td>
+<td>MAS Annual Report</td>
+<td>Financial-sector 2030 deadline aligning globally</td>
+</tr>
+<tr>
+<td><strong>liboqs 0.16.0</strong></td>
+<td>Stable since July 9</td>
+<td>PQCA / Linux Foundation</td>
+<td>Core dependency; SPHINCS+ → SLH-DSA migration in 0.16.0</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-pure-vs-hybrid-decision-matrix">The Pure vs. Hybrid Decision Matrix</h2>
+<p>This is the single most important deployment decision for PQC. Updated with Bernstein's quantitative analysis:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommendation</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS key exchange</td>
+<td><strong>Hybrid X25519MLKEM768</strong></td>
+<td>Standards track, Recommended=Y, deployed by Chrome/Cloudflare/AWS</td>
+</tr>
+<tr>
+<td>TLS key exchange (pure ML-KEM)</td>
+<td>Avoid unless CNSA 2.0 compliance required</td>
+<td>Recommended=N, Informational RFC; loses ECC safety net</td>
+</tr>
+<tr>
+<td>Code signing / long-lived signatures</td>
+<td><strong>Hybrid Ed25519 + ML-DSA</strong></td>
+<td>Bernstein: 10× more breakable keys with solo ML-DSA for next 5 years</td>
+</tr>
+<tr>
+<td>Conservative backup signature</td>
+<td>Add <strong>SLH-DSA</strong> alongside ML-DSA</td>
+<td>Hash-based; no lattice assumptions</td>
+</tr>
+<tr>
+<td>Encrypted archives (multi-decade)</td>
+<td>Hybrid ML-KEM-1024 key wrap + AES-256-GCM</td>
+<td>See <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a></td>
+</tr>
+<tr>
+<td>End-to-end messaging</td>
+<td>Provider's hybrid scheme</td>
+<td>Signal PQXDH, iMessage PQ3</td>
+</tr>
+<tr>
+<td>OpenPGP email/files</td>
+<td>Composite ML-DSA-65 + Ed25519 (RFC 9980)</td>
+<td>Once GnuPG supports it</td>
+</tr>
+<tr>
+<td>Crypto-agility</td>
+<td>Negotiate algorithms; don't hardcode</td>
+<td>Algorithm substitution is the migration safety net</td>
+</tr>
+<tr>
+<td>Embedded / constrained</td>
+<td>Benchmark ML-KEM-512 on target platform</td>
+<td>RP2040 (Cortex-M0+) benchmarks available (arXiv:2603.19340)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="pq-signature-size-reference-updated-with-round-3-candidates">PQ Signature Size Reference (Updated with Round 3 Candidates)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Family</th>
+<th>PK (bytes)</th>
+<th>Sig (bytes)</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ed25519</td>
+<td>Classical</td>
+<td>32</td>
+<td>64</td>
+<td>❌ Classical</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>RSA-2048</td>
+<td>Classical</td>
+<td>272</td>
+<td>256</td>
+<td>❌ Classical</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>ML-DSA 44</strong></td>
+<td>Lattice</td>
+<td>1,312</td>
+<td>2,420</td>
+<td>✅ FIPS 204</td>
+<td>Primary migration target</td>
+</tr>
+<tr>
+<td><strong>ML-DSA 65</strong></td>
+<td>Lattice</td>
+<td>1,952</td>
+<td>3,309</td>
+<td>✅ FIPS 204</td>
+<td>General-purpose</td>
+</tr>
+<tr>
+<td><strong>ML-DSA 87</strong></td>
+<td>Lattice</td>
+<td>2,592</td>
+<td>4,627</td>
+<td>✅ FIPS 204</td>
+<td>Highest security</td>
+</tr>
+<tr>
+<td>SLH-DSA 128s</td>
+<td>Hash-based</td>
+<td>32</td>
+<td>7,856</td>
+<td>✅ FIPS 205</td>
+<td>Conservative; slow signing</td>
+</tr>
+<tr>
+<td>SLH-DSA 128f</td>
+<td>Hash-based</td>
+<td>32</td>
+<td>17,088</td>
+<td>✅ FIPS 205</td>
+<td>Faster; huge sigs</td>
+</tr>
+<tr>
+<td>FN-DSA 512</td>
+<td>Lattice (NTRU)</td>
+<td>897</td>
+<td>666</td>
+<td>📝 FIPS 206 IPD</td>
+<td>Small sigs; side-channel hard</td>
+</tr>
+<tr>
+<td>HAWK 512</td>
+<td>Lattice (integer)</td>
+<td>1,024</td>
+<td>555</td>
+<td>🤔 Round 3</td>
+<td>No FP arithmetic</td>
+</tr>
+<tr>
+<td><strong>SQIsign I</strong></td>
+<td>Isogeny</td>
+<td>65</td>
+<td><strong>148</strong></td>
+<td>🤔 Round 3</td>
+<td>Smallest PQ sig; very slow signing</td>
+</tr>
+<tr>
+<td>UOV Is-pkc</td>
+<td>Multivariate</td>
+<td>66,576</td>
+<td><strong>96</strong></td>
+<td>🤔 Round 3</td>
+<td>Tiny sigs; huge keys</td>
+</tr>
+<tr>
+<td>MAYO one</td>
+<td>Multivariate</td>
+<td>1,420</td>
+<td>454</td>
+<td>🤔 Round 3</td>
+<td>Competitive</td>
+</tr>
+<tr>
+<td>FAEST EM-192s</td>
+<td>Symmetric (AES)</td>
+<td>48</td>
+<td>~5,000</td>
+<td>🤔 Round 3</td>
+<td>AES-only assumption</td>
+</tr>
+</tbody>
+</table></div>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/post-quantum/2026-08-01/"><span class="label">Previous</span><span class="pn-t">Post-Quantum Saturday — August 01 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <a href="/briefings/post-quantum/2026-08-15/"><span class="label">Next</span><span class="pn-t">Post-Quantum Saturday — August 15 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

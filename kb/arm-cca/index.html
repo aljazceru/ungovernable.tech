@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Arm Confidential Compute Architecture (CCA) — ungovernable.tech</title>
+<meta name="description" content="Arm Confidential Compute Architecture adds Realms, hardware-isolated VMs, to Arm chips: how CCA works, how it compares with TDX and SEV-SNP, and its status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/arm-cca/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Arm Confidential Compute Architecture (CCA) — ungovernable.tech">
+<meta property="og:description" content="Arm Confidential Compute Architecture adds Realms, hardware-isolated VMs, to Arm chips: how CCA works, how it compares with TDX and SEV-SNP, and its status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/arm-cca/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arm Confidential Compute Architecture (CCA) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arm Confidential Compute Architecture (CCA) — ungovernable.tech">
+<meta name="twitter:description" content="Arm Confidential Compute Architecture adds Realms, hardware-isolated VMs, to Arm chips: how CCA works, how it compares with TDX and SEV-SNP, and its status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Arm Confidential Compute Architecture (CCA)", "description": "Arm Confidential Compute Architecture adds Realms, hardware-isolated VMs, to Arm chips: how CCA works, how it compares with TDX and SEV-SNP, and its status.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/arm-cca/", "mainEntityOfPage": "https://ungovernable.tech/kb/arm-cca/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "Arm Confidential Compute Architecture (CCA)", "item": "https://ungovernable.tech/kb/arm-cca/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">Arm Confidential Compute Architecture (CCA)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>Arm Confidential Compute Architecture (CCA)</h1>
+  <p class="aka">Also Arm CCA, Arm Confidential Compute Architecture, Realm Management Extension, RME.</p>
+  <p class="dek">Arm&#39;s answer to TDX and SEV-SNP. Adds a fourth security state (&#34;Realm&#34;) on top of the long-standing Normal/Secure split, plus a small monitor (RMM) that the hypervisor cannot observe or modify.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-cca-provides">What CCA provides</a><a href="#architecture">Architecture</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#comparison-vs-sev-snp-and-tdx">Comparison vs SEV-SNP and TDX</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-cca-provides">What CCA provides</h2>
+<p>CCA is the umbrella name for the architectural extensions Arm announced in 2021 that bring VM-level confidential computing to the Armv9-A profile. The hardware piece is the Realm Management Extension (RME); the firmware piece is the Realm Management Monitor (RMM); the memory-protection piece is the Granule Protection Table (GPT). Together they let a guest VM run in a new "Realm world" that is mutually distrustful with the hypervisor running in Normal world.</p>
+<p>Concretely, CCA gives a guest:</p>
+<ul>
+<li>Memory confidentiality and integrity against the hypervisor, the host OS, and other VMs.</li>
+<li>A hardware-rooted attestation token (CCA platform + Realm token) that a relying party can verify before releasing secrets.</li>
+<li>A way to map I/O through the hypervisor without exposing plaintext in shared buffers (using Realm-aware virtio and, eventually, encrypted DMA via PCIe TDISP / IDE).</li>
+</ul>
+<p>CCA targets both server (Neoverse) and client (Cortex-A/X) silicon. The same architecture description covers laptops, phones, and datacentre nodes.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="four-security-states">Four security states</h3>
+<p>Pre-CCA Armv8 has two orthogonal axes: privilege level (EL0…EL3) and security state (Secure or Non-secure, the TrustZone split). RME adds two more states: Realm and Root.</p>
+<pre><code>                    Non-secure          Secure         Realm           Root
+  EL3                                                              Monitor / EL3
+  EL2     Hypervisor (KVM)         Secure-EL2    RMM (Realm Mgmt Monitor)
+  EL1     Host kernel / Guest      TrustZone OS  Realm guest kernel
+  EL0     User processes           TA            Realm guest userspace
+</code></pre>
+<p>Root world (EL3 only) holds the platform monitor and is the most privileged. Realm world is where confidential VMs (Realms) execute. The hypervisor in Normal world can schedule a Realm and pass it I/O, but it cannot read its memory or registers.</p>
+<h3 id="granule-protection-table-gpt">Granule Protection Table (GPT)</h3>
+<p>Physical memory is divided into 4 KiB granules. The GPT, owned by EL3, marks each granule as belonging to one of the four worlds. The Granule Protection Check (GPC) hardware blocks any access whose current world does not match the granule's owner. This is the primitive that gives Realms their memory isolation; it replaces SEV-SNP's RMP and TDX's SEAM mode as the integrity-enforcement structure.</p>
+<h3 id="realm-management-monitor-rmm">Realm Management Monitor (RMM)</h3>
+<p>The RMM is a small piece of firmware running at EL2 in Realm world. It is roughly analogous to Intel's TDX module (the SEAM module) and AMD's PSP-resident SEV firmware. Its job is to:</p>
+<ul>
+<li>Initialize Realms on hypervisor request (RMI calls from Normal-world EL2).</li>
+<li>Manage Realm page tables (RTTs).</li>
+<li>Generate Realm attestation tokens.</li>
+<li>Mediate every world transition into and out of Realms.</li>
+</ul>
+<p>Arm publishes the RMM specification (latest revision 1.0-rel0-rc1, 2024) and a reference implementation under TF-RMM at <a href="https://www.trustedfirmware.org/projects/tf-rmm/" rel="noopener nofollow">https://www.trustedfirmware.org/projects/tf-rmm/</a>. The reference RMM is small (tens of thousands of lines) compared with the Linux KVM stack the Realm cannot see.</p>
+<h3 id="realm-attestation-tokens">Realm attestation tokens</h3>
+<p>A Realm produces a CCA attestation token that is a CBOR Web Token (CWT) signed by the platform's attestation key. The token chains two parts:</p>
+<ul>
+<li>The Platform token: identifies the SoC, firmware versions for Root, RMM, and lower components, and the Hardware Implementation ID (HW IID).</li>
+<li>The Realm token: contains the Realm Initial Measurement (RIM, hash of initial code/data), Realm Extensible Measurements (REMs, four hash registers updated by the Realm), and a freshness nonce supplied by the relying party.</li>
+</ul>
+<p>Arm has published the token format as IETF drafts under the Remote ATtestation procedureS (RATS) WG (<code>draft-ffm-rats-cca-token</code>). Verification follows the standard RATS attester / verifier / relying-party split documented in <a href="/kb/remote-attestation/">Attestation-Architecture</a>.</p>
+<h2 id="threat-model">Threat model</h2>
+<p>In the TCB:</p>
+<ul>
+<li>The CPU silicon (including caches, fabric, GPCs).</li>
+<li>EL3 monitor firmware (typically Trusted Firmware-A).</li>
+<li>The RMM at Realm-EL2.</li>
+<li>The Realm guest itself.</li>
+</ul>
+<p>Out of the TCB:</p>
+<ul>
+<li>The hypervisor at Normal-EL2 (KVM, Xen).</li>
+<li>The host OS at Normal-EL1.</li>
+<li>All other VMs.</li>
+<li>The cloud operator, including DRAM-bus attackers within the limits of the platform's memory encryption (where available).</li>
+</ul>
+<p>Notes on memory encryption:</p>
+<ul>
+<li>The CCA architecture does not mandate memory encryption; it mandates isolation. Some CCA implementations layer Memory Encryption Contexts (MEC) on top of GPT for confidentiality against physical DRAM attacks. Whether a given SoC encrypts Realm memory is an implementation choice; check the silicon vendor's claims.</li>
+<li>Compare with SEV-SNP, where AES-XEX of DRAM is mandatory, and TDX, which uses MK-TME with integrity. Arm's posture leaves more to platform vendors.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Clean architectural separation: a Realm cannot be entered except through the RMM, and the GPT enforcement is a hardware check on every access.</li>
+<li>The RMM is small and standardized, with an open reference implementation. The TCB at the firmware layer is auditable in a way SEAM and SEV firmware historically have not been.</li>
+<li>Same architecture spans client and server, so a single attestation model can cover phones, edge boxes, and datacentre nodes.</li>
+<li>Open IETF token format aligns with the RATS architecture rather than a vendor-specific quote format.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Silicon availability is still narrow. As of early 2026 it is shipping but remains outside commodity datacentre offerings.</li>
+<li>DRAM encryption is implementation-defined; do not assume a specific SoC matches SEV-SNP's threat model without checking.</li>
+<li>Side-channel posture is still being characterized in production. Arm has historically had Spectre-class issues across its cores (Spectre-BHB, the recent TIKTAG paper on MTE). The Realm boundary is new and will attract microarchitectural research; expect findings.</li>
+<li>Confidential I/O depends on PCIe TDISP/IDE adoption, which is still rolling out across the ecosystem.</li>
+</ul>
+<h3 id="side-channel-posture">Side-channel posture</h3>
+<p>Cross-world attacks via cache, branch predictor, and TLB are the obvious surface. Arm's RME spec mandates context flushing on world transitions and context-tagged predictors on compliant cores, but the details vary by implementation. The TIKTAG work (Lee et al., USENIX Security 2024) showed that Memory Tagging Extension (MTE) leaks tags via speculation on Cortex-A715 and M3, which is a cautionary signal about new Armv9 features. Treat published papers like Tyche (EPFL, 2024) and Veracruz (Arm Research, 2022) as the academic baseline for how to reason about RME isolation; both predate widespread silicon and have specific assumptions worth reading.</p>
+<h2 id="comparison-vs-sev-snp-and-tdx">Comparison vs SEV-SNP and TDX</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Arm CCA</th>
+<th>AMD SEV-SNP</th>
+<th>Intel TDX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isolation primitive</td>
+<td>Granule Protection Table</td>
+<td>Reverse Map Table (RMP)</td>
+<td>EPT + SEAM mode</td>
+</tr>
+<tr>
+<td>Trusted firmware</td>
+<td>RMM (open spec, reference impl)</td>
+<td>PSP / SEV firmware (closed)</td>
+<td>TDX module / SEAM (signed by Intel)</td>
+</tr>
+<tr>
+<td>Memory encryption</td>
+<td>Implementation-defined (often MEC)</td>
+<td>Mandatory AES-XEX, per-VM key</td>
+<td>Mandatory MK-TME with integrity</td>
+</tr>
+<tr>
+<td>Attestation format</td>
+<td>CCA token (CWT, RATS-aligned)</td>
+<td>SEV-SNP attestation report (binary)</td>
+<td>TDX quote (DCAP)</td>
+</tr>
+<tr>
+<td>Live migration</td>
+<td>Spec-defined; impl maturing</td>
+<td>Yes (since SEV-SNP 1.55)</td>
+<td>Yes (TD migration, GA 2024)</td>
+</tr>
+<tr>
+<td>Client + server scope</td>
+<td>Yes (single arch)</td>
+<td>Server-only (EPYC)</td>
+<td>Server-only (Xeon)</td>
+</tr>
+<tr>
+<td>Production silicon</td>
+<td>Cortex-X925/A725 (2024), Neoverse V3 (2024 design)</td>
+<td>EPYC Milan onward (2021+)</td>
+<td>Xeon 5th gen (Emerald Rapids, 2024 GA)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Arm: <em>Arm Confidential Compute Architecture Software Stack Guide</em> and <em>Realm Management Monitor Specification</em> — <a href="https://developer.arm.com/documentation/den0137/latest" rel="noopener nofollow">https://developer.arm.com/documentation/den0137/latest</a>.</li>
+<li>Arm: <em>Learn the Architecture: Realm Management Extension</em> — <a href="https://developer.arm.com/documentation/den0126/latest" rel="noopener nofollow">https://developer.arm.com/documentation/den0126/latest</a>.</li>
+<li>TF-RMM reference implementation — <a href="https://www.trustedfirmware.org/projects/tf-rmm/" rel="noopener nofollow">https://www.trustedfirmware.org/projects/tf-rmm/</a>.</li>
+<li>IETF RATS: <em>A CBOR-encoded Token for the Arm CCA Attestation Service</em> (<code>draft-ffm-rats-cca-token</code>).</li>
+<li>Sahita et al., <em>Tyche: A Programmable Reference Architecture for Confidential Computing</em>, EPFL technical report, 2024.</li>
+<li>Brossard et al., <em>Private Delegated Computations Using Strong Isolation</em> (Veracruz), Arm Research, 2022.</li>
+<li>Lee et al., <em>TIKTAG: Breaking ARM's Memory Tagging Extension with Speculative Execution</em>, USENIX Security 2024.</li>
+<li>Cortex-X925 / Cortex-A725 announcement, Arm press, May 2024.</li>
+<li>Neoverse V3 announcement, Arm press, February 2024.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Arm%20Confidential%20Compute%20Architecture%20%28CCA%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">Arm&#39;s answer to TDX and SEV-SNP. Adds a fourth security state (&#34;Realm&#34;) on top of the long-standing Normal/Secure split, plus a small monitor (RMM) that the hypervisor cannot observe or modify.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

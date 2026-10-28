@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verifying a confidential workload — ungovernable.tech</title>
+<meta name="description" content="Verify an Intel SGX workload with Gramine RA-TLS: establish expected measurements, check hardware evidence and bind secret release to the connection.">
+<link rel="canonical" href="https://ungovernable.tech/guides/verifying-a-confidential-workload/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Verifying a confidential workload — ungovernable.tech">
+<meta property="og:description" content="Verify an Intel SGX workload with Gramine RA-TLS: establish expected measurements, check hardware evidence and bind secret release to the connection.">
+<meta property="og:url" content="https://ungovernable.tech/guides/verifying-a-confidential-workload/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Verifying a confidential workload — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verifying a confidential workload — ungovernable.tech">
+<meta name="twitter:description" content="Verify an Intel SGX workload with Gramine RA-TLS: establish expected measurements, check hardware evidence and bind secret release to the connection.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Verifying a confidential workload", "description": "Verify an Intel SGX workload with Gramine RA-TLS: establish expected measurements, check hardware evidence and bind secret release to the connection.", "dateModified": "2026-10-25", "datePublished": "2026-10-25", "url": "https://ungovernable.tech/guides/verifying-a-confidential-workload/", "mainEntityOfPage": "https://ungovernable.tech/guides/verifying-a-confidential-workload/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "advanced"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "Verifying a confidential workload", "item": "https://ungovernable.tech/guides/verifying-a-confidential-workload/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">Verifying a confidential workload</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>Verifying a confidential workload</h1>
+  
+  <p class="dek">Release a test secret only after the workload, hardware evidence and communication channel satisfy your policy.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>3</b> min read</span>
+    <span class="ktag">[ ADVANCED ]</span>
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#1-establish-what-you-intend-to-trust">1. Establish what you intend to trust</a><a href="#2-configure-the-verifiers-acceptance-policy">2. Configure the verifier&#39;s acceptance policy</a><a href="#3-attest-connect-and-release">3. Attest, connect and release</a><a href="#4-test-rejection-and-repeat-after-updates">4. Test rejection and repeat after updates</a><a href="#trust-model-threat-model">Trust model / threat model</a><a href="#readiness-and-limits">Readiness and limits</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>This walkthrough uses <strong>Intel SGX with Gramine's RA-TLS secret-provisioning example</strong>, extending the <a href="/kb/tee-technologies/">TEE overview</a>. It requires an SGX-capable environment, Gramine with DCAP support, and working DCAP infrastructure. The example releases a disposable test secret; adapt it only after reviewing the application and verifier.</p>
+<h2 id="1-establish-what-you-intend-to-trust">1. Establish what you intend to trust</h2>
+<p>Obtain a reviewed Gramine source checkout matching the installed libraries. Use <code>CI-Examples/ra-tls-secret-prov/secret_prov_minimal</code> as the workload. Read its manifest and application before generating expected measurements.</p>
+<p>Change <code>sgx.debug</code> to <code>false</code> in the minimal client's manifest template before building. Keep the executable, dependencies and provisioning server's CA certificate among the trusted files. If the verifier runs on another machine, configure its address and your own TLS certificate infrastructure before signing.</p>
+<p>Do not take an expected measurement from the untrusted workload's own report. Derive it from the build you approved:</p>
+<pre><code class="language-sh"># From CI-Examples/ra-tls-secret-prov in the reviewed source checkout:
+make app dcap
+gramine-sgx-sigstruct-view secret_prov_minimal/client.sig
+</code></pre>
+<p>Record <code>MRENCLAVE</code>, <code>MRSIGNER</code>, <code>ISV_PROD_ID</code> and <code>ISV_SVN</code>. The <a href="https://raw.githubusercontent.com/gramineproject/gramine/master/CI-Examples/ra-tls-secret-prov/README.md" rel="noopener nofollow">example README</a> documents these commands and its intentionally permissive test defaults.</p>
+<h2 id="2-configure-the-verifiers-acceptance-policy">2. Configure the verifier's acceptance policy</h2>
+<p>Run the provisioning server in an environment you trust. Set these variables from the reviewed signature information:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Required check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RA_TLS_MRENCLAVE</code></td>
+<td>Expected enclave measurement</td>
+</tr>
+<tr>
+<td><code>RA_TLS_MRSIGNER</code></td>
+<td>Expected enclave signer</td>
+</tr>
+<tr>
+<td><code>RA_TLS_ISV_PROD_ID</code></td>
+<td>Expected product ID</td>
+</tr>
+<tr>
+<td><code>RA_TLS_ISV_SVN</code></td>
+<td>Minimum accepted enclave security version</td>
+</tr>
+</tbody>
+</table></div>
+<p>Do not set them to <code>any</code>: that skips the corresponding check. Keep the debug and outdated-TCB bypasses disabled. The documented variables are <code>RA_TLS_ALLOW_DEBUG_ENCLAVE_INSECURE</code> and <code>RA_TLS_ALLOW_OUTDATED_TCB_INSECURE</code>. Review hardware-configuration and software-hardening results explicitly rather than copying the test suite's overrides.</p>
+<p>The <a href="https://gramine.readthedocs.io/en/stable/attestation.html" rel="noopener nofollow">RA-TLS reference</a> describes how its verifier delegates quote checking to Intel's DCAP verification library. Working measurement comparisons alone are insufficient: hardware evidence and its supporting validation data must also pass your policy.</p>
+<h2 id="3-attest-connect-and-release">3. Attest, connect and release</h2>
+<p>Start the minimal provisioning server in its example directory on the verifier side:</p>
+<pre><code class="language-sh">cd secret_prov_minimal
+./server_dcap
+</code></pre>
+<p>In the corresponding client directory on the SGX side, run:</p>
+<pre><code class="language-sh">gramine-sgx client
+</code></pre>
+<p>The client creates an RA-TLS certificate containing its SGX quote. The quote binds the TLS public key, so the verifier checks the evidence for the endpoint participating in the TLS session. The client also authenticates the provisioning server using its configured CA. Only successful verification should release the example secret through that connection.</p>
+<h2 id="4-test-rejection-and-repeat-after-updates">4. Test rejection and repeat after updates</h2>
+<p>Change the expected measurement to a different value and confirm provisioning fails. Restore it, then confirm a debug enclave is rejected with the debug exception disabled. An updated application or manifest needs a new reviewed measurement; do not fix a failed update by allowing every measurement.</p>
+<p>Distinguish a fresh TLS handshake from a blanket promise that all evidence is newly generated. Define evidence freshness and collateral-expiration policy explicitly, using the <a href="https://www.rfc-editor.org/rfc/rfc9334.html" rel="noopener nofollow">RATS architecture</a> as a checklist for evidence, endorsements, reference values and appraisal.</p>
+<h2 id="trust-model-threat-model">Trust model / threat model</h2>
+<p>Trust includes Intel's attestation roots, the approved application and Gramine build, and the verifier's libraries, policy and reference-value distribution. A remote verification service adds its operator to that set. The host can still deny service; attestation is not a proof that application code has no bugs.</p>
+<h2 id="readiness-and-limits">Readiness and limits</h2>
+<p><strong>Usable integration pattern, with a demonstration service.</strong> Gramine explicitly describes its secret-provisioning service as minimal. Replace example certificates and secrets, retain strict checks, and review <a href="/kb/tee-side-channel-attacks/">side channels</a> before adapting it for sensitive workloads.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://gramine.readthedocs.io/en/stable/attestation.html" rel="noopener nofollow">Gramine attestation and RA-TLS verification</a></li>
+<li><a href="https://raw.githubusercontent.com/gramineproject/gramine/master/CI-Examples/ra-tls-secret-prov/README.md" rel="noopener nofollow">Secret-provisioning example instructions</a></li>
+<li><a href="https://raw.githubusercontent.com/gramineproject/gramine/master/CI-Examples/ra-tls-secret-prov/Makefile" rel="noopener nofollow">Example build and execution targets</a></li>
+<li><a href="https://raw.githubusercontent.com/gramineproject/gramine/master/CI-Examples/ra-tls-secret-prov/secret_prov_minimal/client.manifest.template" rel="noopener nofollow">Minimal client manifest</a></li>
+<li><a href="https://gramine.readthedocs.io/en/stable/manifest-syntax.html" rel="noopener nofollow">Gramine manifest and trusted-file rules</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9334.html" rel="noopener nofollow">RFC 9334: remote attestation architecture</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/tee-technologies/">
+  <span class="nm">TEE Technologies: SGX, TDX, SEV-SNP and Friends</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/gramine/">
+  <span class="nm">Gramine</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/tee-side-channel-attacks/">
+  <span class="nm">TEE Side-Channel Attacks</span>
+  <span class="ty">Threat model</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a><a class="row" href="/kb/compare-private-computation/">
+  <span class="nm">Private computation compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/guides/deploying-on-decentralized-compute/">
+  <span class="nm">Deploying on decentralized compute</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Verifying%20a%20confidential%20workload" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Release a test secret only after the workload, hardware evidence and communication channel satisfy your policy.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        <dt>Level</dt><dd>advanced</dd>
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

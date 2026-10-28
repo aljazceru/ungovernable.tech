@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Web of Trust on Nostr — ungovernable.tech</title>
+<meta name="description" content="How Nostr uses the social graph to fight spam and rank content without central moderation: trust scores, NIPs, implementations and attacks.">
+<link rel="canonical" href="https://ungovernable.tech/kb/nostr-web-of-trust/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Web of Trust on Nostr — ungovernable.tech">
+<meta property="og:description" content="How Nostr uses the social graph to fight spam and rank content without central moderation: trust scores, NIPs, implementations and attacks.">
+<meta property="og:url" content="https://ungovernable.tech/kb/nostr-web-of-trust/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Web of Trust on Nostr — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web of Trust on Nostr — ungovernable.tech">
+<meta name="twitter:description" content="How Nostr uses the social graph to fight spam and rank content without central moderation: trust scores, NIPs, implementations and attacks.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Web of Trust on Nostr", "description": "How Nostr uses the social graph to fight spam and rank content without central moderation: trust scores, NIPs, implementations and attacks.", "dateModified": "2026-10-25", "datePublished": "2026-05-07", "url": "https://ungovernable.tech/kb/nostr-web-of-trust/", "mainEntityOfPage": "https://ungovernable.tech/kb/nostr-web-of-trust/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Web of Trust on Nostr", "item": "https://ungovernable.tech/kb/nostr-web-of-trust/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Web of Trust on Nostr</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Web of Trust on Nostr</h1>
+  <p class="aka">Also Nostr WoT, Nostr trust graph, NIP-85 reputation.</p>
+  <p class="dek">Nostr&#39;s Web of Trust (WoT) is the practical answer to a problem created by the protocol&#39;s strongest property: anyone can create a keypair and publish signed events to relays without asking permission.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>29</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context">Historical context</a><a href="#major-implementations-and-tools">Major implementations and tools</a><a href="#how-scoring-is-computed">How scoring is computed</a><a href="#use-cases">Use cases</a><a href="#trade-offs-and-attack-surface">Trade-offs and attack surface</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#design-rules">Design rules</a><a href="#late-may-2026-developments">Late-May 2026 Developments</a><a href="#june-18-2026-update-relatr-wot-scoring-maturation-fourteenth-wave-grants">June 18, 2026 Update — Relatr, wot-scoring maturation, Fourteenth Wave grants</a><a href="#august-6-2026-update-rust-oracle-v100-desktop-wot-algorelay-production-full-stack-maturation">August 6, 2026 Update — Rust Oracle v1.0.0, Desktop WoT, AlgoRelay Production, Full-Stack Maturation</a><a href="#august-20-2026-update-the-shadow-protocol-phase-a-wot-provider-dies">August 20, 2026 Update — The Shadow Protocol Phase; a WoT Provider Dies</a><a href="#august-27-2026-update-maintenance-mode-the-org-pivots-to-an-autonomous-newsroom">August 27, 2026 Update — Maintenance Mode; the Org Pivots to an Autonomous Newsroom</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Nostr's Web of Trust (WoT) is the practical answer to a problem created by the protocol's strongest property: anyone can create a keypair and publish signed events to relays without asking permission. That makes <a href="/kb/nostr-identity/">Nostr</a> censorship-resistant, but it also means clients and relays cannot rely on platform accounts, KYC, or central moderation to decide which pubkeys and events deserve attention.</p>
+<p>The Nostr WoT pattern treats the social graph as a local, user-chosen reputation substrate. A client, relay, or oracle starts from a set of trusted seed pubkeys, crawls follow lists and other graph signals, and asks questions such as:</p>
+<ul>
+<li>Is this author within one or two hops of my graph?</li>
+<li>Do people I trust mute or report this pubkey?</li>
+<li>Has a trusted service provider published a signed <a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85</a> rank for this user or event?</li>
+<li>Should my personal relay store this event, reject it, or keep it only after a proof-of-work fallback?</li>
+</ul>
+<p>The key design point is <strong>not</strong> a universal score. A Nostr WoT score is only meaningful when you know the seed set, edge types, decay rules, algorithm, provider key, freshness, and context. A global rank can help discovery; a local graph helps spam filtering; a community graph can enforce norms; a relay policy can save disk and bandwidth. Collapsing all of these into one opaque number recreates platform moderation under a decentralized brand.</p>
+<h2 id="historical-context">Historical context</h2>
+<h3 id="from-openpgp-certification-to-graph-native-social-trust">From OpenPGP certification to graph-native social trust</h3>
+<p>The original <a href="/kb/openpgp-web-of-trust/">OpenPGP Web of Trust</a> asked whether an OpenPGP certificate was valid: does this public key belong to this name/email, and do enough trusted introducers certify it? Nostr asks a more dynamic question: among millions of public-key identities, which authors, replies, relays, lists, zaps, and reports should a user see or believe?</p>
+<p>Nostr identities are not certificate bundles. They are secp256k1 pubkeys that sign events. Relays do not interpret identity; they store and serve events. That means the WoT data is not attached to a certificate in the OpenPGP sense. It emerges from Nostr event kinds:</p>
+<ul>
+<li><strong>NIP-02 follow lists</strong> — weak positive edges; "I subscribe to this pubkey".</li>
+<li><strong>NIP-51 lists</strong> — mute lists, curated sets, bookmarks, communities, relay lists, and other user-maintained collections.</li>
+<li><strong>NIP-56 reports</strong> — negative edges or abuse assertions.</li>
+<li><strong>NIP-57 zaps</strong> — costly positive signals when combined with Lightning payments.</li>
+<li><strong>NIP-72 communities</strong> — community-specific moderator and membership context.</li>
+<li><strong>NIP-85 trusted assertions</strong> — signed provider-computed ranks, counts, and WoT metrics.</li>
+</ul>
+<p>The result is a more flexible but messier trust graph. A follow is not a certification. A zap is not necessarily trust. A report can be abuse or retaliation. The system works only when software preserves edge semantics and lets users choose policy.</p>
+<h3 id="why-nip-85-matters">Why NIP-85 matters</h3>
+<p><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85 Trusted Assertions</a> exists because many WoT calculations require crawling large portions of the event graph and recomputing metrics over time. Mobile clients and simple web clients often cannot do this locally. NIP-85 lets a user declare trusted service providers via kind <code>10040</code>; those providers publish signed, addressable assertion events:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Subject</th>
+<th class="ta-r">Event kind</th>
+<th>Typical result tags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pubkey / user</td>
+<td class="ta-r"><code>30382</code></td>
+<td><code>rank</code>, <code>followers</code>, <code>post_cnt</code>, <code>zap_amt_recd</code>, <code>reports_cnt_recd</code></td>
+</tr>
+<tr>
+<td>Regular event</td>
+<td class="ta-r"><code>30383</code></td>
+<td><code>rank</code>, <code>comment_cnt</code>, <code>reaction_cnt</code>, <code>zap_amount</code></td>
+</tr>
+<tr>
+<td>Addressable event</td>
+<td class="ta-r"><code>30384</code></td>
+<td>rank and engagement for replaceable/addressable objects</td>
+</tr>
+<tr>
+<td>External identifier</td>
+<td class="ta-r"><code>30385</code></td>
+<td>rank for NIP-73 identifiers such as websites, books, places, hashtags</td>
+</tr>
+</tbody>
+</table></div>
+<p>A provider's assertion is not globally authoritative. It is a signed output from an algorithm and key the user chose. The NIP explicitly requires providers to use different service keys for distinct algorithms, including personalized algorithms, so clients can distinguish "global rank" from "Alice's local trust graph".</p>
+<h2 id="major-implementations-and-tools">Major implementations and tools</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Role</th>
+<th>Maturity / activity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></td>
+<td>Toolkit, SDK, extension API, oracle pattern</td>
+<td>Experimental / active; GitHub API 2026-05-07: 6 stars, 2 forks, TypeScript, MIT, not archived, pushed 2026-04-29</td>
+<td>Query social distance between pubkeys; self-hostable graph/oracle infrastructure.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot/nostr-wot-sdk</a></td>
+<td>Monorepo JavaScript/TypeScript SDK with scoped packages</td>
+<td>Active; 47 commits, MIT, monorepo with 4 scoped packages</td>
+<td><code>@nostr-wot/data</code> (portable fetchers + React hooks), <code>@nostr-wot/wot</code> (scoring + extension bridge), <code>@nostr-wot/relay</code> (low-level pool/batcher), <code>nostr-wot-sdk</code> (back-compat meta-package); React/Solid hooks, NIP-65 outbox.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot-extension</a></td>
+<td>Browser extension exposing WoT queries</td>
+<td>Experimental / active; 6 stars, 2 forks, TypeScript, MIT, pushed 2026-04-26</td>
+<td>Useful browser boundary, but risky if combined with key custody; pair with <a href="/kb/remote-signing/">Remote Signing</a> where possible.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">wot-relay</a></td>
+<td>Personal/archival Nostr relay</td>
+<td>Emerging / active; 85 stars, 28 forks, Go, pushed 2026-04-22</td>
+<td>Archives notes from people followed by the owner and people they follow; can expose via HTTPS or Tor.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">Chronicle</a></td>
+<td>Personal relay with WoT spam protection</td>
+<td>Active; v0.5.0 released May 2026; 30 stars, 4 forks, Go, pushed 2026-04-30</td>
+<td>Stores conversations owner participated in; second-degree WoT + PoW fallback; Blossom media server built in; WoT as relay policy.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Pretty-Good-Freedom-Tech/brainstorm" rel="noopener nofollow">Brainstorm</a></td>
+<td>Personalized WoT relay with self-hosted NIP-85 scoring</td>
+<td>Paused; MIT; Freedom-tech-specific</td>
+<td>Last push Feb 2026 (docs only). Generates own nsec, signs kind 30382 events, publishes kind 10040, filters spam by social graph, auto-publishes scores every N hours. Valuable reference design; active development stalled.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">wot-scoring</a></td>
+<td>PageRank-based scoring and NIP-85 publishing</td>
+<td>Experimental; 2 stars, Go, MIT, pushed 2026-02-11</td>
+<td>Demonstrates provider-computed rank publication as NIP-85 events; ~~live at wot.klabo.world~~ <strong>dead — wot.klabo.world DNS NXDOMAIN as of 2026-08-20</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/CodyTseng/nostr-relay-plugin" rel="noopener nofollow">nostr-relay-plugin WoT Guard</a></td>
+<td>Relay filtering plugin concept</td>
+<td>Small / active; 1 star, TypeScript, MIT, pushed 2026-04-15</td>
+<td>Relay-side guard pattern; useful but demands transparent policy.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wds4/DCoSL" rel="noopener nofollow">DCoSL</a></td>
+<td>Decentralized curation / score ledger concept</td>
+<td>Experimental; 12 stars, MIT, pushed 2024-03-11</td>
+<td>Minimal protocol for decentralized reputation and web-of-trust signals.</td>
+</tr>
+<tr>
+<td><a href="https://codeberg.org/weex/noswot" rel="noopener nofollow">Noswot</a></td>
+<td>Nostr follows/reports WoT builder</td>
+<td>Experimental; Codeberg repo, Python, updated 2024-12-03</td>
+<td>Builds a web of trust from follows and reports.</td>
+</tr>
+<tr>
+<td><a href="https://nostrcompass.org/en/topics/web-of-trust/" rel="noopener nofollow">Nostr Compass: Web of Trust</a></td>
+<td>Educational reference</td>
+<td>Active documentation</td>
+<td>Concise explanation of graph construction, seed selection, propagation, cutoffs, and NIP-85.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-scoring-is-computed">How scoring is computed</h2>
+<h3 id="1-social-distance-hop-count">1. Social distance / hop count</h3>
+<p>The simplest WoT rule is graph distance:</p>
+<pre><code class="language-text">me ─follow→ Alice ─follow→ Bob ─follow→ Carol
+</code></pre>
+<p>Bob is two hops away. Carol is three hops away. A client can choose to show first- and second-degree replies by default while hiding farther accounts unless they have other signals. This is explainable and cheap, but it overweights bridge nodes and treats follows as endorsements.</p>
+<h3 id="2-weighted-edges">2. Weighted edges</h3>
+<p>A better model preserves edge type:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Meaning</th>
+<th>Suggested use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Follow</td>
+<td>Subscription / weak endorsement</td>
+<td>Positive but low weight; do not treat all follows equally.</td>
+</tr>
+<tr>
+<td>Curated list</td>
+<td>Intentional inclusion in a named context</td>
+<td>Stronger if list purpose is explicit.</td>
+</tr>
+<tr>
+<td>Mute / block</td>
+<td>Negative preference</td>
+<td>Strong only if you trust the muter and context.</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>Abuse/spam allegation</td>
+<td>Rate-limit and weight carefully; vulnerable to brigading.</td>
+</tr>
+<tr>
+<td>Zap</td>
+<td>Costly positive signal</td>
+<td>Useful when combined with sender reputation; can be bought.</td>
+</tr>
+<tr>
+<td>NIP-05 / domain proof</td>
+<td>Key controls a domain mapping</td>
+<td>Identity-control proof, not moral trust.</td>
+</tr>
+<tr>
+<td>NIP-85 assertion</td>
+<td>Provider-computed score</td>
+<td>Trust depends on provider key and methodology.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-pagerank-like-propagation">3. PageRank-like propagation</h3>
+<p>PageRank-style algorithms propagate score through incoming links. They help global discovery because highly endorsed accounts surface even when the user has a sparse graph. The downside is centralization: high-degree accounts become de facto trust roots, and small communities may be drowned out by global popularity.</p>
+<h3 id="4-local-seeded-rank">4. Local seeded rank</h3>
+<p>A local seeded graph starts from the user's own follow list or a manually chosen seed set. It is more Sybil-resistant for personal spam filtering because attackers need edges from the user's real graph. It is less useful for new users, who have no graph and must either import defaults or trust a provider.</p>
+<h3 id="5-relay-policy">5. Relay policy</h3>
+<p>Relays can use WoT at ingestion time. <code>wot-relay</code> archives events from the owner's follow graph. Chronicle accepts events from conversations the owner participated in, then applies a second-degree WoT rule and optional PoW fallback. This shifts computation away from clients and reduces storage, but relay policy becomes critical infrastructure. Good relays should publish policy, allow user override, and support exit.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="spam-filtering">Spam filtering</h3>
+<p>The strongest live use case is spam reduction. A decentralized social protocol cannot depend on one spam team. WoT lets clients and relays ask whether a reply, DM, mention, or event comes from an account near the user's graph. Unknown accounts can be hidden, rate-limited, charged, or asked for proof-of-work.</p>
+<h3 id="content-discovery">Content discovery</h3>
+<p>Global search and trending feeds are Sybil magnets. A WoT feed can rank notes by trusted graph proximity, trusted zaps, trusted reposts, and trusted reports. This is especially useful for topic-specific communities where global popularity is a bad proxy for quality.</p>
+<h3 id="payment-and-merchant-directories">Payment and merchant directories</h3>
+<p>Lightning address directories, merchant listings, event calendars, and service marketplaces need impersonation resistance. WoT can answer "who in my graph has interacted with this merchant?" rather than "does a centralized directory say this merchant is legitimate?"</p>
+<h3 id="decentralized-moderation">Decentralized moderation</h3>
+<p>Communities can curate trusted moderator lists, report providers, or allowed-author sets without imposing that policy globally. The freedom-tech requirement is that users can switch clients, relays, seed sets, or NIP-85 providers.</p>
+<h3 id="key-transition-and-pseudonym-continuity">Key transition and pseudonym continuity</h3>
+<p>A pseudonym can migrate keys by publishing signed transition statements, getting attestations from trusted peers, and retaining graph edges. This does not solve account recovery by itself, but it supplies social evidence that a new key is likely a continuation. See <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> and <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>.</p>
+<h2 id="trade-offs-and-attack-surface">Trade-offs and attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Why it matters</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cold start</td>
+<td>New users have no graph and inherit defaults.</td>
+<td>Starter packs should be visible, editable, and removable; encourage local seed selection.</td>
+</tr>
+<tr>
+<td>Ambiguous follows</td>
+<td>A follow can mean friendship, curiosity, hate-reading, or monitoring.</td>
+<td>Preserve edge semantics; combine with lists, mutes, reports, and zaps.</td>
+</tr>
+<tr>
+<td>Sybil clusters</td>
+<td>Fake accounts can trust each other.</td>
+<td>Anchor scoring in local trusted seeds; cap tightly connected new clusters; add cost signals.</td>
+</tr>
+<tr>
+<td>Bridge capture</td>
+<td>One high-degree account shortens many paths.</td>
+<td>Limit path length, cap influence, diversify paths, expose explanations.</td>
+</tr>
+<tr>
+<td>Oracle capture</td>
+<td>One NIP-85 provider becomes hidden moderation authority.</td>
+<td>Support multiple providers, self-hosting, visible provider keys, and signed methodology.</td>
+</tr>
+<tr>
+<td>Graph deanonymization</td>
+<td>Follows, mutes, and reports leak social structure.</td>
+<td>Use private/encrypted lists where possible; split personas; avoid universal identifiers.</td>
+</tr>
+<tr>
+<td>Report brigading</td>
+<td>Coordinated reports can punish targets.</td>
+<td>Weight reports by trusted reporters; rate-limit; require evidence/context.</td>
+</tr>
+<tr>
+<td>Stale trust</td>
+<td>Old follows and scores outlive relationships.</td>
+<td>Time decay, refresh windows, revocations, periodic review.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>Source</th>
+<th>Strength</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NIP-85 spec</td>
+<td><a href="https://nips.nostr.com/85" rel="noopener nofollow">nips.nostr.com/85</a></td>
+<td>Primary spec; draft optional</td>
+<td>Nostr has a standardized event pattern for signed provider-computed trust/rank assertions.</td>
+</tr>
+<tr>
+<td>nostr-wot toolkit</td>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">GitHub</a></td>
+<td>Working code; experimental</td>
+<td>WoT oracle/SDK/extension pattern is active as of 2026-04.</td>
+</tr>
+<tr>
+<td>wot-relay</td>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">GitHub</a></td>
+<td>Working relay; emerging adoption</td>
+<td>Relay-side archiving based on first/second-degree graph is practical.</td>
+</tr>
+<tr>
+<td>Chronicle</td>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">GitHub</a></td>
+<td>Working personal relay; active 2026</td>
+<td>Personal relays can combine Outbox model, Blossom media, owner-participation rules, and WoT spam control.</td>
+</tr>
+<tr>
+<td>Nostr Compass</td>
+<td><a href="https://nostrcompass.org/en/topics/web-of-trust/" rel="noopener nofollow">Web of Trust topic</a></td>
+<td>Secondary reference</td>
+<td>Clear articulation of graph construction, seed selection, score propagation, and NIP-85 trade-offs.</td>
+</tr>
+<tr>
+<td>Brainstorm WoT relay</td>
+<td><a href="https://github.com/Pretty-Good-Freedom-Tech/brainstorm" rel="noopener nofollow">GitHub</a></td>
+<td>Active; MIT; Freedom-tech org</td>
+<td>Personalized WoT relay: generates own nsec, signs kind 30382 events, publishes kind 10040, auto-publishes scores.</td>
+</tr>
+<tr>
+<td>Nostr empirical study</td>
+<td><a href="https://arxiv.org/html/2402.05709v2" rel="noopener nofollow">arXiv:2402.05709</a></td>
+<td>Academic network analysis</td>
+<td>Nostr is large enough that graph structure, decentralization, and relay behavior need empirical measurement.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="design-rules">Design rules</h2>
+<ol>
+<li>Treat WoT as <strong>local policy</strong>, not universal truth.</li>
+<li>Preserve edge types; do not collapse follows, mutes, zaps, and reports into one opaque score without provenance.</li>
+<li>Separate identity-control proofs from reputation claims.</li>
+<li>Publish provider keys, algorithms, freshness, and seed assumptions.</li>
+<li>Prefer self-hostable or multi-provider architectures.</li>
+<li>Give users override, explanation, and exit.</li>
+<li>Combine WoT with cost signals for unknown accounts, not as a magic Sybil cure.</li>
+<li>Avoid leaking more graph data than the user intentionally publishes.</li>
+</ol>
+<h2 id="late-may-2026-developments">Late-May 2026 Developments</h2>
+<h3 id="cross-client-wot-trust-score-display-q1-2026">Cross-Client WoT Trust Score Display (Q1 2026)</h3>
+<p>Multiple independent Nostr clients began displaying WoT-based trust scores in their UI during Q1 2026. Amethyst (Android), Primal, and Coracle all surface trust scores on user profiles. Amethyst's changelog notes that "by connecting to a WoT provider, you can see trust scores and verified follower counts directly on user pictures." Coracle displays "If you can't tell the difference between me and a scammer, use a nostr client with web of trust support."</p>
+<p>This marks WoT transitioning from developer-facing library feature to user-visible product feature — significant for adoption, but raises UX design questions about presenting trust without a surveillance-score aesthetic.</p>
+<h3 id="frost-rfc-9591-and-frostr-ecosystem-maturity">FROST RFC 9591 and Frostr Ecosystem Maturity</h3>
+<p>RFC 9591 (FROST Protocol) was published by the IRTF in June 2024, giving threshold Schnorr signatures a stable normative reference. For Nostr's Frostr ecosystem, this means Bifrost, Igloo, and other Frostr-related libraries now have a standard to implement against. The RFC covers the signing protocol but not distributed key generation — trusted-dealer vs. DKG remains an implementation choice. Nonce reuse is the critical footgun across all FROST deployments.</p>
+<h3 id="nip-26-delegation-revocation-gap">NIP-26 Delegation Revocation Gap</h3>
+<p>The NIPs README marks NIP-26 delegated event signing as unrecommended. Historical discussion of revocation does not make delegation a recommended custody mechanism. NIP-46 remote signing does not require NIP-26.</p>
+<h3 id="brainstorm-wot-relay-freedom-tech-specific">Brainstorm WoT Relay (Freedom-Tech Specific)</h3>
+<p>Brainstorm from Pretty-Good-Freedom-Tech continues active development as a self-hostable personalized WoT relay. It generates its own nsec at install time, signs and publishes NIP-85 kind 30382 events, declares itself as a kind 10040 provider, filters content by the user's social graph, and auto-publishes scores every N hours. Notable as an explicitly freedom-tech-aligned project in the WoT relay space.</p>
+<h3 id="may-28-update-github-activity-snapshot">May 28 Update — GitHub Activity Snapshot</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th class="ta-r">Forks</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">938</td>
+<td class="ta-r">201</td>
+<td>2026-05-26</td>
+<td>Active GnuPG development continues</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a></td>
+<td class="ta-r">5,948</td>
+<td class="ta-r">821</td>
+<td>2026-05-26</td>
+<td>JavaScript OpenPGP remains actively maintained</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></td>
+<td class="ta-r">85</td>
+<td class="ta-r">28</td>
+<td>2026-04-22</td>
+<td>Personal WoT relay; NIP-11 update merged Apr 22</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></td>
+<td class="ta-r">6</td>
+<td class="ta-r">2</td>
+<td>2026-04-29</td>
+<td>Extension and SDK active; React hook fixes merged</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot/nostr-wot-sdk</a></td>
+<td class="ta-r">4</td>
+<td class="ta-r">—</td>
+<td>2026-04-29</td>
+<td>SDK monorepo with @nostr-wot/data 0.4.2, React #185 fix</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></td>
+<td class="ta-r">30</td>
+<td class="ta-r">4</td>
+<td>2026-04-30</td>
+<td>Negentropy sync support restricted to relay owner by default</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">mailvelope/mailvelope</a></td>
+<td class="ta-r">1,824</td>
+<td class="ta-r">222</td>
+<td>2026-05-21</td>
+<td>Active maintenance; stable browser extension ecosystem</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations:</strong> The Nostr WoT ecosystem remains in the experimental-to-emerging band. GnuPG and OpenPGP.js show steady production maintenance. The PGPainless WoT module's last commits were September 2025 (Gradle 8.8 upgrade), suggesting the funded development phase may be concluding. The Brainstorm freedom-tech WoT relay project has not had commits since February 2026 (minor documentation edits). The overall ecosystem is functional and maintained but not rapidly growing in contributor count.</p>
+<h3 id="late-may-2026-github-freshness-snapshot">Late-May 2026 GitHub Freshness Snapshot</h3>
+<p>|| Project | Stars | Last push | Notes ||
+||---------|------:|-----------|-------|
+|| <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a> | 2,978 | 2026-05-31 | Protocol spec — active maintenance confirms ongoing NIP refinement |
+|| <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a> | 843 | 2026-05-19 | Dominant Rust SDK; 21-PR architecture overhaul in May 2026 |
+|| <a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a> | 314 | 2026-05-30 | Highest-starred dedicated Nostr signer; NIP-07 + NIP-46 on Android |
+|| <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a> | 5,948 | 2026-05-26 | Steady production; 821 forks |
+|| <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a> | 85 | 2026-04-22 | +1 star since prior check; NIP-11 relay info update merged Apr 22 |
+|| <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a> | 32 | 2026-04-30 | +2 stars since prior check; personal relay with second-degree WoT filtering |
+|| <a href="https://github.com/pubky/pubky-core" rel="noopener nofollow">pubky/pubky-core</a> | 77 | 2026-05-29 | Ed25519 + PKARR identity; active maintenance |
+|| <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a> | 8 | 2026-05-28 | Self-hostable Frostr server; NIP-46-compatible interface |
+|| <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a> | 10 | 2026-02-16 | TypeScript Frostr core; commit gap likely v2 spec phase |
+|| <a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">nostrcg/did-nostr</a> | 9 | 2026-01-11 | W3C CG draft; secp256k1 as DID identifier; no update/delete ops |
+|| <a href="https://github.com/forgesworn/bark" rel="noopener nofollow">forgesworn/bark</a> | 0 | 2026-05-25 | NIP-07-to-NIP-46 bridge; any NIP-07 client works with any bunker |</p>
+<p><strong>Key observations:</strong> The Nostr WoT ecosystem is stable rather than rapidly expanding. Amber (314 stars) leads dedicated signer apps by a wide margin. The NIPs repo push on 2026-05-31 confirms the protocol is still actively refined. Bifrost's commit gap (Feb–May 2026) aligns with the Igloo v2 architectural direction — normal for library code between major versions. The bark bridge project (NIP-07 → NIP-46) is strategically important because it decouples NIP-46 adoption from every client implementing the protocol natively.</p>
+<h3 id="nip-85-trust-scores-cross-client-convergence-accelerating">NIP-85 Trust Scores: Cross-Client Convergence Accelerating</h3>
+<p>Amethyst, Primal, and Coracle have all shipped WoT trust score display in their UIs during Q1–Q2 2026, making trust metadata a user-visible product feature across independently developed Nostr clients. This convergence means the NIP-85 oracle provider model is becoming load-bearing infrastructure: clients that cannot compute the graph locally depend on signed assertions from provider keys. The implication for this library: WoT is no longer a developer-facing API — it is a user-visible layer that ordinary users now encounter in production clients.</p>
+<h3 id="nip-85-deployment-summary-early-june-2026">NIP-85 Deployment Summary (Early June 2026)</h3>
+<p>By early June 2026, NIP-85 trusted assertions have reached a notable milestone: implemented across independently developed clients (Amethyst, Primal, Coracle), served by multiple relay types (personal relays, public WoT relays, and dedicated scoring oracles), and generating signed events that ordinary users encounter as trust scores in their feeds. This cross-client, multi-provider deployment confirms that NIP-85 has transitioned from a draft proposal to load-bearing infrastructure in the Nostr WoT stack.</p>
+<p>The architectural implication: clients that cannot crawl and compute the graph locally now depend on signed assertions from declared provider keys. The provider declaration mechanism (kind <code>10040</code>) is a critical trust anchor — its security and transparency properties directly determine whether the WoT remains user-sovereign or drifts toward centralized oracle dominance.</p>
+<p>A technical critique from Vertex Lab (vertexlab.io) argues that NIP-85 fundamentally conflicts with WoT's discovery function: the protocol requires users to already know the pubkeys of providers they're looking for, which inverts the purpose of a trust graph — WoT should help discover unknown accounts, not just rank those already known. This articulates a real tension: provider-computed assertions help clients with existing graph context, but they do not help new users bootstrap or help existing users discover outside their bubble.</p>
+<h3 id="wotnostrnet-new-public-wot-relay-bitvora-june-2026">wot.nostr.net — New Public WoT Relay (Bitvora, June 2026)</h3>
+<p>A new production public WoT relay appeared at <code>wss://wot.nostr.net</code>, built and maintained by Bitvora and powered by the Khatru relay framework. The relay implements web-of-trust filtering as a first-class feature: it serves content from accounts within a user's follow graph, reducing spam and noise compared to open public relays. Source code is available at <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">github.com/bitvora/wot-relay</a>. This is the first production public WoT relay from a known Nostr infrastructure provider, and serves as a counterpart to the self-hosted <code>wot-relay</code> (barrydeen) and the personal relay pattern established by Chronicle.</p>
+<h3 id="nip-26-delegation-revocation-issue-654-still-open">NIP-26 Delegation Revocation: Issue #654 Still Open</h3>
+<p>NIP-26 is an unrecommended proposal. For current custody decisions, use the NIPs README and the NIP-46 remote-signing specification rather than treating the earlier revocation discussion as endorsement.</p>
+<h2 id="june-18-2026-update-relatr-wot-scoring-maturation-fourteenth-wave-grants">June 18, 2026 Update — Relatr, wot-scoring maturation, Fourteenth Wave grants</h2>
+<h3 id="relatr-new-personalized-trust-scoring-service-contextvm">Relatr — New Personalized Trust Scoring Service (ContextVM)</h3>
+<p>The most significant addition to the Nostr WoT infrastructure this week is <strong>Relatr</strong> from <a href="https://opensats.org/projects/contextvm" rel="noopener nofollow">ContextVM</a> — an OpenSats-funded project that bridges Nostr with the Model Context Protocol (MCP). Relatr is a production-grade trust-scoring service designed for both human clients and AI agents:</p>
+<ul>
+<li><strong>Source:</strong> <a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">github.com/ContextVM/relatr</a> — 178 commits, 11 stars, last push 2026-05-26</li>
+<li><strong>License:</strong> see repository; DuckDB-backed, Bun runtime, Docker Compose deploy</li>
+<li><strong>Live service:</strong> <a href="https://relatr.net" rel="noopener nofollow">relatr.net</a> — search for Nostr profiles using the Relatr trust scoring system</li>
+<li><strong>Nostr identity:</strong> <a href="https://nostr.com/nprofile1qqs82p5zxq7f7rw66av5rdy7mjw5dcldxp4eacen2vu2yx37gpx9lgcpzemhxue69uhhwmm5wgh8yetvv968ytnc09az7ylzepe" rel="noopener nofollow">npub profile</a> — published as kind 0 with <code>about: "A decentralized web of trust metric service for Nostr that computes personalized trust scores by combining social graph distances with profile validation metrics"</code></li>
+</ul>
+<p>What makes Relatr notable for the Nostr WoT layer:</p>
+<ol>
+<li><strong>Personalized scoring from any source pubkey.</strong> Unlike wot-scoring's global PageRank, Relatr lets the user pick a <code>DEFAULT_SOURCE_PUBKEY</code> and computes scores relative to that anchor.</li>
+<li><strong>MCP server interface.</strong> Relatr runs as an MCP server, so any AI agent that supports MCP can ask "who do I trust?" without writing Nostr-specific code. This is the first time the Nostr WoT has been exposed as a standard AI tool.</li>
+<li><strong>Tunable parameters</strong> in <code>.env</code>: <code>NUMBER_OF_HOPS</code>, <code>DECAY_FACTOR</code>, <code>CACHE_TTL_HOURS</code>, <code>TA_ENABLED</code>. Users can self-host with their own policy.</li>
+<li><strong>Modular plugin system</strong> with AI-assisted plugin authoring (<code>skills/relatr-elo-plugin-author</code>).</li>
+</ol>
+<p>ContextVM is a separate grant wave from the projects below — it received funding in the <strong>fifteenth wave</strong> of OpenSats Nostr grants, while the projects in the next section received funding in the <strong>fourteenth wave</strong>.</p>
+<h3 id="wot-scoring-maturation-provider-composition-community-detection">wot-scoring Maturation — Provider Composition + Community Detection</h3>
+<p>The <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a> project (still 1 star, last push 2026-02-11, but algorithmically influential and powering wot.klabo.world) has accumulated the following capabilities that materially change what "WoT scoring" means in production:</p>
+<ul>
+<li><strong>Composite scoring across multiple NIP-85 providers</strong> — clients can declare multiple trusted providers via kind <code>10040</code> and require N-of-M agreement rather than binding to a single provider's algorithm. This is a structural answer to the "oracle capture" risk identified in the broader WoT literature.</li>
+<li><strong>Label-propagation community detection</strong> — algorithmic clustering of follow-graph components into sub-communities. Practical use cases include Sybil cluster detection (densely connected new accounts cluster together) and community-specific reputation scoring (treat members of the same community as more similar than members of different communities).</li>
+<li><strong>Mute-list integration via NIP-51 kind <code>10000</code></strong> — user's mute lists are read as community-moderation signals that down-rank authors the user has explicitly muted.</li>
+<li><strong>trustedrelays.xyz enrichment</strong> — couples relay-level reputation with WoT scoring; a high-quality relay that is well-connected to the user's graph gets preference.</li>
+</ul>
+<h3 id="opensats-fourteenth-wave-three-wot-adjacent-grants">OpenSats Fourteenth Wave — Three WoT-Adjacent Grants</h3>
+<p>The <a href="https://opensats.org/blog/fourteenth-wave-of-nostr-grants" rel="noopener nofollow">Fourteenth Wave of Nostr Grants</a> includes three projects that interact directly with the WoT layer:</p>
+<ol>
+<li><strong>YakiHonne</strong> — multi-platform Nostr client with WoT features built in. Repos at <a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a> (21 stars, 2026-05-17) and <a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">YakiHonne/mobile-app</a> (27 stars, 2026-05-14). Planned grant work: offline-first publishing, NsecBunker integration, Cashu and Nutzaps (NIP-60/NIP-61), relay-level paid feeds with cross-client compatibility.</li>
+<li><strong>Quartz</strong> — Kotlin Multiplatform Nostr library developed alongside <a href="https://github.com/KotlinGeekDev/amethyst" rel="noopener nofollow">Amethyst</a>. Grant work includes a refactor for shared multiplatform modules and an iOS version of Amethyst. Quartz is the substrate that will carry Amethyst's WoT-aware UI to iOS users.</li>
+<li><strong>Nostr Feedz + relay.pleb.one</strong> — RSS+Nostr feed reader (<a href="https://github.com/PlebOne/Nostr-Feedz" rel="noopener nofollow">PlebOne/Nostr-Feedz</a>) with a companion WoT-gated relay at <a href="https://relay.pleb.one/" rel="noopener nofollow">relay.pleb.one</a> implementing the same invite-only-WoT-access pattern as <a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a> and <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a>.</li>
+</ol>
+<p>The "WoT-gated relay access" pattern is now triply instantiated: pyramid (66 stars, June 17 push), bitvora/wot-relay (84 stars, wot.nostr.net production), and relay.pleb.one (PlebOne). This is enough independent implementation that it should be considered a stable architectural pattern rather than an experiment.</p>
+<h3 id="bitcoin-2026-conference-wot-reputation-layer-on-the-main-stage">Bitcoin 2026 Conference — WoT Reputation Layer on the Main Stage</h3>
+<p>David Strayhorn of <a href="https://nosfabrica.com" rel="noopener nofollow">NosFabrica</a> presented the Brainstorm WoT reputation layer at the Bitcoin 2026 Conference panel <a href="https://www.youtube.com/watch?v=wrlE0DMoTSc" rel="noopener nofollow">"Protocol vs Platform: Nostr's Utility Beyond Social Media"</a> on May 15, 2026. Chapter list confirms the WoT focus:</p>
+<blockquote>
+<p>14:00 — NosFabrica's Brainstorm And The Web Of Trust Reputation Layer
+17:00 — How AI Agents Are Integrating With Nostr Natively
+22:30 — Nostr Marketplaces, Identity And The Open Internet Stack</p>
+</blockquote>
+<p>This is the first Bitcoin-industry main-stage presentation of a Nostr WoT project. The audience reach (the Bitcoin Conference typically draws tens of thousands of attendees and broader livestream coverage) significantly raises the visibility of WoT as a Bitcoin/freedom-tech primitive.</p>
+<h3 id="haven-v120-bitvora-personal-relay-wot-improvements">HAVEN v1.2.0 — Bitvora Personal Relay WoT Improvements</h3>
+<p><a href="https://github.com/bitvora/haven" rel="noopener nofollow">Bitvora's HAVEN</a> ("High Availability Vault for Events on Nostr") released <strong>v1.2.0</strong> with WoT improvements: configurable depth levels, 24-hour auto-refresh of the user's WoT view, lockless optimization for higher throughput, multi-npub support with whitelist/blacklist, and a portable JSONL backup format. Coverage in <a href="https://buttondown.com/nostrcompass/archive/nostr-compass-11" rel="noopener nofollow">Nostr Compass #11</a>. HAVEN sits beside Chronicle and wot-relay in the personal-relay-with-WoT stack.</p>
+<h3 id="updated-github-activity-june-18-2026">Updated GitHub Activity — June 18, 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">ContextVM/relatr</a></td>
+<td class="ta-r">11</td>
+<td>2026-05-26</td>
+<td>New personalized WoT service; MCP server; 178 commits</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/sdk" rel="noopener nofollow">ContextVM/sdk</a></td>
+<td class="ta-r">10</td>
+<td>2026-06-17</td>
+<td>MCP-over-Nostr SDK; TypeScript + Rust</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/wotrlay" rel="noopener nofollow">ContextVM/wotrlay</a></td>
+<td class="ta-r">2</td>
+<td>2026-01-11</td>
+<td>WoT-aware relay (early)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/contextvm-docs" rel="noopener nofollow">ContextVM/contextvm-docs</a></td>
+<td class="ta-r">1</td>
+<td>2026-06-16</td>
+<td>Docs repo</td>
+</tr>
+<tr>
+<td><a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a></td>
+<td class="ta-r">21</td>
+<td>2026-05-17</td>
+<td>Multi-platform Nostr client with WoT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">YakiHonne/mobile-app</a></td>
+<td class="ta-r">27</td>
+<td>2026-05-14</td>
+<td>iOS/Android</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a></td>
+<td class="ta-r">66</td>
+<td>2026-06-17</td>
+<td>Invite-only WoT relay, active today</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a></td>
+<td class="ta-r">2,997</td>
+<td>2026-06-16</td>
+<td>NIP refinement continues</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a></td>
+<td class="ta-r">846</td>
+<td>2026-06-15</td>
+<td>Rust SDK</td>
+</tr>
+<tr>
+<td><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a></td>
+<td class="ta-r">321</td>
+<td>2026-06-17</td>
+<td>Dominant Nostr signer</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hzrd149/blossom" rel="noopener nofollow">hzrd149/blossom</a></td>
+<td class="ta-r">281</td>
+<td>2026-06-15</td>
+<td>Personal Blossom server</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a></td>
+<td class="ta-r">84</td>
+<td>2026-04-22</td>
+<td>Powers wot.nostr.net</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></td>
+<td class="ta-r">84</td>
+<td>2026-04-22</td>
+<td>Original wot-relay</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></td>
+<td class="ta-r">35</td>
+<td>2026-04-30</td>
+<td>Personal relay v0.5.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a></td>
+<td class="ta-r">1</td>
+<td>2026-02-11</td>
+<td>PageRank + composite + community detection</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PlebOne/Nostr-Feedz" rel="noopener nofollow">PlebOne/Nostr-Feedz</a></td>
+<td class="ta-r">1</td>
+<td>2026-01-28</td>
+<td>RSS+Nostr reader</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PlebOne/relay.pleb.one" rel="noopener nofollow">PlebOne/relay.pleb.one</a></td>
+<td class="ta-r">1</td>
+<td>2026-02-10</td>
+<td>Invite-only WoT relay</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></td>
+<td class="ta-r">7</td>
+<td>2026-06-02</td>
+<td>Toolkit +1 star since June 11</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless/pgpainless-wot</a></td>
+<td class="ta-r">0</td>
+<td>2026-04-28</td>
+<td>NLnet project; quiet</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations:</strong></p>
+<ol>
+<li><strong>ContextVM stack is the new structural addition.</strong> Relatr brings personalized scoring, MCP accessibility, and AI-agent integration in one project — a meaningful capability upgrade over wot-scoring's global PageRank and wot-relay's graph filtering.</li>
+<li><strong>fiatjaf/pyramid remains the most-starred WoT-gated relay at 66 stars.</strong> It is the architectural reference for the pattern; PlebOne's relay and Bitvora's wot.nostr.net both implement similar invite-only-WoT-access policies.</li>
+<li><strong>Activity is split between protocol-layer and application-layer projects.</strong> Protocol-layer projects (ContextVM SDK, nips, rust-nostr, Amber, fiatjaf/pyramid) are pushed within the last 48 hours; application-layer WoT projects (wot-scoring, wot-relay, chronicle, nostr-wot) are at April-May activity. The pattern suggests the protocol is moving faster than the WoT-specific applications.</li>
+<li><strong>Brainstorm remains paused</strong> (last non-doc commit Feb 2026). The Bitcoin 2026 talk by Strayhorn suggests future activity is plausible but not imminent.</li>
+</ol>
+<h2 id="august-6-2026-update-rust-oracle-v100-desktop-wot-algorelay-production-full-stack-maturation">August 6, 2026 Update — Rust Oracle v1.0.0, Desktop WoT, AlgoRelay Production, Full-Stack Maturation</h2>
+<h3 id="nostr-wot-organization-three-tier-stack-complete">nostr-wot Organization — Three-Tier Stack Complete</h3>
+<p>The <a href="https://github.com/nostr-wot" rel="noopener nofollow">nostr-wot GitHub org</a> has evolved from a single toolkit into a production three-tier architecture (12 followers, MIT-licensed):</p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│  Browser Extension (nostr-wot-extension, 8 stars)       │
+│  NIP-07 signer + encrypted vault + Lightning wallet     │
+│  Trust badges injected into Nostr sites                 │
+└──────────────┬──────────────────────┬───────────────────┘
+               │                      │
+       ┌───────▼──────┐      ┌───────▼───────┐
+       │  JS SDK       │      │  Rust Oracle   │
+       │ (4 stars)     │      │ (5 stars)      │
+       │ React hooks   │      │ Docker v1.0.0  │
+       │ Ext-first     │      │ Full-graph BFS │
+       └───────────────┘      └────────────────┘
+</code></pre>
+<p><strong>nostr-wot-oracle v1.0.0</strong> (<a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">GitHub</a>) — the structural upgrade. A Rust backend that continuously syncs Kind 3 follow lists from Nostr relays into an in-memory graph (backed by SQLite), then serves pairwise distance queries via REST API:</p>
+<ul>
+<li><strong>Performance</strong>: &lt;1ms cached, &lt;50ms uncached, 10,000+ queries/second, bidirectional BFS with O(b^(d/2)) complexity, LRU cache (default 10K entries, 5-min TTL).</li>
+<li><strong>API</strong>: <code>GET /distance?from=A&amp;to=B</code> returns hop count, path count, bridging nodes. <code>POST /distance/batch</code> for multi-target queries. <code>GET /stats</code> for graph statistics.</li>
+<li><strong>Self-hosting</strong>: <code>docker pull ghcr.io/nostr-wot/nostr-wot-oracle:v1.0.0</code>. Configurable relays, port, DB path, rate limit, cache via environment variables. Rust 1.75+ for source builds.</li>
+<li><strong>Public instance</strong>: <code>wot-oracle.mappingbitcoin.com</code> (rate-limited 100 req/min/IP).</li>
+</ul>
+<p>This is the first production-grade self-hostable Rust backend for Nostr WoT queries. The extension-first SDK pattern (use extension if available, fall back to oracle) means the WoT follows the user across clients — the core portability thesis from the HackerNoon launch article (Leon Acosta, February 2026) is now architecturally realized.</p>
+<p><strong>nostr-wot-extension</strong> (8 stars, pushed 2026-07-29) has evolved into a full Nostr identity provider:
+- NIP-07 signer (sign events, encrypt NIP-04/NIP-44 messages on any client)
+- AES-256-GCM encrypted vault with auto-lock and secure backup
+- Multi-account with HD derivation, watch-only, NIP-46 remote signer
+- Built-in Lightning wallet (NWC, LNbits, one-click setup)
+- Color-coded trust badges injected into Nostr sites
+- WebLN provider (<code>window.webln</code>)
+- 6 languages (EN, ES, PT, DE, FR, IT)</p>
+<p><strong>nostr-wot-sdk</strong> (4 stars, pushed 2026-07-04): <code>npm install nostr-wot-sdk</code>. Extension-first design with React hooks (<code>WoTProvider</code>, <code>useWoT</code>). Falls back to oracle when extension unavailable.</p>
+<p><strong>⚠️ UPDATE (August 13, 2026)</strong>: The nostr-wot extension has <strong>removed its WoT trust-graph layer entirely</strong>. The README now states: "Earlier versions shipped an experimental Web-of-Trust trust-graph layer (oracles, follow-graph sync, trust scoring, a page-injected <code>window.nostr.wot</code> API, and trust badges). That subsystem has been removed." The extension is now a pure NIP-07 signer + WebLN wallet. Version 0.4.0 (August 11, 2026) pivoted to <strong>post-quantum identity keys</strong> (ML-KEM-1024 + ML-DSA-87 derived as siblings from the BIP-39 seed) with <code>kind:10203</code> attestations and post-quantum NIP-44/NIP-59 messaging. The <code>@nostr-wot/pq</code> npm package (v0.2.0) provides the reference wire-format implementation. The nostr-wot-oracle (Rust backend) has been dormant since June 4, 2026. NIP-85 providers (wot.klabo.world) and AlgoRelay are now the sole remaining WoT-filtering infrastructure. See <a href="/briefings/web-of-trust/2026-08-13/">Web of Trust Thursday — August 13 2026 Weekly Update</a> for full analysis.</p>
+<h3 id="nostr-relay-tray-desktop-wot-for-everyone-106-stars">nostr-relay-tray — Desktop WoT for Everyone (106 Stars)</h3>
+<p><a href="https://github.com/CodyTseng/nostr-relay-tray" rel="noopener nofollow">CodyTseng/nostr-relay-tray</a> (106 stars, 6 forks, 112 commits) is the highest-starred personal relay with built-in WoT. Cross-platform desktop app (macOS, Windows, Linux) built on the extracted <a href="https://github.com/CodyTseng/nostr-relay" rel="noopener nofollow">nostr-relay</a> TypeScript framework. Zero-config start, full-text search, instant public access.</p>
+<p><strong>WoT filtering architecture</strong>: Two-layer event filter — Block Rules (reject) → Allow Rules / WoT / PoW (at least one must pass). The WoT layer accepts events from trusted users or relays. This is the <code>wot-relay</code>/<code>pyramid</code> pattern packaged for non-technical desktop users.</p>
+<h3 id="algorelay-social-graph-ranked-feeds-across-4-clients">AlgoRelay — Social-Graph-Ranked Feeds Across 4 Clients</h3>
+<p><a href="https://github.com/bitvora/algo-relay" rel="noopener nofollow">AlgoRelay</a> (Bitvora, developer utxo) is now adopted by <strong>four Nostr clients</strong>: Jumble, Coracle, Nostur, and NoStrudel. The ranking algorithm lives at the relay level — users add AlgoRelay to their relay list and receive personalized feeds. A user dashboard allows weight tuning with signature validation. This is the first production evidence of social-graph-based content ranking working across multiple independent clients — the "content discovery via WoT" use case validated.</p>
+<h3 id="opensats-relay-infrastructure-report-wot-as-established-pattern">OpenSats Relay Infrastructure Report — WoT as Established Pattern</h3>
+<p><a href="https://opensats.org/blog/advancements-in-nostr-relays" rel="noopener nofollow">OpenSats' "Advancements in Nostr Relays"</a> documents WoT filtering as a production pattern across the relay ecosystem:</p>
+<blockquote>
+<p>"The relay has been up and running for four or five months now. I have zero spam issues since it is a web-of-trust relay, and I get to keep it free for everyone."</p>
+</blockquote>
+<p>The report covers ten funded projects. WoT-relevant: nostr-relay framework (CodyTseng, extracted from nostr-relay-nestjs), nostr-relay-tray (desktop WoT), relay.tools (read-level access control for strfry via auth proxy), nostr.watch (NIP-66 decentralized monitoring), and AlgoRelay (social-graph feeds). HAVEN (Bitvora) continues with WoT improvements from v1.2.0.</p>
+<h3 id="opensats-seventeenth-wave-wot-expertise-spreading">OpenSats Seventeenth Wave — WoT Expertise Spreading</h3>
+<p><a href="https://opensats.org/blog/seventeenth-wave-of-nostr-grants" rel="noopener nofollow">Seventeenth Wave</a> (May 19, 2026): 44Billion (app launcher), NosCall (encrypted calls), Routstr (AI inference via Nostr), Wisp (Android client by <strong>Barry Deen</strong> — creator of wot-relay). Zapstore renewal. Barry Deen's grant for Wisp means the wot-relay creator is now funded on a Nostr client — WoT expertise is propagating into the broader client ecosystem.</p>
+<h3 id="rustsec-2026-0225-nostr-crate-credential-leak">RUSTSEC-2026-0225 — nostr Crate Credential Leak</h3>
+<p><a href="https://rustsec.org/advisories/RUSTSEC-2026-0225.html" rel="noopener nofollow">RUSTSEC-2026-0225</a> (August 2, 2026): <code>nostr</code> crate (&gt;=0.44.7) derived <code>Debug</code> on NIP-46/NIP-60 types containing credentials (connection secrets, private keys, Cashu proofs). Fixed with custom redacting <code>Debug</code> implementations. WoT relevance: NIP-46 bunker signing is central to the identity custody model that WoT infrastructure depends on — credential leaks at the signer layer undermine trust above.</p>
+<h3 id="nips-repo-at-31k-stars">NIPs Repo at 3.1K Stars</h3>
+<p><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a> at <strong>3,100 stars</strong> and <strong>786 forks</strong> (up from 2,978 on May 31, 2,997 on June 16). NIP-85 kinds (30382–30385) confirmed in canonical listing. NIP-72 (Moderated Communities) deprecated in favor of NIP-29 (Relay-based Communities), which composes with WoT-gated relay access.</p>
+<h3 id="updated-github-activity-august-6-2026">Updated GitHub Activity — August 6, 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot-extension</a></td>
+<td class="ta-r">8</td>
+<td>2026-07-29</td>
+<td>Full identity provider; +2 stars since June</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot-oracle</a></td>
+<td class="ta-r">5</td>
+<td>2026-06-04</td>
+<td><strong>New</strong>: Rust v1.0.0; Docker; bidirectional BFS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot</a> (toolkit)</td>
+<td class="ta-r">6</td>
+<td>2026-07-04</td>
+<td>Active; +0 since June</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot-sdk</a></td>
+<td class="ta-r">4</td>
+<td>2026-07-04</td>
+<td>npm package; React hooks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/CodyTseng/nostr-relay-tray" rel="noopener nofollow">CodyTseng/nostr-relay-tray</a></td>
+<td class="ta-r"><strong>106</strong></td>
+<td>active</td>
+<td><strong>New entry</strong>: Desktop WoT relay; highest-starred WoT personal relay</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitvora/algo-relay" rel="noopener nofollow">bitvora/algo-relay</a></td>
+<td class="ta-r">—</td>
+<td>active</td>
+<td><strong>New entry</strong>: Social-graph feeds; 4-client adoption</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a></td>
+<td class="ta-r"><strong>3,100</strong></td>
+<td>active</td>
+<td>+103 stars since May 31; 786 forks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></td>
+<td class="ta-r">~85</td>
+<td>2026-04-22</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></td>
+<td class="ta-r">~35</td>
+<td>2026-04-30</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a></td>
+<td class="ta-r">~66</td>
+<td>2026-06-17</td>
+<td>Reference WoT-gated relay</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a></td>
+<td class="ta-r">~84</td>
+<td>2026-04-22</td>
+<td>Powers wot.nostr.net</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">ContextVM/relatr</a></td>
+<td class="ta-r">11</td>
+<td>2026-05-26</td>
+<td>MCP WoT server</td>
+</tr>
+<tr>
+<td><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a></td>
+<td class="ta-r">2</td>
+<td>2026-02-11</td>
+<td>PageRank oracle; +1 star</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations</strong>:
+1. <strong>nostr-relay-tray (106 stars) is the breakout project.</strong> It brings WoT filtering to the desktop with a GUI — the accessibility layer the WoT ecosystem needed.
+2. <strong>The nostr-wot org is architecturally complete but adoption is still modest</strong> (extension 8 stars, oracle 5 stars). The infrastructure is production-quality; the user base has not yet caught up.
+3. <strong>AlgoRelay's 4-client adoption validates social-graph content ranking</strong> in production across independent implementations.
+4. <strong>NIPs repo growth (+103 stars in 9 weeks)</strong> confirms active protocol-level interest, which feeds WoT development.</p>
+<h2 id="august-20-2026-update-the-shadow-protocol-phase-a-wot-provider-dies">August 20, 2026 Update — The Shadow Protocol Phase; a WoT Provider Dies</h2>
+<p>Full detail in <a href="/briefings/web-of-trust/2026-08-20/">Web of Trust Thursday — August 20 2026 Weekly Update</a>. Key developments:</p>
+<h3 id="post-quantum-nostr-specified-but-unratified">Post-quantum Nostr, specified but unratified</h3>
+<p>The nostr-wot org published its PQ stack as <strong>four NIP draft specs</strong> (Aug 17) in the extension repo — key derivation, <code>kind:10203</code> attestation, hybrid NIP-44 envelope, <code>window.nostr.nip44.schemes</code> capability marker — explicitly <em>not</em> submitted upstream, "in enough detail that a second implementation can interoperate without reading our source." <strong>Obelisk</strong> (29★, daily pushes) is the 1.5th implementation (SDK-consuming). Extension shipped <strong>v0.5.0–v0.5.2</strong> (Aug 15–19): PQ key <em>import</em> for non-derivable accounts (<code>origin: independent</code> provenance tags, round-trip key validation), seed-handling audit fixes (mnemonic out of session storage; vault KDF corrected to 600K PBKDF2-SHA-256), a full consent-model overhaul (zero host permissions, decaying "Not now"), and an AMO-forced Node 22+ toolchain. The SDK reached <strong>v1.0.1</strong> with PQ sealing moved into the signer layer and seal/rumor verification added to <code>unwrapGiftWrap</code>.</p>
+<h3 id="the-upstream-veto-is-now-explicit">The upstream veto is now explicit</h3>
+<p>nostr-tools PR #541 (PQ keys) was <strong>closed unmerged</strong> after fiatjaf: "I am not thinking about it and I won't think about it until it happens (it will not)... work on a new protocol that is similar to Nostr but does everything post-quantum instead." NIPs PR #2434 (same design, +517 lines, test vectors against NIP-06 fixtures) sits open with no review. nostr-wot's response is the cypherpunk fallback: spec it, ship it, invite forks — "the risk asymmetry is relevant to me" (leonacostaok).</p>
+<h3 id="adoption-measured-the-flat-line">Adoption measured — the flat line</h3>
+<p>Direct relay queries (Aug 20): <strong>24 unique pubkeys</strong> have ever published <code>kind:10203</code> (relay.damus.io 21, nos.lol 22, union 24). By first-seen date: 19 on Aug 10 (launch), 4 on Aug 11, <strong>1 on Aug 18, zero otherwise</strong>. Average attestation 12,226 B. <code>@nostr-wot/pq</code> at 282 downloads/week. The launch cohort <em>is</em> the user base; the opt-in essay (rewritten 3× in one day, final title "Post-quantum direct messages should not be opt-in") locates the cause in identity design: the npub has no algorithm/version/capability field — NIP-44 payloads carry a version byte, the identity beneath them carries nothing — so every key migration is structurally opt-in.</p>
+<h3 id="wotklaboworld-is-gone">wot.klabo.world is gone</h3>
+<p>The PageRank NIP-85 provider lost its DNS record (NXDOMAIN Aug 20; apex klabo.world resolves). wot-scoring repo dormant since Feb 11. This vault previously listed it as live — corrected above. The WoT-filtering load now rests on <strong>self-hostable patterns</strong> (wot-relay, Chronicle, HAVEN, nostr-relay-tray at 108★, pyramid) and Bitvora's operated relays/AlgoRelay. Every WoT death this year (Brainstorm paused, oracle dormant June, klabo dead August) has been on the <em>hosted</em> side — the surviving pattern is exactly the self-hostable one. Nostr.Band unreachable from the research vantage point; flagged for re-verification.</p>
+<h3 id="github-snapshot-august-20-2026">GitHub snapshot — August 20, 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot-extension</a></td>
+<td class="ta-r">8</td>
+<td>2026-08-19</td>
+<td>v0.5.2; 4 PQ NIP drafts; PQ import; consent overhaul</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot</a> (toolkit)</td>
+<td class="ta-r">7</td>
+<td>2026-08-19</td>
+<td>Opt-in essay (3 rewrites); false-claim fix</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot-sdk</a></td>
+<td class="ta-r">5</td>
+<td>2026-08-17</td>
+<td>v1.0.1; PQ in signer layer; first external PR</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot-oracle</a></td>
+<td class="ta-r">5</td>
+<td>2026-06-04</td>
+<td>Dormant 11 weeks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/obelisk-app/obelisk" rel="noopener nofollow">obelisk-app/obelisk</a></td>
+<td class="ta-r">29</td>
+<td>2026-08-19</td>
+<td>2nd PQ impl; WoT-filtered chat/voice; PQ shield UI</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a></td>
+<td class="ta-r">3,080</td>
+<td>2026-08-19</td>
+<td>PR #2434 stalled; no PQ engagement</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a></td>
+<td class="ta-r">—</td>
+<td>PQ PR #541 closed unmerged</td>
+<td>Aug 10</td>
+</tr>
+<tr>
+<td><a href="https://github.com/CodyTseng/nostr-relay-tray" rel="noopener nofollow">CodyTseng/nostr-relay-tray</a></td>
+<td class="ta-r">108</td>
+<td>2026-02-02</td>
+<td>Stable; desktop WoT relay</td>
+</tr>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">967</td>
+<td>2026-08-18</td>
+<td>One commit; TOFU watch continues</td>
+</tr>
+<tr>
+<td><a href="https://gitlab.com/sequoia-pgp/sequoia" rel="noopener nofollow">sequoia-pgp (GitLab)</a></td>
+<td class="ta-r">473</td>
+<td>2026-08-17</td>
+<td>openpgp 2.4.1; direct-key trust sigs; PQ pending</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations</strong>:
+1. <strong>PQ Nostr is a shadow protocol</strong>: fully specified, 1.5× implemented, honestly measured (24 pubkeys), ratified by no one. Upstream veto stable across three venues.
+2. <strong>The crypto-agility essay is the reusable insight</strong>: an identity system that cannot say "this identity uses algorithm X" makes every migration opt-in and therefore incomplete. Same root cause as DNSSEC/OpenPGP v4→v6 migration pains.
+3. <strong>The WoT bifurcation hardens</strong>: hosted scorers keep dying; self-hostable relay patterns carry the load. Build on what you can run yourself.
+4. <strong>Consent UX is now extension review criteria</strong>: v0.5.1's permission model and v0.5.2's AMO Node-20 rejection show stores shaping not just security but CI toolchains.</p>
+<h2 id="august-27-2026-update-maintenance-mode-the-org-pivots-to-an-autonomous-newsroom">August 27, 2026 Update — Maintenance Mode; the Org Pivots to an Autonomous Newsroom</h2>
+<p>Re-measurement week. Every adoption indicator of the post-quantum stack went flat or down, the extension has been frozen since Aug 19, and the organization's engineering velocity moved to a new product: a daily AI-operated news publication. Full detail in <a href="/briefings/web-of-trust/2026-08-27/">Web of Trust Thursday — August 27 2026 Weekly Update</a>.</p>
+<p><strong>Adoption plateau (verified Aug 27, direct relay queries).</strong> nos.lol carries 22 unique <code>kind:10203</code> pubkeys — identical to Aug 20, identical first-seen dates (Aug 10: 17, Aug 11: 4, Aug 18: 1 on that relay). Zero new publishers in the nine days since Aug 18. relay.damus.io now rejects unauthenticated WebSocket connections, blocking the two-relay union count; relay.primal.net and nostr.wine carry none. npm downloads collapsed to ambient: <code>@nostr-wot/pq</code> 282→<strong>26</strong>/week, <code>nostr-wot-sdk</code> 235→<strong>59</strong>/week; neither package has shipped since Aug 16. The PQ stack is a completed, documented, deployed experiment in maintenance mode at ~24 identities — awaiting an environmental change (client default-on or NIP ratification) that no further engineering by the org can cause.</p>
+<p><strong>The newsroom pivot.</strong> The main repo (<a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a>) took ~30 commits Aug 21–26 building <code>nostr-wot.com/news</code>: per-locale RSS/JSON feeds, Google News sitemap, a six-month archive retrofill (followed by "correct four factual errors found in review of the retrofill"), and — the governance layer worth archiving — <code>docs/newsroom/playbook.md</code>, a run log, and a <code>content/news/PAUSE</code> kill switch. The playbook mandates <strong>GitHub-API-only sourcing</strong> ("Do not search the web for news, and do not treat any fetched prose page as a source"), a rule created after a fabrication incident during the retrofill: a fetched "newsletter" page returned content describing a private repository "in terms lifted from internal notes, for a project with no public footprint." Run-log semantics distinguish <code>published | skipped | paused | failed</code>; the Aug 26 <code>skipped</code> line names the considered-and-rejected stories. This is the strongest public specimen of autonomously operated publishing with reviewable editorial governance this library has recorded — directly relevant as a Daemon-network design pattern (structured-API-only sourcing, log-every-run-including-no-ops, kill-switch-as-file, machine-generated disclosure).</p>
+<p><strong>Infrastructure.</strong> Hosted side: nostr.band unreachable from a <strong>second vantage point</strong> (second consecutive week) — treated as operationally dead; wot.klabo.world still NXDOMAIN; oracle dormant 12 weeks. Self-hostable side: <strong>fiatjaf/pyramid pushed its first commit since June</strong> ("Add restrited prefix when not a member", Aug 21; 73★), and bitvora's wot.nostr.net answers HTTP 200. The 2026 pattern — hosted WoT dies, self-hostable WoT persists — holds and strengthened.</p>
+<p><strong>Upstream.</strong> NIPs PR #2434 untouched for 16 days (sole comment remains fiatjaf's rejection link). NIPs merged NIP-A3 payto (RFC-8905 payment targets), NIP-30 emoji on kind 1111, and NIP-22's kind-1 reply permission — nothing PQ. Obelisk: two maintenance commits (signer-latency fix, pm2 ops), still SDK-consuming — the "second independent implementation" threshold remains unmet.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-26 status</a></li>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46 remote signing</a></p>
+</li>
+<li>
+<p><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85 — Trusted Assertions</a></p>
+</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/02.md" rel="noopener nofollow">NIP-02 — Follow List</a></li>
+<li><a href="https://nips.nostr.com/51" rel="noopener nofollow">NIP-51 — Lists</a></li>
+<li><a href="https://nips.nostr.com/56" rel="noopener nofollow">NIP-56 — Reporting</a></li>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">Nostr Protocol NIPs repository</a></li>
+<li><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot/nostr-wot-sdk</a></li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot/nostr-wot-extension</a></li>
+<li><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></li>
+<li><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></li>
+<li><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a></li>
+<li><a href="https://github.com/CodyTseng/nostr-relay-plugin" rel="noopener nofollow">CodyTseng/nostr-relay-plugin</a></li>
+<li><a href="https://nostrcompass.org/en/topics/web-of-trust/" rel="noopener nofollow">Nostr Compass — Web of Trust</a></li>
+<li><a href="https://datatracker.ietf.org/doc/rfc9591/" rel="noopener nofollow">RFC 9591 — FROST Protocol</a> — IRTF stable threshold Schnorr spec</li>
+<li><a href="https://github.com/nostr-protocol/nips/issues/654" rel="noopener nofollow">nostr-protocol/nips#654</a> — NIP-26 delegation revocation proposal</li>
+<li><a href="https://github.com/wds4/DCoSL" rel="noopener nofollow">DCoSL</a></li>
+<li><a href="https://codeberg.org/weex/noswot" rel="noopener nofollow">Noswot</a></li>
+<li><a href="https://arxiv.org/html/2402.05709v2" rel="noopener nofollow">An Empirical Analysis of the Nostr Social Network</a></li>
+<li><a href="https://eprint.iacr.org/2020/852" rel="noopener nofollow">FROST paper</a> — Komlo and Goldberg, Flexible Round-Optimized Schnorr Threshold Signatures</li>
+<li><a href="https://csrc.nist.gov/csrc/media/Projects/threshold-cryptography/documents/TCall-1/FROST-PW01.pdf" rel="noopener nofollow">FROST NIST MPTS 2026 preview writeup</a> — FROST Team, version 0.1, March 2026</li>
+<li><a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">Hermine: Lattice-based FROST-like Threshold Signatures</a> — eprint 2026/419</li>
+<li><a href="https://hermine-th.org" rel="noopener nofollow">Hermine project website</a></li>
+<li><a href="https://opensats.org/projects/contextvm" rel="noopener nofollow">ContextVM project page</a> — MCP-over-Nostr protocol</li>
+<li><a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">ContextVM/relatr</a> — personalized trust scoring service (live at relatr.net)</li>
+<li><a href="https://github.com/ContextVM/wotrlay" rel="noopener nofollow">ContextVM/wotrlay</a> — WoT-aware relay</li>
+<li><a href="https://github.com/ContextVM/sdk" rel="noopener nofollow">ContextVM/sdk</a> — TypeScript + Rust MCP-over-Nostr SDKs</li>
+<li><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a> — invite-only WoT-gated relay (66 stars, June 17 push)</li>
+<li><a href="https://github.com/bitvora/haven" rel="noopener nofollow">bitvora/haven</a> — personal relay, v1.2.0 with WoT improvements</li>
+<li><a href="https://opensats.org/blog/fourteenth-wave-of-nostr-grants" rel="noopener nofollow">OpenSats Fourteenth Wave of Nostr Grants</a> — YakiHonne, Quartz, Nostr Feedz</li>
+<li><a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a> / <a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">mobile-app</a> — multi-platform Nostr client</li>
+<li><a href="https://github.com/PlebOne/Nostr-Feedz" rel="noopener nofollow">PlebOne/Nostr-Feedz</a> and <a href="https://github.com/PlebOne/relay.pleb.one" rel="noopener nofollow">PlebOne/relay.pleb.one</a> — RSS+Nostr with WoT-gated relay</li>
+<li><a href="https://www.youtube.com/watch?v=wrlE0DMoTSc" rel="noopener nofollow">Bitcoin 2026 Protocol vs Platform panel</a> — Brainstorm WoT reputation presentation</li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot/nostr-wot-oracle</a> — Rust follow-graph indexer, v1.0.0 Docker, bidirectional BFS</li>
+<li><a href="https://nostr-wot.com/oracle" rel="noopener nofollow">nostr-wot.com/oracle</a> — Oracle API docs and self-hosting guide</li>
+<li><a href="https://github.com/CodyTseng/nostr-relay-tray" rel="noopener nofollow">CodyTseng/nostr-relay-tray</a> — Desktop personal relay with WoT filtering (106 stars)</li>
+<li><a href="https://github.com/bitvora/algo-relay" rel="noopener nofollow">bitvora/algo-relay</a> — Social-graph-ranked feed relay; 4-client adoption</li>
+<li><a href="https://opensats.org/blog/advancements-in-nostr-relays" rel="noopener nofollow">OpenSats — Advancements in Nostr Relays</a> — Relay ecosystem report documenting WoT as production pattern</li>
+<li><a href="https://opensats.org/blog/seventeenth-wave-of-nostr-grants" rel="noopener nofollow">OpenSats — Seventeenth Wave</a> — Wisp (Barry Deen/wot-relay creator)</li>
+<li><a href="https://rustsec.org/advisories/RUSTSEC-2026-0225.html" rel="noopener nofollow">RUSTSEC-2026-0225</a> — nostr crate Debug credential leak (NIP-46, NIP-60)</li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-extension/tree/main/nips" rel="noopener nofollow">nostr-wot-extension NIP drafts</a> — the four PQ specs (derivation, kind:10203, envelope, capability marker), Aug 2026</li>
+<li><a href="https://github.com/nbd-wtf/nostr-tools/pull/541" rel="noopener nofollow">nostr-tools PR #541</a> — PQ keys PR closed unmerged; fiatjaf's response</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">NIPs PR #2434</a> — NIP-XX: Post-Quantum Identity Keys (stalled)</li>
+<li><a href="https://github.com/obelisk-app/obelisk" rel="noopener nofollow">obelisk-app/obelisk</a> — Nostr chat/voice with WoT filtering; second PQ implementation</li>
+<li><a href="https://nostr-wot.com/blog/opt-in-quantum-resistant-direct-messages" rel="noopener nofollow">nostr-wot.com — opt-in essay</a> — "Post-quantum direct messages should not be opt-in" (Aug 2026)</li>
+<li><a href="https://github.com/obelisk-app/obelisk/blob/main/docs/dm-metadata-privacy.md" rel="noopener nofollow">obelisk dm-metadata-privacy notes</a> — what PQ does not fix (NIP-17 metadata)</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/openpgp-web-of-trust/">
+  <span class="nm">The OpenPGP Web of Trust</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/remote-signing/">
+  <span class="nm">Remote Signing (NIP-46 and Friends)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/nostr-key-custody/">
+  <span class="nm">Nostr Key Custody and Recovery</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Web%20of%20Trust%20on%20Nostr" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">Nostr&#39;s Web of Trust (WoT) is the practical answer to a problem created by the protocol&#39;s strongest property: anyone can create a keypair and publish signed events to relays without asking permission.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>72</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

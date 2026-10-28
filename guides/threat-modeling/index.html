@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Threat Modeling for Sovereign Individuals — ungovernable.tech</title>
+<meta name="description" content="Start here. A practical way to decide what you are protecting, from whom, and which tools on this site are worth the effort for you.">
+<link rel="canonical" href="https://ungovernable.tech/guides/threat-modeling/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Threat Modeling for Sovereign Individuals — ungovernable.tech">
+<meta property="og:description" content="Start here. A practical way to decide what you are protecting, from whom, and which tools on this site are worth the effort for you.">
+<meta property="og:url" content="https://ungovernable.tech/guides/threat-modeling/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Threat Modeling for Sovereign Individuals — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Threat Modeling for Sovereign Individuals — ungovernable.tech">
+<meta name="twitter:description" content="Start here. A practical way to decide what you are protecting, from whom, and which tools on this site are worth the effort for you.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Threat Modeling for Sovereign Individuals", "description": "Start here. A practical way to decide what you are protecting, from whom, and which tools on this site are worth the effort for you.", "dateModified": "2026-10-25", "datePublished": "2026-10-17", "url": "https://ungovernable.tech/guides/threat-modeling/", "mainEntityOfPage": "https://ungovernable.tech/guides/threat-modeling/", "image": "https://ungovernable.tech/assets/og/pillar-endpoint.png", "about": [{"@type": "Thing", "name": "Devices and Operational Security"}, {"@type": "Thing", "name": "Anonymity Networks"}, {"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "beginner"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Devices and Operational Security", "item": "https://ungovernable.tech/pillars/endpoint/"}, {"@type": "ListItem", "position": 3, "name": "Threat Modeling for Sovereign Individuals", "item": "https://ungovernable.tech/guides/threat-modeling/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/endpoint/">Devices and Operational Security</a><span aria-hidden="true">/</span><span class="here">Threat Modeling for Sovereign Individuals</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ DEVICES AND OPERATIONAL SECURITY ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>Threat Modeling for Sovereign Individuals</h1>
+  
+  <p class="dek">Before choosing a single tool, write down what you are protecting, who you are protecting it from, and what failure would cost you.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    <span class="ktag">[ BEGINNER ]</span>
+    <span class="ktag">[ 45 MINUTES ]</span>
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-five-questions">The five questions</a><a href="#know-what-your-adversary-can-actually-do">Know what your adversary can actually do</a><a href="#content-versus-metadata">Content versus metadata</a><a href="#who-are-you-trusting">Who are you trusting?</a><a href="#your-endpoint-is-the-foundation">Your endpoint is the foundation</a><a href="#compartmentalise">Compartmentalise</a><a href="#a-worked-example">A worked example</a><a href="#revisit-it">Revisit it</a><a href="#where-to-go-next">Where to go next</a><a href="#sources">Sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>Most security advice fails because it is generic. A journalist protecting a source inside a ministry, a Bitcoin holder worried about a home invasion, and a developer running a relay in a country that criminalises it face completely different adversaries. The tools overlap; the priorities do not. A threat model is the short written answer to "what am I defending, against whom, and how much effort is it worth?" Everything else on this site is easier to use once you have one.</p>
+<blockquote>
+<p>Rule of thumb: name the adversary, name the asset, and name what you are trusting. If you cannot write those three things down, you do not have a threat model yet, only a feeling.</p>
+</blockquote>
+<h2 id="the-five-questions">The five questions</h2>
+<p>The Electronic Frontier Foundation's <em>Surveillance Self-Defense</em> project frames threat modeling as five questions. They are worth answering on paper.</p>
+<ol>
+<li><strong>What do I want to protect?</strong> Your assets: messages, contacts, location, identity, files, funds, the fact that you talk to a particular person at all.</li>
+<li><strong>Who do I want to protect it from?</strong> Your adversaries: an abusive partner, an employer, a data broker, a local police force, a national intelligence service, a criminal gang.</li>
+<li><strong>How bad are the consequences if I fail?</strong> Embarrassment, a lost job, a frozen account, prison, physical harm to you or to people who trusted you.</li>
+<li><strong>How likely is it that I will need to protect it?</strong> A capability is not the same as an intention. Most people are not individually targeted; some are.</li>
+<li><strong>How much trouble am I willing to go through?</strong> Security that you abandon after a week protects nothing.</li>
+</ol>
+<h2 id="know-what-your-adversary-can-actually-do">Know what your adversary can actually do</h2>
+<p>Adversaries differ by capability, not just by motivation. Roughly, from weakest to strongest:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Typical capabilities</th>
+<th>What usually stops them</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opportunistic attacker</td>
+<td>Phishing, password reuse, stolen or unlocked devices</td>
+<td>Password manager, unique passwords, hardware security keys, device encryption with a strong passcode</td>
+</tr>
+<tr>
+<td>Platforms and data brokers</td>
+<td>Everything you give them, plus tracking across sites and apps</td>
+<td>Privacy-respecting browsers, blockers, fewer accounts, not handing over a phone number</td>
+</tr>
+<tr>
+<td>Someone with physical access</td>
+<td>Unlocked phone, laptop left open, coercion</td>
+<td>Strong passcode, auto-lock, encrypted storage, duress or auto-reboot features</td>
+</tr>
+<tr>
+<td>Local ISP or employer network</td>
+<td>Sees which sites and services you connect to and when</td>
+<td>Encrypted DNS, VPN or Tor, depending on who you trust more</td>
+</tr>
+<tr>
+<td>Police with legal process</td>
+<td>Compel platforms to hand over account data and metadata; seize devices</td>
+<td>Services that hold as little as possible, end-to-end encryption, full-disk encryption, minimal stored history</td>
+</tr>
+<tr>
+<td>National censor</td>
+<td>Block IPs and domains, fingerprint protocols, throttle or shut down the network</td>
+<td>Circumvention tools, Tor bridges, mesh and offline tools (<a href="/pillars/circumvention/">Censorship Circumvention</a>)</td>
+</tr>
+<tr>
+<td>Global passive adversary</td>
+<td>Observe large parts of the internet backbone and correlate traffic timing</td>
+<td>Mix networks with cover traffic; Tor alone is not designed to resist this (<a href="/kb/global-passive-adversary/">Defending Against a Global Passive Adversary</a>)</td>
+</tr>
+<tr>
+<td>Targeted attacker with exploits</td>
+<td>Commercial spyware delivered to your phone</td>
+<td>Hardened OS, Lockdown Mode or GrapheneOS, rapid updates, fewer apps, compartmentalised devices</td>
+</tr>
+</tbody>
+</table></div>
+<p>Be honest about which rows apply. Overestimating the adversary leads to unusable setups; underestimating it gets people hurt.</p>
+<h2 id="content-versus-metadata">Content versus metadata</h2>
+<p>Encryption protects <em>what</em> you say. It usually does not hide <em>that</em> you said it, to whom, when, from where and how often. That second category, metadata, is often what investigators and intelligence agencies actually use. A messenger can have flawless end-to-end encryption and still give a court your full contact graph. When you evaluate any tool on this site, ask both questions separately: who can read the content, and who can see the metadata? See <a href="/kb/metadata-resistance/">Metadata Resistance</a> and <a href="/kb/map-metadata-privacy/">Map: Metadata Privacy</a>.</p>
+<h2 id="who-are-you-trusting">Who are you trusting?</h2>
+<p>Every tool moves trust somewhere; none removes it entirely.</p>
+<ul>
+<li>A VPN moves trust from your ISP to the VPN operator.</li>
+<li>Tor spreads trust across three relays chosen from thousands, so that no single one sees both who you are and where you go.</li>
+<li>A trusted execution environment (TEE) moves trust from the cloud operator to the chip vendor and its attestation service (<a href="/kb/confidential-computing/">Confidential Computing</a>).</li>
+<li>A hardware wallet moves trust from your laptop to the device's firmware and supply chain (<a href="/kb/hardware-wallets/">Hardware Wallets</a>).</li>
+<li>Open-source, reproducibly built software lets other people check your trust for you; closed software asks you to take it on faith.</li>
+</ul>
+<p>Write down, for each tool you adopt, who you now depend on and what happens if they are compromised, coerced or simply disappear.</p>
+<h2 id="your-endpoint-is-the-foundation">Your endpoint is the foundation</h2>
+<p>If the phone or laptop is compromised, nothing above it matters: the attacker reads your messages before they are encrypted. Start with the device. Keep it updated, use a strong passcode, remove apps you do not need and consider a hardened operating system if your adversary includes spyware vendors (<a href="/guides/grapheneos/">Hardening a Phone with GrapheneOS</a>, <a href="/guides/tails-qubes-whonix/">Tails, Qubes OS and Whonix</a>).</p>
+<h2 id="compartmentalise">Compartmentalise</h2>
+<p>The most effective habit in operational security is separation. Keep identities that must never be linked on different devices, accounts, browsers or at least different profiles; never let them share a phone number, payment method, email address, writing style or time-of-day pattern. Assume anything you link once is linked forever.</p>
+<h2 id="a-worked-example">A worked example</h2>
+<p>An organiser in a country that monitors activists might write:</p>
+<ul>
+<li><strong>Assets:</strong> member list, meeting locations, her own identity as organiser.</li>
+<li><strong>Adversaries:</strong> local police with legal powers over domestic telecoms; possibly a national agency that buys commercial spyware.</li>
+<li><strong>Consequences:</strong> arrest of members; that is severe.</li>
+<li><strong>Likelihood:</strong> moderate and rising.</li>
+<li><strong>Effort budget:</strong> high for her, low for most members.</li>
+</ul>
+<p>Her plan: a dedicated phone running a hardened OS; a messenger that does not need phone numbers for the group; disappearing messages; no member list stored anywhere online; Tor Browser with bridges ready in case the network is censored; and a short, simple checklist for members rather than an ideal setup nobody follows. The tools come last, and they follow from the model.</p>
+<h2 id="revisit-it">Revisit it</h2>
+<p>Threat models expire. Revisit yours when your work changes, when you cross a border, when laws change, or when a tool you rely on changes ownership, jurisdiction or business model.</p>
+<h2 id="where-to-go-next">Where to go next</h2>
+<ul>
+<li>For a possible incident already in progress, use <a href="/guides/suspected-device-compromise/">Responding to Suspected Device Compromise</a>. For documents you plan to share, use <a href="/guides/sanitizing-documents/">Sanitizing Documents</a>.</li>
+<li>If you are worried about surveillance of your communications, follow the <a href="/paths/under-surveillance/">Under Surveillance</a> path.</li>
+<li>If the internet around you is censored or being shut down, follow <a href="/paths/behind-the-firewall/">Behind the Firewall</a>.</li>
+<li>If you want to hold money nobody can freeze, follow <a href="/paths/sovereign-money/">Sovereign Money</a>.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Electronic Frontier Foundation, <em>Surveillance Self-Defense: Your Security Plan</em>: <a href="https://ssd.eff.org/module/your-security-plan" rel="noopener nofollow">https://ssd.eff.org/module/your-security-plan</a></li>
+<li>Privacy Guides, <em>Threat Modeling</em>: <a href="https://www.privacyguides.org/en/basics/threat-modeling/" rel="noopener nofollow">https://www.privacyguides.org/en/basics/threat-modeling/</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/map-threat-models/">
+  <span class="nm">Map: Threat Models</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/metadata-resistance/">
+  <span class="nm">Metadata Resistance</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/using-tor-safely/">
+  <span class="nm">Using Tor Safely</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/tails-qubes-whonix/">
+  <span class="nm">Tails, Qubes OS and Whonix</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/hardware-wallets/">
+  <span class="nm">Hardware Wallets</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/guides/grapheneos/">
+  <span class="nm">Hardening a Phone with GrapheneOS</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/guides/suspected-device-compromise/">
+  <span class="nm">Responding to Suspected Device Compromise</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/sanitizing-documents/">
+  <span class="nm">Sanitizing Documents Before Sharing</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/anonymity/">Anonymity Networks</a><a class="chip" href="/pillars/messaging/">Secure Messaging</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Threat%20Modeling%20for%20Sovereign%20Individuals" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Before choosing a single tool, write down what you are protecting, who you are protecting it from, and what failure would cost you.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Devices and Operational Security, Anonymity Networks, Secure Messaging</dd>
+        <dt>Level</dt><dd>beginner</dd>
+        <dt>Time</dt><dd>45 minutes</dd>
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>2</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

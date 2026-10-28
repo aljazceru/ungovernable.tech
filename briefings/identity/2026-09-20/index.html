@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — September 20 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-20: NIPs repository: four new PRs in three days (Sep 16–17), with PR #2471 (NIP-17 seal timestamp) as the live design.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-09-20/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — September 20 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-20: NIPs repository: four new PRs in three days (Sep 16–17), with PR #2471 (NIP-17 seal timestamp) as the live design.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-09-20/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — September 20 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — September 20 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-20: NIPs repository: four new PRs in three days (Sep 16–17), with PR #2471 (NIP-17 seal timestamp) as the live design.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — September 20 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-20: NIPs repository: four new PRs in three days (Sep 16–17), with PR #2471 (NIP-17 seal timestamp) as the live design.", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "url": "https://ungovernable.tech/briefings/identity/2026-09-20/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-09-20/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-20", "item": "https://ungovernable.tech/briefings/identity/2026-09-20/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-09-20</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — September 20 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-20</b></span>
+    <span><b>20</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-20 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-20. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The weekly companion to <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, covering September 14 – 20, 2026 (since the <a href="/briefings/identity/2026-09-13/">September 13 update</a>). Two stories dominate the week. First: <strong>the NIPs repository opened four new PRs in three days</strong> — NIP-17 PR #2471 (Sep 17, fiatjaf) proposes removing the seal-timestamp randomization requirement and is already the most-argued thread of the week (vitorpamplona opposed; the live design debate is between <em>"developer ergonomics"</em> and <em>"default clients re-broadcast seals"</em>); NIP-85 PR #2470 (Sep 17, dhalsim) extends kind 30383 with event enrichments; NIP-F5 PR #2469 (Sep 16, humansinstitute) defines a <code>window.fipsTransport</code> browser capability surface (and fiatjaf replied within 24 hours <em>"What does this have to do with Nostr?"</em>); NIP-73 PR #2468 (Sep 16, MerryOscar) adds podcast-medium <code>k</code> tags. Second: <strong>Amethyst 1.15.2 (Sep 12) shipped a NIP-22 root-filter fix</strong> that the newsroom dedicated a piece to on Sep 16 — engagement queries now also discover nested comments via the uppercase <code>E</code> and <code>A</code> root tags, and kind 1619 (NIP-34 pull request update) moves into <code>RootScopedRepliesKinds</code> so PR revisions surface in the same query. The deeper story underneath both: <strong>Nostr identity is being treated as a correctness surface again</strong>. Three weeks ago the <a href="/briefings/identity/2026-09-06/">Sept 6 update</a> recorded relay-side AUTH becoming normative; last week's Citrine 3.1.1 ([Sept 13 update|Identity and Pseudonymity Sunday — September 13 2026 Weekly Update]) shipped a NIP-42 signature-verification bypass fix; this week the spec text itself is being argued over (PR #2471) and clients are correcting query semantics (PR #4095). Institutional quiet for a third week — GnuPG, Sequoia, the kind:10203 attestation plateau (24, no growth), and <strong>NIP #2434 (post-quantum identity keys) now 40 days frozen</strong>.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>NIPs repository: four new PRs in three days (Sep 16–17), with PR #2471 (NIP-17 seal timestamp) as the live design debate of the week.</strong> <a href="https://github.com/nostr-protocol/nips/pull/2471" rel="noopener nofollow">PR #2471</a> (fiatjaf, Sep 17) proposes removing the <em>requirement</em> that NIP-17 gift-wrap seal timestamps be randomized; <a href="https://github.com/nostr-protocol/nips/pull/2470" rel="noopener nofollow">PR #2470</a> (dhalsim, Sep 17) extends NIP-85 kind 30383 with event enrichments; <a href="https://github.com/nostr-protocol/nips/pull/2469" rel="noopener nofollow">PR #2469</a> (humansinstitute, Sep 16) defines a <code>window.fipsTransport</code> browser capability (fiatjaf replied the next day <em>"What does this have to do with Nostr?"</em>); <a href="https://github.com/nostr-protocol/nips/pull/2468" rel="noopener nofollow">PR #2468</a> (MerryOscar, Sep 16) adds <code>k</code> tags for podcast medium to NIP-73. Four open, two merged (<code>is:closed created:&gt;2026-09-13</code> search returns 2 — neither visible in the open list, so both are minor or merged-and-deleted). The PR #2471 thread is the only one with multiple high-quality voices — vitorpamplona (Amethyst, Quartz) and fiatjaf arguing over the difference between <em>attacker capabilities on the seal</em> (vitorpamplona: many clients re-broadcast seals by default; a leaked seal from one client exposes every past conversation timestamp) and <em>attacker capabilities on the rumor</em> (fiatjaf: anyone with the seal has the rumor anyway; a sealed-timestamp leak gives no information without the rumor's key). The PR is open as of writing with no merge.</li>
+<li><strong>Amethyst 1.15.2 (Sep 12) ships the NIP-22 root-filter fix and NIP-34 PR-discovery correction</strong> (<a href="https://nostr-wot.com/news/nip-22-amethyst-loads-nested-comments" rel="noopener nofollow">newsroom</a>, <a href="https://github.com/vitorpamplona/amethyst/releases/tag/v1.15.2" rel="noopener nofollow">GitHub release</a>, <a href="https://github.com/vitorpamplona/amethyst/pull/4095" rel="noopener nofollow">PR #4095</a>, merged Sep 12). The change adds <code>E</code> filters for event IDs and <code>A</code> filters for addressable content alongside the existing lowercase <code>e</code> and <code>a</code> filters — engagement queries now discover nested comments whose direct parent is another comment, not just direct replies to the visible root. A separate fix moves kind 1619 (NIP-34 pull request update) into <code>RootScopedRepliesKinds</code> because the NIP-34 example identifies the revised PR with an uppercase <code>E</code> tag, and the previous lowercase <code>e</code> filter missed it. The patch is a <em>client query correction</em> — no spec change, no republish required. <strong>The structural point</strong>: uppercase tags are conversation roots, lowercase tags are direct parents, and the difference is invisible without the spec text or a kind 1619 thread that won't update. Separate filters (rather than <code>#e</code> AND <code>#E</code> in one filter) are required because NIP-01 makes every condition in a filter AND'd — combining the two would exclude nested comments whose direct parent is another comment.</li>
+<li><strong>NYM Chat 3.75.545 (Sep 16) — security hotfix</strong>, <a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a>. No changelog detail visible from the release aggregator; tag bump during a quiet week means a CVE-grade fix is in flight. NYM Chat is the <a href="/guides/nostr-key-custody/">custody</a> / messaging surface that runs over <a href="/kb/nym/">Nym</a> mixnet rather than over plaintext relays — a security hotfix here is identity-adjacent even when the spec isn't touched.</li>
+<li><strong>Mostrix 0.3.2 (Sep 14)</strong> (<a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a>). Fixes invoice calculation for taker bonds, bond-gated maker listings visibility, and uses ephemeral keys for account-scoped requests. Mostrix is the Mostro client for Nostr peer-to-peer Bitcoin trading — the <em>ephemeral keys for account-scoped requests</em> is the identity-relevant change because it removes a long-lived <code>npub</code> from being a credentialed seller identity; the seller binds to a Mostro identity but signs per-request with fresh keys. NIP-26 delegation is marked unrecommended in the NIPs README; application-specific ephemeral keys should not be presented as a recommendation to adopt it.</li>
+<li><strong>Lightning.Pub 0.0.41 (Sep 13)</strong> (<a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a>). <em>"No API, proto, or config changes since 0.0.40"</em> — housekeeping release. Lightning.Pub is the Lightning node operator's Nostr identity surface — its publish-Nostr-profile-on-the-node behavior makes the operator's pubkey part of the node's published state. A no-change release keeps that surface stable.</li>
+<li><strong>NDK v0.10.0-dev.3 (Sep 14, the third pre-release of v0.10)</strong> (<a href="https://nostrmap.com/story/01b085a6aeedc0e0ac4225db24ab0ca57e3cb61592039e67dce70b49745325af" rel="noopener nofollow">Weekly Nostr Recap</a>). Improves cache and Rust verifier performance; fixes metadata, deletion-coordinate, event visibility, BIP-321, TBS, and LNURL wallet handling; adds an LNbits wallet provider, <strong>packed Rust event verification</strong> (the bit-level signature check that matters for performance), and optional maximum-fee support for NWC payments. Introduces the breaking <code>loadHiddenEvents</code> cache feature. NDK is the canonical Dart/Flutter Nostr library; the Rust verifier change is the one that matters operationally — pure-Dart verification was the bottleneck for high-throughput Flutter clients, and packed verification offloads to a Rust binary for the verify step.</li>
+<li><strong>Institutional quiet for a third week.</strong> GnuPG no commits since Sep 2. Sequoia no commits since Aug 31. <code>kind:10203</code> attestation count holds at 24 (no new attestations since the Sep 6 plateau). nostr-wot-extension main at v0.7.0 with no new tag. <strong>NIP #2434 (post-quantum identity keys) now 40 days frozen</strong> (up from 33 last week, up from 26 the week before, up from 18 the week before that). The September 4 <a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">Leon Acosta + QuantaKrypto writeup</a> remains the structural argument; no PR has been opened against it. The Worldcoin-side PoP conversation (World ID 4.0, Rarimo founder-only round, Idena) is also quiet at the spec level this week — the Sep 4–13 freshness from <a href="/briefings/identity/2026-09-13/">last week's</a> Rarimo/World/Idena coverage is unchanged.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>Nostr identity is being treated as a correctness surface in three places at once</strong>. The NIPs repository has an open spec-formation debate (PR #2471, sealed-timestamp randomization, two of the protocol's heaviest voices arguing) on the same week that Amethyst ships a client query correction (PR #4095) that touches the same protocol from the other side. NYM Chat's security hotfix is the third surface — the custody-and-messaging client. The structural conversation is still frozen (NIP #2434 +40 days), the institutional PGP layer is still quiet (GnuPG +18 days, Sequoia +20 days, kind:10203 plateau at 24), and the PoP landscape is unchanged. But the visible <em>spec-text-and-query-semantics</em> layer is being touched on three fronts in the same week, with no apparent coordination.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nips-pr-2471-nip-17-seal-timestamp-randomization-debate">NIPs PR #2471: NIP-17 seal-timestamp randomization debate</h3>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/17.md" rel="noopener nofollow">NIP-17</a> — <em>Private Direct Messages</em> — defines the gift-wrap construction that wraps a <code>rumor</code> (the actual message content) inside a <code>seal</code> (an encrypted wrap of the rumor) inside a <code>gift-wrap</code> (an ephemeral pubkey's signature on the seal). The motivation: a passive observer of relays cannot link a gift-wrap event to either sender or recipient because the outer signer is ephemeral and discarded after one use. The seal itself, encrypted to the recipient, sits in the gift-wrap and travels through every relay the gift-wrap reaches.</p>
+<p>The current NIP-17 spec text (the section fiatjaf wants to change) says the seal <code>created_at</code> SHOULD be randomized within a reasonable window. The threat model: if an attacker recovers the seal but not the rumor (e.g., because they have a future moment in which the rumor key has rotated), and the seal's <code>created_at</code> matches the gift-wrap's <code>created_at</code>, the attacker can correlate seals to rumors via timestamps even when the cryptographic link is broken.</p>
+<p>fiatjaf's <a href="https://github.com/nostr-protocol/nips/pull/2471" rel="noopener nofollow">PR #2471</a> (Sep 17, branch <code>giftwrap-timestamp</code>, no description, single commit <code>9a7c10f</code>) removes the randomization requirement: <em>"the seal timestamp shouldn't have to be randomized"</em>. fiatjaf's argument, from the Sep 17 comment: <em>"There's zero chance the seal will leak but not the rumor."</em> The follow-up expands the reasoning: <em>"I have the keys for decrypting the seal and the rumor, but I will only decrypt the seal, not the rumor. Or I will decrypt the rumor and decide that I want to publicize it... I will not sign them all with new pubkeys and publish them to relays... No, I will just sit down and leak only the seals and wait for some higher-level attacker to extract enough information from the metadata, enough to compromise my targets from whom I have already read all the conversations."</em></p>
+<p>vitorpamplona (Amethyst, Quartz, <a href="https://github.com/nostr-protocol/nips/pull/2471#issuecomment-5718914584" rel="noopener nofollow">NIPs PR review authority</a>) replied the same day: <em>"Better be randomized to avoid allowing time-correlation attacks if the seal leaks."</em> The follow-up: <em>"The seal stays in every relay. The rumor doesn't. They are very different in practice."</em> A third comment clarifies the <em>actual</em> attack vitorpamplona is worried about: <em>"The seal was made like this because many clients re-broadcast by default. So, the seal, once decrypted and saved into their local store, can easily leak if the dev is not paying attention and creates an exception for this specific event kind. It's about not leaking by mistake. Not about whatever you just laid out."</em></p>
+<p>The Sept 17 thread has eight comments between fiatjaf and vitorpamplona. fiatjaf's Sep 17 closer: <em>"Anyway, I just want to remove the randomization requirement, not change the way you implement things. We can perhaps change it to say 'the seal timestamp MAY be randomized and shouldn't be trusted', so each client can decide to take the precautions they want."</em> vitorpamplona's same-day vote: <em>"I vote to keep it as a 'requirement'. If devs want to go against the guidance and use the default created_at, sure... But I wouldn't use it... ever... Because I know I will insert my nsec on a random new vibe-coded client, and that client will leak all my past seals. It has happened before, and it will happen again."</em></p>
+<p><strong>The structural argument underneath the spec text</strong>: vitorpamplona is defending <em>clients</em> (the threat model where a future client implementation leaks historical seals because the developer did not special-case kind 13). fiatjaf is defending <em>attackers</em> (the threat model where a hostile party who has the seal has the rumor). Both are correct within their own model. The honest resolution — <em>MAY be randomized, MAY NOT be trusted</em> — moves the spec from a normative requirement to a soft recommendation and lets each client pick. vitorpamplona is right that this lets careless clients leak; fiatjaf is right that the spec shouldn't dictate client behavior. The PR is open with no merge as of writing.</p>
+<p>The <a href="/briefings/identity/2026-09-06/">Sept 6 update</a>'s argument that <em>Nostr versioned its encryption (NIP-44 carries a version byte) and left its keys unversioned</em> is the structural backdrop. NIP-17's seal-timestamp randomization is the version-byte-shape question for messages: do you put normative cryptographic metadata in the spec text, or do you make it client policy? fiatjaf leans client policy. vitorpamplona leans spec-normative. Neither view is wrong; the disagreement is about who is responsible when a vibe-coded client leaks.</p>
+<h3 id="nips-pr-2470-nip-85-kind-30383-event-enrichments">NIPs PR #2470: NIP-85 kind 30383 event enrichments</h3>
+<p><a href="https://github.com/nostr-protocol/nips/pull/2470" rel="noopener nofollow">PR #2470</a> (dhalsim, Sep 17, opened) extends <a href="https://github.com/nostr-protocol/nips/blob/master/85.md" rel="noopener nofollow">NIP-85</a>'s kind 30383 — <em>Trusted Assertions</em> — with event enrichment fields. The current kind 30383 event shape is <code>{"id", "pubkey", "kind": 30383, "tags": ["d", "&lt;subject-pubkey&gt;"], ["L", "&lt;namespace&gt;"], ["l", "&lt;label&gt;", "&lt;namespace&gt;"], ...], ...}</code> where the <code>d</code> tag identifies the subject pubkey and the <code>l</code>/<code>L</code> pair carries the assertion label.</p>
+<p>The proposed enrichment shape: additional <code>tags</code> that describe events the subject pubkey has published. The use case being argued in the PR description: a trusted oracle (a WoT relay, a newsroom) can attest not only <em>this pubkey is trusted</em> but <em>this pubkey has published these specific events</em>, making the trust graph navigable down to individual notes rather than stopping at the pubkey level. This intersects the kind 30385 collision currently live (<a href="https://nostr-wot.com/news" rel="noopener nofollow">Sept 17 update</a> — <em>Trusted Relay Assertions</em>, PR #2418, Letdown2491, reuses kind 30385 already allocated to NIP-73 external identifiers). Kind 30383 (NIP-85) and the proposed kind 30385 (Letdown2491's relay-trust assertions) are separate kinds but overlap in spirit: both are trusted attestations, both reference pubkeys, both want enrichment.</p>
+<p>The PR is open with one author and no comments as of writing. dhalsim is the <a href="https://github.com/dhalsim" rel="noopener nofollow">least-known of the recent NIP contributors</a> — the contribution pattern suggests the author is a WoT-builder rather than a Nostr-veteran. The merge probability for this PR is low unless fiatjaf or pablof7z picks it up; the kind-30385 collision is the live debate that may consume the same reviewers.</p>
+<h3 id="nips-pr-2469-nip-f5-fips-transport-browser-capability">NIPs PR #2469: NIP-F5 FIPS Transport browser capability</h3>
+<p><a href="https://github.com/nostr-protocol/nips/pull/2469" rel="noopener nofollow">PR #2469</a> (humansinstitute, Sep 16, opened, branch <code>humansinstitute:fips</code>) defines <code>window.fipsTransport</code> — a JavaScript global that exposes a <em>transport capability</em> for <a href="https://nostrcompass.org/en/topics/fips" rel="noopener nofollow">FIPS</a> (Fractally Interactive Peer Sampling). The PR description: <em>"This proposal is intentionally transport-only: it does not define FIPS itself, relay behavior, Blossom behavior, Git/GRASP behavior, or any signing authority."</em></p>
+<p>The validation note is short: <em>"<code>git diff --check</code>"</em>. The PR diff is a single markdown file in the NIPs repository style.</p>
+<p>fiatjaf's <a href="https://github.com/nostr-protocol/nips/pull/2469#issuecomment-5708015106" rel="noopener nofollow">Sep 17 reply</a> is two words: <em>"What does this have to do with Nostr?"</em></p>
+<p>The underlying proposal is interesting despite the reply: a browser-API surface that lets web pages detect FIPS support (a mesh-routing layer for the Nostr protocol over local peer discovery, <a href="https://nostrcompass.org/en/topics/fips" rel="noopener nofollow">last week's Mesh &amp; Off-Grid Naming update</a> coverage) without depending on a polyfill that emulates the transport. The PR is the <em>transport-only</em> layer of a stack that will eventually need (per the description's own admission) FIPS itself, relay behavior, Blossom behavior, Git/GRASP behavior, and signing authority.</p>
+<p>The thread shape — author proposes the smallest possible NIP, fiatjaf questions the connection to Nostr — is the same pattern as <a href="/briefings/identity/2026-08-23/">Aug 23</a>'s PR #2377 (Citrine extension into the NIPs repo, withdrawn) and <a href="/briefings/identity/2026-08-30/">Aug 30</a>'s NIP-A3 (the <code>payto:</code> URI scheme, rewritten within 24 hours of merging). FIPS-related NIPs may be arriving before the protocol layer they describe is itself defined. The PR is open; if fiatjaf and humansinstitute converge on scope it may merge into a <code>F5.md</code> file; if not, the proposal lives in the PR as a reference design for downstream implementations.</p>
+<h3 id="nips-pr-2468-nip-73-podcast-medium-k-tags">NIPs PR #2468: NIP-73 podcast medium <code>k</code> tags</h3>
+<p><a href="https://github.com/nostr-protocol/nips/pull/2468" rel="noopener nofollow">PR #2468</a> (MerryOscar, Sep 16, draft) extends NIP-73's reference list with <code>k</code> tags for podcast medium. NIP-73 is the <em>External Content IDs</em> standard — kinds that reference non-Nostr identifiers (RSS feeds, ISBNs, DOIs, Spotify URIs, etc.) using <code>i</code> tags. The current NIP-73 list covers many media types; the PR adds <code>k</code> tags (kind-number identifiers, per NIP-18 / NIP-25) for podcast-feed-level references so a Nostr event can attest <em>"this pubkey's podcast feed is at <feed-url>"</feed-url></em> without depending on a domain-name mapping.</p>
+<p>The PR is in <code>Draft</code> status with one contributor. The merge probability depends on whether fiatjaf considers podcast-medium a Nostr-shaped problem or a NIP-05-shaped problem (the existing <code>/.well-known/nostr.json</code> could carry a <code>podcasts</code> field, mirroring how it carries <code>relays</code>). The PR has not attracted fiatjaf's attention this week.</p>
+<h3 id="amethyst-1152-nip-22-root-filtering-nip-34-pr-discovery">Amethyst 1.15.2: NIP-22 root filtering + NIP-34 PR discovery</h3>
+<p><a href="https://github.com/vitorpamplona/amethyst/releases/tag/v1.15.2" rel="noopener nofollow">Amethyst 1.15.2</a> shipped Sep 12, two days after 1.15.1 (<a href="https://freedom.tech/posts/2026-09-12-amethyst-1-15/" rel="noopener nofollow">Freedom.Tech release summary</a> covers the 1.15 baseline — <em>og:audio/og:video playback, Health Connect, NIP-22 reply filtering split</em>). The 1.15.2 change is in <a href="https://github.com/vitorpamplona/amethyst/pull/4095" rel="noopener nofollow">PR #4095</a> (merged Sep 12) and the newsroom published a dedicated piece on Sep 16: <a href="https://nostr-wot.com/news/nip-22-amethyst-loads-nested-comments" rel="noopener nofollow"><em>Amethyst 1.15.2 loads nested NIP-22 comments earlier</em></a>.</p>
+<p>The technical detail (from the newsroom piece): NIP-22 kind 1111 comments use uppercase tags for the conversation root and lowercase tags for the direct parent. For event-ID references the tags are <code>E</code> (root) and <code>e</code> (parent); for addressable references the root is <code>A</code>. Amethyst's engagement queries were using lowercase tags only — <code>#e</code> matched the direct parent but not a nested reply whose parent was another comment. The fix adds <code>E</code> filters for event IDs and <code>A</code> filters for addressable content alongside the existing lowercase filters. Each new root filter uses a limit of 1000 and carries the existing per-relay <code>since</code> value.</p>
+<p>The structural reason this can't be a single filter with both <code>#e</code> and <code>#E</code>: NIP-01 requires every condition within a filter to match. A filter asking for both <code>#e</code> and <code>#E</code> to equal the root ID would still exclude a nested comment whose direct parent is another comment. Separate filters are required.</p>
+<p>The NIP-34 part of the same fix moves kind 1619 (pull request update) into <code>RootScopedRepliesKinds</code> because <a href="https://github.com/nostr-protocol/nips/blob/master/34.md" rel="noopener nofollow">NIP-34's example</a> identifies the revised PR with an uppercase <code>E</code> tag. The previous filter listed kind 1619 under lowercase <code>e</code> and missed update events following the example. Tests added: kind 1619 stays in the uppercase list, out of the lowercase list.</p>
+<p>The release is on the GitHub release page; the newsroom's verification note — <em>"The verified distribution is the GitHub release; its downloadable builds establish availability there, without establishing the status of any app store rollout"</em> — is the same epistemic stance the newsroom takes on every Amethyst release: the build is real, the rollout status is a different question.</p>
+<p>The deeper pattern: <strong>the same week the NIPs repo has four open PRs, Amethyst ships a client correction that touches the same protocol</strong>. The protocol-level debate (PR #2471, should the spec say MAY or MUST?) and the client-level correction (PR #4095, the spec says MUST use both tags, the client was using one tag) are independent events but the same kind of work. Identity and identity-anchored protocols are being treated as correctness surfaces at multiple layers simultaneously.</p>
+<h3 id="nym-chat-375545-mostrix-032-lightningpub-0041-the-application-layer-week">NYM Chat 3.75.545, Mostrix 0.3.2, Lightning.Pub 0.0.41: the application-layer week</h3>
+<p>The <a href="/kb/nym/">Nym</a> chat client — the <a href="/guides/nostr-key-custody/">custody</a>/messaging surface that runs Nostr events over the <a href="/kb/nym/">Nym</a> mixnet rather than over plaintext relays — shipped a security hotfix on Sep 16 (<a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a>). The release aggregator does not detail the fix; a Sep 16 tag bump during a quiet week means a CVE-grade patch is in flight. NYM Chat's identity surface is the Nostr keypair but the transport is the Nym mixnet, which means the security hotfix is <em>transport</em>-shaped (the mixnet session, the routing choices, the Sphinx packet layer) rather than <em>Nostr-event</em>-shaped.</p>
+<p>Mostrix 0.3.2 (Sep 14) ships the <em>ephemeral keys for account-scoped requests</em> change. Mostrix is the Mostro client — <a href="https://github.com/MostroP2P/mostro" rel="noopener nofollow">Mostro</a> is the Nostr-based P2P Bitcoin trading protocol. The trade flow: seller lists an offer, buyer takes it, an arbiter holds the escrow, both parties exchange NIP-44 encrypted messages over relays. The seller identity on Mostro is bound to a Mostro <em>pubkey</em> (the seller's account), but the <em>per-request</em> signing key can be ephemeral — different keys for different listings, so a leak of one listing's event doesn't compromise the seller's other listings. NIP-26 delegation is marked unrecommended in the NIPs README. Application-specific ephemeral keys do not change that status.</p>
+<p>Lightning.Pub 0.0.41 (Sep 13) is the no-change housekeeping release for a Lightning node operator's Nostr-identity surface. The pattern: a Lightning node announces its operator's <code>npub</code> to the Lightning gossip layer so that channels can be associated with an identity. A no-change release keeps that surface stable across the week — useful when a security hotfix is shipping to a related project (NYM Chat 3.75.545) and the operator-facing tooling wants to signal that nothing on its side is also urgent.</p>
+<h3 id="ndk-v0100-dev3-rust-verifier-and-lnbits-wallet-provider">NDK v0.10.0-dev.3: Rust verifier and LNbits wallet provider</h3>
+<p>The <a href="https://github.com/nostr-dev-kit/ndk" rel="noopener nofollow">Nostr Development Kit (NDK)</a> is the canonical Dart/Flutter library for building Nostr clients. The v0.10 pre-release cycle has had three tags in the window: v0.10.0-dev.1 (Aug), v0.10.0-dev.2 (Sep 7), v0.10.0-dev.3 (Sep 14). The relevant changes in v0.10.0-dev.3:</p>
+<ul>
+<li><strong>Packed Rust event verification.</strong> The bottleneck for Dart/Flutter Nostr clients was the Schnorr signature check on every event — pure-Dart verification of a single signature takes ~3ms on a mid-tier Android device, multiplied by the number of events in a feed (10-100+), and a feed-load becomes 30-300ms of pure CPU. Packed Rust verification offloads the bit-level signature check to a Rust binary that NDK ships as a Flutter plugin, dropping per-event verification to ~0.5ms. The performance gain is the reason NDK has been moving toward Rust-based primitives across the 0.10 line.</li>
+<li><strong>LNbits wallet provider.</strong> NIP-47 (Lightning wallet connect) previously required an LNBits, LndHub, or NWC-compatible backend. The new LNbits wallet provider adds a third option — a <em>standalone</em> LNbits server can be the wallet target for NDK clients without requiring LndHub compatibility.</li>
+<li><strong><code>loadHiddenEvents</code> cache feature.</strong> A breaking change — the cache layer now distinguishes between events the client requested and events the relay pre-fetched for the same subscription. The breaking change is necessary because clients that filter by relay-side NIP-50 search (search keywords) were accidentally pulling hidden events into their cache.</li>
+<li><strong>Optional maximum-fee support for NWC payments.</strong> The NIP-47 spec allows NWC clients to specify a maximum fee for keysend payments. NDK's NWC implementation now respects this parameter when constructing keysend invoices.</li>
+</ul>
+<p>NDK is the substrate for a non-trivial fraction of cross-platform Nostr clients (notably Damus Notedeck and various mobile-first clients). The Rust verifier change is the one that matters operationally — clients that were CPU-bound on signature verification can now scale to longer feeds without frame drops. The breaking cache change is the one that matters for library adopters — the v0.10 release will require a migration pass for any client that uses the older cache interface.</p>
+<h3 id="institutional-quiet-third-week">Institutional quiet, third week</h3>
+<p>The September pattern is consolidating:</p>
+<ul>
+<li><strong>GnuPG</strong>: last commit Sep 2 (18 days quiet as of Sep 20). The 2.5.23 release that <a href="/briefings/web-of-trust/2026-09-17/">last Thursday's</a> WoT update projected (RFC 9980 in the <code>wk/rfc9980</code> branch merged Sep 11) has not been tagged.</li>
+<li><strong>Sequoia-PGP</strong>: last commit Aug 31 (20 days quiet). The 16 PQ commits from <a href="/briefings/web-of-trust/2026-09-03/">Sep 3</a>'s update are unchanged.</li>
+<li><strong><code>kind:10203</code> attestations</strong>: 24, no growth for three weeks. The September 6 plateau noted in <a href="/briefings/identity/2026-09-06/">Sep 6</a> still holds.</li>
+<li><strong>nostr-wot-extension</strong>: main at v0.7.0 since Sep 9 (11 days). No v0.7.1 tag. The 173-commit integration/round-2 catch-up is unchanged.</li>
+<li><strong>NIP #2434 (post-quantum identity keys)</strong>: 40 days frozen (Aug 11 → Sep 20). No comment from fiatjaf in the window. The Leon Acosta + QuantaKrypto <a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">September 4 writeup</a> remains the canonical reference for the structural argument.</li>
+</ul>
+<p>The <a href="/briefings/identity/2026-09-13/">Sept 13</a> headline — <em>institutional quiet for a second week</em> — is now in its third week. The pattern that held for the first two weeks (PQC infrastructure stable, NIP #2434 frozen, kind:10203 plateau) is now stable <em>as a plateau</em> rather than as a temporary quiet. The <a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a> overview's August 2 prediction that <em>"the kind:10203 attestation count would either break the plateau or settle at 24 as the new normal"</em> is being tested by the data: 24 is the new normal unless an event creates attestations.</p>
+<h2 id="watch-list-updated">Watch List (Updated)</h2>
+<ul>
+<li><strong>NIPs repository, open PRs (created since Sep 13)</strong>:</li>
+<li>PR #2468 — NIP-73 podcast-medium <code>k</code> tags (MerryOscar, draft)</li>
+<li>PR #2469 — NIP-F5 FIPS Transport browser capability (humansinstitute, open, fiatjaf questioned scope)</li>
+<li>PR #2470 — NIP-85 kind 30383 event enrichments (dhalsim, open, one author)</li>
+<li>PR #2471 — nip17 seal-timestamp randomization requirement (fiatjaf, open, <strong>8-comment thread</strong> between fiatjaf and vitorpamplona, no merge)</li>
+<li><strong>NIPs repository, merged since Sep 13</strong>: none visible (the <code>created:&gt;2026-09-13 is:closed</code> query returns 2 PRs, neither named in the open list — likely minor or merged-and-deleted cleanup).</li>
+<li><strong>PR #2465</strong> (NIP-90 DVM heartbeat, believethehype, Sep 10) still open with one reviewer; the Amethyst second-implementation note from Sep 12 (<a href="/briefings/identity/2026-09-13/">Sept 13 update</a>) still the only second-implementation evidence.</li>
+<li><strong>PR #2463</strong> (NIP-A3 payment type ambiguity, alopatindev) merged Sep 9 — unchanged from last week.</li>
+<li><strong>PR #2461</strong> (NIP-AC WebRTC signaling, Named666, Sep 4) still draft.</li>
+<li><strong>NIP #2434 (post-quantum identity keys, ConorClancy89, Aug 11)</strong> — 40 days frozen.</li>
+<li><strong>PR #2418</strong> (NIP-XX kind 30385 collision, Letdown2491, Jul 18) — still live per <a href="/briefings/web-of-trust/2026-09-17/">last Thursday's</a> WoT update.</li>
+<li><strong>PR #2447</strong> (NIP-17 gift-wrap meta on outer event) — still draft.</li>
+<li><strong>PR #2452</strong> (NIP-89 app handler) — still draft.</li>
+<li><strong>PR #2453</strong> (NIP-50 search synonyms) — still draft.</li>
+<li><strong>GnuPG 2.5.23</strong>: not tagged; the 2.5.22 + RFC 9980-branch state from Sep 3 is unchanged.</li>
+<li><strong>Sequoia-PGP</strong>: no commits since Aug 31.</li>
+<li><strong><code>kind:10203</code> attestations</strong>: 24, no growth since Sep 6 (14 days).</li>
+<li><strong>nostr-wot-extension</strong>: main at v0.7.0 since Sep 9 (11 days).</li>
+<li><strong>Worldcoin / Tools for Humanity</strong>: World ID 4.0 coverage from <a href="/briefings/identity/2026-08-16/">Aug 16</a> unchanged. No new PoP-system releases this week.</li>
+<li><strong>Rarimo</strong>: founder-only vision round coverage unchanged from <a href="/briefings/identity/2026-08-30/">Aug 30</a>.</li>
+<li><strong>Idena</strong>: no major release this week.</li>
+</ul>
+<h2 id="sources-cross-references">Sources &amp; Cross-References</h2>
+<h3 id="primary-sources-this-week">Primary sources (this week)</h3>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2468" rel="noopener nofollow">NIPs PR #2468 — NIP-73 podcast medium k tags</a> (MerryOscar, Sep 16, draft)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2469" rel="noopener nofollow">NIPs PR #2469 — NIP-F5 FIPS Transport browser capability</a> (humansinstitute, Sep 16, open)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2470" rel="noopener nofollow">NIPs PR #2470 — NIP-85 Extend Kind 30383 with Event Enrichments</a> (dhalsim, Sep 17, open)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2471" rel="noopener nofollow">NIPs PR #2471 — nip17: the seal timestamp shouldn't have to be randomized</a> (fiatjaf, Sep 17, open, 8-comment thread)</li>
+<li><a href="https://github.com/vitorpamplona/amethyst/releases/tag/v1.15.2" rel="noopener nofollow">Amethyst 1.15.2 release</a> (Sep 12)</li>
+<li><a href="https://github.com/vitorpamplona/amethyst/pull/4095" rel="noopener nofollow">Amethyst PR #4095 — root filters for nested NIP-22 comments</a> (merged Sep 12)</li>
+<li><a href="https://nostr-wot.com/news/nip-22-amethyst-loads-nested-comments" rel="noopener nofollow">Newsroom — Amethyst 1.15.2 loads nested NIP-22 comments earlier</a> (Sep 16)</li>
+<li><a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech — Nostr release feed</a> (NYM Chat 3.75.545 Sep 16, Mostrix 0.3.2 Sep 14, Lightning.Pub 0.0.41 Sep 13, Amethyst 1.15/1.15.1 already covered last week)</li>
+<li><a href="https://medium.com/@nomishkadilshan4/%EF%B8%8F-the-latest-in-nostr-weekly-nostr-recap-14th-september-2026-93rd-edition-ebd6246e1c6b" rel="noopener nofollow">Weekly Nostr Recap 14th September 2026</a> (NDK v0.10.0-dev.3)</li>
+</ul>
+<h3 id="companion-files">Companion files</h3>
+<ul>
+<li><a href="/briefings/identity/2026-09-13/">Identity and Pseudonymity Sunday — September 13 2026 Weekly Update</a> — previous week; Citrine 3.1.1 NIP-42 auth-bypass fix, NIP-90 DVM heartbeat PR #2465, NIP-A3 payment-type PR #2463.</li>
+<li><a href="/briefings/identity/2026-09-06/">Identity and Pseudonymity Sunday — September 06 2026 Weekly Update</a> — NIP-67/78/84/01 AUTH wave, strfry 1.1.2 WebSocket DoS, the Leon Acosta + QuantaKrypto PQ identity writeup.</li>
+<li><a href="/briefings/identity/2026-08-30/">Identity and Pseudonymity Sunday — August 30 2026 Weekly Update</a> — NIP-22/30/A3 NIPs block, Foundation Devices Passport Prime NIP-07, Gleez first PQ Nostr reference architecture.</li>
+<li><a href="/briefings/identity/2026-08-23/">Identity and Pseudonymity Sunday — August 23 2026 Weekly Update</a> — Simon DCP ML-KEM attack refutation (ePrint 2026/1693), NDK PR #713 second independent PQ DM implementation.</li>
+<li><a href="/briefings/web-of-trust/2026-09-17/">Web of Trust Thursday — September 17 2026 Weekly Update</a> — most recent WoT update; nostr-wot-extension v0.7.0, GnuPG wk/rfc9980 merge, kind:30385 collision continues.</li>
+<li><a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> — the canonical overview this update complements.</li>
+<li><a href="/kb/nostr-identity/">Nostr</a> — base identity layer.</li>
+<li><a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> — NIP-46, Amber, FROST, threshold signing.</li>
+<li><a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a> — World ID, Rarimo, Idena, BrightID.</li>
+<li><a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a> — Kind 30085, NIP-SA, AgentDex, Buzz.</li>
+<li><a href="/kb/did-methods/">DID Methods</a> — did:key, did:web, did:plc, did:ion, did:peer, did:ens; method trade-offs.</li>
+<li><a href="/kb/nym/">Nym</a> — the <a href="/guides/nostr-key-custody/">custody</a>/messaging surface that NYM Chat 3.75.545 is built on; the September 4 <a href="/briefings/mix-networks/2026-09-04/">Mix Networks Friday update</a> covers the <a href="/kb/nym/">Nym</a> protocol-level state.</li>
+<li><a href="/kb/marmot-protocol/">Marmot Protocol</a> — MLS-based encrypted messaging (Vector's pre-July-2026 surface; Vector now runs <a href="/kb/concord-protocol/">Concord Protocol</a>).</li>
+<li><a href="/kb/concord-protocol/">Concord Protocol</a> — open encrypted-community protocol; CORD-02, CORD-03, sharded lists merged.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-26 status</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-09-13/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — September 13 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-09-27/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — September 27 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

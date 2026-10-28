@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bitcoin and the Post-Quantum Migration — ungovernable.tech</title>
+<meta name="description" content="Why a large quantum computer would break Bitcoin&#39;s signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys.">
+<link rel="canonical" href="https://ungovernable.tech/kb/bitcoin-post-quantum-migration/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Bitcoin and the Post-Quantum Migration — ungovernable.tech">
+<meta property="og:description" content="Why a large quantum computer would break Bitcoin&#39;s signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys.">
+<meta property="og:url" content="https://ungovernable.tech/kb/bitcoin-post-quantum-migration/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bitcoin and the Post-Quantum Migration — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bitcoin and the Post-Quantum Migration — ungovernable.tech">
+<meta name="twitter:description" content="Why a large quantum computer would break Bitcoin&#39;s signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Bitcoin and the Post-Quantum Migration", "description": "Why a large quantum computer would break Bitcoin's signatures, which coins are most exposed, and the proposals for migrating to post-quantum keys.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/bitcoin-post-quantum-migration/", "mainEntityOfPage": "https://ungovernable.tech/kb/bitcoin-post-quantum-migration/", "image": "https://ungovernable.tech/assets/og/pillar-pqc.png", "about": [{"@type": "Thing", "name": "Post-Quantum Cryptography"}, {"@type": "Thing", "name": "Financial Sovereignty"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Post-Quantum Cryptography", "item": "https://ungovernable.tech/pillars/pqc/"}, {"@type": "ListItem", "position": 3, "name": "Bitcoin and the Post-Quantum Migration", "item": "https://ungovernable.tech/kb/bitcoin-post-quantum-migration/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/pqc/">Post-Quantum Cryptography</a><span aria-hidden="true">/</span><span class="here">Bitcoin and the Post-Quantum Migration</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ POST-QUANTUM CRYPTOGRAPHY ]</span><span class="ktag">[ FINANCIAL SOVEREIGNTY ]</span></p>
+  <h1>Bitcoin and the Post-Quantum Migration</h1>
+  <p class="aka">Also Bitcoin Quantum Migration, BIP-360.</p>
+  <p class="dek">Bitcoin&#39;s signatures are quantum-vulnerable. Shor&#39;s algorithm against secp256k1 collapses ECDSA and Schnorr in polynomial time on a sufficiently large quantum computer. This file looks at the actual proposals, address-type exposure, and the soft-fork-vs-hard-fork debate, with honest status as of early 2026.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>10</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-threat">The threat</a><a href="#address-type-exposure">Address-type exposure</a><a href="#the-proposals">The proposals</a><a href="#soft-fork-vs-hard-fork">Soft fork vs hard fork</a><a href="#block-space-economics">Block-space economics</a><a href="#cryptographer-positions">Cryptographer positions</a><a href="#honest-status-early-2026">Honest status (early 2026)</a><a href="#migration-recipe-for-a-holder">Migration recipe (for a holder)</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#comparison-with-other-chains">Comparison with other chains</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-threat">The threat</h2>
+<p>Bitcoin uses <strong>secp256k1</strong> for both ECDSA (legacy) and Schnorr (Taproot, BIP-340). A cryptographically relevant quantum computer (CRQC) running Shor's algorithm would:</p>
+<ol>
+<li>Recover the private key from the public key in polynomial time.</li>
+<li>Spend any UTXO whose <strong>public key is known</strong> to the network.</li>
+<li>Forge any future transaction, given enough quantum compute.</li>
+</ol>
+<p>The economic impact would land instantly: the moment a CRQC is publicly known to exist, anyone with exposed pubkeys faces immediate theft.</p>
+<p>The standard PQ migration playbook (used by TLS) doesn't apply directly. Bitcoin can't deprecate algorithms by serving a different cipher in a handshake; the chain has decade-old UTXOs locked to specific signature types, and any change requires consensus.</p>
+<h2 id="address-type-exposure">Address-type exposure</h2>
+<p>Different Bitcoin address types expose pubkeys differently. <strong>The pubkey is what a quantum computer needs.</strong> P2PKH and P2WPKH outputs contain a public-key hash. P2TR outputs instead publish the tweaked public key when the output is created, before any spend.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Address type</th>
+<th>Pubkey on chain</th>
+<th>Exposure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P2PK</strong> (pay-to-pubkey)</td>
+<td>Always</td>
+<td>Extreme. Pubkey is in the locking script.</td>
+</tr>
+<tr>
+<td><strong>P2PKH</strong> (pay-to-pubkey-hash)</td>
+<td>After first spend</td>
+<td>Address is <code>HASH160(pubkey)</code>. Pubkey only revealed when spending. Reused addresses with prior spends are exposed.</td>
+</tr>
+<tr>
+<td><strong>P2SH-wrapped</strong></td>
+<td>Depends on script</td>
+<td>Varies. A common P2SH-P2WPKH still hides pubkey until spend.</td>
+</tr>
+<tr>
+<td><strong>P2WPKH</strong> (native SegWit)</td>
+<td>After first spend</td>
+<td>Like P2PKH. Hash-only locking; pubkey in witness on spend.</td>
+</tr>
+<tr>
+<td><strong>P2TR</strong> (Taproot)</td>
+<td>At output creation</td>
+<td>The output contains the 32-byte tweaked public key Q. Key-path spending verifies a Schnorr signature against Q; Q is a curve point, not a public-key hash.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="the-harvest-problem">The "harvest" problem</h3>
+<p>For Bitcoin, "harvest now, decrypt later" plays out differently than TLS. Once a pubkey is on chain (because the user spent from that address), the protection is <strong>single-use</strong> — anyone watching mempool and chain has it forever. Even if the user moves coins to a fresh address afterwards, the original pubkey-to-amount linkage is permanent in the historical chain.</p>
+<p>UTXO categorization for the migration discussion:</p>
+<ul>
+<li><strong>Already exposed</strong>: P2PK, all reused addresses with prior spends, all addresses with leaked pubkeys (e.g., signed messages, PSBTs shared publicly).</li>
+<li><strong>Hash-protected for now</strong>: hash-only addresses (P2PKH, P2WPKH) that have never been spent from.</li>
+<li><strong>Cold-storage-only</strong>: hash-protected and never reused. The most defensible position pre-migration.</li>
+</ul>
+<p>Unspent Taproot outputs belong in the exposed-public-key category. Never spending from a Taproot address does not hide its output key.</p>
+<h2 id="the-proposals">The proposals</h2>
+<h3 id="bip-360-pay-to-merkle-root-p2mr">BIP-360 — Pay-to-Merkle-Root (P2MR)</h3>
+<p><strong>Hunter Beast, Ethan Heilman, and Isabel Foxen Duke</strong>, <em>BIP-360: Pay-to-Merkle-Root</em>, draft on <a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki" rel="noopener nofollow">BIP 360: Pay-to-Merkle-Root</a> (assigned December 18, 2024; version 0.12.1 checked October 2026).</p>
+<p>BIP-360 is narrower than the older "Pay-to-Quantum-Resistant-Hash" framing. The current draft introduces a new output type that keeps Taproot-style script trees but removes the key-path spend:</p>
+<pre><code>P2MR script: OP_2 OP_PUSHBYTES_32 &lt;32-byte Merkle root&gt;
+</code></pre>
+<p>That matters because Taproot outputs expose a long-lived x-only public key in the output itself. P2MR commits only to a script tree root. It protects against <strong>long-exposure attacks</strong> on public keys already visible on-chain, while preserving tapscript programmability.</p>
+<p>Important limitation: P2MR <strong>does not add post-quantum signatures</strong>. Spending still uses scripts available to Bitcoin consensus. The draft explicitly treats protection against <strong>short-exposure attacks</strong> — where a CRQC attacks a public key revealed in the mempool before confirmation — as a separate proposal track that likely requires post-quantum signature support.</p>
+<h3 id="pq-signature-migration-path">PQ signature migration path</h3>
+<p>The likely signature candidates remain:</p>
+<ul>
+<li><strong>SLH-DSA</strong> (FIPS 205) — conservative, very large signatures.</li>
+<li><strong>ML-DSA</strong> (FIPS 204) — general-purpose, large but practical in many protocols.</li>
+<li><strong>FN-DSA / Falcon</strong> (FIPS 206 under development) — small signatures, attractive for block-space economics, harder to implement safely.</li>
+</ul>
+<p>As of April 2026, no Bitcoin consensus proposal has selected one of these schemes for activation.</p>
+<h3 id="hybrid-signatures-inside-witness-data">Hybrid signatures inside witness data</h3>
+<p>A second proposal direction: keep classical Schnorr as the primary signature and add a PQ signature in witness data. The script would require both to be valid.</p>
+<p>Pros: smooth migration, backward-compatible with existing infrastructure.
+Cons: adds the selected post-quantum signature's size to the classical signature; does not retroactively protect existing outputs.</p>
+<h3 id="lamport-hash-based-signatures-via-script">Lamport / hash-based signatures via script</h3>
+<p>Some early proposals (Hülsing 2020, Anonymous Bitcoin BIP discussions) explored encoding hash-based one-time signatures inside existing OP_CHECKSIG semantics. These are mostly research proposals; they don't fit cleanly into Bitcoin script and have been overtaken by BIP-360.</p>
+<h3 id="commit-reveal-migration">Commit-reveal migration</h3>
+<p>A migration scheme where users commit to a PQ-pubkey-hash early, then later reveal the PQ pubkey in a spend. This protects against the window between "CRQC arrives" and "user actually moves their coins" — assuming the user committed before the CRQC arrived.</p>
+<p>This is the "early reservation" pattern: even before a PQ-signature output is consensus-active, users could publish PQ-pubkey commitments via OP_RETURN or signed messages, so that when migration becomes possible, they have prior evidence of ownership. This is not a deployed standard.</p>
+<h2 id="soft-fork-vs-hard-fork">Soft fork vs hard fork</h2>
+<h3 id="soft-fork-bip-360-p2mr-path">Soft fork (BIP-360 / P2MR path)</h3>
+<p>P2MR is a new SegWit version. Old nodes see it as "anyone can spend" and don't enforce the new rules. New nodes enforce the P2MR script-tree validation. As long as the majority of mining hash power upgrades, the soft fork holds.</p>
+<p>Pros:
+- No coordinated chain split.
+- Backward-compatible with old nodes (they relay but don't validate).
+- Same upgrade pattern as Taproot.</p>
+<p>Cons:
+- Old nodes don't actually verify the new rules.
+- Doesn't solve short-exposure attacks during spending.
+- Doesn't protect already-exposed UTXOs (P2PK, reused) unless owners migrate before a CRQC can exploit them.
+- Anyone can in principle race a soft-forked transaction with a non-conforming spend (though current relay rules block this).</p>
+<h3 id="deprecating-vulnerable-signatures">Deprecating vulnerable signatures</h3>
+<p>BIP-361 proposes a staged sunset of legacy signatures after a post-quantum output type is available. It describes the migration as a series of soft forks. Restricting previously valid spends does not inherently require a hard fork.</p>
+<p>Pros:
+- Forces migration of vulnerable UTXOs.
+- Simplifies long-term consensus rules.
+- Cuts off the "exposed pubkey" attack surface.</p>
+<p>Cons:
+- Effectively burns un-migrated coins (hardline view: "if you don't migrate, you lose").
+- Politically toxic. Touching dormant Satoshi-era P2PK coins is the third rail of Bitcoin governance.
+- Requires near-universal coordination.</p>
+<h3 id="hybrid-path">Hybrid path</h3>
+<p>Most proposals split the difference:</p>
+<ol>
+<li>Soft-fork low-risk quantum-hardening steps such as P2MR so users can reduce long-exposure risk.</li>
+<li>Add a separate PQ-signature output once the scheme and block-space economics are agreed.</li>
+<li>Run for years with both signature systems active.</li>
+<li>Consider a separately agreed sunset of legacy signatures; BIP-361 describes a soft-fork approach.</li>
+</ol>
+<h2 id="block-space-economics">Block-space economics</h2>
+<p>PQ signatures are <strong>bigger than current signatures</strong>, and Bitcoin's block weight budget is fixed. A typical P2WPKH spend signature is ~71 bytes. PQ replacements:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Signature</th>
+<th>Public key</th>
+<th>Total witness ~</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Schnorr</td>
+<td>64 B</td>
+<td>32 B</td>
+<td>~96 B</td>
+</tr>
+<tr>
+<td><strong>FN-DSA-512 (Falcon)</strong></td>
+<td><strong>~666 B</strong></td>
+<td><strong>897 B</strong></td>
+<td><strong>~1.5 KB</strong></td>
+</tr>
+<tr>
+<td><strong>ML-DSA-44</strong></td>
+<td><strong>2,420 B</strong></td>
+<td><strong>1,312 B</strong></td>
+<td><strong>~3.7 KB</strong></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA-SHA2-128s</strong></td>
+<td><strong>7,856 B</strong></td>
+<td><strong>32 B</strong></td>
+<td><strong>~7.9 KB</strong></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA-SHA2-128f</strong></td>
+<td><strong>17,088 B</strong></td>
+<td><strong>32 B</strong></td>
+<td><strong>~17 KB</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>A block today can hold ~3,000-4,000 typical transactions. With ML-DSA-44 signatures, that drops to ~250-400 transactions per block. With Falcon, perhaps ~600-1,000.</p>
+<p>This is why <strong>Falcon is attractive</strong> for Bitcoin despite its implementation difficulty: the block-space cost is bearable.</p>
+<p>The economic implications:</p>
+<ul>
+<li>Fees rise. Less throughput per block means higher per-transaction fee.</li>
+<li>Lightning becomes more important. Most user activity moves to L2.</li>
+<li>Single-sig PQ outputs may become rare cold-storage operations; multisig and L2 channels carry routine activity.</li>
+<li>Compact-signature schemes (Falcon, future signature aggregation) get prioritized.</li>
+</ul>
+<h2 id="cryptographer-positions">Cryptographer positions</h2>
+<p>Public statements from Bitcoin core developers and cryptographers (paraphrased; sources cited below):</p>
+<ul>
+<li><strong>Pieter Wuille</strong> has noted (Bitcoin StackExchange, X posts 2024-2025) that PQ migration is technically tractable but politically and economically delicate. Conservative on hard fork; supportive of opt-in migration paths.</li>
+<li><strong>Adam Back</strong> has written that the threat is real but not immediate, and that planning should start now without urgency. Has discussed hash-based signatures (LMS / SLH-DSA) as the conservative anchor and Falcon as the practical target.</li>
+<li><strong>Tim Ruffing</strong> has co-authored work on Schnorr signatures and has commented on PQ Schnorr-replacement schemes (e.g., MuSig-PQ). Active in IETF PQ TLS work.</li>
+<li><strong>Hunter Beast</strong> is the active driver of BIP-360.</li>
+<li><strong>Jameson Lopp</strong> has written on quantum threat timelines (<code>blog.lopp.net</code>) — broadly: real threat, multi-year migration window, plan now.</li>
+</ul>
+<p>There is <strong>no consensus</strong> on:
+- Which PQ signature(s) to support (Falcon vs ML-DSA vs SLH-DSA vs all three).
+- Soft fork timing.
+- Hard-fork deprecation date.
+- Treatment of Satoshi-era coins.</p>
+<h2 id="honest-status-early-2026">Honest status (early 2026)</h2>
+<ul>
+<li><strong>BIP-360</strong>: still a draft. Number assigned, current text is P2MR rather than a PQ-signature output. No reference implementation merged into Bitcoin Core.</li>
+<li><strong>No consensus on activation timeline</strong>. Discussion in the bitcoin-dev mailing list is pre-consensus. Most informed observers estimate <strong>5-15 years</strong> for a complete migration if started in earnest now.</li>
+<li><strong>No CRQC yet</strong>. The largest demonstrated quantum factoring is small (under 25-bit RSA-equivalents). Expert estimates for CRQC: roughly 2030-2040, with wide error bars.</li>
+<li><strong>Wallets</strong>: no production wallet supports PQ Bitcoin signatures as of early 2026. Sparrow, Trezor, Ledger, Coldcard all on classical only.</li>
+<li><strong>Lightning</strong>: no PQ Lightning proposals at the protocol level. LN is even more pubkey-exposed than on-chain because channel announcements broadcast pubkeys.</li>
+</ul>
+<p>The honest position: <strong>Bitcoin's quantum threat is real but deferred, and the migration path is being designed without urgency.</strong> If you hold significant BTC long-term:</p>
+<ul>
+<li>Use hash-protected addresses (P2PKH, P2WPKH).</li>
+<li><strong>Don't reuse addresses.</strong></li>
+<li>Avoid posting pubkeys (signed messages, public PSBTs).</li>
+<li>Move coins to fresh addresses after spends to "re-hide" the pubkey.</li>
+<li>Track BIP-360 and separate PQ-signature proposals; be ready to migrate when activation lands.</li>
+</ul>
+<p>This buys time, not safety. P2MR would reduce long-exposure risk for new script-tree outputs; full safety against short-exposure attacks requires a future PQ-signature path and coins actually migrated to it.</p>
+<h2 id="migration-recipe-for-a-holder">Migration recipe (for a holder)</h2>
+<ol>
+<li>Audit your UTXOs by exposure category. Identify any P2PK or reused-address UTXOs. These are first-priority migration targets.</li>
+<li>Don't reuse addresses; for cold storage, use a fresh address per deposit.</li>
+<li>Track BIP-360 P2MR status (<a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki" rel="noopener nofollow">BIP 360: Pay-to-Merkle-Root</a>) and any separate PQ-signature BIPs.</li>
+<li>When a quantum-hardening output activates, migrate from hash-protected addresses to the new output type if your wallet and hardware stack support it.</li>
+<li>When PQ signatures exist: consider a policy that requires at least one PQ signer for very large holdings.</li>
+</ol>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths-of-the-bip-360-path">Strengths of the BIP-360 path</h3>
+<ul>
+<li>Soft-fork compatible with existing nodes.</li>
+<li>Small, conservative first step: removes Taproot's key-path public-key exposure for new script-tree outputs.</li>
+<li>Hash-protected addresses give a transition runway.</li>
+<li>No need to touch existing UTXOs unless their owner wants to migrate.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Doesn't protect already-exposed UTXOs (P2PK and reused addresses).</li>
+<li>Does not add PQ signatures or protect the short mempool exposure window.</li>
+<li>A later PQ-signature path still faces block-space pressure from larger signatures.</li>
+<li>Requires wallet, hardware-wallet, and L2 ecosystem support before ordinary users can benefit.</li>
+<li>Treatment of unmigrated P2PK coins remains a separate policy question.</li>
+<li>A legacy-signature sunset requires a separate consensus decision.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRQC steals from exposed pubkeys</td>
+<td>Pre-emptive migration to hash-protected outputs; P2MR for future Taproot-like script trees; eventual PQ signatures</td>
+</tr>
+<tr>
+<td>CRQC front-runs an in-flight transaction</td>
+<td>Confirmation depth only helps against weak attackers; eventual PQ signatures are needed</td>
+</tr>
+<tr>
+<td>Adversary records pubkeys for future quantum attack</td>
+<td>Don't reuse addresses; minimize pubkey publication</td>
+</tr>
+<tr>
+<td>Wallet implementation bug in PQ signing</td>
+<td>Multiple independent implementations; hybrid signatures during transition</td>
+</tr>
+<tr>
+<td>Soft-fork race condition during activation</td>
+<td>Standard soft-fork activation pattern (BIP-9 / BIP-8 style)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="comparison-with-other-chains">Comparison with other chains</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Chain</th>
+<th>PQ approach</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bitcoin</strong></td>
+<td>BIP-360 P2MR for long-exposure hardening; PQ signatures remain a separate proposal track</td>
+<td>Draft; no activation timeline</td>
+</tr>
+<tr>
+<td><strong>Ethereum</strong></td>
+<td>Account abstraction enables PQ via signature schemes; STARK-based zk-rollups have natural PQ paths</td>
+<td>Research; multi-year roadmap</td>
+</tr>
+<tr>
+<td><strong>Monero</strong></td>
+<td>Confidential signatures use Schnorr-like; PQ research ongoing</td>
+<td>Pre-design</td>
+</tr>
+<tr>
+<td><strong>Zcash</strong></td>
+<td>Sapling uses Groth16 over BLS12-381; Orchard uses Halo 2 over the Pasta curves. Both depend on quantum-vulnerable curve assumptions</td>
+<td>Long-term research</td>
+</tr>
+<tr>
+<td><strong>Algorand</strong></td>
+<td>Falcon supported in protocol since 2022</td>
+<td>Production</td>
+</tr>
+<tr>
+<td><strong>QRL (Quantum Resistant Ledger)</strong></td>
+<td>XMSS-based from genesis</td>
+<td>Production niche</td>
+</tr>
+<tr>
+<td><strong>IOTA</strong></td>
+<td>Used WOTS+ historically; moved to Ed25519 in v1.5 (irony noted)</td>
+<td>Mixed history</td>
+</tr>
+</tbody>
+</table></div>
+<p>Algorand's early Falcon adoption is the only major PQ deployment in production at L1. Bitcoin's caution is partly due to scale (more value at stake than any other chain) and partly due to consensus coordination cost.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki" rel="noopener nofollow">BIP 341: Taproot output keys and key-path validation</a></li>
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki" rel="noopener nofollow">BIP 360: Pay-to-Merkle-Root</a></li>
+<li><a href="https://csrc.nist.gov/pubs/fips/203/final" rel="noopener nofollow">FIPS 203: ML-KEM</a></li>
+<li><a href="https://csrc.nist.gov/pubs/fips/204/final" rel="noopener nofollow">FIPS 204: ML-DSA</a></li>
+<li><a href="https://csrc.nist.gov/pubs/fips/205/final" rel="noopener nofollow">FIPS 205: SLH-DSA</a></li>
+<li><a href="https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022" rel="noopener nofollow">NIST post-quantum signature standardization</a></li>
+<li><a href="https://arxiv.org/abs/quant-ph/9508027" rel="noopener nofollow">Shor: polynomial-time algorithms for factoring and discrete logarithms</a></li>
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki" rel="noopener nofollow">BIP 340: Schnorr signatures for secp256k1</a></li>
+<li><a href="https://arxiv.org/abs/1710.10377" rel="noopener nofollow">Aggarwal et al.: Quantum attacks on Bitcoin, and how to protect against them</a></li>
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki" rel="noopener nofollow">BIP 361: Post Quantum Migration and Legacy Signature Sunset</a></li>
+<li><a href="https://groups.google.com/g/bitcoindev/c/uUK6py0Yjq0" rel="noopener nofollow">Pieter Wuille and other participants: Against Allowing Quantum Recovery of Bitcoin</a></li>
+<li><a href="https://zips.z.cash/protocol/protocol.pdf" rel="noopener nofollow">Zcash protocol specification</a></li>
+<li><a href="https://github.com/pornin/c-fn-dsa" rel="noopener nofollow">FN-DSA implementation and standardization caveats</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/post-quantum-cryptography/">
+  <span class="nm">Post-Quantum Cryptography</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/pqc-deployment-tracker/">
+  <span class="nm">PQC Deployment and Libraries Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/money/">Financial Sovereignty</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Bitcoin%20and%20the%20Post-Quantum%20Migration" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-research bdg-lg" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+        <span class="m m-research" role="img" aria-label="Readiness: Research" title="Research: papers and prototypes; not something to rely on yet."><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <p>Research: papers and prototypes; not something to rely on yet.</p>
+      </div>
+      
+      <p class="def">Bitcoin&#39;s signatures are quantum-vulnerable. Shor&#39;s algorithm against secp256k1 collapses ECDSA and Schnorr in polynomial time on a sufficiently large quantum computer. This file looks at the actual proposals, address-type exposure, and the soft-fork-vs-hard-fork debate, with honest status as of early 2026.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Post-Quantum Cryptography, Financial Sovereignty</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>13</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

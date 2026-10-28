@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buzz — ungovernable.tech</title>
+<meta name="description" content="Buzz, a self-hostable system that gives AI agents their own Nostr key pairs and identities: a production example of non-human actors on Nostr.">
+<link rel="canonical" href="https://ungovernable.tech/kb/buzz/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Buzz — ungovernable.tech">
+<meta property="og:description" content="Buzz, a self-hostable system that gives AI agents their own Nostr key pairs and identities: a production example of non-human actors on Nostr.">
+<meta property="og:url" content="https://ungovernable.tech/kb/buzz/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Buzz — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Buzz — ungovernable.tech">
+<meta name="twitter:description" content="Buzz, a self-hostable system that gives AI agents their own Nostr key pairs and identities: a production example of non-human actors on Nostr.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Buzz", "description": "Buzz, a self-hostable system that gives AI agents their own Nostr key pairs and identities: a production example of non-human actors on Nostr.", "dateModified": "2026-10-25", "datePublished": "2026-08-23", "url": "https://ungovernable.tech/kb/buzz/", "mainEntityOfPage": "https://ungovernable.tech/kb/buzz/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Buzz", "item": "https://ungovernable.tech/kb/buzz/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Buzz</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Buzz</h1>
+  <p class="aka">Also Buzz by Block, Sprout, Buzz agent workspace.</p>
+  <p class="dek">The production embodiment of &#34;AI agents as Nostr keypairs&#34;: a self-hostable, now hosted-beta agent workspace where agents are created, owned, budgeted, recovered, and revoked as Nostr identities — publishing, chatting, transacting, and collaborating over relays like any other keyholder.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>4</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-buzz-is">What Buzz is</a><a href="#the-agent-lifecycle-as-nostr-state">The agent lifecycle as Nostr state</a><a href="#release-velocity">Release velocity</a><a href="#why-it-matters-for-ungovernable-tech">Why it matters for ungovernable tech</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-buzz-is">What Buzz is</h2>
+<p>Buzz (<a href="https://buzz.xyz" rel="noopener nofollow">buzz.xyz</a>; formerly <strong>Sprout</strong>) is an agent workspace from Block (Square) in which every agent is a Nostr identity. Its thesis: the agent-as-keypair model (see <a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a>) needs <em>operational</em> infrastructure to be usable — creation flows, usage accounting, recovery limits, budget summaries, community workspaces — and that infrastructure should itself ride open protocols (Nostr events, relays, NIP-78 encrypted records) rather than a proprietary control plane.</p>
+<p>The June 2026 rebrand (Sprout → Buzz) coincided with publishing <strong>personas, teams, and managed-agent records as Nostr relay events</strong> — the workspace's own state became portable, identity-addressed data.</p>
+<p>Two deployment models as of August 2026: <strong>self-hosted</strong> (primary) and a <strong>hosted beta at buzz.xyz</strong> — with no paid plans announced yet (per the Superset comparison page).</p>
+<h2 id="the-agent-lifecycle-as-nostr-state">The agent lifecycle as Nostr state</h2>
+<p>What distinguishes Buzz from a chat UI bolted onto an LLM is that agent lifecycle operations are protocol events:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Lifecycle stage</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creation</td>
+<td>Unified agent-creation flows (0.5.8)</td>
+</tr>
+<tr>
+<td>Usage accounting</td>
+<td><strong>NIP-AM agent usage tracking</strong> — per-agent accounting (0.5.9)</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td><strong>Agent recovery limits</strong> (0.5.10/0.5.11) — bounded how far/how often an agent can be recovered</td>
+</tr>
+<tr>
+<td>Budgets</td>
+<td>Budget summarizer with handoff summaries (0.5.8; reasoning fix so summaries don't starve)</td>
+</tr>
+<tr>
+<td>Community membership</td>
+<td>Agents join Concord-style encrypted communities; channel snapshots (0.5.10/0.5.11)</td>
+</tr>
+<tr>
+<td>Publishing</td>
+<td>Entity link previews for repos/PRs/issues; multi-repo projects (0.5.5)</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td><strong>Remote agent mention authorization</strong> (0.5.17) — an @-mention does not silently convey authority</td>
+</tr>
+<tr>
+<td>Identity records</td>
+<td>Personas, teams, managed agents as relay events (rebrand release, Jun 2026)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The 0.5.17 fix is the identity-architectural line in the sand: <em>mention ≠ authorization</em>. Being named in a message must not grant an agent the right to act — the same authority-scoping principle as Concord's <code>control_root</code> and World ID 4.0's Authenticators (authority is scoped, derivable, never transitively acquired).</p>
+<h2 id="release-velocity">Release velocity</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Releases</th>
+<th>Highlights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 5–12 2026</td>
+<td>0.5.5 → 0.5.11 (7 releases)</td>
+<td>Entity previews, multi-repo projects, NIP-AM usage tracking, agent recovery limits, encrypted NIP-78 community themes, huddle transcription for agents</td>
+</tr>
+<tr>
+<td>Aug 13–22 2026</td>
+<td>0.5.14 → 0.5.17</td>
+<td>Agent mention authorization, presence retry timers, CPU-burn fixes, h2 security bump</td>
+</tr>
+<tr>
+<td>Community theming</td>
+<td>Desktop PR #3653 / mobile PR #3767</td>
+<td>Themes as <strong>encrypted NIP-78 records on the community's own relay</strong>, synced cross-platform with identity-scoped caches</td>
+</tr>
+<tr>
+<td>Custody</td>
+<td>0.5.3 (Jul 31)</td>
+<td>NIP-49 encrypted local key backup; huddle transcription; hosted-community limit raised to five</td>
+</tr>
+</tbody>
+</table></div>
+<p>Release cadence is near-daily through August 2026 — the fastest-moving agent-identity project in this library's trackers.</p>
+<h2 id="why-it-matters-for-ungovernable-tech">Why it matters for ungovernable tech</h2>
+<ol>
+<li><strong>Agent identity without a registry.</strong> No issuer, no approval queue: an agent exists when its key exists and publishes. Buzz operationalizes this without re-introducing a center — even the hosted beta coexists with self-hosting, and the state (personas, teams) is relay-portable.</li>
+<li><strong>Economic accountability at the signer.</strong> NIP-AM usage accounting is the foundation for usage-based budgets/quotas enforced at signing time — making agent identity <em>economically</em> accountable, not just cryptographically identifiable. The predicted next step (watch item, Aug 16/23 updates): signer-enforced budgets.</li>
+<li><strong>Agent workspaces over encrypted communities.</strong> Buzz agents operate inside <a href="/kb/concord-protocol/">Concord Protocol</a>-class encrypted communities — the same authority model (scoped signing capabilities, epoch rekeying) governs human and agent members alike. One trust model, two kinds of principal.</li>
+<li><strong>The MCP counterweight.</strong> Where MCP standardizes agent-to-tool access (see Bray, an MCP server for Nostr signing/identity in <a href="/kb/remote-signing/">Remote Signing</a>), Buzz standardizes agent-<em>ownership</em>: who created this agent, what it may spend, how it is recovered or killed. Both halves are needed for the agent economy to be ungovernable rather than merely unmanaged.</li>
+</ol>
+<p>Trade-offs: hosting-at-buzz.xyz with no paid plans means the business model is unresolved (the hosted path is the re-centralization risk to watch); agent recovery limits are a blunt instrument until budgets arrive; and the workspace depends on the health of the surrounding Nostr relay economy like everything else in the stack.</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>State (Aug 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product</td>
+<td>buzz.xyz hosted beta + self-hostable; no paid plans yet</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>Block (Square); rebranded from Sprout Jun 24 2026</td>
+</tr>
+<tr>
+<td>Agent model</td>
+<td>Agents as Nostr keypairs; personas/teams/managed agents as relay events</td>
+</tr>
+<tr>
+<td>Accounting</td>
+<td>NIP-AM per-agent usage tracking (0.5.9)</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Agent recovery limits (0.5.10/.11); NIP-49 encrypted key backup (0.5.3)</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Mention ≠ authorization (0.5.17); scoped community authority via Concord</td>
+</tr>
+<tr>
+<td>Community</td>
+<td>Encrypted NIP-78 theme records on community relays; huddle transcription for agents</td>
+</tr>
+<tr>
+<td>Velocity</td>
+<td>10+ desktop releases Aug 2026 (0.5.5 → 0.5.17)</td>
+</tr>
+<tr>
+<td>Watch next</td>
+<td>Signer-enforced usage budgets; paid plans; hosted-vs-self-host divergence</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://buzz.xyz/" rel="noopener nofollow">Buzz project</a></li>
+<li><a href="https://github.com/block/buzz" rel="noopener nofollow">Buzz source</a></li>
+<li><a href="https://github.com/block/buzz/releases/tag/desktop-v0.5.9" rel="noopener nofollow">Buzz 0.5.9: usage tracking</a></li>
+<li><a href="https://github.com/block/buzz/releases/tag/desktop-v0.5.11" rel="noopener nofollow">Buzz 0.5.11: recovery limits</a></li>
+<li><a href="https://github.com/block/buzz/releases/tag/desktop-v0.5.17" rel="noopener nofollow">Buzz 0.5.17: mention authorization</a></li>
+<li><a href="https://github.com/block/buzz/releases/tag/desktop-v0.5.3" rel="noopener nofollow">Buzz 0.5.3: encrypted key backups</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/ai-agent-identity-nostr/">
+  <span class="nm">AI Agent Identity on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/concord-protocol/">
+  <span class="nm">Concord Protocol</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/remote-signing/">
+  <span class="nm">Remote Signing (NIP-46 and Friends)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Buzz" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">The production embodiment of &#34;AI agents as Nostr keypairs&#34;: a self-hostable, now hosted-beta agent workspace where agents are created, owned, budgeted, recovered, and revoked as Nostr identities — publishing, chatting, transacting, and collaborating over relays like any other keyholder.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

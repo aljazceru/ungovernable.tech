@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Metadata Resistance — ungovernable.tech</title>
+<meta name="description" content="Encryption hides what you say; metadata resistance hides whom you said it to, when and how often. Techniques, systems and their trade-offs.">
+<link rel="canonical" href="https://ungovernable.tech/kb/metadata-resistance/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Metadata Resistance — ungovernable.tech">
+<meta property="og:description" content="Encryption hides what you say; metadata resistance hides whom you said it to, when and how often. Techniques, systems and their trade-offs.">
+<meta property="og:url" content="https://ungovernable.tech/kb/metadata-resistance/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Metadata Resistance — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Metadata Resistance — ungovernable.tech">
+<meta name="twitter:description" content="Encryption hides what you say; metadata resistance hides whom you said it to, when and how often. Techniques, systems and their trade-offs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Metadata Resistance", "description": "Encryption hides what you say; metadata resistance hides whom you said it to, when and how often. Techniques, systems and their trade-offs.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/metadata-resistance/", "mainEntityOfPage": "https://ungovernable.tech/kb/metadata-resistance/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}, {"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Metadata Resistance", "item": "https://ungovernable.tech/kb/metadata-resistance/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Metadata Resistance</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ SECURE MESSAGING ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Metadata Resistance</h1>
+  <p class="aka">Also SimpleX, Session Messenger, Cwtch.</p>
+  <p class="dek">Encryption hides what you say. Metadata resistance hides who you said it to, when, and how often. Few systems take it seriously; the ones that do trade convenience for it.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-metadata-resistant-means-in-practice">What &#34;metadata-resistant&#34; means in practice</a><a href="#the-designs">The designs</a><a href="#comparing-mechanisms">Comparing mechanisms</a><a href="#what-even-the-best-systems-dont-hide">What even the best systems don&#39;t hide</a><a href="#composing-for-maximum-privacy">Composing for maximum privacy</a><a href="#trade-offs-summary">Trade-offs summary</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-metadata-resistant-means-in-practice">What "metadata-resistant" means in practice</h2>
+<p>A messenger is metadata-resistant if a network observer (server, ISP, cloud provider, lawful intercept) cannot answer questions like:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Signal</th>
+<th>Nostr (default)</th>
+<th>SimpleX</th>
+<th>Session</th>
+<th>Cwtch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who is the sender?</td>
+<td>Sealed sender hides from server</td>
+<td>Visible (npub)</td>
+<td>Hidden (no user IDs)</td>
+<td>Hidden</td>
+<td>Hidden</td>
+</tr>
+<tr>
+<td>Who is the recipient?</td>
+<td>Visible to server</td>
+<td>Visible</td>
+<td>Hidden (queue ID)</td>
+<td>Hidden</td>
+<td>Hidden</td>
+</tr>
+<tr>
+<td>How often does Alice talk to Bob?</td>
+<td>Visible (frequency)</td>
+<td>Visible</td>
+<td>Per-queue, not per-pair</td>
+<td>Per-mailbox</td>
+<td>Per-Tor-circuit</td>
+</tr>
+<tr>
+<td>Are Alice and Bob friends?</td>
+<td>Contact list</td>
+<td>Public follow list</td>
+<td>Hidden</td>
+<td>Hidden</td>
+<td>Hidden</td>
+</tr>
+<tr>
+<td>Where is Alice?</td>
+<td>IP at server</td>
+<td>IP at relay</td>
+<td>IP at SMP server (or Tor)</td>
+<td>Protected by onion requests</td>
+<td>Hidden via Tor</td>
+</tr>
+<tr>
+<td>When is Alice online?</td>
+<td>Visible</td>
+<td>Visible per relay</td>
+<td>Polling-pattern visible</td>
+<td>Mailbox check pattern</td>
+<td>Tor-only</td>
+</tr>
+</tbody>
+</table></div>
+<p>The leading metadata-resistant designs sacrifice features (search, push notifications, group scale) for these properties.</p>
+<h2 id="the-designs">The designs</h2>
+<h3 id="simplex">SimpleX</h3>
+<p>The most architecturally radical. No user IDs. Pairs of users share a <em>queue ID</em> on a relay (SMP server). Alice and Bob each connect to the queue server via separate one-way connections; the server sees two anonymous connections, not "Alice ↔ Bob".</p>
+<p>Properties:</p>
+<ul>
+<li>No user identifiers. Just per-relationship queue IDs.</li>
+<li>Unidirectional queues. Sender and recipient connect separately.</li>
+<li>Optional Tor for full IP anonymization.</li>
+<li>Push notifications via separate notification servers, also without user IDs.</li>
+<li>Multi-server by default; queues split across operators.</li>
+</ul>
+<p>Trade-off: contact discovery is out-of-band (QR code or one-time link). No global directory.</p>
+<h3 id="session">Session</h3>
+<p>Forked from Signal, dropped phone numbers. Uses onion requests through its service-node network. Identity is a public key (<code>05XXX…</code> Session ID).</p>
+<ul>
+<li>No phone, no email.</li>
+<li>Onion requests separate the originating client from the destination node; the entry node still sees the client connection.</li>
+<li>Mailbox-based delivery. Recipient pulls; sender pushes to a swarm of nodes hosting the mailbox.</li>
+<li>Onion-routed message envelopes.</li>
+</ul>
+<p>Trade-off: smaller user base, less audited than Signal.</p>
+<h3 id="cwtch-tor-only">Cwtch (Tor-only)</h3>
+<p>Tor v3 hidden services as the entire transport. No central server, no message storage, peers must be online to deliver in real time.</p>
+<ul>
+<li>Tor v3 client auth. Only authorized peers connect.</li>
+<li>No accounts, no servers.</li>
+<li>Async via "untrusted infrastructure" — message queueing nodes are blind, just hold ciphertext.</li>
+<li>Open Privacy Research Society project.</li>
+</ul>
+<p>Trade-off: synchronous-only without untrusted infra; tiny ecosystem; battery hungry on mobile.</p>
+<h3 id="briar-p2p-tor-offline">Briar (P2P + Tor + offline)</h3>
+<p>Built around adversarial network conditions. Three transport modes: Tor, Bluetooth and local Wi-Fi. No servers at all.</p>
+<ul>
+<li>Direct peer-to-peer. No infrastructure.</li>
+<li>Forum / blog model for groups.</li>
+<li>Designed for journalists and activists in repressive regimes.</li>
+</ul>
+<p>Trade-off: peers must be reachable (online over Tor, or physically nearby). Async via "Briar Mailbox" — a separate device that holds messages while peers are offline.</p>
+<h3 id="status-waku-v2">Status / Waku v2</h3>
+<p>DApp-friendly P2P messaging over libp2p with relay-style propagation. Full nodes hold message queues; light nodes use Discovery and ephemeral identities.</p>
+<h2 id="comparing-mechanisms">Comparing mechanisms</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Hides social graph</th>
+<th>Hides timing</th>
+<th>Battery / UX cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sealed sender (Signal)</td>
+<td>From server</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Gift wrap (NIP-17)</td>
+<td>From relay</td>
+<td>No</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Mixnet (Nym)</td>
+<td>From global observer</td>
+<td>Partially</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Tor onion service (Cwtch, Briar)</td>
+<td>From upstream</td>
+<td>No</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Per-relationship queue (SimpleX)</td>
+<td>Architecturally</td>
+<td>No</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Constant-rate cover traffic</td>
+<td>From timing analysis</td>
+<td>Yes</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<p>True timing-attack resistance still requires constant-rate cover traffic. Only Loopix-derived mixnets (<a href="/kb/mix-networks/">Overview - Mix Networks</a>) and academic systems (Vuvuzela, Pung) provide it for messaging.</p>
+<h2 id="what-even-the-best-systems-dont-hide">What even the best systems don't hide</h2>
+<ul>
+<li>Endpoint compromise. Malware reads everything. Hardware security modules and runtime attestation help; software E2EE alone does not.</li>
+<li>You being a user. Even SimpleX needs <em>some</em> network presence at SMP servers; an adversary at your ISP knows you talk to SimpleX servers.</li>
+<li>Your contacts in non-adversarial settings. Real-world graphs (people you actually talk to in person) leak through phone records, photos, and posts.</li>
+</ul>
+<p>The honest framing: metadata-resistance reduces leakage to specific adversaries. There is no "perfect anonymity for messaging" in deployed software.</p>
+<h2 id="composing-for-maximum-privacy">Composing for maximum privacy</h2>
+<pre><code>Endpoint:    OS hardened, FDE, biometric or hardware key for unlock
+   ↓
+App:         SimpleX, Session or Briar (different identifier models)
+   ↓
+Transport:   Tor or the application’s onion-routing transport
+   ↓
+Identity:    Per-relationship keys; rotate; don't link to clearnet identity
+   ↓
+Backups:     Local encrypted; never to cloud
+</code></pre>
+<p>For ultra-high-stakes work (whistleblowing, journalism in repressive regimes), the recommended stack is Tails OS (amnesic) + Tor + (Cwtch or SecureDrop for source-journalist contact, depending on async needs) + an air-gapped device for handling content.</p>
+<h2 id="trade-offs-summary">Trade-offs summary</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Drastically reduces server-visible information.</li>
+<li>Resists subpoena. Servers literally don't have the data.</li>
+<li>Supports pseudonymity by design. Phone-number registration is impossible.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Discovery is hard. No directory means out-of-band contact establishment.</li>
+<li>Push notifications are tricky. True push requires <em>some</em> identifier; clever workarounds exist.</li>
+<li>Smaller user bases. Network effects favor mainstream apps.</li>
+<li>No multi-device E2EE history sync in some systems.</li>
+<li>Battery cost from always-on Tor / mixnet routing.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Endpoint compromise</td>
+<td>Hardware-isolated keys (Secure Enclave, hardware tokens), runtime attestation</td>
+</tr>
+<tr>
+<td>Server log correlation</td>
+<td>Metadata-resistant queue model, multiple servers, Tor</td>
+</tr>
+<tr>
+<td>Long-term timing analysis</td>
+<td>Constant-rate cover traffic (Nym), random delays</td>
+</tr>
+<tr>
+<td>Social-graph inference via volume</td>
+<td>Pad messages; use multiple queues</td>
+</tr>
+<tr>
+<td>Hardware fingerprinting</td>
+<td>Tails / amnesic systems</td>
+</tr>
+<tr>
+<td>Forced device unlock</td>
+<td>Hidden volumes, duress wallets, plausible deniability</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md" rel="noopener nofollow">SimpleX Messaging Protocol</a></li>
+<li><a href="https://pdos.csail.mit.edu/papers/vuvuzela:sosp15.pdf" rel="noopener nofollow">Vuvuzela: Scalable Private Messaging Resistant to Traffic Analysis</a></li>
+<li><a href="https://www.usenix.org/conference/osdi16/technical-sessions/presentation/angel" rel="noopener nofollow">Pung: Unobservable Communication over Fully Untrusted Infrastructure</a></li>
+<li><a href="https://docs.cwtch.im/security/intro/" rel="noopener nofollow">Cwtch security design</a></li>
+<li><a href="https://code.briarproject.org/briar/briar-spec/-/tree/master" rel="noopener nofollow">Briar protocol specifications</a></li>
+<li><a href="https://arxiv.org/abs/2002.04609" rel="noopener nofollow">Session cryptographic design</a></li>
+<li><a href="https://briarproject.org/how-it-works/" rel="noopener nofollow">Briar: transports and peer-to-peer synchronization</a></li>
+</ul>
+<p>For the specific technique of hiding <em>when</em> and <em>how much</em> you send, see <a href="/kb/cover-traffic/">Cover Traffic and Constant-Rate Padding</a>.</p>
+<p>Compare identifiers, delivery services and exposed metadata in <a href="/kb/compare-messengers/">Choosing a private messenger</a>, including <a href="/kb/delta-chat/">Delta Chat</a>, <a href="/kb/xmpp-omemo/">XMPP with OMEMO</a> and <a href="/kb/jami/">Jami</a>. For submission workflows, see <a href="/kb/onionshare/">OnionShare</a> and <a href="/kb/securedrop/">SecureDrop</a>.</p>
+<p>Continue with <a href="/kb/mobile-location-privacy/">Mobile location privacy</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/cover-traffic/">
+  <span class="nm">Cover Traffic and Constant-Rate Padding</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/delta-chat/">
+  <span class="nm">Delta Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/xmpp-omemo/">
+  <span class="nm">XMPP with OMEMO</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/jami/">
+  <span class="nm">Jami</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/onionshare/">
+  <span class="nm">OnionShare</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/securedrop/">
+  <span class="nm">SecureDrop</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/mobile-location-privacy/">
+  <span class="nm">Mobile location privacy</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/oblivious-http/">
+  <span class="nm">Oblivious HTTP and DNS</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/sanitizing-documents/">
+  <span class="nm">Sanitizing Documents Before Sharing</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/anonymity/">Anonymity Networks</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Metadata%20Resistance" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Encryption hides what you say. Metadata resistance hides who you said it to, when, and how often. Few systems take it seriously; the ones that do trade convenience for it.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Secure Messaging, Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

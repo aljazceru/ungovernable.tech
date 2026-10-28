@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Building a ZK membership proof — ungovernable.tech</title>
+<meta name="description" content="Build a Semaphore v4 membership proof, verify its group and scope, reject repeat submissions, and understand which inputs remain private.">
+<link rel="canonical" href="https://ungovernable.tech/guides/building-a-zk-membership-proof/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Building a ZK membership proof — ungovernable.tech">
+<meta property="og:description" content="Build a Semaphore v4 membership proof, verify its group and scope, reject repeat submissions, and understand which inputs remain private.">
+<meta property="og:url" content="https://ungovernable.tech/guides/building-a-zk-membership-proof/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Building a ZK membership proof — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building a ZK membership proof — ungovernable.tech">
+<meta name="twitter:description" content="Build a Semaphore v4 membership proof, verify its group and scope, reject repeat submissions, and understand which inputs remain private.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Building a ZK membership proof", "description": "Build a Semaphore v4 membership proof, verify its group and scope, reject repeat submissions, and understand which inputs remain private.", "dateModified": "2026-10-25", "datePublished": "2026-10-25", "url": "https://ungovernable.tech/guides/building-a-zk-membership-proof/", "mainEntityOfPage": "https://ungovernable.tech/guides/building-a-zk-membership-proof/", "image": "https://ungovernable.tech/assets/og/pillar-zk.png", "about": [{"@type": "Thing", "name": "Zero-Knowledge Proofs"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "intermediate"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Zero-Knowledge Proofs", "item": "https://ungovernable.tech/pillars/zk/"}, {"@type": "ListItem", "position": 3, "name": "Building a ZK membership proof", "item": "https://ungovernable.tech/guides/building-a-zk-membership-proof/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/zk/">Zero-Knowledge Proofs</a><span aria-hidden="true">/</span><span class="here">Building a ZK membership proof</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ ZERO-KNOWLEDGE PROOFS ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Building a ZK membership proof</h1>
+  
+  <p class="dek">Prove that an accepted group member submitted a message without naming the member.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>3</b> min read</span>
+    <span class="ktag">[ INTERMEDIATE ]</span>
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#1-create-an-identity-and-group">1. Create an identity and group</a><a href="#2-generate-and-verify-a-proof">2. Generate and verify a proof</a><a href="#3-enforce-the-application-boundary">3. Enforce the application boundary</a><a href="#what-is-private-and-public">What is private and public?</a><a href="#trust-model-threat-model">Trust model / threat model</a><a href="#readiness-and-limits">Readiness and limits</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p><a href="/kb/semaphore/">Semaphore</a> combines identity commitments, a Merkle-tree group and a zero-knowledge proof. This walkthrough uses the documented <strong>v4</strong> JavaScript API. The verifier must apply application policy as well as check the proof.</p>
+<h2 id="1-create-an-identity-and-group">1. Create an identity and group</h2>
+<p>In a Node.js project, install the v4 packages and save the example below as <code>membership.mjs</code>:</p>
+<pre><code class="language-sh">npm install @semaphore-protocol/identity@4 @semaphore-protocol/group@4 @semaphore-protocol/proof@4
+</code></pre>
+<p>An identity has a private key, public key and commitment. Publish only the commitment to the group manager. The <a href="https://docs.semaphore.pse.dev/guides/identities" rel="noopener nofollow">identity guide</a> documents export/import for recovery; keep an exported identity secret. The <a href="https://docs.semaphore.pse.dev/guides/groups" rel="noopener nofollow">group guide</a> documents adding commitments and deriving the root.</p>
+<h2 id="2-generate-and-verify-a-proof">2. Generate and verify a proof</h2>
+<p>This example creates two disposable members. In a real application, members generate their own identities and the admission process supplies the approved commitment list.</p>
+<pre><code class="language-js">import { Identity } from "@semaphore-protocol/identity"
+import { Group } from "@semaphore-protocol/group"
+import { generateProof, verifyProof } from "@semaphore-protocol/proof"
+
+const identity = new Identity()
+const otherMember = new Identity()
+const group = new Group([identity.commitment, otherMember.commitment])
+const scope = 42n // Example application action ID, fixed by the verifier.
+const message = 1n // Example public vote.
+const proof = await generateProof(identity, group, message, scope)
+
+// Verifier policy is configured independently of the incoming proof.
+const approvedRoot = group.root.toString()
+const approvedScope = scope.toString()
+const spent = new Set()
+
+async function accept(candidate) {
+    if (candidate.merkleTreeRoot !== approvedRoot) {
+        throw new Error("Unapproved group")
+    }
+    if (candidate.scope !== approvedScope) {
+        throw new Error("Wrong action")
+    }
+    if (!["0", "1"].includes(candidate.message)) {
+        throw new Error("Invalid vote")
+    }
+    if (!(await verifyProof(candidate))) {
+        throw new Error("Invalid proof")
+    }
+    // Canonicalize: "0123" and "123" are the same field element to the verifier.
+    const key = `${candidate.scope}:${BigInt(candidate.nullifier).toString()}`
+    if (spent.has(key)) throw new Error("Already submitted")
+    spent.add(key)
+    return candidate.message
+}
+
+console.log("Accepted public message:", await accept(proof))
+try {
+    await accept(proof)
+    throw new Error("Replay was accepted")
+} catch (error) {
+    if (error.message !== "Already submitted") throw error
+    console.log("Replay rejected")
+}
+try {
+    await accept({ ...proof, nullifier: "0" + proof.nullifier })
+    throw new Error("Re-encoded replay was accepted")
+} catch (error) {
+    if (error.message !== "Already submitted") throw error
+    console.log("Re-encoded replay rejected")
+}
+process.exit(0) // End this command-line demo, including proof-library workers.
+</code></pre>
+<p>Run <code>node membership.mjs</code>. Proof generation may retrieve proving artifacts; the example is not an offline-install recipe. The <a href="https://docs.semaphore.pse.dev/guides/proofs" rel="noopener nofollow">proof guide</a> documents <code>generateProof(identity, group, message, scope)</code> and <code>verifyProof(proof)</code>.</p>
+<h2 id="3-enforce-the-application-boundary">3. Enforce the application boundary</h2>
+<p>The reference <code>verifyProof</code> checks the cryptographic statement supplied in the proof. It does not decide whether your application approves that group or scope, or store spent nullifiers. The checks above make those decisions explicit.</p>
+<p>For deployment, persist acceptance and the <code>(scope, nullifier)</code> uniqueness check in one database transaction, keyed on the canonical integer form of the nullifier. The in-memory set is only a demonstration. Configure a stable scope for each action; accepting arbitrary scopes lets the same member submit under different nullifiers. Define which historical group roots remain acceptable when membership changes.</p>
+<h2 id="what-is-private-and-public">What is private and public?</h2>
+<p>The <a href="https://docs.semaphore.pse.dev/technical-reference/circuits" rel="noopener nofollow">v4 circuit reference</a> identifies the secret scalar and membership path as private inputs. The root, scope, nullifier and message are public. Publishing a proof does not encrypt the message or conceal the sender's network connection.</p>
+<h2 id="trust-model-threat-model">Trust model / threat model</h2>
+<p>Trust the admission process to define the intended group, and the verifier to enforce its policy. Membership is not proof of a unique human; see <a href="/kb/proof-of-personhood/">proof of personhood</a> and <a href="/glossary/#sybil-resistance">Sybil resistance</a>. The tiny example group offers no useful anonymity for sensitive use.</p>
+<h2 id="readiness-and-limits">Readiness and limits</h2>
+<p><strong>Usable for supported v4 integrations.</strong> Protect identity backups, review proving artifacts and verifier dependencies, and test rejected roots, scopes, altered messages and replay before accepting real submissions. Do not send the identity private key to a remote prover merely to simplify the client.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://docs.semaphore.pse.dev/guides/identities" rel="noopener nofollow">Semaphore v4 identities</a></li>
+<li><a href="https://docs.semaphore.pse.dev/guides/groups" rel="noopener nofollow">Semaphore v4 groups</a></li>
+<li><a href="https://docs.semaphore.pse.dev/guides/proofs" rel="noopener nofollow">Semaphore v4 proof generation and verification</a></li>
+<li><a href="https://docs.semaphore.pse.dev/technical-reference/circuits" rel="noopener nofollow">Semaphore v4 circuit inputs and outputs</a></li>
+<li><a href="https://raw.githubusercontent.com/semaphore-protocol/semaphore/main/packages/proof/src/types/index.ts" rel="noopener nofollow">Reference proof type</a></li>
+<li><a href="https://raw.githubusercontent.com/semaphore-protocol/semaphore/main/packages/proof/src/verify-proof.ts" rel="noopener nofollow">Reference verifier</a></li>
+<li><a href="https://raw.githubusercontent.com/semaphore-protocol/semaphore/main/packages/proof/src/generate-proof.ts" rel="noopener nofollow">Reference generator and artifact loading</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/semaphore/">
+  <span class="nm">Semaphore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/zero-knowledge-proofs/">
+  <span class="nm">Zero-Knowledge Proofs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/proof-of-personhood/">
+  <span class="nm">Proof of Personhood and Sybil Resistance</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Building%20a%20ZK%20membership%20proof" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Prove that an accepted group member submitted a message without naming the member.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Zero-Knowledge Proofs, Identity, Social and Trust</dd>
+        <dt>Level</dt><dd>intermediate</dd>
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

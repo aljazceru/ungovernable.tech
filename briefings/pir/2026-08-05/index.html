@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — August 5 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-05: SimplePIR and DoublePIR (~9 KB) — Full deep dive on the foundational USENIX Security 2023 schemes.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-08-05/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — August 5 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-05: SimplePIR and DoublePIR (~9 KB) — Full deep dive on the foundational USENIX Security 2023 schemes.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-08-05/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — August 5 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — August 5 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-05: SimplePIR and DoublePIR (~9 KB) — Full deep dive on the foundational USENIX Security 2023 schemes.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — August 5 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-05: SimplePIR and DoublePIR (~9 KB) — Full deep dive on the foundational USENIX Security 2023 schemes.", "datePublished": "2026-08-05", "dateModified": "2026-08-05", "url": "https://ungovernable.tech/briefings/pir/2026-08-05/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-08-05/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-05", "item": "https://ungovernable.tech/briefings/pir/2026-08-05/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-08-05</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — August 5 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-05</b></span>
+    <span><b>4</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-05 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-05. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="what-was-done">What Was Done</h2>
+<h3 id="new-files-created">New Files Created</h3>
+<ol>
+<li>
+<p><strong><a href="/kb/simplepir-doublepir/">SimplePIR and DoublePIR</a></strong> (~9 KB) — Full deep dive on the foundational USENIX Security 2023 schemes. Covers: core idea (LWE-based "square-root" PIR with Regev encryption), setup and online query mechanics, SimplePIR vs DoublePIR comparison (throughput, hint size, communication), extensions (long records, batch queries), the full SimplePIR family evolution table (YPIR, VeriSimplePIR, ThorPIR, iSimplePIR, RotPIR, ZipPIR, FlashPIR), code reproduction instructions, and limitations/open problems.</p>
+</li>
+<li>
+<p><strong><a href="/kb/pir-implementations/">PIR Implementations and Libraries</a></strong> (~14 KB) — Comprehensive tracker of every known PIR implementation. Organized by era: Foundational (SealPIR, XPIR, FastPIR, Spiral), SimplePIR Family (SimplePIR, YPIR, ThorPIR, WhisPIR, VeriSimplePIR, Respire), Hintless/Stateless (Google hintless_pir, FrodoPIR, OnionPIRv2), 2025–2026 Frontier (keyword PIR: ChalametPIR/KPIR/Conflux/PIRacle; hardware-accelerated: GPIR/SmartPIR/IM-PIR; communication-optimized: FlashPIR/ZipPIR/VIA/InsPIRe/Pirouette/TensorPIR; preprocessing-optimized: RotPIR/iSimplePIR/PIRCOR), multi-server (mpc4j, hybridpir, Piano, Tiptoe), and survey resources.</p>
+</li>
+<li>
+<p><strong><a href="/kb/pir-use-cases/">PIR Use Cases and Deployments</a></strong> (~16 KB) — Full deployment analysis covering 7 use cases: CT Log Auditing (YPIR 48× cost reduction), Ethereum Private RPC Reads (Kohaku, sharded PIR design, RisePIR, PSE project, TEE+ORAM alternative), Private Web Search (Tiptoe SOSP 2023), Apple Device Features (iOS 18 Live Caller ID, production), Password Breach Checking (iSimplePIR), Private Contact Discovery (Signal, Respire), Private DNS. Includes use case maturity matrix and 4 deployment architecture patterns.</p>
+</li>
+</ol>
+<h3 id="updated-files">Updated Files</h3>
+<ol start="4">
+<li><strong><a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a></strong> — Expanded from ~8.4 KB to ~17.5 KB (108% increase). Status upgraded from <code>developing</code> to <code>mature</code>. Major additions:
+   - Complete rewrite of historical context with 2024–2026 papers (YPIR, ThorPIR, WhisPIR, VeriSimplePIR, Respire, FlashPIR, ZipPIR, RotPIR, iSimplePIR, OnionPIRv2, PIRCOR, VIA, Improved TensorPIR, InsPIRe, Pirouette, Conflux, PIRacle, GPIR, SmartPIR, KPIR, IM-PIR).
+   - New implementations table with 20 entries (up from 9).
+   - Expanded use cases with Ethereum/Kohaku integration details.
+   - New "Research Frontier (August 2026)" section with 7 active open problems.
+   - Updated evidence-at-a-glance table with 21 schemes (up from 11).
+   - Added Tiptoe, Apple deployment, password breach checking as use cases.</li>
+</ol>
+<h2 id="key-research-findings-august-2026">Key Research Findings (August 2026)</h2>
+<h3 id="the-field-has-diversified-explosively">The Field Has Diversified Explosively</h3>
+<p>The PIR research landscape in 2025–2026 is no longer just about raw throughput. The frontier has split into seven active subproblems:</p>
+<ol>
+<li>
+<p><strong>Incremental / dynamic databases</strong> — iSimplePIR (entry-level updates), Conflux (keyword PIR for dynamic data), PIRacle (key-value stores). The static-DB assumption that limited PIR's practicality is being dismantled.</p>
+</li>
+<li>
+<p><strong>Keyword PIR</strong> — KPIR (USENIX Sec 2025), Conflux (HPCA 2026), ChalametPIR. Practical systems need keyword lookup, not just index-based retrieval. KPIR provides a generic transformation from keyword to index PIR via sparse key-value stores.</p>
+</li>
+<li>
+<p><strong>Verifiability</strong> — VeriSimplePIR (USENIX Sec 2024, 27 citations), "Verifiable PIR with Small Client Storage" (S&amp;P 2026). Detecting malicious servers that return wrong results. The S&amp;P 2026 follow-up reduces client state from &gt;1 GiB by orders of magnitude and introduces covert vPIR for stateless clients.</p>
+</li>
+<li>
+<p><strong>Hardware acceleration</strong> — GPIR (GPU, 305×), SmartPIR (CSDs, MICRO 2025), IM-PIR (processing-in-memory). PIR's memory-bound nature makes it ideal for near-data processing architectures.</p>
+</li>
+<li>
+<p><strong>Communication reduction</strong> — FlashPIR (2.6× over WhisPIR), ZipPIR (no client storage), VIA (S&amp;P 2026), Pirouette (transciphering alternative), InsPIRe, Improved TensorPIR (45.5% reduction).</p>
+</li>
+<li>
+<p><strong>Preprocessing elimination</strong> — YPIR (silent preprocessing), WhisPIR (stateless), ZipPIR (no client storage at all). Removing the hint download barrier.</p>
+</li>
+<li>
+<p><strong>Ethereum integration</strong> — The first major platform-level deployment target. Sharded PIR design (ethresear.ch), Kohaku privacy toolkit (Vitalik endorsed), PSE PIR project, RisePIR for key-value workloads.</p>
+</li>
+</ol>
+<h3 id="key-papers-discovered-this-session">Key Papers Discovered This Session</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Venue</th>
+<th>Key Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FlashPIR</td>
+<td>Cybersecurity journal, May 2026</td>
+<td>2.6× throughput over WhisPIR with low client overhead</td>
+</tr>
+<tr>
+<td>ZipPIR</td>
+<td>arXiv, March 2026</td>
+<td>High-throughput without any client storage or per-client server state</td>
+</tr>
+<tr>
+<td>RotPIR</td>
+<td>ePrint 2026/1336</td>
+<td>1000× preprocessing speedup via oblivious homomorphic rotation</td>
+</tr>
+<tr>
+<td>iSimplePIR</td>
+<td>ePrint 2026/030</td>
+<td>First formal single-server incremental PIR (entry-level updates)</td>
+</tr>
+<tr>
+<td>Conflux</td>
+<td>HPCA 2026</td>
+<td>Keyword PIR for dynamic datasets via CSD co-design</td>
+</tr>
+<tr>
+<td>PIRacle</td>
+<td>IEEE TC 2026</td>
+<td>Fast scalable PIR for key-value stores</td>
+</tr>
+<tr>
+<td>KPIR</td>
+<td>USENIX Sec 2025</td>
+<td>Practical keyword PIR from key-to-index mappings</td>
+</tr>
+<tr>
+<td>VIA</td>
+<td>ePrint 2025/2074 (S&amp;P 2026)</td>
+<td>Communication-efficient single-server PIR</td>
+</tr>
+<tr>
+<td>Improved TensorPIR</td>
+<td>ePrint 2026/912</td>
+<td>45.5% communication reduction</td>
+</tr>
+<tr>
+<td>InsPIRe</td>
+<td>ePrint 2025/1352</td>
+<td>Server-side preprocessing, communication-efficient</td>
+</tr>
+<tr>
+<td>Pirouette</td>
+<td>FHE.org 2026</td>
+<td>Query-efficient PIR, transciphering alternative</td>
+</tr>
+<tr>
+<td>GPIR</td>
+<td>arXiv 2604.04696</td>
+<td>GPU-accelerated, 305× over prior GPU PIR</td>
+</tr>
+<tr>
+<td>SmartPIR</td>
+<td>MICRO 2025</td>
+<td>PIR on computational storage devices</td>
+</tr>
+<tr>
+<td>IM-PIR</td>
+<td>arXiv 2509.06514</td>
+<td>Processing-in-memory PIR using DPUs</td>
+</tr>
+<tr>
+<td>OnionPIRv2</td>
+<td>ePrint 2025/1142</td>
+<td>Optimized single-server PIR using SHE</td>
+</tr>
+<tr>
+<td>PIRCOR/RECPIR</td>
+<td>ePrint 2025/756</td>
+<td>Communication-optimal hintless PIR via rotation</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ethereum-pir-the-deployment-signal">Ethereum PIR — The Deployment Signal</h3>
+<p>The strongest real-world deployment signal for PIR comes from Ethereum:</p>
+<ul>
+<li><strong>Vitalik Buterin's privacy roadmap</strong> (May 2026): Explicitly calls for PIR + ORAM for wallet privacy. Kohaku toolkit introduced as the implementation vehicle.</li>
+<li><strong>Sharded PIR Design</strong> (ethresear.ch, Ali Atiia &amp; Keewoo Lee): Comprehensive architecture for pairing Ethereum data slices with optimal PIR schemes. Proposes decoy queries across all shards for uniform privacy.</li>
+<li><strong>RisePIR</strong>: Keyword PIR for key-value stores using Segmented Cuckoo Filters. Maps directly to <code>(address → balance)</code> lookups. Single-threaded prototype achieves 1,500–24,000 ops/s for 32-byte values — squarely in the regime needed for <code>eth_getBalance</code>.</li>
+<li><strong>PSE Project</strong>: Active Ethereum Foundation team building PIR for Ethereum data (pse.dev/blog/ethereum-privacy-pir, June 2025).</li>
+</ul>
+<h3 id="apple-the-existence-proof">Apple — The Existence Proof</h3>
+<p>Apple's iOS 18 (2024) ships HE+PIR for Live Caller ID, logo lookup, and content filtering. This is the <strong>largest-scale production deployment</strong> of PIR-class techniques in consumer hardware. It proves the approach works at consumer scale on mobile devices, though Apple's implementation is proprietary and not independently auditable.</p>
+    <nav class="pn" aria-label="Series navigation">
+      <span></span>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-08-12/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — August 12 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

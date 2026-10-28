@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nomen — ungovernable.tech</title>
+<meta name="description" content="Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/nomen/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Nomen — ungovernable.tech">
+<meta property="og:description" content="Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/nomen/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nomen — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nomen — ungovernable.tech">
+<meta name="twitter:description" content="Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Nomen", "description": "Nomen, a small decentralized naming protocol that combines Bitcoin for ownership with Nostr for records: how it works and its experimental status.", "dateModified": "2026-05-04", "datePublished": "2026-05-04", "url": "https://ungovernable.tech/kb/nomen/", "mainEntityOfPage": "https://ungovernable.tech/kb/nomen/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Nomen", "item": "https://ungovernable.tech/kb/nomen/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Nomen</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Nomen</h1>
+  <p class="aka">Also Bitcoin and Nostr naming, Nomen DNS.</p>
+  <p class="dek">A small but conceptually interesting decentralized DNS protocol that composes two existing sovereign systems: Bitcoin for global ordering of name claims and Nostr for signed record updates. Nomen is not production-scale infrastructure today; its value is as a clean design pattern for globally unique names without launching a new chain or transport network.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-05-04</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context">Historical context</a><a href="#architecture">Architecture</a><a href="#protocol-pieces">Protocol pieces</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#maturity-and-active-development">Maturity and active development</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#comparison">Comparison</a><a href="#operational-notes">Operational notes</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Nomen is a decentralized naming protocol by Ursus Camp. It tries to keep the minimum parts needed for DNS-like names:</p>
+<ol>
+<li><strong>Global uniqueness</strong> — solved by publishing a name claim on Bitcoin. Bitcoin's block ordering answers "who claimed this name first?"</li>
+<li><strong>Owner-authenticated updates</strong> — solved by Nostr events signed by the same key that owns the Bitcoin claim.</li>
+<li><strong>Resolution infrastructure</strong> — solved by indexers / name servers that read Bitcoin claims, follow Nostr relays, and answer DNS-like queries.</li>
+</ol>
+<p>This makes Nomen a hybrid between <a href="/kb/handshake/">Handshake</a> and Nostr NIP-05. Like Handshake, it uses a blockchain to order scarce human-readable names. Like NIP-05, it uses Nostr events as a signed record transport. Unlike <a href="/kb/ens/">ENS</a>, there is no smart contract registry; unlike <a href="/kb/pkarr/">PKARR</a>, the human-readable namespace is scarce and globally ordered.</p>
+<p>Nomen is experimental and appears lightly maintained: the <code>ursuscamp/nomen</code> repository had 17 GitHub stars, 4 forks, 5 releases, and its most recent push was 2023-11-26 when checked on 2026-05-04. The specifications repository <code>ursuscamp/noms</code> is even smaller. That does not invalidate the design, but it means Nomen should be treated as a research prototype rather than a dependable name layer.</p>
+<h2 id="historical-context">Historical context</h2>
+<p>Decentralized naming repeatedly runs into Zooko's triangle: names that are human-meaningful, decentralized, and secure/global are difficult to combine. Earlier systems chose different points:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Era</th>
+<th>System</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2011</td>
+<td>Namecoin</td>
+<td>Bitcoin-like chain for <code>.bit</code> names</td>
+</tr>
+<tr>
+<td>2017</td>
+<td><a href="/kb/ens/">ENS</a></td>
+<td>Ethereum smart contracts for <code>.eth</code> names</td>
+</tr>
+<tr>
+<td>2018</td>
+<td><a href="/kb/handshake/">Handshake</a></td>
+<td>New PoW chain for root-zone replacement</td>
+</tr>
+<tr>
+<td>2020s</td>
+<td>NIP-05</td>
+<td>Human aliases over DNS/HTTPS, mapped to Nostr pubkeys</td>
+</tr>
+<tr>
+<td>2023</td>
+<td><a href="/kb/pkarr/">PKARR</a> / <a href="/kb/pubky/">Pubky</a></td>
+<td>Public key as name; no human-readable global name</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Nomen</td>
+<td>Bitcoin orders name claims; Nostr transports updates</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nomen's key historical move is refusing to bootstrap another consensus layer. It asks: if Bitcoin already provides censorship-resistant ordering, and Nostr already provides a relay-based signed-event network, can names be built by composing them?</p>
+<p>The answer is technically yes, but with adoption caveats. Every resolver must index Bitcoin transactions and monitor Nostr relays; no major browser, OS resolver, or wallet ships this out of the box.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code class="language-text">Name claim:
+  Bitcoin transaction commits to name + owner public key
+  └─ first valid claim in Bitcoin ordering wins
+
+Record updates:
+  owner signs Nostr kind 38300 event
+  └─ event contains DNS-like records / name metadata
+
+Resolution:
+  Nomen indexer scans Bitcoin for claims
+  Nomen indexer subscribes to Nostr relays for updates
+  indexer answers queries as a name server / explorer
+</code></pre>
+<p>The protocol separates <strong>ownership</strong> from <strong>records</strong>:</p>
+<ul>
+<li>Ownership is slow, final, and globally ordered through Bitcoin.</li>
+<li>Records are faster, mutable, and distributed through Nostr.</li>
+<li>Indexers assemble the view by applying protocol rules.</li>
+</ul>
+<p>This is close to an event-sourced registry: Bitcoin establishes the root event, Nostr streams subsequent state transitions, and resolvers materialize the current state.</p>
+<h2 id="protocol-pieces">Protocol pieces</h2>
+<h3 id="bitcoin-claim-layer">Bitcoin claim layer</h3>
+<p>Nomen claims are published to the Bitcoin blockchain. The repository describes the ownership rule as simple: the first valid claim to a name owns it. Bitcoin provides:</p>
+<ul>
+<li>A globally replicated append-only log.</li>
+<li>Work-backed ordering of conflicting claims.</li>
+<li>Censorship resistance proportional to Bitcoin transaction inclusion.</li>
+<li>No need for a bespoke token or chain.</li>
+</ul>
+<p>Trade-off: claiming a name costs Bitcoin fees, is visible on-chain, and is subject to Bitcoin confirmation latency. There is also no smart-contract-enforced renewal or clawback logic unless specified in higher-level protocol rules.</p>
+<h3 id="nostr-record-layer">Nostr record layer</h3>
+<p>After a name is claimed, the owner publishes signed Nostr events to update records. The NOM specifications define Nostr event kinds:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Purpose</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>38300</code></td>
+<td>Name records</td>
+<td>NOM-02</td>
+</tr>
+<tr>
+<td><code>38301</code></td>
+<td>Relay-published index data</td>
+<td>NOM-04</td>
+</tr>
+</tbody>
+</table></div>
+<p>This makes updates cheap and widely relayable. Because Nostr events are signed, an indexer can verify that a record update came from the owner key anchored by the Bitcoin claim.</p>
+<p>Trade-off: Nostr relays are not guaranteed to retain every event. Robust resolution needs multiple relays, replay protection, and indexer persistence.</p>
+<h3 id="indexer-name-server">Indexer / name server</h3>
+<p>The <code>ursuscamp/nomen</code> repository includes the Nomen Explorer, described as the first indexer or name server for the protocol. Indexers are not trusted to create ownership, but users do rely on them for availability and correct materialization unless they run their own.</p>
+<p>The clean deployment model is:</p>
+<ul>
+<li>Run your own Nomen indexer.</li>
+<li>Configure clients to use it as a resolver.</li>
+<li>Cross-check results against Bitcoin and Nostr signatures when high assurance matters.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nomen uses Bitcoin for name-claim ordering</td>
+<td><code>ursuscamp/nomen</code> README: claims are published to Bitcoin; first valid claim wins</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Nomen uses Nostr for record updates</td>
+<td><code>ursuscamp/nomen</code> README and <code>ursuscamp/noms</code>; event kind <code>38300</code> for name records</td>
+<td>High</td>
+</tr>
+<tr>
+<td>The project is experimental / lightly maintained</td>
+<td>GitHub API on 2026-05-04: 17 stars, 4 forks, last push 2023-11-26</td>
+<td>High</td>
+</tr>
+<tr>
+<td>The specification is Nostr-native</td>
+<td><code>ursuscamp/noms</code> says NOMs are modeled after NIPs; event kinds <code>38300</code> and <code>38301</code></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Production deployment is limited</td>
+<td>No mainstream resolver/browser support; hosted explorer exists but should not be confused with broad adoption</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="maturity-and-active-development">Maturity and active development</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Repository</th>
+<th>Maturity</th>
+<th>Activity snapshot (2026-05-04)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nomen implementation / explorer</td>
+<td><a href="https://github.com/ursuscamp/nomen" rel="noopener nofollow">ursuscamp/nomen</a></td>
+<td>Prototype</td>
+<td>17 stars, 4 forks, 5 releases, Rust, MIT, last pushed 2023-11-26</td>
+</tr>
+<tr>
+<td>NOM specifications</td>
+<td><a href="https://github.com/ursuscamp/noms" rel="noopener nofollow">ursuscamp/noms</a></td>
+<td>Early spec</td>
+<td>1 star, 7 commits, last pushed 2023-11-22</td>
+</tr>
+<tr>
+<td>Hosted explorer</td>
+<td><code>nomenexplorer.com</code></td>
+<td>Demo / service</td>
+<td>Referenced by README; availability should be checked before relying on it</td>
+</tr>
+</tbody>
+</table></div>
+<p>Interpretation: Nomen is worth tracking as a design primitive, but not as a mature censorship-resistance substrate. It lacks the implementation depth of <a href="/kb/gnu-name-system/">GNS</a>, the economic/security weight of <a href="/kb/ens/">ENS</a>, and the active tooling momentum of <a href="/kb/pkarr/">PKARR</a>.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="1-nostr-native-human-names">1. Nostr-native human names</h3>
+<p>Nostr has public keys but still leans on DNS/HTTPS for human-readable aliases through NIP-05. Nomen gives a Nostr-native alternative:</p>
+<pre><code class="language-text">alice.&lt;nomen namespace&gt;
+  Bitcoin claim -&gt; Alice's public key
+  Nostr record -&gt; relays, service endpoints, profile records
+</code></pre>
+<p>This removes dependence on a web domain for the alias, while preserving human readability.</p>
+<h3 id="2-bitcoin-anchored-service-names">2. Bitcoin-anchored service names</h3>
+<p>Services that already trust Bitcoin finality can use Nomen names for endpoints, donation addresses, mirrors, or metadata. A resolver could return:</p>
+<ul>
+<li>A records / AAAA records for IP endpoints.</li>
+<li>TXT records for contact metadata.</li>
+<li>Nostr relay hints.</li>
+<li>Content hashes for <a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a> or Arweave mirrors.</li>
+</ul>
+<h3 id="3-experiments-in-minimal-ddns-composition">3. Experiments in minimal dDNS composition</h3>
+<p>Nomen is useful for protocol designers because it demonstrates a modular pattern:</p>
+<ul>
+<li>Use a battle-tested global ordering layer for scarce names.</li>
+<li>Use a signed event network for mutable records.</li>
+<li>Let resolvers be independently operated.</li>
+</ul>
+<p>This pattern may reappear in future Bitcoin, Nostr, or off-grid naming systems.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li><strong>No new blockchain.</strong> Bitcoin handles global ordering and anti-double-claim semantics.</li>
+<li><strong>No new transport layer.</strong> Nostr handles signed event distribution.</li>
+<li><strong>Simple ownership rule.</strong> First valid claim wins.</li>
+<li><strong>Nostr-native.</strong> Fits the relay/event culture better than DNSSEC or EVM-only systems.</li>
+<li><strong>Self-hostable indexer.</strong> Users can run their own name server rather than trusting a company.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Light adoption.</strong> Tiny GitHub footprint and no mainstream client support.</li>
+<li><strong>On-chain privacy leak.</strong> Name claims are public Bitcoin transactions.</li>
+<li><strong>Name squatting.</strong> First-claim-wins systems invite squatting unless there are auction, renewal, or social-layer mitigations.</li>
+<li><strong>Relay availability.</strong> Nostr updates may disappear unless relays and indexers persist them.</li>
+<li><strong>Indexer complexity.</strong> Resolvers must watch both Bitcoin and Nostr, then apply protocol rules correctly.</li>
+<li><strong>No native lookup privacy.</strong> Queries to a Nomen resolver can reveal names being resolved unless combined with <a href="/kb/mix-networks/">Overview - Mix Networks</a> or private resolver operation.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Applies to</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bitcoin transaction censorship</td>
+<td>Name claims</td>
+<td>Use fee bumping, multiple broadcast paths, <a href="/kb/tor/">Tor</a> / <a href="/kb/i2p/">I2P</a> for broadcast privacy</td>
+</tr>
+<tr>
+<td>Name squatting</td>
+<td>Scarce human names</td>
+<td>Auctions, social registries, namespaces, or acceptance that names are scarce property</td>
+</tr>
+<tr>
+<td>Nostr event suppression</td>
+<td>Record updates</td>
+<td>Publish to many relays; run archival relays; indexer persistence</td>
+</tr>
+<tr>
+<td>Indexer equivocation</td>
+<td>Resolution</td>
+<td>Run local indexer; verify against Bitcoin + Nostr signatures; compare multiple indexers</td>
+</tr>
+<tr>
+<td>Key compromise</td>
+<td>Name owner</td>
+<td>Hardware signer, multisig/threshold signing, preplanned rotation if protocol supports it</td>
+</tr>
+<tr>
+<td>Lookup surveillance</td>
+<td>Users</td>
+<td>Local resolver, Tor/VPN, mixnet transport, or private information retrieval layer</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Ownership substrate</th>
+<th>Record update substrate</th>
+<th>Human-readable</th>
+<th>Maturity</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/ens/">ENS</a></td>
+<td>Ethereum contracts</td>
+<td>Ethereum / CCIP-Read</td>
+<td>Yes</td>
+<td>High</td>
+<td>Crypto-native identity and wallet names</td>
+</tr>
+<tr>
+<td><a href="/kb/handshake/">Handshake</a></td>
+<td>Handshake PoW chain</td>
+<td>HNS DNS records</td>
+<td>Yes</td>
+<td>Niche</td>
+<td>Permissionless TLD ownership</td>
+</tr>
+<tr>
+<td><a href="/kb/pkarr/">PKARR</a></td>
+<td>Ed25519 key</td>
+<td>Mainline DHT</td>
+<td>No</td>
+<td>Emerging</td>
+<td>Self-authenticating service discovery</td>
+</tr>
+<tr>
+<td><a href="/kb/gnu-name-system/">GNS</a></td>
+<td>Zone keys + petnames</td>
+<td>GNUnet DHT</td>
+<td>Local petnames</td>
+<td>Experimental (RFC 9498)</td>
+<td>Privacy-preserving lookup</td>
+</tr>
+<tr>
+<td>Nomen</td>
+<td>Bitcoin transaction ordering</td>
+<td>Nostr signed events</td>
+<td>Yes</td>
+<td>Experimental</td>
+<td>Nostr/Bitcoin-native naming experiments</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-notes">Operational notes</h2>
+<p>If experimenting with Nomen:</p>
+<ol>
+<li>Treat it as a lab protocol, not critical production DNS.</li>
+<li>Run your own indexer if correctness matters.</li>
+<li>Archive relevant Nostr events; do not assume arbitrary relays preserve history.</li>
+<li>Publish record updates to several relays.</li>
+<li>Keep the Bitcoin claim key in cold storage or a hardware signer.</li>
+<li>Mirror important endpoints in <a href="/kb/pkarr/">PKARR</a>, <code>.onion</code>, or conventional DNS until client support matures.</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://www.gnunet.org/en/about.html" rel="noopener nofollow">GNUnet software status</a></p>
+</li>
+<li>
+<p>Nomen implementation — <a href="https://github.com/ursuscamp/nomen" rel="noopener nofollow">github.com/ursuscamp/nomen</a>.</p>
+</li>
+<li>Nomen specifications — <a href="https://github.com/ursuscamp/noms" rel="noopener nofollow">github.com/ursuscamp/noms</a>.</li>
+<li>NOM-02 — protocol v1 and Nostr kind <code>38300</code> name records.</li>
+<li>NOM-04 — relay-published index data and Nostr kind <code>38301</code>.</li>
+<li>Nostr protocol specifications — <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">github.com/nostr-protocol/nips</a>.</li>
+<li>Bitcoin protocol reference — <a href="https://developer.bitcoin.org/" rel="noopener nofollow">developer.bitcoin.org</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/handshake/">
+  <span class="nm">Handshake</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ens/">
+  <span class="nm">Ethereum Name Service (ENS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/gnu-name-system/">
+  <span class="nm">GNU Name System (GNS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/ipfs-and-filecoin/">
+  <span class="nm">IPFS and Filecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/i2p/">
+  <span class="nm">I2P (Invisible Internet Project)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-05-04</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Nomen" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A small but conceptually interesting decentralized DNS protocol that composes two existing sovereign systems: Bitcoin for global ordering of name claims and Nostr for signed record updates. Nomen is not production-scale infrastructure today; its value is as a clean design pattern for globally unique names without launching a new chain or transport network.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-05-04</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

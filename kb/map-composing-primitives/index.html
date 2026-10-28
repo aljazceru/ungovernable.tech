@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Map: Composing Primitives — ungovernable.tech</title>
+<meta name="description" content="A map for building real systems by combining primitives: TEEs with attestation, mixnets with ecash, ZK with identity, and where compositions fail.">
+<link rel="canonical" href="https://ungovernable.tech/kb/map-composing-primitives/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Map: Composing Primitives — ungovernable.tech">
+<meta property="og:description" content="A map for building real systems by combining primitives: TEEs with attestation, mixnets with ecash, ZK with identity, and where compositions fail.">
+<meta property="og:url" content="https://ungovernable.tech/kb/map-composing-primitives/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Map: Composing Primitives — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Map: Composing Primitives — ungovernable.tech">
+<meta name="twitter:description" content="A map for building real systems by combining primitives: TEEs with attestation, mixnets with ecash, ZK with identity, and where compositions fail.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Map: Composing Primitives", "description": "A map for building real systems by combining primitives: TEEs with attestation, mixnets with ecash, ZK with identity, and where compositions fail.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/map-composing-primitives/", "mainEntityOfPage": "https://ungovernable.tech/kb/map-composing-primitives/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}, {"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Map: Composing Primitives", "item": "https://ungovernable.tech/kb/map-composing-primitives/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Map: Composing Primitives</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ MAP ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>Map: Composing Primitives</h1>
+  
+  <p class="dek">A Map of Content for building real systems by stacking the cryptographic and network primitives in this library. No single primitive solves everything; composition is where security comes from.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>4</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-composition-lattice">The composition lattice</a><a href="#common-compositions">Common compositions</a><a href="#anti-patterns">Anti-patterns</a><a href="#files-most-relevant">Files most relevant</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-composition-lattice">The composition lattice</h2>
+<p>Each primitive plugs a specific gap. Knowing what each one does (and does not do) is what lets you compose them safely.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Hides</th>
+<th>Doesn't hide</th>
+<th>Pairs well with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS</td>
+<td>Wire content</td>
+<td>Endpoints, sizes, timing</td>
+<td>Mixnet, attestation</td>
+</tr>
+<tr>
+<td>TEE</td>
+<td>RAM from OS or cloud</td>
+<td>Side channels, vendor backdoor</td>
+<td>Attestation, transparency log</td>
+</tr>
+<tr>
+<td>FHE</td>
+<td>Plaintext during compute</td>
+<td>Existence and size of inputs</td>
+<td>ZK proof of correctness</td>
+</tr>
+<tr>
+<td>ZK proof</td>
+<td>Witness</td>
+<td>Proof statement and result</td>
+<td>FHE, on-chain verification</td>
+</tr>
+<tr>
+<td>PIR</td>
+<td>Index <code>i</code></td>
+<td>Database contents</td>
+<td>Relays, mixnet for transport</td>
+</tr>
+<tr>
+<td>Mixnet</td>
+<td>Network metadata</td>
+<td>Volume over long windows</td>
+<td>Sealed sender, padding</td>
+</tr>
+<tr>
+<td>Onion routing</td>
+<td>Per-hop knowledge</td>
+<td>Timing correlation</td>
+<td>Padding, mixnet</td>
+</tr>
+<tr>
+<td>Signal Protocol</td>
+<td>Per-message keys</td>
+<td>Recipient identity (without sealed sender)</td>
+<td>Mixnet, MLS for groups</td>
+</tr>
+<tr>
+<td>Decentralized name</td>
+<td>Identity from registrar</td>
+<td>Identity from blockchain analysis</td>
+<td>Onion routing, PKARR</td>
+</tr>
+<tr>
+<td>Content-addressed storage</td>
+<td>Byte substitution</td>
+<td>Availability or confidentiality</td>
+<td>Encryption, pinning, decentralized names</td>
+</tr>
+<tr>
+<td>Self-custody key</td>
+<td>From custodian</td>
+<td>From your own device compromise</td>
+<td>Hardware wallet, multisig</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="common-compositions">Common compositions</h2>
+<h3 id="confidential-ai-inference">Confidential AI inference</h3>
+<pre><code>Decentralized name (.eth / PKARR / .onion)
+   ↓
+Attested TLS bound to enclave-generated key
+   ↓
+TDX or SEV-SNP confidential VM
+   ↓
+Confidential GPU mode with protected CPU–GPU transfers
+   ↓
+Open-weights LLM + reproducible build hash
+   ↓
+Transparency-logged release (à la Apple PCC)
+</code></pre>
+<p>Files: <a href="/kb/confidential-ai-inference/">Confidential-AI-Inference</a>, <a href="/kb/private-llm-inference-patterns/">Private-LLM-Inference-Patterns</a>, <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a>, <a href="/kb/remote-attestation/">Attestation-Architecture</a>.</p>
+<h3 id="private-query-over-public-data">Private query over public data</h3>
+<pre><code>Client query
+   ↓
+PIR (single- or multi-server)
+   ↓
+Optional: ZK proof of correct database state
+   ↓
+Transport: Tor or Nym
+</code></pre>
+<p>Files: <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a>, <a href="/kb/mix-networks/">Overview - Mix Networks</a>.</p>
+<h3 id="censorship-resistant-payment">Censorship-resistant payment</h3>
+<pre><code>Bitcoin keypair (self-custodied)
+   ↓
+Lightning channel
+   ↓
+Onion-routed HTLC payment
+   ↓
+Receiver: BOLT12 or LNURL with attested proof
+</code></pre>
+<p>Files: <a href="/kb/financial-sovereignty/">Overview - Financial Sovereignty</a>, <a href="/kb/lightning-network/">Lightning Network Deep Dive</a>.</p>
+<h3 id="sovereign-social-account">Sovereign social account</h3>
+<pre><code>Nostr keypair (signing key)
+   ↓
+NIP-17 gift-wrapped DMs (sender hidden; recipient tag visible)
+   ↓
+Blossom for media blobs (SHA-256-addressed, mirrored)
+   ↓
+Public-key identity; optional NIP-05 alias via DNS and HTTPS
+   ↓
+Multiple relays (transport redundancy)
+   ↓
+Lightning zaps for monetization
+</code></pre>
+<p>Files: <a href="/kb/encrypted-messaging/">Overview - Encrypted Messaging</a>, <a href="/kb/nostr-protocol/">Nostr Deep Dive</a>, <a href="/kb/blossom/">Blossom</a>, <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>.</p>
+<h3 id="sovereign-off-grid-node-blackbox-style">Sovereign off-grid node (Blackbox-style)</h3>
+<pre><code>Local LLM inference (Ollama or equivalent, no cloud API)
+   ↓
+LoRa mesh (Meshtastic / MeshCore / Blackout Comms)
+   ↓
+Offline maps (TAK / equivalent, no Google)
+   ↓
+Cashu ecash + Bitcoin (blind tokens + self-custody, no bank)
+   ↓
+E2E encrypted request/response chunked over mesh (~200B packets)
+</code></pre>
+<p>One laptop + $30 radio. Zero internet, zero banks, zero datacenters. See <a href="/kb/meshcore/">MeshCore</a>, <a href="/kb/cashu-ecash/">Cashu and Chaumian Ecash</a>, off-grid files, and <a href="/kb/map-censorship-resistance/">MOC - Censorship Resistance</a>. Composes local confidential compute with air-gapped comms and private money.</p>
+<h3 id="durable-public-artifact">Durable public artifact</h3>
+<pre><code>Release artifact or static site
+   ↓
+Hash and sign locally
+   ↓
+IPFS for content-addressed distribution
+   ↓
+Arweave for archival copy
+   ↓
+ENS / PKARR / signed index points to both
+</code></pre>
+<p>Files: <a href="/kb/decentralized-storage/">Overview - Decentralized Storage</a>, <a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a>, <a href="/kb/arweave/">Arweave</a>, <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>.</p>
+<h3 id="verifiable-confidential-computation">Verifiable confidential computation</h3>
+<pre><code>Client sends encrypted input
+   ↓
+Server runs computation under FHE
+   ↓
+Server attaches a SNARK proving the function was the agreed one
+   ↓
+Client verifies SNARK in milliseconds, then decrypts result
+</code></pre>
+<p>This is the vFHE (verifiable FHE) pattern. Either of these alternatives also works:</p>
+<ul>
+<li>FHE evaluator inside an attested TEE. The TEE attestation replaces the SNARK.</li>
+<li>Threshold FHE with active-secure honest-majority MPC. The protocol detects misbehavior.</li>
+</ul>
+<p>Files: <a href="/kb/fully-homomorphic-encryption/">Overview - Fully Homomorphic Encryption</a>, <a href="/kb/zero-knowledge-proofs/">Overview - Zero-Knowledge Proofs</a>, <a href="/kb/confidential-computing/">Overview - Confidential Computing</a>.</p>
+<h3 id="hardware-protected-ecash-mint-deployment-pattern">Hardware-protected ecash mint (deployment pattern)</h3>
+<pre><code>Bitcoin/Lightning reserves (self-custodied or on-chain visible)
+   ↓
+Cashu mint logic running inside attested TEE (keys generated in enclave, never exposed to host)
+   ↓
+Remote attestation + transparency log (client verifies correct code + measurement)
+   ↓
+Blind signatures issued; users hold bearer tokens offline / over Nostr / mesh
+   ↓
+Redemption still depends on the mint; evaluate code, reserves, rollback and hardware trust
+</code></pre>
+<p>Direct 01 + 06 composition. See <a href="/kb/cashu-ecash/">Cashu and Chaumian Ecash</a> and confidential computing attestation files. Moves from "trust the mint runner" to "trust the hardware root + audited enclave code."</p>
+<h3 id="post-quantum-migration-of-everything">Post-quantum migration of everything</h3>
+<pre><code>For each long-term-secret protocol (TLS, SSH, Signal, age-encrypted backups):
+   1. Switch to a hybrid KEM (X25519 + ML-KEM-768/1024)
+   2. Rotate signing keys to ML-DSA or hybrid Ed25519+ML-DSA
+   3. Audit the symmetric key sizes — AES-256 stays
+   4. Plan re-encryption for archived ciphertexts under new keys
+</code></pre>
+<p>Files: <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a>, <a href="/glossary/">Glossary</a> (Hybrid KEM, Harvest now decrypt later).</p>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<p>These look decentralized or private only on the surface:</p>
+<ul>
+<li>Custodial "non-custodial": exchange holds your keys but calls itself non-custodial.</li>
+<li>CDN'd onion service: operator's identity revealed via Cloudflare logs.</li>
+<li>Signal Desktop on a compromised OS: E2EE does not help if the endpoint is malware.</li>
+<li>Nostr without NIP-17: DMs leak the social graph to relays.</li>
+<li>TEE without attestation enforcement: the server runs in a TEE, but the client never checks.</li>
+<li>FHE without verifiability: the server can return garbage and the client cannot tell.</li>
+<li>Self-custody without a backup plan: losing the key is the same as a custodian losing your funds.</li>
+</ul>
+<h2 id="files-most-relevant">Files most relevant</h2>
+<p>Every Overview in this library. Start with <a href="/method/">Research Methodology</a>'s evaluation criteria, then pick the relevant overviews and build a stack.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9334.html" rel="noopener nofollow">RFC 9334: attestation architecture</a></li>
+<li><a href="https://arxiv.org/abs/1801.05863" rel="noopener nofollow">RA-TLS: binding attestation to TLS</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/05.md" rel="noopener nofollow">Nostr NIP-05: DNS-based identifiers</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/59.md" rel="noopener nofollow">Nostr NIP-59: gift-wrap metadata</a></li>
+<li><a href="https://github.com/cashubtc/nuts/blob/main/00.md" rel="noopener nofollow">Cashu NUT-00: protocol and mint trust</a></li>
+<li><a href="https://github.com/lightning/bolts/blob/master/04-onion-routing.md" rel="noopener nofollow">Lightning BOLT 4: onion routing</a></li>
+<li><a href="https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/" rel="noopener nofollow">NVIDIA: Confidential Computing on H100 GPUs</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/confidential-ai-inference/">
+  <span class="nm">Confidential AI Inference</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/private-llm-inference-patterns/">
+  <span class="nm">Private LLM Inference Patterns</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nvidia-gpu-tee/">
+  <span class="nm">NVIDIA GPU TEEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/financial-sovereignty/">
+  <span class="nm">Financial Sovereignty</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/lightning-network/">
+  <span class="nm">Lightning Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-protocol/">
+  <span class="nm">Nostr: The Protocol</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/blossom/">
+  <span class="nm">Blossom: Blob Storage on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/confidential/">Confidential Computing</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Map%3A%20Composing%20Primitives" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A Map of Content for building real systems by stacking the cryptographic and network primitives in this library. No single primitive solves everything; composition is where security comes from.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Map</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography, Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

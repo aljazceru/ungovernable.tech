@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — June 19 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-06-19: Tor: Arti 2.4.0 released June 1 2026 with flowctl-cc (RTT-congestion control, proposal 324) promoted to stable.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-06-19/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — June 19 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-06-19: Tor: Arti 2.4.0 released June 1 2026 with flowctl-cc (RTT-congestion control, proposal 324) promoted to stable.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-06-19/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — June 19 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — June 19 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-06-19: Tor: Arti 2.4.0 released June 1 2026 with flowctl-cc (RTT-congestion control, proposal 324) promoted to stable.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — June 19 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-06-19: Tor: Arti 2.4.0 released June 1 2026 with flowctl-cc (RTT-congestion control, proposal 324) promoted to stable.", "datePublished": "2026-06-19", "dateModified": "2026-06-19", "url": "https://ungovernable.tech/briefings/mix-networks/2026-06-19/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-06-19/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-06-19", "item": "https://ungovernable.tech/briefings/mix-networks/2026-06-19/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-06-19</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — June 19 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-06-19</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-06-19 // may be outdated</p>
+  <p>This page reflects what was known on 2026-06-19. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong><a href="/kb/tor/">Tor</a></strong>: Arti <strong>2.4.0</strong> released <strong>June 1 2026</strong> with <code>flowctl-cc</code> (RTT-congestion control, proposal 324) promoted to <strong>stable</strong>. This is the first Arti release where the relay + directory-authority roles are the headline feature, not the future. Multiple breaking <code>TorClient</code> API changes — downstream Rust users must migrate.</li>
+<li><strong>Tails</strong>: <strong>7.8</strong> (May 21) plus emergency <strong>7.8.1</strong> (June 4) — kernel + Tor client security fixes. <strong>7.9</strong> shipped June 18.</li>
+<li><strong>Tor Browser</strong>: <strong>15.0.14</strong> (May 19) → <strong>15.0.15</strong> (June 3) — plus alphas <strong>16.0a6</strong> (May 7) and <strong>16.0a7</strong> (June 3). The v16 line is in feature freeze; the v15 emergency cadence is the new normal.</li>
+<li><strong>CGO</strong> (Counter Galois Onion): November 2025 announcement is being followed by a slow burn across 2026. No firm flag day yet; tor-dev is still resolving edge cases. The good news: production CGO performance is <strong>faster at proxies and exit/entry routers</strong> than the legacy <code>tor1</code> scheme.</li>
+<li><strong>I2P</strong>: <strong>2.13.0</strong> target is <strong>August 2026</strong>. The big ticket item is the <strong>SSU2-PQ transport</strong> (proposal 169) — the first time the I2P wire protocol itself gains post-quantum protection, beyond the ratchet layer that shipped in 2.11.0.</li>
+<li><strong><a href="/kb/nym/">Nym</a></strong>: The <strong>March 13 2026 roadmap</strong> is now the load-bearing document. Three concrete bets for the year: (1) <strong>hand-optimized crypto by djb</strong>, (2) <strong>formally-verified crypto by Karthik Bhargavan</strong>, (3) <strong>new cover-traffic scheme from joint research with EPFL</strong> that the roadmap claims is "more resistant to statistical attacks (including AI-powered) than any other VPN." The Lewes Protocol PQE is live (optional toggle) in NymVPN Fast mode; Anonymous mode PQ work continues.</li>
+<li><strong><a href="/kb/katzenpost/">Katzenpost</a></strong>: No major code change this week, but the threat model remains the architectural reference for PQ federated mixnets. Watch for hybrid PQ (X25519+ML-KEM) deployment updates.</li>
+<li><strong>HOPR</strong>: Active repo, not archived; payments + Sphinx packet relaying still the niche. No headline release this week.</li>
+<li><strong>Research</strong>: Outfox (SIGCOMM 2025) and MOCHA (ePrint 2025/861) remain the load-bearing 2026 papers. No new paper has superseded them this week, but expect USENIX Security 2026 to be the next venue for mixnet papers.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>the mixnet space is bifurcating into Tor/I2P-as-default-transport and Nym/Katzenpost-as-metadata-shield</strong>. The two are complementary, not competitive.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-arti-the-rust-rewrite-hits-the-relay-path">Tor / Arti: The Rust rewrite hits the relay path</h3>
+<p><strong>Arti 2.4.0</strong> (June 1 2026) is the most important Arti release of the year so far, because it is the first release where the headline is <strong>Arti as a relay and as a directory authority</strong> — not "coming soon" but actively shipping. The accompanying promotion of <code>flowctl-cc</code> to <strong>stable</strong> is also significant: this is the implementation of <a href="https://spec.torproject.org/proposals/324-rtt-congestion-control.txt" rel="noopener nofollow">proposal 324</a> — RTT-based congestion control for Tor streams — and it has been the gating work for moving Arti beyond client-only.</p>
+<p>Concrete 2.4.0 changes:</p>
+<ul>
+<li><strong>Relay role</strong>: Arti can now act as a relay on the network. Not a directory authority yet as a default config, but the code path is shipped.</li>
+<li><strong>Directory authority role</strong>: Continued development. The directory authority logic is the most complex Tor protocol role after the relay itself; this is the next major milestone.</li>
+<li><strong>Onion service client connectivity</strong>: Multiple bug fixes to address real-world connectivity issues. This is a reminder that Rust implementations, even when protocol-correct, can have edge-case bugs that the C implementation has ironed out over 20 years.</li>
+<li><strong><code>use_obsolete_software</code> option removed</strong> (<a href="https://gitlab.torproject.org/tpo/core/arti/-/work_items/1960" rel="noopener nofollow">#1960</a>) — a clear sign the project is tightening its contract with downstream users.</li>
+<li><strong>Multiple breaking <code>TorClient</code> API changes</strong> — downstream <code>arti-client</code> crate users must update. Combined with the next release's planned <code>Arc</code> wrapping requirement, the Arti team is consolidating the API surface before the directory-authority milestone.</li>
+</ul>
+<p>For ungovernable system design: <strong>Arti is now viable for embedded, mobile, and programmatic use cases that the C tor daemon does not support well</strong>. If you are building a Rust app and want to embed a Tor client, Arti is no longer a "we'll catch up" dependency — it is the recommendation. If you want to run a Tor relay from a Rust-native stack, 2.4.0 is the first release where that path is realistic for non-production use.</p>
+<h3 id="tor-browser-emergency-cadence-is-the-new-normal">Tor Browser: Emergency cadence is the new normal</h3>
+<p>The Tor Browser release rhythm in May 2026 was striking:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15.0.13</td>
+<td>2026-05-08</td>
+<td>Emergency</td>
+</tr>
+<tr>
+<td>15.0.14</td>
+<td>2026-05-19</td>
+<td>Maintenance</td>
+</tr>
+<tr>
+<td>15.0.15</td>
+<td>2026-06-03</td>
+<td>Maintenance</td>
+</tr>
+<tr>
+<td>16.0a6</td>
+<td>2026-05-07</td>
+<td>Alpha</td>
+</tr>
+<tr>
+<td>16.0a7</td>
+<td>2026-06-03</td>
+<td>Alpha</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Firefox ESR base is a constant security-pressure source, and the Tor Browser team is matching that pressure with frequent releases. This is not a sign of weakness — it is a sign of an active maintainer team responding to a hostile environment.</p>
+<p>The 16.x line is in alpha and is not the production target yet; 15.x remains the stable branch. If you are integrating Tor Browser for at-risk users, <strong>pin to 15.x stable</strong>, not the alpha line.</p>
+<h3 id="tails-the-amnesiac-os-is-shipping-too">Tails: The amnesiac OS is shipping too</h3>
+<ul>
+<li><strong>Tails 7.8</strong> (May 21 2026): Adds automatic Thunderbird-via-Additional-Software to keep the email client current with each release (this is a meaningful security improvement — Thunderbird was a long-running source of vulnerabilities).</li>
+<li><strong>Tails 7.8.1</strong> (June 4 2026): Emergency release. Patches <strong>CVE-2026-43503</strong> in the Linux kernel (a privilege-escalation in the Debian kernel image) plus unspecified Tor client security vulnerabilities. This is the second emergency in three weeks after 7.7.3 (May 12).</li>
+<li><strong>Tails 7.9</strong> (June 18 2026): Latest, fresh as of yesterday.</li>
+</ul>
+<p>For at-risk users, <strong>Tails 7.8.1 or later is required</strong> for safe use. The emergency cadence here is the cost of running a security-focused OS on top of a moving Linux kernel — the same surface that protects you can be the surface that breaks you.</p>
+<h3 id="cgo-counter-galois-onion-slow-but-real">CGO (Counter Galois Onion): Slow but real</h3>
+<p>CGO was <a href="https://blog.torproject.org/introducing-cgo/" rel="noopener nofollow">announced on 2025-11-24</a> and the <a href="https://eprint.iacr.org/2025/583" rel="noopener nofollow">paper is ePrint 2025/583</a>. As of mid-2026, deployment is still in the working-through-edge-cases phase. The pre-conditions for a network-wide flag day:</p>
+<ol>
+<li>Every relay (guard, middle, exit) must be ready to negotiate CGO.</li>
+<li>The directory authorities must be able to flag CGO-capable relays.</li>
+<li>Clients must fall back gracefully when a path contains non-CGO relays (which will be the case during rollout).</li>
+<li>The protocol change must not break onion services, pluggable transports, or any of the many things that depend on the existing <code>tor1</code> cell format.</li>
+</ol>
+<p>The performance numbers from the paper are favorable: CGO is faster at proxies, exit, and entry routers, with a "mild slowdown" at intermediate routers. This is the right trade-off for an anonymity network where entry/exit routers see the most traffic and intermediates see the most per-packet work.</p>
+<p>The interesting open question: <strong>how will CGO interact with pluggable transports like obfs4, Snowflake, meek, and WebTunnel?</strong> Pluggable transports wrap Tor cells in obfuscation, and any change to cell format can break the wrapping. The tor-dev list has been working through this.</p>
+<p>For ungovernable system design: <strong>do not deploy custom CGO code paths yet</strong>. Wait for the network-wide flag day and a stable Arti client that negotiates CGO automatically. The protocol is well-analyzed; the engineering integration is the part still in progress.</p>
+<h3 id="i2p-heading-toward-2130-in-august">I2P: Heading toward 2.13.0 in August</h3>
+<p>The I2P development model is incremental with releases approximately every 13 weeks. The 2.13.0 target is <strong>August 2026</strong>, which means the work is currently in active development. Headline items:</p>
+<ul>
+<li><strong>SSU2-PQ transport</strong> (proposal 169) — the first post-quantum protection at the I2P <em>wire transport</em> layer, distinct from the ratchet-layer PQ added in 2.11.0. This is the bigger fish: the transport is what every router-to-router packet uses, so PQ at this layer is a network-wide change.</li>
+<li><strong>I2CP lookup support for LS service record parameters</strong> (proposal 167) — infrastructure for encrypted lease sets, which makes destination discovery metadata-private.</li>
+<li><strong>Per-tunnel throttling and bandwidth parameters</strong> — capacity management that interacts with Sybil/spam defenses.</li>
+<li><strong>Refactor Noise initialization</strong> — modernizing the cryptographic handshake code.</li>
+<li><strong>Memory usage reduction for floodfills</strong> — operational efficiency.</li>
+</ul>
+<p>The 2.12.0 release (April 20 2026) already shipped NTCP2-PQ transport and started on SSU2-PQ. The 2.13.0 release will likely complete the SSU2-PQ rollout. This is the most consequential I2P change since the ECIES migration of 2023 — and arguably more important, because it protects the wire transport from the harvest-now-decrypt-later threat that 2.11.0's ratchet-layer PQ does not.</p>
+<p>The other notable I2P story: <strong>multiple new I2P router implementations are emerging — <code>emissary</code> in Rust and <code>go-i2p</code> in Go</strong>. The Java I2P router is the reference, but the ecosystem is becoming multi-implementation. This is good for resilience and bad for protocol-drift risk.</p>
+<p>For ungovernable system design: <strong>I2P is the right choice for in-network services that need post-quantum metadata privacy today</strong> (waiting for SSU2-PQ to land in 2.13.0). For clearnet exit, Tor remains the choice.</p>
+<h3 id="nym-the-bernsteinbhargavan-play">Nym: The Bernstein/Bhargavan play</h3>
+<p>The <a href="/kb/nym/">Nym</a> March 13 2026 <a href="https://nym.com/blog/nym-roadmap-2026" rel="noopener nofollow">roadmap</a> is a striking document because it commits Nym to a specific cryptographic and engineering posture that is rare in the mixnet space:</p>
+<ol>
+<li><strong>Hand-optimized crypto by Daniel J. Bernstein</strong>. djb is the author of Curve25519, ChaCha20, Salsa20, and the Noise protocol framework. Nym hiring or contracting with djb for hand-optimized crypto is a signal that Nym is treating cryptography as a product feature, not a research concern.</li>
+<li><strong>Formally verified crypto by Karthik Bhargavan</strong>. Bhargavan is the author of the <a href="https://cryptoverif.inria.fr/" rel="noopener nofollow">CryptoVerif</a> tool and a long-time leader in formal verification of cryptographic protocols (he co-authored the <a href="https://www.benoitblanchet.fr/" rel="noopener nofollow">Blanchet</a> group's work and is at INRIA). Formally verified mixnet crypto is a step change in assurance.</li>
+<li><strong>New cover-traffic scheme from joint research with EPFL</strong>. The current Poisson-based cover traffic is optimized for email/messaging workloads. The new scheme is for "general internet use" and aims to be "more resistant to statistical attacks (including AI-powered) than any other VPN." This is a direct response to the MOCHA paper (ePrint 2025/861), which showed that message-anonymity-optimized mixnets can have dangerously low client anonymity.</li>
+<li><strong>Wallet-VPN merger</strong>. The $NYM token wallet will live inside the NymVPN app. This is productization, not protocol work, but it has privacy implications: the wallet becomes the identity for accessing the network, and stake-weighted node selection becomes a wallet-native action.</li>
+<li><strong>Customizable mixnet parameters in the NymVPN UI</strong>. Users will be able to choose cover-traffic, SURB, and other mixnet parameters via the GUI. This is the "anonymity vs speed" slider taken to its logical conclusion.</li>
+<li><strong>Split tunneling Fast ↔ Anonymous</strong>. Route specific apps through the mixnet (Signal, wallets) while keeping others on Fast mode. This is the most important UX change for adoption.</li>
+<li><strong>New pluggable transports including post-quantum obfuscation</strong>. Censorship resistance at the transport layer with PQ primitives.</li>
+</ol>
+<p>The roadmap's stated user-base target is <strong>"from thousands to hundreds of thousands"</strong> in 2026. The mixnet side is the bottleneck — Halpin's own admission is that the mixnet is "simply too slow for everyday usage." Items 1-6 in the list above are all aimed at closing that gap.</p>
+<p>The Nym token economy is also being overhauled: the current "finite mixmining pool" model creates sell pressure that the roadmap explicitly diagnoses and promises to fix with a "rational market" upgrade. This is partly economic, partly about aligning incentives for node operators.</p>
+<p>For ungovernable system design: <strong>Nym is the right choice when (a) the user is willing to accept seconds of latency for metadata privacy, (b) the product needs to ship to non-technical users, and (c) the threat model includes a global passive adversary</strong>. Items 1-3 above, if they ship, will meaningfully strengthen Nym's position. Track the EPFL cover-traffic research and the Bernstein hand-optimized crypto as the two 2026 deliverables that matter most.</p>
+<h3 id="katzenpost-quiet-week-durable-architecture">Katzenpost: Quiet week, durable architecture</h3>
+<p>No major Katzenpost release in the past seven days. The project remains the <strong>architectural reference</strong> for post-quantum federated mixnets, with the threat-model and literature-overview PDFs as the load-bearing primary sources. The KEM Sphinx work (twice-as-fast on the server side as the original NIKE Sphinx) is the most consequential technical contribution and remains the basis for new PQ mixnet designs.</p>
+<p>For ungovernable system design: <strong>Katzenpost is what you read before designing a new mixnet</strong>. It is not a consumer product, but the documentation is the field's most careful statement of mixnet threat modeling.</p>
+<h3 id="hopr-quiet-week-niche-intact">HOPR: Quiet week, niche intact</h3>
+<p>HOPR's <a href="https://coinbureau.com/review/hopr-review" rel="noopener nofollow">Coin Bureau review</a> describes it accurately: "HOPR employs advanced encryption techniques and mixnets to ensure the privacy and anonymity of user data. The proof-of-relay mechanism incentivizes node operators to actively participate in relaying data. HOPR's SafeStaking mechanism ensures the security of node runner funds."</p>
+<p>The "proof-of-relay + payment channel" model is the most distinctive feature. Whether it works economically at scale is an open question. The repo remains active, non-archived, and recently pushed. No headline change this week.</p>
+<p>For ungovernable system design: <strong>HOPR is worth tracking but not yet a default</strong>. The incentive-market experiment is the interesting part, not the protocol itself.</p>
+<h2 id="cross-cutting-themes">Cross-cutting themes</h2>
+<h3 id="the-anonymous-mode-line-is-the-most-important-analytical-line-in-2026">The "Anonymous mode" line is the most important analytical line in 2026</h3>
+<p>The single sharpest distinction in the mixnet space is between systems that defend against a <strong>global passive adversary</strong> (GPA) and systems that do not. As of June 19 2026:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>GPA defense</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tor</td>
+<td>No</td>
+<td>Low-latency onion routing. Do not claim GPA defense.</td>
+</tr>
+<tr>
+<td>I2P</td>
+<td>No</td>
+<td>Garlic routing. Do not claim GPA defense.</td>
+</tr>
+<tr>
+<td>Nym Anonymous mode</td>
+<td><strong>Yes</strong></td>
+<td>Loopix-style, cover traffic required.</td>
+</tr>
+<tr>
+<td>Nym Fast mode</td>
+<td>No</td>
+<td>Decentralized VPN. PQ handshakes via Lewes Protocol.</td>
+</tr>
+<tr>
+<td>Katzenpost</td>
+<td><strong>Yes</strong></td>
+<td>Federated Loopix variant, PQ-built-in.</td>
+</tr>
+<tr>
+<td>HOPR</td>
+<td><strong>Partial</strong></td>
+<td>Incentive model + Sphinx. Threat model is application-specific.</td>
+</tr>
+<tr>
+<td>HORNET</td>
+<td>No</td>
+<td>Research design, not deployed.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The trap that most commentary falls into is conflating "the system is named with a mixnet word" with "the system defends against a GPA." NymVPN Fast mode is not a mixnet. It is a decentralized VPN with PQ handshakes. Both are useful; only one is mixnet-grade.</p>
+<h3 id="post-quantum-migration-is-no-longer-hypothetical">Post-quantum migration is no longer hypothetical</h3>
+<p>The 2026 PQ landscape:</p>
+<ul>
+<li><strong>Cloudflare reports</strong> (October 2025) that more than half of human-initiated web traffic on their network uses post-quantum key agreement.</li>
+<li><strong>NIST 2035 deprecation deadline</strong> for RSA and ECC is firm.</li>
+<li><strong>Nym's Lewes Protocol</strong> is live (optional) in NymVPN Fast mode — a Noise-based Post-Quantum Pre-Shared-Key protocol.</li>
+<li><strong>Katzenpost's hybrid X25519+ML-KEM Sphinx</strong> is the architectural reference.</li>
+<li><strong>I2P's ratchet-layer PQ</strong> shipped in 2.11.0 (Feb 2026). <strong>SSU2-PQ transport</strong> is targeted for 2.13.0 (August 2026).</li>
+<li><strong>Outfox</strong> (SIGCOMM 2025) is the research direction for PQ layered-mixnet packet formats.</li>
+<li><strong>Tor's CGO</strong> is classical-crypto faster, not PQ. Tor's PQ migration is in the <a href="https://gitlab.torproject.org/tpo/core/torspec/-/issues" rel="noopener nofollow">proposal-discussion phase</a> for the network, not the cells.</li>
+</ul>
+<p>The mixnet-specific PQ challenge is <strong>fingerprinting</strong>: if PQ handshakes produce distinguishable packet sizes or timing, an adversary can use that to classify clients. Outfox addresses this with a simplified Sphinx variant designed for PQ from scratch. Nym's Lewes Protocol addresses it with a PSK + KEM combination that doesn't change the wire format of the underlying Noise handshake.</p>
+<p>For ungovernable system design: <strong>harvest-now-decrypt-later is a real threat for traffic that needs to remain private for a decade or more</strong>. For 5-year-secrecy traffic, classical mixnets with classical Sphinx remain acceptable. For 30-year-secrecy traffic (journalism, dissident communications, financial sovereignty planning), PQ is the right bet.</p>
+<h3 id="the-rust-rewrite-of-the-entire-stack-is-happening-in-parallel">The Rust-rewrite of the entire stack is happening in parallel</h3>
+<p>This is an underappreciated trend. The mixnet stack is being rewritten in Rust:</p>
+<ul>
+<li><strong>Arti</strong> (Tor): client complete, relay + directory authority in development.</li>
+<li><strong>Nym mixnet</strong>: Rust-native since launch.</li>
+<li><strong>I2P <code>emissary</code></strong>: a new Rust I2P router implementation.</li>
+<li><strong>sphinxmixcrypto</strong> (Python) and <strong>sphinxcrypto</strong> (Rust): library-level rewriting of the packet format primitives.</li>
+<li><strong>HOPR</strong>: Rust-native.</li>
+</ul>
+<p>Java (the I2P reference), C (the Tor reference), and Go (the Katzenpost reference) are the legacy implementations. Rust is the new default. For freedom-tech builders, <strong>Rust is the right default language for new anonymity-network code</strong> — the memory-safety argument applies even more strongly to adversary-facing systems.</p>
+<h2 id="what-to-watch-in-the-next-7-14-days">What to watch in the next 7-14 days</h2>
+<ol>
+<li><strong>Arti 2.5.0</strong> (likely late June 2026): Will it ship the directory authority role as the headline feature? The "Arc wrapping" change in the next release is the most disruptive API change yet.</li>
+<li><strong>Tor Browser 15.0.16</strong> or <strong>16.0a8</strong> (likely): The v16 line is in alpha; expect a feature-freeze announcement soon.</li>
+<li><strong>Tails 7.9.1</strong> (possible): The 7.9.0 release is fresh; an emergency may follow.</li>
+<li><strong>I2P 2.13.0</strong> (August 2026, ~7 weeks out): SSU2-PQ transport completion is the headline.</li>
+<li><strong>Nym EPFL cover-traffic paper</strong> (expected 2026): The roadmap promises a new cover-traffic scheme; the academic paper is the primary source.</li>
+<li><strong>USENIX Security 2026</strong> (August 2026): Expect new mixnet papers; check the program.</li>
+<li><strong>Tor CGO deployment timeline</strong> (no firm date): The tor-dev list is the live signal.</li>
+</ol>
+<h2 id="evidence-at-a-glance-june-13-19-2026">Evidence at a glance (June 13-19 2026)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>This-week signal</th>
+<th>Threat model</th>
+<th>Development signal</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tor / Arti</td>
+<td><strong>Arti 2.4.0</strong> (June 1), <code>flowctl-cc</code> stable; Tor Browser 15.0.14/15, alphas 16.0a6/a7; Tails 7.8/7.8.1/7.9</td>
+<td>Local/partial; not GPA</td>
+<td>Relay + directory authority work in Arti; v16 alpha line progressing</td>
+<td>Censorship evasion, onion services, universal SOCKS proxy</td>
+</tr>
+<tr>
+<td>I2P</td>
+<td><strong>2.13.0 in development</strong> (target Aug 2026): SSU2-PQ transport; new <code>emissary</code> Rust router; <code>go-i2p</code> Go implementation</td>
+<td>Peer-to-peer internal; not GPA</td>
+<td>Roadmap updated 2026-05; release cadence ~13 weeks</td>
+<td>In-network services, BitTorrent, post-quantum-overlaid P2P</td>
+</tr>
+<tr>
+<td>Nym</td>
+<td>Roadmap committed (Mar 13 2026) to djb crypto, Bhargavan verification, EPFL cover traffic; wallet-VPN merger; customizable mixnet params</td>
+<td>Anonymous mode: GPA. Fast mode: not GPA.</td>
+<td>Lewes Protocol PQE live in Fast mode; Anonymous mode PQ work continues</td>
+<td>Wallet RPC, sensitive browsing, consumer product</td>
+</tr>
+<tr>
+<td>Katzenpost</td>
+<td>Quiet week</td>
+<td>GPA + harvest-now-decrypt-later</td>
+<td>hpqc + KEM Sphinx continue; no major release</td>
+<td>PQ federated mixnet reference</td>
+</tr>
+<tr>
+<td>HOPR</td>
+<td>Quiet week</td>
+<td>Application-specific; partial</td>
+<td>Repo active, no major release</td>
+<td>RPC/data-exchange privacy</td>
+</tr>
+<tr>
+<td>HORNET</td>
+<td>No change</td>
+<td>Not GPA (low-latency design)</td>
+<td>Research, not deployed</td>
+<td>Architecture reference only</td>
+</tr>
+<tr>
+<td>Research</td>
+<td>MOCHA + Outfox remain load-bearing</td>
+<td>Both target GPA</td>
+<td>No new 2026 mixnet paper this week</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-research-questions-updated">Open research questions (updated)</h2>
+<ol>
+<li><strong>How much cover traffic is enough?</strong> MOCHA says optimizing for message anonymity alone can give dangerously low client anonymity. The Nym/EPFL cover-traffic work is the response.</li>
+<li><strong>Can token incentives buy honest mixing without centralizing stake?</strong> Nym is overhauling its token economy in 2026. HOPR continues to test the alternative model.</li>
+<li><strong>How should mixnets expose APIs to apps?</strong> Arti as a library, NymSDK, SOCKS proxies, SAMv3 for I2P — the API surface is fragmenting.</li>
+<li><strong>Can post-quantum upgrades be deployed without new fingerprinting?</strong> Outfox is the research direction; Lewes Protocol is the production direction; I2P SSU2-PQ is the transport-layer direction.</li>
+<li><strong>What is the right user experience for strong anonymity?</strong> Split tunneling Fast ↔ Anonymous (Nym) is the most interesting 2026 UX experiment.</li>
+<li><strong>What is the realistic timeline for CGO network-wide deployment?</strong> Late 2026 or 2027 is plausible; no firm date.</li>
+<li><strong>Can formally-verified crypto make mixnets auditable in a way that builds trust?</strong> Bhargavan's involvement in Nym is the bet.</li>
+</ol>
+<h2 id="primary-sources-this-week">Primary sources (this week)</h2>
+<h3 id="releases-and-announcements">Releases and announcements</h3>
+<ul>
+<li>Tor Project — Arti 2.4.0 (June 1 2026): <a href="https://blog.torproject.org/arti_2_4_0_released/" rel="noopener nofollow">https://blog.torproject.org/arti_2_4_0_released/</a></li>
+<li>Tor Project — Tor Browser 15.0.14 (May 19 2026): <a href="https://blog.torproject.org/new-release-tor-browser-15014/" rel="noopener nofollow">https://blog.torproject.org/new-release-tor-browser-15014/</a></li>
+<li>Tor Project — Tor Browser 15.0.15 (June 3 2026): <a href="https://blog.torproject.org/new-release-tor-browser-15015/" rel="noopener nofollow">https://blog.torproject.org/new-release-tor-browser-15015/</a></li>
+<li>Tor Project — Tor Browser 16.0a7 (June 3 2026): <a href="https://blog.torproject.org/new-alpha-release-tor-browser-160a7/" rel="noopener nofollow">https://blog.torproject.org/new-alpha-release-tor-browser-160a7/</a></li>
+<li>Tor Project — Tails 7.8 (May 21 2026): <a href="https://blog.torproject.org/new-release-tails-7_8" rel="noopener nofollow">https://blog.torproject.org/new-release-tails-7_8</a></li>
+<li>Tor Project — Tails 7.8.1 emergency (June 4 2026): <a href="https://blog.torproject.org/new-release-tails-7_8_1" rel="noopener nofollow">https://blog.torproject.org/new-release-tails-7_8_1</a></li>
+<li>I2P — Development Roadmap (last updated 2026-05): <a href="https://i2p.net/en/get-involved/roadmap" rel="noopener nofollow">https://i2p.net/en/get-involved/roadmap</a></li>
+<li>Nym — 2026 Roadmap (March 13 2026): <a href="https://nym.com/blog/nym-roadmap-2026" rel="noopener nofollow">https://nym.com/blog/nym-roadmap-2026</a></li>
+<li>Nym — Lewes Protocol launch (NymVPN v2026.7): <a href="https://nym.com/blog/lewes-protocol-post-quantum" rel="noopener nofollow">https://nym.com/blog/lewes-protocol-post-quantum</a></li>
+</ul>
+<h3 id="papers-and-analysis">Papers and analysis</h3>
+<ul>
+<li>Degabriele, Karadžić. "Counter Galois Onion (CGO) for Tor: Fast Non-Malleable Onion Encryption." ePrint 2025/583: <a href="https://eprint.iacr.org/2025/583" rel="noopener nofollow">https://eprint.iacr.org/2025/583</a></li>
+<li>Rial, Piotrowska et al. "Outfox: a Postquantum Packet Format for Layered Mixnets." ACM SIGCOMM 2025: <a href="https://dl.acm.org/doi/full/10.1145/3733802.3764062" rel="noopener nofollow">https://dl.acm.org/doi/full/10.1145/3733802.3764062</a></li>
+<li>Mahdi Rahimi. "MOCHA: Mixnet Optimization Considering Honest Client Anonymity." ePrint 2025/861 / IH&amp;MMSEC 2025.</li>
+<li>Nym FOSDEM 2026 slides: <a href="https://fosdem.org/2026/events/attachments/U3UCKS-nym-mixnet/slides/267338/nym_fosd_x6ixavy.pdf" rel="noopener nofollow">https://fosdem.org/2026/events/attachments/U3UCKS-nym-mixnet/slides/267338/nym_fosd_x6ixavy.pdf</a></li>
+<li>Cloudflare — "Policy, privacy and post-quantum: anonymous credentials for everyone": <a href="https://blog.cloudflare.com/pq-anonymous-credentials" rel="noopener nofollow">https://blog.cloudflare.com/pq-anonymous-credentials</a></li>
+<li>Nym HOPE_16 talk (Aug 17 2025): <a href="https://www.youtube.com/watch?v=OCc5pIFJ7zY" rel="noopener nofollow">https://www.youtube.com/watch?v=OCc5pIFJ7zY</a></li>
+</ul>
+<h3 id="repositories-and-project-pages">Repositories and project pages</h3>
+<ul>
+<li>Nym: <a href="https://github.com/nymtech/nym" rel="noopener nofollow">https://github.com/nymtech/nym</a></li>
+<li>I2P Java: <a href="https://github.com/i2p/i2p.i2p" rel="noopener nofollow">https://github.com/i2p/i2p.i2p</a></li>
+<li>I2P C++ (i2pd): <a href="https://github.com/PurpleI2P/i2pd" rel="noopener nofollow">https://github.com/PurpleI2P/i2pd</a></li>
+<li>I2P Rust (emissary): emerging — see <a href="https://i2p.net/en/blog" rel="noopener nofollow">https://i2p.net/en/blog</a></li>
+<li>Katzenpost: <a href="https://github.com/katzenpost/katzenpost" rel="noopener nofollow">https://github.com/katzenpost/katzenpost</a></li>
+<li>HOPR: <a href="https://github.com/hoprnet/hoprnet" rel="noopener nofollow">https://github.com/hoprnet/hoprnet</a></li>
+<li>Arti: <a href="https://gitlab.torproject.org/tpo/core/arti" rel="noopener nofollow">https://gitlab.torproject.org/tpo/core/arti</a></li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <span></span>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-06-26/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — June 26 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

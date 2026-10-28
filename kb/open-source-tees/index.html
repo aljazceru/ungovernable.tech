@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Open-Source TEEs — ungovernable.tech</title>
+<meta name="description" content="Open-source trusted execution environments such as Keystone on RISC-V and OP-TEE: alternatives to vendor TEEs, and how far they have come.">
+<link rel="canonical" href="https://ungovernable.tech/kb/open-source-tees/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Open-Source TEEs — ungovernable.tech">
+<meta property="og:description" content="Open-source trusted execution environments such as Keystone on RISC-V and OP-TEE: alternatives to vendor TEEs, and how far they have come.">
+<meta property="og:url" content="https://ungovernable.tech/kb/open-source-tees/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Open-Source TEEs — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Open-Source TEEs — ungovernable.tech">
+<meta name="twitter:description" content="Open-source trusted execution environments such as Keystone on RISC-V and OP-TEE: alternatives to vendor TEEs, and how far they have come.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Open-Source TEEs", "description": "Open-source trusted execution environments such as Keystone on RISC-V and OP-TEE: alternatives to vendor TEEs, and how far they have come.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/open-source-tees/", "mainEntityOfPage": "https://ungovernable.tech/kb/open-source-tees/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "Open-Source TEEs", "item": "https://ungovernable.tech/kb/open-source-tees/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">Open-Source TEEs</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>Open-Source TEEs</h1>
+  <p class="aka">Also Open Source TEE, Open TEE, Open Architecture TEE, RISC-V TEE.</p>
+  <p class="dek">The other half of the confidential-computing landscape. Vendor TEEs (SGX, SEV-SNP, TDX, Apple SEP) ship with proprietary firmware and vendor-controlled attestation roots. Open-architecture projects — Keystone, Sanctum, OpenTitan, RISC-V CoVE, MultiZone — try to move root-of-trust authority into auditable silicon and code.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-open-tees-matter">Why open TEEs matter</a><a href="#keystone-uc-berkeley">Keystone (UC Berkeley)</a><a href="#sanctum-mit">Sanctum (MIT)</a><a href="#opentitan">OpenTitan</a><a href="#risc-v-cove-confidential-vm-extension">RISC-V CoVE (Confidential VM Extension)</a><a href="#multizone-hex-five">MultiZone (Hex Five)</a><a href="#the-open-vs-proprietary-attestation-root-tension">The open-vs-proprietary attestation root tension</a><a href="#comparison">Comparison</a><a href="#when-to-use-what">When to use what</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-open-tees-matter">Why open TEEs matter</h2>
+<p>Every commercial TEE has the same structural property: the root of trust signing key lives at the silicon vendor. Intel signs SGX/TDX collateral; AMD signs SEV-SNP via the PSP; NVIDIA signs GSP firmware; Apple signs SEPOS; IBM signs SE host-key documents. Customers of those TEEs get strong isolation against everyone <em>except</em> the silicon vendor.</p>
+<p>Open TEE projects address two distinct pieces of that problem:</p>
+<ol>
+<li><strong>Open architecture</strong> — the spec and reference implementation are public, so the protocol is auditable even if a given chip's instantiation is not.</li>
+<li><strong>Open root of trust</strong> — the chip's master signing key is generated and held under conditions the customer can verify, ideally via reproducible builds and open silicon design, not just vendor attestation.</li>
+</ol>
+<p>Most production projects today address only the first. OpenTitan is the most credible attempt at the second.</p>
+<h2 id="keystone-uc-berkeley">Keystone (UC Berkeley)</h2>
+<h3 id="what-it-is">What it is</h3>
+<p>Keystone is a modular framework for building enclaves on RISC-V, started at UC Berkeley around 2018 and presented at EuroSys 2020 (Lee et al., <em>Keystone: An Open Framework for Architecting Trusted Execution Environments</em>). Rather than a single TEE, it is a kit of components: a Security Monitor (SM) running in RISC-V machine mode (M-mode) plus a runtime (Eyrie) running in supervisor mode (S-mode) inside each enclave.</p>
+<h3 id="architecture">Architecture</h3>
+<pre><code>   M-mode    │  Security Monitor (SBI extension)        │  ← Keystone TCB
+   S-mode    │  Eyrie runtime    │  Untrusted host OS    │
+   U-mode    │  Enclave app      │  Untrusted apps       │
+             └───────────────────┴───────────────────────┘
+             │  Physical Memory Protection (PMP)         │
+             │  enforces enclave boundaries              │
+</code></pre>
+<ul>
+<li>The SM uses RISC-V's Physical Memory Protection (PMP) registers to wall off enclave physical memory.</li>
+<li>Eyrie provides an enclave-side runtime that can be customized: minimal libc, simple paging, etc.</li>
+<li>Each enclave gets its own measurement and attestation key derived from the SM's measurement chain.</li>
+</ul>
+<h3 id="status-and-use">Status and use</h3>
+<ul>
+<li>Mostly academic. The reference port runs on SiFive boards and on QEMU.</li>
+<li>Industrial uptake is limited. Some research projects (Sanctuary, CURE, and various follow-ons) extend or compete with Keystone.</li>
+<li>Works on top of any RISC-V core that supports PMP, which is most of them. Does not require special silicon — its TCB is the Security Monitor code, not new instructions.</li>
+<li>Not a replacement for SEV-SNP/TDX in production. Treat Keystone as a research baseline and as a reference implementation people learn enclave architecture from.</li>
+</ul>
+<h3 id="repo-and-paper">Repo and paper</h3>
+<ul>
+<li>Repo: <a href="https://github.com/keystone-enclave/keystone" rel="noopener nofollow">https://github.com/keystone-enclave/keystone</a>.</li>
+<li>Paper: Lee, Kohlbrenner, Shinde, Asanović, Song, <em>Keystone: An Open Framework for Architecting Trusted Execution Environments</em>, EuroSys 2020.</li>
+</ul>
+<h2 id="sanctum-mit">Sanctum (MIT)</h2>
+<p>Sanctum is the older of the two academic RISC-V TEE projects, presented at USENIX Security 2016 (Costan, Lebedev, Devadas). It predates Keystone and influenced its design. Sanctum's contribution is a clean treatment of cache side channels: the spec partitions the L1 and LLC by enclave so that timing side channels via shared cache lines are foreclosed at the architectural level rather than mitigated after the fact.</p>
+<p>Sanctum did not become a production system. Its ideas — particularly cache partitioning as a first-class isolation primitive — show up in research papers and influenced later proposals including aspects of CoVE.</p>
+<ul>
+<li>Paper: Costan, Lebedev, Devadas, <em>Sanctum: Minimal Hardware Extensions for Strong Software Isolation</em>, USENIX Security 2016.</li>
+<li>Repo (historical): <a href="https://github.com/mit-enclaves/sanctum" rel="noopener nofollow">https://github.com/mit-enclaves/sanctum</a>.</li>
+</ul>
+<h2 id="opentitan">OpenTitan</h2>
+<h3 id="what-it-is_1">What it is</h3>
+<p>OpenTitan is the most serious open-silicon root-of-trust project to date. lowRISC, Google, G+D Mobile Security, Nuvoton, Rivos, Seagate, Western Digital, Winbond, and others co-develop the design under an Apache-2.0 license at <a href="https://opentitan.org" rel="noopener nofollow">https://opentitan.org</a>. The first commercial silicon, <strong>Earlgrey</strong>, taped out in 2024 with foundry partners; production silicon from Nuvoton and Winbond began sampling in 2024–2025.</p>
+<p>OpenTitan is not a TEE for application workloads in the SGX sense. It is a discrete root-of-trust chip — the open analogue of Google's Titan, Apple's SE, or a TPM 2.0 — that other systems use as a measurement root, key custodian, and attestation source.</p>
+<h3 id="whats-in-earlgrey">What's in Earlgrey</h3>
+<ul>
+<li>A 32-bit Ibex RISC-V core (in-order, 2-stage pipeline, formally verified at the ISA level via Ibex's verification effort).</li>
+<li>AES, HMAC, KMAC, OTBN (a big-number coprocessor for RSA / ECC / lattice crypto).</li>
+<li>A True Random Number Generator with NIST SP 800-90B entropy source.</li>
+<li>Always-on (OT-AON) domain that runs even when the host system is suspended, used for tamper detection and slow-loop monitoring.</li>
+<li>Manufacturing-time provisioned identities (Creator and Owner identities), enabling shared-fabrication models where the silicon vendor and the device owner are different parties.</li>
+<li>Fuses, life-cycle controller, and a clear life-cycle state machine (RAW → TEST → DEV → PROD → RMA).</li>
+</ul>
+<h3 id="why-it-matters">Why it matters</h3>
+<p>OpenTitan attacks the most opaque part of the TEE stack: the silicon root of trust itself. Where SGX/SNP/TDX/SEP all require trusting a vendor's signed firmware blobs, OpenTitan publishes the RTL, the boot ROM, and the build process. A customer with sufficient resources can verify that a given Earlgrey die corresponds to the published design, and the life-cycle controller separates "who fabbed this" from "who owns this".</p>
+<p>OpenTitan does not, in itself, make a server confidential. It makes the <em>root</em> of confidential-computing claims auditable. Pair it with a CPU TEE for the workload-isolation half.</p>
+<h3 id="status">Status</h3>
+<ul>
+<li>Earlgrey first taped out 2024 (announcement: lowRISC, January 2024).</li>
+<li>Discrete chips from Nuvoton (NPCT/NTT line) and Winbond (W77Q line) are sampling and being adopted in security-sensitive products through 2024–2025.</li>
+<li>Google's production Titan chips have moved (or are moving) to OpenTitan-based designs internally.</li>
+<li>Active integration work in TPM-style use cases, secure-boot anchors, and HSM front-ends.</li>
+</ul>
+<h3 id="repo-and-docs">Repo and docs</h3>
+<ul>
+<li><a href="https://github.com/lowRISC/opentitan" rel="noopener nofollow">https://github.com/lowRISC/opentitan</a></li>
+<li><a href="https://opentitan.org/book/" rel="noopener nofollow">https://opentitan.org/book/</a></li>
+<li>lowRISC, <em>OpenTitan Earlgrey: First Commercial Open-Source Silicon Root of Trust</em>, blog, 2024.</li>
+</ul>
+<h2 id="risc-v-cove-confidential-vm-extension">RISC-V CoVE (Confidential VM Extension)</h2>
+<p>CoVE is the RISC-V International working group's effort to standardize VM-level confidential computing on RISC-V — the open analogue of SEV-SNP and TDX. Status as of early 2026 is in-flight: the architecture document is publicly drafted and iterating, with reference implementations in software emulators and on a few academic platforms.</p>
+<p>Key design choices in current drafts:</p>
+<ul>
+<li>A small TEE Security Monitor (TSM) running in M-mode that mediates entry and exit from confidential VMs. Conceptually similar to the TDX module or Arm RMM.</li>
+<li>Memory isolation via an extension of the IOMMU and PMP infrastructure to per-VM isolation domains.</li>
+<li>An attestation evidence format aligned with the IETF RATS work (the same direction Arm CCA took with its CWT-based token).</li>
+<li>Explicit support for confidential I/O via PCIe TDISP, on the assumption RISC-V servers will adopt the same PCIe security extensions x86 and Arm are converging on.</li>
+</ul>
+<p>CoVE intentionally does not specify the root signing authority for attestation — that is left to the silicon implementer — which preserves the open-architecture property without forcing a single trust hierarchy.</p>
+<p>Production silicon implementing CoVE remains outside commodity scale. The first server-class RISC-V parts (SiFive Performance, Rivos, Ventana Veyron) are sampling or in early-access; whether and when they ship CoVE-compliant configurations depends on each vendor's roadmap. Treat CoVE as a 2026-2028 standardization story.</p>
+<ul>
+<li>Working group page and drafts: <a href="https://github.com/riscv-non-isa/riscv-ap-tee" rel="noopener nofollow">https://github.com/riscv-non-isa/riscv-ap-tee</a>.</li>
+<li>Sahita et al., <em>CoVE: Confidential VMs on RISC-V</em>, RISC-V Summit talks, 2023–2024.</li>
+</ul>
+<h2 id="multizone-hex-five">MultiZone (Hex Five)</h2>
+<p>MultiZone is a commercial-but-open RISC-V TEE from Hex Five Security. It is a different shape from Keystone: instead of one enclave-per-process, MultiZone partitions a single RISC-V core into multiple equal-trust "zones", each with its own memory region and IRQ rights, mediated by a tiny separation kernel (the nanokernel) running in M-mode. It uses RISC-V PMP for isolation, like Keystone, but the design philosophy is closer to a separation kernel for embedded workloads than to a TDX-style confidential VM.</p>
+<ul>
+<li>Source-available reference under a dual license; commercial offering for embedded customers.</li>
+<li>Targets MCU-class RISC-V parts (SiFive E series, GreenWaves GAP, etc.) rather than application processors.</li>
+<li>Useful in the same niche as Trustonic Kinibi or ProvenCore for Arm: small, audit-friendly, embedded TEE for IoT and automotive.</li>
+</ul>
+<p>Site: <a href="https://hex-five.com/" rel="noopener nofollow">https://hex-five.com/</a>.</p>
+<h2 id="the-open-vs-proprietary-attestation-root-tension">The open-vs-proprietary attestation root tension</h2>
+<p>The hard problem none of these projects fully solves: <em>who certifies the silicon?</em></p>
+<ul>
+<li>A TEE attestation only means something if the verifier trusts the signing key.</li>
+<li>For Intel/AMD/Arm/Apple, the answer is "the silicon vendor".</li>
+<li>For OpenTitan, the design is open and the build is auditable, but the <em>fab</em> still has to be trusted, the provisioning process still has to be witnessed, and the resulting device certificate still has to be signed by <em>someone</em>.</li>
+<li>Keystone and Sanctum sidestep the question by reusing whatever silicon they run on, which means their root of trust is the underlying SoC vendor's — same problem, one layer up.</li>
+<li>CoVE inherits the same property; it standardizes the protocol but not the trust hierarchy.</li>
+</ul>
+<p>A handful of partial answers in active research and deployment:</p>
+<ul>
+<li>Multi-vendor attestation: require quotes from independently rooted hardware (e.g., one Intel TDX + one AMD SEV-SNP + one OpenTitan) and only release secrets if all agree.</li>
+<li>Transparency-logged provisioning: publish every device certificate to a public log, so a vendor cannot silently issue a key to a different party.</li>
+<li>Air-gapped / witnessed provisioning: independent observers attend the key-generation ceremony.</li>
+</ul>
+<p>None of these is mainstream. Treat the question as live research with practical workarounds rather than a solved problem. See <a href="/kb/remote-attestation/">Attestation-Architecture</a> for how the RATS architecture frames this.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Layer</th>
+<th>Open hardware</th>
+<th>Open firmware</th>
+<th>Production silicon</th>
+<th>Posture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keystone</td>
+<td>Enclave framework on RISC-V</td>
+<td>Reuses host silicon</td>
+<td>Yes (Apache-2.0)</td>
+<td>Runs on commodity RISC-V</td>
+<td>Academic / research baseline</td>
+</tr>
+<tr>
+<td>Sanctum</td>
+<td>Architecture extension</td>
+<td>Spec is open</td>
+<td>Reference impl public</td>
+<td>None at scale</td>
+<td>Academic, influential ideas</td>
+</tr>
+<tr>
+<td>OpenTitan</td>
+<td>Root-of-trust chip</td>
+<td>Yes (RTL public)</td>
+<td>Yes (Apache-2.0)</td>
+<td>Earlgrey (2024+); Nuvoton, Winbond</td>
+<td>Production-grade RoT</td>
+</tr>
+<tr>
+<td>RISC-V CoVE</td>
+<td>VM-level TEE spec</td>
+<td>Spec open</td>
+<td>Reference impls in progress</td>
+<td>Pre-scale</td>
+<td>In-flight standardization</td>
+</tr>
+<tr>
+<td>MultiZone</td>
+<td>Separation kernel for MCUs</td>
+<td>Reuses host silicon</td>
+<td>Source-available, dual license</td>
+<td>Embedded RISC-V parts</td>
+<td>Commercial embedded TEE</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="when-to-use-what">When to use what</h2>
+<ul>
+<li><em>I want to research enclave architecture or build a teaching example.</em> Keystone, on a SiFive board or QEMU.</li>
+<li><em>I want a measurement root and attestation source under my own audit, not Intel's or Apple's.</em> OpenTitan, paired with whatever CPU TEE makes sense for the workload.</li>
+<li><em>I am building an embedded device with strict separation requirements.</em> MultiZone or a comparable separation kernel.</li>
+<li><em>I am betting on a 2027+ open RISC-V server stack.</em> Watch CoVE; production planning should wait for commodity CoVE silicon.</li>
+<li><em>I need confidential computing today on commodity cloud.</em> Use vendor TEEs (TDX, SEV-SNP) and accept the closed root of trust, or compose with an open RoT for sensitive key custody.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Lee et al., <em>Keystone: An Open Framework for Architecting Trusted Execution Environments</em>, EuroSys 2020.</li>
+<li>Costan, Lebedev, Devadas, <em>Sanctum: Minimal Hardware Extensions for Strong Software Isolation</em>, USENIX Security 2016.</li>
+<li>OpenTitan project — <a href="https://opentitan.org" rel="noopener nofollow">https://opentitan.org</a> and <a href="https://github.com/lowRISC/opentitan" rel="noopener nofollow">https://github.com/lowRISC/opentitan</a>.</li>
+<li>lowRISC blog: <em>OpenTitan: World's first open source silicon design verified to commercial standards</em>, 2024.</li>
+<li>RISC-V CoVE working group — <a href="https://github.com/riscv-non-isa/riscv-ap-tee" rel="noopener nofollow">https://github.com/riscv-non-isa/riscv-ap-tee</a>.</li>
+<li>Sahita et al., <em>CoVE: Confidential VMs on RISC-V</em>, RISC-V Summit, 2023–2024.</li>
+<li>Hex Five MultiZone — <a href="https://hex-five.com/multizone-security-tee-riscv/" rel="noopener nofollow">https://hex-five.com/multizone-security-tee-riscv/</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Open-Source%20TEEs" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">The other half of the confidential-computing landscape. Vendor TEEs (SGX, SEV-SNP, TDX, Apple SEP) ship with proprietary firmware and vendor-controlled attestation roots. Open-architecture projects — Keystone, Sanctum, OpenTitan, RISC-V CoVE, MultiZone — try to move root-of-trust authority into auditable silicon and code.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>8</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

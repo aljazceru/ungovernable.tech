@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Web of Trust Thursday — September 10 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-10: Nostr-WoT extension breaks freeze — v0.6.0, v0.7.0, v0.7.1 in seven days.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/web-of-trust/2026-09-10/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Web of Trust Thursday — September 10 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-10: Nostr-WoT extension breaks freeze — v0.6.0, v0.7.0, v0.7.1 in seven days.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/web-of-trust/2026-09-10/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Web of Trust Thursday — September 10 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web of Trust Thursday — September 10 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-10: Nostr-WoT extension breaks freeze — v0.6.0, v0.7.0, v0.7.1 in seven days.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Web of Trust Thursday — September 10 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-10: Nostr-WoT extension breaks freeze — v0.6.0, v0.7.0, v0.7.1 in seven days.", "datePublished": "2026-09-10", "dateModified": "2026-09-10", "url": "https://ungovernable.tech/briefings/web-of-trust/2026-09-10/", "mainEntityOfPage": "https://ungovernable.tech/briefings/web-of-trust/2026-09-10/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Web of Trust Thursday", "item": "https://ungovernable.tech/briefings/web-of-trust/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-10", "item": "https://ungovernable.tech/briefings/web-of-trust/2026-09-10/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/web-of-trust/">Web of Trust Thursday</a><span aria-hidden="true">/</span><span class="here">2026-09-10</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Web of Trust Thursday</p>
+  <h1>Web of Trust Thursday — September 10 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-10</b></span>
+    <span><b>27</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-10 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-10. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to <a href="/kb/web-of-trust/">Overview - Web of Trust</a>, <a href="/kb/nostr-web-of-trust/">Nostr Web of Trust</a>, and <a href="/kb/openpgp-web-of-trust/">OpenPGP Web of Trust</a>. Covers developments since the <a href="/briefings/web-of-trust/2026-09-03/">September 3, 2026 update</a>. Headline themes: (1) the <strong>Nostr-WoT extension is back from its 28-day freeze</strong> — <code>v0.6.0</code> (Sept 2) shipped under emergency conditions triggered by an AMO compliance takedown, <code>v0.7.0</code> and <code>v0.7.1</code> (both Sept 9) followed with a <strong>zap-redirect-via-forged-kind:0 security fix</strong> that is the single most consequential WoT-adjacent vulnerability of 2026; (2) <strong>a live protocol conflict on kind 30385</strong> emerged on Sept 4 — <code>boyroywax</code> caught that NIP-XX "Trusted Relay Assertions" <a href="https://github.com/nostr-protocol/nips/pull/2418" rel="noopener nofollow">#2418</a> reuses <code>kind:30385</code> which NIP-85 already allocates to NIP-73 external identifiers, and <code>Letdown2491</code>'s reference implementation is <strong>already publishing 100 such events</strong> under the disputed kind on <code>nos.lol</code>; (3) the Nostr-WoT newsroom reached a second milestone — its first <strong>automated social-posting pipeline</strong> (<a href="https://github.com/nostr-wot/nostr-wot/pull/30" rel="noopener nofollow">#30</a>, Sept 4) and its first <strong>researched ecosystem directory</strong> (<a href="https://github.com/nostr-wot/nostr-wot/pull/32" rel="noopener nofollow">#32</a>, Sept 8); (4) <code>kind:10203</code> <strong>plateau holds at 24 for a second consecutive week</strong> — the Sept 3 stair-step did not repeat; (5) <code>fiatjaf/pyramid</code> continued its 19-day post-June revival — 6 more commits this week (mesh hostnames, <code>kind:1621</code> GRASP status root, synthetic create-group events); (6) the <strong>institutional OpenPGP track went quiet</strong> — GnuPG post-2.5.22 commits are maintenance, Sequoia main has zero commits since Sept 1; (7) NIPs PR #2434 (PQ Identity Keys) is <strong>now 30 days frozen</strong>, up from 23 days last week. The ungovernable takeaway: <strong>the institutional OpenPGP track rests after its biggest week of 2026, while the Nostr-WoT track saw both the most consequential security event (zap-redirect forgery) and the most consequential protocol conflict (kind 30385 reuse) in the same week.</strong> The two themes from last week — "institutional PQC is converging" and "insurgent Nostr WoT is steady-state" — have <em>inverted</em>: the institutional track cooled; the insurgent Nostr stack had its biggest news week since the kind:10203 launch. The new tripwires are a protocol-collision-resolution tripwire (will NIP-XX get a new kind?) and a security-disclosure tripwire (will the extension delay disclosure again?).</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Nostr-WoT extension breaks freeze — v0.6.0, v0.7.0, v0.7.1 in seven days.</strong> AMO disabled <code>v0.5.2</code> <em>worldwide</em> on Sept 2 for "Consent, specifically Nonexistent" — the manifest declared <code>required: ["none"]</code> while the wallet routinely sent invoices, payment hashes and Lightning Addresses outbound. <code>v0.6.0</code> (Sept 2) declares <code>financialAndPaymentInfo</code> + <code>personallyIdentifyingInfo</code> and bumps <code>strict_min_version</code> to <code>140.0</code> (desktop) / <code>142.0</code> (Android) for Firefox's built-in consent UI. <code>v0.7.0</code> (Sept 9, "improve wallet, approvals, UI and Firefox consent") ships a <strong>critical security fix</strong>: two relay readers (<code>fetchKind0Read</code>, <code>fetchMuteList</code>) accepted events <strong>without verifying signatures</strong> — a forged <code>kind:0</code> with the attacker's <code>lud16</code> would redirect the user's zaps, and a forged <code>kind:10000</code> would replace their NIP-44-encrypted private mutes. <code>v0.7.1</code> (same day) adds pasted LNURL handling. <strong>+173 commits since v0.5.2</strong> were not in the Sept 3 weekly update; the "frozen Aug 19" narrative was wrong — they had been quietly working in <code>integration/round-2</code> to remediate the compliance failure. Now at <code>v0.7.0</code> (main), 8★.</li>
+<li><strong>Live kind:30385 protocol conflict caught on Sept 4.</strong> <a href="https://github.com/nostr-protocol/nips/pull/2418" rel="noopener nofollow">PR #2418</a> <code>NIP-XX: Trusted Relay Assertions</code> (Letdown2491, opened 2026-07-18, touched 2026-09-04) introduces kind <code>30385</code> (Trusted Relay Assertion, addressable, <code>d = wss://relay.url</code>) <strong>overlapping with NIP-85's existing allocation of 30385 → NIP-73 external identifiers</strong>. <code>boyroywax</code>'s <a href="https://github.com/nostr-protocol/nips/pull/2418#issuecomment" rel="noopener nofollow">Sept 4 comment</a> flags it explicitly. The conflict is <strong>not theoretical</strong>: <code>Letdown2491/trustedrelays</code> (6★, last pushed 2026-06-29) is <strong>already publishing under kind:30385</strong> with <code>d = wss://relay.example.com</code>; a <code>limit:100</code> query on <code>nos.lol</code> returns 100 events with <code>algorithm=v0.3.0</code>, <code>algorithm_url=https://github.com/Letdown2491/trustedrelays/blob/main/ALGORITHM.md</code>, distinct pubkey <code>ad3cdbe…</code>. Any NIP-85 provider reading those events today will mis-interpret them as NIP-73 identifier assertions. The resolution will set precedent for how Nostr allocates new "trusted" event kinds going forward — see §3.</li>
+<li><strong>Newsroom automation milestone: social posting + ecosystem directory.</strong> Two PRs merged Sept 4 + Sept 8: (a) <a href="https://github.com/nostr-wot/nostr-wot/pull/30" rel="noopener nofollow">#30</a> "Add the social auto-posting pipeline" — first <strong>machine-to-machine</strong> publication beyond the website; the agent now posts to Nostr itself on a staggered schedule, single-sourced Node version, social-lint enforced at post time. (b) <a href="https://github.com/nostr-wot/nostr-wot/pull/32" rel="noopener nofollow">#32</a> "Add researched Nostr project directory and ecosystem updates" — <strong>a directory page</strong>, the newsroom's first <em>curated</em> artifact (sourcing rule was GitHub-API-only; an ecosystem directory broadens this to "anything that's an actual project with a verifiable GitHub URL"). Plus <a href="https://github.com/nostr-wot/nostr-wot/pull/31" rel="noopener nofollow">#31</a> (Sept 4) social lint + single-source Node. Both mean the agent's reach now extends outside its own repo.</li>
+<li><strong><code>kind:10203</code> plateau holds — second consecutive week at 24.</strong> Re-measured Sept 10 via direct WebSocket query to <code>nos.lol</code>: still 24 unique pubkeys, identical distribution (22 from Aug 10–11, 1 from Aug 18, 2 from Aug 31). <strong>Zero new entries in 10 days.</strong> The Aug 31 stair-step did not repeat; last week's note "second cohort or single event" is now tilting toward "single event."</li>
+<li><strong>NIPs PR #2434 (PQ Identity Keys) now 30 days frozen.</strong> Sole comment remains <code>fiatjaf</code>'s link to <code>nostr-tools#541</code>. No successor PR. NIPs repo merged 3 PQ-irrelevant PRs since Sept 3: NIP-78 AUTH (#2458, Sept 3), NIP-01 limit:0 (#2460, Sept 4), NIP-A3 payto fix (#2463, Sept 9). Repo at <code>+1</code> starred past week.</li>
+<li><strong>fiatjaf/pyramid: 6 more commits Sept 3–7</strong> (vs. 8 the previous week). Two WoT-relevant: (a) <code>serve plain http on mesh hostnames, and match them when a port is present</code> (Sept 6) — first explicit mesh-network deployment path; (b) <code>grasp: accept a kind 1621 issue as a status root</code> (Sept 7) — GRASP/NIP-34 status events now first-class in pyramid. Plus <code>groups: create a synthetic create-group event when importing a group that doesn't have one</code> (Sept 3); <code>(bugfix): allow 63-octet domain labels</code> (Sept 5); <code>/database/inject special function</code> (Sept 4). 74★ (up 1).</li>
+<li><strong>institutional OpenPGP/PQC track quiet.</strong> GnuPG: 7 commits Aug 31–Sept 2 in maintenance window; <strong>no new commits since Sept 2</strong>. Sequoia main: <strong>no new commits since Aug 31</strong>. The 2.5.22 TOFU-UTK fix and the 16 PQC algorithm-ID assignments from Aug 27–31 still have no associated release. PR #2434 and <code>kind:10203</code> continue to wait.</li>
+<li><strong>newsroom log: 3 entries Sept 3–8 — <code>nip-78</code> + <code>relayer-2.2.19</code> stories published, <code>primal-android-3.5.27</code> was uncovered.</strong> Log lines Sept 3–8 now show <strong>3 published, 0 skipped, 0 paused, 0 failed since Aug 26</strong> (running count: 5 published + 2 skipped from Aug 27–Sept 2 last week, +3 published Sept 3–8). Cumulative: <strong>22 published, 6 skipped, 0 paused, 0 failed</strong> across 41 logged daily runs since launch; <code>Sept 5</code> no log entry between the two surrounding — possible skip not yet logged. The kill switch remains untested.</li>
+<li><strong>fiatjaf called for NIP-11 <code>auth_required</code> removal</strong> on Sept 3 in <a href="https://github.com/nostr-protocol/nips/issues/2459" rel="noopener nofollow">issue #2459</a>; consensus leaned toward "keep <code>auth_required</code> but mark informational and let clients probe/auth/retry instead." A NIP-85 spec note is still the canonical way for an NIP-XX RA to communicate auth-required — see §3 for why the kind:30385 issue interacts here.</li>
+<li><strong>Pyramid reaches 74★ — first new star since June.</strong> WoT-self-hostable star counts: <code>pyramid</code> 74 (+1 from Sept 3), <code>wot.nostr.net</code>'s upstream <code>wot-relay</code> (barrydeen) 86, <code>Chronicle</code> (dtonon) 36, <code>nostr-relay-tray</code> 108, Obelisk 30 (last week's games pivot). Self-hostable picture unchanged structurally.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: Last week's reading was "Nostr-WoT in steady state, institutional PQC making real moves." Both legs moved this week — but the <strong>direction inverted</strong>. The institutional track (GnuPG, Sequoia) went <em>quiet</em> post-2.5.22, while the Nostr-WoT stack had its busiest week since launch: an emergency-compliance release (v0.6.0), a critical WoT-adjacent security fix (v0.7.0), a live protocol conflict on kind 30385, the newsroom's first cross-repo publishing (PR #30), and its first curated artifact (PR #32). For freedom-tech, the takeaway is that <strong>PQC Nostr's biggest risk vectors are now policy/coordination, not cryptography</strong> — the kind-30385 collision shows the standardization layer can drift from the implementation layer in real time. The next reading cycle will tell us whether (a) <code>kind:10203</code> resumes growth on the strength of three monthly stair-steps or plateaus permanently around 24, (b) NIP-XX gets a new kind number or stays collided, and (c) the v0.7.0 security fix ships through Chrome Web Store / Edge Add-ons or only through Firefox's manual consent UI.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-nostr-wot-extension-the-v052-freeze-narrative-was-wrong">1. Nostr-WoT Extension — The v0.5.2 Freeze Narrative Was Wrong</h3>
+<p>Last week closed with: "nostr-wot-extension still frozen since Aug 19, v0.5.2 unchanged. 7 open issues." On Sept 10 the same repo is at <code>v0.7.0</code> (with <code>v0.6.0</code> and <code>v0.7.1</code> shipped and <code>v0.7.0</code> <code>pending store publication</code> per the new <code>CHANGELOG.md</code>). The gap was not 28 days of inactivity — it was 7 days of intense work on a feature branch (<code>integration/round-2</code>), driven by a compliance event that was not in our prior measurement cycle.</p>
+<p><strong>The compliance event (Sept 2, surfaced in v0.6.0 release commit):</strong></p>
+<blockquote>
+<p>AMO disabled 0.5.2 worldwide on 2026-09-02 for "Consent, specifically Nonexistent", naming <code>financialAndPaymentInfo</code>. The manifest declared <code>"data_collection_permissions": { "required": ["none"] }</code> and "none" is a positive claim that the add-on transmits no user data. That had been untrue since the wallet shipped: invoices, amounts, payment hashes and Lightning Addresses go to LNbits, LNURL endpoints and NWC relays.</p>
+</blockquote>
+<p>The release commit then declares:</p>
+<blockquote>
+<p><code>financialAndPaymentInfo</code> is declared [...]. <code>personallyIdentifyingInfo</code> is declared too, and was NOT in the rejection. The extension publishes kind:0 profile metadata, mute lists and relay lists to the user's relays itself, and uploads avatars to blossom.primal.net — that is the extension transmitting, not a page doing it. Being disabled a second time costs far more than a longer install prompt. <code>docs/deployment.md</code> records the full mapping, and the categories deliberately NOT declared with the reason for each, so the next person does not have to re-derive it: keys never leave the device, DMs are encrypted here but transmitted by the page, the allowlist and activity log are local, and there is no telemetry.</p>
+</blockquote>
+<p><strong>This is a v0.5.2 takedown event, not a v0.5.0 takedown event.</strong> v0.5.0 was unpublished earlier this year for what the new <code>docs/security.md</code> calls "the Node 20 build-environment rejection" — and the same file records that v0.4.0 was disabled earlier for the same Node-engine reason. Two precedent events, now documented in-repo. The Sept 2 takedown is the <strong>third</strong> AMO takedown the extension has had. <code>docs/deployment.md</code> carries the lessons.</p>
+<p><strong>Why v0.6.0 was not in last week's update</strong>: my measurement looked at <code>v0.5.2</code> (the last <em>tagged</em> release) and saw no commits to <code>main</code>. That's correct on the literal fact. But between Sept 1 (<code>92f4</code> "shipped LNURL payments" feature branch) and Sept 9 ("Release 0.7.0") the project made +173 commits on feature/integration branches that were merged into <code>main</code> only after v0.6.0 was tagged. The lesson: <strong>a frozen-looking <code>main</code> plus a feature branch with 88+ commits in 24 hours is a sign of branch-heavy compliance work, not a sign of stagnant project</strong>, and any weekly WoT measurement pipeline that only looks at <code>main</code> will miss this class of event. I'm logging this as a measurement-method tripwire for the next cron.</p>
+<p><strong>The v0.7.0 security fix — most consequential WoT-adjacent vulnerability of 2026:</strong></p>
+<p>Per <code>CHANGELOG.md</code> §"Fixed — security":</p>
+<blockquote>
+<p><strong>Two relay readers accepted events without verifying signatures.</strong> <code>fetchKind0Read</code> and <code>fetchMuteList</code> open their own sockets and matched on <code>pubkey</code> and <code>kind</code> only — fields a relay merely asserts. Both feed a read-modify-write of a replaceable event that the user then re-signs and publishes, so a forgery was not just displayed: a <code>kind:0</code> carrying the attacker's <code>lud16</code> would have redirected the user's zaps, and a forged <code>kind:10000</code> replaces their NIP-44-encrypted private mutes with ciphertext the relay chose. <code>liveQuery</code> verified all along; these two bypassed it.</p>
+<p><strong>A relay that serves a forgery can no longer vouch for emptiness.</strong> Rejecting the bad event was not enough on its own — these reads also report <code>reachable</code>, and <code>reachable: true</code> with nothing found means "safe to overwrite", so garbage followed by <code>EOSE</code> would still have wiped a profile. <code>reachable</code> now counts only sockets that answered <em>and</em> never served an invalid event. See <code>docs/security.md</code> §12.1.</p>
+</blockquote>
+<p>This is the <strong>"WoT-adjacent vulnerability" of 2026 by a wide margin</strong>: a malicious relay (or an adversary who can MITM one) could redirect a Nostr user's zap receipts to the attacker's Lightning Address without ever touching their keys. The fix is in v0.7.0; it is not in any released tag yet (v0.7.0 is <code>pending store publication</code>); the AMO/Firefox-pending review process will gate the disclosure. Last week's note raised "Damus shipping muted-note search in release tag" — that still hasn't shipped (Damus has been merging test+SCC plumbing commits, no new tag). The Oct 2/Oct 9 weekly update will record whether the fix lands first in Chrome/Firefox or only in self-build.</p>
+<p><strong>Other v0.7.0 surface changes (from <code>CHANGELOG.md</code>):</strong>
+- 14+ bullet list of UI/copy/control standardization
+- Account-scoped wallet display caches survive popup reopening
+- Content-script requests share a multiplexed port with request IDs
+- Lock screen and approval sheet stops being paint-over-able by deposit-QR portals
+- <code>--z-lock</code> stacking ladder enforces consent-surface order by construction</p>
+<p><strong>Star count</strong>: 8 (+0 from Sept 3). Push date on <code>main</code>: 2026-09-09. License: MIT. Default-branch HEAD: <code>4882a4d</code>.</p>
+<h3 id="2-the-kind30385-collision-live-protocol-conflict-in-public">2. The <code>kind:30385</code> Collision — Live Protocol Conflict in Public</h3>
+<p>On <strong>2026-09-04 17:26:05Z</strong> <code>[botroywax commented](https://github.com/nostr-protocol/nips/pull/2418#issuecomment)</code> on NIP-XX <code>Trusted Relay Assertions</code> PR #2418:</p>
+<blockquote>
+<p>Kind number: 30385 is already assigned by merged NIP-85.</p>
+<p>NIP-85 as merged defines kind 30385 as the assertion for NIP-73 external identifiers (<code>d</code> = the <code>i</code> tag value, plus NIP-73 <code>k</code> tags). This proposal defines a differently shaped relay assertion under the same number, with <code>status</code>, <code>score</code> and the observation tags and no <code>k</code>. A client reading NIP-85 today will take a kind 30385 with <code>d = wss://relay.example.com</code> as an identifier assertion and look for <code>k</code>. If both shapes ship under one num</p>
+</blockquote>
+<p>(The message is truncated in the API response; the comment goes on to describe collision semantics.)</p>
+<p><strong>The conflict is real and live.</strong> Letdown2491's reference implementation <a href="https://github.com/Letdown2491/trustedrelays" rel="noopener nofollow">trustedrelays</a> (last pushed 2026-06-29, 6★) is publishing <strong>today</strong>:</p>
+<pre><code>wss://nos.lol limit:100 kinds:[30385] -&gt; 100 events, single pubkey ad3cdbe9fb09b8edf7b3e0e5286d66e58b58eaa64d061bbcf3a935edf8abf421
+all events match: tag "d" = wss://&lt;some-relay-url&gt;, tag "algorithm" = "v0.3.0",
+                  tag "algorithm_url" = https://github.com/Letdown2491/trustedrelays/blob/main/ALGORITHM.md,
+                  tags include status, score, reliability, quality, accessibility, observations, observation_period,
+                  country_code, region, is_hosting, policy
+</code></pre>
+<p>That is the <strong>NIP-XX shape</strong>: an addressable event keyed by relay URL with <code>algorithm=v0.3.0</code> tags. NIP-85's shape for kind 30385 expects a NIP-73 <code>i</code>-tag value in <code>d</code> with optional <code>k</code> tags identifying the identifier kind. <strong>They are not the same shape.</strong> Any NIP-85 client that pulls kind 30385 today will mis-classify all of Letdown2491's events as NIP-73 identifier assertions with no <code>k</code>.</p>
+<p><strong>Why this matters for WoT specifically</strong>: kind 30385, whether for NIP-73 or for relay trust, is an "assertion provider's claim about a subject" event. The fact that two independent proposals arrived at the same number is a shape-collision pattern, not just a number-collision: both are NIP-85's "trusted computation offload" model, applied to different subjects. The most likely resolution is a <strong>new kind number for NIP-XX</strong> — historically NIPs are retro-numbered by fiatjaf at merge, so #2418 will probably end up at e.g. NIP-99 with a fresh kind. <strong>fiatjaf has not commented publicly on PR #2418 since the July 15 "What does 'trust' mean?" prompt</strong>; the new comment thread will likely force his hand on whether NIP-XX is even the right home for relay trust assertions.</p>
+<p><strong>The implementation-vs-specification drift is real</strong>: 100 events on <code>nos.lol</code> from one provider, 0 events under NIP-85's existing semantics on the same relay. A client that ignores the kind number and just looks at tag shape will probably work; a client that strictly enforces "kind 30385 is NIP-73" will reject the relay trust assertions. Until fiatjaf (or another NIPs maintainer) assigns a number, <strong>the NIP-XX reference implementation is silently creating a parallel-kind-30385 namespace</strong> that the rest of Nostr doesn't know about.</p>
+<p><strong>Self-history</strong>: Letdown2491 originally raised NIP-XX as <a href="https://github.com/nostr-protocol/nips/issues/2195" rel="noopener nofollow">issue #2195</a>; fiatjaf's first comment (2026-07-15) on that issue was "What does 'trust' mean?" Letdown2491's reply (2026-07-18 22:58:47Z): "@fiatjaf nothing to do with trusting an individual, just an indicator of whether a relay will is likely to be of use, reliable, and safe." Then PR #2418 opened the same day.</p>
+<h3 id="3-the-newsroom-reaches-outward-social-posting-ecosystem-directory">3. The Newsroom Reaches Outward — Social Posting + Ecosystem Directory</h3>
+<p>The two merge events with the longest tail-consequences for the newsroom:</p>
+<p><strong><a href="https://github.com/nostr-wot/nostr-wot/pull/30" rel="noopener nofollow">#30 "Add the social auto-posting pipeline"</a></strong> — merged Sept 4 — wires the agent to post its published stories to Nostr itself (likely via a dedicated <code>npub</code>, not yet confirmed in public). Followed up by <strong>#31</strong> "Enforce social lint at post time, and single-source the Node version" (Sept 4) and <strong>#33</strong> "Save newsletter language and archive sent editions" (Sept 8).</p>
+<p>The implication is structural: <strong>the newsroom's first cross-system side-effect.</strong> Until Sept 4, the newsroom ran, wrote a markdown file, and committed it. As of Sept 4, the newsroom runs, writes a markdown file, commits it, <em>and posts to a social channel</em>. That means the agent now has an externalized blast radius — a bad story can be quoted by every Nostr relay that picks up the post. The social-lint commit is the agent's own accommodation for this; it implies <strong>the agent now has a post-publish gate it didn't have before</strong>. For freedom-tech, this is the same level of "trust substrate" event last week's update described for the website, but with an additional blast radius: a publication that is <em>itself</em> a Nostr keypair is now also a Nostr <em>actor</em>. The downstream question — which Nostr client UI surfaces these posts? — becomes relevant the moment a Nostr user follows the newsroom npub. <strong><code>chore(social): record posted entries</code></strong> (Sept 4, Sept 8) is the auditable log showing which stories were posted and when.</p>
+<p><strong><a href="https://github.com/nostr-wot/nostr-wot/pull/32" rel="noopener nofollow">#32 "Add researched Nostr project directory and ecosystem updates"</a></strong> — merged Sept 8 — adds a directory page. This is structurally new: the newsroom's content-type pipeline was "NIPs + client releases only, GitHub-API-sourced." A directory is a <strong>curated ecosystem claim</strong> — it says "we have verified the existence and recency of these 50 projects" — and verification has to extend past GitHub commit dates (a project with no recent commits is not the same as a project that doesn't exist). Last week's update noted the newsroom's next-stress-test would be its first contested factual claim; the directory is a softer version of the same stress — directory entries have implicit "this is alive" claims that can be falsified by a stale-since-July commit. Where the playbook extended to "structured API endpoints with dated responses," the directory extends it to "any GitHub URL whose primary commits are datable, with a freshness threshold the agent picks." That's a meaningful broadening of the agent's evidence surface.</p>
+<h3 id="4-kind10203-plateau-second-consecutive-week-at-24">4. <code>kind:10203</code> Plateau — Second Consecutive Week at 24</h3>
+<p>Direct WebSocket query to <code>wss://nos.lol</code> (<code>{"kinds":[10203],"limit":500}</code>) on 2026-09-10 02:01 UTC returned <strong>24 unique pubkeys, identical distribution</strong> to last week:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Events</th>
+<th>Unique pubkeys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-08-10</td>
+<td>17</td>
+<td>17</td>
+</tr>
+<tr>
+<td>2026-08-11</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2026-08-18</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2026-08-31</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>24</strong></td>
+<td><strong>24</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Zero new entries in 10 days.</strong> Last week's read was "two new publishers in 13 days — single event or start of a second cohort?" The data now leans toward <strong>single event</strong> until proven otherwise. The institutional PQC track (GnuPG 2.5.22 + Sequoia 16 PQC commits) did not, this week, produce the kind:10203 lift the Sept 3 model predicted; whatever nudge produced the Aug 31 stair-step did not repeat on Sept 7.</p>
+<p><code>relay.primal.net</code> and <code>relay.damus.io</code> returned 0 (was 0 last week). <code>nostr.wine</code> returned 403 (not reachable from this vantage). The picture is <strong>stable, not growing</strong>. Last quarter's headline metric — "kind:10203 exists and works" — remains true; the next-quarter headline metric, "kind:10203 is enough for production use," remains distant.</p>
+<h3 id="5-upstream-nostr-three-merges-zero-pq-pr-2434-at-30-days">5. Upstream Nostr — Three Merges, Zero PQ, PR #2434 at 30 Days</h3>
+<p>The <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nips repo</a> merged three PRs since Sept 3:</p>
+<ul>
+<li><strong>NIP-78: require AUTH for kind 30078</strong> <a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">#2458</a>, merged 2026-09-03T20:10:12Z (already covered Sept 4 by the newsroom — <code>nip-78-puts-app-data-behind-auth</code>).</li>
+<li><strong>Clarify zero limit behavior</strong> <a href="https://github.com/nostr-protocol/nips/pull/2460" rel="noopener nofollow">#2460</a>, merged 2026-09-04T04:19:51Z. Adds: <code>limit:0</code> MUST skip stored events and still send EOSE. (Already noted as "left uncovered" in the Sept 4 newsroom log.)</li>
+<li><strong>NIP-A3: fix payment type ambiguity</strong> <a href="https://github.com/nostr-protocol/nips/pull/2463" rel="noopener nofollow">#2463</a>, merged 2026-09-09T18:29:36Z. <code>relayer-2.2.19</code> Sept 8 newsroom story pre-empted with <code>relayer-2-2-19-fixes-overlapping-count-filters</code>.</li>
+</ul>
+<p><strong>Open PRs of note (none PQ):</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Title</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>#2434</strong></td>
+<td><strong>NIP-XX: Post-Quantum Identity Keys</strong></td>
+<td><strong>Open, untouched 30 days, sole comment = fiatjaf's nostr-tools#541 link</strong></td>
+</tr>
+<tr>
+<td>#2451</td>
+<td>docs: Standardize BCP-47 "lang" label namespace</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>#2456</td>
+<td>NIP-44: update test vectors checksum for the extended length prefix</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>#2418</td>
+<td>NIP-XX: Trusted Relay Assertions</td>
+<td><strong>Open — Kind:30385 collision flagged Sept 4</strong></td>
+</tr>
+<tr>
+<td>#2461</td>
+<td>NIP-AC: WebRTC signaling for p2p connections</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>#2462</td>
+<td>Add slash commands</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>#1914</td>
+<td>Add A Generic Raitng/Review NIP</td>
+<td>Open (Sept 8 update) — reputation surface area</td>
+</tr>
+<tr>
+<td>#1816</td>
+<td>Add NIP-101e: Workout Events</td>
+<td>Open (Sept 7 update) — not WoT</td>
+</tr>
+</tbody>
+</table></div>
+<p>fiatjaf's review activity on the NIPs repo last week (per <code>users/fiatjaf/events</code>):
+- 2026-09-09: 2 PR reviews + 2 review comments on PR #2463 (NIP-A3 fix)
+- 2026-09-08: comment on PR #2119 (the original NIP-A3 from Aug 26)
+- 2026-09-05: review on PR #2462 (slash commands) + comment on PR #2462
+- 2026-09-04: 2 push events (direct commits to nips)
+- 2026-09-03: comment on issue #2459 ("I don't think anyone relies on NIP-11 <code>auth_required</code>")</p>
+<p><strong>fiatjaf is responsive on NIPs</strong>, but <strong>not on PR #2434</strong>. PR #2418 has now been alive 54 days with one comment thread; PR #2434 has been alive 62 days with one comment thread. Both are stuck on fiatjaf attention; the institutional PQC track (Sequoia, GnuPG) is not the bottleneck.</p>
+<h3 id="6-pyramids-steady-revival-mesh-hostnames-grasp">6. Pyramid's Steady Revival — Mesh Hostnames + GRASP</h3>
+<p><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a> (74★, up 1 from Sept 3; pushed Sept 10) shipped 6 commits Sept 3–7. Three WoT-relevant:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Commit</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sept 3</td>
+<td><code>groups: create a synthetic create-group event when importing a group that doesn't have one</code></td>
+<td>Group-continuity during import</td>
+</tr>
+<tr>
+<td>Sept 5</td>
+<td><code>(bugfix): allow 63-octet domain labels</code></td>
+<td>Mesh/decentralized-domain edge case (RFC 1035 §2.3.4 max-label rule)</td>
+</tr>
+<tr>
+<td>Sept 6</td>
+<td><code>serve plain http on mesh hostnames, and match them when a port is present</code></td>
+<td><strong>First explicit mesh-network deployment path</strong> for pyramid</td>
+</tr>
+<tr>
+<td>Sept 7</td>
+<td><code>grasp: accept a kind 1621 issue as a status root</code></td>
+<td><strong>NIP-34 (GRASP) status events become first-class</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The mesh path is the headline</strong>: pyramid has historically been measured against NIP-66 relay-discovery and NIP-85 trusted-assertion use; the Sept 6 commit extends it to mesh-style hostnames (RFC 6762/6763 multicast-DNS-style resolution without DNS). This is the same shift that made Calibre/fred last year first-class relay infrastructure for restricted networks. For freedom-tech, a relay that operators can run on a community mesh without depending on the recursive DNS resolver chain is a WoT-infrastructure defense in depth play — even a region-wide takedown of <code>wss://</code> endpoints doesn't reach a mesh-deployed pyramid.</p>
+<p><strong>The GRASP path</strong>: NIP-34 status events (kind 1621) on issues / repos are the Web-of-Trust-adjacent signal most project maintainers today accept as authoritative. pyramid treating them as a "status root" means a relay published in this way carries signed developer-attested status into the relay's policy decisions, which is closer to a WoT integration than a relay-policy integration.</p>
+<p><strong>Pyramid stargazers crossed 74</strong> — first new star since the June revival began; second star in two weeks after eight weeks of 73★.</p>
+<h3 id="7-institutional-openpgppqc-the-post-release-quiet">7. Institutional OpenPGP/PQC — The Post-Release Quiet</h3>
+<p><strong>GnuPG</strong> (pushed last Aug 31): no new commits since Sept 2. Last activity: 7 maintenance commits Aug 31–Sept 2 (<code>gpgconf,w32: Show more registry key of GpgOL</code>; <code>scd: Add Nitrokey 3 to pcsc-shared interference detection</code>; <code>dirmngr: Make the LDAP upload flags also work for KS_SEARCH</code>). The TOFU-UTK fix (T8404) is in 2.5.22 from Aug 31; no 2.5.23 cycle activity yet. <code>T8425</code> is still the release-info page.</p>
+<p><strong>Sequoia main</strong> (last commit Aug 31): <strong>no new commits since Aug 31</strong>. The 16 PQC commits from Aug 27–31 are still on main; there is no 2.5.0 release; the merge-to-main ramp that last week called "the doc era is over" has been quiet for ten days. This is consistent with a post-feature, pre-release stabilization cycle — but it does mean <strong>the second most consequential Sep-3 prediction from last week (Sequoia would tag 2.5.0 in 1–2 weeks) is now off the table</strong>. It's been ten days; if a release were imminent we'd be seeing <code>Release 2.5.0</code> commits, patch-level sequoia-openpgp → 2.5.0 PRs against downstream crates, etc. We see none. Realistic revised estimate: 3–5 weeks to 2.5.0.</p>
+<p><strong>OpenPGP.js</strong> (not measured this week — no recent commits observed in last week's measurement of the broader PQC ecosystem, will pick up in next week's PQC Saturday rotation).</p>
+<p>The combination of (a) institutional quiet, (b) insurgent Nostr-WoT activity doubling, (c) <code>kind:10203</code> plateau holding, plus (d) the kind:30385 collision, is <strong>a marked inversion of last week's reading</strong>.</p>
+<h3 id="8-wot-infrastructure-stability-same-picture-one-more-week">8. WoT Infrastructure Stability — Same Picture, One More Week</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Host</th>
+<th>Status 2026-09-10</th>
+<th>Operational class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wot.nostr.net</code> (Bitvora wot-relay deployment)</td>
+<td>HTTP 200</td>
+<td><strong>Production</strong> (wk 8)</td>
+</tr>
+<tr>
+<td><code>wot.klabo.world</code></td>
+<td>NXDOMAIN</td>
+<td>Dead (wk 5)</td>
+</tr>
+<tr>
+<td><code>nostr.band</code></td>
+<td>connect-timeout, DNS resolves, HTTP 000</td>
+<td>Dead (wk 4)</td>
+</tr>
+<tr>
+<td><code>Letdown2491/trustedrelays</code> reference impl</td>
+<td>last push 2026-06-29 — <strong>dormant 73 days</strong></td>
+<td>Inactive</td>
+</tr>
+<tr>
+<td><code>fiatjaf/pyramid</code></td>
+<td>pushed 2026-09-10</td>
+<td>Active (74★)</td>
+</tr>
+<tr>
+<td><code>barrydeen/wot-relay</code></td>
+<td>last push 2026-04-22</td>
+<td>Stale — never updated since takeover from bitvora</td>
+</tr>
+<tr>
+<td><code>dtonon/chronicle</code></td>
+<td>last push 2026-04-30</td>
+<td>Stale</td>
+</tr>
+<tr>
+<td><code>CodyTseng/nostr-relay-tray</code></td>
+<td>v0.4.1 (Aug 30)</td>
+<td>Patch-only</td>
+</tr>
+<tr>
+<td><code>Letdown2491/signet</code> (NIP-46 bunker)</td>
+<td>1.20.0 (June 29)</td>
+<td>Released-then-quiet</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The new finding</strong>: Letdown2491's <code>trustedrelays</code> reference implementation has not been pushed since <strong>2026-06-29</strong>. The collision with kind 30385 was caught on Sept 4 <em>after</em> the reference impl stopped being updated. <strong>Implementation has drifted from spec; the implementation is now the de-facto reference.</strong> If PR #2418 acquires a new kind number, the already-shipped events need to be re-issued under the new kind, which the dormant reference implementation won't do. <strong>Someone needs to fork trustedrelays and re-issue the events under a new kind number</strong> — that's a multi-week coordination problem, and the natural candidate is the newsroom's contacts at the nostr-wot org, not anyone who has shipped in the last 60 days.</p>
+<p><strong><code>barrydeen/wot-relay</code> (the upstream of <code>wot.nostr.net</code>) is the second stagnation story</strong>. Last push April 22; it works because nothing has changed. Stability is necessary but not sufficient for "this codebase is alive."</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project / Component</th>
+<th>Maturity</th>
+<th>Active Dev</th>
+<th>Key Links</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nostr-WoT extension v0.7.0</strong></td>
+<td>Production-Pending</td>
+<td><strong>High (Sept 9 release)</strong></td>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">repo</a>, <a href="https://github.com/nostr-wot/nostr-wot-extension/blob/main/CHANGELOG.md" rel="noopener nofollow">CHANGELOG</a></td>
+<td><strong>AMO-disablement recovery: v0.6.0 consent compliance + v0.7.0 zap-redirect forgery fix</strong>; main at 4882a4d (Sept 9); 8★; +173 commits since v0.5.2 — the "freeze" was integration/round-2 work</td>
+</tr>
+<tr>
+<td>NIPs <strong>PR #2418</strong></td>
+<td>Proposed</td>
+<td>Active (Sept 4 comment)</td>
+<td><a href="https://github.com/nostr-protocol/nips/pull/2418" rel="noopener nofollow">PR</a></td>
+<td><strong><code>kind:30385</code> collision with NIP-85</strong> caught by <code>boyroywax</code>; Letdown2491's reference impl already ships 100 events on <code>nos.lol</code> under disputed kind</td>
+</tr>
+<tr>
+<td><code>Letdown2491/trustedrelays</code> reference</td>
+<td><strong>Reference, drifted</strong></td>
+<td>Dormant since 2026-06-29</td>
+<td><a href="https://github.com/Letdown2491/trustedrelays" rel="noopener nofollow">repo</a></td>
+<td>6★; algorithm v0.3.0; 100+ events live; needs fork-and-re-issue if NIP-XX gets new kind</td>
+</tr>
+<tr>
+<td>NIPs repo</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">GitHub</a></td>
+<td>NIP-78 AUTH, NIP-01 limit:0, NIP-A3 payto fix merged since Sept 3; 0 PQ; <strong>PR #2434 still frozen 30 days</strong></td>
+</tr>
+<tr>
+<td><strong><code>kind:10203</code> adoption</strong></td>
+<td>Plateau</td>
+<td>—</td>
+<td>Direct nos.lol WebSocket query</td>
+<td><strong>24 → 24</strong> for a second consecutive week; Aug 31 stair-step did not repeat</td>
+</tr>
+<tr>
+<td>nostr-wot newsroom</td>
+<td>Production (autonomous)</td>
+<td><strong>High (3/3 daily runs Sept 3–8)</strong></td>
+<td><a href="https://github.com/nostr-wot/nostr-wot/blob/main/docs/newsroom/playbook.md" rel="noopener nofollow">playbook</a>, <a href="https://github.com/nostr-wot/nostr-wot/blob/main/docs/newsroom/log.md" rel="noopener nofollow">run log</a></td>
+<td><strong>+ social-posting pipeline (PR #30)</strong> + <strong>+ ecosystem directory (PR #32)</strong>; cumulative 22 published, 6 skipped, 0 paused, 0 failed over 41 logged runs</td>
+</tr>
+<tr>
+<td>nostr-wot-extension pre-Sept: v0.5.2</td>
+<td>Replaced</td>
+<td>—</td>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension/blob/main/CHANGELOG.md" rel="noopener nofollow">NEWS</a></td>
+<td><strong>AMO-disabled worldwide 2026-09-02 for financialAndPaymentInfo consent violation</strong></td>
+</tr>
+<tr>
+<td><code>@nostr-wot/pq</code> v0.2.2</td>
+<td>Maintenance</td>
+<td>Frozen Aug 16</td>
+<td><a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow">npm</a></td>
+<td>25 dl/week (was 26)</td>
+</tr>
+<tr>
+<td><code>nostr-wot-sdk</code> v1.0.1</td>
+<td>Maintenance</td>
+<td>Frozen Aug 17</td>
+<td><a href="https://www.npmjs.com/package/nostr-wot-sdk" rel="noopener nofollow">npm</a></td>
+<td>35 dl/week (was 59)</td>
+</tr>
+<tr>
+<td>nostr-wot-extension</td>
+<td>Production (chromium store ships v0.5.2 still)</td>
+<td><strong>Sept 9 release</strong></td>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">repo</a></td>
+<td><strong>+2 versions in 7 days</strong>; v0.6.0 (consent), v0.7.0 (security), v0.7.1 (LNURL); main at v0.7.0</td>
+</tr>
+<tr>
+<td>GnuPG 2.5.22</td>
+<td>Mature</td>
+<td>Maintenance</td>
+<td><a href="https://github.com/gpg/gnupg/blob/master/NEWS" rel="noopener nofollow">NEWS</a></td>
+<td>7 commits Aug 31–Sept 2, <strong>no new commits since Sept 2</strong></td>
+</tr>
+<tr>
+<td>Sequoia main</td>
+<td>Mature</td>
+<td><strong>Dormant</strong></td>
+<td><a href="https://gitlab.com/sequoia-pgp/sequoia/-/commits/main.atom" rel="noopener nofollow">GitLab atom</a></td>
+<td><strong>0 new commits since Aug 31</strong>; 2.5.0 release not imminent</td>
+</tr>
+<tr>
+<td>NIPs PR #2434</td>
+<td>Proposed</td>
+<td><strong>Stalled 30 days</strong></td>
+<td><a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">PR</a></td>
+<td>Sole comment = fiatjaf's nostr-tools#541 link</td>
+</tr>
+<tr>
+<td>fiatjaf/pyramid</td>
+<td>Production</td>
+<td><strong>High (6 in 4 days)</strong></td>
+<td><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">GitHub</a></td>
+<td>74★; <strong>mesh hostnames + GRASP kind 1621 status root</strong></td>
+</tr>
+<tr>
+<td>wot.nostr.net</td>
+<td>Production</td>
+<td>Operated</td>
+<td><a href="https://wot.nostr.net" rel="noopener nofollow">site</a></td>
+<td>HTTP 200, <strong>wk 8</strong> — the only public operated WoT relay</td>
+</tr>
+<tr>
+<td>wot.klabo.world</td>
+<td><strong>Dead (wk 5)</strong></td>
+<td>—</td>
+<td>—</td>
+<td>NXDOMAIN, apex OK</td>
+</tr>
+<tr>
+<td>nostr.band</td>
+<td><strong>Dead (wk 4)</strong></td>
+<td>—</td>
+<td>—</td>
+<td>connect-timeout, DNS OK</td>
+</tr>
+<tr>
+<td>obelisk-app/obelisk</td>
+<td>Games app</td>
+<td>Low</td>
+<td><a href="https://github.com/obelisk-app/obelisk" rel="noopener nofollow">GitHub</a></td>
+<td>Pivot confirmed; no PQ Nostr activity</td>
+</tr>
+<tr>
+<td>Amethyst</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">GitHub</a></td>
+<td>10 commits since Sept 3, <strong>new search feature: hide kind:5/62 from results</strong> (Sept 9, PR #4068)</td>
+</tr>
+<tr>
+<td>Damus</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://github.com/damus-io/damus" rel="noopener nofollow">GitHub</a></td>
+<td>20 commits since Sept 3, <strong>release/push-tags infrastructure hardening</strong> — canonical builder URL, TestFlight tagging, master-every-push docs</td>
+</tr>
+<tr>
+<td>strfry</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://github.com/hoytech/strfry" rel="noopener nofollow">GitHub</a></td>
+<td>Sept 4: <code>don't rely on compiler to auto-derive negentropy storage sub-class, to support clang 16</code>; <code>bump golpe</code></td>
+</tr>
+<tr>
+<td>nostr-tools</td>
+<td>Mature</td>
+<td>Active (fiatjaf)</td>
+<td><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">GitHub</a></td>
+<td>fiatjaf reviewing PRs Sept 9; <strong>non-comment eggs recipe comment</strong> (Sept 9) shows him still running the project actively</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="strategic-analysis-the-inversion">Strategic Analysis — The Inversion</h2>
+<h3 id="the-institutional-track-cooled-the-insurgent-stack-had-its-biggest-news-week">The institutional track cooled; the insurgent stack had its biggest news week</h3>
+<p>Last week's reading was: "institutional PQC advances (GnuPG 2.5.22 TOFU fix + Sequoia 16 PQC commits); insurgent Nostr WoT holds its plateau." This week's reading inverts on both legs. The institutional track is <strong>post-feature, pre-release quiet</strong> — GnuPG has had no commits since Sept 2, Sequoia has had no commits since Aug 31 — exactly the profile of a project that shipped the hard parts and is now waiting for stabilization windows. The insurgent Nostr WoT stack had its busiest week since launch: an emergency-compliance release (extension v0.6.0) triggered by a real AMO takedown, a critical security fix (extension v0.7.0) that addresses a long-standing zap-redirect vulnerability, a live protocol conflict (kind 30385 collision) caught by a Nostr developer who is not part of the proposal, a newsroom that reached its second operational milestone (cross-system posting + curated directory), and a Pyramid that picked up WoT-relevant mesh-network deployment support.</p>
+<p>The inversion is significant because the two tracks have been treated as "different surfaces" in this library's analysis. They are not, in the operational sense: <strong>both are reaction surfaces for a small set of human maintainers paying attention to a small set of milestones</strong>. The fact that institutional PQC surged <em>and</em> insurgent WoT held steady in the same week (Aug 27–Sept 3) and now institutional quiet <em>and</em> insurgent surge are happening simultaneously (Sept 3–10) suggests <strong>a single attention budget is being allocated across both surfaces</strong>, and the budget spent on the kind:30385 review came out of the kind:10203 follow-up that did not happen.</p>
+<p>For freedom-tech, this is a useful negative lesson about the institutional PQC track: a quiet week for Sequoia does not mean nothing happened. It might mean everyone who would have been working on a kind:10203 NIP was, this week, working on the NIP-XX kind:30385 collision.</p>
+<h3 id="the-kind30385-collision-is-the-new-structural-risk-vector">The kind:30385 collision is the new structural risk vector</h3>
+<p>PQC Nostr's biggest risks this year are not cryptographic — <code>kind:10203</code> works, ML-KEM-1024 + ML-DSA-87 is hard, GnuPG 2.5.22 fixes TOFU, Sequoia ships PQC algorithm IDs. The risks are <strong>coordination and policy</strong>: which kind number does a relay trust assertion get when NIP-85 already used 30385 for external identifiers? Who tracks the "second implementation" threshold when Obelisk turned into games? Whose attention do you nudge when PR #2434 has been motionless for 30 days?</p>
+<p>The kind:30385 collision is the first time this quarter that a Nostr-WoT proposal has had a <em>live</em> implementation-side drift from a <em>frozen</em> specification. The reference impl shipped 100 events under the disputed kind <strong>before</strong> any reviewer other than <code>boyroywax</code> noted the conflict. The protocol layer — NIPs repo — has not changed since NIP-85 was last touched (June 13, doc-only commit). Any release-based NIP-xx will have to retire the kind, find a new one, and cause the reference impl to be forked-or-reissued. The "synchronize the spec to the implementation" cost is one to two weeks of work and a known coordination target. <strong>The risk vector for the next 90 days is that this kind of collision accumulates across more of the kind-30382/3/4/5 range</strong>, not that any cryptographic primitive fails.</p>
+<h3 id="nostr-wot-extension-security-disclosure-is-the-second-tripwire">Nostr-WoT extension security disclosure is the second tripwire</h3>
+<p>The v0.7.0 zap-redirect fix is a <strong>critical vulnerability response</strong>, but the disclosure has been gated by AMO/Firefox review processes. As of Sept 10:
+- <code>v0.7.0</code> is on <code>main</code> with a pending store-publication CHANGELOG entry
+- No public CVE assigned (this is a browser-extension vulnerability, not a CVE-trackable npm library)
+- No blog post or X-thread by the maintainer team
+- v0.5.2 with the bug was disabled on AMO but <strong>may still be active in Chrome Web Store / Edge Add-ons / Opera Add-ons</strong> until those stores independently re-review</p>
+<p>For a researcher who runs a privacy-preserving Lightning Wallet on a Nostr stack, the v0.7.0 fix matters even outside the NIP-07 path: <strong>any extension that opens a WebSocket to a relay and lets a <code>kind:0</code> event enter a write-through cache that gets re-published is a real zap-redirect risk</strong>, and the same bug pattern likely exists in some subset of the 30+ active Nostr browser extensions. The disclosure template the extension team used — <code>docs/security.md</code> §12.1 — is the public artifact. The fact that it had to be written <em>after</em> the fix rather than as part of an upstream-disclosure process is itself worth flagging: the next such vulnerability may surface in a less communicative codebase.</p>
+<h3 id="the-newsrooms-blast-radius-just-changed">The newsroom's blast radius just changed</h3>
+<p>The social-posting pipeline (PR #30) and the ecosystem-directory pipeline (PR #32) are the newsroom's first <strong>outward-facing side-effects</strong>. Last week's note raised the newsroom's first contested factual claim as the next tripwire; the directory softens that tripwire by creating <em>implicit</em> "this is alive" claims that can be falsified by stale-since-July commits. The social-posting makes a fabricated post retroactively harder to retract — every relay that stores the post is now a witness to the claimed fact.</p>
+<p>The Daemon-network-relevant pattern this library has been tracking — "a small organization with no full-time editor can run a daily publication on the strength of a 7.5 KB playbook, as long as the playbook is enforced by the agent itself and the failure modes are observable in git" — gets a sharper formulation this week: <strong>the newsroom is now a Nostr actor</strong>, with its own <code>npub</code> and its own social-graph presence, and the playbook now governs not what gets written down but what gets broadcast. The cumulative run count (22 published + 6 skipped + 0 paused + 0 failed across 41 daily runs) is the part of the operational record that's still pristine. The kind:30385 collision is a test the playbook wasn't written for; the social-posting pipeline is a feature the playbook was being extended to handle. Both shipped in the same week.</p>
+<h3 id="pyramid-is-becoming-the-deployment-front-for-wot-relay-ideology">Pyramid is becoming the deployment-front for WoT-relay ideology</h3>
+<p>The Sept 6 mesh-hostnames commit and the Sept 7 GRASP <code>kind:1621</code> commit both extend pyramid beyond "WoT relay for the recursive-DNS internet" to "WoT relay for any network, including the ones a hostile state would prefer not to exist." Combined with last week's runtime-tunable thresholds, the operational shape of "deploy pyramid wherever you want WoT-grade relay-policy enforcement" is a real pattern now — not yet a widely adopted one (the only self-hostable WoT relay answering the public internet is still <code>wot.nostr.net</code>, which is not pyramid), but the building blocks are landing. If a <code>wot-relay</code>'s barrydeen-archived state continues to be its baseline (<code>barrydeen/wot-relay</code> last pushed April 22, no commits in the WoT direction since), the next 6 months probably see <strong>pyramid become the de-facto second implementation of "WoT-enforced Nostr relay"</strong> in the self-host space — even though fiatjaf has never framed it that way publicly.</p>
+<h3 id="tripwires-for-next-week-updated">Tripwires for next week (updated)</h3>
+<ul>
+<li>(raised) <strong>fiatjaf replies on PR #2418 (kind:30385 collision)</strong> — if he merges a new kind number, the reference impl needs a fork + event re-issue; if he doesn't, the implicit collision grows.</li>
+<li>(new) <strong>extension v0.7.0 ships to AMO / Chrome / Edge / Opera / Safari</strong> — the zap-redirect fix goes from "in main" to "in user hands." Disclosure language, including the next-browser-store rollout, will probably be visible in the next 7–14 days.</li>
+<li>(raised) <strong>kind:10203 resumes growth from the Aug 31 stair-step</strong> — or stays at 24 for a third week. If it stays flat through Sept 17, the "single event" reading becomes the dominant interpretation.</li>
+<li>(unchanged) Sequoia 2.5.0 release — now 3–5 weeks realistic, up from "next 1–2 weeks" last week.</li>
+<li>(unchanged) NIPs PR #2434 motion (or any successor PR).</li>
+<li>(new) <strong>newsroom's first paused or failed daily run</strong> — kill switch untested in 41+ runs.</li>
+<li>(new) <strong>second WoT-relevant PR collision</strong> on the 30382/3/4/5 family — would suggest the model "spec layer drift" is structural.</li>
+<li>(new) <strong>extension disclosure escalation</strong> — whether the zap-redirect fix stays in <code>docs/security.md</code> §12.1 only, or becomes a public blog/X post that other extension authors read against.</li>
+<li>(unchanged) Damus release tag with the search-filter muted-notes feature — still on <code>search:</code> branch work, no tag.</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/web-of-trust/2026-09-03/"><span class="label">Previous</span><span class="pn-t">Web of Trust Thursday — September 03 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/web-of-trust/"><span class="label">Series</span><span class="pn-t">All Web of Trust Thursday briefings</span></a>
+      <a href="/briefings/web-of-trust/2026-09-17/"><span class="label">Next</span><span class="pn-t">Web of Trust Thursday — September 17 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Private Set Intersection — ungovernable.tech</title>
+<meta name="description" content="Private set intersection lets two parties learn which items they have in common and nothing else: protocols, performance and real deployments.">
+<link rel="canonical" href="https://ungovernable.tech/kb/private-set-intersection/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Private Set Intersection — ungovernable.tech">
+<meta property="og:description" content="Private set intersection lets two parties learn which items they have in common and nothing else: protocols, performance and real deployments.">
+<meta property="og:url" content="https://ungovernable.tech/kb/private-set-intersection/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Private Set Intersection — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Private Set Intersection — ungovernable.tech">
+<meta name="twitter:description" content="Private set intersection lets two parties learn which items they have in common and nothing else: protocols, performance and real deployments.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Private Set Intersection", "description": "Private set intersection lets two parties learn which items they have in common and nothing else: protocols, performance and real deployments.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/private-set-intersection/", "mainEntityOfPage": "https://ungovernable.tech/kb/private-set-intersection/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Private Set Intersection", "item": "https://ungovernable.tech/kb/private-set-intersection/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Private Set Intersection</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Private Set Intersection</h1>
+  <p class="aka">Also PSI, Private Set Intersection.</p>
+  <p class="dek">A two-party (or multi-party) protocol where each party holds a private set and the parties learn only the intersection. Items not in the intersection stay private. Variants exist for cardinality-only, threshold-PSI, and circuit-PSI (compute on the intersection without revealing it).</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#threat-model">Threat model</a><a href="#variants">Variants</a><a href="#construction-families">Construction families</a><a href="#applications">Applications</a><a href="#trade-offs-by-family">Trade-offs by family</a><a href="#security-models">Security models</a><a href="#pitfalls">Pitfalls</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="threat-model">Threat model</h2>
+<p>Two parties, client <code>C</code> with set <code>X = {x_1, …, x_n}</code> and server <code>S</code> with set <code>Y = {y_1, …, y_m}</code>. Goal: client learns <code>X ∩ Y</code>, server learns nothing (or also learns the intersection in symmetric variants).</p>
+<p>What's hidden:</p>
+<ul>
+<li>Server's elements in <code>Y \ X</code> stay hidden from client.</li>
+<li>Client's elements in <code>X \ Y</code> stay hidden from server.</li>
+<li>Sometimes the size <code>|X \ Y|</code> and <code>|Y \ X|</code> are themselves sensitive; padding and bucketing address this.</li>
+</ul>
+<p>What may leak (depending on variant):</p>
+<ul>
+<li>The intersection itself (intentional in standard PSI).</li>
+<li>The sizes <code>|X|</code>, <code>|Y|</code>.</li>
+<li>Whether a particular query was made (in repeated-PSI scenarios, traffic patterns).</li>
+</ul>
+<p>PSI sits at the boundary of MPC: it is a specific function <code>f(X, Y) = X ∩ Y</code>. Generic MPC can solve it, but specialized constructions are orders of magnitude faster.</p>
+<h2 id="variants">Variants</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Output to client</th>
+<th>Output to server</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plain PSI</td>
+<td><code>X ∩ Y</code></td>
+<td>nothing</td>
+<td>contact discovery</td>
+</tr>
+<tr>
+<td>PSI cardinality</td>
+<td><code>|X ∩ Y|</code></td>
+<td>nothing</td>
+<td>breach checking</td>
+</tr>
+<tr>
+<td>PSI sum</td>
+<td><code>Σ values associated with intersection</code></td>
+<td>aggregate</td>
+<td>ad measurement</td>
+</tr>
+<tr>
+<td>Threshold PSI</td>
+<td>reveal <code>X ∩ Y</code> only if <code>|X ∩ Y| ≥ t</code></td>
+<td>nothing</td>
+<td>matchmaking</td>
+</tr>
+<tr>
+<td>Circuit PSI</td>
+<td>output of a circuit applied to intersection</td>
+<td>depends</td>
+<td>compute on shared records</td>
+</tr>
+<tr>
+<td>Unbalanced PSI</td>
+<td>small <code>|X|</code>, huge <code>|Y|</code></td>
+<td>nothing</td>
+<td>client-vs-server-database</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="construction-families">Construction families</h2>
+<h3 id="oprf-based-kkrt16-and-successors">OPRF-based (KKRT16 and successors)</h3>
+<p>Kolesnikov, Kumaresan, Rosulek and Trieu, <em>Efficient Batched Oblivious PRF with Applications to Private Set Intersection</em>, CCS 2016 (KKRT16). The classical recipe:</p>
+<pre><code>server: pick OPRF key k
+both:   for each x_i client computes F_k(x_i) via OPRF (server learns nothing)
+server: send Y' = {F_k(y_j) for y_j in Y}
+client: compare {F_k(x_i)} against Y'; intersection elements collide
+</code></pre>
+<p>OPRF + OT extension makes this very fast. Successors (PaXoS, SpOT-light, VOLE-PSI by Rindal et al.) bring billion-element PSI to seconds on commodity hardware. Used by Signal contact discovery (with TEE assist) and by various ad-measurement vendors.</p>
+<h3 id="diffie-hellman-psi">Diffie-Hellman PSI</h3>
+<p>Older, simpler:</p>
+<pre><code>client: blind X with secret a:  X' = {H(x_i)^a}
+server: blind Y with secret b:  Y' = {H(y_j)^b}
+both exchange and re-blind:     X'' = X'^b, Y'' = Y'^a
+intersection: x_i ↔ y_j when H(x_i)^(ab) = H(y_j)^(ab)
+</code></pre>
+<p>Folklore construction; appears in Apple's PSI proposal for iCloud Photos CSAM scanning (Bellare et al., <em>The Apple PSI System</em>, 2021). Apple <strong>retracted the deployment in late 2022</strong> after researcher pushback on collisions and broader civil-liberties concerns, despite the underlying PSI math being sound. The retraction is a useful case study: cryptographic correctness is necessary but not sufficient for legitimacy.</p>
+<h3 id="fhe-based-psi">FHE-based PSI</h3>
+<p>Use somewhat-homomorphic or fully homomorphic encryption (typically BFV or CKKS — see <a href="/kb/fully-homomorphic-encryption/">Overview - Fully Homomorphic Encryption</a>) to evaluate set membership under encryption. Chen, Laine, Rindal, <em>Fast Private Set Intersection from Homomorphic Encryption</em>, CCS 2017 (a.k.a. <em>APSI</em>) and <em>PSI from Homomorphic Encryption with Reduced Communication and Computation</em>, CCS 2018 are the canonical references; Microsoft's APSI library implements them. Strength: very low communication for unbalanced PSI (small client set, huge server set). Weakness: server compute is heavy.</p>
+<h3 id="mpc-based-circuit-psi">MPC-based / circuit PSI</h3>
+<p>Run a circuit-PSI protocol that produces secret shares of the intersection rather than the intersection itself; then evaluate further MPC on the shares. Pinkas, Schneider and Zohner, <em>Faster Private Set Intersection Based on OT Extension</em>, USENIX Security 2014; later extended by Pinkas, Rosulek, Trieu, Yanai (2019) and others.</p>
+<h3 id="vole-psi-modern-2022">VOLE-PSI (modern, 2022+)</h3>
+<p>Rindal and Schoppmann, <em>VOLE-PSI: Fast OPRF and Circuit-PSI from Vector-OLE</em>, EUROCRYPT 2021. Closest to state-of-the-art for billion-scale balanced PSI as of 2026.</p>
+<h2 id="applications">Applications</h2>
+<h3 id="contact-discovery">Contact discovery</h3>
+<p>A messenger needs to tell a user which of their phone contacts are also users without uploading the address book in cleartext. Production deployments:</p>
+<ul>
+<li><strong>Signal</strong> uses an SGX-attested service combined with a hash-prefix bucket scheme. Strictly speaking this is <em>trusted-hardware-assisted</em> private contact discovery, not a pure cryptographic PSI; the trust model is the SGX attestation. Background: <em>Private Contact Discovery</em> (Moxie Marlinspike, 2017 blog) and the open-source <code>ContactDiscoveryService</code>.</li>
+<li><strong>Apple Messages</strong> uses iCloud-stored hashed numbers with similar tradeoffs.</li>
+<li><strong>Google Messages</strong> has experimented with PSI-style protocols in newer rollouts.</li>
+</ul>
+<h3 id="have-i-been-pwned-style-breach-checking">Have-I-Been-Pwned-style breach checking</h3>
+<p>Hunt's <em>PwnedPasswords</em> API uses a <em>k-anonymity hash prefix</em> scheme: client sends the first 5 hex chars of <code>SHA-1(password)</code>, server returns all matching suffixes. This is a privacy-preserving lookup but not technically PSI; it's a one-sided range query. Cloudflare partnered on the prefix protocol. Real PSI variants (Google Password Checkup) use OPRF-based PSI to harden the same idea.</p>
+<h3 id="apple-psi-for-csam-scanning-retracted">Apple PSI for CSAM scanning (retracted)</h3>
+<p>Apple announced in August 2021 a PSI-based on-device matching of iCloud Photos against a hashed CSAM database. The cryptographic design (Bhowmick, Boneh, Myers, Shen and others) used DH-PSI plus threshold secret sharing so the server learned nothing unless a per-account match count crossed a threshold. After researcher and civil-society pushback (collision attacks against the perceptual hash, scope-creep concerns), Apple <strong>abandoned the deployment in December 2022</strong>.</p>
+<p>Reference: <em>Apple PSI System Threat Model and Cryptographic Specification</em>, July 2021 (now archived).</p>
+<h3 id="ad-measurement">Ad measurement</h3>
+<ul>
+<li><strong>Google PAIR</strong> (Publisher Advertiser Identity Reconciliation): PSI between advertiser and publisher first-party identities so both sides learn the overlap audience without exchanging raw user lists.</li>
+<li><strong>Meta Private Lift</strong> / <strong>Private Computation Framework</strong>: MPC + PSI to measure ad campaign lift over a control group without exposing per-user attribution.</li>
+<li><strong>IAB Tech Lab PAIR specification</strong> (2023+): standards-track effort.</li>
+</ul>
+<h3 id="joint-research-health-records">Joint research / health records</h3>
+<p>Hospitals or genomic consortia with overlapping patient cohorts use PSI to identify which records they both hold (for joint analysis) without exchanging full patient lists. Typically threshold PSI to avoid revealing single-record overlaps.</p>
+<h2 id="trade-offs-by-family">Trade-offs by family</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Comm.</th>
+<th>Server compute</th>
+<th>Client compute</th>
+<th>Unbalanced-friendly</th>
+<th>Trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPRF + OT (KKRT, VOLE-PSI)</td>
+<td>linear in <code>|X|+|Y|</code></td>
+<td>fast</td>
+<td>fast</td>
+<td>moderate</td>
+<td>semi-honest standard, malicious variants exist</td>
+</tr>
+<tr>
+<td>DH-PSI</td>
+<td>linear, EC ops</td>
+<td>medium</td>
+<td>medium</td>
+<td>yes</td>
+<td>semi-honest</td>
+</tr>
+<tr>
+<td>FHE-PSI (APSI)</td>
+<td>sublinear in server set</td>
+<td>heavy</td>
+<td>medium</td>
+<td>excellent</td>
+<td>semi-honest</td>
+</tr>
+<tr>
+<td>MPC circuit PSI</td>
+<td>linear</td>
+<td>medium</td>
+<td>medium</td>
+<td>weak</td>
+<td>semi-honest, malicious variants</td>
+</tr>
+<tr>
+<td>TEE-assisted (Signal-style)</td>
+<td>small</td>
+<td>very fast</td>
+<td>very fast</td>
+<td>excellent</td>
+<td>hardware vendor</td>
+</tr>
+</tbody>
+</table></div>
+<p>Choose based on: which side can spend compute, whether unbalanced sizes are common, whether malicious-security is required, and whether a trusted enclave is acceptable.</p>
+<h2 id="security-models">Security models</h2>
+<ul>
+<li><strong>Semi-honest:</strong> both parties follow the protocol but may try to learn extra. Most production deployments target this — adequate when both parties are services with reputational stakes.</li>
+<li><strong>Malicious:</strong> parties may deviate arbitrarily. Required when one side might lie about its set membership; cost is typically 2–5x semi-honest.</li>
+<li><strong>Covert:</strong> cheating is detected with non-trivial probability.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls</h2>
+<ul>
+<li><strong>Hash-only "PSI" is not PSI.</strong> Sending <code>SHA-256(x_i)</code> of phone numbers to a server is a dictionary-attackable hash. Real PSI requires keyed PRFs, OPRF, or oblivious primitives.</li>
+<li><strong>Set-size leakage.</strong> Both sides see the order of magnitude; pad to a power-of-two bucket if size is sensitive.</li>
+<li><strong>Re-running PSI iteratively</strong> can leak the full set via differential queries. Bound the number of runs and rotate keys.</li>
+<li><strong>Linkability across queries.</strong> OPRF-based PSI with a static server key allows a client to detect across-session collisions in its own set. Add session-binding nonces if undesired.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Pinkas, Schneider, Zohner, <em>Faster Private Set Intersection Based on OT Extension</em>, USENIX Security 2014.</li>
+<li>Kolesnikov, Kumaresan, Rosulek, Trieu, <em>Efficient Batched Oblivious PRF with Applications to Private Set Intersection</em> (KKRT16), CCS 2016.</li>
+<li>Chen, Laine, Rindal, <em>Fast Private Set Intersection from Homomorphic Encryption</em>, CCS 2017.</li>
+<li>Chen, Huang, Laine, Rindal, <em>Labeled PSI from Fully Homomorphic Encryption with Malicious Security</em>, CCS 2018.</li>
+<li>Pinkas, Rosulek, Trieu, Yanai, <em>SpOT-light: Lightweight Private Set Intersection from Sparse OT Extension</em>, CRYPTO 2019.</li>
+<li>Rindal, Schoppmann, <em>VOLE-PSI: Fast OPRF and Circuit-PSI from Vector-OLE</em>, EUROCRYPT 2021.</li>
+<li>Bhowmick, Boneh, Myers, Shen et al., <em>Apple PSI System Threat Model and Cryptographic Specification</em>, 2021 (archived).</li>
+<li>Microsoft APSI: <a href="https://github.com/microsoft/APSI" rel="noopener nofollow">github.com/microsoft/APSI</a>.</li>
+<li>Signal Contact Discovery: <a href="https://github.com/signalapp/ContactDiscoveryService" rel="noopener nofollow">github.com/signalapp/ContactDiscoveryService</a>.</li>
+<li>VOLE-PSI: <a href="https://github.com/Visa-Research/volepsi" rel="noopener nofollow">github.com/Visa-Research/volepsi</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/fully-homomorphic-encryption/">
+  <span class="nm">Fully Homomorphic Encryption</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/pir-survey/">
+  <span class="nm">Private Information Retrieval: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Private%20Set%20Intersection" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A two-party (or multi-party) protocol where each party holds a private set and the parties learn only the intersection. Items not in the intersection stay private. Variants exist for cardinality-only, threshold-PSI, and circuit-PSI (compute on the intersection without revealing it).</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

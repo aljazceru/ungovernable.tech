@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GNU Name System (GNS) — ungovernable.tech</title>
+<meta name="description" content="The GNU Name System resolves petname-based, privacy-preserving names through GNUnet&#39;s distributed hash table, with no central root. How and why.">
+<link rel="canonical" href="https://ungovernable.tech/kb/gnu-name-system/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="GNU Name System (GNS) — ungovernable.tech">
+<meta property="og:description" content="The GNU Name System resolves petname-based, privacy-preserving names through GNUnet&#39;s distributed hash table, with no central root. How and why.">
+<meta property="og:url" content="https://ungovernable.tech/kb/gnu-name-system/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GNU Name System (GNS) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GNU Name System (GNS) — ungovernable.tech">
+<meta name="twitter:description" content="The GNU Name System resolves petname-based, privacy-preserving names through GNUnet&#39;s distributed hash table, with no central root. How and why.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "GNU Name System (GNS)", "description": "The GNU Name System resolves petname-based, privacy-preserving names through GNUnet's distributed hash table, with no central root. How and why.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/gnu-name-system/", "mainEntityOfPage": "https://ungovernable.tech/kb/gnu-name-system/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "GNU Name System (GNS)", "item": "https://ungovernable.tech/kb/gnu-name-system/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">GNU Name System (GNS)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>GNU Name System (GNS)</h1>
+  <p class="aka">Also GNU Name System, GNUnet GNS, RFC 9498.</p>
+  <p class="dek">A privacy-preserving, hierarchical, petname-based naming system that resolves through GNUnet&#39;s distributed hash table. Standardized as RFC 9498 in 2023. The most thought-through privacy story of any decentralized naming layer.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-gns-argues">What GNS argues</a><a href="#how-it-works">How it works</a><a href="#rfc-9498-2023">RFC 9498 (2023)</a><a href="#gnunet-0290-aug-2026">GNUnet 0.29.0 (Aug 2026)</a><a href="#trust-model">Trust model</a><a href="#petnames-as-a-zookos-triangle-resolution">Petnames as a Zooko&#39;s-triangle resolution</a><a href="#comparison">Comparison</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#operational-patterns">Operational patterns</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-gns-argues">What GNS argues</h2>
+<p>The conventional decentralized-naming designs (ENS, Handshake, PKARR) ask how to replace the registrar. GNS asks a different question: what naming system would you design if privacy were a first-class requirement?</p>
+<p>The answer is a system where:</p>
+<ul>
+<li>Looking up a name doesn't reveal the lookup to the network.</li>
+<li>The naming hierarchy is per-user, not global.</li>
+<li>Cross-user names are resolved through cryptographic delegation.</li>
+<li>No party — including the global infrastructure — can observe queries or correlate them across time.</li>
+</ul>
+<p>This is closer to <em>petname systems</em> (Stiegler, Mark Miller) than to global registries. GNS plus petnames is what Mark Miller called the resolution of Zooko's triangle: secure, decentralized, and human-meaningful.</p>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="zone-keys-are-identities">Zone keys are identities</h3>
+<p>Every user has an Ed25519 (or ECDSA-secp256r1) keypair. The public key is the zone identifier. Names are scoped per zone.</p>
+<h3 id="local-petnames">Local petnames</h3>
+<p>You assign local nicknames to zones you've encountered:</p>
+<pre><code>my-zone:
+  alice ─► &lt;Alice's pubkey&gt;
+  bob   ─► &lt;Bob's pubkey&gt;
+</code></pre>
+<p><code>alice.gnu</code> is <em>your</em> alice. It's meaningful only to you. Two users can both have <code>alice.gnu</code> pointing to different keys; that's fine because names are per-zone-relative.</p>
+<h3 id="hierarchical-delegation">Hierarchical delegation</h3>
+<p>Inside Alice's zone, she can have her own subnames. You access them as <code>name.alice.gnu</code>:</p>
+<pre><code>my-zone:
+  alice ─► &lt;Alice's pubkey&gt;
+
+Alice's zone (resolved when you ask):
+  blog  ─► &lt;some destination&gt;
+  shop  ─► &lt;some destination&gt;
+</code></pre>
+<p>So you can ask for <code>blog.alice.gnu</code> — your local nickname for Alice plus her local name for blog. The resolution chain is: local zone → Alice's pubkey → DHT lookup → Alice's signed records.</p>
+<h3 id="dht-storage">DHT storage</h3>
+<p>Each zone publishes a signed namestore under its public key in GNUnet's DHT. Records are encrypted under a key derived from the zone's pubkey plus the label being looked up. The important properties:</p>
+<ul>
+<li>The DHT can't see the queried name. A lookup of <code>blog.alice.gnu</code> doesn't reveal "blog" to the DHT — only an opaque ciphertext-keyed lookup.</li>
+<li>Records are encrypted. Without knowing the queried label, an observer can't decrypt records.</li>
+<li>Per-zone keys mean leaks don't cascade between zones.</li>
+</ul>
+<p>GNUnet describes its software as early alpha; GNS remains experimental in this library’s readiness scale.</p>
+<h2 id="rfc-9498-2023">RFC 9498 (2023)</h2>
+<p>GNS was standardized by the IETF in September 2023 as RFC 9498 (Schanzenbach, Grothoff, Fix). The standard documents:</p>
+<ul>
+<li>Wire formats and crypto.</li>
+<li>Hierarchical delegation.</li>
+<li>DHT-based block format (encrypted resource records).</li>
+<li>Conflict resolution under delegation.</li>
+<li>Bridging to legacy DNS.</li>
+</ul>
+<p>The RFC formalizes what GNUnet has implemented since around 2014. It is a published RFC, not a draft.</p>
+<h2 id="gnunet-0290-aug-2026">GNUnet 0.29.0 (Aug 2026)</h2>
+<p>The reference implementation. GNUnet is a broader project (P2P framework, mesh routing, file sharing, voting, GNS), but GNS is the most-deployed component. Release cadence 2026: 0.27.0 (Mar 19), 0.28.0 (Jul 17), <strong>0.29.0 (Aug 20)</strong> — the fastest in the project's 25-year history. 0.29.0 fixes transport-subsystem regressions and general instability, but <strong>breaks protocol compatibility with 0.28.x</strong>: old and new peers cannot interoperate, so GNS operators must upgrade in step. The release still self-describes as for "early adopters with some reasonable pain tolerance," with known CADET/FS/SET issues and ~190 open bugs. Cumulative GNS-relevant capabilities across the 0.26→0.29 series:</p>
+<ul>
+<li>Full RFC 9498 conformance.</li>
+<li>Improved DHT throughput.</li>
+<li>Better integration with NSS (name service switch) on Linux.</li>
+<li>Multi-zone management UX.</li>
+<li>Working petname tooling.</li>
+</ul>
+<p>Run on Debian or NixOS with <code>apt install gnunet</code> or equivalent; it brings up a node that participates in the GNS DHT.</p>
+<h2 id="trust-model">Trust model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>GNS</th>
+<th>DNS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lookup privacy</td>
+<td>Yes (encrypted records, queries indistinguishable)</td>
+<td>No (resolver sees query)</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>Per-zone signature</td>
+<td>DNSSEC (optional) + CA chain</td>
+</tr>
+<tr>
+<td>Censorship</td>
+<td>Encrypted DHT records resist takedown</td>
+<td>Registrar / CA / ISP</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>Petname-mediated (out-of-band)</td>
+<td>Search engines + DNS root</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>DHT (slower)</td>
+<td>Caching pyramid (fast)</td>
+</tr>
+<tr>
+<td>Adoption</td>
+<td>Niche</td>
+<td>Universal</td>
+</tr>
+</tbody>
+</table></div>
+<p>The GNS design accepts performance and discovery costs in exchange for strong privacy and censorship-resistance.</p>
+<h2 id="petnames-as-a-zookos-triangle-resolution">Petnames as a Zooko's-triangle resolution</h2>
+<p>Zooko's triangle says a name can be human-meaningful, decentralized, and globally unique, but supposedly not all three. GNS sidesteps this:</p>
+<ul>
+<li>Globally unique identifiers are zone keys (random Ed25519 pubkeys).</li>
+<li>Human-meaningful names are local petnames assigned by each user.</li>
+<li>Decentralized because no central authority maps petnames to zone keys.</li>
+</ul>
+<p>The trick is that <code>alice.gnu</code> doesn't need to be globally unique, only locally. Different users may have different <code>alice.gnu</code>s. That's a feature: it matches how humans actually use names in the real world.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Architecture</th>
+<th>Privacy</th>
+<th>Adoption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GNS</td>
+<td>DHT + petnames + per-zone keys</td>
+<td>High (queries opaque)</td>
+<td>Niche</td>
+</tr>
+<tr>
+<td>ENS</td>
+<td>Ethereum L1 + CCIP-Read</td>
+<td>Low (lookups public)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Handshake</td>
+<td>PoW chain + SPV</td>
+<td>Low (chain public)</td>
+<td>Niche</td>
+</tr>
+<tr>
+<td>PKARR / Pubky</td>
+<td>Mainline DHT + signed records</td>
+<td>Low (records public, queries are key hashes)</td>
+<td>Emerging</td>
+</tr>
+<tr>
+<td>Tor <code>.onion</code></td>
+<td>Self-authenticating service IDs</td>
+<td>High (rendezvous-routed)</td>
+<td>Wide in Tor</td>
+</tr>
+</tbody>
+</table></div>
+<p>GNS and Tor <code>.onion</code> are the two privacy-respecting options. The others reveal the <em>what</em> of lookups even where they decentralize the <em>who</em>.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="censorship-resistant-overlay">Censorship-resistant overlay</h3>
+<p>Organizations or activist communities run a GNS zone hosted on a GNUnet node, distribute their public key to members, and use a petname like <code>org.gnu</code> inside their group. Records are encrypted; lookups don't reveal who's asking for what.</p>
+<h3 id="privacy-respecting-web">Privacy-respecting web</h3>
+<p>A blog at <code>blog.alice.gnu</code> is reachable by anyone who has Alice's pubkey assigned to a petname. Visitors don't reveal "I went to blog.alice.gnu" to a recursive resolver — the GNUnet DHT lookup doesn't expose the human-readable label.</p>
+<h3 id="identity-rooted-federation">Identity-rooted federation</h3>
+<p>Each user is a zone. Users delegate to other users they trust. The graph of cross-zone delegations forms a kind of web-of-trust at the naming layer.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Privacy first. Queries are opaque to observers, including the DHT.</li>
+<li>Petname-based, so it sidesteps Zooko's triangle (locally meaningful rather than globally unique).</li>
+<li>Standardized as RFC 9498.</li>
+<li>Implemented in GNUnet, whose official project overview describes the software as early alpha. This library rates GNS as experimental.</li>
+<li>Free, no chain, no fees.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Discovery is hard. Without a global directory, finding a new zone needs out-of-band contact (the same as Tor v3 onion).</li>
+<li>Performance. DHT lookups are slower than DNS caching.</li>
+<li>Adoption is tiny. The GNUnet user base is small.</li>
+<li>Browser integration is external to mainstream browsers. No mainstream browser supports GNS resolution natively.</li>
+<li>Operational dependency on GNUnet. Running GNS means running a GNUnet node, and the broader project complexity is non-trivial.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DHT poisoning</td>
+<td>Per-zone signatures; record verification</td>
+</tr>
+<tr>
+<td>Zone-key compromise</td>
+<td>Rotate zone key; petname users verify out-of-band</td>
+</tr>
+<tr>
+<td>Sybil at DHT layer</td>
+<td>GNUnet's reputation and routing constraints</td>
+</tr>
+<tr>
+<td>Side-channel via DHT timing</td>
+<td>Mixing or batching on the DHT layer</td>
+</tr>
+<tr>
+<td>Quantum (future)</td>
+<td>Migration to PQ signatures planned</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="personal-stack">Personal stack</h3>
+<pre><code>GNUnet node + GNS zone
+  ├─ records: blog ─► IPFS hash, mail ─► server, ...
+  ├─ delegate: friend ─► &lt;friend's zone pubkey&gt;
+  └─ petnames: assign locally
+</code></pre>
+<p>Distribute the zone pubkey out-of-band (QR, Briar, in person).</p>
+<h3 id="bridge-to-legacy-dns">Bridge to legacy DNS</h3>
+<p>GNS can bridge a <code>.gnu</code> query (or any GNS-resolvable name) to traditional DNS through a configured gateway. Useful for hybrid deployments.</p>
+<h3 id="privacy-respecting-org-infrastructure">Privacy-respecting org infrastructure</h3>
+<p>Org members all have <code>org.gnu</code> as a petname for the org's zone. Internal services (<code>wiki.org.gnu</code>, <code>mail.org.gnu</code>) resolve via GNS. Lookups don't leak to outsiders.</p>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>RFC 9498 published in September 2023.</li>
+<li>GNUnet 0.26.0 (November 2025) brought RFC-conforming implementation.</li>
+<li><strong>GNUnet 0.27.0 (March 2026)</strong> — new major release; note: Git master is incompatible with 0.26.X networks.</li>
+<li>NLnet funding for GNUnet development continues.</li>
+<li>NSS module improvements for transparent system integration.</li>
+<li>Curve25519 / Ed25519 zone keys (deprecating older ECDSA defaults).</li>
+<li>Known issues: TRANSPORT subsystem issues, FS design issues impact usability.</li>
+<li>Ongoing development despite small user base.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://www.gnunet.org/en/about.html" rel="noopener nofollow">GNUnet: early-alpha software status</a></p>
+</li>
+<li>
+<p>Schanzenbach, Grothoff, Fix, <em>The GNU Name System</em>, RFC 9498, IETF, September 2023.</p>
+</li>
+<li>GNUnet — <a href="https://www.gnunet.org" rel="noopener nofollow">gnunet.org</a>.</li>
+<li>GNS overview — <a href="https://www.gnunet.org/en/gns.html" rel="noopener nofollow">gnunet.org/en/gns.html</a>.</li>
+<li>NLnet GNS project — <a href="https://nlnet.nl/project/GNS" rel="noopener nofollow">nlnet.nl/project/GNS</a>.</li>
+<li>Stiegler, <em>An Introduction to Petname Systems</em>, 2005.</li>
+<li>Wilcox-O'Hearn, <em>Names: Distributed, Secure, Human-Readable: Choose Two</em> (Zooko's Triangle), 2001.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/cardano-dns/">
+  <span class="nm">Cardano DNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-naming-systems/">
+  <span class="nm">Naming systems compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/handshake/">
+  <span class="nm">Handshake</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mesh-naming/">
+  <span class="nm">Naming on Mesh and Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/onion-and-i2p-naming/">
+  <span class="nm">Overlay Naming: Tor .onion and I2P</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=GNU%20Name%20System%20%28GNS%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A privacy-preserving, hierarchical, petname-based naming system that resolves through GNUnet&#39;s distributed hash table. Standardized as RFC 9498 in 2023. The most thought-through privacy story of any decentralized naming layer.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

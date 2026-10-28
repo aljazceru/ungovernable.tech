@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — October 09 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for Oct 02 – Oct 09 2026 (W41): Nym Binaries v2026.19-fuqing (Oct 1, pre-window) ships lock-free topology + HTTP rate-limit rotation + LP-DATA.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-10-09/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — October 09 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for Oct 02 – Oct 09 2026 (W41): Nym Binaries v2026.19-fuqing (Oct 1, pre-window) ships lock-free topology + HTTP rate-limit rotation + LP-DATA.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-10-09/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — October 09 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — October 09 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for Oct 02 – Oct 09 2026 (W41): Nym Binaries v2026.19-fuqing (Oct 1, pre-window) ships lock-free topology + HTTP rate-limit rotation + LP-DATA.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — October 09 2026 Weekly Update", "description": "Weekly briefing for Oct 02 – Oct 09 2026 (W41): Nym Binaries v2026.19-fuqing (Oct 1, pre-window) ships lock-free topology + HTTP rate-limit rotation + LP-DATA.", "datePublished": "2026-10-09", "dateModified": "2026-10-09", "url": "https://ungovernable.tech/briefings/mix-networks/2026-10-09/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-10-09/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-10-09", "item": "https://ungovernable.tech/briefings/mix-networks/2026-10-09/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-10-09</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — October 09 2026 Weekly Update</h1>
+  <p class="dek">Oct 02 – Oct 09 2026 (W41)</p>
+  <div class="meta">
+    <span>published <b>2026-10-09</b></span>
+    <span><b>23</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-10-09 // may be outdated</p>
+  <p>This page reflects what was known on 2026-10-09. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<p><strong>1. Nym Binaries v2026.19-fuqing (Oct 1, pre-window) ships lock-free topology + HTTP rate-limit rotation + LP-DATA clock-skew propagation + BandwidthController prune command + sdk feature gating; first post-essaouira binary cut since v2026.18 on Sep 16, 14 days.</strong> Fourteen new commits in CHANGELOG v2026.19-fuqing cluster around LP-DATA / Directory Contract hardening rather than NMv3 (which landed separately as a long Oct 7–8 PR chain).</p>
+<p><strong>2. NymVPN v2026.13.0 ships three betas in seven days (Oct 2 / Oct 7 / Oct 8) — the credential-issuer key rotation window opens.</strong> All three betas advertise identical Core Added/Changed sections (diagnostics gate, persist-gateway-list-to-disk, Linux UNIX-group <code>nym-vpn</code> auth, <strong>configuration profiles — Safest/Most Private/Fastest/Random via #6073</strong>, <code>six_months</code> subscription kind, dynamic DNS fallbacks from Discovery, macOS CLI <code>net.nymtech.vpn.cli</code> signing, rpc-uniffi crate merged into lib-uniffi, fallback-to-random on missing location data, re-ordered authentication flow, detach slow diagnostics from blocking commands); beta.2 adds <strong>only-metadata-refreshed gateway list cached across reconnects</strong>; beta.3 reverses both the #5762 metadata-teardown deferral and the #6091 connect-on-healthy-metadata fallback (only-both-passes-connect). The Sep 24 blog pre-announcement ("<em>Upgrade to v2026.12.4 or newer</em>") is now actionable: <strong>NymVPN v2026.12.4 → v2026.12.6 → v2026.13.0-beta.N is the migration path.</strong> Exact rotation date still TBA on <a href="https://nym.com/blog/nymvpn-network-upgrade" rel="noopener nofollow">nymvpn-network-upgrade</a>.</p>
+<p><strong>3. Nym NMv3 (Network Monitor v3) build-out converges on Oct 7–8 — eighteen PRs merged in two days, all by Jędrzej Stuczyński.</strong> The Oct 7 cluster ships: <strong>gateway liveness probes #7128</strong>, <strong>mixnode liveness sending #7115</strong>, <strong>per-kind submission #7100</strong>, <strong>per-kind scheduling #7095</strong>, <strong>store different test results #7086</strong>, <strong>ed25519 NM identity announced on the Directory Contract #7080</strong>, <strong>client unmetered ephemeral sessions #7078</strong>, <strong>forwarding of final-hop Network Monitor packets #7063</strong>, <strong>ed25519 NM identity in announced data #7059</strong>, and <strong>NMv3 liveness checks #7058</strong>. Oct 8 clusters <strong>Geolocation / NM API integration #7168 / #7156 / #7181</strong> (attested geolocation retrieval, node-score aggregation, "performance contract: multiple kinds"). The <strong>Directory Contract → Geolocator service</strong> stack first landed in djibouti v2026.17 (Sep 2); <strong>NMv3 is the third leg</strong> that lets the Directory Contract measurably rank mixnodes without trusting company-operated reputation. The Oct 7 <strong>libcrux upgrade + nonce re-enable #7214</strong> is a separate crypto-stack hardening (post-quantum signature library refresh).</p>
+<p><strong>4. Nym SDK release channel: Max/ts sdk — the TypeScript SDK gets a new "always-latest" release pipeline (#7218, mfahampshire, Oct 8).</strong> Separately: cargo feature flags documented in the Rust SDK (#7122, mfahampshire, Oct 5) — the SDK is becoming a product surface on its own rather than just an internal monorepo.</p>
+<p><strong>5. Katzenpost ships a security hardening cluster of unprecedented size — three merged PRs, 100+ commits, on Oct 7–8, after ioerror's Sep 27 CI hardening sweep and #1182 (Oct 1) client/thin race fix.</strong> The cluster:</p>
+<ul>
+<li><strong><a href="https://github.com/katzenpost/katzenpost/pull/1206" rel="noopener nofollow">#1206</a> (Oct 7, Jacob Appelbaum) — <code>authority/voting: dirauth fixes and consensus reliability</code></strong> — <strong>44 branches merged in order</strong>, each a "failing test → fix" pair; wire/consensus/on-disk formats are unchanged; behaviour changes: <code>PeerRetryMaxAttempts</code> no longer defaults to 20 (unset = retry until phase deadline); <code>IdentityPublicKeyPem</code> renamed → <code>IdentityPublicKeyFile</code> with old-name compat. This is the <strong>biggest single PR the katzenpost repo has ever shipped</strong>.</li>
+<li><strong><a href="https://github.com/katzenpost/katzenpost/pull/1213" rel="noopener nofollow">#1213</a> (Oct 7, Jacob Appelbaum) — <code>security: wipe dropped secrets, bound the thin-client listener, keep identifiers out of logs</code></strong> — eight sub-fixes including <strong>wire cipher states on Close</strong>, <strong>envelope private-key wipe on drop</strong>, <strong>thin-client listener read/allocation/connection bounds</strong>, <strong>ephemeral MKEM key wipe at last use</strong>, <strong>SURB key wipe wherever dropped</strong>, <strong>blinding-factor removal from one log line</strong>.</li>
+<li><strong><a href="https://github.com/katzenpost/katzenpost/pull/1214" rel="noopener nofollow">#1214</a> (Oct 8, Jacob Appelbaum) — <code>dirauth: reject late votes past reveal, bound topology layers, and guard mix slots</code></strong> — three consensus/networking fixes: <strong>late-vote SRV grinding prevention</strong> (<code>commands.VoteTooLate</code> once authority has transitioned past reveal), <strong>bounded topology layers against prior consensus</strong> (prevents unbounded growth), <strong>pinned-authority-only peer slot identity binding</strong> (prevents slot sales).</li>
+</ul>
+<p>Plus <strong><a href="https://github.com/katzenpost/katzenpost/pull/1215" rel="noopener nofollow">#1215</a> (Oct 8, closed/merged) — <code>courier, server, client: nil guards on reply dispatch, session credentials error handling</code></strong>, <strong><a href="https://github.com/katzenpost/katzenpost/pull/1216" rel="noopener nofollow">#1216</a> (Oct 7, merged) — <code>go.mod: update golang.org/x/text to v0.41.0</code></strong>, <strong><a href="https://github.com/katzenpost/katzenpost/pull/1218" rel="noopener nofollow">#1218</a> (Oct 8, merged) — <code>server/internal/scheduler: take the epoch length from epochtime.Period</code></strong>. Eight further PRs queued (#1208 kaetzchen + courier re-dispatch pacing, #1209 client socks5 panic + ARQ jitter + bandwidth estimate + ping per-epoch + retryable-pigeonhole-not-ready, #1210 optional descriptor fields + client notice + service delay, #1211 cborplugin host-chosen socket + drain + geometry + parameters, #1217 docker/quic transport pick + QUIC keepalives + cached read success, #1220 descriptor uploads bound to session link key + per-identity slots for pinned nodes, #1221 kpclientd systemd socket activation).</p>
+<p><strong>6. HOPR ships the GNO-805 channel-balance incident-fix trilogy on Oct 6–7 (5 merged PRs).</strong> #8485 (Lukas) — <code>fix(chain): update the channel graph balance on ticket redemption</code> (TicketRedeemed was falling through <code>process_chain_events</code>'s catch-all and the routing graph kept each channel's <em>funded</em> balance); #8487 (Tibor) — <code>fix(path): fund-check the extended search against the finished path length (GNO-805)</code>; #8486 (Lukas) — <code>fix(transport): keep a cold 1-hop burst from losing its route at a counter flush (#8484)</code> — score only settled packets, a burst starting just before flush was reported unacknowledged, edge fell below <code>min_ack_r</code>. Plus <strong><a href="https://github.com/hoprnet/hoprnet/pull/8478" rel="noopener nofollow">#8478</a> (Oct 6) — <code>fix(session)!: decouple the PIX recovery floor and quota from the HOPR payload size</code></strong> (closes #8469: Sep 29 #8313 payload change 1038 → 3246 B silently tripled <code>max_recovery_time</code>; <code>ASSUMED_SESSION_PACKET_RATE</code> → <code>MAX_ASSUMED_SESSION_PACKET_RATE</code>, fixed 5000 packets/s upper bound ≈ 58 Mbps). And <strong><a href="https://github.com/hoprnet/hoprnet/pull/8472" rel="noopener nofollow">#8472</a> (Oct 5) — share-bearing SURBs first in the Exit SURB store</strong>, <strong><a href="https://github.com/hoprnet/hoprnet/pull/8473" rel="noopener nofollow">#8473</a> (Oct 5) — <code>feat(protocol)!: count lost PIX shares exactly and drop the LIFO SURB pop order</code></strong> (the Gnosis VPN tunnel-down investigatory work continues). Net: HOPR is <strong>shipping real bug fixes fast</strong> ahead of the 4.x stable cut.</p>
+<p><strong>7. Tor network at 10,560 relays (Onionoo <code>relays_published: 2026-10-09 01:00:00</code>)</strong> — up from the Sep 8 post-0.4.8-EOL trough. Onionoo summary confirms 10,560 in consensus; bridge publishing ok at 2026-10-09 00:55:17. Onionoo is <strong>the right primary source</strong> because the metrics.torproject.org relayflags.csv lags (latest data in CSV is 2026-10-05 = 9,194 running relays; the Oniooo summary is the authoritative fresh count). The +1,073 from <code>metrics.csv Oct 5</code> to <code>onionoo Oct 9</code> is partly CSV lag, partly real growth.</p>
+<p><strong>8. I2P i2psnark + i2ptunnel cluster (Sep 27 → Oct 5): V-50 loopback (Oct 1 PR #178 + Oct 5 merge) + V-33/49/54/55/66/67 (merged Sep 21–27) closes the V-series security cluster.</strong> zzz bumped <code>-8-rc</code> Oct 5 (one revision past <code>-7</code> Sep 28) — <strong>I2P 2.13.0 → 2.14.0-rc is being staged for the I2P-roadmap-target "late October 2026" cut</strong> (I2P roadmap last updated 2026-07 lists: build fix for gettext 1.0, izpack 5.2.6, gradle build fixes, addressbook conflicts, SAM datagram 2/3 subsessions, i2psnark v2 prep, streaming speedups, performance improvements). No new i2p.i2p full release tag yet; i2pd still at 2.61.0 (Jul 20).</p>
+<p><strong>9. Arti 2.7.0 (Oct 1, pre-window) ships with low- to high-severity security fixes and explicit upgrade guidance for <code>arti</code>, <code>arti-client</code>, and <code>arti-ureq</code> users, "especially those running onion services".</strong> The Tor blog notes Arti "continues our ongoing development towards using Arti as a relay and as a directory authority, with much of the work focusing on document parsing, directory mirror support, and DNS stream handling." <strong>Arti now has RPC support for modifying and inspecting its configuration.</strong> That's the dirauth-path prerequisite from last week's standing-watch note still landing.</p>
+<p><strong>10. ePrint sweep (Oct 2 → Oct 9): four in-window mixnet/PIR/anonymity papers — first NymHS-relevance + PIR + OMR cluster in weeks.</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>arXiv/ePrint</th>
+<th>Date</th>
+<th>Title</th>
+<th>Mixnet-Note Relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2334" rel="noopener nofollow">2026/2334</a></td>
+<td>Oct 4</td>
+<td>Trapdoor Projective Sampling and Identity-Based Anonymous Broadcast</td>
+<td>bounded-universe anonymous broadcast using "trapdoor projective sampling" that adds key extraction to LPSS (CRYPTO '14); DPPY (Eurocrypt '25) showed secret-key anamorphic broadcast, this work extends to public-key identity-based anonymous broadcast in the bounded model — <strong>directly relevant for Nym mixing / Katzenpost loopix / Sphinx receiver-anonymity use cases</strong></td>
+</tr>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2369" rel="noopener nofollow">2026/2369</a></td>
+<td>Oct 6</td>
+<td>StOMR: Stateful Oblivious Message Retrieval</td>
+<td>OMR for anonymous messaging + blockchains; sender signals drop from "hundreds of kilobytes" to "compact"; implements a new <strong>OMR-KEM</strong> for shared-state key encapsulation; benchmarks vs PerfOMR (USENIX Sec '24), SophOMR (USENIX Sec '25) — <strong>applies to receive-side metadata privacy for any loopix-style mixnet</strong></td>
+</tr>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2385" rel="noopener nofollow">2026/2385</a></td>
+<td>Oct 6</td>
+<td>SkrrtPIR: Doubly-Stateless Batch PIR from Single-Key RLWE Unpacking</td>
+<td>"doubly-stateless" Batch PIR (server stores no per-client state, client has no DB-dependent hint); single Galois key replaces log-N Galois keys — companion to <strong>NymHS's Sphinx-load findings</strong> for hidden-service retrieval</td>
+</tr>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2397" rel="noopener nofollow">2026/2397</a></td>
+<td>Oct 7</td>
+<td>Hashing Beats Trees: Practical Oblivious Dictionaries in SGX</td>
+<td>ORAM in SGX; probabilistic hash tables (chaining, power-of-two-choices, stash-less cuckoo, de-amortized cuckoo) over Path ORAM; "double obliviousness" inside an enclave — <strong>oblivious-DB / confidential-computing layer for Sphinx routing tables</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Banner story</strong>: <strong>three independent hardening waves ship in the same 7-day window</strong> — Katzenpost #1206+#1213+#1214 dirauth/security dirauth (Oct 7–8), NymVPN v2026.13.0-beta.1/.2/.3 credential-issuer key-rotation pipeline (Oct 2/7/8), HOPR GNO-805 channel-balance incident trilogy (Oct 6–7). Plus the <strong>I2P 2.14.0-rc staging</strong> opens the late-October target on schedule. <strong>Mix networks are converging — not on a single protocol, but on a hardening posture in which weekly cadence can absorb an entire July-of-2025 amount of hardening in a single Tuesday.</strong></p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nym-binaries-v202619-fuqing-oct-1-nymvpn-v2026130-beta123-cluster-nmv3-build-out-sdk-update">Nym — Binaries v2026.19-fuqing (Oct 1) + NymVPN v2026.13.0-beta.1/.2/.3 Cluster + NMv3 Build-Out + SDK Update</h3>
+<p><strong><a href="https://github.com/nymtech/nym/blob/nym-binaries-v2026.19-fuqing/CHANGELOG.md" rel="noopener nofollow">Nym CHANGELOG v2026.19-fuqing</a></strong> ships these items, dated 2026-09-29 in the source (release-tag date Oct 1):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Title</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7165" rel="noopener nofollow">#7165</a></td>
+<td>HTTP Rate-limit Rotation</td>
+<td>prevents API IP-stamping / side-channel quirks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7152" rel="noopener nofollow">#7152</a></td>
+<td>Apply VPN API clock skew to LP registration timestamps</td>
+<td>addresses the <code>LP registration clock-skew (#7150)</code> issue; <strong>devices &gt;30s fast are no longer wrongly rejected</strong> (from last week's release notes)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7141" rel="noopener nofollow">#7141</a></td>
+<td>Max/openspec archive stream liveness</td>
+<td>release-archive stream no longer hangs on broken providers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7137" rel="noopener nofollow">#7137</a></td>
+<td>Bump hickory crates to <code>0.26.2</code></td>
+<td>DNS-resolver-stack refresh</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7134" rel="noopener nofollow">#7134</a></td>
+<td>Lock-free topology</td>
+<td><strong>a long-asked performance win for the directory lock</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7123" rel="noopener nofollow">#7123</a></td>
+<td>Max/nym sdk feature gating</td>
+<td>lets downstream SDK builds strip subsystems (filesystem storage, SOCKS5, IPR, bandwidth, streams, TCP proxy, client pooling, CLI) — foundation for lighter WASM/embedded clients</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7120" rel="noopener nofollow">#7120</a></td>
+<td>Max/stream keepalive</td>
+<td>TCP/UDP stream keepalive options</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7098" rel="noopener nofollow">#7098</a></td>
+<td>Max/lwd stream patch</td>
+<td>light-weight daemon stream fixes</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7085" rel="noopener nofollow">#7085</a></td>
+<td>Add prune command to BandwidthController</td>
+<td>gives operators a runtime way to evict stuck bandwidth tokens (carryover from bandwidth-controller refactor in essauora)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7036" rel="noopener nofollow">#7036</a></td>
+<td>Clean up usage of nym-bridges</td>
+<td>deprecation cleanup</td>
+</tr>
+</tbody>
+</table></div>
+<p>Then a <strong>separate Oct 7–8 PR cluster (NMv3 build-out)</strong> by Jędrzej Stuczyński launches NMv3 against the Directory Contract: gateway liveness probes #7128, mixnode liveness sending #7115, per-kind submission #7100, per-kind scheduling #7095, different test results #7086, NM ed25519 identity announced on Directory Contract #7080, unmetered ephemeral client sessions #7078, forwarding of final-hop Network Monitor packets #7063, ed25519 NM identity in announced data #7059, NMv3 liveness checks #7058, NM Nym API integration #7136, NM review nits + docs #7176. Oct 8's stack adds <strong>attested geolocation retrieval #7156</strong>, <strong>node score aggregation #7181</strong>, <strong>Geolocation contract within NS API #7168</strong>, and <strong>performance contract: multiple kinds #7213</strong> — the <strong>integration story</strong> is that Geolocator + Directory Contract + NMv3 liveness form one observation pipeline.</p>
+<p><strong><code>#7214</code> (Oct 7) — <code>chore: upgrade libcrux libraries and re-enable nonce control</code></strong> is a separate crypto-stack hardening: libcrux is Nym's audited post-quantum signature library; the nonce control re-enable closes a small protocol-side escape.</p>
+<p>The <strong><code>Max/ts sdk always latest</code> PR #7218</strong> (mfahampshire, Oct 8) is parallel — the TypeScript SDK gets a release pipeline where new commits trigger automated npm publishes without manual intervention, while <strong>#7122 (Oct 5) <code>docs(rust-sdk): document cargo feature flags</code></strong> makes the Rust SDK's compile-time options discoverable. <strong>Two SDKs, two different ergonomics bets</strong>: always-latest for JS users, feature-gated for Rust users.</p>
+<h3 id="nymvpn-v2026130-beta123-the-credential-issuer-key-rotation-window-opens">NymVPN v2026.13.0-beta.1/.2/.3 — the Credential-Issuer Key Rotation Window Opens</h3>
+<p>The most consequential story in Nym-land this week is <strong>the v2026.13.0 beta train running three releases in seven days</strong> — beta.1 (Oct 2 12:32:05 UTC), beta.2 (Oct 7 12:20:21 UTC), beta.3 (Oct 8 10:55:36 UTC), each authored with Nym's "Release Please" pattern (so the <em>body</em> is identical across betas except for the Fixed-section refinement). The <strong>core added/Changed surface is identical</strong> across all three betas:</p>
+<ul>
+<li><code>Detect when the diagnostics check should be run</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/5993" rel="noopener nofollow">#5993</a>)</li>
+<li><code>Persist gateway list to disk, seeded from a built-in list</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6015" rel="noopener nofollow">#6015</a>)</li>
+<li><code>[Linux] Authenticate also via UNIX group "nym-vpn" membership, or root</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6100" rel="noopener nofollow">#6100</a>)</li>
+<li><code>Configuration profiles: Safest, Most Private, Fastest and Random</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6073" rel="noopener nofollow">#6073</a>)</li>
+<li><code>Add 'six_months' subscription kind to the vpn-api models and gRPC proto</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6320" rel="noopener nofollow">#6320</a>)</li>
+<li><code>Add end-to-end plumbing for dynamically applying DNS fallbacks from Discovery</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6126" rel="noopener nofollow">#6126</a>)</li>
+<li><code>[Desktop] Detect conflicting software and report it to the user</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6122" rel="noopener nofollow">#6122</a>) — <strong>disabled in beta.2/beta.3</strong> because it "falsely reports DNS interception on systemd-resolved systems"</li>
+<li><code>[macOS] Sign cli with net.nymtech.vpn.cli bundle identifier. Add it to client signing requirement</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/5998" rel="noopener nofollow">#5998</a>)</li>
+<li><code>Merge rpc-uniffi crate into lib-uniffi</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6010" rel="noopener nofollow">#6010</a>)</li>
+<li><code>Fallback to random when no location data available</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6382" rel="noopener nofollow">#6382</a>)</li>
+<li><code>Re-order authentication flow and do checks as soon as possible</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6406" rel="noopener nofollow">#6406</a>)</li>
+</ul>
+<p>The <strong>fixed-section differences between betas track the rotation pipeline itself</strong>:</p>
+<ul>
+<li><strong>beta.1</strong> only fixed <code>Remove failed pending requests before creating new ones</code> (<a href="https://github.com/nymtech/nym-vpn-client/pull/6295" rel="noopener nofollow">#6295</a>) and the macOS file-permissions fix (<a href="https://github.com/nymtech/nym-vpn-client/pull/6456" rel="noopener nofollow">#6456</a>).</li>
+<li><strong>beta.2</strong> replaced both with the credential-rotation-aware batch: <strong>only-both-in-tunnel-ping-and-metadata-pass for "connected"</strong>; <strong>keep cached gateway list across reconnects</strong>; <strong>keep in-flight location lookup across reconnect/setting-update so automatic gateway selection is less likely to fall back to random</strong>; <strong>treat built-in or unknown-age gateway differently</strong> (an implicit "the rotation may repopulate this from a baked-in copy").</li>
+<li><strong>beta.3</strong> adds explicit "remove a gateway from the blacklist once a tunnel through it connects" plus <strong>reverses both the metadata-teardown deferral (#5762) and the connect-on-healthy-metadata fallback (#6091)</strong> — the "only-both-passes-connect" rule is now strict in both directions; <strong>Run diagnostics in the background</strong> so a slow one no longer blocks disconnect.</li>
+</ul>
+<p>The Sep 24 Nym blog (<a href="https://nym.com/blog/nymvpn-network-upgrade" rel="noopener nofollow">nym.com/blog/nymvpn-network-upgrade</a>) pre-announced: <em>"Nym is refreshing the decentralized system that issues NymVPN's anonymous credentials ... rotating that system's signing keys and refreshing the operators who run it."</em> <strong>The exact date is still TBA</strong> in the active blog post. The v2026.13.0-beta train is the <strong>shipping surface for the rotation</strong>: clients need to have the v2026.12.4-or-newer credential fetcher to keep working through the rotation.</p>
+<h3 id="katzenpost-the-largest-single-pr-week-in-project-history-1206-1213-1214-landed-oct-78">Katzenpost — The Largest Single-PR Week in Project History (#1206, #1213, #1214 Landed Oct 7–8)</h3>
+<p>The Katzenpost server has been hardening continuously since the Sep 27 #1133 NoOp gateway heartbeat. The week of <strong>Oct 7–8</strong> lands <strong>three merged security-hardening PRs at once</strong>, with Jacob Appelbaum as the dominant author:</p>
+<p><strong><a href="https://github.com/katzenpost/katzenpost/pull/1206" rel="noopener nofollow">#1206</a> (Oct 7, merged) — <code>authority/voting: dirauth fixes and consensus reliability</code></strong> merges <strong>forty-four branches in order</strong>, each a "failing test → fix" pair. Wire/consensus/on-disk formats are unchanged (so existing nodes don't need to upgrade in lockstep). Two behaviour changes:</p>
+<ul>
+<li><code>PeerRetryMaxAttempts</code> no longer defaults to 20 — unset = retry until phase deadline (closer to the spec intent of "best-effort until phase close")</li>
+<li><code>IdentityPublicKeyPem</code> renamed <code>IdentityPublicKeyFile</code> (old name still works)</li>
+</ul>
+<p>This is <strong>the dirauth layer getting the same "test-first, fix-second" treatment the relay layer got in #1182</strong> — exactly the pattern ioerror asked for in Sep 27's CI hardening sweep.</p>
+<p><strong><a href="https://github.com/katzenpost/katzenpost/pull/1213" rel="noopener nofollow">#1213</a> (Oct 7, merged) — <code>security: wipe dropped secrets, bound the thin-client listener, keep identifiers out of logs</code></strong> ships eight sub-fixes, each a branch, all "failing test first":</p>
+<ul>
+<li><code>core/wire: wipe the session cipher states on Close</code></li>
+<li><code>replica: wipe envelope private keys when they are dropped</code></li>
+<li><code>client: bound thin-client reads, allocations, and connections</code></li>
+<li><code>client, courier/server, replica: wipe ephemeral MKEM keys at their last use</code></li>
+<li><code>client: wipe a SURB key wherever it is dropped</code></li>
+<li><code>client: drop the blinding factor from a log line</code></li>
+</ul>
+<p><strong><a href="https://github.com/katzenpost/katzenpost/pull/1214" rel="noopener nofollow">#1214</a> (Oct 8, merged) — <code>dirauth: reject late votes past reveal, bound topology layers, and guard mix slots</code></strong> is the "Byzantine-proofing" PR — three fixes:</p>
+<ol>
+<li><strong>Late-vote SRV grinding prevention</strong> — once the authority has transitioned to <code>stateAcceptReveal</code>/<code>stateAcceptCert</code>/<code>stateAcceptSignature</code>, reject subsequent votes with <code>commands.VoteTooLate</code>; a vote carries the voter's SharedRandom commit, and accepting commits after honest authorities have already revealed their secrets lets Byzantine authorities grind the resulting SharedRandom.</li>
+<li><strong>Bounded topology layers against prior consensus</strong> — <code>generateTopology</code> bounds layers against the prior consensus, preventing unbounded growth between epochs.</li>
+<li><strong>Pinned-authority-only peer slot identity binding</strong> — mix peer slots are not keyed to an unpinned (outside-the-pinned-set) identity; peer-slot identity binding is restricted to pinned authorities; red-team-tested with a regression test.</li>
+</ol>
+<p><a href="https://github.com/katzenpost/katzenpost/pull/1215" rel="noopener nofollow">#1215</a> (Oct 8, merged) closes the cluster — <code>courier, server, client: nil guards on reply dispatch, session credentials error handling, ...</code>. Eight further PRs remain open (#1208 kaetzchen + courier re-dispatch pacing, #1209 client socks5 panic + ARQ jitter + bandwidth estimate + ping per-epoch + retryable-pigeonhole-not-ready, #1210 optional descriptor fields + client notice + service delay, #1211 cborplugin host-chosen socket + drain + geometry + parameters, #1217 docker/quic transport pick + QUIC keepalives + cached read success, #1220 descriptor uploads bound to session link key + per-identity slots for pinned nodes, #1221 kpclientd systemd socket activation, #1219 in flight). The shape is "plumb + harden + plumb + harden" — every PR is small, but the cluster ships a measurable hardening step.</p>
+<h3 id="hopr-gno-805-channel-balance-incident-trilogy-oct-67-closes">HOPR — GNO-805 Channel-Balance Incident Trilogy (Oct 6–7) Closes</h3>
+<p>The <a href="https://github.com/hoprnet/hoprnet/pulls?q=GNO-805" rel="noopener nofollow"><code>GNO-805</code> ticket</a> tracks a single incident where <strong>a payment channel drains below one-ticket face value, the path still gets selected, and the first-hop ticket fails in <code>hopr-ticket-manager</code> with <code>balance of channel is too low</code></strong>, stalling traffic while the node still reads healthy. The fix is sequenced: <strong><code>#8485 chain/ticket-redemption</code> → <code>#8487 path/fund-check</code> → <code>#8486 transport/cold-1-hop-burst</code></strong> — the chain event is the upstream cause, the path selection is the surfaced-but-still-wrong layer above it, and the transport edge-fall is a sibling symptom.</p>
+<p><strong><a href="https://github.com/hoprnet/hoprnet/pull/8485" rel="noopener nofollow">#8485</a> (Oct 6–7) <code>fix(chain): update the channel graph balance on ticket redemption (GNO-805)</code></strong> — <code>ChainEvent::TicketRedeemed</code> (post-redemption <code>ChannelEntry</code>) was falling through <code>process_chain_events</code>'s catch-all (which only records the graph edge balance for <code>ChannelOpened/Closed/BalanceIncreased/BalanceDecreased</code>). The routing graph kept each channel's <em>funded</em> balance on ticket redemption events — that funded balance didn't reflect drained ticket value, so paths selected routes that would fail at ticket-manager.</p>
+<p><strong><a href="https://github.com/hoprnet/hoprnet/pull/8487" rel="noopener nofollow">#8487</a> (Oct 7) <code>fix(path): fund-check the extended search against the finished path length (GNO-805)</code></strong> — Phase 1 of path selection (<code>EdgeValueFn::forward</code>) rejects the drained first hop correctly; Phase 2, the <em>extended forward search</em> (<code>compute_extended_forward_paths</code>), used the traversal depth (<code>shorter_length</code>) instead — so a path that <em>finishes</em> with a drained first hop was passed through.</p>
+<p><strong><a href="https://github.com/hoprnet/hoprnet/pull/8486" rel="noopener nofollow">#8486</a> (Oct 7) <code>fix(transport): keep a cold 1-hop burst from losing its route at a counter flush</code></strong> — <strong>Score only settled packets.</strong> A cold burst on a fresh 1-hop Session lost its route for 5 seconds when its first packets were still in flight at a counter flush (master counterpart of release/4.0 backport #8488).</p>
+<p>Plus <strong>#<a href="https://github.com/hoprnet/hoprnet/pull/8478" rel="noopener nofollow">#8478</a> (Oct 6) <code>fix(session)!: decouple the PIX recovery floor and quota from the HOPR payload size</code></strong> (closes #8469): the PIX <code>max_recovery_time</code> floor was <code>1.5 Mbps / HoprPacket::PAYLOAD_SIZE</code>, so Sep 29 #8313's payload change (1038 → 3246 B) silently <strong>tripled</strong> it and hoprd refused valid profiles at load. <code>ASSUMED_SESSION_PACKET_RATE</code> → <code>MAX_ASSUMED_SESSION_PACKET_RATE</code> (fixed 5000 packets/s upper bound ≈ 58 Mbps of Session data); deadline judged by <code>fill.max_rate</code> counted up to that bound.</p>
+<p><a href="https://github.com/hoprnet/hoprnet/pull/8472" rel="noopener nofollow">#8472</a> (Oct 5, closed/merged) — share-bearing SURBs first in the Exit SURB store (LIFO is wrong because SURBs are produced with share-bearing first); <a href="https://github.com/hoprnet/hoprnet/pull/8473" rel="noopener nofollow">#8473</a> (Oct 5, closed/merged) — <code>feat(protocol)!: count lost PIX shares exactly and drop the LIFO SURB pop order</code>. Companion diagnostic <strong>#8490</strong> (Oct 8, merged) <code>test(session): reproduce the balancer estimate-pin and output collapse under return-path loss</code>.</p>
+<p>HOPR is <strong>shipping real bug fixes fast</strong> ahead of the 4.x stable cut. The Sep 23 surface-area code (PIX supervision #8237, parameterized admission #8377, 1956609/9766 SURB-buffer gauge #8440) plus the Oct 1 stalled-sink (#8463) + return-path visibility (#8464) + breaking-field-extensions (#8313/#8460) + Oct 5–8 GNO-805 incident trilogy is a coherent hardening arc: <strong>separate the diagnostic, the protocol change, and the incident repair into distinct PRs that each close one ticket</strong>.</p>
+<h3 id="i2p-v-cluster-security-close-2140-rc-staging">I2P — V-Cluster Security Close + 2.14.0-RC Staging</h3>
+<p>The Nick2k4L/eyedeekay V-series security cluster finishes closing in the Sep 27 → Oct 5 window:</p>
+<ul>
+<li><strong>V-66 (escaping)</strong>, <strong>V-33 (security headers, JSON response headers, Sep 25)</strong>, <strong>V-54/55 (XSS, Sep 21)</strong>, <strong>V-49 (log only scheme, not whole basic auth string, Sep 21)</strong>, <strong>V-07 (CSRF, Sep 21)</strong>, <strong>V-13 (nonce cleanup, Sep 21)</strong> — all closed by Sep 27.</li>
+<li><strong>V-50 (loopback)</strong> landed as PR #178 (Nicholas Lopez, "Refactor: changed hardcoded values within <code>isBlockedIPv4</code> method to use String method"), with <code>[Linux] Authenticate also via UNIX group "nym-vpn"-equivalent</code> style fix <code>i2ptunnel: Block private and local IPv4 destinations</code> (Oct 1); merged Oct 5.</li>
+<li><strong>i2psnark DHT tracker</strong> (Sep 28: "Increase max torrents for DHT tracker" + "Strict sorting of dictionaries in DHT messages"), then Sep 27 (Remove oldest kbucket entry in trimmer / Reduce DHT announce interval).</li>
+<li><strong>GeoIP 2026-10-01</strong> + <strong>bump build time</strong> + <strong><code>bump -8-rc</code></strong> (Oct 5 — one revision past <code>-7</code> Sep 28; <strong><code>-8-rc</code> is the canonical tag for I2P 2.14.0 release-candidate</strong> when the <code>ant</code> bump lands).</li>
+</ul>
+<p>No full i2p.i2p release yet — <strong>2.13.0 (Jul 24) is still the latest stable</strong>, <strong>i2pd 2.61.0 (Jul 20) is the latest C++</strong>. The I2P roadmap (last updated 2026-07) names <strong>2.14.0 target: late October 2026</strong> with: build fix for gettext 1.0, izpack 5.2.6, gradle build fixes, addressbook conflicts, fix SAM datagram 2/3 subsessions, i2psnark bug fixes / speedups / security fixes / memory reduction, i2psnark JS audio player, <strong>i2psnark prep for v2 support</strong>, performance improvements, streaming speedups and synch fixes.</p>
+<h3 id="tor-network-onionoo-10560-running-relays-oct-9-fresh">Tor Network — Onionoo 10,560 Running Relays (Oct 9, Fresh)</h3>
+<p>The <strong>canonical Oct 9 snapshot</strong>: <code>GET https://onionoo.torproject.org/summary?type=relays</code> → <code>relays_published: 2026-10-09 01:00:00</code>, <code>bridges_published: 2026-10-09 00:55:17</code>, total relays (running) = <strong>10,560</strong>.</p>
+<p>For <strong>historical comparison</strong>, <code>https://metrics.torproject.org/relayflags.csv</code> shows (Running only):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Running</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-09-21</td>
+<td>9,420</td>
+</tr>
+<tr>
+<td>2026-09-25</td>
+<td>9,429</td>
+</tr>
+<tr>
+<td>2026-09-28</td>
+<td>9,451</td>
+</tr>
+<tr>
+<td>2026-10-01</td>
+<td>9,458</td>
+</tr>
+<tr>
+<td>2026-10-02</td>
+<td>9,507</td>
+</tr>
+<tr>
+<td>2026-10-03</td>
+<td>9,493</td>
+</tr>
+<tr>
+<td>2026-10-04</td>
+<td>9,428</td>
+</tr>
+<tr>
+<td>2026-10-05</td>
+<td>9,194</td>
+</tr>
+</tbody>
+</table></div>
+<p>The CSV <strong>ends at 2026-10-05</strong> — that's the relayflags-graphing lag; the Onionoo summary is the authoritative fresh count. The <strong>Oct 4 → Oct 5 -234 drop</strong> is the second-largest week-over-week drop this quarter (only Sep 1's post-0.4.8-EOL drain was bigger); the recovery pattern post-Sep-19 low (9,330) had been gradual; the Oct 5 datapoint may reflect a small transient outage or a server family rotating. The Oct 9 Onionoo 10,560 means the actual network is bigger than the graph.</p>
+<p><strong>Stable bridges</strong> (<code>bridges_published: 2026-10-09 00:55:17</code>) are reported via Onionoo but bridge count is not in the public summary endpoint.</p>
+<h3 id="tor-browser-tails-no-new-releases-in-window-watch-list-below">Tor Browser / Tails — No New Releases in Window; Watch-List Below</h3>
+<ul>
+<li><strong><a href="https://blog.torproject.org/feed.xml" rel="noopener nofollow">Tor Browser blog feed (Atom)</a></strong> — entries from Oct 1 (16.0a13 + Arti 2.7.0) backwards; <strong>no new Tor Browser 15.x or 16.x stable release this week</strong>.</li>
+<li><strong>Tails (<a href="https://tails.net/news/index.en.rss" rel="noopener nofollow">tails.net/news/index.en.rss</a>)</strong> — <strong>Tails 7.14 (Sep 30) is the latest</strong>; <strong>Tails 7.15 expected Oct 14</strong> per Tails' 2-week release-cadence pledge. Bundle: Tor Browser 15.0.24 + Tor 0.4.9.13 + Linux 6.12.111.</li>
+</ul>
+<h3 id="arti-270-oct-1-security-release">Arti 2.7.0 (Oct 1) — Security Release</h3>
+<p>The <a href="https://blog.torproject.org/arti_2_7_0_released/" rel="noopener nofollow">Tor blog post</a> (by opara, Oct 1) announces Arti 2.7.0:</p>
+<blockquote>
+<p>"Arti 2.7.0 ... continues our ongoing development towards using Arti as a relay and as a directory authority, with much of the work focusing on document parsing, directory mirror support, and DNS stream handling. Additionally, arti now has RPC support for modifying and inspecting its configuration. This release has a number of fixes for low- to high-severity security issues. We encourage <code>arti</code>, <code>arti-client</code>, and <code>arti-ureq</code> users, especially those running onion services, to upgrade as soon as possible."</p>
+</blockquote>
+<p><strong>Release tag</strong>: <code>arti-v2.7.0</code>, created 2026-10-01, after <code>arti-v2.6.0</code> (Sep 1) and <code>arti-v2.5.1</code> (Aug 3). <strong>Arti now has RPC support</strong> — the dirauth-path prerequisite from last week's standing-watch note.</p>
+<h3 id="research-eprint-sweep-oct-2-oct-9">Research / EPrint Sweep (Oct 2 → Oct 9)</h3>
+<p>The IACR ePrint listing for <code>/2026/</code> was parsed; keyword filter (anon|mix|onion|traffic|oblivious|censor|stegan|relay|dissent|sybil|fragment|pir) returned <strong>four in-window mixnet/PIR/anonymity papers</strong>:</p>
+<h4 id="eprint-20262334-oct-4-trapdoor-projective-sampling-and-identity-based-anonymous-broadcast">ePrint 2026/2334 (Oct 4) — Trapdoor Projective Sampling and Identity-Based Anonymous Broadcast</h4>
+<blockquote>
+<p>"In anonymous broadcast encryption, a ciphertext hides both the message and the set of recipients. ... Kiayias–Samari lower bound forces the ciphertext to grow linearly with the number of recipients. ... The bounded universe is the setting where anonymous broadcast becomes concise, even asymptotically optimal ... Far from a mere restriction, it is the building block for anamorphic communication against a dictator ... DPPY is, however, secret-key anamorphic encryption ... a public-key variant does not suffice against a strong adversary, since a per-recipient public key lets a dictator ask for the matching secret key. This motivates hiding identities directly, with no recipient public key published, leading to identity-based anonymous broadcast in the bounded model ... projective sampling (Ling, Phan, Stehlé and Steinfeld, LPSS, CRYPTO '14), the tool underlying concise anonymous broadcast encryption, offers no key extraction: private keys cannot be produced from a projected key fixed in advance. We introduce trapdoor projective sampling that reverses ..."</p>
+</blockquote>
+<p>Why this matters for <a href="/kb/nym/">Nym</a> / <a href="/kb/katzenpost/">Katzenpost</a> / <a href="/kb/sphinx-packet-format/">Sphinx Packet Format</a>: bounded-universe anonymous broadcast is the <strong>cryptographic primitive</strong> that turns loopix's "send SURB to a node, get reply" into "send to <em>N</em> rotating receivers, the dictator learns nothing about which subset". The same machinery would let a Nym-style mixnet offer bounded-anonymity-set ephemeral channels.</p>
+<h4 id="eprint-20262369-oct-6-stomr-stateful-oblivious-message-retrieval">ePrint 2026/2369 (Oct 6) — StOMR: Stateful Oblivious Message Retrieval</h4>
+<blockquote>
+<p>"Oblivious Message Retrieval (OMR) enables recipients to retrieve messages from an untrusted server without revealing which messages correspond to them ... Existing constructions are inherently built in the public-key setting and use Fully Homomorphic Encryption (FHE) to allow a detector to scan a public bulletin board and produce a compact encrypted digest ... sender-published signals are large (hundreds of kilobytes), leading to significant bandwidth, storage, and on-chain costs. In this work, we explore the efficiency gains achievable by moving to a private, stateful setting, and introduce stateful OMR, a new model in which senders and receivers maintain lightweight private state to enable more efficient anonymous communication. Based on this model, we design StOMR, a protocol that significantly reduces the size of sender signals compared to prior approaches. To support the required shared state, we further introduce an OMR Key Encapsulation Mechanism (OMR-KEM), which allows users to privately establish shared state and instantiate stateful OMR without out-of-band channels. We implement StOMR in C++ and evaluate it against the state-of-the-art systems PerfOMR (USENIX Security '24), SophOMR (USENIX Security '25) ..."</p>
+</blockquote>
+<p>The <strong>OMR-KEM</strong> primitive is independent of the mixnet framing; what's interesting here is the <strong>stateful shift</strong>: senders and receivers carry state, sender signals drop to compact. For <a href="/kb/nym/">Nym</a>'s SURB reply chain, the stateful OMR pattern would be a layer below the SURB — a noise floor below which the reply becomes a <em>pull</em>, not a <em>push</em>.</p>
+<h4 id="eprint-20262385-oct-6-skrrtpir-doubly-stateless-batch-pir-from-single-key-rlwe-unpacking">ePrint 2026/2385 (Oct 6) — SkrrtPIR: Doubly-Stateless Batch PIR from Single-Key RLWE Unpacking</h4>
+<blockquote>
+<p>"Batch Private Information Retrieval (Batch PIR) allows a client to privately retrieve multiple entries from a public database while amortizing query costs. However, concretely efficient schemes typically rely on per-client server state, such as client-specific evaluation keys ... we initiate the study of doubly-stateless Batch PIR, where the server stores no per-client state and the client maintains no database-dependent hint. ... The core technical ingredient is a single-key RLWE unpacking procedure that replaces the traditional tree-based approach, which requires logarithmically many Galois keys, with a linear walk over a cyclic Galois subgroup requiring only a single Galois key."</p>
+</blockquote>
+<p>The <strong>doubly-stateless</strong> requirement is exactly what NymHS would want for a mixnet-resident PIR layer — the PIR server has no incentive to keep per-client state, and the client can roam across Nym exit gateways without re-issuing evaluation keys.</p>
+<h4 id="eprint-20262397-oct-7-hashing-beats-trees-practical-oblivious-dictionaries-in-sgx">ePrint 2026/2397 (Oct 7) — Hashing Beats Trees: Practical Oblivious Dictionaries in SGX</h4>
+<blockquote>
+<p>"Oblivious RAM (ORAM) is a powerful cryptographic primitive that hides both the contents of outsourced data and the access pattern ... we show this trade-off [over Path ORAM tree traversal at Θ(log n)] to be suboptimal ... With low position map cost, probabilistic hash tables prevail as dictionary data structures due to their small, constant number of accesses compared to Θ(log n) path traversal ... We implement and analyze oblivious, probabilistic hash tables over Path ORAM, including several different strategies: chaining, power-of-two-choices, stash-less cuckoo, and de-amortized cuckoo hashing. Execution of these algorithms within a secure enclave requires 'double obliviousness', which in turn needs strict concrete maximum cost limits for each access ..."</p>
+</blockquote>
+<p>The mixnet angle: this is <strong>the ORAM dictionary that an SGX-backed Sphinx routing-table lookup needs</strong> — and <a href="/kb/nym/">Nym</a>'s sphinx 0.8.0 + sphinx 0.8.0 V2 repliable messages (Oct 1) use a much smaller per-packet routing table on the gateway than the older Sphinx chain. ORAM dictionaries inside the SGX enclave let the routing table be <strong>credential-isolated</strong> from the mixnet operator's view of which key just looked up which destination.</p>
+<h3 id="standing-watch-items-tickled-closed-still-open">Standing-Watch Items — Tickled / Closed / Still Open</h3>
+<p>From <a href="/briefings/mix-networks/2026-10-02/">Mix Networks Friday — October 02 2026 Weekly Update</a>'s "Open Questions" section:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>State</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NymVPN credential-issuer key rotation exact date</strong></td>
+<td><strong>Window OPEN</strong> but date TBA</td>
+<td>v2026.13.0-beta.1/.2/.3 in seven days; beta.2/.3 explicitly credential-rotation-aware (only-both-passes-connect, cached-gateway-list on refetch); <a href="https://nym.com/blog/nymvpn-network-upgrade" rel="noopener nofollow">nymvpn-network-upgrade</a> still "<em>We will announce the exact date soon</em>"</td>
+</tr>
+<tr>
+<td><strong>Nym Binaries that ships sphinx 0.8.0 + V2-only SURBs</strong></td>
+<td><strong>SHIPPED (pre-window)</strong></td>
+<td>v2026.19-fuqing (Oct 1) is the first binaries cut after sphinx 0.8.0's Oct 1 #7197 merge; the V2-only world is live</td>
+</tr>
+<tr>
+<td><strong>I2P 2.14.0</strong></td>
+<td><strong>RC-STAGING</strong></td>
+<td><code>-8-rc</code> tagged Oct 5; I2P roadmap still "late October 2026" target; <strong>no full release yet</strong></td>
+</tr>
+<tr>
+<td><strong>Arti stable version</strong></td>
+<td><strong>2.7.0 shipped Oct 1 (pre-window)</strong></td>
+<td><a href="https://blog.torproject.org/arti_2_7_0_released/" rel="noopener nofollow">Tor blog post</a> confirms security fixes + RPC + dirauth-path progression</td>
+</tr>
+<tr>
+<td><strong>Tails 7.15 (Oct 14 expected)</strong></td>
+<td><strong>EXPECTED Oct 14</strong> per Tails RSS cadence; <strong>not yet shipped as of Oct 9</strong></td>
+<td>Last shipped Tails 7.14 (Sep 30), at <a href="https://tails.net/news/index.en.rss" rel="noopener nofollow">https://tails.net/news/index.en.rss</a></td>
+</tr>
+<tr>
+<td><strong>NymHS 10 KiB Sphinx payload</strong></td>
+<td><strong>NOT ADOPTED in v2026.19</strong></td>
+<td>v2026.19 CHANGELOG notes sphinx 0.8.0 + crates 1.22.1, not a payload-size change</td>
+</tr>
+<tr>
+<td><strong>HOPR 4.x stable</strong></td>
+<td><strong>Hardening arc continues</strong> (GNO-805, PIX decoupling #8478, GNO-805 transport fix #8486); not yet cut</td>
+<td>Release candidates via release/4.0 branch (<code>#8488</code> is the 4.0 backport of #8486); no 4.x stable tag yet</td>
+</tr>
+</tbody>
+</table></div>
+<p>Plus three prior-cycle standing watches:</p>
+<ul>
+<li><strong>Nym Directory Contract rollout</strong> — now augmented by <strong>NMv3 (Network Monitor v3) build-out Oct 7–8</strong>: the "Directory Contract → Geolocator → NMv3" triple is the third leg; the corporate directory HTTP service still operates in parallel.</li>
+<li><strong>Nym integration wave</strong> — no new Zcash/Peach/Edge-tier integrations announced in window; v2026.13.0 configuration profiles (Safest/Most Private/Fastest/Random) become the user-facing knob that any integration will inherit.</li>
+<li><strong>Cao &amp; Green reputation-framing attacks</strong> — not addressed by NMv3 liveness, but the per-kind scheduling (#7095) is the <em>exact</em> lever that makes per-kind reputation isolation possible. Cao &amp; Green attacked the MEASUREMENT layer, not the directory.</li>
+</ul>
+<h3 id="the-banner-story-in-one-paragraph">The Banner Story (in One Paragraph)</h3>
+<p><strong>Three independent hardening waves land in the same 7-day window, plus the I2P 2.14.0-rc staging opens the late-October release window</strong>. Katzenpost ships <strong>the largest single PR in project history</strong> (<a href="https://github.com/katzenpost/katzenpost/pull/1206" rel="noopener nofollow">#1206</a>, 44 branches, dirauth fixes and consensus reliability) <strong>on Oct 7</strong>, plus two adjacent security PRs (<a href="https://github.com/katzenpost/katzenpost/pull/1213" rel="noopener nofollow">#1213</a> and <a href="https://github.com/katzenpost/katzenpost/pull/1214" rel="noopener nofollow">#1214</a>) in the next 24 hours; the cluster wipes dropped secrets, bounds topology layers, prevents late-vote SRV grinding, and pins peer slots to pinned authorities. NymVPN ships <strong>three betas in seven days</strong> (v2026.13.0-beta.1/.2/.3, Oct 2 / 7 / 8) pre-staging the <strong>credential-issuer key rotation</strong> blogged Sep 24, with each successive beta tightening the credential-rotation-aware code paths (only-both-passes-connect, cached-gateway-list-on-refetch, in-flight-location-lookup kept across reconnect). HOPR ships <strong>the GNO-805 channel-balance incident trilogy</strong> (#<a href="https://github.com/hoprnet/hoprnet/pull/8485" rel="noopener nofollow">#8485</a>, #<a href="https://github.com/hoprnet/hoprnet/pull/8487" rel="noopener nofollow">#8487</a>, #<a href="https://github.com/hoprnet/hoprnet/pull/8486" rel="noopener nofollow">#8486</a>) merged Oct 6–7, closing a routing-graph-vs-chain-event consistency bug plus the transport edge fall-out, plus a PIX-decoupling breaking-change fix that makes the prior surface-area code merge-able. I2P pre-stages <strong>2.14.0</strong> via the <code>-8-rc</code> tag on Oct 5 — the roadmap's "late October 2026" target is on schedule. And the ePrint week brings <strong>four in-window papers</strong> spanning trapdoor-projective-sampling for bounded-universe anonymous broadcast, stateful OMR with OMR-KEM, doubly-stateless Batch PIR with single-key RLWE unpacking, and a hashing-beats-trees ORAM dictionary for SGX enclaves. The convergence vector is <strong>measurable hardening in weekly cadence</strong>, not a single protocol celebration.</p>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-10-02/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — October 02 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-10-16/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — October 16 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

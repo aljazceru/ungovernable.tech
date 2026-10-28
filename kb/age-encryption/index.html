@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>age: Modern File Encryption — ungovernable.tech</title>
+<meta name="description" content="age is a small, modern file-encryption tool built on X25519 and ChaCha20-Poly1305: how it works, how to use it, and where it beats PGP for files.">
+<link rel="canonical" href="https://ungovernable.tech/kb/age-encryption/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="age: Modern File Encryption — ungovernable.tech">
+<meta property="og:description" content="age is a small, modern file-encryption tool built on X25519 and ChaCha20-Poly1305: how it works, how to use it, and where it beats PGP for files.">
+<meta property="og:url" content="https://ungovernable.tech/kb/age-encryption/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="age: Modern File Encryption — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="age: Modern File Encryption — ungovernable.tech">
+<meta name="twitter:description" content="age is a small, modern file-encryption tool built on X25519 and ChaCha20-Poly1305: how it works, how to use it, and where it beats PGP for files.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "age: Modern File Encryption", "description": "age is a small, modern file-encryption tool built on X25519 and ChaCha20-Poly1305: how it works, how to use it, and where it beats PGP for files.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/age-encryption/", "mainEntityOfPage": "https://ungovernable.tech/kb/age-encryption/", "image": "https://ungovernable.tech/assets/og/pillar-endpoint.png", "about": [{"@type": "Thing", "name": "Devices and Operational Security"}, {"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Devices and Operational Security", "item": "https://ungovernable.tech/pillars/endpoint/"}, {"@type": "ListItem", "position": 3, "name": "age: Modern File Encryption", "item": "https://ungovernable.tech/kb/age-encryption/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/endpoint/">Devices and Operational Security</a><span aria-hidden="true">/</span><span class="here">age: Modern File Encryption</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ DEVICES AND OPERATIONAL SECURITY ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>age: Modern File Encryption</h1>
+  <p class="aka">Also age, actually-good-encryption, rage.</p>
+  <p class="dek">A small, opinionated file-encryption format and CLI. Built around X25519 recipient keys, ChaCha20-Poly1305 streaming, and HMAC-SHA-256 header authentication. Designed as a replacement for `gpg -c` and ad-hoc OpenSSL pipelines for everyday encryption-at-rest.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#origin-and-scope">Origin and scope</a><a href="#format">Format</a><a href="#cipher-choices">Cipher choices</a><a href="#plugin-ecosystem">Plugin ecosystem</a><a href="#implementations">Implementations</a><a href="#use-cases">Use cases</a><a href="#age-vs-openpgp-gnupg">age vs OpenPGP / GnuPG</a><a href="#honest-scope">Honest scope</a><a href="#pitfalls">Pitfalls</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="origin-and-scope">Origin and scope</h2>
+<p>age (lowercase) was designed by Filippo Valsorda and Ben Cartwright-Cox starting 2019. The reference implementation <code>filippo.io/age</code> is in Go; the format spec lives at <a href="https://age-encryption.org/v1" rel="noopener nofollow">age-encryption.org/v1</a> (originally <a href="https://github.com/C2SP/C2SP/tree/main/age" rel="noopener nofollow">c2sp/age</a>). A Rust implementation, <strong>rage</strong> by Jack Grigg, tracks the same spec.</p>
+<p>Stated goals:</p>
+<ul>
+<li>One file format, one set of cipher choices, no algorithm negotiation.</li>
+<li>Public-key recipient model — encrypt to keys, not to users.</li>
+<li>No signatures. Authenticity comes from key possession, not identity.</li>
+<li>Pluggable identities (smart cards, TPMs, FIDO2) without changing the wire format.</li>
+</ul>
+<p>Stated non-goals:</p>
+<ul>
+<li>Long-term archive standardization on the level of CMS/OpenPGP.</li>
+<li>Revocation, key servers, web-of-trust.</li>
+<li>Embedded metadata (filename, timestamps).</li>
+</ul>
+<h2 id="format">Format</h2>
+<p>Specified at <a href="https://age-encryption.org/v1" rel="noopener nofollow">age-encryption.org/v1</a>. Header:</p>
+<pre><code>age-encryption.org/v1
+-&gt; X25519 &lt;recipient-ephemeral-public-key&gt;
+&lt;wrapped file key&gt;
+-&gt; X25519 &lt;next-recipient&gt;
+&lt;wrapped file key&gt;
+--- &lt;HMAC-SHA-256(header[:-mac])&gt;
+</code></pre>
+<p>Each <code>-&gt;</code> stanza is a <em>recipient stanza</em>. The "file key" is a 16-byte symmetric key; each recipient stanza wraps it for one recipient. The HMAC line is keyed by an HKDF derivation from the file key, authenticating the entire header so a recipient cannot be tampered with or removed.</p>
+<p>After the header, the payload is encrypted with ChaCha20-Poly1305 in 64 KiB chunks, each with a counter nonce and a "last chunk" flag in the final byte. Streaming is real: encryption and decryption don't need the whole file in memory.</p>
+<p>Recipient types defined in v1:</p>
+<ul>
+<li><strong>X25519</strong> — direct public-key recipient.</li>
+<li><strong>scrypt</strong> — passphrase-only mode (no public-key recipient; key derived from passphrase).</li>
+<li><strong>ssh-rsa</strong>, <strong>ssh-ed25519</strong> — derive an X25519 key from an SSH key for casual reuse.</li>
+</ul>
+<p>age 1.3.0 added native hybrid post-quantum recipients based on HPKE with ML-KEM-768. Generate one with <code>age-keygen -pq</code>: public recipients begin <code>age1pq1</code>, and secret identities begin <code>AGE-SECRET-KEY-PQ-1</code>. Older clients can use a compatibility plugin. See <a href="/guides/hybrid-kem-migration/">Migrating to Hybrid Key Exchange</a>.</p>
+<p>Plugins extend the recipient stanza set without bumping the format version.</p>
+<h2 id="cipher-choices">Cipher choices</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Algorithm</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ECDH</td>
+<td>X25519 (RFC 7748)</td>
+<td>Fast, misuse-resistant, nothing-up-my-sleeve curve</td>
+</tr>
+<tr>
+<td>KDF</td>
+<td>HKDF-SHA-256</td>
+<td>Standard, simple</td>
+</tr>
+<tr>
+<td>AEAD (chunks)</td>
+<td>ChaCha20-Poly1305 (RFC 8439)</td>
+<td>Fast in software, no AES-NI assumption</td>
+</tr>
+<tr>
+<td>Header MAC</td>
+<td>HMAC-SHA-256</td>
+<td>Authenticates the recipient list</td>
+</tr>
+<tr>
+<td>Passphrase mode</td>
+<td>scrypt</td>
+<td>Memory-hard, well-studied</td>
+</tr>
+</tbody>
+</table></div>
+<p>The original recipient types and the native post-quantum recipient type have distinct specified constructions; use the recipient type supported by your implementation.</p>
+<h2 id="plugin-ecosystem">Plugin ecosystem</h2>
+<p>Plugins implement custom recipient and identity types. The CLI invokes <code>age-plugin-&lt;name&gt;</code> over stdio in a documented protocol; the file format remains unchanged. Notable plugins:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Backend</th>
+<th>Status (2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>age-plugin-yubikey</code></td>
+<td>YubiKey PIV (NIST P-256 ECDH)</td>
+<td>mature, by Jack Grigg</td>
+</tr>
+<tr>
+<td><code>age-plugin-tpm</code></td>
+<td>TPM 2.0 sealed key</td>
+<td>active</td>
+</tr>
+<tr>
+<td><code>age-plugin-fido2-hmac</code></td>
+<td>FIDO2 hmac-secret extension</td>
+<td>active</td>
+</tr>
+<tr>
+<td><code>age-plugin-se</code></td>
+<td>Apple Secure Enclave (P-256)</td>
+<td>active, macOS-only</td>
+</tr>
+<tr>
+<td><code>age-plugin-ledger</code></td>
+<td>Ledger hardware wallet</td>
+<td>community</td>
+</tr>
+<tr>
+<td><code>age-plugin-1p</code></td>
+<td>1Password CLI</td>
+<td>community</td>
+</tr>
+<tr>
+<td><code>age-plugin-sss</code></td>
+<td>Shamir secret sharing</td>
+<td>community</td>
+</tr>
+</tbody>
+</table></div>
+<p>This decoupling is what makes age viable across hardware boundaries. The CLI doesn't need to know about YubiKey internals; the plugin negotiates with the device and returns a wrapped file key in the standard format.</p>
+<h2 id="implementations">Implementations</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Language</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filippo.io/age</code></td>
+<td>Go</td>
+<td>reference</td>
+</tr>
+<tr>
+<td><strong>rage</strong></td>
+<td>Rust</td>
+<td>feature-equivalent, used by <code>agenix</code> and others</td>
+</tr>
+<tr>
+<td><code>pyrage</code></td>
+<td>Python (Rust binding)</td>
+<td>bindings to rage</td>
+</tr>
+<tr>
+<td><code>typage</code></td>
+<td>TypeScript</td>
+<td>browser/Node</td>
+</tr>
+<tr>
+<td><code>age</code> (Java/Kotlin), <code>age-rs</code>, etc.</td>
+<td>various</td>
+<td>community</td>
+</tr>
+</tbody>
+</table></div>
+<p>Reference: <a href="https://github.com/FiloSottile/age" rel="noopener nofollow">github.com/FiloSottile/age</a>, rage at <a href="https://github.com/str4d/rage" rel="noopener nofollow">github.com/str4d/rage</a>.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="backup-encryption">Backup encryption</h3>
+<p>Encrypt a tarball to one or more X25519 recipient keys before pushing to S3/Backblaze/IPFS. Each backup file's recipient set is decoupled from any user identity. Adding a new recovery key means re-encrypting only the header (no plaintext re-encryption) — a common operation that age does not provide directly; in practice you re-encrypt the file or maintain a small encrypted-file-key envelope.</p>
+<h3 id="deployment-secrets">Deployment secrets</h3>
+<p>Tools like <strong>agenix</strong> (Nix), <strong>sops</strong> (Mozilla, supports age), <strong>chezmoi</strong>, and <strong>SOPS-native secrets in Kubernetes</strong> use age to encrypt config files where each developer's SSH key or YubiKey is a recipient. Rotating a developer means re-encrypting with the updated recipient list.</p>
+<h3 id="replacement-for-gpg-c">Replacement for <code>gpg -c</code></h3>
+<p>For "encrypt this file with a passphrase" workflows, <code>age -p</code> is a drop-in replacement for <code>gpg -c</code>. The output is shorter, the cipher choice is fixed (no MD5 surprises), and the passphrase-mode KDF is scrypt rather than the variable choices in OpenPGP.</p>
+<h3 id="ci-cd-secret-injection">CI / CD secret injection</h3>
+<p>Encrypt secrets with public keys held by build agents (TPM-bound, YubiKey-bound). The plaintext only exists transiently inside the agent's process. Combined with <code>age-plugin-tpm</code>, secrets are bound to a specific machine attested at boot.</p>
+<h2 id="age-vs-openpgp-gnupg">age vs OpenPGP / GnuPG</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>age</th>
+<th>OpenPGP (GnuPG)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Algorithm choice</td>
+<td>fixed</td>
+<td>many, negotiated</td>
+</tr>
+<tr>
+<td>Format complexity</td>
+<td>tiny</td>
+<td>substantial</td>
+</tr>
+<tr>
+<td>Signatures</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Identity / key management</td>
+<td>external</td>
+<td>built-in (keyrings)</td>
+</tr>
+<tr>
+<td>Web of trust</td>
+<td>no</td>
+<td>yes (see <a href="/kb/web-of-trust/">Overview - Web of Trust</a>)</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>yes (chunks)</td>
+<td>yes (CFB legacy + EAX)</td>
+</tr>
+<tr>
+<td>Hardware support</td>
+<td>via plugins</td>
+<td>via gpg-agent / smartcard</td>
+</tr>
+<tr>
+<td>Standardization</td>
+<td>community spec</td>
+<td>RFC 9580 (OpenPGP)</td>
+</tr>
+<tr>
+<td>Long-term archive</td>
+<td>not designed for it</td>
+<td>yes (CMS analog, S/MIME-adjacent)</td>
+</tr>
+<tr>
+<td>Footgun surface</td>
+<td>small</td>
+<td>large</td>
+</tr>
+</tbody>
+</table></div>
+<p>When age is right: encrypt-at-rest, deploy-time secrets, backups, tooling that needs simple semantics.</p>
+<p>When OpenPGP is right: signing identity assertions, email encryption, archives that need to survive software churn for decades, ecosystems where signature semantics matter.</p>
+<p>When <strong>neither</strong> is right: messaging — use Signal Protocol or MLS. age has no forward secrecy and no replay protection; signatures aren't part of the model so authenticity rests entirely on recipient-key possession.</p>
+<h2 id="honest-scope">Honest scope</h2>
+<p>age is not a long-term archive standard like CMS. Specifically:</p>
+<ul>
+<li>The format spec is community-maintained, not IETF-tracked.</li>
+<li>No formal interoperability profile beyond the reference + rage.</li>
+<li>No standardized signature mode (a separate spec proposal exists but is not part of v1).</li>
+<li>Algorithm agility is by design absent — when ChaCha20 or X25519 needs replacement, age v2 will be a new format, not an in-place upgrade.</li>
+</ul>
+<p>For a 30-year-archive use case, CMS / S/MIME or OpenPGP remain the more conservative choices despite their warts.</p>
+<h2 id="pitfalls">Pitfalls</h2>
+<ul>
+<li><strong>No filename or metadata encryption.</strong> Wrap in tar/zip if filenames are sensitive.</li>
+<li><strong>No replay protection.</strong> A stale ciphertext is just as decryptable as a fresh one.</li>
+<li><strong>Recipient list is visible</strong> in the header (count and ephemeral X25519 publics, though not the recipient identities themselves directly). Anonymity-set considerations apply.</li>
+<li><strong>Passphrase mode is not for casual users.</strong> scrypt parameters are reasonable but not memory-hard at the level of Argon2id; for high-stakes passphrase protection, derive a key with Argon2id externally and feed it as an X25519 key.</li>
+<li><strong>No signing.</strong> If you need to assert <em>who</em> encrypted a file, sign with a separate primitive (minisign, signify, ssh-keygen -Y).</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://github.com/FiloSottile/age/releases/tag/v1.3.0" rel="noopener nofollow">age v1.3.0 release: post-quantum recipients</a></p>
+</li>
+<li>
+<p>Valsorda, Cartwright-Cox, <em>age v1 specification</em>, age-encryption.org/v1.</p>
+</li>
+<li>Bernstein, Hamburg, Krasnova, Lange, <em>Curve25519</em> and X25519 (RFC 7748, Jan 2016).</li>
+<li>Nir, Langley, <em>ChaCha20 and Poly1305 for IETF Protocols</em>, RFC 8439 (Jun 2018).</li>
+<li>Krawczyk, Eronen, <em>HMAC-based Extract-and-Expand Key Derivation Function (HKDF)</em>, RFC 5869 (May 2010).</li>
+<li>Reference implementation: <a href="https://github.com/FiloSottile/age" rel="noopener nofollow">github.com/FiloSottile/age</a>.</li>
+<li>rage: <a href="https://github.com/str4d/rage" rel="noopener nofollow">github.com/str4d/rage</a>.</li>
+<li>age-plugin-yubikey: <a href="https://github.com/str4d/age-plugin-yubikey" rel="noopener nofollow">github.com/str4d/age-plugin-yubikey</a>.</li>
+<li>age-plugin-tpm: <a href="https://github.com/Foxboron/age-plugin-tpm" rel="noopener nofollow">github.com/Foxboron/age-plugin-tpm</a>.</li>
+<li>age-plugin-fido2-hmac: <a href="https://github.com/olastor/age-plugin-fido2-hmac" rel="noopener nofollow">github.com/olastor/age-plugin-fido2-hmac</a>.</li>
+<li>age-plugin-se: <a href="https://github.com/remko/age-plugin-se" rel="noopener nofollow">github.com/remko/age-plugin-se</a>.</li>
+<li>agenix (Nix): <a href="https://github.com/ryantm/agenix" rel="noopener nofollow">github.com/ryantm/agenix</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/guides/hybrid-kem-migration/">
+  <span class="nm">Migrating to Hybrid Key Exchange</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/web-of-trust/">
+  <span class="nm">Webs of Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-storage/">
+  <span class="nm">Decentralized Storage</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/drand-tlock/">
+  <span class="nm">drand and tlock</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/encrypting-files-and-backups/">
+  <span class="nm">Encrypting Files, Disks and Backups</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/magic-wormhole/">
+  <span class="nm">Magic Wormhole</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=age%3A%20Modern%20File%20Encryption" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">A small, opinionated file-encryption format and CLI. Built around X25519 recipient keys, ChaCha20-Poly1305 streaming, and HMAC-SHA-256 header authentication. Designed as a replacement for `gpg -c` and ad-hoc OpenSSL pipelines for everyday encryption-at-rest.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Devices and Operational Security, Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

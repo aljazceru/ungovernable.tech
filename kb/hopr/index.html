@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HOPR — ungovernable.tech</title>
+<meta name="description" content="HOPR, an incentivised mix network that pays relays per packet: Sphinx onion routing, proof of relay, cover traffic and its deployment status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/hopr/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="HOPR — ungovernable.tech">
+<meta property="og:description" content="HOPR, an incentivised mix network that pays relays per packet: Sphinx onion routing, proof of relay, cover traffic and its deployment status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/hopr/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HOPR — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HOPR — ungovernable.tech">
+<meta name="twitter:description" content="HOPR, an incentivised mix network that pays relays per packet: Sphinx onion routing, proof of relay, cover traffic and its deployment status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "HOPR", "description": "HOPR, an incentivised mix network that pays relays per packet: Sphinx onion routing, proof of relay, cover traffic and its deployment status.", "dateModified": "2026-09-04", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/hopr/", "mainEntityOfPage": "https://ungovernable.tech/kb/hopr/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "HOPR", "item": "https://ungovernable.tech/kb/hopr/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">HOPR</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>HOPR</h1>
+  <p class="aka">Also HOPR Network, HOPR Protocol.</p>
+  <p class="dek">An incentivized mix network for Web3 traffic — Sphinx-packet onion routing with per-hop probabilistic micropayments. Pitched as the privacy layer for RPC calls and dApp queries, built by the HOPR Association in Switzerland since 2020.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-09-04</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#position-in-the-mixnet-landscape">Position in the mixnet landscape</a><a href="#architecture">Architecture</a><a href="#hopr-token-economics">HOPR token economics</a><a href="#rpc-privacy-use-case">RPC privacy use case</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#deployment-status-2024-2026">Deployment status (2024-2026)</a><a href="#comparison-vs-nym">Comparison vs Nym</a><a href="#attack-surface">Attack surface</a><a href="#september-04-2026-update-pix-supervision-track-surfaces">September 04, 2026 Update — PIX Supervision Track Surfaces</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="position-in-the-mixnet-landscape">Position in the mixnet landscape</h2>
+<p>HOPR sits between <a href="/kb/tor/">Tor</a>'s volunteer model and <a href="/kb/nym/">Nym</a>'s stake-weighted economy. Both Nym and HOPR pay node operators, but the payment models differ:</p>
+<ul>
+<li><strong>Nym</strong>: stake-weighted selection, NYM token, bandwidth credentials redeemed via zk-nym blind signatures.</li>
+<li><strong>HOPR</strong>: per-packet probabilistic payments via the HOPR token, settled through off-chain payment channels on Gnosis Chain.</li>
+</ul>
+<p>The HOPR thesis is that <em>every relayed packet carries its own payment proof</em>, so node operators are compensated for actual work rather than for stake-weighted selection. The trade-off is heavier on-chain machinery (payment channels, ticket verification) and a smaller network than either Tor or Nym.</p>
+<h2 id="architecture">Architecture</h2>
+<p>The HOPR data path is Sphinx-format onion routing over libp2p, with a payment channel layer in parallel.</p>
+<pre><code>Client → Hop 1 → Hop 2 → Hop 3 → Hop 4 → Recipient
+         ↓       ↓       ↓       ↓
+         v       v       v       v
+        ticket  ticket  ticket  ticket
+        (probabilistic micropayment per packet)
+</code></pre>
+<h3 id="mix-layer">Mix layer</h3>
+<ul>
+<li>Sphinx packets (see <a href="/kb/sphinx-packet-format/">Sphinx Packet Format</a>). Fixed-size, layered ECDH + symmetric encryption, replay-protected via per-hop tags.</li>
+<li>Multi-hop routing, default 3 forward hops plus 1 return hop for SURBs (single-use reply blocks).</li>
+<li>Cover traffic. Each node generates dummy packets to maintain link-level entropy.</li>
+<li>libp2p transport. Nodes discover each other via Kademlia DHT and gossipsub.</li>
+</ul>
+<h3 id="payment-layer">Payment layer</h3>
+<p>Each hop produces a <em>ticket</em> — a probabilistic payment commitment. A ticket pays out only with probability <code>p</code> (typically <code>p = 1</code>, but the design supports lower win-rate tickets for amortized settlement). Tickets are aggregated and redeemed against a payment channel on Gnosis Chain (formerly xDai).</p>
+<p><code>HoprChannels</code> is the Solidity contract that manages bilateral payment channels between nodes. Settlement is off-chain except for channel open, channel close, and ticket aggregation events. The economic model resembles a Lightning-style channel network restricted to mixnet payments.</p>
+<p>The probabilistic-payment scheme draws on Rivest's "PayWord and MicroMint" lineage and on more recent work on probabilistic channels in <a href="/kb/lightning-network/">Lightning Network Deep Dive</a>.</p>
+<h2 id="hopr-token-economics">HOPR token economics</h2>
+<p>The HOPR token (ERC-20 on Gnosis Chain, bridged to Ethereum) is used for:</p>
+<ul>
+<li>Funding payment channels between nodes.</li>
+<li>Paying senders for relay capacity.</li>
+<li>Staking by node operators (the "Cover Traffic" program rewards stake committed to running nodes that generate cover traffic).</li>
+</ul>
+<p>The token went live in 2020 via a Genesis DAO sale; the HOPR Association is the Swiss non-profit steward. Total supply roughly 1 billion tokens, with treasury allocations for development, ecosystem grants, and node-operator incentives.</p>
+<p>The honest critique: a substantial portion of node-operator revenue has come from token issuance ("Cover Traffic" rewards) rather than from end-user demand for the privacy product. This is structurally similar to many Web3-incentivized infrastructure projects and remains the central sustainability question.</p>
+<h2 id="rpc-privacy-use-case">RPC privacy use case</h2>
+<p>The flagship application is RPC privacy. When a wallet queries an Ethereum node, the RPC provider (Infura, Alchemy, public node) sees:</p>
+<ul>
+<li>The querying IP.</li>
+<li>The request pattern (which addresses, contracts, balances).</li>
+<li>Timing of transaction broadcasts.</li>
+</ul>
+<p>This metadata trivially links wallet activity to network identity and is widely held by a small handful of RPC operators. HOPR routes RPC calls through its mixnet so the provider sees only an exit-node IP and the user sees no degradation other than added latency.</p>
+<p>This is exactly the niche Nym targets too. The differentiator HOPR claims: per-packet payment, so users pay for what they use rather than committing stake.</p>
+<h2 id="threat-model">Threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local / ISP observer</td>
+<td>Defeated. Sees only encrypted Sphinx packets to the entry hop</td>
+</tr>
+<tr>
+<td>Compromised hop</td>
+<td>Defeated. Sphinx layered encryption hides the path beyond the immediate next hop</td>
+</tr>
+<tr>
+<td>Compromised RPC endpoint</td>
+<td>Sees aggregated mixnet egress, not user IP</td>
+</tr>
+<tr>
+<td>Sybil attack on the mixnet</td>
+<td>Partially mitigated by stake requirements; smaller network is more vulnerable than Tor</td>
+</tr>
+<tr>
+<td>Global passive adversary</td>
+<td>Limited defense. HOPR has cover traffic but the small network size makes empirical anonymity sets thin</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Out of scope</td>
+</tr>
+</tbody>
+</table></div>
+<p>The "global passive adversary" line is the honest weak point. HOPR's design includes Loopix-inspired cover traffic, but the deployed network has historically operated at a few hundred nodes — far below the anonymity-set scale of Tor (~7,000 relays) or even Nym's mainnet. A global observer with knowledge of the full node set would have a much narrower correlation problem on HOPR than on Tor.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Per-packet incentive aligns payment with work performed.</li>
+<li>Sphinx-format onion routing inherits well-studied anonymity properties.</li>
+<li>Gnosis Chain settlement is cheap, making micropayment economics viable.</li>
+<li>Open source, Rust implementation, Swiss non-profit governance.</li>
+<li>Targets a real underserved niche (Web3 RPC privacy).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Small node count. Adoption has stalled compared to Tor and Nym.</li>
+<li>Token-funded sustainability. Cover-traffic rewards have been a major revenue source for operators, raising questions about long-term equilibrium when issuance ends.</li>
+<li>Documentation and tooling are less polished than Tor; client SDKs (RPCh) target a narrow developer audience.</li>
+<li>Marketing-heavy positioning at times outpaced deployment realities.</li>
+<li>Overlap with Nym for the wallet-RPC use case, with Nym having more momentum in 2024-2026.</li>
+</ul>
+<h2 id="deployment-status-2024-2026">Deployment status (2024-2026)</h2>
+<ul>
+<li><strong>RPCh</strong> (RPC over HOPR) is the consumer-facing product, packaged as a client SDK and a public RPC endpoint provider.</li>
+<li>Node count has fluctuated in the low hundreds to low thousands depending on incentive cycles.</li>
+<li>Integrations with Web3 wallets and dApps remain limited; most users connect via the RPCh proxy rather than running native HOPR clients.</li>
+<li>The 2025-2026 roadmap emphasizes performance optimization and cover-traffic efficiency over network expansion.</li>
+</ul>
+<h2 id="comparison-vs-nym">Comparison vs Nym</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>HOPR</th>
+<th>Nym</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixing</td>
+<td>Sphinx onion routing, cover traffic</td>
+<td>Loopix Poisson mixing, cover traffic</td>
+</tr>
+<tr>
+<td>Incentive model</td>
+<td>Per-packet probabilistic payment</td>
+<td>Stake-weighted selection plus zk-nym credentials</td>
+</tr>
+<tr>
+<td>Settlement</td>
+<td>Payment channels on Gnosis Chain</td>
+<td>NYM token on Cosmos chain</td>
+</tr>
+<tr>
+<td>Node count</td>
+<td>Hundreds</td>
+<td>Hundreds to low thousands</td>
+</tr>
+<tr>
+<td>Flagship app</td>
+<td>RPCh (Web3 RPC)</td>
+<td>NymVPN (consumer VPN)</td>
+</tr>
+<tr>
+<td>GPA defense claim</td>
+<td>Partial (small network limits anonymity set)</td>
+<td>Loopix-grade under stated assumptions</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Production but small</td>
+<td>Production with growing ecosystem</td>
+</tr>
+</tbody>
+</table></div>
+<p>The two projects have largely converged on the wallet-RPC use case from different starting points. The market has not obviously chosen between them; each has a small but committed user base.</p>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sphinx replay</td>
+<td>Per-mix bloom filters and replay tags</td>
+</tr>
+<tr>
+<td>Sybil hop selection</td>
+<td>Stake bonding for node registration</td>
+</tr>
+<tr>
+<td>Payment-channel griefing</td>
+<td>On-chain dispute resolution; channel-close timeouts</td>
+</tr>
+<tr>
+<td>Ticket forgery</td>
+<td>Cryptographic commitments verified before settlement</td>
+</tr>
+<tr>
+<td>Adversarial flow correlation</td>
+<td>Cover traffic; weak relative to Loopix bounds at deployed scale</td>
+</tr>
+<tr>
+<td>Token-economic attacks</td>
+<td>Treasury and slashing mechanisms</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Out of scope</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="september-04-2026-update-pix-supervision-track-surfaces">September 04, 2026 Update — PIX Supervision Track Surfaces</h2>
+<p>HOPR's PIX (Payment-In-channel eXchange) protocol is the payment channel that makes the hop-by-hop mixnet economically viable. The week's commits show PIX supervision graduating from deposit plumbing to admission policy:</p>
+<ul>
+<li><strong>#8362 (Aug 27, merged)</strong> — <code>feat(pix): per-SSA deposit data in SsaRequest, sourced from the deposit pool</code>. The per-Session-Source-Account deposit lookup, prerequisite for parameterized admission decisions.</li>
+<li><strong>#8355 (Aug 22, merged)</strong> — <code>fix(session): stop ERROR-spam on inbound packets to torn-down sessions</code>. Operator log hygiene.</li>
+<li><strong>#8364 (Aug 28, merged)</strong> — <code>chore: bump hopr-types to v4.0.0</code>. Major version bump; signals API surface changes.</li>
+<li><strong>#8373 (Sep 1, merged)</strong> — <code>chore(deps): unify on hopr-chain-connector 0.26.0</code>. Single-version policy across the workspace.</li>
+<li><strong>#8237 (Sep 2, merged)</strong> — <strong><code>feat: add session PIX supervisor</code></strong>. The supervisor that tracks PIX state per session and decides whether to admit new packets.</li>
+<li><strong>#8336 (Sep 3, merged)</strong> — <code>fix(tests): scale cluster convergence waits with the test timeout</code>. CI reliability on long-running integration tests.</li>
+<li><strong>#8377 (Sep 3, merged)</strong> — <strong><code>feat(session): parameterize PIX admission by Session target</code></strong>. The admission policy is now keyed by <em>which session</em> the packet is for, not just by deposit balance. Meaningful step toward "PIX per application / per use-case" pricing.</li>
+</ul>
+<p>The PIX supervision track is now visible in the public commit stream as a coordinated effort: deposit plumbing (#8362) → test reliability (#8336) → supervisor (#8237) → parameterized admission (#8377). Expect a HOPR blog post or release-notes announcement when the supervisor lands in a numbered release.</p>
+<p>See <a href="/briefings/mix-networks/2026-09-04/">Mix Networks Friday — September 04 2026 Weekly Update</a> for the full weekly delta.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>HOPR Association — <a href="https://hoprnet.org" rel="noopener nofollow">hoprnet.org</a></li>
+<li>HOPR protocol specification — <a href="https://github.com/hoprnet/hoprnet" rel="noopener nofollow">github.com/hoprnet/hoprnet</a></li>
+<li>HOPR yellowpaper — <a href="https://hoprnet.org/papers" rel="noopener nofollow">hoprnet.org/papers</a></li>
+<li>Danezis &amp; Goldberg, <em>Sphinx: A Compact and Provably Secure Mix Format</em>, IEEE S&amp;P 2009.</li>
+<li>Piotrowska et al., <em>The Loopix Anonymity System</em>, USENIX Security 2017 (Sphinx + cover-traffic foundations).</li>
+<li>HoprChannels Solidity contracts — <a href="https://github.com/hoprnet/hoprnet/tree/master/packages/ethereum" rel="noopener nofollow">github.com/hoprnet/hoprnet/tree/master/packages/ethereum</a>.</li>
+<li>RPCh — <a href="https://rpch.net" rel="noopener nofollow">rpch.net</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/nym/">
+  <span class="nm">Nym Mixnet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/sphinx-packet-format/">
+  <span class="nm">Sphinx Packet Format</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/lightning-network/">
+  <span class="nm">Lightning Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/loopix/">
+  <span class="nm">Loopix</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/mixminion-and-mixmaster/">
+  <span class="nm">Mixminion and Mixmaster</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-historical" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span>
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=HOPR" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">An incentivized mix network for Web3 traffic — Sphinx-packet onion routing with per-hop probabilistic micropayments. Pitched as the privacy layer for RPC calls and dApp queries, built by the HOPR Association in Switzerland since 2020.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

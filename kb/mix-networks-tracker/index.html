@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Research and Deployment Tracker — ungovernable.tech</title>
+<meta name="description" content="A tracker of deployed and near-deployed anonymity networks and mixnet research: Tor, I2P, Nym, Katzenpost, HOPR and the papers behind them.">
+<link rel="canonical" href="https://ungovernable.tech/kb/mix-networks-tracker/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Research and Deployment Tracker — ungovernable.tech">
+<meta property="og:description" content="A tracker of deployed and near-deployed anonymity networks and mixnet research: Tor, I2P, Nym, Katzenpost, HOPR and the papers behind them.">
+<meta property="og:url" content="https://ungovernable.tech/kb/mix-networks-tracker/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Research and Deployment Tracker — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Research and Deployment Tracker — ungovernable.tech">
+<meta name="twitter:description" content="A tracker of deployed and near-deployed anonymity networks and mixnet research: Tor, I2P, Nym, Katzenpost, HOPR and the papers behind them.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Mix Networks Research and Deployment Tracker", "description": "A tracker of deployed and near-deployed anonymity networks and mixnet research: Tor, I2P, Nym, Katzenpost, HOPR and the papers behind them.", "dateModified": "2026-10-25", "datePublished": "2026-05-08", "url": "https://ungovernable.tech/kb/mix-networks-tracker/", "mainEntityOfPage": "https://ungovernable.tech/kb/mix-networks-tracker/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Research and Deployment Tracker", "item": "https://ungovernable.tech/kb/mix-networks-tracker/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">Mix Networks Research and Deployment Tracker</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ REFERENCE ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Mix Networks Research and Deployment Tracker</h1>
+  <p class="aka">Also Mixnet 2026 Tracker, Anonymous Routing 2026 Tracker, Mix Network Deployment Tracker.</p>
+  <p class="dek">A current-state tracker for the deployed and near-deployed anonymity-routing ecosystem: Tor, I2P, Nym, Katzenpost, HORNET, HOPR, and adjacent anonymity-network research. The point is not to crown one winner; it is to map which systems are usable today, which threat models they actually satisfy, and where freedom-tech builders should integrate next.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>16</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context-and-evolution">Historical context and evolution</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#2026-deployment-notes">2026 deployment notes</a><a href="#june-2026-update-notes">June 2026 update notes</a><a href="#june-12-2026-friday-mixnet-research-update">June 12, 2026 — Friday Mixnet Research Update</a><a href="#use-cases-and-trade-offs">Use cases and trade-offs</a><a href="#open-research-questions">Open research questions</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>The 2026 mix-network landscape has split into three practical tracks:</p>
+<ol>
+<li><strong>Tor as the default anonymity substrate.</strong> Tor remains the only anonymity network with mass adoption, broad censorship-evasion tooling, mature hidden services, reproducible metrics, and a hardened browser. The most important 2025–2026 development is not a new user-facing feature but the Rust rewrite, <strong>Arti</strong>, moving from client-only toward RPC, HTTP CONNECT, relay, directory-server, and onion-service work.</li>
+<li><strong>I2P as a peer-to-peer private network under real Sybil pressure.</strong> I2P continues to ship rapidly, including post-quantum work at the ratchet layer and fixes for SAMv3 clients such as Bitcoin and BitTorrent applications. The 2026 spam/Sybil episodes make I2P an important live laboratory for open-membership anonymity-network defense.</li>
+<li><strong>Packet-mix systems trying to make global-passive-adversary defense usable.</strong> <a href="/kb/nym/">Nym</a> is pushing NymVPN, zk-credentials, decentralized payment, split tunneling, and post-quantum key-exchange experiments. <a href="/kb/katzenpost/">Katzenpost</a> remains the strongest architecture reference for post-quantum federated mixnets. HOPR is the most visible incentivized RPC/data-exchange mixnet outside Nym.</li>
+</ol>
+<p>The key freedom-tech conclusion: <strong>low latency and strong traffic-analysis resistance are still in tension</strong>. Tor/I2P are deployable defaults for censorship resistance and hidden services. Nym/Katzenpost are the right research and integration targets when the adversary can observe the network globally and metadata is the main asset being protected.</p>
+<h2 id="historical-context-and-evolution">Historical context and evolution</h2>
+<h3 id="chaum-to-remailers">Chaum to remailers</h3>
+<p>David Chaum's 1981 "Untraceable Communications" introduced the core idea: public-key encrypted messages are batched and transformed by mixes so observers cannot link input messages to output messages. The early practical descendants were remailers such as Mixmaster: high-latency, email-oriented, strong against simple traffic analysis, but too slow and specialized for general internet use.</p>
+<h3 id="onion-routing-becomes-the-usable-compromise">Onion routing becomes the usable compromise</h3>
+<p>Tor's 2004 design optimized for interactive traffic. It deliberately accepted a weaker traffic-analysis model so ordinary users could browse the web and developers could host reachable onion services. That compromise made Tor the most important deployed anonymity network, but also left a permanent warning label: a global passive adversary observing entry and exit traffic can correlate flows.</p>
+<h3 id="continuous-time-packet-mixing-reopens-the-stronger-threat-model">Continuous-time packet mixing reopens the stronger threat model</h3>
+<p>Loopix (USENIX Security 2017) revived the mixnet path with Poisson delays, loop cover traffic, and Sphinx packets. Its influence is visible in <a href="/kb/nym/">Nym</a> and <a href="/kb/katzenpost/">Katzenpost</a>: fixed-size packets, per-hop delay distributions, SURB-like reply mechanisms, and deliberate dummy traffic. These systems are slower and more expensive than Tor, but they target the threat Tor explicitly does not solve.</p>
+<h3 id="20252026-implementation-hardening-and-productization">2025–2026: implementation hardening and productization</h3>
+<p>Recent developments are less about inventing brand-new primitives and more about hardening implementations:</p>
+<ul>
+<li>Tor is modernizing relay encryption with <strong>Counter Galois Onion (CGO)</strong> and moving toward embeddable Rust infrastructure via Arti.</li>
+<li>I2P is testing post-quantum ratchet-layer changes while dealing with hostile network conditions.</li>
+<li>Nym is converting a research-grade mixnet into a consumer product with NymVPN, custom DNS, split tunneling, ad blocking, decentralized pay-as-you-go access, zk-credentials, and post-quantum key exchange.</li>
+<li>Katzenpost is maintaining a research-first, post-quantum, federated model with detailed threat-model and literature documents.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th class="ta-r">2026 maturity</th>
+<th>Main implementation signal</th>
+<th>Threat model</th>
+<th>Development signal observed 2026-05-08</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/tor/">Tor</a> / Arti</td>
+<td class="ta-r">Production network; Arti 2.3.0 relay/directory/RPC in May 2026</td>
+<td>Tor Browser: current platform releases on the Tor Project download page</td>
+<td>Local/partial observer; not global passive</td>
+<td>Rapid emergency release cadence (15.0.11/12/13 within 10 days); Arti 2.3.0 syslog, protocol_warnings, tunnel-path RPC; CGO relay encryption in development</td>
+<td>Censorship evasion, onion services, universal SOCKS/HTTP proxy</td>
+</tr>
+<tr>
+<td><a href="/kb/i2p/">I2P</a></td>
+<td class="ta-r">Production P2P private network</td>
+<td>Java I2P, i2pd, SAMv3 app APIs</td>
+<td>Peer-to-peer internal anonymity; vulnerable to large Sybil/spam pressure</td>
+<td><code>i2p/i2p.i2p</code>: ~2.5k GitHub stars, non-archived, pushed 2026-05-07; I2P 2.12.0 released April 2026</td>
+<td>Anonymous in-network services, BitTorrent, Bitcoin app transport experiments</td>
+</tr>
+<tr>
+<td><a href="/kb/nym/">Nym</a></td>
+<td class="ta-r">Production network + consumer VPN</td>
+<td>Nym mixnet, NymVPN, zk-nyms</td>
+<td>Global passive adversary under Loopix/cover-traffic assumptions</td>
+<td><code>nymtech/nym</code>: ~1.7k stars, non-archived Rust repo, pushed 2026-05-08; NymVPN v2026.7 shipped PQ key-exchange testing</td>
+<td>Metadata-private RPC, async apps, high-stakes browsing, VPN-like UX</td>
+</tr>
+<tr>
+<td><a href="/kb/katzenpost/">Katzenpost</a></td>
+<td class="ta-r">Research-grade / federated alpha</td>
+<td>Go mixnet stack, hpqc, threat-model docs</td>
+<td>Global passive + harvest-now-decrypt-later emphasis</td>
+<td><code>katzenpost/katzenpost</code>: active Go repo, pushed 2026-05-07; 2024 threat model/literature/hpqc docs remain primary references</td>
+<td>Federated deployments, PQ mixnet research, app-specific privacy systems</td>
+</tr>
+<tr>
+<td><a href="/kb/hornet/">HORNET</a></td>
+<td class="ta-r">Research design</td>
+<td>arXiv / academic prototype</td>
+<td>Low-latency network-layer onion routing, not deployed</td>
+<td>No major deployment signal; remains architecture reference</td>
+<td>Future path-aware network design, SCION-like anonymity layer thinking</td>
+</tr>
+<tr>
+<td>HOPR</td>
+<td class="ta-r">Active incentivized mixnet niche</td>
+<td><code>hoprnet/hoprnet</code>, node staking/cover traffic</td>
+<td>Metadata-private point-to-point data exchange</td>
+<td><code>hoprnet/hoprnet</code>: active Rust repo, pushed 2026-05-07; roadmap and newsletter emphasize incentivized mixnet</td>
+<td>RPC/data-exchange privacy experiments</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2026-deployment-notes">2026 deployment notes</h2>
+<h3 id="tor-and-arti">Tor and Arti</h3>
+<p>For a current Tor Browser installation, use the Tor Project’s download page and verify the supplied signature. Dated release observations are historical snapshots, not a current version recommendation.</p>
+<p>Arti 2.3.0 (May 7, 2026) continues the relay/directory/RPC development arc:
+- <code>syslog</code> logging support when the <code>syslog</code> feature is enabled.
+- <code>logging.protocol_warnings</code> config option to surface protocol violations.
+- RPC API for tunnel-path inspection.
+- Ongoing: Arti as relay, Arti as directory authority.
+- <strong>Flagged breaking change in next release</strong>: <code>TorClient</code> will require explicit <code>Arc</code> wrapping. Downstream <code>arti-client</code> crate users should monitor <a href="https://gitlab.torproject.org/tpo/core/arti/-/work_items/2469" rel="noopener nofollow">#2469</a>.</p>
+<p>Counter Galois Onion (CGO) remains in development: when deployed, replaces legacy AES-CTR/SHA-1-derived 4-byte digest relay-cell encryption with a 16-byte authenticator, adding immediate forward secrecy and closing the tagging-attack vector. This is the most significant Tor protocol-level change since v3 onion services.</p>
+<p>Practical interpretation:</p>
+<ul>
+<li>Use Tor today for browser anonymity, onion services, bridge/pluggable-transport censorship resistance, and default wallet/RPC hygiene.</li>
+<li>Track Arti for embedded applications, mobile apps, Rust stacks, and projects that need programmatic Tor control.</li>
+<li>Do not claim Tor defeats a global passive adversary; the traffic-correlation limitation is structural.</li>
+</ul>
+<h3 id="i2p">I2P</h3>
+<p>I2P's 2026 releases are notable for two reasons: post-quantum experimentation and real-world hostile-network pressure. I2P 2.11.0 enabled post-quantum crypto at the ratchet layer by default and added mitigations for spam/Sybil conditions. I2P 2.12.0 continued PQ implementation work, improved interoperability, and fixed a SAMv3 lookup bug affecting applications such as Bitcoin and BitTorrent clients.</p>
+<p>This makes I2P particularly relevant for <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>, <a href="/kb/decentralized-compute/">Overview - Decentralized Compute</a>, and <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a> use cases where the application is naturally internal to the anonymity network. I2P is not a clearnet-exit network in the Tor sense; its design center is private services inside the overlay.</p>
+<p>Practical interpretation:</p>
+<ul>
+<li>Use I2P for eepsites, anonymous file sharing, and applications that can live entirely inside the overlay.</li>
+<li>Treat Sybil/spam resilience as a live operational question, not a solved property.</li>
+<li>Track SAMv3 because wallet, BitTorrent, and other application integrations often rely on it.</li>
+</ul>
+<h3 id="nym">Nym</h3>
+<p>Nym is the most productized attempt to bring Loopix-style mix networking to ordinary users. The 2026 update stream shows a clear product push:</p>
+<ul>
+<li>NymVPN v2026.7 shipped split tunneling beta for Windows, optional post-quantum key exchange in Fast mode via the <strong>Lewes Protocol</strong>, and secure authentication improvements on macOS following Cure53 audit recommendations.</li>
+<li>Nym's March/April 2026 update highlights split tunneling, ad blocking beta, custom DNS, decentralized pay-as-you-go access with zk-credentials, and a broader go-to-market campaign aimed partly at crypto users and censorship-affected countries.</li>
+<li>The post-quantum roadmap says Nym wants PQ key exchange across client-to-entry-node links, mixnode-to-mixnode links, NymVPN modes, and eventually the Sphinx packet layer.</li>
+</ul>
+<p>The important distinction: NymVPN has both <strong>Anonymous mode</strong> and <strong>Fast mode</strong>. Anonymous mode is where the noise-generating mixnet matters. Fast mode is closer to a decentralized VPN / WireGuard-like model and now receives post-quantum handshake work first. These modes should not be conflated when reasoning about anonymity guarantees.</p>
+<p>Practical interpretation:</p>
+<ul>
+<li>Use Nym for wallet RPC, sensitive asynchronous queries, and applications where seconds of latency are acceptable.</li>
+<li>Be careful when writing about NymVPN: Fast mode and mixnet mode are different threat models.</li>
+<li>Watch whether Nym can turn decentralized pay-as-you-go credentials into a real usage market rather than only token-staking infrastructure.</li>
+</ul>
+<h3 id="katzenpost">Katzenpost</h3>
+<p>Katzenpost remains smaller than Nym but technically important. It is a federated, post-quantum-oriented mixnet stack with explicit threat modeling, Sphinx-based packet design, directory authorities, service connectors, and a Go implementation. The 2024 Katzenpost blog produced three durable primary-source anchors still relevant in 2026:</p>
+<ul>
+<li>A living <strong>mixnet threat model</strong> document.</li>
+<li>A <strong>mixnet literature overview</strong> with critical analysis of the academic design space.</li>
+<li><strong>hpqc</strong>, a Go library for hybrid post-quantum cryptographic constructions such as hybrid KEMs and NIKEs.</li>
+</ul>
+<p>Practical interpretation:</p>
+<ul>
+<li>Use Katzenpost as the architecture reference when post-quantum metadata privacy matters.</li>
+<li>Treat it as research-grade/federated infrastructure, not a mass-market consumer network.</li>
+<li>Study its docs before designing new mixnet messaging, voting, whistleblowing, or human-rights applications.</li>
+</ul>
+<h3 id="hopr-and-adjacent-systems">HOPR and adjacent systems</h3>
+<p>HOPR positions itself as a decentralized, incentivized mixnet for privacy-preserving point-to-point data exchange. It is especially relevant to Web3 RPC, node-to-node messaging, and incentive-market experiments. At last review, <code>hoprnet/hoprnet</code> is active, non-archived, Rust-based, and recently pushed.</p>
+<p>HOPR is not as central to this library as Tor, I2P, Nym, or Katzenpost, but it is worth tracking because economic incentives and cover traffic are one of the unresolved problems in open-membership mixnets.</p>
+<h2 id="june-2026-update-notes">June 2026 update notes</h2>
+<h3 id="nym-pq-key-exchange-in-fast-mode-zk-credential-progress">Nym: PQ key exchange in Fast mode, zk-credential progress</h3>
+<p>Nym's development through June 2026 continues the productization arc. The Lewes Protocol — Nym's post-quantum key exchange — is active in NymVPN Fast mode, making Nym one of the few deployed consumer VPN products with PQ handshakes in any form. The mixnet (Anonymous mode) PQ roadmap remains longer-term: adding PQ to Sphinx packet layer and mixnode-to-mixnode links is not yet shipped. The distinction between Fast mode ( WireGuard-like, PQ handshakes) and Anonymous mode (Loopix-style packet mixing, no PQ yet) remains the critical analytical line when evaluating NymVPN claims.</p>
+<p>Nym's zk-credential system for decentralized pay-as-you-go access is advancing toward beta. The use case is anonymous subscription credentials that prove payment without revealing identity — relevant to privacy-preserving VPN access, anonymous messaging tier, and metadata-private service access. This is worth watching as a practical instantiation of anonymous credentials outside the academic literature.</p>
+<h3 id="katzenpost-built-in-hybrid-pq-as-architectural-differentiator">Katzenpost: built-in hybrid PQ as architectural differentiator</h3>
+<p>Katzenpost's most durable technical differentiator from Nym is its <strong>built-in hybrid post-quantum stance</strong> from the ground up. The <code>hpqc</code> Go library implements hybrid KEMs and NIKE constructions combining classical and post-quantum primitives, and the Katzenpost threat model explicitly factors in harvest-now-decrypt-later adversaries. By contrast, Nym's PQ roadmap is add-on and experimental; Katzenpost's PQ is structural.</p>
+<p>For ungovernable system design, this means: if the primary threat is a state-level adversary that records all traffic today for future decryption, Katzenpost's architecture is more conservative by design. If the primary threat is metadata correlation by commercial surveillance, Nym's consumer productization and larger user base may be more relevant. Neither is universally superior; the choice depends on the specific threat model documented in the system design.</p>
+<h3 id="tor-arti-relay-milestone-approaching">Tor: Arti relay milestone approaching</h3>
+<p>Arti's path to relay-level deployment continues. The2.3.x series is adding RPC interfaces for tunnel-path inspection, syslog support, and protocol warning surfacing — infrastructure that makes Arti viable as a Rust-native Tor relay rather than only a client library. The next major milestone is Arti as directory authority, which would make the Rust rewrite functionally complete for all Tor roles. This matters for the ungovernable stack because Rust-based Tor infrastructure enables embedded, mobile, and programmatic use cases that the legacy C implementation does not easily support.</p>
+<h3 id="i2p-samv3-fixes-and-persistent-sybil-pressure">I2P: SAMv3 fixes and persistent Sybil pressure</h3>
+<p>I2P 2.12.0's SAMv3 lookup bug fix (affecting Bitcoin and BitTorrent application integrations) is a reminder that I2P's application-layer APIs are as important as its network-layer anonymity properties. The ongoing Sybil/spam pressure on I2P continues to make it a live laboratory for open-membership anonymity-network defense. The project is active and responsive, but the fundamental challenge — that peer-to-peer networks with open membership are structurally vulnerable to Sybil attacks unless economic or social barriers exist — remains unsolved in production.</p>
+<h2 id="june-12-2026-friday-mixnet-research-update">June 12, 2026 — Friday Mixnet Research Update</h2>
+<h3 id="tor-cgo-deployment-approaching-arti-relay-milestone-in-sight">Tor: CGO deployment approaching, Arti relay milestone in sight</h3>
+<p>The most significant Tor development is the approach of Counter Galois Onion (CGO) deployment. The CGO replaces the legacy AES-CTR/SHA-1-derived 4-byte digest relay-cell encryption with a 16-byte authenticator and adds immediate forward secrecy. This is the most significant Tor protocol change since v3 onion services, and the design discussion on the tor-dev mailing list indicates implementors are working through the final edge cases before a network-wide flag day.</p>
+<p>Arti's trajectory toward relay-level deployment continues. The 2.3.x series added RPC interfaces for tunnel-path inspection, syslog support, and protocol warning surfacing — infrastructure that makes Arti viable as a Rust-native Tor relay rather than only a client library. The next milestone is Arti as directory authority, which would complete the Rust rewrite for all Tor roles. For the ungovernable stack, this matters because Rust-based Tor infrastructure enables embedded, mobile, and programmatic use cases that the legacy C implementation does not support.</p>
+<h3 id="i2p-continued-active-releases-kimwolf-afterglow">I2P: continued active releases, Kimwolf afterglow</h3>
+<p>I2P continues its rapid release cadence. I2P 2.12.0 (April 2026) addressed performance and security issues with improved PQ interoperability and SAMv3 fixes. The post-quantum ratchet layer is now enabled by default since 2.11.0 (February 2026). The Kimwolf botnet incident in February — 700,000 hostile nodes — remains the most instructive recent case study in anonymity-network Sybil economics. I2P's response demonstrated that open-membership networks can recover from massive Sybil flooding, but the recovery required coordinated filtering and reputation adjustments that are themselves a target for manipulation.</p>
+<h3 id="nym-zk-credential-beta-lewes-protocol-pq-in-fast-mode-anonymous-mode-still-research">Nym: zk-credential beta, Lewes Protocol PQ in Fast mode, Anonymous mode still research</h3>
+<p>Nym's June 2026 development continues the productization arc. The Lewes Protocol — Nym's post-quantum key exchange — remains active in NymVPN Fast mode, making NymVPN one of the few consumer VPN products with PQ handshakes in any form. The distinction between Fast mode (WireGuard-like, PQ handshakes) and Anonymous mode (Loopix-style packet mixing, no PQ yet) remains the critical analytical line when evaluating NymVPN claims. Nym's zk-credential system for decentralized pay-as-you-go access is advancing toward beta, targeting anonymous subscription credentials that prove payment without revealing identity.</p>
+<p>The mixnet layer (Anonymous mode) PQ roadmap remains longer-term. Adding PQ to the Sphinx packet layer and mixnode-to-mixnode links is not yet shipped. The core challenge is that the Sphinx packet geometry changes if PQ primitives replace X25519 for the per-hop key encapsulation — larger keys and different ciphertext sizes create distinguishable packet classes that could degrade anonymity. Outfox (ACM SIGCOMM 2025) addresses exactly this problem with a simplified PQ packet format for fixed-route layered mixnets, and Nym's PQ work will likely converge on similar architecture.</p>
+<h3 id="mixnet-wot-trust-score-visibility-crosses-into-ui">Mixnet WoT: trust score visibility crosses into UI</h3>
+<p>A notable development since the last tracker update: multiple Nostr clients — Amethyst (Android), Primal, Coracle — now display WoT-based trust scores as user-visible metadata in Q1–Q2 2026. This is significant because WoT trust scoring is transitioning from developer-facing library features to end-user-visible product features. The practical implication: ordinary users see trust metadata surfaced by their clients, creating both better spam filtering and new design questions about trust presentation. Coracle's explicit message — "If you can't tell the difference between me and a scammer, use a nostr client with web of trust support" — signals that WoT visibility is becoming a product differentiator.</p>
+<p>For mixnet operators, this has a parallel: if Nym or Katzenpost develop analogous trust scoring for mixnode operators, it could serve a similar anti-Sybil function. A trusted-mixnode list, weighted by stake or reputation, could provide users with stronger anonymity guarantees than arbitrary node selection — at the cost of introducing a new kind of centralization risk.</p>
+<h3 id="research-frontier-mocha-client-anonymity-outfox-pq-packet-format-nox-performance-benchmarks">Research frontier: MOCHA client anonymity, Outfox PQ packet format, Nox performance benchmarks</h3>
+<p>Three research developments from 2026 remain the reference points for mixnet advancement:</p>
+<p><strong>MOCHA</strong> (ePrint 2025/861, IH&amp;MMSEC 2025): The key insight is that optimizing mixnet parameters for message anonymity alone can produce configurations where client anonymity is dangerously low. The paper provides an algorithm to simulate client anonymity for Loopix mixnets. For Nym and Katzenpost operators, MOCHA's finding means that Poisson rate μ, cover traffic ratio, and layer count tuning requires measuring both message and client anonymity — a more complex optimization than the Loopix paper implied.</p>
+<p><strong>Outfox</strong> (ACM SIGCOMM 2025): A simplified Sphinx variant for post-quantum layered mixnets, using a PQ KEM at the key encapsulation layer while preserving Sphinx's provable security properties (bitwise indistinguishability, per-hop unlinkability, tagging-attack resistance). Outfox is the architectural direction for any new mixnet design that wants PQ from scratch without the compatibility burden of the original Sphinx spec. Nym's PQ roadmap will likely converge on this approach.</p>
+<p><strong>Nox</strong> (2024-2025): Real performance benchmarking for a working Sphinx mixnet — 58.6µs per-hop processing mean, 100.1ms median end-to-end latency under Poisson mixing, 372.3 packets/second sustained throughput. These numbers establish the realistic performance envelope for Sphinx-based packet-mix networks.</p>
+<h3 id="nymvpn-anonymous-mode-vs-fast-mode-clarifying-the-threat-model">NymVPN Anonymous mode vs Fast mode: clarifying the threat model</h3>
+<p>The most common confusion in the Nym ecosystem remains the conflation of NymVPN's two modes:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Anonymous mode</th>
+<th>Fast mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixnet</td>
+<td>Yes (Loopix-style)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Cover traffic</td>
+<td>Yes (noise-generating)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Seconds (Poisson mixing)</td>
+<td>~100ms</td>
+</tr>
+<tr>
+<td>PQ key exchange</td>
+<td>No (classical X25519)</td>
+<td>Yes (Lewes Protocol, ML-KEM)</td>
+</tr>
+<tr>
+<td>Threat model</td>
+<td>Global passive adversary</td>
+<td>Decentralized VPN</td>
+</tr>
+</tbody>
+</table></div>
+<p>NymVPN Anonymous mode is the strong mixnet — it defends against timing correlation from a global passive adversary. Fast mode is closer to a decentralized WireGuard with post-quantum handshakes. Claiming Fast mode provides mixnet-grade anonymity is wrong. Conversely, dismissing NymVPN because one mode doesn't have PQ is also wrong if the Anonymous mode's threat model is what you need.</p>
+<p>For the ungovernable stack: use Anonymous mode for wallet RPC privacy, sensitive browsing, and metadata-critical applications where seconds of latency are acceptable. Use Fast mode for general VPN-like protection with PQ handshakes. Do not conflate them when writing about Nym's threat model.</p>
+<h3 id="hopr-sphinx-probabilistic-payments-rpcdata-exchange-focus">HOPR: Sphinx + probabilistic payments, RPC/data-exchange focus</h3>
+<p>HOPR (<a href="https://github.com/hoprnet/hoprnet" rel="noopener nofollow">https://github.com/hoprnet/hoprnet</a>) remains active as the most visible incentivized RPC/data-exchange mixnet outside Nym. It uses Sphinx packets with probabilistic payments — nodes earn HOPR tokens for relaying traffic, which creates economic incentives for honest participation. The model is different from Nym's stake-weighted mixnode selection: HOPR pays per-packet rather than per-stake. The operational challenge for both is the same: economic incentives can be gamed by adversaries with sufficient capital, and the cover traffic requirement means both networks need enough real traffic to make dummy traffic indistinguishable. Watch whether either network achieves sustainable traffic levels without token subsidies.</p>
+<h2 id="use-cases-and-trade-offs">Use cases and trade-offs</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Best current option</th>
+<th>Why</th>
+<th>Trade-off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anonymous web browsing</td>
+<td><a href="/kb/tor/">Tor</a> Browser</td>
+<td>Mature browser fingerprinting defenses, bridges, pluggable transports</td>
+<td>Vulnerable to global timing correlation; blocked in some jurisdictions</td>
+</tr>
+<tr>
+<td>Hidden services</td>
+<td><a href="/kb/tor/">Tor</a> onion services or <a href="/kb/i2p/">I2P</a> eepsites</td>
+<td>Mature service-discovery models and internal routing</td>
+<td>Operational security still matters; server misconfiguration deanonymizes</td>
+</tr>
+<tr>
+<td>Wallet/RPC privacy</td>
+<td><a href="/kb/tor/">Tor</a> today; <a href="/kb/nym/">Nym</a> where supported</td>
+<td>Hides wallet IP from RPC provider and network observer</td>
+<td>Tor is low latency but weaker against global observers; Nym is stronger but slower</td>
+</tr>
+<tr>
+<td>Async messaging / dead drops</td>
+<td><a href="/kb/nym/">Nym</a> or <a href="/kb/katzenpost/">Katzenpost</a></td>
+<td>Packet mixing and cover traffic fit async traffic</td>
+<td>Latency, scarce bandwidth, smaller anonymity sets</td>
+</tr>
+<tr>
+<td>Anonymous BitTorrent / internal services</td>
+<td><a href="/kb/i2p/">I2P</a></td>
+<td>Designed for in-network services and file sharing</td>
+<td>Smaller ecosystem and persistent Sybil/spam risk</td>
+</tr>
+<tr>
+<td>Post-quantum metadata privacy</td>
+<td><a href="/kb/katzenpost/">Katzenpost</a> today; Nym roadmap to watch</td>
+<td>Katzenpost built around hybrid PQ assumptions; Nym adding PQ layers</td>
+<td>PQ does not solve timing/endpoint leaks; careful threat-modeling required</td>
+</tr>
+<tr>
+<td>Censorship resistance at scale</td>
+<td><a href="/kb/tor/">Tor</a> bridges, Snowflake, WebTunnel</td>
+<td>Largest deployed circumvention ecosystem</td>
+<td>Bridge discovery/blocking is an arms race</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-research-questions">Open research questions</h2>
+<ol>
+<li><strong>How much cover traffic is enough?</strong> Loopix-style guarantees depend on real cover-traffic distributions and enough honest participants. Production networks need empirical anonymity-set measurement, not only protocol proofs.</li>
+<li><strong>Can token incentives buy honest mixing without centralizing stake?</strong> Nym and HOPR both test economic designs. The risk is that stake weighting or delegation creates a small de facto operator set.</li>
+<li><strong>How should mixnets expose APIs to apps?</strong> SOCKS is universal but semantically weak. RPC, HTTP CONNECT, service-provider APIs, and embedded libraries may give applications better privacy defaults.</li>
+<li><strong>Can post-quantum upgrades be deployed without new fingerprinting?</strong> PQ handshakes, larger keys, and optional toggles can create distinguishable client classes if rollout is uneven.</li>
+<li><strong>What is the right user experience for strong anonymity?</strong> If mixnet mode is too slow, users switch to fast modes. The product challenge is making the safe path tolerable for realistic workflows.</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://www.torproject.org/download/" rel="noopener nofollow">Tor Browser downloads</a></p>
+</li>
+<li>
+<p><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></p>
+</li>
+</ul>
+<h3 id="project-documentation-and-release-notes">Project documentation and release notes</h3>
+<ul>
+<li>Tor Project — Arti 2.3.0 release: <a href="https://blog.torproject.org/arti_2_3_0_released/" rel="noopener nofollow">https://blog.torproject.org/arti_2_3_0_released/</a></li>
+<li><a href="https://www.torproject.org/download/" rel="noopener nofollow">Tor Browser downloads</a> — current platform releases and signatures.</li>
+<li>Tor Project — Tor Browser 15.0.12: <a href="https://blog.torproject.org/new-release-tor-browser-15012/" rel="noopener nofollow">https://blog.torproject.org/new-release-tor-browser-15012/</a></li>
+<li>Tor Project — Tails 7.7.3 emergency: <a href="https://blog.torproject.org/new-release-tails-7_7_3/" rel="noopener nofollow">https://blog.torproject.org/new-release-tails-7_7_3/</a></li>
+<li>Tor Project — Counter Galois Onion announcement: <a href="https://blog.torproject.org/introducing-cgo/" rel="noopener nofollow">https://blog.torproject.org/introducing-cgo/</a></li>
+<li>Tor announcements index: <a href="https://blog.torproject.org/category/announcements/" rel="noopener nofollow">https://blog.torproject.org/category/announcements/</a></li>
+<li>I2P 2.11.0 release: <a href="https://i2p.net/en/blog/2026/02/09/i2p-2.11.0-release/" rel="noopener nofollow">https://i2p.net/en/blog/2026/02/09/i2p-2.11.0-release/</a></li>
+<li>I2P 2.12.0 release: <a href="https://i2p.net/en/blog/2026/04/20/i2p-2.12.0-release/" rel="noopener nofollow">https://i2p.net/en/blog/2026/04/20/i2p-2.12.0-release/</a></li>
+<li>NymVPN v2026.7 release: <a href="https://nym.com/blog/nymvpn.v2026.7" rel="noopener nofollow">https://nym.com/blog/nymvpn.v2026.7</a></li>
+<li>Nym March/April 2026 update: <a href="https://nym.com/blog/nym-in-march-april-2026" rel="noopener nofollow">https://nym.com/blog/nym-in-march-april-2026</a></li>
+<li>Nym post-quantum roadmap: <a href="https://nym.com/blog/nym-post-quantum-roadmap" rel="noopener nofollow">https://nym.com/blog/nym-post-quantum-roadmap</a></li>
+<li>Nym Lewes Protocol post-quantum key exchange: <a href="https://nym.com/blog/lewes-protocol-post-quantum" rel="noopener nofollow">https://nym.com/blog/lewes-protocol-post-quantum</a></li>
+<li>Katzenpost website and docs: <a href="https://katzenpost.network/" rel="noopener nofollow">https://katzenpost.network/</a></li>
+<li>Katzenpost blog index: <a href="https://katzenpost.network/blog/" rel="noopener nofollow">https://katzenpost.network/blog/</a></li>
+<li>HOPR roadmap: <a href="https://hoprnet.org/roadmap" rel="noopener nofollow">https://hoprnet.org/roadmap</a></li>
+</ul>
+<h3 id="repositories-checked-for-activity">Repositories checked for activity</h3>
+<ul>
+<li>Nym: <a href="https://github.com/nymtech/nym" rel="noopener nofollow">https://github.com/nymtech/nym</a></li>
+<li>I2P Java implementation: <a href="https://github.com/i2p/i2p.i2p" rel="noopener nofollow">https://github.com/i2p/i2p.i2p</a></li>
+<li>i2pd C++ implementation: <a href="https://github.com/PurpleI2P/i2pd" rel="noopener nofollow">https://github.com/PurpleI2P/i2pd</a></li>
+<li>Katzenpost: <a href="https://github.com/katzenpost/katzenpost" rel="noopener nofollow">https://github.com/katzenpost/katzenpost</a></li>
+<li>HOPR: <a href="https://github.com/hoprnet/hoprnet" rel="noopener nofollow">https://github.com/hoprnet/hoprnet</a></li>
+</ul>
+<h3 id="foundational-papers">Foundational papers</h3>
+<ul>
+<li>Chaum, David. "Untraceable Communications." Communications of the ACM, 1981. <a href="https://dl.acm.org/doi/10.1145/1008908.1008920" rel="noopener nofollow">https://dl.acm.org/doi/10.1145/1008908.1008920</a></li>
+<li>Dingledine, Roger; Mathewson, Nick; Syverson, Paul. "Tor: The Second-Generation Onion Router." USENIX Security 2004. <a href="https://www.usenix.org/legacyurl/13th-usenix-security-symposium-151-technical-paper" rel="noopener nofollow">https://www.usenix.org/legacyurl/13th-usenix-security-symposium-151-technical-paper</a></li>
+<li>Danezis, George; Goldberg, Ian. "Sphinx: A Compact and Provably Secure Mix Format." IEEE S&amp;P 2009.</li>
+<li>Piotrowska et al. "The Loopix Anonymity System." USENIX Security 2017. <a href="https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska" rel="noopener nofollow">https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska</a></li>
+<li>Chen et al. "HORNET: High-speed Onion Routing at the Network Layer." 2015. <a href="https://arxiv.org/abs/1507.05724" rel="noopener nofollow">https://arxiv.org/abs/1507.05724</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nym/">
+  <span class="nm">Nym Mixnet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/i2p/">
+  <span class="nm">I2P (Invisible Internet Project)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/hornet/">
+  <span class="nm">HORNET</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/loopix/">
+  <span class="nm">Loopix</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Mix%20Networks%20Research%20and%20Deployment%20Tracker" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A current-state tracker for the deployed and near-deployed anonymity-routing ecosystem: Tor, I2P, Nym, Katzenpost, HORNET, HOPR, and adjacent anonymity-network research. The point is not to crown one winner; it is to map which systems are usable today, which threat models they actually satisfy, and where freedom-tech builders should integrate next.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Reference</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>26</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

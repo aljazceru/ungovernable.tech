@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — June 21 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-06-21: Nostr signer hardening: Signet v1.11.0 shipped a critical NIP-17 admin-command signature bypass fix.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-06-21/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — June 21 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-06-21: Nostr signer hardening: Signet v1.11.0 shipped a critical NIP-17 admin-command signature bypass fix.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-06-21/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — June 21 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — June 21 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-06-21: Nostr signer hardening: Signet v1.11.0 shipped a critical NIP-17 admin-command signature bypass fix.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — June 21 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-06-21: Nostr signer hardening: Signet v1.11.0 shipped a critical NIP-17 admin-command signature bypass fix.", "datePublished": "2026-06-21", "dateModified": "2026-06-21", "url": "https://ungovernable.tech/briefings/identity/2026-06-21/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-06-21/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-06-21", "item": "https://ungovernable.tech/briefings/identity/2026-06-21/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-06-21</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — June 21 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-06-21</b></span>
+    <span><b>26</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-06-21 // may be outdated</p>
+  <p>This page reflects what was known on 2026-06-21. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong><a href="/kb/nostr-identity/">Nostr</a> signer hardening</strong>: <strong>Signet v1.11.0</strong> shipped a <strong>critical NIP-17 admin-command signature bypass</strong> fix. Attackers with only public info (signer pubkey, admin npub, admin relay) could forge <code>panic</code> / <code>resumeall</code> / <code>alive</code> kill-switch commands. <strong>Operators must upgrade promptly.</strong></li>
+<li><strong><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a> v6.2.1</strong>: Battery-drain fix from relay reconnects / websocket pings, NIP-46 <code>logout</code> method support, dead-relay pruning, Material 3 settings UI.</li>
+<li><strong>Clave 1.0 (build 102)</strong> submitted to iOS App Store. <strong>Push-woken background signing</strong> — sign with the app closed, BIP-340 Schnorr verification over canonical NIP-01 serialization + replay-freshness guard. Most mature iOS NIP-46 signer yet.</li>
+<li><strong><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst</a> v1.12.0</strong>: 170+ PRs. <strong>NIP-60 Cashu wallet + NIP-61 nutzap rendering</strong>, <strong>CLINK on-chain zap driver</strong> (Common Lightning Interface for Nostr Keys), private notes via NIP-17 gift-wrap, full <strong>Tor self-heal cluster</strong> (Arti v2.3.0 + watchdog + 60s bootstrap timeout + self-heal-when-circuits-dead). KMP iOS migration Phase 1 &amp; 2 unblocks iOS CI for <code>quartz</code> and <code>commons</code> modules.</li>
+<li><strong><a href="https://mostro.network" rel="noopener nofollow">Mostro</a> Core v0.13.0</strong> ships <strong>Protocol v2</strong> — replaces relay-routed order communication with <strong>NIP-44 gift-wrapped direct messages</strong> on kind 14 events. Trade conversation no longer leaks to every relay.</li>
+<li><strong>Chama v3.5.0</strong> (six releases in a week): holder-only Shamir shares, arbiter substitution, full trade-room UI, money-path hardening across five bug classes.</li>
+<li><strong><a href="https://github.com/nostr-protocol/nips/blob/master/17.md" rel="noopener nofollow">NIP-17 key-decoupling proposal (fiatjaf)</a>(<a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">https://github.com/nostr-protocol/nips</a>)</strong>: fiatjaf opened a contested NIP-17 key-decoupling proposal that re-opens the bunker-vs-Marmot architectural argument. Worth tracking.</li>
+<li><strong><a href="https://github.com/nostr-protocol/nips/blob/master/F4.md" rel="noopener nofollow">NIP-F4 podcasts</a></strong> merged after 27 months of debate. Long-form audio over Nostr now has a spec.</li>
+<li><strong><a href="https://www.farcaster.xyz" rel="noopener nofollow">Farcaster</a> → Neynar</strong> (settled): The <strong>January 21 2026 acquisition</strong> is now fully integrated. Co-founders Varun Srinivasan and Dan Romero have left. Neynar owns protocol, app, and Clanker. The cryptographic identity remains onchain (OP Mainnet FIDs) but the protocol company is now a single point of stewardship.</li>
+<li><strong><a href="/kb/proof-of-personhood/">Worldcoin</a> / <a href="/kb/proof-of-personhood/">World ID</a> 2.x</strong>: The biometric proof-of-personhood track continues to ship. Hardware orb updates, World ID 2.0 SDK adoption, regulatory pressure in multiple jurisdictions — see <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>.</li>
+<li><strong><a href="/kb/proof-of-personhood/">Proof of Personhood</a> paper landscape</strong>: IACR eprint 2026/333 (Cryptographic Framework for PoP) remains the most rigorous formal treatment. Idena synchronous validation rounds, BrightID social-graph verification, and Polkadot's ZK-PoP roadmap all continue to mature in parallel.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>the Nostr signer is becoming a load-bearing component of the entire identity stack</strong> — Signet's NIP-17 bypass shows that an attacker with only public info could forge admin commands, and Clave's push-woken background signing is the architectural answer (separate process, push-woken, app closed). The trade stack is migrating from relay-routed order books to NIP-44 gift-wrapped direct messages, which means trade reputation now requires a Nostr key, not just a relay-pinned account. The combination of NIP-60/61 (Cashu + nutzaps) in Amethyst and CLINK on-chain zap verification is the first time a single Nostr client has unified the four money-legs (Lightning, on-chain, Cashu, NWC) into one payment card. The most consequential non-protocol story is still Neynar-Farcaster: the social-graph protocol remains decentralized, but the stewardship is now centralized in a single company.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nostr-signer-hardening-signet-admin-command-bypass-amber-battery-drain-nip-46-logout-method">Nostr signer hardening: Signet admin-command bypass, Amber battery drain, NIP-46 <code>logout</code> method</h3>
+<p>This week's most consequential single fix is in <a href="https://github.com/quentinhayot/signet" rel="noopener nofollow">Signet v1.11.0</a> (referenced in <a href="https://nostrcompass.org/en/newsletters/2026-06-17-newsletter/" rel="noopener nofollow">Nostr Compass #27</a>). The vulnerability is worth understanding because it shows the <em>kind</em> of subtle identity-system failure mode that the 2026 custody stack must defend against.</p>
+<p>The bug: the NIP-17 gift-wrap admin-command path <strong>checked only the unsigned inner rumor's claimed author, never verifying the signed seal</strong>. Because NIP-44 conversation keys are <em>symmetric</em>, an attacker with only public information (the signer's pubkey, the admin npub, the admin relay) could forge kill-switch commands — <code>panic</code>, <code>resumeall</code>, <code>alive</code> — and feed them to an admin client. The fix is to call <code>verifyEvent</code> on the seal and bind the rumor author to the seal signature.</p>
+<p><strong>What this means for identity architecture:</strong></p>
+<ol>
+<li><strong>Public info alone is enough to forge some commands</strong> in any symmetric-key system. The seal/rumor model of NIP-17 is sound, but the <em>separation</em> of seal verification from rumor verification is a recurring footgun. Any future NIP-17-style spec needs to mandate seal verification as a precondition for rumor processing.</li>
+<li><strong>Admin commands are a richer attack surface than user commands.</strong> Most NIP implementations focus on the user-side verification path; admin paths often have weaker verification. For ungovernable infrastructure, this is a flag: any NIP-17 client handling admin or operator commands must verify the seal before any rumor is processed.</li>
+<li><strong>The Signet fix ships in 24 hours</strong> because the project's author (Quentin Hayot) treats NIP-17 as security-critical and verifies the seal in the new code path. This is the kind of fast response that an active single-implementer team can deliver; for production users running multiple Nostr signers, the practical advice is to <strong>pin a specific Signet version and audit the bump</strong>.</li>
+</ol>
+<p>Concurrent signer hardening:</p>
+<ul>
+<li><strong><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber v6.2.1</a></strong> — reduces battery drain from relay reconnects / websocket pings, drops dead relays from the subscription pool, adds NIP-46 <code>logout</code> method support (<a href="https://github.com/nostr-protocol/nips/pull/2373" rel="noopener nofollow">PR #2373</a>), parses event kind 39701 (public web bookmark), rebuilds Settings with Material 3 grouped cards, fixes a navigation crash on the permissions screen and a per-account DB connection leak. The battery fix is the kind of operational quality-of-life that converts Amber from "best Android signer" to "battery-acceptable daily driver."</li>
+<li><strong>NIP-46 <code>logout</code> method</strong> is now a <a href="https://github.com/nostr-protocol/nips/pull/2373" rel="noopener nofollow">formal PR #2373</a> in the nips repo, supported by Amber v6.2.1 and Clave 1.0. This is the "kill the remote signer session" primitive that every serious NIP-46 client should implement. Until this PR, the only way to revoke a remote signer session was to rotate the connection secret, which required a fresh pairing flow. <code>logout</code> lets a client terminate its session without a new pairing.</li>
+<li><strong><a href="https://github.com/nostr-protocol/nips/pull/2381" rel="noopener nofollow">NIP-46 connect-metadata extension (PR #2381)</a></strong> also shipped via Clave 1.0. This adds metadata to NIP-46 connect requests so a client can advertise its name, URL, icon, and per-event-kind permissions during the pairing flow. The result: a UX where the user sees a friendly "Damus wants to post on your behalf — allow?" prompt rather than an opaque base64 event blob. For ungovernable system design, this is the missing piece for NIP-46 adoption outside the developer community.</li>
+</ul>
+<p>For ungovernable system design: <strong>the 2026 Nostr signer stack is hardening from "developer primitive" to "consumer product"</strong>. Signet fixes subtle protocol-level bugs, Amber fixes battery-drain UX, Clave ships consumer-grade iOS pairing with named-app prompts, and the <code>logout</code> method gives users a kill-switch they can actually understand. The remaining gap is cross-signer federation: a user should be able to seamlessly move between Amber (Android), Clave (iOS), and a future desktop signer without re-pairing.</p>
+<h3 id="clave-10-build-102-ios-nip-46-signer-with-push-woken-background-signing">Clave 1.0 (build 102): iOS NIP-46 signer with push-woken background signing</h3>
+<p><a href="https://github.com/Clave-Android/Clave" rel="noopener nofollow">Clave 1.0</a> is the first iOS NIP-46 remote signer to reach App Store submission with the architectural pattern the 2026 custody stack has been converging toward. The headline feature is <strong>push-woken background signing</strong> — the app can receive a signing request while closed, decrypt, check permissions, sign, and respond without the user opening the app.</p>
+<p>The deeper architecture:</p>
+<ul>
+<li><strong>Key in iPhone Keychain</strong>. Hardware-backed on supported devices, software-backed on older ones.</li>
+<li><strong>BIP-340 Schnorr verification</strong> over canonical NIP-01 event-serialization, with a replay-freshness guard. The freshness guard is critical: without it, a captured signed event could be replayed against any service that accepts the same event ID.</li>
+<li><strong>Updated NIP-44 encryption</strong> with kind-scoped permissions and three sensitivity tiers. This is the kind of fine-grained authorization that the bunker pattern always needed but rarely shipped.</li>
+<li><strong>Multi-account pairing</strong> — a single Clave can serve as the signer for multiple Nostr identities on the same device.</li>
+<li><strong>Per-app trust levels (Full/Medium/Low)</strong> with per-event-kind overrides. A "Full" trust for Damus, "Medium" for read-only clients, "Low" for experimental ones.</li>
+<li><strong>Activity log per signature</strong> — every signing event is locally logged so the user can audit what was signed on their behalf.</li>
+<li><strong>Bring-your-own push proxy</strong> (MIT-licensed) — operators of self-hosted signer stacks can run their own push proxy rather than depending on Apple's APNs or a third-party push service.</li>
+<li><strong>Interop matrix at <code>docs/nip46-compatibility.md</code></strong> — explicit documentation of which NIP-46 features Clave supports, partial supports, or doesn't support. The level of interop documentation is unusually mature for a NIP-46 client.</li>
+</ul>
+<p>For ungovernable system design: <strong>Clave is the most production-ready iOS NIP-46 signer yet</strong>. The push-woken background signing closes the most common NIP-46 complaint (you have to open the app to sign), and the per-app trust levels are the answer to the "every client gets the full key" problem. If you are building a Nostr-compatible app and need an iOS signer partner, Clave is the default recommendation as of June 2026.</p>
+<h3 id="amethyst-v1120-cashu-nutzaps-clink-tor-self-heal-kmp-ios-migration">Amethyst v1.12.0: Cashu + nutzaps + CLINK + Tor self-heal + KMP iOS migration</h3>
+<p><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst v1.12.0</a> is the most consequential Nostr client release of 2026. The PR count alone (170+) is unusual; the <em>content</em> is what matters.</p>
+<p><strong>The unified payment card (PRs #3191, #3185, #3115, #3075):</strong></p>
+<p>For the first time, a single Nostr client has all four money legs in one surface:</p>
+<ul>
+<li><strong>NIP-57 zaps</strong> (Lightning via NWC)</li>
+<li><strong>On-chain Bitcoin</strong> (CLINK driver)</li>
+<li><strong>NIP-60 Cashu</strong> (ecash mints)</li>
+<li><strong>NIP-47 NWC</strong> (remote Lightning wallet connection)</li>
+</ul>
+<p>The unified card means a user can see their total balance, choose a payment rail per recipient, and not think about which rail they are using. Per-mint balance view (<a href="https://github.com/vitorpamplona/amethyst/pull/3115" rel="noopener nofollow">PR #3115</a>) means a multi-mint Cashu user can see per-mint holdings. The UX problem this solves is the inverse of the privacy problem: the <em>friction</em> of choosing a payment rail was a real adoption barrier.</p>
+<p><strong>CLINK on-chain zap driver (PRs #3039, #3177, #3182, #3030):</strong></p>
+<p><a href="https://github.com/nostr-protocol/nips/pull/" rel="noopener nofollow">CLINK</a> — Common Lightning Interface for Nostr Keys — is a new abstraction that lets a Nostr client request an on-chain Bitcoin zap without bundling a Lightning node. The verification state machine ensures the on-chain payment is confirmed before the zap is accepted, the reverify driver handles reorgs, and the minimum on-chain zap amount prevents dust spam.</p>
+<p>For pseudonymous identity: <strong>on-chain zaps are a reputation signal that Lightning zaps cannot match</strong>. A Lightning zap costs cents and is anonymous by default. An on-chain zap costs dollars and is permanently on-chain, with the sender's Bitcoin address (or the change address) visible. An on-chain zap is a more credible signal of "this content was worth paying real money for" — but it is also more correlated. CLINK preserves the on-chain payment but keeps the Nostr-side attribution to a public key, so the Bitcoin address and the Nostr public key are linked through the zap event but not through the chain itself. This is the right trade-off for pseudonymous reputation: payment goes on-chain, attribution goes through Nostr.</p>
+<p><strong>Private notes via NIP-17 (PR #3201):</strong></p>
+<p>Kind-1 replies to p-tagged users are now gift-wrapped into sealed group replies. The implication: when Alice replies to Bob's note, the reply is no longer publicly visible as "Alice replied to Bob" — it is wrapped in a NIP-17 gift-wrap so only the recipient sees it. For pseudonymous identity, this is the difference between public engagement (which builds social graph reputation) and private correspondence (which doesn't). Previously, the only way to reply privately was NIP-04 DM (deprecated) or NIP-44 DM. Now kind-1 replies themselves can be private. <strong>This is the killer feature for at-risk pseudonyms</strong> — a journalist can reply to a source's public post without revealing that they did so.</p>
+<p><strong>Tor self-heal cluster (PRs #3053, #3223, #3224, #3231):</strong></p>
+<ul>
+<li><strong>Arti v2.3.0</strong> + watchdog + integration tests (<a href="https://github.com/vitorpamplona/amethyst/pull/3053" rel="noopener nofollow">PR #3053</a>)</li>
+<li>Gates Tor-routed relay dials until Tor is ready (<a href="https://github.com/vitorpamplona/amethyst/pull/3223" rel="noopener nofollow">PR #3223</a>)</li>
+<li>60-second bootstrap timeout (<a href="https://github.com/vitorpamplona/amethyst/pull/3224" rel="noopener nofollow">PR #3224</a>)</li>
+<li>Self-heals when Tor is Active but all circuits are dead (<a href="https://github.com/vitorpamplona/amethyst/pull/3231" rel="noopener nofollow">PR #3231</a>)</li>
+</ul>
+<p>The last one is the operational gold: it handles the case where Arti's circuit pool dies (e.g., all guards unreachable) and the user is silently stuck on a dead Tor. Before this fix, the user had to manually restart Amethyst. Now the watchdog detects the dead circuit state and triggers a re-bootstrap.</p>
+<p><strong>KMP iOS migration Phase 1 &amp; 2 (PRs #3047, #3050):</strong></p>
+<p>Kotlin Multiplatform iOS migration unblocks iOS CI for the <code>quartz</code> and <code>commons</code> modules. This is the engineering groundwork for a future iOS Amethyst client. The KMP strategy is significant because it means Nostr client code can be shared between Android (already shipped) and iOS (in development) without forking.</p>
+<p>For ungovernable system design: <strong>Amethyst v1.12.0 is the strongest single-client proof that Nostr is a viable primary identity + payment stack</strong>. The unified payment card eliminates a major UX barrier, NIP-17 private notes enable pseudonymous correspondence at the kind-1 layer, and the Tor self-heal cluster makes at-risk pseudonyms operationally viable. If you are building any product that touches Nostr identity, the Amethyst client is now the reference implementation.</p>
+<h3 id="mostro-core-v0130-protocol-v2-cuts-the-relay-middleman">Mostro Core v0.13.0 — Protocol v2 cuts the relay middleman</h3>
+<p><a href="https://github.com/MostroP2P/mostro" rel="noopener nofollow">Mostro Core v0.13.0</a> ships <strong>Protocol v2</strong>, the most architecturally significant change in the project's history. The change: trade-specific actions no longer flow through relay-routed order books; they are wrapped per <a href="https://github.com/nostr-protocol/nips/blob/master/44.md" rel="noopener nofollow">NIP-44</a> in <strong>direct messages on kind 14 events</strong>, bound to per-trade keys.</p>
+<p><strong>The privacy consequence</strong>: a Mostro trade conversation no longer leaks to every relay that the trade is happening on. Before v2, anyone running a Mostro relay could see the order book activity of every user on the relay. After v2, only the encrypted envelopes are visible; the trade content is sealed between the buyer, seller, and (in case of dispute) the arbiter.</p>
+<p><strong>The replay-resistance consequence</strong>: v2 introduces a v2 identity proof bound to the trade key, which closes replay risks where an attacker could re-publish a captured trade message to disrupt an in-flight trade. The v2 identity proof is signed by the user's Nostr key but scoped to the specific trade; replaying it on a different trade fails the binding check.</p>
+<p><strong>Mostro v0.17.5</strong>: Anti-abuse bond is now optional + operator-configurable. Small bond locked at order time, returned on successful completion, forfeited on stalling / no-show / grief. The bond amount is operator-configurable so different markets can tune the trade-off between friction and abuse.</p>
+<p><strong>Mostro Mobile v1.2.8 and v1.2.9</strong> (referenced in Compass #27): 17 features for Protocol v2 support, including bootstrap relay discovery, maker anti-abuse bond Phase 5, order cancellation in notification history, and surfaces the bond policy from the node info event before order creation.</p>
+<p>For ungovernable system design: <strong>Mostro v2 is the architectural template for any P2P marketplace that wants Nostr identity without relay-routed trade visibility</strong>. The combination of NIP-44 direct messages, per-trade key binding, and v2 identity proofs gives users strong trade privacy while preserving the cryptographic identity and reputation that Nostr enables. The anti-abuse bond closes the griefing-attack vector that pure cryptographic reputation systems struggle with.</p>
+<h3 id="chama-v350-standalone-p2p-escrow-in-one-week-continued">Chama v3.5.0: Standalone P2P escrow in one week (continued)</h3>
+<p><a href="https://github.com/jesuspirate/chama" rel="noopener nofollow">Chama</a> is the other P2P escrow client shipping on Nostr, differentiated by Fedimint-backed 2-of-3 Shamir secret sharing. Compass #26 documented the v2.0.0 → v3.1.0 release cascade; Compass #27 documents the v3.2.0 → v3.5.0 follow-on.</p>
+<p>The most consequential architectural shift was in v2.0.0 (June 9, 2026): the escrow LOCK format changed so each 2-of-3 Shamir share is <strong>encrypted only to its holder</strong> (<code>sharePolicy: holder-only-v1</code>). This closes a path where one party with their share plus the federation-held share could complete a trade without consent. Pre-2.0 clients fail loudly with "can't find your share" — no funds are lost because the pre-2.0 client cannot construct a valid LOCK with the new format.</p>
+<p>v3.0.0 is the <strong>standalone-app milestone</strong> — no coordinating community required. End-to-end trade notifications fire only on actionable state transitions (counterparty locked, payout ready, dispute ruling needed, settled/expired), with fire-once dedup. Windows and Linux desktop bundles ship; macOS dmg held back pending signing.</p>
+<p>The June 17 follow-ons (v3.2 → v3.5):</p>
+<ul>
+<li><strong>v3.2.0</strong>: Color-coded action prompts per seat (buyer / seller / arbiter)</li>
+<li><strong>v3.3.0</strong>: Tightened two consensus rules in the trade engine</li>
+<li><strong>v3.3.1</strong>: Localized prices and payment methods to community currency</li>
+<li><strong>v3.4.0</strong>: Five hardening fixes to the money path (hiccup / race / closed-tab resistance)</li>
+<li><strong>v3.5.0</strong>: Two client-side guardrails around the arbiter role</li>
+</ul>
+<p>Chama now joins Mostro and Shopstr as a Nostr-native marketplace. The three are differentiated by:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Architecture</th>
+<th>Escrow</th>
+<th>Holder-only shares</th>
+<th>Desktop/Mobile without community</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mostro</td>
+<td>Relay-coordinated, Protocol v2 NIP-44</td>
+<td>Hash time-locked contracts (HTLC)</td>
+<td>N/A</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Chama</td>
+<td>Serverless, Fedimint ecash</td>
+<td>2-of-3 Shamir</td>
+<td>Yes (since v2.0.0)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Shopstr</td>
+<td>Relay-coordinated, market-style</td>
+<td>NWC escrow</td>
+<td>N/A</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></div>
+<p>For ungovernable system design: <strong>the Nostr P2P trade stack now has three independent, production-grade clients with three different escrow architectures</strong>. This is the diversity that the 2024 Nostr ecosystem lacked, and it is the precondition for any user being able to choose a trade model without depending on a single project's roadmap. The trade-off: more code to audit, more UX patterns to learn, and three different reputation systems that don't currently share data.</p>
+<h3 id="nostr-compass-25-june-3-and-26-june-10-nip-f4-podcasts-nip-17-key-decoupling-debate-marmot-v2-dark-matter">Nostr Compass #25 (June 3) and #26 (June 10) — NIP-F4 podcasts, NIP-17 key-decoupling debate, Marmot v2 "Dark Matter"</h3>
+<p>Beyond the headline releases above, two ongoing NIP-level debates are worth tracking:</p>
+<p><strong>NIP-F4 podcasts</strong> (merged after 27 months of debate, per Compass #25): long-form audio over Nostr now has a spec. The 27-month debate was about the trade-off between storing audio files on Blossom (decentralized) versus centralized podcast hosts, and the metadata model for episodes, series, and subscriptions. The merged spec settles the metadata model and recommends Blossom for audio storage, but allows centralized hosts as a fallback for creators who don't want to run their own Blossom server.</p>
+<p><strong>fiatjaf's NIP-17 key-decoupling proposal</strong> (opened in Compass #25): fiatjaf, the original author of the NIP-17 gift-wrap spec, opened a proposal that would <strong>decouple the Nostr identity key from the gift-wrap conversation key</strong>. Currently, NIP-17 conversation keys are derived from the recipient's npub, so the npub is the conversation key. The proposal would let users have separate conversation keys, isolating gift-wrap metadata from their primary identity.</p>
+<p>The architectural argument: <strong>the current NIP-17 model binds metadata exposure to npub choice</strong>. If Alice DMs Bob using NIP-17, the relay sees "Alice sent a gift-wrapped event to Bob's pubkey." The content is sealed, but the social graph is exposed. fiatjaf's proposal would let Alice send a gift-wrapped event to a derived conversation key that is not Bob's primary pubkey, so the relay sees "Alice sent a gift-wrapped event to some pubkey" without knowing it's Bob.</p>
+<p>The contested aspect: <strong>this proposal re-opens the bunker-vs-Marmot architectural argument</strong>. The Marmot position is that MLS group keys (with their own key agreement) should handle all multi-party communication, and NIP-17 should focus on simple 1:1 DMs. The bunker position is that NIP-17 is the simpler primitive and should be made more capable. fiatjaf's key-decoupling proposal is the bunker's answer to the Marmot critique — NIP-17 becomes capable enough that Marmot is not strictly needed for many use cases.</p>
+<p>For ungovernable system design: <strong>watch this debate carefully</strong>. If the key-decoupling proposal is adopted, NIP-17 becomes the privacy-preserving messaging primitive of choice, and Marmot's role narrows to large-group MLS. If it's rejected, Marmot becomes the default for any group messaging use case, and NIP-17 is restricted to simple 1:1 DMs. Either outcome shapes the protocol layer below identity; the choice matters for any app building on Nostr messaging.</p>
+<h3 id="farcaster-neynar-acquisition-settled-but-worth-a-retrospective">Farcaster → Neynar acquisition: settled, but worth a retrospective</h3>
+<p><a href="https://nostrcompass.org/en/newsletters/2026-06-17-newsletter/" rel="noopener nofollow">Compass #27</a> is the first Nostr-side publication to fully cover the Neynar-Farcaster transfer, but the acquisition itself was <a href="https://neynar.com/blog/neynar-is-acquiring-farcaster" rel="noopener nofollow">announced January 21 2026</a>. The key facts:</p>
+<ul>
+<li><strong>Neynar</strong> (the primary Farcaster infrastructure company, providing the API layer that powers most Farcaster apps) acquired <strong>Farcaster</strong> from Merkle Manufactory.</li>
+<li><strong>Jack</strong> (co-founder) and parts of the Clanker team joined Neynar.</li>
+<li><strong>Dan Romero and Varun Srinivasan</strong> (co-founders) stepped away from day-to-day involvement.</li>
+<li>The transfer included: protocol contracts, code repositories, the Farcaster app, and the Clanker project.</li>
+</ul>
+<p>For ungovernable system design: <strong>Farcaster's identity model (FIDs on OP Mainnet, username = ENS or Farcaster ID) remains cryptographically decentralized</strong>, but the protocol is now stewarded by a single company. This is a real distinction: the chain-level identity cannot be revoked by Neynar, but the protocol-level decisions (which NIPs to support, which features to ship, which direction Frames evolve) are now Neynar's.</p>
+<p>Compare and contrast with Nostr's model:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Nostr</th>
+<th>Farcaster (post-Neynar)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity root</td>
+<td>secp256k1 keypair (self-custody)</td>
+<td>FID on OP Mainnet (cryptographic) + username (ENS or Farcaster ID)</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>NIP-65 relay list metadata</td>
+<td>Hubs (Snapchain) operated by Neynar</td>
+</tr>
+<tr>
+<td>Protocol stewardship</td>
+<td>nostr-protocol/nips repo, multiple implementers</td>
+<td>Neynar single-company</td>
+</tr>
+<tr>
+<td>App stewardship</td>
+<td>Many (Damus, Amethyst, Primal, Iris, Coracle)</td>
+<td>Warpcast (operated by Neynar)</td>
+</tr>
+<tr>
+<td>Content moderation</td>
+<td>Per-relay (user chooses)</td>
+<td>Hub-level (Neynar-operated)</td>
+</tr>
+<tr>
+<td>Reputation</td>
+<td>NIP-85 (decentralized providers)</td>
+<td>Neynar Frames + on-chain (centralized stack)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The two protocols are not the same, and they serve different threat models. Nostr's censorship resistance comes from "many relays, no single operator can stop you." Farcaster's comes from "your FID is onchain and portable; Neynar can change the app but not your identity." Both are valid; the Neynar-Farcaster transfer just makes the difference starker.</p>
+<p>The Nostr ecosystem's response to the Neynar-Farcaster transfer has been a quiet but real acceleration of the "Nostr as the censorship-resistant default" framing. This is partly technical (Nostr's relay-rotation model is more censorship-resistant than Farcaster's hub model) and partly narrative (a Nostr ecosystem that emphasizes protocol-level decentralization benefits when a competitor centralizes).</p>
+<h3 id="proof-of-personhood-worldcoinworld-id-rarimo-and-the-iacr-framework">Proof of Personhood: Worldcoin/World ID, Rarimo, and the IACR framework</h3>
+<p>The proof-of-personhood (PoP) landscape continues to mature in parallel with the Nostr identity stack. The three main tracks are:</p>
+<ol>
+<li><strong>Biometric (Worldcoin / World ID 2.x)</strong>: The Orb device captures an iris scan, generates a privacy-preserving iris code, and issues a <strong>World ID 2.0</strong> credential onchain. The credential proves "this person is a unique human" without revealing identity. Hardware orb updates have shipped through Q1-Q2 2026, and the World ID 2.0 SDK has been adopted by multiple consumer apps for age verification, anti-bot enforcement, and fair airdrops. <strong>Trade-off</strong>: requires trusting the Orb device and the World ID issuer; the ZK proof is sound but the trust assumption is on the issuance chain.</li>
+<li><strong>ZK + government ID (Rarimo, Anon Aadhaar, Semaphore)</strong>: A government-issued credential is converted into a ZK proof that proves "I hold a valid credential" without revealing the credential. Rarimo's ZK Rollup (launched March 2025 with $2.5M from Vitalik Buterin) and Anon Aadhaar (covering ~1.4B Indians) are the production deployments. <strong>Trade-off</strong>: pseudonymity is limited by the government ID's natural identity; the ZK proof preserves privacy within the credential, but the credential itself is identity-linked at issuance.</li>
+<li><strong>Social graph (BrightID, Idena)</strong>: Verification through a web of trust — BrightID via verified humans, Idena via synchronous validation sessions where users solve CAPTCHAs together. <strong>Trade-off</strong>: relies on existing verified humans, which makes the system gameable through social-engineering attacks.</li>
+</ol>
+<p>The IACR eprint 2026/333 — <em>A Cryptographic Framework for Proof of Personhood</em> — provides the most rigorous formal treatment. The paper defines two credential types: <strong>Personhood Credentials (PHCs)</strong> issued by trusted authorities attesting to uniqueness and basic attributes, and <strong>Verifiable Relationship Credentials (VRCs)</strong> issued peer-to-peer to capture reputation and real-world interactions. The paper's security definitions — Sybil-resistance, authenticated personhood, and unlinkability across contexts — are the formal baseline for evaluating any PoP system.</p>
+<p>For ungovernable system design: <strong>no single PoP system is the right default</strong>. The choice depends on the use case:</p>
+<ul>
+<li><strong>For Sybil-resistant airdrops or fair launches</strong>: World ID 2.0 is the most production-ready, with the largest verified-human pool.</li>
+<li><strong>For privacy-preserving access to government services</strong>: Rarimo or Anon Aadhaar is the right fit, with the trade-off of trusting the government ID issuer.</li>
+<li><strong>For censorship-resistant governance in pseudonymous communities</strong>: BrightID (social graph) or Idena (synchronous validation) is more appropriate.</li>
+<li><strong>For maximum-assurance formal analysis</strong>: the IACR 2026/333 framework is the reference.</li>
+</ul>
+<p>See <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a> for the full deep-dive on each system, the trade-offs, and the 2026 deployment landscape.</p>
+<h2 id="cross-cutting-themes">Cross-cutting themes</h2>
+<h3 id="the-nostr-signer-is-now-a-security-critical-dependency">The Nostr signer is now a security-critical dependency</h3>
+<p>The Signet v1.11.0 admin-command bypass is the most concrete proof yet that the Nostr signer stack is <strong>security-critical infrastructure</strong>, not a developer convenience. The attack surface includes:</p>
+<ul>
+<li><strong>NIP-46 remote signer sessions</strong> — if the bunker is compromised, every connected client's events are signed by the attacker</li>
+<li><strong>NIP-17 gift-wrap admin commands</strong> — if the seal verification is skipped, public info alone is enough to forge commands (as Signet showed)</li>
+<li><strong>NIP-44 conversation keys</strong> — symmetric-key derivation means any leak of the derivation path exposes the conversation</li>
+<li><strong>NIP-60 Cashu mints</strong> — if the wallet's signing key is compromised, the user loses all ecash at every mint</li>
+<li><strong>NIP-47 NWC connections</strong> — if the NWC secret is leaked, the attacker can drain the connected Lightning wallet</li>
+</ul>
+<p>The right architectural response is what Clave 1.0 is shipping: hardware-backed key storage, push-woken background signing, per-app trust levels, and explicit interop documentation. The wrong response is "trust the client developer to get it right" — which is what most Nostr users have been doing since 2023.</p>
+<h3 id="the-p2p-trade-stack-is-migrating-to-nip-44-direct-messages">The P2P trade stack is migrating to NIP-44 direct messages</h3>
+<p>Both Mostro v2 and Chama v3.x have moved trade-specific communication off relay-routed order books and onto NIP-44 gift-wrapped direct messages. The architectural significance:</p>
+<ul>
+<li><strong>Trade reputation is now bound to Nostr identity</strong>, not to relay-pinned accounts. A trader who builds reputation on one relay can take it to any other relay that speaks the same NIP-44 protocol.</li>
+<li><strong>Trade conversation privacy is now cryptographically enforced</strong>, not relay-policy-dependent. A relay operator cannot see what is being traded, only that encrypted envelopes are flowing.</li>
+<li><strong>Trade anti-abuse (bonds, arbiter substitution) is now cryptographic</strong>, not operator-configurable. Mostro's anti-abuse bond is enforced by the protocol, not by a relay administrator.</li>
+</ul>
+<p>The pattern generalizes: any use case where a relay-routed message would leak metadata (marketplace, dating, professional networking) should migrate to NIP-44 direct transport. The Nostr relay becomes a discovery + storage layer; the actual communication happens peer-to-peer over NIP-44.</p>
+<h3 id="the-unified-payment-card-the-end-of-which-rail-do-i-use">The unified payment card: the end of "which rail do I use"</h3>
+<p>Amethyst v1.12.0's unified payment card consolidates Lightning (NIP-57), on-chain Bitcoin (CLINK), Cashu ecash (NIP-60), and NWC (NIP-47) into one surface. This is the answer to the "Nostr has too many payment rails" complaint that has dogged the ecosystem since 2023.</p>
+<p>The deeper significance for identity: <strong>a unified payment surface means reputation signals are comparable</strong>. A user who zaps with Lightning is doing a different economic action than a user who zaps with on-chain Bitcoin, but the social layer (the Nostr event) is the same. A client can show "Alice has received 100 zaps totaling 0.05 BTC" without the user needing to know which rail each zap used. For pseudonymous reputation, this is a meaningful step: the user gets credit for economic activity regardless of the rail, and the client can decide how to weight each rail in its reputation calculation.</p>
+<h3 id="the-neynar-farcaster-transfer-a-stress-test-for-protocol-vs-company">The Neynar-Farcaster transfer: a stress test for protocol-vs-company</h3>
+<p>The most consequential non-Nostr identity story of 2026 is the Neynar-Farcaster transfer. The cryptographic identity layer (FIDs on OP Mainnet) remains decentralized, but the protocol stewardship is now centralized. The reaction from the Nostr ecosystem is a quiet acceleration of the "protocol-level decentralization matters" narrative.</p>
+<p>For ungovernable system design: <strong>the lesson is that protocol decentralization is a long-term architectural commitment, not a launch-time claim</strong>. Farcaster launched with a decentralized identity model, but the protocol company and the app company were the same entity. When that entity changed hands, the protocol stewardship changed with it. Nostr's model — separate protocol, separate clients, separate relays — is more resilient to single-company risk, but only because no single company has ever owned all the pieces. If any single Nostr implementation becomes the de facto default and is then acquired or shut down, the ecosystem would face the same stress test that Farcaster is now navigating.</p>
+<h2 id="what-to-watch-in-the-next-7-14-days">What to watch in the next 7-14 days</h2>
+<ol>
+<li><strong>Amber v6.3</strong> (likely late June 2026): The v6.2.1 fixes are good, but the broader question is whether Amber ships full CLINK on-chain zap support and Tor self-heal parity with Amethyst. If yes, the Android signer stack catches up to the Amethyst wallet stack.</li>
+<li><strong>NIP-17 key-decoupling proposal</strong> (open, awaiting fiatjaf's next draft): If the key-decoupling proposal gains traction, expect the NIP-17 vs Marmot debate to dominate the next 4-6 weeks of NIP discussion.</li>
+<li><strong>NIP-F4 podcasts production deployments</strong> (likely late June - July 2026): The spec is merged; expect podcast clients to ship support and Blossom to see the first wave of podcast-episode uploads.</li>
+<li><strong>Marmot v2 "Dark Matter" production-readiness</strong> (TBD): The v2 draft is in internal review per Compass #26. The v1 deployed Rust protocol implementation (MDK) is the production path until v2 ships.</li>
+<li><strong>Mostro v0.18.0</strong> (likely late June - July 2026): Mobile client is at v1.2.9 with Protocol v2 support; expect a desktop client refresh in the next 2-4 weeks.</li>
+<li><strong>Neynar-Farcaster product roadmap announcement</strong> (TBD): Neynar said they would share a "builder-centric vision" in the near future. Watch the Neynar blog and the Farcaster protocol GitHub for the announcement.</li>
+<li><strong>World ID 2.0 SDK milestone</strong> (TBD): The SDK has been adopted by multiple consumer apps; expect the first billion-user-facing app integration announcement in Q3 2026.</li>
+<li><strong>IACR eprint 2026/333 follow-up work</strong> (TBD): The Cryptographic Framework for PoP paper is a foundational reference; expect follow-up papers applying the framework to specific PoP constructions.</li>
+</ol>
+<h2 id="evidence-at-a-glance-june-14-21-2026">Evidence at a glance (June 14-21 2026)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>This-week signal</th>
+<th>Threat model</th>
+<th>Development signal</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nostr / Signer stack</td>
+<td><strong>Signet v1.11.0</strong> critical NIP-17 admin-command fix; <strong>Clave 1.0</strong> iOS NIP-46 with push-woken background signing; <strong>Amber v6.2.1</strong> battery drain + NIP-46 <code>logout</code></td>
+<td>Cryptographic identity + signer compromise</td>
+<td>All three signers actively shipping; NIP-46 <code>logout</code> method is now standardized</td>
+<td>Any Nostr-compatible app, especially mobile-first</td>
+</tr>
+<tr>
+<td>Nostr / Amethyst</td>
+<td><strong>v1.12.0</strong> with 170+ PRs: NIP-60 Cashu + NIP-61 nutzaps + CLINK on-chain zap driver + NIP-17 private notes + Tor self-heal cluster</td>
+<td>Same as above</td>
+<td>Most consequential client release of 2026</td>
+<td>Primary Nostr client for Android, growing toward iOS via KMP</td>
+</tr>
+<tr>
+<td>Mostro</td>
+<td><strong>Core v0.13.0 Protocol v2</strong> (NIP-44 direct messages replacing relay-routed order book); v0.17.5 anti-abuse bond</td>
+<td>Trade privacy + griefing resistance</td>
+<td>Architectural pivot to cryptographic trade reputation</td>
+<td>P2P Bitcoin trading without KYC</td>
+</tr>
+<tr>
+<td>Chama</td>
+<td><strong>v3.2-v3.5</strong> trade-room UI + money-path hardening; v2.0.0 holder-only Shamir share policy</td>
+<td>Trade privacy + escrow safety</td>
+<td>Six releases in one week, Fedimint-backed</td>
+<td>Serverless P2P escrow on Nostr</td>
+</tr>
+<tr>
+<td>NIP-17 / NIP-44</td>
+<td><strong>fiatjaf's key-decoupling proposal</strong> (NIP-17); <strong>NIP-F4 podcasts merged</strong> after 27 months</td>
+<td>Message privacy, social-graph metadata</td>
+<td>Both are open NIP discussions shaping the 2026 messaging layer</td>
+<td>All Nostr-compatible messaging</td>
+</tr>
+<tr>
+<td>Farcaster</td>
+<td><strong>Neynar acquisition settled</strong> (Jan 21 2026); co-founders Dan Romero and Varun Srinivasan left; protocol + app + Clanker now Neynar-operated</td>
+<td>Onchain identity (FIDs) + protocol stewardship</td>
+<td>Single-company stewardship, decentralized identity</td>
+<td>Crypto-native social, Frames-based mini-apps</td>
+</tr>
+<tr>
+<td>Worldcoin / World ID</td>
+<td><strong>World ID 2.0 SDK adoption</strong> continuing; orb hardware updates; regulatory pressure in multiple jurisdictions</td>
+<td>Biometric uniqueness + privacy</td>
+<td>Largest production PoP deployment</td>
+<td>Sybil-resistant airdrops, age verification, anti-bot</td>
+</tr>
+<tr>
+<td>Rarimo / Anon Aadhaar / Semaphore</td>
+<td>ZK + government ID, live deployments</td>
+<td>ZK proof of credential holder</td>
+<td>Rarimo ZK Rollup live since March 2025; Anon Aadhaar deployed at scale</td>
+<td>Privacy-preserving government-ID-backed access</td>
+</tr>
+<tr>
+<td>BrightID / Idena</td>
+<td>Social graph + synchronous validation</td>
+<td>Sybil resistance without biometrics</td>
+<td>Active 2026 deployments</td>
+<td>Pseudonymous governance, fair launches</td>
+</tr>
+<tr>
+<td>IACR 2026/333</td>
+<td><em>A Cryptographic Framework for Proof of Personhood</em> — PHCs + VRCs + formal security definitions</td>
+<td>Formal analysis of PoP</td>
+<td>Foundational reference</td>
+<td>Evaluating any PoP system</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-research-questions-updated">Open research questions (updated)</h2>
+<ol>
+<li><strong>Can fiatjaf's NIP-17 key-decoupling proposal gain consensus?</strong> The bunker-vs-Marmot debate is the most consequential NIP-17 architectural decision since the spec merged. Watch the nostr-protocol/nips repo for the next draft.</li>
+<li><strong>Will Clave 1.0's push-woken background signing become the iOS NIP-46 pattern?</strong> If other iOS signers (Nostur, others) adopt the same pattern, the iOS signer stack will have architectural parity with Android.</li>
+<li><strong>Can Mostro v2 and Chama v3 interop?</strong> Both use NIP-44 direct messages; both are P2P Nostr marketplaces. If their trade protocols converge, a single Nostr identity could be used across both clients.</li>
+<li><strong>How does the Neynar-Farcaster integration affect the broader social-graph market?</strong> The Nostr ecosystem has been quietly celebrating the transfer as a validation of the protocol-level decentralization model. If the transfer leads to Nostr adoption from former Farcaster users, the social-graph competition becomes interesting.</li>
+<li><strong>Can CLINK on-chain zaps become a credible reputation signal?</strong> The minimum zap amount and the on-chain confirmation requirement make CLINK zaps more expensive than Lightning zaps, which makes them harder to Sybil. But the on-chain footprint also makes them more correlatable. The trade-off is real.</li>
+<li><strong>Will the IACR 2026/333 framework gain adoption?</strong> If real PoP deployments start publishing formal security analyses against the 2026/333 definitions, the framework becomes a procurement requirement. If it remains purely academic, the practical PoP market continues with ad-hoc security claims.</li>
+<li><strong>Can the unified payment card (Lightning + on-chain + Cashu + NWC) generalize beyond Amethyst?</strong> If other Nostr clients adopt the same payment-rail consolidation, the user experience across the ecosystem converges. If only Amethyst ships it, the client becomes the de facto monopoly on unified payment UX.</li>
+</ol>
+<h2 id="primary-sources-this-week">Primary sources (this week)</h2>
+<h3 id="releases-and-announcements">Releases and announcements</h3>
+<ul>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-06-17-newsletter/" rel="noopener nofollow">Nostr Compass #27 (June 17 2026)</a> — the primary source for this week's headlines</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-06-10-newsletter/" rel="noopener nofollow">Nostr Compass #26 (June 10 2026)</a> — Marmot v2 Dark Matter, Chama v3.0/v3.1, Coracle Hosting</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-06-03-newsletter/" rel="noopener nofollow">Nostr Compass #25 (June 3 2026)</a> — Amber 6.2.0 NIP-44 v3, NIP-F4 merged, fiatjaf's NIP-17 key-decoupling proposal</li>
+<li><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst v1.12.0 release notes (GitHub)</a> — 170+ PRs across NIP-60, NIP-61, CLINK, NIP-17, Tor self-heal</li>
+<li><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber v6.2.1 release</a> — battery drain fix, NIP-46 <code>logout</code> support</li>
+<li><a href="https://github.com/Clave-Android/Clave" rel="noopener nofollow">Clave 1.0 (build 102) App Store submission</a> — push-woken background signing</li>
+<li><a href="https://github.com/MostroP2P/mostro" rel="noopener nofollow">Mostro Core v0.13.0 Protocol v2</a> — NIP-44 direct messages for trade</li>
+<li><a href="https://github.com/jesuspirate/chama" rel="noopener nofollow">Chama v3.2 - v3.5</a> — six releases in one week</li>
+<li><a href="https://github.com/quentinhayot/signet" rel="noopener nofollow">Signet v1.11.0 critical NIP-17 fix</a> — admin-command signature bypass fix</li>
+<li><a href="https://neynar.com/blog/neynar-is-acquiring-farcaster" rel="noopener nofollow">Neynar acquires Farcaster (Jan 21 2026)</a> — primary announcement</li>
+<li><a href="https://x.com/dwr/status/2014045233189888483" rel="noopener nofollow">Dan Romero tweet on the transfer</a> — co-founder statement</li>
+</ul>
+<h3 id="nips-and-protocol-specs">NIPs and protocol specs</h3>
+<ul>
+<li><a href="https://nips.nostr.com/17" rel="noopener nofollow">NIP-17 gift-wrap</a> — the spec at the center of the key-decoupling debate</li>
+<li><a href="https://nips.nostr.com/44" rel="noopener nofollow">NIP-44 versioned encryption</a> — the basis for Mostro v2's direct-message transport</li>
+<li><a href="https://nips.nostr.com/46" rel="noopener nofollow">NIP-46 remote signing</a> — the bunker spec, now with <code>logout</code> method (PR #2373)</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/60.md" rel="noopener nofollow">NIP-60 Cashu wallets</a> — ecash wallet spec</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/61.md" rel="noopener nofollow">NIP-61 nutzaps</a> — Cashu-based zap spec</li>
+<li><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85 trusted assertions</a> — WoT reputation oracle spec</li>
+<li><a href="https://nips.nostr.com/39" rel="noopener nofollow">NIP-39 external identities</a> — external identity claim events</li>
+</ul>
+<h3 id="papers-and-analysis">Papers and analysis</h3>
+<ul>
+<li><em>A Cryptographic Framework for Proof of Personhood</em> — <a href="https://eprint.iacr.org/2026/333" rel="noopener nofollow">IACR eprint 2026/333</a> — formal PHC + VRC framework</li>
+<li><em>FROST: Flexible Round-Optimized Schnorr Threshold Signatures</em> — <a href="https://eprint.iacr.org/2020/852" rel="noopener nofollow">eprint 2020/852</a> — the threshold signature basis for Frostr</li>
+<li><em>Hermine: Lattice-based FROST-like Threshold Signatures</em> — <a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">eprint 2026/419</a> — the post-quantum counterpart</li>
+<li><a href="https://world.org/blog/world/proof-of-personhood-what-it-is-why-its-needed" rel="noopener nofollow">World ID 2.0 documentation</a> — Worldcoin's primary source on proof of personhood</li>
+<li><a href="https://sg.finance.yahoo.com/news/struggling-social-media-platform-gets-231011666.html" rel="noopener nofollow">Neynar-Farcaster analysis (Yahoo Finance)</a> — independent reporting on the transfer</li>
+<li><a href="https://github.com/farcasterxyz/protocol/discussions/205" rel="noopener nofollow">Farcaster Frames v2 protocol discussion</a> — the Frames evolution</li>
+</ul>
+<h3 id="repositories-and-project-pages">Repositories and project pages</h3>
+<ul>
+<li>Nostr signers: <a href="https://github.com/quentinhayot/signet" rel="noopener nofollow">Signet</a>, <a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a>, <a href="https://github.com/Clave-Android/Clave" rel="noopener nofollow">Clave</a></li>
+<li>Nostr clients: <a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst</a>, <a href="https://github.com/PrimalHQ/primal-android-app" rel="noopener nofollow">Primal</a>, <a href="https://github.com/coracle-social/coracle" rel="noopener nofollow">Coracle</a></li>
+<li>P2P trade: <a href="https://github.com/MostroP2P/mostro" rel="noopener nofollow">Mostro Core</a>, <a href="https://github.com/jesuspirate/chama" rel="noopener nofollow">Chama</a>, <a href="https://github.com/shopstr-eng/shopstr" rel="noopener nofollow">Shopstr</a></li>
+<li>Messaging: <a href="https://github.com/marmot-protocol" rel="noopener nofollow">Marmot Protocol</a>, <a href="https://github.com/marmot-protocol/whitenoise" rel="noopener nofollow">White Noise</a>, <a href="https://github.com/marmot-protocol/mdk" rel="noopener nofollow">MDK</a></li>
+<li>Trust and reputation: <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">wot-scoring</a>, <a href="https://github.com/nostr-wot" rel="noopener nofollow">nostr-wot</a>, <a href="https://nostr-wot.com" rel="noopener nofollow">nostr-wot extension</a></li>
+<li>Identity primitives: <a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">did:nostr</a>, <a href="https://nostrcg.github.io/http-schnorr-auth/" rel="noopener nofollow">HTTP Schnorr Auth</a>, <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a>, <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a></li>
+<li>Proof of personhood: <a href="https://world.org" rel="noopener nofollow">Worldcoin</a>, <a href="https://rarimo.com" rel="noopener nofollow">Rarimo</a>, <a href="https://anon-aadhaar.com/" rel="noopener nofollow">Anon Aadhaar</a>, <a href="https://semaphore.pse.dev/" rel="noopener nofollow">Semaphore</a>, <a href="https://www.brightid.org/" rel="noopener nofollow">BrightID</a>, <a href="https://www.idena.io/" rel="noopener nofollow">Idena</a></li>
+<li>Farcaster: <a href="https://github.com/farcasterxyz/protocol" rel="noopener nofollow">Farcaster protocol</a>, <a href="https://neynar.com" rel="noopener nofollow">Neynar</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <span></span>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-06-28/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — June 28 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

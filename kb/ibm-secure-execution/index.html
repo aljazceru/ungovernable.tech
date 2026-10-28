@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IBM Secure Execution (LinuxONE / Z) — ungovernable.tech</title>
+<meta name="description" content="IBM Secure Execution brings confidential VMs to IBM Z and LinuxONE mainframes: architecture, attestation and how it compares with x86 TEEs.">
+<link rel="canonical" href="https://ungovernable.tech/kb/ibm-secure-execution/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="IBM Secure Execution (LinuxONE / Z) — ungovernable.tech">
+<meta property="og:description" content="IBM Secure Execution brings confidential VMs to IBM Z and LinuxONE mainframes: architecture, attestation and how it compares with x86 TEEs.">
+<meta property="og:url" content="https://ungovernable.tech/kb/ibm-secure-execution/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="IBM Secure Execution (LinuxONE / Z) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IBM Secure Execution (LinuxONE / Z) — ungovernable.tech">
+<meta name="twitter:description" content="IBM Secure Execution brings confidential VMs to IBM Z and LinuxONE mainframes: architecture, attestation and how it compares with x86 TEEs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "IBM Secure Execution (LinuxONE / Z)", "description": "IBM Secure Execution brings confidential VMs to IBM Z and LinuxONE mainframes: architecture, attestation and how it compares with x86 TEEs.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/ibm-secure-execution/", "mainEntityOfPage": "https://ungovernable.tech/kb/ibm-secure-execution/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "IBM Secure Execution (LinuxONE / Z)", "item": "https://ungovernable.tech/kb/ibm-secure-execution/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">IBM Secure Execution (LinuxONE / Z)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>IBM Secure Execution (LinuxONE / Z)</h1>
+  <p class="aka">Also IBM Secure Execution, Secure Execution for Linux, IBM SE, Ultravisor.</p>
+  <p class="dek">The mainframe answer to confidential computing. Fifty years of LPAR isolation engineering, repackaged as an Ultravisor that protects Linux guests from the hosting hypervisor and operator.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-it-provides">What it provides</a><a href="#architecture">Architecture</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#comparison-vs-sev-snp-tdx">Comparison vs SEV-SNP / TDX</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-it-provides">What it provides</h2>
+<p>Secure Execution for Linux is IBM Z's VM-level confidential-computing facility on the s390x architecture. It is the moral equivalent of SEV-SNP or TDX on x86: an unmodified-ish Linux guest runs as a "Secure Execution guest" with memory encryption, integrity protection, and remote attestation against the hypervisor (KVM or z/VM), the host operator, and physical bus attackers.</p>
+<p>What a Secure Execution guest gets:</p>
+<ul>
+<li>Memory encryption at the hardware level, with per-guest keys held by trusted firmware.</li>
+<li>Integrity-protected initial image: the boot disk is wrapped to a host-key document that names a specific machine, and the firmware refuses to start the guest anywhere else.</li>
+<li>Attestation that the running image matches the wrapped one, signed by IBM with a CCA-rooted certificate chain (separate from Arm CCA — IBM CCA stands for Common Cryptographic Architecture, a long-standing crypto-card stack).</li>
+<li>A clear separation between control (the hypervisor can start, stop, schedule) and visibility (the hypervisor cannot read state).</li>
+</ul>
+<p>The story IBM tells: SE is not a new TEE category. It is a refinement of the same workload-isolation discipline that LPAR (Logical Partitioning) and PR/SM have provided on Z mainframes since the 1980s, now extended down to individual KVM guests rather than whole partitions.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="privilege-model-prsm-hypervisor-ultravisor">Privilege model: PR/SM, hypervisor, Ultravisor</h3>
+<pre><code>   ┌──────────────────────────────────────────────────────┐
+   │                    Z hardware (CPC)                   │
+   │  ┌───────────────────────────────────────────────┐    │
+   │  │   PR/SM hypervisor (LPAR isolation, EAL5+)    │    │
+   │  │  ┌──────────────────┐  ┌──────────────────┐   │    │
+   │  │  │   LPAR (z/OS)    │  │   LPAR (Linux)   │   │    │
+   │  │  │                  │  │  ┌────────────┐  │   │    │
+   │  │  │                  │  │  │ KVM / z/VM │  │   │    │
+   │  │  │                  │  │  └────────────┘  │   │    │
+   │  │  │                  │  │  ┌────────────┐  │   │    │
+   │  │  │                  │  │  │ SE guest A │  │   │    │
+   │  │  │                  │  │  └────────────┘  │   │    │
+   │  │  │                  │  │  ┌────────────┐  │   │    │
+   │  │  │                  │  │  │ SE guest B │  │   │    │
+   │  │  │                  │  │  └────────────┘  │   │    │
+   │  │  └──────────────────┘  └──────────────────┘   │    │
+   │  └───────────────────────────────────────────────┘    │
+   │  ┌───────────────────────────────────────────────┐    │
+   │  │   Ultravisor (millicode + firmware)           │    │
+   │  │   - Memory protection, key custody, attest    │    │
+   │  └───────────────────────────────────────────────┘    │
+   │  ┌───────────────┐  ┌───────────────┐                  │
+   │  │  CEX8S HSM    │  │  CEX8S HSM    │  (CCA / EP11)    │
+   │  └───────────────┘  └───────────────┘                  │
+   └──────────────────────────────────────────────────────┘
+</code></pre>
+<p>The Ultravisor is the core architectural addition. It runs at a privilege level above the hypervisor (z/Architecture introduced UV-call instructions and a dedicated state). The Ultravisor owns the page-encryption keys, owns the integrity tags, and is the only entity that can move a page between "secure" and "shared" states. The hypervisor schedules the SE guest and sees its IO traffic, but every memory access from outside the guest goes through the Ultravisor's mediation.</p>
+<h3 id="key-wrapping-and-the-host-key-document">Key wrapping and the host-key document</h3>
+<p>Each Z machine has a unique host key — an asymmetric key whose public half IBM publishes as a signed "host-key document" associated with that specific CPC's serial number. To deploy an SE workload:</p>
+<ol>
+<li>The image owner takes a Linux kernel + initrd + parameters and uses <code>genprotimg</code> to wrap it to one or more host-key documents.</li>
+<li>The resulting image binds the workload to those specific machines. It cannot be booted elsewhere, even by the rightful owner; it cannot be inspected by the hypervisor.</li>
+<li>At boot, the Ultravisor unwraps the image with the host key, verifies the integrity tag, and starts the guest in protected mode.</li>
+</ol>
+<p>This is a different shape of attestation from SGX/SNP/TDX: the trust decision is made <em>before</em> deployment, by signing the image to a target machine, rather than at run time. SE also supports run-time attestation queries via the <code>pvattest</code> tool, which generates a request, the Ultravisor produces a signed response, and an external verifier checks it against IBM's cert chain.</p>
+<h3 id="cex-hsm-cards">CEX HSM cards</h3>
+<p>Z systems pair SE with CEX (Crypto Express) cards — physical HSMs that run either CCA firmware (banking-grade key management, FIPS 140-3 Level 4 in some configurations) or EP11 (PKCS#11-compatible). Hyper Protect Crypto Services on IBM Cloud is built on these. SE guests can be wired to a CEX card via APQN passthrough so that a workload's keys never exist outside the HSM, even inside the SE-protected guest.</p>
+<p>This combination — encrypted memory plus dedicated HSM-resident keys plus PR/SM partitioning — gives a defence-in-depth posture that does not exist on commodity x86 in the same productized form.</p>
+<h2 id="threat-model">Threat model</h2>
+<p>In the TCB:</p>
+<ul>
+<li>The Z processor silicon and millicode.</li>
+<li>The Ultravisor firmware.</li>
+<li>IBM's host-key signing infrastructure.</li>
+<li>The signed Linux kernel + initrd that the customer wrapped.</li>
+<li>Optionally: CEX8S firmware for HSM-backed keys.</li>
+</ul>
+<p>Out of the TCB:</p>
+<ul>
+<li>The hypervisor (KVM running in a Linux LPAR, or z/VM).</li>
+<li>The host Linux kernel underneath KVM.</li>
+<li>Cloud or datacentre operators.</li>
+<li>Other LPARs on the same machine (PR/SM enforces this; SE adds a second layer).</li>
+</ul>
+<p>Honest scoping notes:</p>
+<ul>
+<li>The TCB sits on IBM-controlled silicon and IBM-signed firmware. As with SEV-SNP (AMD-controlled) and TDX (Intel-controlled), the vendor is the root of trust. The difference is that IBM also operates the cloud where these workloads typically run (IBM Cloud Hyper Protect Virtual Servers), so customers are explicitly trusting IBM at multiple layers.</li>
+<li>Hyper Protect markets a "Confidential Computing for cloud-native workloads" story where IBM administrators have no path to the customer's data even with full operational access. IBM's contractual claim is "IBM does not have access" — backed by SE's architectural enforcement, not just policy.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Mature isolation lineage: LPAR has decades of audit history (Common Criteria EAL5+ for PR/SM). SE inherits that discipline rather than starting from a 2015-era cold start like SGX.</li>
+<li>Memory encryption + integrity is mandatory and architecturally enforced, comparable to SEV-SNP rather than to bare SEV.</li>
+<li>HSM integration via CEX cards is unmatched in the commodity-x86 world. AWS Nitro Enclaves talk to KMS; SE can talk to a physical FIPS 140-3 L4 module on the same chassis.</li>
+<li>The pre-deployment image-signing model removes a class of run-time attestation foot-guns. The image either matches a host key or it does not boot.</li>
+<li>Exceptionally low side-channel surface in published literature, partly because z/Architecture is less academically targeted than x86.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Vendor and platform lock-in. SE only runs on IBM Z (z15, z16, z17 generations) and LinuxONE. There is no commodity-server analogue.</li>
+<li>Cost. Z silicon, software stack, and operational tooling carry a mainframe price tag.</li>
+<li>Smaller ecosystem of confidential-computing tooling. Most cloud-native CC tools (Confidential Containers, Constellation, Marblerun) target x86 first; s390x support is a second-class citizen if it exists.</li>
+<li>The pre-deployment wrapping model is rigid for highly dynamic workloads; you cannot easily move an SE image between machines without re-wrapping to the new host-key documents.</li>
+</ul>
+<h3 id="side-channel-posture">Side-channel posture</h3>
+<p>Public side-channel research on z/Architecture is sparse compared with x86. This is partly because of architectural differences (different cache hierarchy, no SMT in many configurations) and partly because the academic target of opportunity is x86 hyperscaler workloads. Absence of evidence is not evidence of absence; treat it as an under-studied platform rather than a definitively safer one.</p>
+<h2 id="comparison-vs-sev-snp-tdx">Comparison vs SEV-SNP / TDX</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>IBM Secure Execution</th>
+<th>AMD SEV-SNP</th>
+<th>Intel TDX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor root of trust</td>
+<td>IBM</td>
+<td>AMD</td>
+<td>Intel</td>
+</tr>
+<tr>
+<td>Memory protection</td>
+<td>Encryption + integrity, per-guest key</td>
+<td>Encryption + integrity (RMP)</td>
+<td>Encryption + integrity (MK-TME)</td>
+</tr>
+<tr>
+<td>Attestation timing</td>
+<td>Mostly pre-deployment (image wrap) + run-time pvattest</td>
+<td>Run-time (SNP report)</td>
+<td>Run-time (TDX quote)</td>
+</tr>
+<tr>
+<td>HSM integration</td>
+<td>CEX cards, CCA / EP11, FIPS 140-3 L4 possible</td>
+<td>KMS-mediated</td>
+<td>KMS-mediated</td>
+</tr>
+<tr>
+<td>Heritage</td>
+<td>PR/SM (1988+), LPAR audit lineage</td>
+<td>Bare-metal AMD-V + SEV (2017+)</td>
+<td>VT-x + SEAM (2022+)</td>
+</tr>
+<tr>
+<td>Hardware footprint</td>
+<td>IBM Z mainframe only</td>
+<td>EPYC servers</td>
+<td>Xeon servers</td>
+</tr>
+<tr>
+<td>Live migration</td>
+<td>Yes (within a CPC, between SE-capable machines with appropriate wrapping)</td>
+<td>Yes (SEV-SNP 1.55+)</td>
+<td>Yes (TD migration GA 2024)</td>
+</tr>
+<tr>
+<td>Public side-channel research</td>
+<td>Sparse</td>
+<td>Several (CacheWarp, Hertzbleed)</td>
+<td>Several (TDXDown, etc.)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>IBM Redbooks: <em>Introducing IBM Secure Execution for Linux</em> (SG24-8501) — <a href="https://www.redbooks.ibm.com/abstracts/sg248501.html" rel="noopener nofollow">https://www.redbooks.ibm.com/abstracts/sg248501.html</a>.</li>
+<li>IBM Documentation: <em>Secure Execution</em> on z/Architecture — <a href="https://www.ibm.com/docs/en/linux-on-systems?topic=virtualization-secure-execution" rel="noopener nofollow">https://www.ibm.com/docs/en/linux-on-systems?topic=virtualization-secure-execution</a>.</li>
+<li>s390-tools repository — <a href="https://github.com/ibm-s390-linux/s390-tools" rel="noopener nofollow">https://github.com/ibm-s390-linux/s390-tools</a> (<code>genprotimg</code>, <code>pvattest</code>).</li>
+<li>Linux kernel <code>Documentation/arch/s390/protvirt.rst</code>.</li>
+<li>IBM Z Hardware Security Module: <em>Crypto Express 8S</em> product brief.</li>
+<li>z17 announcement, IBM, April 2025 (Telum II processor).</li>
+<li>IBM Hyper Protect Virtual Servers documentation — <a href="https://www.ibm.com/products/hyper-protect-virtual-servers" rel="noopener nofollow">https://www.ibm.com/products/hyper-protect-virtual-servers</a>.</li>
+</ul>
+
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=IBM%20Secure%20Execution%20%28LinuxONE%20/%20Z%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The mainframe answer to confidential computing. Fifty years of LPAR isolation engineering, repackaged as an Ultravisor that protects Linux guests from the hosting hypervisor and operator.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

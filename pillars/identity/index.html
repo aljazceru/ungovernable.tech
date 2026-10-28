@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity, Social and Trust — Pillar — ungovernable.tech</title>
+<meta name="description" content="How do I own my identity, my audience and my reputation? Keys instead of accounts. Nostr, AT Protocol, DIDs, verifiable credentials, remote signers and webs of trust, plus the hard part, which is recovering when keys are lost.">
+<link rel="canonical" href="https://ungovernable.tech/pillars/identity/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity, Social and Trust — Pillar — ungovernable.tech">
+<meta property="og:description" content="How do I own my identity, my audience and my reputation? Keys instead of accounts. Nostr, AT Protocol, DIDs, verifiable credentials, remote signers and webs of trust, plus the hard part, which is recovering when keys are lost.">
+<meta property="og:url" content="https://ungovernable.tech/pillars/identity/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity, Social and Trust — Pillar — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity, Social and Trust — Pillar — ungovernable.tech">
+<meta name="twitter:description" content="How do I own my identity, my audience and my reputation? Keys instead of accounts. Nostr, AT Protocol, DIDs, verifiable credentials, remote signers and webs of trust, plus the hard part, which is recovering when keys are lost.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Pillars", "item": "https://ungovernable.tech/pillars/"}, {"@type": "ListItem", "position": 3, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/">Pillars</a><span aria-hidden="true">/</span><span class="here">Identity, Social and Trust</span></nav>
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x06 / 0x0e</span>How do I own my identity, my audience and my reputation?</p>
+    <h1>Identity, Social and Trust</h1>
+    <p class="dek">Keys instead of accounts. Nostr, AT Protocol, DIDs, verifiable credentials, remote signers and webs of trust, plus the hard part, which is recovering when keys are lost.</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon"><svg class="glyph g-identity" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M4 9.5a8.8 8.8 0 0 1 16 0"/><path d="M7 12a5.5 5.5 0 0 1 10 0v4"/><path d="M10 12.5a2.5 2.5 0 0 1 4 0V19"/><path d="M12 19v2.5"/></svg></span><div class="ident-wrap"><svg class="identicon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="0" y="0" width="1" height="1" opacity="0.55"/><rect x="11" y="0" width="1" height="1" opacity="0.55"/><rect x="3" y="0" width="1" height="1" opacity="0.30"/><rect x="8" y="0" width="1" height="1" opacity="0.30"/><rect x="4" y="0" width="1" height="1" opacity="0.30"/><rect x="7" y="0" width="1" height="1" opacity="0.30"/><rect x="2" y="1" width="1" height="1" opacity="0.90"/><rect x="9" y="1" width="1" height="1" opacity="0.90"/><rect x="4" y="1" width="1" height="1" opacity="0.55"/><rect x="7" y="1" width="1" height="1" opacity="0.55"/><rect x="0" y="2" width="1" height="1" opacity="0.90"/><rect x="11" y="2" width="1" height="1" opacity="0.90"/><rect x="3" y="3" width="1" height="1" opacity="0.90"/><rect x="8" y="3" width="1" height="1" opacity="0.90"/><rect x="4" y="3" width="1" height="1" opacity="0.90"/><rect x="7" y="3" width="1" height="1" opacity="0.90"/><rect x="0" y="4" width="1" height="1" opacity="0.90"/><rect x="11" y="4" width="1" height="1" opacity="0.90"/><rect x="1" y="4" width="1" height="1" opacity="0.55"/><rect x="10" y="4" width="1" height="1" opacity="0.55"/><rect x="5" y="4" width="1" height="1" opacity="0.55"/><rect x="6" y="4" width="1" height="1" opacity="0.55"/><rect x="2" y="5" width="1" height="1" opacity="0.30"/><rect x="9" y="5" width="1" height="1" opacity="0.30"/><rect x="5" y="5" width="1" height="1" opacity="0.55"/><rect x="6" y="5" width="1" height="1" opacity="0.55"/><rect x="0" y="6" width="1" height="1" opacity="0.30"/><rect x="11" y="6" width="1" height="1" opacity="0.30"/><rect x="1" y="6" width="1" height="1" opacity="0.30"/><rect x="10" y="6" width="1" height="1" opacity="0.30"/><rect x="2" y="6" width="1" height="1" opacity="0.55"/><rect x="9" y="6" width="1" height="1" opacity="0.55"/><rect x="3" y="6" width="1" height="1" opacity="0.30"/><rect x="8" y="6" width="1" height="1" opacity="0.30"/><rect x="4" y="6" width="1" height="1" opacity="0.30"/><rect x="7" y="6" width="1" height="1" opacity="0.30"/><rect x="1" y="7" width="1" height="1" opacity="0.90"/><rect x="10" y="7" width="1" height="1" opacity="0.90"/><rect x="3" y="7" width="1" height="1" opacity="0.55"/><rect x="8" y="7" width="1" height="1" opacity="0.55"/><rect x="1" y="8" width="1" height="1" opacity="0.55"/><rect x="10" y="8" width="1" height="1" opacity="0.55"/><rect x="2" y="8" width="1" height="1" opacity="0.55"/><rect x="9" y="8" width="1" height="1" opacity="0.55"/><rect x="1" y="9" width="1" height="1" opacity="0.30"/><rect x="10" y="9" width="1" height="1" opacity="0.30"/><rect x="5" y="9" width="1" height="1" opacity="0.55"/><rect x="6" y="9" width="1" height="1" opacity="0.55"/><rect x="2" y="10" width="1" height="1" opacity="0.30"/><rect x="9" y="10" width="1" height="1" opacity="0.30"/><rect x="3" y="10" width="1" height="1" opacity="0.90"/><rect x="8" y="10" width="1" height="1" opacity="0.90"/><rect x="5" y="10" width="1" height="1" opacity="0.30"/><rect x="6" y="10" width="1" height="1" opacity="0.30"/><rect x="0" y="11" width="1" height="1" opacity="0.30"/><rect x="11" y="11" width="1" height="1" opacity="0.30"/><rect x="1" y="11" width="1" height="1" opacity="0.90"/><rect x="10" y="11" width="1" height="1" opacity="0.90"/><rect x="5" y="11" width="1" height="1" opacity="0.55"/><rect x="6" y="11" width="1" height="1" opacity="0.55"/></svg></div>
+    <p class="hexline">68 9f 6a 62 73 84 c7 dc b2 dc c1 48 7e 54 02 23</p>
+  </div>
+</header>
+
+<div class="hub">
+
+
+<section>
+  <h2 class="sec-h">Start here</h2>
+  <div class="rows">
+    <a class="row" href="/kb/did-methods/">
+  <span class="nm">Decentralized Identifier (DID) Methods</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-identity/">
+  <span class="nm">Decentralized Identity</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/nostr-protocol/">
+  <span class="nm">Nostr: The Protocol</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/proof-of-personhood/">
+  <span class="nm">Proof of Personhood and Sybil Resistance</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/web-of-trust/">
+  <span class="nm">Webs of Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Guides</h2>
+  <div class="rows">
+    <a class="row" href="/guides/building-a-zk-membership-proof/">
+  <span class="nm">Building a ZK membership proof<small class="also">Prove that an accepted group member submitted a message without naming the member.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">None</span>
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely<small class="also">On Nostr your identity is a key pair, not an account. Nobody can ban you from the protocol, and nobody can recover your key if you lose it.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">30 minutes</span>
+</a><a class="row" href="/guides/nostr-key-custody/">
+  <span class="nm">Nostr Key Custody and Recovery<small class="also">The hard part of key-rooted identity is not generating a key. It is keeping the key usable for years without turning every phone, web app, browser extension, and backup file into an account-takeover risk. Nostr is the best live laboratory for this problem because the public key is the account.</small></span>
+  <span class="ty">Guide</span>
+  <span class="ty">None</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Technologies</h2>
+  <div class="rows">
+    <a class="row" href="/kb/openpgp-web-of-trust/">
+  <span class="nm">The OpenPGP Web of Trust</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/activitypub/">
+  <span class="nm">ActivityPub</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/at-protocol/">
+  <span class="nm">AT Protocol and did:plc</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/biscuit/">
+  <span class="nm">Biscuit authorization tokens</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ens-identity/">
+  <span class="nm">ENS as Identity</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/passkeys-and-security-keys/">
+  <span class="nm">Passkeys and Security Keys<small class="also">also in opsec</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records<small class="also">also in naming</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/remote-signing/">
+  <span class="nm">Remote Signing (NIP-46 and Friends)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/secure-scuttlebutt/">
+  <span class="nm">Secure Scuttlebutt</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/semaphore/">
+  <span class="nm">Semaphore<small class="also">also in zero-knowledge</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/verifiable-credentials/">
+  <span class="nm">Verifiable Credentials</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ai-agent-identity-nostr/">
+  <span class="nm">AI Agent Identity on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/bbs-signatures/">
+  <span class="nm">BBS+ Signatures<small class="also">also in cryptography</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/blossom/">
+  <span class="nm">Blossom: Blob Storage on Nostr<small class="also">also in storage</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/buzz/">
+  <span class="nm">Buzz</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cordn/">
+  <span class="nm">Cordn<small class="also">also in messaging</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/keri/">
+  <span class="nm">KERI (Key Event Receipt Infrastructure)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr<small class="also">also in messaging</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/nostr-vpn/">
+  <span class="nm">Nostr VPN<small class="also">also in off-grid</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/tlsnotary/">
+  <span class="nm">TLSNotary<small class="also">also in zero-knowledge</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise<small class="also">also in messaging</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/zkemail/">
+  <span class="nm">ZK Email<small class="also">also in zero-knowledge</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/slashtags/">
+  <span class="nm">Slashtags<small class="also">also in naming</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-historical" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span>
+</a><a class="row" href="/kb/radicle/">
+  <span class="nm">Radicle<small class="also">also in storage</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Reference and research</h2>
+  <div class="rows">
+    <a class="row" href="/kb/confidential-dvm/">
+  <span class="nm">Confidential Data Vending Machines<small class="also">also in confidential computing</small></span>
+  <span class="ty">Research note</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/compare-naming-systems/">
+  <span class="nm">Naming systems compared<small class="also">also in naming</small></span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+  </div>
+</section>
+
+
+
+<section id="directory">
+  <h2 class="sec-h">Directory<span class="count">81 curated links</span></h2>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr Protocol</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/fiatjaf/nak" rel="noopener nofollow">nak</a>
+        
+        <span class="ldesc"> — Command-line tool for creating, signing, querying, and publishing Nostr events</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://nostr.com/" rel="noopener nofollow">Nostr</a>
+        
+        <span class="ldesc"> — Notes and Other Stuff Transmitted by Relays — minimalist decentralized social protocol</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/01.md" rel="noopener nofollow">NIP-01</a>
+        
+        <span class="ldesc"> — Core protocol specification: events, kinds, relays</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a>
+        
+        <span class="ldesc"> — Nostr Implementation Possibilities — protocol extension proposals</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nostr-tools</a>
+        
+        <span class="ldesc"> — JavaScript library for building Nostr clients</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/rust-nostr/nostr" rel="noopener nofollow">nostr-rs</a>
+        
+        <span class="ldesc"> — Rust Nostr library with FFI bindings</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://nostr.how/zh/the-protocol" rel="noopener nofollow">nostr.how</a>
+        
+        <span class="ldesc"> — Comprehensive Chinese documentation on Nostr protocol</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr Clients</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://damus.io/" rel="noopener nofollow">Damus</a>
+        
+        <span class="ldesc"> — iOS Nostr client (Swift)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst</a>
+        
+        <span class="ldesc"> — Android Nostr client - v1.06.0 released early 2026 with NIP-100 support</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://primal.net/" rel="noopener nofollow">Primal</a>
+        
+        <span class="ldesc"> — Cross-platform Nostr client with social feed - v3.0 released early 2026</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/v0l/snort" rel="noopener nofollow">Snort</a>
+        
+        <span class="ldesc"> — Web-based Nostr client (React)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/mikedilger/gossip" rel="noopener nofollow">Gossip</a>
+        
+        <span class="ldesc"> — Native desktop Nostr client in Rust</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/coracle-social/coracle" rel="noopener nofollow">Coracle</a>
+        
+        <span class="ldesc"> — Web Nostr client with relay management</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://nostr.co.uk/news/" rel="noopener nofollow">Notedeck</a>
+        
+        <span class="ldesc"> — Nostr client v0.8 released early 2026</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr Relays</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/nostrnative/bloom" rel="noopener nofollow">Bloom</a>
+        
+        <span class="ldesc"> — Cross-platform bundled Blossom media server and Nostr relay for self-hosting</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/scsibug/nostr-rs-relay" rel="noopener nofollow">nostr-rs-relay</a>
+        
+        <span class="ldesc"> — Rust-based Nostr relay with SQLite storage</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/hoytech/strfry" rel="noopener nofollow">strfry</a>
+        
+        <span class="ldesc"> — High-performance C++ Nostr relay</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Cameri/nostr-ts-relay" rel="noopener nofollow">nostr-ts-relay</a>
+        
+        <span class="ldesc"> — TypeScript relay implementation</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/quentintaranpino/nostrcheck-server" rel="noopener nofollow">nostrcheck-server</a>
+        
+        <span class="ldesc"> — Self-hostable Nostr service server with relay, NIP-96/Blossom file hosting, NIP-05, NWC, and WoT</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Grumpified-OGGVCT/NostrGator" rel="noopener nofollow">NostrGator</a>
+        
+        <span class="ldesc"> — Docker stack for sovereign Nostr relays, file hosting, Lightning wallet integration, and monitoring</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr Ecosystem</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://nostr.build/" rel="noopener nofollow">nostr-build</a>
+        
+        <span class="ldesc"> — Media hosting for Nostr</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://nostr.band/" rel="noopener nofollow">nostr-band</a>
+        
+        <span class="ldesc"> — Nostr search engine and analytics</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/kind-0/nsecbunkerd" rel="noopener nofollow">nsecbunkerd</a>
+        
+        <span class="ldesc"> — Remote key signing for Nostr</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/aljazceru/awesome-nostr" rel="noopener nofollow">awesome-nostr</a>
+        
+        <span class="ldesc"> — Curated list of Nostr projects and resources</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://soapbox.pub/blog/announcing-nostrhub" rel="noopener nofollow">NostrHub</a>
+        
+        <span class="ldesc"> — NIPs, apps, and repos discovery platform</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://dev.to/jurjendevries/2025-the-year-of-decentralization-how-nostr-will-make-you-a-standout-developer-5f5l" rel="noopener nofollow">zap.store</a>
+        
+        <span class="ldesc"> — Decentralized app distribution for Nostr</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/hzrd149/blossom" rel="noopener nofollow">Blossom</a>
+        
+        <span class="ldesc"> — HTTP blob-storage specification using Nostr keys for identity and authorization</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/96.md" rel="noopener nofollow">NIP-96</a>
+        
+        <span class="ldesc"> — HTTP file storage integration for Nostr clients, deprecated in favor of NIP-B7</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/hzrd149/nostr-idb" rel="noopener nofollow">nostr-idb</a>
+        
+        <span class="ldesc"> — IndexedDB-backed event store with a relay-like API for local-first Nostr apps</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr Payments &amp; Compute</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/cashubtc/nuts" rel="noopener nofollow">Cashu NUTs</a>
+        
+        <span class="ldesc"> — Protocol specifications for Cashu ecash wallets and mints, including Nostr mint backup</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/routstr/routstr-core" rel="noopener nofollow">Routstr Core</a>
+        
+        <span class="ldesc"> — Nostr discovery plus Cashu micropayments for permissionless API/inference routing</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/47.md" rel="noopener nofollow">NIP-47</a>
+        
+        <span class="ldesc"> — Nostr Wallet Connect specification for controlling Lightning wallets over Nostr</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://docs.nwc.dev/contribute/specification" rel="noopener nofollow">Nostr Wallet Connect Docs</a>
+        
+        <span class="ldesc"> — Official NWC protocol documentation and implementation guidance</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/getAlby/nwc.getalby.com" rel="noopener nofollow">Alby NWC App</a>
+        
+        <span class="ldesc"> — Go application for connecting apps to a Lightning node or wallet over Nostr</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr &amp; Identity</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/05.md" rel="noopener nofollow">NIP-05</a>
+        
+        <span class="ldesc"> — Mapping Nostr keys to DNS-based identifiers</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/19.md" rel="noopener nofollow">NIP-19</a>
+        
+        <span class="ldesc"> — bech32-encoded entities (nsec, npub, note, nprofile, nevent)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/26.md" rel="noopener nofollow">NIP-26</a>
+        
+        <span class="ldesc"> — Delegated event signing</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46</a>
+        
+        <span class="ldesc"> — Nostr Connect — remote signing for multi-device</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://nips.nostr.com/98" rel="noopener nofollow">NIP-98</a>
+        
+        <span class="ldesc"> — HTTP Auth — ephemeral events for authorizing HTTP requests</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Nostr: Nostr vs ATProto</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://biggo.com.tw/news/nostr-atproto-developer-comparison" rel="noopener nofollow">Nostr vs ATProto Comparison</a>
+        
+        <span class="ldesc"> — Developer comparison between Nostr and Bluesky&#39;s ATProto protocol</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Identity: W3C Decentralized Identifiers (DIDs)</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.w3.org/TR/did-core/" rel="noopener nofollow">W3C DID Core v1.0</a>
+        
+        <span class="ldesc"> — Decentralized Identifiers specification — globally unique, self-owned identifiers</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.w3.org/TR/did-1.1/" rel="noopener nofollow">W3C DID v1.1</a>
+        
+        <span class="ldesc"> — Updated DID specification with improved verification methods</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://w3c-ccg.github.io/did-key-spec/" rel="noopener nofollow">did:key Method</a>
+        
+        <span class="ldesc"> — Simple DID method based on expanding a cryptographic public key into a DID Document</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/decentralized-identity/ion" rel="noopener nofollow">Microsoft ION</a>
+        
+        <span class="ldesc"> — Decentralized DID network built on Bitcoin (Sidetree protocol)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://w3c-ccg.github.io/did-method-web/" rel="noopener nofollow">did:web Method</a>
+        
+        <span class="ldesc"> — DID method using web domains for DID Document resolution</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/uport-project/ethr-did-resolver" rel="noopener nofollow">did:ethr Method</a>
+        
+        <span class="ldesc"> — Ethereum-based DID method for blockchain identity</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Identity: Verifiable Credentials</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.w3.org/TR/vc-data-model/" rel="noopener nofollow">W3C Verifiable Credentials</a>
+        
+        <span class="ldesc"> — Standard for cryptographically verifiable digital credentials</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.w3.org/news/2026/first-public-working-draft-verifiable-credentials-data-model-v2-1/" rel="noopener nofollow">W3C VC Data Model v2.1</a>
+        
+        <span class="ldesc"> — Latest working draft extending the VC standard (2026)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/w3c/verifiable-credentials/blob/main/implementations.md" rel="noopener nofollow">W3C VC Implementations</a>
+        
+        <span class="ldesc"> — Comprehensive list of VC implementations across languages</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://openid.net/openid-for-verifiable-credential-self-certification-to-launch-feb-2026/" rel="noopener nofollow">OpenID4VP / OpenID4VCI</a>
+        
+        <span class="ldesc"> — OpenID standards for verifiable presentations and credential issuance</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/microsoft/Decentralized-Identity-and-Verifiable-Credentials" rel="noopener nofollow">Microsoft Decentralized Identity</a>
+        
+        <span class="ldesc"> — Reference implementations and documentation for DID/VC</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.dock.io/" rel="noopener nofollow">Dock</a>
+        
+        <span class="ldesc"> — Self-sovereign identity platform for creating DIDs and Verifiable Credentials</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://identity.foundation/" rel="noopener nofollow">Decentralized Identity Foundation</a>
+        
+        <span class="ldesc"> — Open ecosystem for decentralized identity standards and interoperability</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/decentralized-identity/did-jwt-vc" rel="noopener nofollow">did-jwt-vc</a>
+        
+        <span class="ldesc"> — Create and verify W3C Verifiable Credentials JWTs</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/openwallet-foundation/credo-ts" rel="noopener nofollow">Credo (TypeScript)</a>
+        
+        <span class="ldesc"> — TypeScript framework for building decentralized identity and VC solutions (OpenWallet Foundation)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://cardanofoundation.org/blog/veridian-digital-identity-platform" rel="noopener nofollow">Veridian Wallet</a>
+        
+        <span class="ldesc"> — Open-source identity wallet using KERI and ACDC protocols</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Identity: Decentralized PKI</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://hackernoon.com/decentralized-public-key-infrastructure-dpki-what-is-it-and-why-does-it-matter-babee9d88579" rel="noopener nofollow">DPKI Overview</a>
+        
+        <span class="ldesc"> — Decentralized PKI: replacing Certificate Authorities with blockchain-based trust</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://namecoin.org/" rel="noopener nofollow">Namecoin</a>
+        
+        <span class="ldesc"> — Blockchain-based naming system that can serve as decentralized PKI and TLS certificate anchoring</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Nuhvi/pkarr" rel="noopener nofollow">PKARR</a>
+        
+        <span class="ldesc"> — Public Key Addressable Resource Records — DNS-like records signed by public keys</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/decentralized-identity/KERI" rel="noopener nofollow">KERI</a>
+        
+        <span class="ldesc"> — Key Event Receipt Infrastructure for decentralized identifier key management</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Identity: Identity &amp; Privacy</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/0xPolygonID" rel="noopener nofollow">ZK Identity</a>
+        
+        <span class="ldesc"> — Polygon ID — zero-knowledge identity protocol for privacy-preserving verification</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/anon-aadhaar/anon-aadhaar" rel="noopener nofollow">anon-aadhaar</a>
+        
+        <span class="ldesc"> — ZK protocol to prove possession of Aadhaar (Indian ID) without revealing identity</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://worldcoin.org/world-id" rel="noopener nofollow">World ID</a>
+        
+        <span class="ldesc"> — Privacy-preserving proof of personhood via iris biometrics with ZK proofs</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://european-digital-identity.eu/" rel="noopener nofollow">EUDI Wallet</a>
+        
+        <span class="ldesc"> — European Digital Identity Wallet under eIDAS 2.0 regulation (2026)</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Web of Trust</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="/files/webs-of-trust-choosing-who-to-trust-on-the-internet.pdf" rel="noopener nofollow">Webs of Trust:Choosing Who to Trust on the Internet</a>
+        
+        
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Web of Trust: Nostr Web of Trust</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a>
+        
+        <span class="ldesc"> — Nostr Web of Trust toolkit: query social graph distance between pubkeys, includes browser extension and oracle API</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot/nostr-wot-extension</a>
+        
+        <span class="ldesc"> — Browser extension for Nostr WoT: query custom trust scores and social distances</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a>
+        
+        <span class="ldesc"> — Archive every note in your Nostr web of trust (82 stars)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Pretty-Good-Freedom-Tech/brainstorm" rel="noopener nofollow">Pretty-Good-Freedom-Tech/brainstorm</a>
+        
+        <span class="ldesc"> — Personalized Nostr relay featuring the Grapevine web of trust</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Web of Trust: GPG Web of Trust</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/mricon/wotmate" rel="noopener nofollow">mricon/wotmate</a>
+        
+        <span class="ldesc"> — Web of trust grapher and analyzer (40 stars)</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Web of Trust: Modern OpenPGP</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia PGP</a>
+        
+        <span class="ldesc"> — Modern, safe OpenPGP implementation in Rust</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">OpenPGP.js</a>
+        
+        <span class="ldesc"> — JavaScript OpenPGP implementation (maintained by Proton, RFC 9580)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/ProtonMail/gopenpgp" rel="noopener nofollow">Gopenpgp</a>
+        
+        <span class="ldesc"> — High-level Go wrapper for OpenPGP encryption and signing</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/rpgp/rpgp" rel="noopener nofollow">rPGP</a>
+        
+        <span class="ldesc"> — OpenPGP implementation in pure Rust</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/FiloSottile/age" rel="noopener nofollow">age</a>
+        
+        <span class="ldesc"> — Modern file encryption replacing GPG for most use cases (Go)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/jedisct1/minisign" rel="noopener nofollow">minisign</a>
+        
+        <span class="ldesc"> — Minimalistic file signing and verification tool</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Federation</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.w3.org/TR/activitypub/" rel="noopener nofollow">ActivityPub</a>
+        
+        <span class="ldesc"> — W3C Recommendation for actor inboxes, outboxes and social federation</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://forgefed.org/" rel="noopener nofollow">ForgeFed</a>
+        
+        <span class="ldesc"> — ActivityPub extension for federation between code collaboration services</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Code and Collaboration</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://radicle.dev/guides/protocol" rel="noopener nofollow">Radicle protocol</a>
+        
+        <span class="ldesc"> — Peer replication of Git repositories and collaborative objects; read the transport-security warning</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Replicated identities and feeds</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://ssbc.github.io/scuttlebutt-protocol-guide/" rel="noopener nofollow">Secure Scuttlebutt protocol</a>
+        
+        <span class="ldesc"> — Signed feeds, gossip replication, pubs and rooms</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Authorization</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://biscuitsec.org/docs/getting-started/introduction/" rel="noopener nofollow">Biscuit</a>
+        
+        <span class="ldesc"> — Public-key authorization tokens with offline attenuation and Datalog policy</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <p class="more-links"><a href="/directory/">Full directory, all pillars →</a></p>
+</section>
+
+
+
+<section id="briefings">
+  <h2 class="sec-h">Briefings</h2>
+  <div class="rows">
+    
+    <a class="row" href="/briefings/identity/">
+      <span class="nm">Identity and Pseudonymity Sunday<small>17 weekly briefings, latest 2026-10-11</small></span>
+      <span class="ty">Series</span>
+    </a>
+    
+    <a class="row" href="/briefings/web-of-trust/">
+      <span class="nm">Web of Trust Thursday<small>12 weekly briefings, latest 2026-10-15</small></span>
+      <span class="ty">Series</span>
+    </a>
+    
+  </div>
+</section>
+
+
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

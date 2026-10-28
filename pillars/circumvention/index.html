@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Censorship Circumvention — Pillar — ungovernable.tech</title>
+<meta name="description" content="How do I reach the open internet when it is blocked? Censors block IPs, poison DNS, fingerprint protocols and shut networks down entirely. These are the tools and techniques that keep people connected anyway, and the trade-offs each one makes.">
+<link rel="canonical" href="https://ungovernable.tech/pillars/circumvention/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Censorship Circumvention — Pillar — ungovernable.tech">
+<meta property="og:description" content="How do I reach the open internet when it is blocked? Censors block IPs, poison DNS, fingerprint protocols and shut networks down entirely. These are the tools and techniques that keep people connected anyway, and the trade-offs each one makes.">
+<meta property="og:url" content="https://ungovernable.tech/pillars/circumvention/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-circumvention.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Censorship Circumvention — Pillar — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Censorship Circumvention — Pillar — ungovernable.tech">
+<meta name="twitter:description" content="How do I reach the open internet when it is blocked? Censors block IPs, poison DNS, fingerprint protocols and shut networks down entirely. These are the tools and techniques that keep people connected anyway, and the trade-offs each one makes.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-circumvention.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Pillars", "item": "https://ungovernable.tech/pillars/"}, {"@type": "ListItem", "position": 3, "name": "Censorship Circumvention", "item": "https://ungovernable.tech/pillars/circumvention/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/">Pillars</a><span aria-hidden="true">/</span><span class="here">Censorship Circumvention</span></nav>
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x02 / 0x0e</span>How do I reach the open internet when it is blocked?</p>
+    <h1>Censorship Circumvention</h1>
+    <p class="dek">Censors block IPs, poison DNS, fingerprint protocols and shut networks down entirely. These are the tools and techniques that keep people connected anyway, and the trade-offs each one makes.</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon"><svg class="glyph g-circumvention" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M16 5v14"/><path d="M16 9h3M16 15h3M19 7v10"/><path d="M2 12h16"/><path d="m15 8.5 4 3.5-4 3.5"/></svg></span><div class="ident-wrap"><svg class="identicon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="1" y="0" width="1" height="1" opacity="0.30"/><rect x="10" y="0" width="1" height="1" opacity="0.30"/><rect x="0" y="1" width="1" height="1" opacity="0.30"/><rect x="11" y="1" width="1" height="1" opacity="0.30"/><rect x="2" y="1" width="1" height="1" opacity="0.30"/><rect x="9" y="1" width="1" height="1" opacity="0.30"/><rect x="0" y="2" width="1" height="1" opacity="0.90"/><rect x="11" y="2" width="1" height="1" opacity="0.90"/><rect x="1" y="2" width="1" height="1" opacity="0.90"/><rect x="10" y="2" width="1" height="1" opacity="0.90"/><rect x="3" y="2" width="1" height="1" opacity="0.90"/><rect x="8" y="2" width="1" height="1" opacity="0.90"/><rect x="4" y="2" width="1" height="1" opacity="0.55"/><rect x="7" y="2" width="1" height="1" opacity="0.55"/><rect x="2" y="3" width="1" height="1" opacity="0.90"/><rect x="9" y="3" width="1" height="1" opacity="0.90"/><rect x="3" y="3" width="1" height="1" opacity="0.90"/><rect x="8" y="3" width="1" height="1" opacity="0.90"/><rect x="4" y="3" width="1" height="1" opacity="0.55"/><rect x="7" y="3" width="1" height="1" opacity="0.55"/><rect x="5" y="3" width="1" height="1" opacity="0.90"/><rect x="6" y="3" width="1" height="1" opacity="0.90"/><rect x="1" y="5" width="1" height="1" opacity="0.30"/><rect x="10" y="5" width="1" height="1" opacity="0.30"/><rect x="4" y="6" width="1" height="1" opacity="0.55"/><rect x="7" y="6" width="1" height="1" opacity="0.55"/><rect x="5" y="6" width="1" height="1" opacity="0.55"/><rect x="6" y="6" width="1" height="1" opacity="0.55"/><rect x="3" y="7" width="1" height="1" opacity="0.30"/><rect x="8" y="7" width="1" height="1" opacity="0.30"/><rect x="5" y="7" width="1" height="1" opacity="0.90"/><rect x="6" y="7" width="1" height="1" opacity="0.90"/><rect x="1" y="8" width="1" height="1" opacity="0.55"/><rect x="10" y="8" width="1" height="1" opacity="0.55"/><rect x="3" y="8" width="1" height="1" opacity="0.30"/><rect x="8" y="8" width="1" height="1" opacity="0.30"/><rect x="5" y="8" width="1" height="1" opacity="0.90"/><rect x="6" y="8" width="1" height="1" opacity="0.90"/><rect x="0" y="9" width="1" height="1" opacity="0.30"/><rect x="11" y="9" width="1" height="1" opacity="0.30"/><rect x="1" y="9" width="1" height="1" opacity="0.55"/><rect x="10" y="9" width="1" height="1" opacity="0.55"/><rect x="2" y="9" width="1" height="1" opacity="0.30"/><rect x="9" y="9" width="1" height="1" opacity="0.30"/><rect x="3" y="9" width="1" height="1" opacity="0.55"/><rect x="8" y="9" width="1" height="1" opacity="0.55"/><rect x="3" y="10" width="1" height="1" opacity="0.55"/><rect x="8" y="10" width="1" height="1" opacity="0.55"/><rect x="4" y="10" width="1" height="1" opacity="0.90"/><rect x="7" y="10" width="1" height="1" opacity="0.90"/><rect x="5" y="10" width="1" height="1" opacity="0.55"/><rect x="6" y="10" width="1" height="1" opacity="0.55"/><rect x="0" y="11" width="1" height="1" opacity="0.55"/><rect x="11" y="11" width="1" height="1" opacity="0.55"/><rect x="4" y="11" width="1" height="1" opacity="0.55"/><rect x="7" y="11" width="1" height="1" opacity="0.55"/></svg></div>
+    <p class="hexline">68 63 91 9d ae 24 9b 48 7f 21 b1 a7 a7 a1 41 74</p>
+  </div>
+</header>
+
+<div class="hub">
+
+
+<section>
+  <h2 class="sec-h">Start here</h2>
+  <div class="rows">
+    <a class="row" href="/kb/map-censorship-resistance/">
+  <span class="nm">Map: Censorship Resistance</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/pluggable-transports/">
+  <span class="nm">Pluggable transports and bridges</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Guides</h2>
+  <div class="rows">
+    <a class="row" href="/guides/censorship-circumvention/">
+  <span class="nm">Getting Around Internet Censorship<small class="also">Censorship is an arms race between detection and disguise. Knowing which technique a censor is using tells you which tool will work.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">30 minutes</span>
+</a><a class="row" href="/guides/internet-shutdown-preparedness/">
+  <span class="nm">Internet Shutdown Preparedness<small class="also">When the network is switched off, the only tools that work are the ones you installed, tested and shared before it happened.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">1-2 hours to prepare</span>
+</a><a class="row" href="/guides/self-hosted-circumvention-server/">
+  <span class="nm">Run a private circumvention server for people you know<small class="also">Choose who can connect, explain what you can observe, and practise replacing the server before someone depends on it.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">An afternoon, plus ongoing maintenance</span>
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom<small class="also">Every one of these networks is only as strong as the number of independent people running it. Here is how to become one of them.</small></span>
+  <span class="ty">intermediate</span>
+  <span class="ty">10 minutes to a weekend</span>
+</a><a class="row" href="/guides/using-tor-safely/">
+  <span class="nm">Using Tor Safely<small class="also">Tor hides where you are from the sites you visit and hides what you visit from your network. These are the habits that keep it working.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">20 minutes</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Technologies</h2>
+  <div class="rows">
+    <a class="row" href="/kb/tor/">
+  <span class="nm">Tor<small class="also">also in anonymity</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/wireguard/">
+  <span class="nm">WireGuard</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/dnscrypt/">
+  <span class="nm">DNSCrypt and dnscrypt-proxy</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/kiwix/">
+  <span class="nm">Kiwix<small class="also">also in storage</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mullvad-vpn/">
+  <span class="nm">Mullvad VPN</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ooni/">
+  <span class="nm">OONI</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/outline/">
+  <span class="nm">Outline</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/psiphon/">
+  <span class="nm">Psiphon</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+  </div>
+</section>
+
+
+
+
+
+<section id="directory">
+  <h2 class="sec-h">Directory<span class="count">27 curated links</span></h2>
+  
+  <div class="dsub">
+    <h3>Tor bridges and pluggable transports</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.torproject.org/download/" rel="noopener nofollow">Tor Browser</a>
+        
+        <span class="ldesc"> — Official Tor Browser downloads</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://support.torproject.org/tor-browser/circumvention/unblocking-tor/" rel="noopener nofollow">Tor Browser circumvention guide</a>
+        
+        <span class="ldesc"> — How to use obfs4, Snowflake, meek and WebTunnel</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://bridges.torproject.org/" rel="noopener nofollow">Tor bridge distribution</a>
+        
+        <span class="ldesc"> — Request bridge addresses from the Tor Project</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://snowflake.torproject.org/" rel="noopener nofollow">Snowflake</a>
+        
+        <span class="ldesc"> — Volunteer proxies that help users reach Tor over WebRTC</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://community.torproject.org/relay/setup/bridge/" rel="noopener nofollow">Run an obfs4 bridge</a>
+        
+        <span class="ldesc"> — Official setup instructions by operating system</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://community.torproject.org/relay/setup/webtunnel/" rel="noopener nofollow">Run a WebTunnel bridge</a>
+        
+        <span class="ldesc"> — Serve a Tor transport through a website with HTTPS</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://community.torproject.org/relay/setup/snowflake/" rel="noopener nofollow">Run a Snowflake proxy</a>
+        
+        <span class="ldesc"> — Browser and standalone options for donating connectivity</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>VPN protocols and self-hosting</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://www.wireguard.com/" rel="noopener nofollow">WireGuard</a>
+        
+        <span class="ldesc"> — Encrypted IP tunnels over UDP with cryptokey routing</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.wireguard.com/quickstart/" rel="noopener nofollow">WireGuard quick start</a>
+        
+        <span class="ldesc"> — Keys, interfaces, peer configuration and connection checks</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/amnezia-vpn/amneziawg-go" rel="noopener nofollow">AmneziaWG</a>
+        
+        <span class="ldesc"> — WireGuard-Go fork with traffic obfuscation</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://shadowsocks.org/" rel="noopener nofollow">Shadowsocks</a>
+        
+        <span class="ldesc"> — Encrypted proxy project and protocol documentation</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Circumvention apps and services</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://getoutline.org/" rel="noopener nofollow">Outline</a>
+        
+        <span class="ldesc"> — Software for running and sharing your own circumvention server</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://getoutline.org/get-started/" rel="noopener nofollow">Outline setup</a>
+        
+        <span class="ldesc"> — Manager installation, access keys and Client downloads</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Jigsaw-Code/outline-server" rel="noopener nofollow">Outline Server source</a>
+        
+        <span class="ldesc"> — Shadowsocks service and access-key management API</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://psiphon.ca/" rel="noopener nofollow">Psiphon</a>
+        
+        <span class="ldesc"> — Circumvention service with client downloads and documentation</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/Psiphon-Labs/psiphon-tunnel-core" rel="noopener nofollow">Psiphon tunnel core</a>
+        
+        <span class="ldesc"> — Open-source client and server for adaptive circumvention tunnels</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://mullvad.net/" rel="noopener nofollow">Mullvad</a>
+        
+        <span class="ldesc"> — VPN provider&#39;s official site and applications</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://mullvad.net/en/help/no-logging-data-policy" rel="noopener nofollow">Mullvad account and payment policy</a>
+        
+        <span class="ldesc"> — Numbered accounts, payment handling and the operator’s stated logging policy</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Measurement</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://ooni.org/install/" rel="noopener nofollow">OONI Probe</a>
+        
+        <span class="ldesc"> — Mobile, desktop and command-line network measurement tools</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://ooni.org/nettest/" rel="noopener nofollow">OONI test catalogue</a>
+        
+        <span class="ldesc"> — Website, messaging and circumvention-tool reachability tests</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://explorer.ooni.org/" rel="noopener nofollow">OONI Explorer</a>
+        
+        <span class="ldesc"> — Search and compare published network measurements</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://ooni.org/data/" rel="noopener nofollow">OONI data access</a>
+        
+        <span class="ldesc"> — API and bulk-data interfaces for independent analysis</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://ooni.org/about/risks/" rel="noopener nofollow">OONI Probe risks</a>
+        
+        <span class="ldesc"> — Read before testing: visibility, publication and potential legal risks</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>DNS</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/DNSCrypt/dnscrypt-proxy" rel="noopener nofollow">DNSCrypt — dnscrypt-proxy</a>
+        
+        <span class="ldesc"> — DNS proxy with support for DNSCrypt and DNS over HTTPS</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://quad9.net/" rel="noopener nofollow">Quad9</a>
+        
+        <span class="ldesc"> — Public recursive DNS service with malicious-domain filtering</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://developers.cloudflare.com/1.1.1.1/encryption/" rel="noopener nofollow">Cloudflare encrypted DNS documentation</a>
+        
+        <span class="ldesc"> — DNS over TLS, DNS over HTTPS and Oblivious DNS over HTTPS</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS" rel="noopener nofollow">Anonymized DNSCrypt</a>
+        
+        <span class="ldesc"> — Relay configuration and separation between client addresses and resolver queries</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <p class="more-links"><a href="/directory/">Full directory, all pillars →</a></p>
+</section>
+
+
+
+
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

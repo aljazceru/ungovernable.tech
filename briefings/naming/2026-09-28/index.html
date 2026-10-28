@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized DNS Monday — September 28 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-28: pubky-homeserver v0.13.0 (Sep 23 13:58) — 9 days after v0.12.0 — is the biggest missed signal of the W39 update.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/naming/2026-09-28/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized DNS Monday — September 28 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-28: pubky-homeserver v0.13.0 (Sep 23 13:58) — 9 days after v0.12.0 — is the biggest missed signal of the W39 update.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/naming/2026-09-28/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized DNS Monday — September 28 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized DNS Monday — September 28 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-28: pubky-homeserver v0.13.0 (Sep 23 13:58) — 9 days after v0.12.0 — is the biggest missed signal of the W39 update.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Decentralized DNS Monday — September 28 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-28: pubky-homeserver v0.13.0 (Sep 23 13:58) — 9 days after v0.12.0 — is the biggest missed signal of the W39 update.", "datePublished": "2026-09-28", "dateModified": "2026-09-28", "url": "https://ungovernable.tech/briefings/naming/2026-09-28/", "mainEntityOfPage": "https://ungovernable.tech/briefings/naming/2026-09-28/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized DNS Monday", "item": "https://ungovernable.tech/briefings/naming/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-28", "item": "https://ungovernable.tech/briefings/naming/2026-09-28/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/naming/">Decentralized DNS Monday</a><span aria-hidden="true">/</span><span class="here">2026-09-28</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Decentralized DNS Monday</p>
+  <h1>Decentralized DNS Monday — September 28 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-28</b></span>
+    <span><b>30</b> min read</span>
+    <span><a href="/pillars/naming/">Sovereign Naming</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-28 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-28. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>, <a href="/kb/ens/">ENS</a>, <a href="/kb/pkarr/">PKARR</a>, <a href="/kb/gnu-name-system/">GNS</a>, <a href="/kb/handshake/">Handshake</a>, <a href="/kb/namecoin/">Namecoin</a>, and related files. Covers Sep 22–28. Key themes: <strong>the Pubky ecosystem completes a 14-day release sweep with three more tags</strong> — <strong>pubky-homeserver v0.13.0 (Sep 23 13:58, 9 days after v0.12.0)</strong> ships the first <strong>Basic WebDAV locks</strong> (#630) for the homeserver storage layer, an SDK oversized-payload guard (#624), SDK error-response limits (#608), version-on-startup logging (#636), and dual-arch Docker PR builds (#605); <strong>pubky-app v1.11.0 (Sep 23 14:33, 5 days after v1.10.0)</strong> ships <strong>Pubky Passport Google sign-in/sign-up</strong> (landing + sign-in + onboarding Join) and a major PWA upgrade (install banner, iOS install instructions, offline navigation fallback + connection-status toasts, app shortcuts, unread icon badges, native share sheet, update prompt); <strong>pkarr v8.0.2 (Sep 23)</strong> ties the lockfile bump to homeserver v0.13.0; <strong>ICANN confirms exactly 1,616 gTLD applications proceeding in the 2026 Round (Sep 22 announcement)</strong> with <strong>Reveal Day to be confirmed "early next week"</strong> (the ICANNWiki upper bound is Oct 14, the 9-week-prior-window cut-off — expect news this week); <strong>Airstop soft fork on Handshake is the live, irreversible, never-reversible, has-already-happened economic reality</strong> — locked at block 290304 (Aug 14 2025) and activated at block 292320 (Aug 28 2025) with <strong>99.80% signaling ratio</strong>, permanently removing ~890M HNS from supply (216,199 airdrop allocations × ~4,247 HNS each, 209,650 of which were unclaimed, 6,549 of which were claimed) — this is the supply-side confirmation that <a href="/kb/handshake/">Handshake</a> hsd v8.0.0 (Jul 1) locked into the network 14 months ago; <strong>ENS Labs × Immunefi audit competition results FROZEN today Sep 28</strong> (post-resolution phase complete) — 48-hour dispute window opens Sep 29, payment + publication Oct 26; <strong><a href="https://docs.ens.domains/ensip/28" rel="noopener nofollow">ENSIP-28 Name Owned Accounts</a></strong> continues to gather feedback (12 posts through Sep 2); <strong><a href="https://docs.ens.domains/ensip/31" rel="noopener nofollow">ENSIP-31 Payment Preferences</a></strong> feedback thread picked up one substantive reply (jkm.eth Sep 21); <strong>Nomentum Labs Grails SPP3 Marketplace RFP award voting open</strong> ($500K executable to <code>stream.mg.wg.ens.eth</code>, three-tranche payment structure); <strong>Endowment permissions to KPK Update revised-execution</strong> moving toward schedule (Sep 14 revised execution path: swap to a new Roles module; new Modifier ownership already transferred to Endowment Safe); <strong><a href="/kb/ens/">ENS Foundation</a> "Evolved Foundation" blog post</strong> dated late September frames the institutional counterparty story for ICANN/IETF/W3C and the <code>.ens</code> gTLD recognition campaign; <strong>ensforge SDK adds HCA support</strong> (Hot Configurable Authentication/Agent capability — scoped, time-limited grants for ENSv2 names) plus Pimlico/Rhinestone gas sponsorship — Namespace ships the first ENSv2 SDK with built-in agent identity flows; <strong>root KSK rollover T-13 days</strong> to Oct 11 hard cutover; <strong>old-key retirement Jan 2027</strong>; DNS-AID draft-02 still current, expires Nov 28 2026; Reveal Day announcement window is this week (Sep 22–28 + early next week); GNUnet/GNS and Namecoin remain on their Aug 20/Jun 28 plateaus; hsd dormant Aug 22 2025 &gt;1y stale; hns-rs <strong>v0.4.1 (Sep 1)</strong> still latest; pubky-core v0.9.3 (Jun 24) still latest.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>pubky-homeserver v0.13.0 (Sep 23 13:58)</strong> — 9 days after v0.12.0 — is the biggest missed signal of the W39 update. It is <em>not</em> a chore-only release. Highlights: <strong>#630 Basic WebDAV locks</strong> for the homeserver storage layer (first-class concurrency-safe file operations via WebDAV LOCK/UNLOCK semantics — this unlocks any client that uses WebDAV for file management, including desktop sync apps and collaborative editors); <strong>#624 SDK oversized-payload guard</strong> (closes the DoS surface where a malicious client could push unbounded response bodies); <strong>#608 SDK error response limits</strong>; <strong>#636 log version on startup</strong> (operational debugging hygiene); <strong>#605 run PR builds on native amd64 + arm64</strong>; <strong>#638 update pkarr + pkarr-relay lockfile versions</strong> (coord with pkarr v8.0.2). Dependabot bumps: opendal, sea-query, argon2, infer, axum-extra, axum-test, flume, fast-glob, wasm-streams, httpmock, ci-workflows. The PKARR-relay coord is the most consequential for this library: pkarr-relay is now at v2.0.2. See §1.</li>
+<li><strong>pubky-app v1.11.0 (Sep 23 14:33)</strong> — 5 days after v1.10.0 — is the second-biggest missed signal of the W39 update. Headline features: <strong>#2587 Pubky Passport</strong> Google sign-in + sign-up on landing page + sign-in page + onboarding Join step (availability is controlled by <code>PUBKY_RUNTIME_PASSPORT_URL</code> env — operators opt in per deployment; <strong>the on-ramp gap between self-sovereign key custody and a Google-shaped first-touch flow is now bridged</strong>); <strong>#2550 PWA improvements</strong> — install banner, iOS install instructions, offline navigation fallback, connection-status toasts, app shortcuts, unread icon badges, and an update prompt with a Reload action (the service worker precaches the app shell and leaves application data caching to the local database — the right scope, avoiding the PWA-data-loss foot-gun); <strong>#2550 native sharing</strong> (post + profile links open the native share sheet on touch devices); <strong>#2569 mention previews</strong> in OG cards (display names instead of npub); <strong>#2601 hashtags become tags</strong> in new posts/replies/quotes/articles (composer tag dedup + 5-tag limit preserved; titles + edits not scanned); <strong>#2619 video links</strong> (YouTube/Vimeo/direct video classified as video posts for Video filter; channel/playlist keep link classification); plus UI refresh (landing + onboarding + iPhone SE viewport fix). <strong>Upgrade note</strong>: first service-worker upgrade for existing installations may require fully closing + reopening the app. See §3.</li>
+<li><strong>pkarr v8.0.2 (Sep 23 11:22)</strong> — chore-only release tied to the homeserver v0.13.0 pkarr-relay lockfile bump (PR #321, andrei-21). One commit (<code>aa4011c</code>); package versions pkarr 8.0.2 / pkarr-relay 2.0.2 / @synonymdev/pkarr 8.0.2. Trivial delta in isolation, important as a coordination marker for the homeserver pkarr-relay update. <strong>Star count 457</strong> (up from 451 Sep 14). No v8.0.3-rc.0 tagged after. See §2.</li>
+<li><strong>ICANN confirms 1,616 gTLD applications proceeding (Sep 22 announcement)</strong> — official number from <a href="https://www.icann.org/en/announcements/details/icann-confirms-number-of-applications-proceeding-in-the-2026-round-22-09-2026-en" rel="noopener nofollow">icann.org/en/announcements/details/icann-confirms-number-of-applications-proceeding-in-the-2026-round-22-09-2026-en</a>: submission window closed Aug 13 with 1,663 applications, <strong>47 applicants failed to pay</strong> the per-application fee (the precondition to proceed). Reveal Day will publish the public-facing portions of the paid applications on the APS website (Application Publication + Statistics) with the contention-set listing. <strong>Reveal Day date expected to be announced "early next week"</strong> — that window is <strong>Sep 22–28</strong> (today) → first days of W41. <strong>Upper bound Oct 14</strong> per the 9-weeks-after-Aug-12 ICANNWiki rule. The same Sep 22 announcement notes ICANN90 AGM location announced Sep 24 and a separate IDN/Universal Acceptance report on Sep 22. See §4.</li>
+<li><strong>ICANN TSG public comment on gTLD × Alternative Naming Systems closed Sep 21</strong> (last week's open thread) — no further public TSG statement since, but the <strong>comment review and report-revision phase begins now</strong> with a summary report to follow. This is the highest-leverage signal in the W40 window for <a href="/kb/ens/">ENS</a>, <a href="/kb/handshake/">Handshake</a>, <a href="/kb/namecoin/">Namecoin</a>, and any alt-naming operator seeking recognition in the gTLD application process. See §5.</li>
+<li><strong>ENS Labs × Immunefi audit competition results FROZEN today Sep 28</strong> — per the post-close schedule published Aug 10 (Sep 14 close / Sep 20 ENS resolution / Sep 28 results frozen / Sep 29 48-hour dispute / Oct 26 payment + public publication). Today's freeze ends the internal-triage-only window. Vault TVL status (last public view Sep 21) was $69,981.17 — declined $8 from Sep 14 close, consistent with the competition being over. Public findings counter (306 reports / 20 confirmed / 56 under review as of Aug 31) is unchanged on the public view since Sep 14; actual triage is internal until Oct 26 publication. The ENS Labs post-competition narrative for ENSv2 mainnet-readiness will likely be tied to the Oct 26 disclosure. See §6.</li>
+<li><strong>Airstop soft fork on Handshake is live and irreversible</strong> — confirmed via <a href="https://shakeshift.com/signaling/airstop" rel="noopener nofollow">shakeshift.com/signaling/airstop</a> signaling-period data: <strong>deployment start 2025-07-01</strong>, <strong>deployment timeout 2025-10-08</strong>, <strong>threshold 95%</strong>, <strong>version bit 2</strong>, <strong>locked-in block 290304 (2025-08-14 04:24:55)</strong>, <strong>activated block 292320 (2025-08-28 04:53:41)</strong>. Final 3rd-period signaling ratio <strong>99.80%</strong> (2,012 signaling blocks vs 4 non-signaling), with ViaBTC 60%, ANTPOOL 24%, Mining-Dutch 10%, CyberPool 5%, DxPool 1% — every meaningful pool with 100% signaling at activation. <strong>209,650 unclaimed airdrop allocations × 4,246.99 HNS each = 890,382,357.93 HNS permanently removed from supply</strong>. This confirms the <a href="/kb/handshake/">Handshake</a> economic reality: hsd v8.0.0 (Jul 1) was the cut-over, and the airstop fork has been live on mainnet for 13 months — but the supply effect is only now surfacing in supply statistics. See §7.</li>
+<li><strong>Nomentum Labs Grails SPP3 Marketplace RFP — voting open</strong> ($500K executable, three-tranche payment structure: $90K upfront over 3 monthly installments + $100K performance-gated across four $25K gates with revenue + wallet + ETH secondary-volume thresholds + $310K streamed after ENSv2 readiness). Funds route through MetaGov Stream Management Pod (<code>stream.mg.wg.ens.eth</code> = <code>0xB162Bf7A7fD64eF32b787719335d06B2780e31D1</code>). Blockful calldata verification repo (<a href="https://github.com/blockful/dao-proposals/blob/c9204ae" rel="noopener nofollow">dao-proposals c9204ae</a>) passes. <strong>Live proposal URL</strong>: <a href="https://ens.gov.blockful.io/proposals/19667497139373951686084433718987773325019389190188449031876262520356769920394" rel="noopener nofollow">ens.gov.blockful.io/proposals/19667497139373951686084433718987773325019389190188449031876262520356769920394</a>. KYC pending. Performance baseline = Grails attributed revenue over the 90 days before signing. Term co-terminates with SPP3 cohort in Q3 2027. See §8.</li>
+<li><strong>Endowment permissions to KPK Update #10 — revised execution</strong> — kpk's Sep 14 update moved from applying permission changes to the <em>existing</em> Zodiac Roles module to <em>swapping the Endowment to a new Roles module</em> (cleaner audit surface; ownership transfer of the new Modifier from test Safe to Endowment Safe <code>0x4F2083f5…FE64</code> completed this week — kpk "4 days ago" post; forum-thread timeline consistent with Sep 24). New Modifier address <code>0xa23BEBFD…FD59</code>. <strong><code>owner()</code> confirmed as the Endowment Safe before scheduling</strong> is the precondition Blockful requires. This is the routine endowment permission update + the precursor to the new Harvest role for Fluid/Morpho/Merkl reward claims, spender-pinned to specific protocol contracts, with payouts forced to the Endowment safe. See §9.</li>
+<li><strong>ENS Foundation "Evolved Foundation" blog post (Sep 22 era, enslabs.eth author)</strong> — re-launches the institutional-facing narrative: <strong>represent ENS at ICANN/IETF/W3C</strong>, <strong>pursue recognition and stewardship of the <code>.ens</code> gTLD</strong>, <strong>engage on policy with regulators/lawmakers</strong>, <strong>hold and defend the ENS trademark + brand assets</strong> (action against phishing/impersonation), <strong>employ full-time staff under a tokenholder-appointed/removable board</strong>, <strong>serve as the protocol's institutional counterparty</strong>. Five-board composition: Nick Johnson (ENS Labs), Alexander Urbelis (ED), Kartik Talwar, Brett Sun, Anthony Leutenegger. Distinguishes Labs (product/engineering) from Foundation (institutional/legal). Foundation will operate as the legal entity that signs IETF/W3C participation agreements, hires staff, and enforces the trademark — exactly the gap that the DAO could not fill. This is the institutional layer for the <code>.ens</code> ICANN TSG conversation and the ICANN 2026 Round. See §10.</li>
+<li><strong>ensforge SDK adds HCA support (Sep 15–22 namespace_eth + cap.eth X posts)</strong> — HCA = scoped, time-limited grants to delegate ENS name operations (set text, transfer subnames, renew, etc.) without signing every transaction. Uses Pimlico or Rhinestone for gas sponsorship. <strong>This is the first ENSv2 SDK with built-in agent identity flows</strong> (subname creation, record management, key rotation, all under a revocable grant). The complementary ensforge ↔ MetaMask Agent Wallet plugin v0.8.0 (Sep 15) closes the surface area: CLI + JS SDK + Sepolia ENSv2 + agent identity. See §11.</li>
+<li><strong><a href="https://docs.ens.domains/ensip/28" rel="noopener nofollow">ENSIP-28 Name Owned Accounts</a></strong> — still active (12 posts through Sep 2). Adds ERC-1271 + ERC-6551 support to the "accounts associated with a name" model (a Safe, a TBA, or any smart contract can be listed under a name with its own EIP-712 proof of consent, valid for max 2 years, with optional explicit <code>accounts-chains</code> chain-set listing). Premm.eth (author), workemon.eth, raffy.eth. PR <a href="https://github.com/ensdomains/ensips/pull/84" rel="noopener nofollow">ensdomains/ensips#84</a>. The Sep 22 update added ENSIP-28 to <code>docs.ens.domains/ensip/28/</code> as a published draft. See §12.</li>
+<li><strong><a href="https://docs.ens.domains/ensip/31" rel="noopener nofollow">ENSIP-31 Payment Preferences</a></strong> — feedback thread picked up one substantive reply (jkm.eth Sep 21 5:19pm, ENS Forum) pushing back on the multichain-token fingerprinting: "there is no such thing as a single token that exists across multiple blockchains"; USDC on Base ≠ USDC on Ethereum for receiving-side accounting because of per-chain liquidity and bridge costs; "Alice might say she prefers Base to Ethereum, but that doesn't explain the exchange rate between the two, and Alice might need 21 USDC if sent on Ethereum but only 20 USDC if sent on Base". Premm.eth (author) responded with three data points needed: assets accepted/requested, amount-per-asset, preference order. <strong>This is the strongest open technical thread on multichain payment routing in 2026</strong>. PR <a href="https://github.com/ensdomains/ensips/pull/87" rel="noopener nofollow">ensdomains/ensips#87</a>. See §13.</li>
+<li><strong>Root KSK rollover T-13 days</strong> to <strong>Oct 11, 2026</strong> hard cutover (last week's T-20 → T-13). Old-key retirement <strong>Jan 2027</strong>. ICANN Board LA workshop (Sep 4–6) approved resolutions published Sep 8 (<code>approved-resolutions-special-meeting-of-the-icann-board-06-09-2026-en</code>). Reveal Day announcement expected "early next week" per Sep 22 ICANN release; upper bound Oct 14 per ICANNWiki. The simultaneous Oct 11 KSK + Oct 14 Reveal Day upper bound makes the second week of October 2026 the most institutionally-loaded week for the global DNS in years. See §14.</li>
+<li><strong>DNS-AID draft-02 still the current</strong> (no new draft, expires <strong>Nov 28 2026</strong> — last week's T-69 days → T-61 days). <a href="https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/" rel="noopener nofollow">draft-mozleywilliams-dnsop-dnsaid-02</a> is the canonical reference; <a href="https://github.com/dns-aid/dns-aid-core" rel="noopener nofollow">dns-aid-core</a> reference implementation at v0.4.8+ supports SVCB/SVCB custom parameters + DNSSec. The Cloudflare Agent-Readiness checker from Aug 24 still enforces draft-01 expectations without acknowledging the breakage. <strong>Watch</strong> for any cut before Nov 28 expiry. Stale. See §15.</li>
+<li><strong>GNUnet / GNS — no new release since 0.29.0 (Aug 20)</strong>. No new release; experimental software. <strong>Namecoin — no Namecoin Core tag since nc31.1</strong> (Bitcoin Core upstream sync continues; the Ghost-Town note from Nostr is consistent with the lack of tagged releases since May). <strong>hsd (handshake-org/hsd) — last commit 2025-08-22, no v9.x tag</strong>; only hns-rs is shipping in the Handshake ecosystem (and hns-rs is dormant since v0.4.1 Sep 1). See §16.</li>
+</ul>
+<h2 id="deep-dives">Deep dives</h2>
+<h3 id="1-pubky-homeserver-v0130-sep-23-webdav-locks-sdk-guards-version-on-startup-dual-arch-docker">1. pubky-homeserver v0.13.0 (Sep 23) — WebDAV locks, SDK guards, version-on-startup, dual-arch Docker</h3>
+<p><strong>Tag</strong>: <code>v0.13.0</code> — Sep 23 13:58:18Z — commit <code>e672ad4</code> — PR #640 (andrei-21)
+<strong>Published on crates.io</strong> as <code>pubky-homeserver v0.13.0</code> with full Linux/Windows/macOS amd64+arm64 binary matrix (9.1 MB Linux, 9.2 MB macOS, 8.3 MB Windows).
+<strong>GitHub release</strong>: <a href="https://github.com/pubky/pubky-homeserver/releases/tag/v0.13.0" rel="noopener nofollow">github.com/pubky/pubky-homeserver/releases/tag/v0.13.0</a></p>
+<p><strong>9 days after v0.12.0</strong> (Sep 14). The W39 update (Sep 21) called the v0.12.0 release the end of a 26-day plateau and predicted further releases were coming — v0.13.0 is that next release, and it lands just 9 days after, not 26. <strong>The Pubky release cadence has accelerated, not decelerated</strong>.</p>
+<p><strong>Headline features</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Author</th>
+<th>Feature</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/630" rel="noopener nofollow">#630</a></td>
+<td>@86667</td>
+<td><strong>Basic WebDAV locks</strong></td>
+<td>First-class LOCK/UNLOCK semantics on homeserver storage. <strong>This unlocks desktop sync clients and collaborative editors</strong> (anything WebDAV-shaped — Cyberduck, mountain duck, mobile file managers with WebDAV). The homeserver's storage layer can now claim honest file-management semantics instead of relying on client-side best-effort.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/624" rel="noopener nofollow">#624</a></td>
+<td>@MCarlomagno</td>
+<td>SDK guard against oversized payloads</td>
+<td>Closes the DoS surface where a malicious client could push unbounded response bodies. Closes issue #457 (ok300).</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/608" rel="noopener nofollow">#608</a></td>
+<td>@MCarlomagno</td>
+<td>SDK configurable error-response limits</td>
+<td>Closes issue #604 (icota).</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/636" rel="noopener nofollow">#636</a></td>
+<td>@andrei-21</td>
+<td><strong>Log version on startup</strong></td>
+<td>Operational debugging hygiene — every log line can now be paired with the exact release commit.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/605" rel="noopener nofollow">#605</a></td>
+<td>@andrei-21</td>
+<td><strong>Run PR builds on native amd64 + arm64 runners</strong></td>
+<td>Doubled Docker build coverage — every PR now builds both architectures. The previous architecture-only-amd64 gap masked arm64-specific regressions.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-homeserver/pull/638" rel="noopener nofollow">#638</a></td>
+<td>@andrei-21</td>
+<td>Update pkarr + pkarr-relay lockfile versions</td>
+<td>Coordination with pkarr v8.0.2 (chore release same day).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Dependabot bumps</strong> (cluster by @ok300, @mdozhdev): opendal, sea-query, argon2, infer, axum-extra, axum-test, flume, fast-glob, wasm-streams, httpmock, ci-workflows.</p>
+<p><strong>Documentation</strong>: <a href="https://github.com/pubky/pubky-homeserver/pull/631" rel="noopener nofollow">#631</a> (gcomte, "fix grant session persistence example") and <a href="https://github.com/pubky/pubky-homeserver/pull/636" rel="noopener nofollow">#636</a> SDK session storage results clarification.</p>
+<p><strong>No public API breakage</strong> in this release — the breaking changes from v0.12.0 (DockerPostgres::shared() in PR #500 + Docker build target defaulting to homeserver in PR #594) remain the current contract.</p>
+<p><strong>For this library</strong>: the WebDAV locks feature (#630) is the most consequential because it lowers the integration barrier for any WebDAV-speaking client. The pkarr-relay lockfile bump (#638) signals that the Pubky/PKARR/Pubky-homeserver cluster is being treated as one deployment unit now.</p>
+<h3 id="2-pkarr-v802-sep-23-chore-only-ties-to-homeserver-v0130">2. pkarr v8.0.2 (Sep 23) — chore-only, ties to homeserver v0.13.0</h3>
+<p><strong>Tag</strong>: <code>v8.0.2</code> — Sep 23 11:22 — commit <code>aa4011c</code> — PR #321 (andrei-21)
+<strong>Repository</strong>: <a href="https://github.com/pubky/pkarr" rel="noopener nofollow">github.com/pubky/pkarr</a> (★ 457, up from 451 Sep 14)
+<strong>Package versions</strong>: pkarr 8.0.2 / pkarr-relay 2.0.2 / @synonymdev/pkarr 8.0.2</p>
+<p>Single commit, chore release. <strong>The only substantive change is the lockfile coordination with pubky-homeserver v0.13.0</strong> (which bumped pkarr-relay to v2.0.2 the same day). No new API surface, no breaking changes.</p>
+<p><strong>Context</strong>: pkarr v8.0.1 (Aug 31) shipped 19 commits since v8.0.0 (Aug 6) including 5 dependabot-only commits (PRs #275/#279/#282/#283/#286), the refactor(dht)! decouple-public-API-from-mainline (PR #287), and the mainline v8 upgrade (PR #285). The Aug 31 v8.0.1 was the only "real" v8.x release. v8.0.2 is a marker, not a release.</p>
+<p><strong>For this library</strong>: pkarr is now treated as a stable dependency. The pkarr-relay updates (PR #268 return-stored-node-count + PR #267 split-DHT-service-and-index-rendering + PR #250 single-relay-client) are shipped and active in production. No new feature work scheduled.</p>
+<h3 id="3-pubky-app-v1110-sep-23-pubky-passport-google-sign-in-pwa-overhaul">3. pubky-app v1.11.0 (Sep 23) — Pubky Passport Google sign-in + PWA overhaul</h3>
+<p><strong>Tag</strong>: <code>v1.11.0</code> — Sep 23 14:33 — commit <code>51829ad</code> — released by @infin1t3
+<strong>GitHub release</strong>: <a href="https://github.com/pubky/pubky-app/releases/tag/v1.11.0" rel="noopener nofollow">github.com/pubky/pubky-app/releases/tag/v1.11.0</a></p>
+<p><strong>5 days after v1.10.0</strong> (Sep 18). The fastest back-to-back major release in the pubky-app v1.x line.</p>
+<p><strong>Headline features</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Author</th>
+<th>Feature</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2587" rel="noopener nofollow">#2587</a></td>
+<td>(Passport team)</td>
+<td><strong>Pubky Passport: Google sign-in + sign-up on landing/sign-in/onboarding Join step</strong></td>
+<td>First non-key onboarding path. Controlled by <code>PUBKY_RUNTIME_PASSPORT_URL</code> env. The on-ramp gap between self-sovereign key custody and a Google-shaped first-touch flow is bridged — a user can start with Google and graduate to raw key custody.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2550" rel="noopener nofollow">#2550</a></td>
+<td>(PWA team)</td>
+<td><strong>PWA overhaul</strong>: install banner, iOS install instructions, offline navigation fallback, connection-status toasts, app shortcuts, unread icon badges, update prompt with Reload action</td>
+<td>Service worker precaches the <strong>app shell</strong> only (not data) — avoids the PWA-data-loss foot-gun where the worker overwrites local DB state. The update prompt applies to subsequent deployments; first service-worker upgrade may require fully closing + reopening the app.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2550" rel="noopener nofollow">#2550</a></td>
+<td>(PWA team)</td>
+<td><strong>Native sharing</strong>: post + profile link actions open the native share sheet on touch devices</td>
+<td>Fills the integration gap with iOS/Android share menus.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2569" rel="noopener nofollow">#2569</a></td>
+<td></td>
+<td>Mention previews: shared post + profile links use display names for mentions in OG cards</td>
+<td>Improves share-card human-readability without requiring npub parsing.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2601" rel="noopener nofollow">#2601</a></td>
+<td></td>
+<td><strong>Hashtags become tags</strong> in new posts/replies/quotes/articles</td>
+<td>Composer tag dedup + 5-tag limit preserved; titles + edits not scanned. Cleanly maps social-graph discoverability to filter UX.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pubky/pubky-app/pull/2619" rel="noopener nofollow">#2619</a></td>
+<td></td>
+<td><strong>Video links</strong>: YouTube/Vimeo/direct video classified as video posts for Video filter</td>
+<td>Channel/playlist keep link classification.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Interface updates</strong>: <a href="https://github.com/pubky/pubky-app/pull/2566" rel="noopener nofollow">#2566</a> (count new posts only after local details available — fixes double-count race), <a href="https://github.com/pubky/pubky-app/pull/2595" rel="noopener nofollow">#2595</a> (circular avatar crop mask), <a href="https://github.com/pubky/pubky-app/pull/2604" rel="noopener nofollow">#2604</a> (own-profile Tagged empty-state input compact), <a href="https://github.com/pubky/pubky-app/pull/2610" rel="noopener nofollow">#2610</a> (logout page bottom inset for iPhone SE viewport), <a href="https://github.com/pubky/pubky-app/pull/2594" rel="noopener nofollow">#2594</a> (remove Collections navigation New badge), <a href="https://github.com/pubky/pubky-app/pull/2587" rel="noopener nofollow">#2587</a> (landing page layout + Passport onboarding copy), <a href="https://github.com/pubky/pubky-app/pull/2623" rel="noopener nofollow">#2623</a> (desktop Explore selector onboarding E2E fix, backported in #2628).</p>
+<p><strong>Upgrade notes</strong> (from the release body):
+- "The first service-worker upgrade for existing installations may require fully closing and reopening the app. The new update prompt applies to subsequent deployments."
+- "Operators should verify real Google signup and signin against their intended Passport and Homegate deployment before enabling <code>PUBKY_RUNTIME_PASSPORT_URL</code>."</p>
+<p><strong>For this library</strong>: <strong>Pubky Passport is the highest-impact feature</strong> — the social-recovery + first-touch-flow pattern that has been a critical missing piece for non-crypto-native onboarding. The PWA overhaul is operationally important because it standardizes the install path (the previous "go to Chrome menu → install" friction was killing mobile adoption). The video link classifier rounds out the filter taxonomy.</p>
+<h3 id="4-icann-confirms-1616-gtld-applications-proceeding-in-the-2026-round-sep-22">4. ICANN confirms 1,616 gTLD applications proceeding in the 2026 Round (Sep 22)</h3>
+<p><strong>Source</strong>: <a href="https://www.icann.org/en/announcements/details/icann-confirms-number-of-applications-proceeding-in-the-2026-round-22-09-2026-en" rel="noopener nofollow">icann.org/en/announcements/details/icann-confirms-number-of-applications-proceeding-in-the-2026-round-22-09-2026-en</a> — Sep 22, 2026</p>
+<p>The Sep 22 release confirms <strong>exactly 1,616 paid applications</strong> (out of 1,663 submitted when the Aug 13 window closed — <strong>47 applicants failed to pay the per-application fee</strong>). Reveal Day will publish the public-facing portions of the paid applications on the APS (Application Publication + Statistics) website with contention-set listings.</p>
+<p><strong>Reveal Day date will be announced "early next week"</strong> — that window is <strong>Sep 22–28 (this week) into the first days of W41</strong>. The ICANNWiki-formalized upper bound is <strong>Oct 14</strong> (the 9-weeks-after-Aug-12 cutoff from the Applicant Guidebook). The Sep 22 announcement warns applicants and interested parties to remain wary of any information not from ICANN directly.</p>
+<p><strong>Related Sep 22–24 ICANN activity</strong>:
+- Sep 22: New ICANN Report on Global Progress on IDNs and Universal Acceptance.
+- Sep 24: ICANN90 Annual General Meeting location announced.
+- (Sep 4–6 LA workshop resolutions published Sep 8 — the KSK rollover commitment.)</p>
+<p><strong>For this library</strong>: the gTLD × alt-naming integration question (ENS, Handshake, Namecoin, Unstoppable, blockchain-native TLDs in general) sits inside the 2026 Round but the <em>public list</em> will only be visible on Reveal Day. The TSG on gTLD Integrations with Alternative Naming Systems has <em>already closed</em> its initial public comment (Sep 21), and the report revision + summary response is now in flight. The Reveal Day reveal will tell us whether any blockchain-anchored TLDs applied for the same string (<code>.ens</code>, <code>.bit</code>, <code>.crypto</code>, <code>.x</code>, <code>.wallet</code>, Handshake TLDs, etc.).</p>
+<h3 id="5-icann-tsg-on-gtld-integrations-with-alternative-naming-systems-public-comment-closed-sep-21">5. ICANN TSG on gTLD Integrations with Alternative Naming Systems — public comment closed Sep 21</h3>
+<p>The Technical Study Group public comment on the Initial Report closed Sep 21 (last week's open thread). Per the <a href="https://www.icann.org/en/public-comment/proceeding/initial-report-of-the-tsg-on-gtld-integrations-with-alternative-naming-systems-10-08-2026" rel="noopener nofollow">ICANN proceeding page</a>:</p>
+<blockquote>
+<p>"Following the close of this comment period, the TSG will review all comments received and revise the report as appropriate. A summary report responding to the comments received will be prepared and published. While the TSG continues its work, ICANN org will closely track its progress and deliberations to establish the contractual amendment language..."</p>
+</blockquote>
+<p>The TSG was convened June 2026 by ICANN President/CEO Kurtis Lindqvist, coordinated by Andrew Sullivan, with members from SSAC, IETF, registry operators, and alt-naming system operators.</p>
+<p>The report text itself (942.2 KB PDF) is the threshold-question response: <em>can the same string be registered as both a global DNS gTLD and a name in an alternative naming system, and if so, under what technical requirements?</em></p>
+<p><strong>For this library</strong>: this is the highest-leverage policy signal in the W40 window because:
+1. The 1,616 paid 2026 Round applications will publish in &lt;2 weeks (Reveal Day).
+2. Any application for a string already used by an alt-naming system (e.g., <code>.eth</code> if applied for, or <code>.wallet</code>, <code>.x</code>, <code>.bit</code>) now has a TSG output to point at for "compatibility" criteria.
+3. The ENS Foundation (operational since Aug 9 per the "Next Era" execution) is the legal entity positioned to comment on any <code>.ens</code> or related string.</p>
+<p>The W39 update predicted this would close Sep 21 — confirmed.</p>
+<h3 id="6-ens-labs-immunefi-audit-competition-results-frozen-sep-28-today">6. ENS Labs × Immunefi audit competition — results frozen Sep 28 (today)</h3>
+<p><strong>Post-close schedule</strong> (Aug 10 announcement, validated through the Sep 14 close):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Announcement</td>
+<td>Aug 10, 2026</td>
+<td>✅ done</td>
+</tr>
+<tr>
+<td>Launch</td>
+<td>Aug 18, 2026</td>
+<td>✅ done</td>
+</tr>
+<tr>
+<td>Competition ends</td>
+<td>Sep 14, 2026 11:00 UTC</td>
+<td>✅ closed on schedule</td>
+</tr>
+<tr>
+<td>ENS deadline to resolve reports</td>
+<td>Sep 20, 2026</td>
+<td>✅ done (Sunday)</td>
+</tr>
+<tr>
+<td><strong>Results frozen</strong></td>
+<td><strong>Sep 28, 2026</strong></td>
+<td>🔵 <strong>frozen today</strong></td>
+</tr>
+<tr>
+<td>Final 48-hour dispute window</td>
+<td>Sep 29, 2026</td>
+<td>opens tomorrow</td>
+</tr>
+<tr>
+<td>Payment complete</td>
+<td>Oct 26, 2026</td>
+<td>pending</td>
+</tr>
+<tr>
+<td>Results published</td>
+<td>Oct 26, 2026</td>
+<td>pending</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Vault TVL</strong> (last public view Sep 21): <strong>$69,981.17</strong> (was $69,989.29 Sep 14; $69,986.98 Sep 7; $69,973.68 Aug 31). The "70K USDC target" was within operational variance.</p>
+<p><strong>Public findings counter</strong> (Aug 31 snapshot, unchanged on the public view since Sep 14): <strong>306 reports / 20 confirmed valid / 56 under review</strong>. The actual triage list has been internal since Sep 14; the public counters will not refresh until <strong>Oct 26 publication</strong>.</p>
+<p><strong>For this library</strong>: the Oct 26 publication will be the most consequential single event for the ENSv2 mainnet-readiness narrative in Q4 2026. Any high-severity finding that survives the dispute window will push the ENSv2 mainnet timeline back. Any zero-finding outcome will reinforce the "ready for mainnet" narrative. The competition's $70K prize pool + the $250K ongoing Immunefi bounty create the right adversarial-review incentive structure.</p>
+<h3 id="7-handshake-airstop-soft-fork-locked-activated-irreversible">7. Handshake Airstop soft fork — locked, activated, irreversible</h3>
+<p><strong>Source</strong>: <a href="https://shakeshift.com/signaling/airstop" rel="noopener nofollow">shakeshift.com/signaling/airstop</a></p>
+<p>The airstop soft fork is <strong>live and irreversible on mainnet</strong> — this is the <em>confirmed</em> network reality, not a future event. hsd v8.0.0 (Jul 1 2026, last week's W29 file already covered it) was the release that bundled the airstop signaling bit + wallet changes that activated it.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment start</td>
+<td>2025-07-01 00:00:00</td>
+</tr>
+<tr>
+<td>Deployment timeout</td>
+<td>2025-10-08 00:00:00</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>Version bit</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Locked-in block</strong></td>
+<td><strong>290304</strong> (2025-08-14 04:24:55)</td>
+</tr>
+<tr>
+<td><strong>Activated block</strong></td>
+<td><strong>292320</strong> (2025-08-28 04:53:41)</td>
+</tr>
+<tr>
+<td>Final signaling ratio</td>
+<td><strong>99.80%</strong> (2,012/2,016 blocks)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pool signaling at activation</strong>:
+- ViaBTC: 60% (1,201/1,201 — 100%)
+- ANTPOOL: 24% (485/489 — 99.2%)
+- Mining-Dutch: 10% (203/203 — 100%)
+- CyberPool: 5% (100/100 — 100%)
+- DxPool: 1% (23/23 — 100%)</p>
+<p><strong>Supply effect</strong>: <strong>216,199 airdrop allocations for open-source developers × 4,246.99 HNS each = 918,500,000 HNS originally allocated; 6,549 claimed; 209,650 unclaimed × 4,246.99 HNS = 890,382,357.93 HNS permanently removed from supply.</strong></p>
+<p><strong>For this library</strong>: this is the most consequential supply-side confirmation in the Handshake story since the 2nd halving (Jul 22 2026, 1000 HNS/block). Combined with the Namecheap exit (Jun 10), ViaBTC pool closure (Jun 1), Namebase wind-down (Jun 2), and the 99.8% token decline from ATH, the airstop is the <strong>permanent economic seal</strong> on the 2018–2021 airdrop era. Future HNS issuance is now strictly via mining + block subsidies only — predictable, capped, and supply-deflationary.</p>
+<p>The hsd core repo (handshake-org/hsd) remains dormant since Aug 22 2025 (last commit before the v8.0.0 release wave), no v9.x tag — but the airstop effect is <em>already in the supply statistics</em> and the only forward work is wallet/db stability + occasional backports.</p>
+<h3 id="8-nomentum-labs-grails-spp3-marketplace-rfp-voting-open-500k">8. Nomentum Labs Grails SPP3 Marketplace RFP — voting open ($500K)</h3>
+<p><strong>Source</strong>: <a href="https://discuss.ens.domains/t/executable-spp3-marketplace-rfp-award-nomentum-labs-grails/22374" rel="noopener nofollow">discuss.ens.domains/t/executable-spp3-marketplace-rfp-award-nomentum-labs-grails/22374</a></p>
+<p><strong>Award total</strong>: $500K (the max under [7.1] Social SPP3 Marketplace RFP) = $400K base + up to $100K performance-gated.</p>
+<p><strong>Three-tranche payment structure</strong>:</p>
+<ol>
+<li><strong>$90K upfront</strong>: $30K monthly installments over Q1, subject to KYC + Award Notice execution. Funds sit in <code>stream.mg.wg.ens.eth</code> = <code>0xB162Bf7A7fD64eF32b787719335d06B2780e31D1</code> (MetaGov Stream Management Pod).</li>
+<li><strong>$100K performance-gated</strong>: held in pod across four $25K gates, released on verified results:
+   - <strong>Q1 2027</strong>: attributed protocol revenue ≥ at-signing baseline + ≥150 distinct wallets completing value-transferring actions.
+   - <strong>Term end</strong>: revenue on pace for $1M/yr + ≥250 ETH filtered secondary volume over prior two quarters.
+   - Revenue baseline = Grails attributed revenue over the 90 days before signing.</li>
+<li><strong>$310K stream</strong>: opened by MetaGov from pod on committee verification of ENSv2 readiness milestone (target Q4 2026, or sufficient progress at committee judgment), running to term end. $25K wind-down escrow funded from award when stream opens.</li>
+</ol>
+<p><strong>Blockful calldata verification</strong>: <a href="https://github.com/blockful/dao-proposals/blob/c9204ae" rel="noopener nofollow">dao-proposals c9204ae</a> — <code>forge test --match-path "src/ens/proposals/ep-spp3-marketplace-rfp/*" -vv</code> — passes.</p>
+<p><strong>Live proposal</strong>: <a href="https://ens.gov.blockful.io/proposals/19667497139373951686084433718987773325019389190188449031876262520356769920394" rel="noopener nofollow">ens.gov.blockful.io/proposals/19667497139373951686084433718987773325019389190188449031876262520356769920394</a></p>
+<p><strong>Term</strong>: co-terminates with SPP3 cohort in Q3 2027. Unreleased funds return to treasury at term end.</p>
+<p><strong>For this library</strong>: Grails is the first SPP3 Marketplace RFP award to be tied explicitly to ENSv2 readiness — the $310K stream is contingent on the committee's judgment that ENSv2 is sufficiently deployed. This is a meaningful precedent: ENSv2 readiness becomes an economic dependency for ecosystem-funded marketplaces.</p>
+<h3 id="9-endowment-permissions-to-kpk-update-10-revised-execution-moving-toward-schedule">9. Endowment permissions to KPK Update #10 — revised execution moving toward schedule</h3>
+<p><strong>Source</strong>: <a href="https://discuss.ens.domains/t/draft-endowment-permissions-to-kpk-update-10/22323" rel="noopener nofollow">discuss.ens.domains/t/draft-endowment-permissions-to-kpk-update-10/22323</a> — kpk's Sep 14 post + the Sep 24-era follow-ups</p>
+<p><strong>Original spec</strong> (Jul 28 draft, Blockful-reviewed): adds RWA + fixed-income positions, curated Morpho yield vaults (kpk, Steakhouse, Smokehouse, Sentora), Aave v3 Horizon (RLUSD market), Pendle fixed-yield principal tokens, Maple Syrup swap routing, and a dedicated Harvest role for Fluid FLUID / Fluid GHO / Merkl/Morpho incentive claims.</p>
+<p><strong>Revised execution</strong> (Sep 14 update, after Blockful review): <strong>swap the Endowment to a new Roles module</strong> instead of applying permission changes to the existing module. New Modifier address <code>0xa23BEBFD…FD59</code>; ownership transferred from test Safe to Endowment Safe <code>0x4F2083f5…FE64</code> this week (kpk "4 days ago" — ~Sep 24).</p>
+<p><strong>Pre-schedule precondition</strong> (per kpk's most recent post): <code>owner()</code> on the new Modifier must be the Endowment Safe (confirmed onchain). <code>safeTxGas</code> + <code>gasPrice</code> must be 0 (so a failed switch shows as failed, not as "executed").</p>
+<p><strong>For this library</strong>: this is the routine but consequential endowment permission update that unlocks:
+- Diversification into vetted yield (Morpho curated vaults, Aave Horizon, Pendle, Maple Syrup)
+- Operational safety (Harvest role is <em>narrower</em> than the full Endowment Manager — reward claims only, with payouts forced to Endowment Safe)</p>
+<p>The kpk-as-Endowment-Manager + Blockful-as-calldata-auditor + MetaGov-as-pod-steward workflow is the standard pattern for ENS Endowment execution — and PUR #10 is the cleanest example of the pattern in 2026.</p>
+<h3 id="10-ens-foundation-evolved-foundation-blog-post-institutional-counterparty-story">10. ENS Foundation "Evolved Foundation" blog post — institutional counterparty story</h3>
+<p><strong>Source</strong>: <a href="https://ens.domains/blog/post/introducing-the-evolved-ens-foundation" rel="noopener nofollow">ens.domains/blog/post/introducing-the-evolved-ens-foundation</a> — enslabs.eth, dated Sep 22 era</p>
+<p>The blog post summarizes the Aug 9 <a href="https://discuss.ens.domains/t/draft-executable-next-era-of-ens-dao-empowering-the-ens-foundation/22329" rel="noopener nofollow">Next Era of ENS DAO proposal</a> (1.27M For / 480K Against; executable <a href="https://etherscan.io/tx/0xd38d35f55f4387301b5cdf738aabc16d38189df02cafa50c8a47a70605779422" rel="noopener nofollow">carried out onchain</a> on Aug 9) and frames the institutional gap that the Foundation is built to fill:</p>
+<blockquote>
+<p>"A DAO, on its own, does not have the legal and operational capacity to act in many of the venues where that infrastructure now needs representation. It cannot pursue recognition and stewardship of the .ens TLD at ICANN. It cannot sign agreements required for participation in IETF and W3C standards work, employ full-time staff, enforce a trademark against a phishing operation impersonating ENS, respond to legal process, or represent ENS in regulatory discussions about decentralized naming."</p>
+</blockquote>
+<p>The Foundation's enumerated capabilities (verbatim from the post):
+- <strong>Represent ENS where naming standards are developed.</strong> ICANN, IETF, W3C; pursue <code>.ens</code> TLD recognition/stewardship; coordinate with SEAL + DNS infrastructure community.
+- <strong>Engage on policy.</strong> Legal entity to meet regulators + lawmakers directly.
+- <strong>Hold and defend the brand.</strong> Consolidate ENS trademarks + brand assets; act against scams and impersonation.
+- <strong>Employ people accountable to the mission.</strong> Full-time staff under a board that tokenholders appoint + can remove.
+- <strong>Serve as the protocol's institutional counterparty.</strong> Courts, registrars, standards bodies have a defined entity to engage with.</p>
+<p>The post also clarifies ENS Labs' role: with the Foundation operational, Labs concentrates on <strong>product + engineering</strong> (ENSv2, integration, the SDK + App stack).</p>
+<p>The five-member board: Nick Johnson (ENS Labs), Alexander Urbelis (Executive Director), Kartik Talwar, Brett Sun, Anthony Leutenegger.</p>
+<p><strong>For this library</strong>: the Foundation's institutional capability is precisely the missing piece for the <strong>ICANN TSG conversation</strong> (alt-naming integration) and any Reveal Day application involving a blockchain-anchored string. The Foundation is the legal entity that can sign ICANN registry agreements, IETF participation agreements, and W3C member agreements. The DAO cannot.</p>
+<h3 id="11-ensforge-sdk-adds-hca-support-agent-identity-flows-for-ensv2">11. ensforge SDK adds HCA support — agent identity flows for ENSv2</h3>
+<p><strong>Source</strong>: <a href="https://discuss.ens.domains/t/ensforge-a-unified-typescript-sdk-for-ensv1-and-ensv2/22409" rel="noopener nofollow">discuss.ens.domains/t/ensforge-a-unified-typescript-sdk-for-ensv1-and-ensv2/22409</a> — namespace_eth (envoy1084.eth), plus cap.eth X posts Sep 22 area</p>
+<p>ensforge is the Namespace-built TypeScript SDK with intent-level actions for ENSv1 and ENSv2, shipping at v0.3.1 under Apache 2.0 (Promise + Effect APIs, composed batching, wallet-aware write plans). GitHub: <a href="https://github.com/thenamespace/ensforge" rel="noopener nofollow">thenamespace/ensforge</a>; docs: <a href="https://ensforge.com" rel="noopener nofollow">ensforge.com</a>.</p>
+<p><strong>HCA support added Sep 22-era</strong>: scoped, time-limited grants to delegate ENS name operations (set text, transfer subnames, renew) <strong>without signing every transaction</strong>. Permissions are scoped and time-limited, revocable at any time. <strong>Gas sponsorship via Pimlico or Rhinestone</strong>.</p>
+<p>Use cases (per cap.eth Sep 22): set text on a name without holding the parent, manage subnames as an agent, automate renewal.</p>
+<p><strong>For this library</strong>: HCA is the agent-identity primitive for ENSv2. Combined with the <a href="https://docs.ens.domains/ensip/28" rel="noopener nofollow">ENSIP-28 Name Owned Accounts</a> model (EIP-712 proofs that an account consents to be listed under a name), HCA closes the agent-economy loop: an ENS name can list multiple agents (Safe + TBA + agent wallet), each with its own consent proof, and delegate specific operations to each. This is the closest ENS has come to the W3C DID/VC model while staying within the ENS data-record pattern.</p>
+<h3 id="12-ensip-28-name-owned-accounts-continues-to-gather-feedback">12. ENSIP-28 Name Owned Accounts — continues to gather feedback</h3>
+<p><strong>Source</strong>: <a href="https://discuss.ens.domains/t/ensip-28-ens-name-owned-accounts/22373" rel="noopener nofollow">discuss.ens.domains/t/ensip-28-ens-name-owned-accounts/22373</a> (12 posts through Sep 2); spec published at <a href="https://docs.ens.domains/ensip/28/" rel="noopener nofollow">docs.ens.domains/ensip/28/</a></p>
+<p><strong>Authors</strong>: premm.eth, workemon.eth, raffy.eth.
+<strong>Created</strong>: Aug 13, 2026. <strong>Status</strong>: draft.</p>
+<p>ENSIP-28 lets an ENS name list <strong>more than one account per chain</strong> (Safe, token-bound account, agent wallet, etc.) and requires each listed account to prove consent via EIP-712 signature, stored as a data record alongside the listing. Covers EOAs (ecrecover), deployed smart accounts (ERC-1271 SignatureChecker), and token-bound accounts (ERC-6551).</p>
+<p><strong>Key fields</strong>:
+- <code>accounts[&lt;chain-id&gt;]</code> = <code>abi.encode(address account1, account2, ...)</code> (one record per chain, accounts in any order).
+- <code>accounts[&lt;chain-id&gt;][&lt;account&gt;]</code> = <code>abi.encode(uint256 expiresAt, bytes signature)</code> (proof for each account; <code>expiresAt</code> ≤ 2 years from now; proof invalid at and after <code>expiresAt</code>).
+- Optional <code>accounts-chains</code> record lists all chains with accounts.</p>
+<p><strong>For this library</strong>: this is the first ENSIP to standardize the agent-identity-list pattern at the protocol layer. It is the <em>consent</em> model (each account proves it consents to be listed) which means an ENS name cannot unilaterally attach an account to itself without that account's signature. The 2-year <code>expiresAt</code> cap is a safety mechanism: accounts can withdraw consent by simply not re-signing.</p>
+<h3 id="13-ensip-31-payment-preferences-multichain-token-fingerprinting-debate">13. ENSIP-31 Payment Preferences — multichain-token fingerprinting debate</h3>
+<p><strong>Source</strong>: <a href="https://discuss.ens.domains/t/ensip-31-payment-preferences/22431" rel="noopener nofollow">discuss.ens.domains/t/ensip-31-payment-preferences/22431</a></p>
+<p><strong>Author</strong>: premm.eth. <strong>Created</strong>: Sep 17. <strong>Status</strong>: draft. PR <a href="https://github.com/ensdomains/ensips/pull/87" rel="noopener nofollow">ensdomains/ensips#87</a>.</p>
+<p>ENSIP-31 lets a recipient publish an <strong>ordered, token-specific list of preferred chains</strong> through their ENS name as an ENSIP-24 data record (key <code>payment-preference[]</code>). Wallets read before choosing a chain.</p>
+<p><strong>Example</strong>: alice.eth publishes that for USDC she prefers Base first, Ethereum second. A wallet asked to send 20 USDC reads the record, picks Base, and resolves the Base address as normal.</p>
+<p><strong>The multichain-token fingerprinting question</strong> (the unresolved technical question):
+- Symbols like "USDC" are not canonical.
+- Contract addresses are canonical but identify a token on only one chain.
+- Once a token exists across multiple chains, there is no single canonical identifier for the multichain token as a whole.
+- ENSIP-31 currently addresses this by hashing an immutable snapshot of its chain-specific token representations.</p>
+<p><strong>jkm.eth's Sep 21 reply</strong> (substantive pushback):</p>
+<blockquote>
+<p>"In practical terms, many people may consider all deployments of USDC to be fungible, because they are all 'backed' by the same entity. However, 20 USDC on one chain isn't guaranteed to always be worth 20 USDC on another chain, as low liquidity or the cost of moving assets between chains can separately impact the value of each. Therefore, trying to present distinct assets as one unified asset is tricky. Alice might say she prefers Base to Ethereum, but that doesn't explain the exchange rate between the two, and Alice might need 21 USDC if sent on Ethereum but only 20 USDC if sent on Base. It seems like payment details comprise 3 data points: which assets are accepted/requested, how much of the asset is required depending on which asset is chosen, and the order of preference between those assets. Publishing just one of these data points seems unhelpful when the other two still need to be conveyed somehow."</p>
+</blockquote>
+<p><strong>For this library</strong>: this is the strongest open technical thread on multichain payment routing in 2026. It is also the first ENSIP to tackle recipient-side chain routing at the protocol layer. The resolution of the multichain-token-fingerprinting question will likely require either (a) a Multichain Token Registry maintained by a third party (Uniswap's Universal Token List is the closest analog), or (b) a snapshot-and-hash approach as currently proposed, or (c) per-chain ordering without a unified token identifier.</p>
+<h3 id="14-root-ksk-rollover-t-13-days-to-oct-11-2026">14. Root KSK rollover T-13 days to Oct 11, 2026</h3>
+<p><strong>Source</strong>: ICANN Board LA workshop resolutions (Sep 4–6, published Sep 8) + Jul/Aug ICANN blog posts confirming the Oct 11 hard date.</p>
+<p>The root DNSSEC Key Signing Key (KSK) rollover is <strong>T-13 days</strong> from today. The hard cutover is <strong>Oct 11, 2026</strong>. Old-key retirement is <strong>Jan 2027</strong>.</p>
+<p>The simultaneous Oct 11 KSK + Oct 14 Reveal Day upper bound makes the second week of October 2026 the most institutionally-loaded week for the global DNS in years.</p>
+<p>For the decentralized-DNS stack, the KSK rollover is operationally relevant for any project that bridges to legacy DNS:
+- <a href="/kb/ens/">ENS</a> DNSSEC import (the PR #572 ancestor-inceptions-onchain fix from Sep 14 weekly moves closer to operational)
+- <a href="/kb/handshake/">Handshake</a> resolvers that resolve traditional TLDs as a side-effect
+- <a href="/kb/namecoin/">Namecoin</a> <code>.bit</code> HTTPS via ncp11 (NCIP validation may inherit trust through the ICANN root)
+- ICANN's own Name Collision Observatory pre-delegation gate for 2026 Round applications</p>
+<h3 id="15-dns-aid-draft-02-expires-nov-28-2026-still-no-new-draft">15. DNS-AID draft-02 expires Nov 28, 2026 — still no new draft</h3>
+<p><strong>Source</strong>: <a href="https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/" rel="noopener nofollow">datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/</a></p>
+<p>DNS-AID (DNS-based Agent Identifier) draft-02 is the current canonical reference for AI agent discovery via DNS records. The Cloudflare Agent-Readiness checker (Aug 24) still enforces draft-01 expectations without acknowledging the breakage.</p>
+<p>The DNSOP working group has not cut a new draft. The expiry is <strong>Nov 28, 2026</strong> — T-61 days from today.</p>
+<p><strong>For this library</strong>: watch for any cut before Nov 28. Stale but not dead. The DNS-AID pattern matters because any agent-discovery layer for the legacy web will sit on top of the gTLD root, which means the ICANN TSG × alt-naming conversation also applies here — an ENS name or Handshake TLD can carry an agent identifier through the DNS-AID SVCB custom-parameter pattern, but only if the ICANN root recognizes the lookup as DNS.</p>
+<h3 id="16-gnunetgns-namecoin-hsd-hns-rs-release-plateaus-gnunet-remains-experimental">16. GNUnet/GNS, Namecoin, hsd, hns-rs — release plateaus (GNUnet remains experimental)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Latest release</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GNUnet</td>
+<td><strong>0.29.0</strong> (Aug 20 2026)</td>
+<td>No new release; experimental software</td>
+<td>Protocol break with 0.28.x.</td>
+</tr>
+<tr>
+<td>Namecoin Core</td>
+<td><strong>nc31.1</strong> (Bitcoin Core upstream sync; last tag stale)</td>
+<td>Ghost town</td>
+<td>NIP-05 resolution is the suggested migration path (per Nostr note Sep 24).</td>
+</tr>
+<tr>
+<td>hsd (handshake-org/hsd)</td>
+<td><strong>v8.0.0</strong> (Jul 1 2026)</td>
+<td><strong>Dormant &gt;1y since Aug 22 2025 last commit before v8.0.0 release</strong></td>
+<td>airstop soft fork live on mainnet. PR #952 hard-fork still frozen since May 11.</td>
+</tr>
+<tr>
+<td>hns-rs</td>
+<td><strong>v0.4.1</strong> (Sep 1)</td>
+<td>Stale 27 days</td>
+<td>Shakescape V1 swap registry + HNSR profile + signed watch readiness. No v0.4.2 or v0.5 in the window.</td>
+</tr>
+<tr>
+<td>pubky-core</td>
+<td><strong>v0.9.3</strong> (Jun 24)</td>
+<td>Stable plateau</td>
+<td>TLS revocation hard-fail disabled on Android.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>For this library</strong>: GNUnet is the only one of these shipping meaningful protocol changes in 2026 (0.28.0 → 0.29.0 was a wire-compat break). Namecoin has effectively migrated its discoverability story to NIP-05. hsd is in maintenance mode with airstop live on mainnet but no forward protocol work. hns-rs has shipped v0.4.0 + v0.4.1 (Sep 1) focused on the Shakescape V1 swap layer but no v0.4.2/v0.5 in the window.</p>
+<h3 id="17-governance-items-in-flight-other-than-the-above">17. Governance items in flight (other than the above)</h3>
+<ul>
+<li><strong>[Executable] SPP3 Marketplace RFP Award: Nomentum Labs</strong> — voting live ($500K; §8 above).</li>
+<li><strong>[Executable] Endowment permissions to KPK Update #10</strong> — revised execution moving toward schedule (§9 above).</li>
+<li><strong>ENS-GR-01 Ten-Proposal Governance Record</strong> research (Sep 8 alontweft post) — proposes new delegation-incentive algorithm. Personal vote coefficients (10/10 → 1.000, 9/10 → 0.810, ..., 0–6/10 → 0). Delegated voting coefficients (Delegate qualified votes × Holder reconfirms within 5 proposals → Holder 0.7 / Delegate 0.3 at 10/10+reconfirm). Reduces "miss 1 vote → penalty only" cliff effect. Public Round 2 data: largest holder share among seven with current 250 ENS hard cap = 14.29%; no cap + linear = 26.17%; continuous diminishing-return = 20.81%. <strong>The diminishing-return curve replaces the hard per-address cap to disincentivize wallet splitting without giving newcomers an immediate mature-participant return</strong>.</li>
+<li><strong>Endowment NAV $93M</strong> (Steakhouse August slides, unchanged from last week).</li>
+<li><strong>Endowment permissions to KPK Update #10</strong> — new Modifier ownership transferred this week (Sep 24-era kpk post).</li>
+<li><strong>MetaMask Agent Wallet ENSv2 plugin v0.8.0</strong> (Sep 15) — still Sepolia only.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Source</th>
+<th>Date</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pubky-homeserver v0.13.0</td>
+<td><a href="https://github.com/pubky/pubky-homeserver/releases/tag/v0.13.0" rel="noopener nofollow">GitHub release</a></td>
+<td>2026-09-23 13:58Z</td>
+<td>Basic WebDAV locks #630 + SDK guards #624/#608 + dual-arch Docker PR builds #605 + pkarr-relay lockfile bump #638.</td>
+</tr>
+<tr>
+<td>pubky-app v1.11.0</td>
+<td><a href="https://github.com/pubky/pubky-app/releases/tag/v1.11.0" rel="noopener nofollow">GitHub release</a></td>
+<td>2026-09-23 14:33Z</td>
+<td>Pubky Passport Google sign-in + PWA overhaul + native sharing + video links.</td>
+</tr>
+<tr>
+<td>pkarr v8.0.2</td>
+<td><a href="https://github.com/pubky/pkarr/releases/tag/v8.0.2" rel="noopener nofollow">GitHub release</a></td>
+<td>2026-09-23 11:22Z</td>
+<td>Chore-only; ties to homeserver v0.13.0.</td>
+</tr>
+<tr>
+<td>ICANN 1,616 paid applications</td>
+<td><a href="https://www.icann.org/en/announcements/details/icann-confirms-number-of-applications-proceeding-in-the-2026-round-22-09-2026-en" rel="noopener nofollow">ICANN announcement Sep 22</a></td>
+<td>2026-09-22</td>
+<td>Reveal Day announcement "early next week" (Sep 22–28 + W41). Upper bound Oct 14.</td>
+</tr>
+<tr>
+<td>ICANN TSG × alt-naming comment closed</td>
+<td><a href="https://www.icann.org/en/public-comment/proceeding/initial-report-of-the-tsg-on-gtld-integrations-with-alternative-naming-systems-10-08-2026" rel="noopener nofollow">ICANN proceeding page</a></td>
+<td>2026-09-21</td>
+<td>Comment review + report revision phase begins. Summary report to follow.</td>
+</tr>
+<tr>
+<td>ENS Labs × Immunefi results frozen</td>
+<td>Immunefi dashboard (private)</td>
+<td>2026-09-28</td>
+<td>48-hour dispute window opens Sep 29. Payment + publication Oct 26.</td>
+</tr>
+<tr>
+<td>Handshake airstop signaling</td>
+<td><a href="https://shakeshift.com/signaling/airstop" rel="noopener nofollow">Shakeshift signaling dashboard</a></td>
+<td>2025-08-28 04:53:41 (activated)</td>
+<td>99.80% signaling ratio. 890,382,357.93 HNS permanently removed from supply.</td>
+</tr>
+<tr>
+<td>Nomentum Labs Grails SPP3 voting</td>
+<td><a href="https://ens.gov.blockful.io/proposals/19667497139373951686084433718987773325019389190188449031876262520356769920394" rel="noopener nofollow">Blockful proposal page</a></td>
+<td>2026-09-22 (voting live)</td>
+<td>$500K three-tranche ($90K + $100K gates + $310K stream).</td>
+</tr>
+<tr>
+<td>Endowment PUR #10 new Modifier</td>
+<td><a href="https://discuss.ens.domains/t/draft-endowment-permissions-to-kpk-update-10/22323" rel="noopener nofollow">kpk post</a></td>
+<td>2026-09-24</td>
+<td>New Modifier 0xa23BEBFD…FD59; ownership transferred to Endowment Safe 0x4F2083f5…FE64.</td>
+</tr>
+<tr>
+<td>ENS Foundation Evolved blog</td>
+<td><a href="https://ens.domains/blog/post/introducing-the-evolved-ens-foundation" rel="noopener nofollow">ens.domains blog</a></td>
+<td>2026-09-22 era</td>
+<td>Institutional counterparty story; <code>.ens</code> TLD recognition campaign.</td>
+</tr>
+<tr>
+<td>ensforge HCA + Pimlico/Rhinestone</td>
+<td><a href="https://discuss.ens.domains/t/ensforge-a-unified-typescript-sdk-for-ensv1-and-ensv2/22409" rel="noopener nofollow">discuss.ens.domains ensforge thread</a></td>
+<td>2026-09-22</td>
+<td>Scoped, time-limited grants; gas sponsorship.</td>
+</tr>
+<tr>
+<td>ENSIP-28 published spec</td>
+<td><a href="https://docs.ens.domains/ensip/28/" rel="noopener nofollow">docs.ens.domains/ensip/28/</a></td>
+<td>2026-09-22 era</td>
+<td>Author premm.eth/workemon.eth/raffy.eth; ERC-1271 + ERC-6551 + EIP-712 consent proofs.</td>
+</tr>
+<tr>
+<td>ENSIP-31 jkm.eth reply</td>
+<td><a href="https://discuss.ens.domains/t/ensip-31-payment-preferences/22431" rel="noopener nofollow">discuss.ens.domains/t/ensip-31-payment-preferences/22431</a></td>
+<td>2026-09-21 17:19</td>
+<td>Multichain-token fungibility + exchange-rate argument; 3-data-point payment model.</td>
+</tr>
+<tr>
+<td>Root KSK rollover</td>
+<td>ICANN Board LA resolutions Sep 8</td>
+<td>2026-10-11</td>
+<td>T-13 days; old-key retirement Jan 2027.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-to-watch-next-week-w41-sep-29-oct-5">What to watch next week (W41, Sep 29 – Oct 5)</h2>
+<ol>
+<li><strong>Reveal Day date announcement</strong> — ICANN "early next week" window is now. The APS website launch + Reveal Day will publish the 1,616 paid gTLD strings + contention sets. Watch for any application strings that overlap with blockchain-anchored TLDs (<code>.ens</code>, <code>.eth</code>, <code>.bit</code>, <code>.crypto</code>, <code>.x</code>, <code>.wallet</code>, Handshake TLDs).</li>
+<li><strong>ENS Labs × Immunefi 48-hour dispute window</strong> — opens Sep 29, closes Oct 1. No public signal expected unless a high-severity finding is disputed.</li>
+<li><strong>Endowment PUR #10 schedule + execution</strong> — kpk to schedule the new Modifier switch once ownership is confirmed. Expect a same-day or next-day execution.</li>
+<li><strong>ICANN TSG report revision</strong> — comment review begins; expect a revised report or a summary response in the W41–W42 window.</li>
+<li><strong>ENSIP-31 Payment Preferences multichain-token-fingerprinting debate</strong> — premm.eth's response to jkm.eth's 3-data-point critique may land in the W41 window.</li>
+<li><strong>pubky-core next release</strong> — v0.9.3 (Jun 24) is now 96 days old. Expect a v0.9.4 or v0.10.0 in the W41–W42 window based on PR velocity.</li>
+<li><strong>pkarr v8.0.3 or v8.1.0</strong> — only if a feature lands (not just dependabot). No PRs visible in the W40 window.</li>
+<li><strong>hns-rs</strong> — still v0.4.1 (Sep 1, 27 days old). Watch for any v0.4.2 with the post-airstop supply-statistics integration.</li>
+<li><strong>DNS-AID draft-03</strong> — watch for any cut before Nov 28 expiry (T-61 days).</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.gnunet.org/en/about.html" rel="noopener nofollow">GNUnet: early-alpha software status</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/naming/2026-09-21/"><span class="label">Previous</span><span class="pn-t">Decentralized DNS Monday — September 21 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/naming/"><span class="label">Series</span><span class="pn-t">All Decentralized DNS Monday briefings</span></a>
+      <a href="/briefings/naming/2026-10-05/"><span class="label">Next</span><span class="pn-t">Decentralized DNS Monday — October 05 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

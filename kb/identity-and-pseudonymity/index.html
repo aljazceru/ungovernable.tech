@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity — ungovernable.tech</title>
+<meta name="description" content="Identity rooted in cryptographic keys instead of institutions: why pseudonymity matters, how identities get linked, and how to keep them apart.">
+<link rel="canonical" href="https://ungovernable.tech/kb/identity-and-pseudonymity/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity — ungovernable.tech">
+<meta property="og:description" content="Identity rooted in cryptographic keys instead of institutions: why pseudonymity matters, how identities get linked, and how to keep them apart.">
+<meta property="og:url" content="https://ungovernable.tech/kb/identity-and-pseudonymity/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity — ungovernable.tech">
+<meta name="twitter:description" content="Identity rooted in cryptographic keys instead of institutions: why pseudonymity matters, how identities get linked, and how to keep them apart.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Identity and Pseudonymity", "description": "Identity rooted in cryptographic keys instead of institutions: why pseudonymity matters, how identities get linked, and how to keep them apart.", "dateModified": "2026-10-25", "datePublished": "2026-04-19", "url": "https://ungovernable.tech/kb/identity-and-pseudonymity/", "mainEntityOfPage": "https://ungovernable.tech/kb/identity-and-pseudonymity/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity", "item": "https://ungovernable.tech/kb/identity-and-pseudonymity/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Identity and Pseudonymity</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Identity and Pseudonymity</h1>
+  <p class="aka">Also Pseudonymous Identity, Key-Based Identity, Reputation Systems.</p>
+  <p class="dek">Identity rooted in cryptographic keys rather than institutional verification. Pseudonymity is treated as a feature, and reputation comes from behavior rather than credentials.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>25</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-it-matters">Why it matters</a><a href="#core-primitives">Core primitives</a><a href="#pseudonymity-patterns">Pseudonymity patterns</a><a href="#reputation-systems">Reputation systems</a><a href="#proof-of-personhood">Proof of personhood</a><a href="#attack-vectors-and-mitigations">Attack vectors and mitigations</a><a href="#relation-to-other-topics">Relation to other topics</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#mid-may-2026-developments">Mid-May 2026 Developments</a><a href="#late-may-2026-developments">Late-May 2026 Developments</a><a href="#early-june-2026-developments">Early-June 2026 Developments</a><a href="#june-14-2026-sunday-weekly-update">June 14, 2026 — Sunday Weekly Update</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-it-matters">Why it matters</h2>
+<p>The legacy identity model relies on verification through institutions (governments, banks, social platforms). Each can freeze, revoke, or expose your identity. Key-based pseudonymous identity inverts this: the identity is the keypair, and reputation accumulates through action, not approval.</p>
+<p>This model is the basis for:
+- Censorship-resistant communication (Nostr, encrypted messaging)
+- Sybil-resistant governance (DAO voting, airdrop distribution)
+- Privacy-preserving access (age gates, content filters without identity)
+- Self-sovereign reputation (no platform can delete your history)</p>
+<h2 id="core-primitives">Core primitives</h2>
+<h3 id="key-based-identity">Key-based identity</h3>
+<p>Instead of a username/password or OAuth, the identity is a cryptographic keypair:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>npub/nsec</strong></td>
+<td>Nostr keys (Bech32)</td>
+<td><code>npub1...</code> / <code>nsec1...</code></td>
+</tr>
+<tr>
+<td><strong>hex pubkey</strong></td>
+<td>Raw format</td>
+<td><code>32-character hex string</code></td>
+</tr>
+<tr>
+<td><strong>did:key</strong></td>
+<td>Self-contained DID</td>
+<td><code>did:key:z6Mk...</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The private key (<code>nsec</code>) signs messages; the public key (<code>npub</code>) identifies you. Lose the private key and the identity is gone. There is no recovery and no reset.</p>
+<h3 id="nostr-identity-model">Nostr identity model</h3>
+<p>Nostr (Notes and Other Stuff Transmitted by Relays) was the first widely deployed key-based identity:</p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    Nostr Identity                       │
+├─────────────────────────────────────────────────────────┤
+│  Keypair: npub (identity) + nsec (auth)                │
+│      │                                                   │
+│      ├──► Sign events (notes, DMs, follows)             │
+│      │                                                   │
+│      └──► Choose relays (your feed, your publisher)     │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p>Properties:
+- No email, phone, or identity document required.
+- No central server owns the account.
+- No terms of service that can ban you.
+- The identity persists as long as the key does.</p>
+<h3 id="nip-05-human-readable-verification">NIP-05: human-readable verification</h3>
+<p>Raw keys are unwieldy. NIP-05 maps public keys to human-readable identifiers:</p>
+<pre><code># Request
+GET /.well-known/nostr.json?npub=npub1...
+
+# Response
+{
+  "names": {
+    "alice": "abc123...hexpubkey"
+  }
+}
+</code></pre>
+<p>Now <code>alice@domain.com</code> resolves to the public key. This gives:
+- Verification: clients confirm the key owns the domain.
+- Spoofing resistance: the mapping cannot be faked without domain control.
+- Lightning addresses: <code>alice@domain.com</code> doubles as an <code>lnurl1...</code> payment endpoint.</p>
+<h3 id="didnostr-w3c-did-method-for-nostr-keys-20252026">DID:Nostr — W3C DID method for Nostr keys (2025–2026)</h3>
+<p>The W3C Nostr Community Group published a draft DID method specification for <code>did:nostr</code> in 2025–2026, enabling Nostr secp256k1 keys to function as full W3C Decentralized Identifiers:</p>
+<pre><code>did:nostr:124c0fa99407182ece5a24fad9b7f6674902fc422843d3128d38a0afbee0fdd2
+</code></pre>
+<p><strong>What it adds over raw npubs:</strong></p>
+<ul>
+<li>Standard W3C DID document format — Nostr keys become resolvable through the global DID ecosystem.</li>
+<li>Multikey verification method: BIP-340 x-only secp256k1 keys transformed into Verifiable Credentials Data Integrity format via multicodec.</li>
+<li>Optional service endpoints pointing to Nostr relays.</li>
+<li><code>alsoKnownAs</code> field linking to other DIDs or platform identities (with privacy caveats — this creates public linkage).</li>
+<li>Profile field derived from kind 0 events (name, about, picture, timestamp).</li>
+<li><code>follows</code> field derived from kind 3 contact lists for social graph attestation.</li>
+</ul>
+<p><strong>Resolution:</strong></p>
+<ul>
+<li>HTTP: <code>https://&lt;domain&gt;/.well-known/did/nostr/&lt;pubkey&gt;.json</code></li>
+<li>Minimal resolution requires only the DID itself — no network needed for basic verification.</li>
+<li>Enhanced resolution queries Nostr relays for metadata and NIP-05 endpoints.</li>
+</ul>
+<p><strong>Important constraints:</strong>
+- <strong>No update operation</strong> — DID documents are immutable snapshots derived from on-network events.
+- <strong>No delete/revoke</strong> — the DID cannot be voluntarily removed from the ecosystem.
+- DIDs use raw hex public keys, not Bech32 npubs.</p>
+<p>The specification is a W3C Community Group draft, not a W3C Standard. See <a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">nostrcg/did-nostr</a> and the rendered spec at <a href="https://nostrcg.github.io/did-nostr/" rel="noopener nofollow">nostrcg.github.io/did-nostr</a>.</p>
+<h3 id="http-schnorr-signature-authentication-w3c-cg-draft">HTTP Schnorr Signature Authentication (W3C CG draft)</h3>
+<p>A sibling specification from the W3C Nostr Community Group defines how to authenticate HTTP requests using Schnorr signatures — the same primitives used in Nostr and Bitcoin Taproot:</p>
+<pre><code>Authorization: Nostr &lt;base64-encoded-signed-json-event&gt;
+</code></pre>
+<p>The event contains the request URL, HTTP method, and timestamp, signed by the user's keypair. This enables:</p>
+<ul>
+<li><strong>Decentralized HTTP authentication</strong> without passwords, OAuth, or session cookies.</li>
+<li>Seamless Nostr identity as an HTTP auth credential.</li>
+<li>Privacy-preserving: no account registration, no shared secrets stored server-side.</li>
+</ul>
+<p>Specification at <a href="https://nostrcg.github.io/http-schnorr-auth/" rel="noopener nofollow">nostrcg.github.io/http-schnorr-auth</a>. This is a research-grade draft, but the combination of <code>did:nostr</code> + HTTP Schnorr Auth points toward a world where a single secp256k1 keypair serves as: Nostr identity, DID identifier, HTTP authentication credential, and Lightning payment sender.</p>
+<h3 id="2026-custody-stack-signers-bunkers-threshold-keys">2026 custody stack: signers, bunkers, threshold keys</h3>
+<p>The largest live change since the first version of this note is that Nostr identity is moving away from "paste the <code>nsec</code> into every app" toward dedicated custody layers. See <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> for the deep dive. The short version:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Standard / project</th>
+<th>What it changes</th>
+<th>Maturity signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser signer</td>
+<td><a href="https://nips.nostr.com/07" rel="noopener nofollow">NIP-07</a></td>
+<td>Web clients ask an extension to sign; they do not hold the <code>nsec</code></td>
+<td>Widely deployed</td>
+</tr>
+<tr>
+<td>Remote signer / bunker</td>
+<td><a href="https://nips.nostr.com/46" rel="noopener nofollow">NIP-46</a></td>
+<td>Clients communicate with a phone, daemon, server, or hardware signer over encrypted Nostr events</td>
+<td>Active standard; Amber and bunker tools exist</td>
+</tr>
+<tr>
+<td>Android signer</td>
+<td><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a></td>
+<td>Smartphone acts as the user's Nostr signing device</td>
+<td>Active GitHub development; pushed 2026-04-29</td>
+</tr>
+<tr>
+<td></td>
+<td>Threshold signing</td>
+<td><a href="https://opensats.org/projects/frostr" rel="noopener nofollow">Frostr</a>, <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">Bifrost</a>, <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">Igloo Server</a></td>
+<td>Split the identity key into shares; any quorum signs without reconstructing the <code>nsec</code></td>
+</tr>
+<tr>
+<td>Trust assertions</td>
+<td><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85</a></td>
+<td>Signed provider outputs for ranks, follower counts, zaps, reports, and WoT metrics</td>
+<td>Draft/optional; cross-client deployment in Amethyst, Primal, Coracle as of Q1–Q2 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>This matters because key-rooted identity only works at civilizational scale if users can survive stolen phones, malicious clients, dead laptops, and organizational turnover without giving control back to platforms.</p>
+<h2 id="pseudonymity-patterns">Pseudonymity patterns</h2>
+<h3 id="the-pseudonymity-spectrum">The pseudonymity spectrum</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anonymous</strong></td>
+<td>No identifier, no history</td>
+<td>Tor-only poster</td>
+</tr>
+<tr>
+<td><strong>Pseudonymous</strong></td>
+<td>Persistent key-identity, no real name</td>
+<td>Most Nostr users</td>
+</tr>
+<tr>
+<td><strong>Verified-pseudo</strong></td>
+<td>Key linked to domain/NIP-05</td>
+<td><code>alice@domain.com</code></td>
+</tr>
+<tr>
+<td><strong>Named-pseudo</strong></td>
+<td>Persistent handle, real name optional</td>
+<td><code>@alice</code> on Nostr</td>
+</tr>
+<tr>
+<td><strong>Real-named</strong></td>
+<td>Keys linked to legal identity</td>
+<td>Government VC, EUDI wallet</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="multiple-identities">Multiple identities</h3>
+<p>Sophisticated users keep separate keypairs for different contexts:</p>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│            Identity Segregation                    │
+├─────────────────────────────────────────────────────┤
+│  Work Identity    ──► Professional content, DMs    │
+│  Personal Identity ──► Friends, family            │
+│  activist Identity ──► Political, sensitive        │
+│  Degen Identity  ──► Trading, gambling             │
+│  AI Agent Identity ──► Automated services          │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<p>Each identity is independent. There is no link between them unless the user chooses to correlate.</p>
+<p>Tools for managing multiple identities:
+- nostr-crypt for encrypted key storage.
+- GnuPG with the SSH agent for key management.
+- Hardware wallets for cold storage of the main identity.</p>
+<h3 id="ai-agent-identity">AI agent identity</h3>
+<p>A pattern that has emerged: AI agents get their own Nostr identity. Key developments:</p>
+<p><strong>NIP-26: Delegated Event Signing — unrecommended</strong></p>
+<p>The NIPs README marks this proposal as unrecommended. The following describes the historical proposal, not a recommended custody pattern.
+- Allows key delegation: Authorize another keypair (agent) to publish on your behalf.
+- Time-bounded permissions (e.g., "can post for 30 days").
+- Used by AI agents that need to act on behalf of humans.</p>
+<p><strong>NIP-EE: MLS End-to-End Encryption</strong>
+- Uses the Messaging Layer Security (MLS) protocol for Nostr.
+- Nostr identity key is NOT used for MLS encryption — compromise of npub doesn't expose messages.
+- Supports group messaging with key agreement.</p>
+<p><strong>Agent Directory (agentdex.id)</strong>
+- Open directory for AI agents on Nostr.
+- Agents register with npub, capabilities, framework, model.
+- Kind 31339 events for agent metadata.
+- Can be claimed via NIP-05 (e.g., <code>agent@agentdex.id</code>).</p>
+<p><strong>Keychat</strong>
+- OpenClaw plugin that gives each AI agent a sovereign pubkey.
+- Agents can be added as contacts and messaged directly.</p>
+<p><strong>Frostr (OpenSats 2025-2026 grant)</strong>
+- Multi-device signing, key rotation, share replacement.
+- Enabled by FROST (Friendly Out-of-order Threshold Signatures).
+- Projects: Frost, Bifrost, nostrp2p + clients (Igloo, Frost2x, Heimdall, Frostbite, Permafrost).</p>
+<h2 id="reputation-systems">Reputation systems</h2>
+<h3 id="trust-scoring-in-nostr">Trust scoring in Nostr</h3>
+<p>Nostr implements reputation through the follow graph:</p>
+<pre><code>Your follows ──────────► First degree (trusted)
+    │
+    └──► Their follows ──► Second degree (transitive)
+           │
+           └──► ... ───────► Nth degree (diminishing trust)
+</code></pre>
+<p>Scoring approaches:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Social distance</strong></td>
+<td>Path length from you = trust weight</td>
+</tr>
+<tr>
+<td><strong>PageRank</strong></td>
+<td>Global influence based on incoming follows</td>
+</tr>
+<tr>
+<td><strong>GrapeRank</strong> (Taltech)</td>
+<td>Average score × average influential followers</td>
+</tr>
+<tr>
+<td><strong>Proof of Work</strong></td>
+<td>Zap (Lightning payments) as reputation signal</td>
+</tr>
+<tr>
+<td><strong>Muted list propagation</strong></td>
+<td>Block lists propagate through network</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="trust-metrics">Trust metrics</h3>
+<p>Nostr WoT tools (nostr-wot on GitHub):
+- Dijkstra path-finding for trust scores.
+- BFS for reachability.
+- Local clustering for community detection.</p>
+<p>Proof of Usefulness (2023+):
+- Measures trust through actual network activity.
+- Combines social graph, Lightning zaps, and engagement.
+- Targets Sybil attacks against pure graph-based trust.</p>
+<h3 id="reputation-beyond-nostr">Reputation beyond Nostr</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gitcoin Passport</strong></td>
+<td>Sybil-resistant scoring via credentials</td>
+</tr>
+<tr>
+<td><strong>Rabbithole</strong></td>
+<td>Proof-of-work quests = reputation</td>
+</tr>
+<tr>
+<td><strong>Lens Protocol</strong></td>
+<td>Follow graph + engagement = profile score</td>
+</tr>
+<tr>
+<td><strong>Farcaster</strong></td>
+<td>Social graph + verified accounts</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="proof-of-personhood">Proof of personhood</h2>
+<p>When pseudonymity is not enough and the goal is "one human, one vote", proof-of-personhood systems provide Sybil resistance.</p>
+<h3 id="active-systems">Active systems</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Method</th>
+<th>Controversy</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Idena</strong></td>
+<td>CAPTCHA + synchronous validation sessions</td>
+<td>Energy-intensive, session coordination</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>Proof of Humanity</strong></td>
+<td>Video submission + KYC + community voting</td>
+<td>Centralized KYC, human review</td>
+<td>Stalled</td>
+</tr>
+<tr>
+<td><strong>BrightID</strong></td>
+<td>Social graph verification (no biometrics)</td>
+<td>Relies on existing verified humans</td>
+<td>Active, growing</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="rarimo-2025">Rarimo (2025+)</h3>
+<p>Rarimo launched its ZK Roll-up in March 2025, backed by $2.5M from Vitalik Buterin and others:</p>
+<ul>
+<li><strong>ZK Identity Registry</strong>: Register credentials once, prove membership infinitely.</li>
+<li><strong>Freedom Tool</strong>: Prove "I am a citizen of X" without revealing your ID.</li>
+<li><strong>ZK Voting</strong>: Anonymous voting with ZK proofs that every voter is eligible.</li>
+<li><strong>RariMe wallet</strong>: Self-custody ZK wallet generating zero-knowledge proofs for identity verification.</li>
+</ul>
+<p>Trade-off: Requires government-issued ID for initial verification → higher trust but lower pseudonymity.</p>
+<h3 id="cryptographic-framework-for-proof-of-personhood-2026">Cryptographic Framework for Proof of Personhood (2026)</h3>
+<p>A notable 2026 academic paper from IACR (<em>A Cryptographic Framework for Proof of Personhood</em>, eprint 2026/333) formalized the problem with two credential types:</p>
+<ul>
+<li><strong>Personhood Credentials (PHCs)</strong>: issued by trusted authorities to attest to uniqueness and basic attributes (e.g., "is a unique human, age &gt; 18").</li>
+<li><strong>Verifiable Relationship Credentials (VRCs)</strong>: issued peer-to-peer to capture reputation and real-world interactions (e.g., "Alice and Bob have met").</li>
+</ul>
+<p>The paper provides formal security definitions — Sybil-resistance, authenticated personhood, and unlinkability across contexts — and efficient cryptographic constructions combining PHCs, VRCs, and ZK proofs. This is the most rigorous treatment of the problem to date and useful for anyone designing or evaluating PoP systems.</p>
+<h3 id="semaphore">Semaphore</h3>
+<p>Privacy-oriented ZK identity from Privacy &amp; Scaling Explorations:</p>
+<ul>
+<li>Proves membership in a set (e.g., "I am a verified human") without revealing which member.</li>
+<li>Used forAnonymous moderation, reputation, and blocking.</li>
+<li>Cannot prove specific attributes — only membership.</li>
+</ul>
+<h3 id="anon-aadhaar">Anon Aadhaar</h3>
+<p>Proves Indian Aadhaar holdership without revealing the Aadhaar number. Use cases: age verification, residency proof.</p>
+<h3 id="trade-offs">Trade-offs</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Privacy</th>
+<th>Sybil Resistance</th>
+<th>UX Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Social Graph (BrightID)</td>
+<td>High</td>
+<td>Medium</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>ZK + Minimal ID (Rarimo)</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>CAPTCHA (Idena)</td>
+<td>High</td>
+<td>Medium</td>
+<td>High (sync sessions)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="attack-vectors-and-mitigations">Attack vectors and mitigations</h2>
+<h3 id="key-compromise">Key compromise</h3>
+<ul>
+<li><strong>Attack:</strong> Private key stolen or lost. On Nostr, the public key <em>is</em> the account, so key compromise is identity compromise and key loss is account loss.</li>
+<li><strong>Mitigation:</strong> dedicated signers (NIP-07 / Amber), remote signing (NIP-46), hardware-backed signing where available, threshold custody via Frostr/FROST, and out-of-band migration statements signed by old/new keys plus trusted peers.</li>
+<li><strong>Status:</strong> NIP-46 is usable today; Amber is active; Frostr/Bifrost/Igloo are promising but still emerging. See <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a>.</li>
+</ul>
+<h3 id="sybil-attack">Sybil attack</h3>
+<ul>
+<li><strong>Attack:</strong> Create many fake identities to manipulate reputation.</li>
+<li><strong>Mitigation:</strong> Proof of personhood, proof of work or zaps, path-length thresholds.</li>
+</ul>
+<h3 id="reputation-farming">Reputation farming</h3>
+<ul>
+<li><strong>Attack:</strong> Pump reputation through Sybils, then dump.</li>
+<li><strong>Mitigation:</strong> Temporal weighting (older follows weigh more), crosslinking requirements.</li>
+</ul>
+<h3 id="domain-hijacking">Domain hijacking</h3>
+<ul>
+<li><strong>Attack:</strong> Compromise a domain to redirect NIP-05 mappings.</li>
+<li><strong>Mitigation:</strong> DNSSEC, client-side key pinning.</li>
+</ul>
+<h3 id="linkage-attacks">Linkage attacks</h3>
+<ul>
+<li><strong>Attack:</strong> Correlate multiple pseudonyms to de-anonymize.</li>
+<li><strong>Mitigation:</strong> Pairwise DIDs, onion routing, avoiding fingerprintable behavior.</li>
+</ul>
+<h2 id="relation-to-other-topics">Relation to other topics</h2>
+<h3 id="confidential-computing">Confidential computing</h3>
+<ul>
+<li>TEE-backed credentials can bind to Nostr keys.</li>
+<li>Attestation can stand in for proof of personhood without biometrics.</li>
+<li>Private LLM endpoints can use key-based identity plus TEE verification.</li>
+</ul>
+<h3 id="web-of-trust">Web of trust</h3>
+<ul>
+<li>The Nostr follow graph is an implicit WoT.</li>
+<li>NIP-26 delegation is a form of trust propagation.</li>
+<li>Trust scoring algorithms (nostr-wot) apply WoT concepts.</li>
+</ul>
+<h3 id="decentralized-dns">Decentralized DNS</h3>
+<ul>
+<li>NIP-05 uses DNS for verification.</li>
+<li>ENS names can link to Nostr keys.</li>
+<li>A <code>.onion</code> address plus Nostr produces a self-authenticating, censorship-resistant identity.</li>
+</ul>
+<h3 id="encrypted-messaging">Encrypted messaging</h3>
+<ul>
+<li>Nostr DMs went from NIP-04 (legacy, deprecated for metadata leakage) to NIP-44 (modern cipher) to <strong>NIP-17 with NIP-59 gift-wrap (current)</strong> for metadata protection. See <a href="/kb/nostr-protocol/">Nostr Deep Dive</a>.</li>
+<li>Key-based identity enables E2EE without a prior handshake.</li>
+<li>PGP keys can link to Nostr for cross-identity verification.</li>
+<li>For groups: see <a href="/kb/marmot-protocol/">Marmot Protocol</a> (MLS over Nostr).</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Type</th>
+<th>Maturity</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nostr (key-based)</strong></td>
+<td>Protocol</td>
+<td>Mature</td>
+<td>Active, widely deployed; <code>nostr-protocol/nips</code> pushed 2026-04-29</td>
+</tr>
+<tr>
+<td><strong>NIP-05</strong></td>
+<td>Verification</td>
+<td>Mature</td>
+<td>Standard, widely supported; depends on DNS/TLS unless bridged to PKARR/.onion</td>
+</tr>
+<tr>
+<td><strong>NIP-07</strong></td>
+<td>Browser signer</td>
+<td>Mature</td>
+<td>Common web-client interface for local signers</td>
+</tr>
+<tr>
+<td><strong>NIP-46</strong></td>
+<td>Remote signer / bunker</td>
+<td>Active</td>
+<td>Standardized remote signing; avoids giving every client the raw <code>nsec</code></td>
+</tr>
+<tr>
+<td><strong>Amber</strong></td>
+<td>Android signer</td>
+<td>Active</td>
+<td>GitHub active through 2026-04-29; practical mobile custody</td>
+</tr>
+<tr>
+<td><strong>Frostr / Bifrost / Igloo</strong></td>
+<td>Threshold key custody</td>
+<td>Emerging</td>
+<td>OpenSats-funded; active 2026 repos; solves single-device loss/compromise</td>
+</tr>
+<tr>
+<td><strong>NIP-26 delegation</strong></td>
+<td>Delegated event signing</td>
+<td>Unrecommended</td>
+<td>The NIPs README advises against it</td>
+</tr>
+<tr>
+<td><strong>NIP-85</strong></td>
+<td>Trusted assertions</td>
+<td>Draft / optional</td>
+<td>Signed reputation/ranking metrics; early services and repos</td>
+</tr>
+<tr>
+<td><strong>nostr-wot</strong></td>
+<td>Trust scoring</td>
+<td>Emerging</td>
+<td>Active 2026 repos; social-distance / oracle pattern</td>
+</tr>
+<tr>
+<td><strong>wot-scoring (joelklabo)</strong></td>
+<td>PageRank WoT scoring</td>
+<td>Emerging</td>
+<td>Publishes NIP-85 kind 30382/30383/30384/30385 events; browser extension</td>
+</tr>
+<tr>
+<td><strong>did:nostr</strong></td>
+<td>W3C DID method</td>
+<td>Draft</td>
+<td>W3C Nostr CG; secp256k1 as DID identifier; no update/delete operations</td>
+</tr>
+<tr>
+<td><strong>HTTP Schnorr Auth</strong></td>
+<td>Auth mechanism</td>
+<td>Draft</td>
+<td>W3C CG; Nostr keys as HTTP auth credentials; research-grade</td>
+</tr>
+<tr>
+<td><strong>Pubky</strong></td>
+<td>Key-rooted identity + DHT discovery</td>
+<td>Active</td>
+<td><code>pubky/pubky-core</code> active through 2026-05-01; Ed25519 + PKARR</td>
+</tr>
+<tr>
+<td><strong>Rarimo / Semaphore / Anon Aadhaar</strong></td>
+<td>ZK identity / PoP</td>
+<td>Emerging</td>
+<td>Useful for eligibility proofs, but weaker pseudonymity if rooted in government ID</td>
+</tr>
+<tr>
+<td><strong>Cryptographic PoP Framework</strong></td>
+<td>Academic / formal</td>
+<td>Research</td>
+<td>IACR eprint 2026/333; PHC + VRC formalization; foundational</td>
+</tr>
+<tr>
+<td><strong>agentdex / Keychat-style agents</strong></td>
+<td>Agent identity</td>
+<td>Experimental</td>
+<td>Agents owning keys directly; early ecosystem</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="mid-may-2026-developments">Mid-May 2026 Developments</h2>
+<p>This week brought several notable Nostr ecosystem updates worth tracking:</p>
+<h3 id="ecosystem-integrations">Ecosystem Integrations</h3>
+<p><strong>Primal Android — NIP-46 + NIP-55 signing hub (May 2026)</strong>
+Primal Android shipped NIP-46 remote signing and NIP-55 local signer support, making Android a full signing hub for other apps on the same device. This is a significant step in the signer-per-device pattern: instead of every app holding its own <code>nsec</code>, apps can delegate signing to a dedicated signer app. This reduces key exposure surface and aligns with the NIP-46 bunker architecture.</p>
+<p><strong>White Noise v0.3.0 — Amber + real-time messaging (May 2026)</strong>
+White Noise shipped v0.3.0 with 160+ merged improvements, including real-time messaging and Amber signer integration. The Amber integration extends the Android signer ecosystem to another client, and real-time messaging indicates continued investment in Nostr as a protocol rather than just a microblogging platform.</p>
+<p><strong>Mostro P2P Bitcoin trading — public beta (May 2026)</strong>
+Mostro, a P2P Bitcoin trading app built on Nostr, shipped its first public beta after three years of development. This demonstrates Nostr's utility beyond social media — it can serve as a transport and identity layer for marketplace interactions. The key implication: your Nostr keypair can serve as identity for a decentralized exchange without KYC.</p>
+<p><strong>NIP-42 relay AUTH + protected events — cross-app rollout (May 2026)</strong>
+OAuth Bunker, Amber, and strfry added NIP-42 (<code>AUTH</code> command for relay-client authentication) and protected-event support across app, signer, and relay software. This strengthens relay-level access control and prevents unauthorized write access to relays.</p>
+<p><strong>rust-nostr SDK — major API redesign (May 2026)</strong>
+rust-nostr shipped a 21-PR architecture overhaul of its SDK, indicating active protocol development. Major SDK refactors typically signal that lower-level tooling is stabilizing and the ecosystem is investing in developer experience.</p>
+<p><strong>Zeus + Cashu + NIP-47 improvements (May 2026)</strong>
+Zeus shipped 17 merged PRs focused on NIP-47 (Nostr Wallet Connect) fixes and Cashu (Chaumian e-cash) improvements, strengthening the Lightning + Nostr integration for mobile wallet use cases.</p>
+<h3 id="protocol-maturation-pattern">Protocol Maturation Pattern</h3>
+<p>These developments — signer hubs, relay AUTH, SDK refactor, P2P trading beta — suggest the Nostr identity stack is moving from "key in every app" toward a layered custody model. The mid-May 2026 pattern mirrors the broader trend documented in the 2026 custody stack table: dedicated signers, relay-level access control, and NIP-85 trust assertions are all converging toward a composable identity layer rather than a monolithic client-key relationship.</p>
+<h2 id="late-may-2026-developments">Late-May 2026 Developments</h2>
+<h3 id="frost-rfc-9591-published-june-2024-now-active-standard">FROST RFC 9591 Published (June 2024 — Now Active Standard)</h3>
+<p>The IRTF published <a href="https://datatracker.ietf.org/doc/rfc9591/" rel="noopener nofollow">RFC 9591</a> — the FROST Protocol — in June 2024, giving threshold Schnorr signatures a stable public specification. For Nostr's Frostr ecosystem, this provides the normative reference that library implementations (Bifrost, Igloo, frost-java) can be measured against. The RFC specifies the signing protocol but does not standardize distributed key generation, leaving trusted-dealer and DKG approaches as implementation choices. Nonce reuse remains the critical footgun: one reused nonce leaks the secret share.</p>
+<h3 id="nip-26-delegation-revocation-github-issue-654">NIP-26 Delegation Revocation (GitHub Issue #654)</h3>
+<p>NIP-26 is marked unrecommended in the NIPs README. Historical discussion of delegation revocation should not be read as current endorsement. NIP-46 remote signing does not depend on NIP-26 delegation.</p>
+<p>The proposed solution: the root private key can sign a revocation certificate for the delegation key, which is then distributed to relays. Clients must treat events signed by the revoked delegation key as invalid once the revocation certificate is validated. This adds a critical missing piece to the delegation model: consent revocation without waiting for expiry. The issue is open and awaiting NIP spec endorsement.</p>
+<h3 id="cross-client-wot-trust-score-display-q1-2026">Cross-Client WoT Trust Score Display (Q1 2026)</h3>
+<p>Multiple independent Nostr clients began displaying WoT-based trust scores in their UI during Q1 2026. Amethyst (Android), Primal, and Coracle all show trust scores on user profiles, indicating cross-client convergence on the WoT visibility pattern. Amethyst's changelog notes that "by connecting to a WoT provider, you can see trust scores and verified follower counts directly on user pictures. This helps filter signal from noise." Coracle displays a trust indicator with the message: "If you can't tell the difference between me and a scammer, use a nostr client with web of trust support."</p>
+<p>This is significant because WoT is transitioning from developer-facing library features to user-visible product features. The practical implication: ordinary users are now seeing trust metadata surfaced by their clients, creating both better spam filtering and new design questions about how to present trust without creating a surveillance-score aesthetic.</p>
+<h3 id="openpgp-wot-pgpainless-wot-module-and-u4u5-identifiers">OpenPGP WoT: PGPainless WoT Module and u4/u5 Identifiers</h3>
+<p>The NLnet/NGI Assure-funded PGPainless WoT module (based on Sequoia-PGP's published WoT specification) continues active development, adding Java/Kotlin path computation to an ecosystem that has historically omitted it. For Android email tools and server-side OpenPGP workflows, this fills a tooling gap.</p>
+<p>A notable new development is the <a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">OpenPGP ID u4/u5 specification</a> (draft submitted to IETF, in production use in Djibian OS):</p>
+<ul>
+<li>
+<p><strong>u4</strong> (human identifier): derived from birth surname + given names + date of birth, processed through MD5 and Base64url encoding. Produces a 39-character identifier that fits in an OpenPGP UID comment field. Pseudonymous — the identifier is permanent (does not change on marriage, name change, or naturalisation) but the raw inputs remain private.</p>
+</li>
+<li>
+<p><strong>u5</strong> (universal identifier for anything): Unix timestamp + geographic coordinates, identifying any entity by its moment and place of origin. Used for AI agents, software components, or humans who prefer not to disclose civil data.</p>
+</li>
+</ul>
+<p>For WoT purposes, u4/u5 represents an attempt to build persistent pseudonymous identity on OpenPGP certificates without a central registry.</p>
+<h3 id="nip-26-revocation-as-key-recovery-partial">NIP-26 revocation as key-recovery partial</h3>
+<p>NIP-26 is unrecommended; its proposed extensions are not a basis for a new recovery plan. See <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> for signing-device and custody considerations.</p>
+<h2 id="early-june-2026-developments">Early-June 2026 Developments</h2>
+<h3 id="nips-repository-active-2978-stars-pushed-2026-05-31">nips repository active — 2,978 stars, pushed 2026-05-31</h3>
+<p>The <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a> repository shows active maintenance with 2,978 stars and a push on 2026-05-31. This is the canonical NIP spec repository — its continued activity means the protocol is still being refined. The 2,978-star count reflects broad ecosystem investment in the specification layer.</p>
+<h3 id="rust-nostr-sdk-v03-843-stars-pushed-2026-05-19">rust-nostr SDK v0.3 — 843 stars, pushed 2026-05-19</h3>
+<p><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a> (843 stars) and the broader rust-nostr ecosystem remain active through mid-May 2026. The rust-nostr SDK shipped a 21-PR architecture overhaul in May 2026 (per the mid-May developments). The 843-star count indicates rust-nostr is the dominant Rust implementation and the reference for several production relay and client projects.</p>
+<h3 id="amber-android-signer-314-stars-pushed-2026-05-30">Amber Android signer — 314 stars, pushed 2026-05-30</h3>
+<p><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a> hit 314 stars with a push on 2026-05-30, making it the highest-starred dedicated Nostr signer app. The push date confirms active maintenance as of late May 2026. Amber remains the reference Android implementation for the NIP-07 browser signer API and NIP-46 remote signing flows, handling event previews, approval prompts, and per-app permission scoping on Android.</p>
+<h3 id="igloo-server-frostr-v2-direction-8-stars-pushed-2026-05-28">Igloo Server + Frostr v2 direction — 8 stars, pushed 2026-05-28</h3>
+<p><a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a> shows 8 stars with a push on 2026-05-28. The Igloo suite is transitioning from a v1 app approach toward Bifrost v2 + self-hostable Igloo Server as the canonical Frostr tooling. The architectural direction is a self-hosted signing server that holds threshold shares and presents a NIP-46 bunker-compatible interface to clients — combining the liveness of a hosted service with the security of threshold custody.</p>
+<h3 id="bifrost-core-library-10-stars-pushed-2026-02-16">Bifrost core library — 10 stars, pushed 2026-02-16</h3>
+<p><a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a> shows 10 stars, last pushed 2026-02-16. The library is the TypeScript Frostr implementation and the foundation for Igloo tooling. The gap from February to May 2026 likely reflects the project being in a design/spec phase rather than active code push — the v2 architectural direction for Igloo may be where Bifrost is being evolved. The OpenSats Frostr grant remains active and the RFC 9591 reference is stable, so this is a normal maturation pause rather than abandonment.</p>
+<h3 id="didnostr-specification-9-stars-pushed-2026-01-11">did:nostr specification — 9 stars, pushed 2026-01-11</h3>
+<p>The <a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">nostrcg/did-nostr</a> DID method specification sits at 9 stars with a January 2026 push. The spec is a W3C Community Group draft (not a W3C Standard) and covers mapping secp256k1 keys to the W3C DID document format with multicodec verification methods and optional NIP-05 / relay service endpoints. The spec's immaturity (no update/delete operations, draft status) means active production use is limited to experimental projects, but the DID:Nostr approach remains the canonical path for bridging Nostr key identity into the formal W3C DID ecosystem.</p>
+<h3 id="didnostr-public-key-as-identity-pattern-gaining-mindshare">did:nostr: public-key-as-identity pattern gaining mindshare</h3>
+<p>The <code>did:nostr</code> method and the companion HTTP Schnorr Signature Authentication draft (both from the W3C Nostr Community Group) together represent a maturing identity pattern: a single secp256k1 keypair functioning simultaneously as:</p>
+<ul>
+<li>Nostr account identifier (<code>npub</code> / hex pubkey)</li>
+<li>W3C DID (<code>did:nostr:hexpubkey</code>)</li>
+<li>HTTP authentication credential (<code>Authorization: Nostr &lt;base64-signed-event&gt;</code>)</li>
+<li>Lightning payment sender (zaps, NIP-57)</li>
+</ul>
+<p>This convergence is significant for ungovernable infrastructure: it means a user can maintain one cryptographic identity that works across social (Nostr), web authentication (HTTP Schnorr), payments (Lightning), and formal credentials (DID document). The key-custody and key-recovery requirements for that single identity are therefore also shared across all four contexts — which is why the NIP-46 / Frostr / Amber custody stack matters so much.</p>
+<h3 id="openpgp-wot-pgpainless-last-commit-september-2025-sequoia-pgp-reference-solid">OpenPGP WoT: PGPainless last commit September 2025, Sequoia-PGP reference solid</h3>
+<p>The PGPainless WoT module (NLnet/NGI Assure-funded, Java/Kotlin) last showed significant commits in September 2025 (Gradle 8.8 upgrade), suggesting the funded development phase may be concluding. The module implements path computation based on Sequoia-PGP's published WoT specification, which remains the definitive formal reference for OpenPGP trust path calculation. For the UngovernableTech vault: OpenPGP WoT is at a stable, mature point in its lifecycle rather than a rapid-development phase. The practical takeaway is that Sequoia's specification is what implementations should test against, and PGPainless is the Java/Kotlin integration point.</p>
+<h3 id="trust-score-visibility-from-library-feature-to-ui-default">Trust score visibility: from library feature to UI default</h3>
+<p>The cross-client WoT visibility trend noted in late May (Amethyst, Primal, Coracle surfacing trust scores in Q1 2026) has continued into late May. The practical implication for this library's Identity &amp; Pseudonymity and WoT files: trust scores are now a user-facing product feature, not just a developer API. This creates new design questions about how to present trust without an opaque surveillance-score aesthetic, and it means the NIP-85 oracle provider model is becoming load-bearing for mainstream clients that cannot compute the graph locally.</p>
+<h3 id="frost-at-nist-mpts-2026-eddsa-threshold-submission-active">FROST at NIST MPTS 2026 — EdDSA threshold submission active</h3>
+<p>FROST was submitted to the NIST Threshold Call (NIST IR 8214C) in 2026, with a preview presentation at MPTS 2026 (NIST Workshop on Multi-Party Threshold Schemes, January 2026). The FROST Team — Chelsea Komlo, Ian Goldberg, Jonathan Katz, Mary Maller, and others — published a preview writeup (version 0.1, March 2026) targeting Category N1.1 (Threshold EdDSA Signing). Key points from the workshop:</p>
+<ul>
+<li><strong>Adaptive security</strong>: New results on adaptive security of threshold Schnorr signatures were presented, relevant to all FROST implementations including Frostr.</li>
+<li><strong>Determinism vs. security</strong>: The FROST team explicitly recommended against requiring single-party EdDSA-style determinism in multi-party settings — doing so introduces vulnerabilities even when attempting to mitigate nonce-reuse attacks. This is a directly actionable finding for Frostr and Bifrost implementers.</li>
+<li><strong>Standardization path</strong>: If FROST is standardized by NIST, it would provide a normative reference for threshold EdDSA that Frostr library implementations could be formally audited against.</li>
+</ul>
+<p>For Nostr's Frostr ecosystem specifically: FROST is the cryptographic basis, RFC 9591 is the stable IRTF reference, and the NIST submission represents the path toward government-standardized threshold EdDSA.</p>
+<h3 id="hermine-post-quantum-frost-like-threshold-signatures-for-the-pq-migration-era">Hermine: post-quantum FROST-like threshold signatures for the PQ migration era</h3>
+<p><a href="https://hermine-th.org" rel="noopener nofollow">Hermine</a> (eprint 2026/419, presented at MPTS 2026) is a post-quantum lattice-based threshold signature scheme that replicates FROST's feature set under standard lattice assumptions:</p>
+<ul>
+<li><strong>Design</strong>: FROST-like, partially non-interactive, two-round signing (one preprocessing round + one message-dependent round). Targets medium-scale deployments (N ≤ 64 parties) with ~11KB signatures.</li>
+<li><strong>Advanced properties</strong>: Identifiable aborts (misbehaving participants are identified and excluded), proactive share refresh (periodic share renewal without changing the public key), and distributed key generation.</li>
+<li><strong>Security basis</strong>: Standard lattice assumptions (not contingent on exotic assumptions). Aligned with NIST PQC standardization trajectory.</li>
+<li><strong>PQ migration significance</strong>: If FROST is the classical threshold Schnorr solution, Hermine is the post-quantum counterpart. For long-lived Nostr identities facing quantum threat timelines, Hermine represents the eventual migration path. Proactive refresh is especially valuable for identities that must survive over decade-long horizons — a compromised share can be renewed without rotating the public key.</li>
+</ul>
+<p>The Hermine team submitted Hermine as its own package to the NIST Threshold Call, running in parallel with the FROST submission. The coexistence of classical FROST and PQ Hermine in the NIST process reflects the real-world migration planning happening in threshold cryptography: design for classical deployment now, architect for PQ transition later.</p>
+<h3 id="openpgp-ecosystem-active-ietf-maintenance-june-2026">OpenPGP ecosystem: active IETF maintenance (June 2026)</h3>
+<p>Three active IETF drafts show the OpenPGP ecosystem receiving unusual maintenance attention:</p>
+<ul>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> (June 2026): Grammar and semantics clarifications for OpenPGP signatures — maintenance of RFC 9580 addressing edge cases that cause valid certifications to be rejected or invalid ones accepted.</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a>: Complementary OpenPGP message grammar updates.</li>
+<li>A new HKP draft addressing v6 certificate handling, v2 key lookup, and content-type requirements for ASCII-armored bundles — affecting WoT-compatible key discovery at the transport layer.</li>
+</ul>
+<p>Collectively these drafts signal that OpenPGP, far from being dormant, is under active protocol maintenance — relevant for anyone relying on GPG WoT as part of their identity stack.</p>
+<h2 id="june-14-2026-sunday-weekly-update">June 14, 2026 — Sunday Weekly Update</h2>
+<h3 id="nip-57-zap-milestone-1-million-zaps">NIP-57 Zap Milestone: 1 Million Zaps</h3>
+<p>Nostr surpassed 1 million zaps (NIP-57 Lightning payments attached to notes and profiles), confirming that Bitcoin Lightning integration has become a primary reputation signal on Nostr. Zap economics: zaps are Lightning payments, which have a real cost — unlike follows (free) or reactions (free). This cost means zap-based reputation is harder to Sybil-manufacturate than pure social graph signals. The practical consequence for identity: a zap count is a rough proxy for "this content was worth paying for," making it a scarce-signal reputation mechanism. This reinforces the <a href="/kb/web-of-trust/">Overview - Web of Trust</a> observation that NIP-85's <code>zap_amt_recd</code> tag is one of the most meaningful edge weights because it encodes actual economic cost rather than mere social adjacency.</p>
+<h3 id="primal-android-nip-46-bunker-signing-hub-maturation">Primal Android NIP-46 Bunker: Signing Hub Maturation</h3>
+<p>Primal Android (already noted as a NIP-46 + NIP-55 signing hub in the mid-May update) continues to mature as a full signing hub. The significance: Primal Android joining Amber as a primary Android signer establishes the pattern of <strong>signer-as-mobile-hub</strong>. This is the key architectural pattern for the 2026 custody stack: instead of the phone being one more device holding the raw <code>nsec</code>, it becomes the signing authority that other apps query via NIP-46. The identity no longer lives in each app — it lives in the signer, and apps become dumb clients.</p>
+<h3 id="nip-39-external-identities-moving-to-dedicated-events">NIP-39 External Identities: Moving to Dedicated Events</h3>
+<p>A notable NIP evolution: NIP-39 (external identity claims — GitHub, Twitter, etc.) has moved identity tags from kind 0 (profile metadata) to <strong>dedicated kind events</strong>. This separates the data type from the profile blob: separate the data type from the profile blob into its own event kind. The advantage: external identity proofs become independently addressable, delegable, and revokable without touching the user's profile. The privacy implication: external identity tags are no longer stuck in the profile that every relay stores permanently — they can be deleted by publishing a replacement kind 0 without the tags. For pseudonymous users who want to prove GitHub or Twitter ownership without permanent linkage, this is a meaningful privacy improvement.</p>
+<h3 id="anonymous-aadhaar-zk-proof-of-government-id-without-revealing-id">Anonymous Aadhaar: ZK Proof of Government ID Without Revealing ID</h3>
+<p><a href="https://anon-aadhaar.com/" rel="noopener nofollow">Anon Aadhaar</a> continues active development as a zero-knowledge proof system for Indian Aadhaar holders. The use case: prove you hold a valid Aadhaar (the world's largest government ID system, covering ~1.4B people) without revealing the Aadhaar number or any other personal data. The architecture: a smartphone app captures the Aadhaar XML (issued by UIDAI), generates a ZK proof locally, and presents the proof to verifiers. The verifier learns only "this person is a valid Aadhaar holder" — not the number, name, or any other field. For proof-of-personhood in South Asia and the diaspora, Anon Aadhaar is the most deployed ZK+government-ID system in the freedom-tech space. Trade-off: requires trusting the Aadhaar issuance authority — the ZK proof proves you hold a valid credential, not that the credential was legitimately issued.</p>
+<h3 id="wot-extension-trust-assertions-and-services-integration">WoT Extension: Trust Assertions and Services Integration</h3>
+<p>The <a href="https://nostr-wot.com" rel="noopener nofollow">nostr-wot extension</a> has evolved beyond basic WoT queries to add trust assertions and trusted service discovery. The extension now exposes a <code>window.nostr.wot</code> API that web clients can call to ask: "what is my trust distance from this pubkey?" and "which trusted services has this pubkey declared?" The extension also integrates Lightning wallet functions and NIP-07 signing. For the identity picture: this extension is becoming a browser-native identity provider that handles authentication (NIP-07), payments (zaps), and trust scoring (WoT) in one surface. The privacy risk: combining identity, wallet, and trust in one extension concentrates key custody risk. The privacy benefit: instead of each web app holding <code>nsec</code> or querying a remote bunker, the browser extension acts as a local secure enclave for the user's full identity stack.</p>
+<h3 id="marmot-protocol-mls-over-nostr-status">Marmot Protocol: MLS over Nostr Status</h3>
+<p>The <a href="https://github.com/lightningrod/marmot" rel="noopener nofollow">Marmot Protocol</a> (MLS-based encrypted group messaging over Nostr) continues development as the NIP-17 reference implementation. MLS (Messaging Layer Security) provides:
+- <strong>Forward secrecy</strong>: compromised past keys don't decrypt old messages.
+- <strong>Post-compromise security</strong>: future messages are secure after a key compromise.
+- <strong>Group key agreement</strong>: dynamic group membership without re-keying everyone.
+- <strong>Sender ratchet</strong>: each message advances the chain, preventing forward access.</p>
+<p>Critically: the Nostr identity key (npub/nsec) is <strong>not</strong> used for MLS encryption. The MLS key agreement happens separately, so a compromised npub does not automatically expose MLS group messages. This is a critical separation: Nostr identity handles social graph and event signing, while MLS handles message-layer confidentiality. For pseudonymous groups, this means even a fully doxxed npub doesn't expose the group's message history.</p>
+<h3 id="stateless-key-rotation-nip-issue-103">Stateless Key Rotation: NIP Issue #103</h3>
+<p>GitHub issue <a href="https://github.com/nostr-protocol/nips/issues/103" rel="noopener nofollow">#103</a> proposes stateless key rotation using a series of hidden commitments derived from an initial seed. The model: instead of one keypair, a user generates a chain of keypairs all derived from a seed, and publishes "I am rotating from key A to key B" events. Old followers can discover the new key by walking backward through the chain from the seed. The benefit: no central key server, no trusted third party, no loss of followers on rotation. The unsolved problem: how do new followers discover the chain if they encounter the user for the first time at key B? They would need an external anchor (domain, NIP-05, or trusted introducer) to bootstrap. This NIP is a draft proposal, not an adopted standard, but it addresses the most critical usability gap in key-rooted identity: key rotation without follower loss.</p>
+<h3 id="nip-05-lightning-address-convergence">NIP-05 + Lightning Address Convergence</h3>
+<p>The convergence of NIP-05 identifiers and Lightning addresses (<code>alice@domain.com</code>) continues to mature. A single domain-hosted JSON file now resolves both:
+- The Nostr public key for social identity.
+- The Lightning address for payment identity.</p>
+<p>This means one human-readable handle anchors both the social layer and the payment layer to the same cryptographic identity. For reputation: zap receipts flow to the same Lightning address that resolves through the same NIP-05 that maps to the npub. The unified handle is significant because it makes reputation portable across social and payment contexts without requiring a platform to bridge them.</p>
+<h3 id="june-14-evidence-table-update">June 14 Evidence Table Update</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last Push</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a></td>
+<td class="ta-r">2,978</td>
+<td>2026-05-31</td>
+<td>Active spec maintenance</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a></td>
+<td class="ta-r">843</td>
+<td>2026-05-19</td>
+<td>Dominant Rust SDK</td>
+</tr>
+<tr>
+<td><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a></td>
+<td class="ta-r">314</td>
+<td>2026-05-30</td>
+<td>Leading Android signer</td>
+</tr>
+<tr>
+<td><a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a></td>
+<td class="ta-r">8</td>
+<td>2026-05-28</td>
+<td>Self-hostable Frostr server</td>
+</tr>
+<tr>
+<td><a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a></td>
+<td class="ta-r">10</td>
+<td>2026-02-16</td>
+<td>In spec/design phase</td>
+</tr>
+<tr>
+<td><a href="https://anon-aadhaar.com/" rel="noopener nofollow">Anon Aadhaar</a></td>
+<td class="ta-r">—</td>
+<td>Active</td>
+<td>ZK government ID proofs, live deployment</td>
+</tr>
+<tr>
+<td><a href="https://github.com/lightningrod/marmot" rel="noopener nofollow">Marmot Protocol</a></td>
+<td class="ta-r">—</td>
+<td>Active</td>
+<td>MLS over Nostr, NIP-17 reference</td>
+</tr>
+<tr>
+<td><a href="https://nostr-wot.com" rel="noopener nofollow">nostr-wot extension</a></td>
+<td class="ta-r">—</td>
+<td>Active</td>
+<td>Trust assertions, NIP-07, Lightning wallet</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-26 status</a></li>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46 remote signing</a></p>
+</li>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">Nostr NIPs</a> and <a href="https://nips.nostr.com/" rel="noopener nofollow">Nostr protocol specifications</a></p>
+</li>
+<li><a href="https://nips.nostr.com/05" rel="noopener nofollow">NIP-05</a> — DNS-based key aliases</li>
+<li><a href="https://nips.nostr.com/07" rel="noopener nofollow">NIP-07</a> — browser signer API</li>
+<li><a href="https://nips.nostr.com/26" rel="noopener nofollow">NIP-26</a> — delegated event signing</li>
+<li><a href="https://nips.nostr.com/46" rel="noopener nofollow">NIP-46</a> — Nostr remote signing / bunkers</li>
+<li><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85</a> — trusted assertions for ranks, counts, zaps, reports, and WoT metrics</li>
+<li><a href="https://nostrcg.github.io/did-nostr/" rel="noopener nofollow">DID:Nostr specification</a> — W3C Nostr Community Group draft</li>
+<li><a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">did-nostr GitHub</a> — specification repository</li>
+<li><a href="https://nostrcg.github.io/http-schnorr-auth/" rel="noopener nofollow">HTTP Schnorr Signature Authentication</a> — W3C CG draft</li>
+<li><a href="https://opensats.org/projects/frostr" rel="noopener nofollow">Frostr OpenSats project page</a>, <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a>, <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a></li>
+<li><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber Android signer</a></li>
+<li><a href="https://github.com/nostr-wot" rel="noopener nofollow">nostr-wot organization</a>, <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a>, <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">wot-scoring</a></li>
+<li><a href="https://github.com/pubky/pubky-core" rel="noopener nofollow">Pubky core</a>, <a href="https://pkarr.org/" rel="noopener nofollow">PKARR</a></li>
+<li><a href="https://www.w3.org/TR/vc-data-model-2.0/" rel="noopener nofollow">Verifiable Credentials Data Model v2.0</a>
+|- <a href="https://eprint.iacr.org/2020/852" rel="noopener nofollow">FROST paper</a> — Komlo and Goldberg, Flexible Round-Optimized Schnorr Threshold Signatures</li>
+<li><a href="https://csrc.nist.gov/csrc/media/Projects/threshold-cryptography/documents/TCall-1/FROST-PW01.pdf" rel="noopener nofollow">FROST NIST MPTS 2026 preview writeup</a> — FROST Team, version 0.1, March 2026</li>
+<li><a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">Hermine: Lattice-based FROST-like Threshold Signatures</a> — eprint 2026/419</li>
+<li><a href="https://hermine-th.org" rel="noopener nofollow">Hermine project website</a></li>
+<li><a href="https://eprint.iacr.org/2026/333" rel="noopener nofollow">Cryptographic Framework for Proof of Personhood</a> — IACR 2026</li>
+<li><a href="https://github.com/BlockchainCommons/Pseudonymity-Guide" rel="noopener nofollow">Blockchain Commons Pseudonymity Guide</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> — OpenPGP signature updates, June 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> — OpenPGP message updates</li>
+</ul>
+<p>The glossary distinguishes <a href="/glossary/#pseudonymity">pseudonymity</a>, <a href="/glossary/#sybil-attack">Sybil attacks</a> and <a href="/glossary/#sybil-resistance">Sybil resistance</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/guides/nostr-key-custody/">
+  <span class="nm">Nostr Key Custody and Recovery</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/nostr-protocol/">
+  <span class="nm">Nostr: The Protocol</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/web-of-trust/">
+  <span class="nm">Webs of Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/activitypub/">
+  <span class="nm">ActivityPub</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/map-censorship-resistance/">
+  <span class="nm">Map: Censorship Resistance</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-threat-models/">
+  <span class="nm">Map: Threat Models</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/openpgp-web-of-trust/">
+  <span class="nm">The OpenPGP Web of Trust</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/semaphore/">
+  <span class="nm">Semaphore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/snarks/">
+  <span class="nm">SNARKs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Identity%20and%20Pseudonymity" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Identity rooted in cryptographic keys rather than institutional verification. Pseudonymity is treated as a feature, and reputation comes from behavior rather than credentials.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>36</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

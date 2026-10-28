@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BBS+ Signatures — ungovernable.tech</title>
+<meta name="description" content="BBS+ signatures let a credential holder reveal only chosen attributes and prove the rest in zero knowledge: the scheme behind private verifiable credentials.">
+<link rel="canonical" href="https://ungovernable.tech/kb/bbs-signatures/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="BBS+ Signatures — ungovernable.tech">
+<meta property="og:description" content="BBS+ signatures let a credential holder reveal only chosen attributes and prove the rest in zero knowledge: the scheme behind private verifiable credentials.">
+<meta property="og:url" content="https://ungovernable.tech/kb/bbs-signatures/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BBS+ Signatures — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BBS+ Signatures — ungovernable.tech">
+<meta name="twitter:description" content="BBS+ signatures let a credential holder reveal only chosen attributes and prove the rest in zero knowledge: the scheme behind private verifiable credentials.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "BBS+ Signatures", "description": "BBS+ signatures let a credential holder reveal only chosen attributes and prove the rest in zero knowledge: the scheme behind private verifiable credentials.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/bbs-signatures/", "mainEntityOfPage": "https://ungovernable.tech/kb/bbs-signatures/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "BBS+ Signatures", "item": "https://ungovernable.tech/kb/bbs-signatures/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">BBS+ Signatures</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>BBS+ Signatures</h1>
+  <p class="aka">Also BBS+, BBS Plus, BBS Signatures.</p>
+  <p class="dek">A pairing-based signature scheme that lets a holder prove possession of a signature on a message vector while revealing only a chosen subset of the messages. The disclosed subset, the unrevealed messages, and the original signer&#39;s identity all bind together cryptographically — but the signer never learns which attributes were shown to which verifier.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#whats-distinctive">What&#39;s distinctive</a><a href="#origin-and-naming">Origin and naming</a><a href="#what-you-can-do-with-a-bbs-signature">What you can do with a BBS+ signature</a><a href="#ietf-standardization">IETF standardization</a><a href="#cipher-suites-in-the-draft">Cipher suites in the draft</a><a href="#production-and-pilot-deployments">Production and pilot deployments</a><a href="#bbs-vs-sd-jwt">BBS+ vs SD-JWT</a><a href="#bbs-vs-cl-signatures">BBS+ vs CL signatures</a><a href="#aggregation-and-threshold">Aggregation and threshold</a><a href="#trade-offs">Trade-offs</a><a href="#pitfalls">Pitfalls</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="whats-distinctive">What's distinctive</h2>
+<p>A BBS+ signature is over a <em>vector</em> of messages, not a single byte string. Given a signature on <code>(m_1, m_2, …, m_L)</code>:</p>
+<ul>
+<li>The holder can derive a presentation that reveals any subset <code>D ⊂ {1, …, L}</code> and proves the rest exist without disclosing them.</li>
+<li>The verifier learns the disclosed messages, the public key of the issuer, and a zero-knowledge proof that an issuer-signed vector satisfies the predicate.</li>
+<li>The verifier learns nothing about the unrevealed messages beyond what the disclosed ones imply.</li>
+<li>The current BBS draft has 80-byte signatures over BLS12-381. The BBS+ construction shown below has one G1 point and two scalars, totaling 112 bytes.</li>
+</ul>
+<p>This is the cryptographic backbone of "show me your driver's license but only the over-21 bit and your photo, nothing else" — the mDL / EU Digital Identity Wallet pattern.</p>
+<h2 id="origin-and-naming">Origin and naming</h2>
+<ul>
+<li><strong>BBS</strong> (Boneh, Boyen, Shacham), <em>Short Group Signatures</em>, CRYPTO 2004 — the underlying short signature.</li>
+<li><strong>BBS+</strong> (Au, Susilo, Mu, <em>Constant-Size Dynamic k-TAA</em>, SCN 2006; Camenisch and Lysyanskaya developed the credential-system framing in CL signatures, with BBS+ as a successor) — extends BBS to a vector of messages with efficient zero-knowledge proof of knowledge.</li>
+<li>The signing equation, in BLS12-381 notation:</li>
+</ul>
+<p><code>σ = (A, e, s) where  A = (g_1 · h_0^s · h_1^{m_1} · … · h_L^{m_L})^{1/(x + e)}</code></p>
+<p>with <code>x</code> the issuer's secret key, <code>e</code> and <code>s</code> per-signature randomness, and <code>h_0, …, h_L</code> public generators. Verification uses a pairing equation; possession can be proven in zero knowledge via a Schnorr-style sigma protocol.</p>
+<h2 id="what-you-can-do-with-a-bbs-signature">What you can do with a BBS+ signature</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign a vector <code>(m_1, …, m_L)</code></td>
+<td>issuer-bound credential</td>
+</tr>
+<tr>
+<td>Reveal subset <code>D</code></td>
+<td>verifier sees <code>m_i for i ∈ D</code> and a ZK proof of validity</td>
+</tr>
+<tr>
+<td>Prove a predicate over hidden messages</td>
+<td>range proofs, set membership, equality across credentials (with extra circuits)</td>
+</tr>
+<tr>
+<td>Linkable presentation (per-verifier pseudonym)</td>
+<td>optional pseudonym binding</td>
+</tr>
+<tr>
+<td>Unlinkable presentation across verifiers</td>
+<td>default — no two presentations from the same credential are linkable</td>
+</tr>
+</tbody>
+</table></div>
+<p>The unlinkability is the headline. With a conventional X.509 certificate or a JWT, every presentation is bit-identical and trivially linkable; BBS+ presentations are freshly randomized every time.</p>
+<h2 id="ietf-standardization">IETF standardization</h2>
+<p>The CFRG track:</p>
+<ul>
+<li><code>draft-irtf-cfrg-bbs-signatures</code> (initially submitted 2022 by Looker, Lodder, Kalos, Whitehead and others). Active as of 2026.</li>
+<li>Defines BBS over <strong>BLS12-381</strong>, with hash-to-curve per RFC 9380.</li>
+<li>Specifies signing, deterministic verification, proof generation (the ZK presentation), and proof verification.</li>
+<li>A separate <strong>BBS Blind Signatures</strong> draft adds blind issuance — issuer signs without seeing the messages.</li>
+<li>A <strong>Pseudonyms with BBS</strong> draft adds verifier-binding for sybil control without compromising cross-verifier unlinkability.</li>
+</ul>
+<p>The drafts have iterated several times — implementers should pin to a specific draft revision.</p>
+<h2 id="cipher-suites-in-the-draft">Cipher suites in the draft</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Curve</th>
+<th>Hash</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BBS_BLS12381G1_XMD:SHA-256_SSWU_RO_</code></td>
+<td>BLS12-381 G1</td>
+<td>SHA-256 + SSWU</td>
+<td>mainline</td>
+</tr>
+<tr>
+<td><code>BBS_BLS12381G1_XOF:SHAKE-256_SSWU_RO_</code></td>
+<td>BLS12-381 G1</td>
+<td>SHAKE-256 + SSWU</td>
+<td>XOF variant</td>
+</tr>
+</tbody>
+</table></div>
+<p>Both fix the curve and message-encoding to BLS12-381 G1 for the disclosed-attribute side. Selecting BLS12-381 ties BBS+ deployments to the same curve as Ethereum's BLS aggregate signatures and Filecoin / Zcash, which simplifies tooling.</p>
+<h2 id="production-and-pilot-deployments">Production and pilot deployments</h2>
+<h3 id="hyperledger-anoncreds">Hyperledger AnonCreds</h3>
+<p>The published AnonCreds v1 specification uses CL signatures and revocation accumulators. Its properties should not be attributed to a deployed BBS+ replacement.</p>
+<h3 id="w3c-verifiable-credentials-with-bbs">W3C Verifiable Credentials with BBS+</h3>
+<p>The W3C VC Data Model is signature-agnostic. A BBS+-signed VC profile lets the holder derive a redacted VC for each verifier. Reference work and demos by the DIF (Decentralized Identity Foundation) and MATTR.</p>
+<h2 id="bbs-vs-sd-jwt">BBS+ vs SD-JWT</h2>
+<p>The two compete head-to-head for selective-disclosure credentials.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>BBS+</th>
+<th>SD-JWT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cryptographic basis</td>
+<td>pairing (BLS12-381)</td>
+<td>hash + JWS (any curve)</td>
+</tr>
+<tr>
+<td>Selective disclosure</td>
+<td>algebraic, signer-blind</td>
+<td>hash-based (<code>_sd</code> claims)</td>
+</tr>
+<tr>
+<td>Cross-verifier unlinkability</td>
+<td>yes (default)</td>
+<td>no — the JWS stays the same</td>
+</tr>
+<tr>
+<td>Presentations can be correlated cryptographically</td>
+<td>Randomized proofs; disclosed data can still correlate</td>
+<td>Reused issuer-signed JWT can correlate</td>
+</tr>
+<tr>
+<td>Predicates over hidden values</td>
+<td>possible (range, set membership with extra ZK)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Tooling maturity (2026)</td>
+<td>growing, library-fragmented</td>
+<td>broad — fits existing JWT stacks</td>
+</tr>
+<tr>
+<td>Quantum-safe</td>
+<td>no (pairing-broken by Shor)</td>
+<td>partial — JWS-PQ profile exists; hash side is PQ</td>
+</tr>
+<tr>
+<td>IETF status</td>
+<td>CFRG draft</td>
+<td>RFC 9901</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="bbs-vs-cl-signatures">BBS+ vs CL signatures</h2>
+<p>CL (Camenisch-Lysyanskaya) signatures predate BBS+ and were the original choice in AnonCreds 1.0. BBS+ is preferred now because:</p>
+<ul>
+<li>Smaller signatures (single curve point vs RSA-large).</li>
+<li>Faster verification on modern hardware.</li>
+<li>Cleaner integration with BLS-curve tooling (no separate RSA setup).</li>
+</ul>
+<p>CL is still in older AnonCreds deployments and in some legacy academic credential systems.</p>
+<h2 id="aggregation-and-threshold">Aggregation and threshold</h2>
+<p>The BBS draft specifies signatures and selective-disclosure proofs. It does not define general issuer-signature aggregation or threshold issuance. Multi-issuer or threshold constructions require additional protocols and security analysis.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Unlinkable presentations across verifiers.</li>
+<li>Selective disclosure without trusted hardware.</li>
+<li>Compact signatures and proofs.</li>
+<li>Composable with predicate proofs (range, equality, set membership).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Pairing-based — broken by quantum.</strong> No drop-in PQ replacement; lattice-based selective-disclosure schemes (e.g., LaBRADOR-derived constructions, BBS-inspired lattice variants) are research-stage with much larger artifacts.</li>
+<li><strong>Implementation maturity.</strong> Fewer production-grade libraries than SD-JWT. Reference implementations exist in Rust (<code>pairing-crypto</code>, <code>bbs</code>), TypeScript (<code>@mattrglobal/bbs-signatures</code>), and Go.</li>
+<li><strong>Side-channel surface.</strong> Pairing arithmetic is delicate; constant-time pairing implementations are not as ubiquitous as constant-time elliptic-curve code.</li>
+<li><strong>Revocation.</strong> BBS+ alone does not provide revocation; it must be paired with an accumulator (see <a href="/kb/authenticated-data-structures/">Authenticated Data Structures</a>) or a status list (StatusList2021).</li>
+<li><strong>Issuer compromise.</strong> A leaked issuer key forges all credentials; revocation/rotation strategies are critical.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls</h2>
+<ul>
+<li><strong>Don't reuse domain separators.</strong> The hash-to-scalar and hash-to-curve domain tags are part of the cipher suite — mixing suites breaks unlinkability and security.</li>
+<li><strong>Don't expose <code>e</code> or <code>s</code>.</strong> They are per-signature randomness; revealing them links the presentation to the original signature.</li>
+<li><strong>Pin draft versions.</strong> The CFRG draft has changed parameter encodings between revisions.</li>
+<li><strong>Watch unlinkability scope.</strong> Network metadata (TLS session, IP) trivially de-anonymizes BBS+ presentations. Use Tor / mixnets for full unlinkability across verifiers.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2016/663" rel="noopener nofollow">Anonymous Attestation Using the Strong Diffie Hellman Assumption Revisited</a></li>
+<li><a href="https://eprint.iacr.org/2023/275" rel="noopener nofollow">Revisiting BBS Signatures</a></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-signatures/" rel="noopener nofollow">CFRG: The BBS Signature Scheme</a></li>
+<li><a href="https://www.w3.org/TR/vc-data-model-2.0/" rel="noopener nofollow">W3C Verifiable Credentials Data Model v2.0</a></li>
+<li><a href="https://github.com/anoncreds/anoncreds-spec" rel="noopener nofollow">AnonCreds specification</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9901.html" rel="noopener nofollow">RFC 9901: Selective Disclosure for JSON Web Tokens</a></li>
+<li><a href="https://www.w3.org/TR/vc-di-bbs/" rel="noopener nofollow">W3C BBS cryptosuite</a></li>
+<li><a href="https://eprint.iacr.org/2004/174" rel="noopener nofollow">Short Group Signatures</a></li>
+<li><a href="https://eprint.iacr.org/2008/136" rel="noopener nofollow">Constant-Size Dynamic $k$-TAA</a></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-irtf-cfrg-bbs-per-verifier-linkability/" rel="noopener nofollow">BBS Pseudonyms</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/authenticated-data-structures/">
+  <span class="nm">Authenticated Data Structures</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=BBS%2B%20Signatures" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A pairing-based signature scheme that lets a holder prove possession of a signature on a message vector while revealing only a chosen subset of the messages. The disclosed subset, the unrevealed messages, and the original signer&#39;s identity all bind together cryptographically — but the signer never learns which attributes were shown to which verifier.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography, Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

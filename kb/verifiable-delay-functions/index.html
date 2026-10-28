@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verifiable Delay Functions (VDFs) — ungovernable.tech</title>
+<meta name="description" content="Verifiable delay functions take a fixed amount of sequential time to compute but are quick to verify: constructions and uses in randomness beacons.">
+<link rel="canonical" href="https://ungovernable.tech/kb/verifiable-delay-functions/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Verifiable Delay Functions (VDFs) — ungovernable.tech">
+<meta property="og:description" content="Verifiable delay functions take a fixed amount of sequential time to compute but are quick to verify: constructions and uses in randomness beacons.">
+<meta property="og:url" content="https://ungovernable.tech/kb/verifiable-delay-functions/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Verifiable Delay Functions (VDFs) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verifiable Delay Functions (VDFs) — ungovernable.tech">
+<meta name="twitter:description" content="Verifiable delay functions take a fixed amount of sequential time to compute but are quick to verify: constructions and uses in randomness beacons.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Verifiable Delay Functions (VDFs)", "description": "Verifiable delay functions take a fixed amount of sequential time to compute but are quick to verify: constructions and uses in randomness beacons.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/verifiable-delay-functions/", "mainEntityOfPage": "https://ungovernable.tech/kb/verifiable-delay-functions/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Verifiable Delay Functions (VDFs)", "item": "https://ungovernable.tech/kb/verifiable-delay-functions/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Verifiable Delay Functions (VDFs)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Verifiable Delay Functions (VDFs)</h1>
+  <p class="aka">Also VDF, Verifiable Delay Function.</p>
+  <p class="dek">A function whose evaluation requires a prescribed amount of sequential work — no parallel speedup — but whose output is fast to verify. The point is to force the passage of real wall-clock time onto an output that everyone can check cheaply.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-sequentiality-means">What sequentiality means</a><a href="#why-vdfs-exist">Why VDFs exist</a><a href="#constructions">Constructions</a><a href="#applications">Applications</a><a href="#hardware-asic-race">Hardware ASIC race</a><a href="#trade-offs">Trade-offs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-sequentiality-means">What sequentiality means</h2>
+<p>A VDF is a triple <code>(Setup, Eval, Verify)</code>:</p>
+<ul>
+<li><code>Setup(λ, T) → pp</code> — public parameters bound to a delay <code>T</code>.</li>
+<li><code>Eval(pp, x) → (y, π)</code> — produces the output <code>y</code> after roughly <code>T</code> sequential steps.</li>
+<li><code>Verify(pp, x, y, π) → {accept, reject}</code> — runs in <code>polylog(T)</code> time.</li>
+</ul>
+<p>Two adversarial properties:</p>
+<ol>
+<li><strong>Sequentiality.</strong> No algorithm with <code>poly(λ)</code> parallel processors can produce <code>y</code> in significantly fewer than <code>T</code> sequential steps.</li>
+<li><strong>Uniqueness / soundness.</strong> For each <code>x</code>, only one <code>y</code> accepts under any proof.</li>
+</ol>
+<p>The first property is what makes the primitive distinct from a VRF or hash chain: even an attacker with unlimited cores cannot rush ahead. The second is what makes the output committing.</p>
+<p>Boneh, Bonneau, Bünz, Fisch, <em>Verifiable Delay Functions</em>, CRYPTO 2018.</p>
+<h2 id="why-vdfs-exist">Why VDFs exist</h2>
+<p>Public randomness suffers from a <em>last-revealer</em> problem. If validators contribute entropy in sequence, the final contributor sees what everyone else committed and can choose to publish or withhold their share to bias the output. A VDF applied to the aggregate makes this attack expensive: by the time the last contributor knows the resulting <code>y</code>, the deadline for influencing the round has long passed.</p>
+<p>Equivalent framing: a VDF is a slow, public hash that no one can precompute.</p>
+<p>See <a href="/kb/verifiable-random-functions/">VRFs</a> for the complementary primitive (unbiasable, but the keyholder chooses when to publish).</p>
+<h2 id="constructions">Constructions</h2>
+<h3 id="pietrzak-2018">Pietrzak (2018)</h3>
+<p>Pietrzak, <em>Simple Verifiable Delay Functions</em>, ITCS 2019 (preprint 2018). Uses repeated squaring in an RSA group with hidden order:</p>
+<pre><code>y = x^(2^T) mod N        # sequential: T squarings
+</code></pre>
+<p>The proof is a recursive halving where the prover commits to mid-points. Verification cost is <code>O(log T)</code> group operations. Soundness rests on the <em>low-order</em> assumption (no efficiently-findable element of low order in the group).</p>
+<h3 id="wesolowski-2018-eurocrypt-2019">Wesolowski (2018, EUROCRYPT 2019)</h3>
+<p>Wesolowski, <em>Efficient Verifiable Delay Functions</em>, EUROCRYPT 2019. Same <code>y = x^(2^T) mod N</code> form, but with a more compact proof:</p>
+<pre><code>ℓ = Hprime(x, y)         # prime challenge
+q = floor(2^T / ℓ)
+π = x^q mod N
+verify: π^ℓ · x^(2^T mod ℓ) =? y
+</code></pre>
+<p>Proof is a single group element (typically ~256 bytes for a 2048-bit RSA group). Soundness rests on the <em>adaptive root</em> assumption.</p>
+<p>Both constructions need a group whose order is not known to participants. Two options:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Setup</th>
+<th>Trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSA group <code>Z/NZ*</code></td>
+<td>Trusted setup picks <code>N = pq</code></td>
+<td>Trusted to delete factors, or MPC ceremony</td>
+</tr>
+<tr>
+<td>Class groups of imaginary quadratic orders</td>
+<td>Discriminant only, no trapdoor</td>
+<td>Transparent setup; computation is slower per step</td>
+</tr>
+</tbody>
+</table></div>
+<p>Class-group VDFs (Chia) avoid the trusted setup at the cost of more expensive squarings.</p>
+<h3 id="minroot-ethereum-dropped">MinRoot (Ethereum, dropped)</h3>
+<p>Khovratovich, Maller, Bhat, <em>MinRoot: Candidate Sequential Function for Ethereum VDF</em>, 2022. Iterated low-degree permutation <code>x ← (x + c)^(1/5)</code> over a prime field. Designed to be ASIC-resistant by reducing the gap between general-purpose silicon and custom hardware to a small constant. Ethereum considered MinRoot for randomness post-merge but <strong>shelved</strong> the integration in 2023 after analysis showed:</p>
+<ul>
+<li>The expected ASIC speedup over commodity silicon was larger than initially modeled.</li>
+<li>The economic incentive to build a single-purpose ASIC and capture MEV from biased randomness outweighed the cost.</li>
+</ul>
+<p>Status as of 2026: Ethereum continues to use RANDAO without a VDF backstop. MinRoot lives on as a research target.</p>
+<h3 id="other-candidates">Other candidates</h3>
+<ul>
+<li><strong>Sloth</strong> (Lenstra, Wesolowski, 2015): pre-VDF construction, modular square-root iterations. Uniqueness only, not sequentiality in the modern sense.</li>
+<li><strong>Isogeny-based VDFs</strong> (De Feo et al.): post-quantum candidate, large parameters.</li>
+</ul>
+<h2 id="applications">Applications</h2>
+<h3 id="ethereum-randao-post-merge-debate">Ethereum RANDAO post-merge debate</h3>
+<p>RANDAO is a commit-reveal aggregation of validator-supplied entropy. Each round's last proposer can choose to publish their reveal or skip; the latter means losing block rewards but biasing the next epoch's randomness slightly. A VDF applied to the RANDAO output would close this attack window. The MinRoot effort was the closest Ethereum came to deploying one. As of 2026, no VDF is in the production protocol; <code>mix_hash</code> continues to derive from RANDAO alone.</p>
+<h3 id="filecoin">Filecoin</h3>
+<p>Filecoin uses a "wall-clock proof" called WinningPoSt that combines proof-of-replication with leader election. Some early Filecoin design documents proposed a VDF for tie-breaking; the production protocol uses simpler sortition.</p>
+<h3 id="chia-proof-of-time">Chia proof-of-time</h3>
+<p>Chia's Nakamoto-style consensus pairs proof-of-space (storage commitment) with proof-of-time (a class-group VDF). Each block requires a VDF chain of computed length determined by the prevailing space proof. The "Timelord" role runs the VDF; it's permissionless but rewards the fastest implementation. Production deployment since 2021. The fastest Timelords reach roughly 200,000–250,000 squarings/sec on optimized FPGA/ASIC builds (community reports, varying).</p>
+<h3 id="league-of-entropy-and-randomness-beacons">League of Entropy and randomness beacons</h3>
+<p>The League of Entropy (drand) produces a publicly-verifiable threshold-BLS beacon every 30 seconds. It does not use a VDF directly but composes well with one: clients that need unpredictable-future randomness combine the beacon output with a VDF computed over their own input, ensuring no party can precompute the resulting value.</p>
+<h3 id="time-lock-encryption">Time-lock encryption</h3>
+<p>A ciphertext that can only be decrypted after <code>T</code> sequential operations. Drand's <em>timelock</em> feature (since 2023) uses BLS-based identity-based encryption against future beacon rounds; it relies on the beacon's liveness rather than a VDF. True VDF-based time-lock encryption is research-grade — see Malavolta and Thyagarajan, <em>Homomorphic Time-Lock Puzzles and Applications</em>, CRYPTO 2019.</p>
+<h2 id="hardware-asic-race">Hardware ASIC race</h2>
+<p>VDFs are interesting precisely because their security argument depends on the gap between an honest evaluator and the fastest possible attacker being small. This invites a hardware race:</p>
+<ul>
+<li><strong>VDF Alliance</strong> (Ethereum Foundation, Protocol Labs, others, 2019–2022) funded ASIC research to bound the gap.</li>
+<li>Chia funded its own Timelord optimization community.</li>
+<li>Class-group VDFs are slower per step than RSA VDFs, partially offsetting ASIC gains because the irregular arithmetic is harder to pipeline.</li>
+</ul>
+<p>The unsolved tension: any deployed VDF creates an incentive to build dedicated silicon. If a single party owns the fastest ASIC by a wide margin, sequentiality fails in practice even if the math holds.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Bias-free: combines with any commit-reveal or beacon to remove last-revealer power.</li>
+<li>Public, fast verification.</li>
+<li>Composable: a VDF on top of a VRF or beacon stacks cleanly.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Hardware sensitivity. The whole security argument depends on no attacker having a much faster evaluator than the honest one.</li>
+<li>Trusted setup (RSA variants) or expensive setup (class groups).</li>
+<li>Latency. By definition, a VDF imposes wall-clock delay; whether the application can absorb this matters.</li>
+<li>No post-quantum candidate is production-ready.</li>
+<li>Energy. Sequential squaring at scale consumes power; this is a feature (no shortcut) and a cost.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Boneh, Bonneau, Bünz, Fisch, <em>Verifiable Delay Functions</em>, CRYPTO 2018.</li>
+<li>Pietrzak, <em>Simple Verifiable Delay Functions</em>, ITCS 2019.</li>
+<li>Wesolowski, <em>Efficient Verifiable Delay Functions</em>, EUROCRYPT 2019.</li>
+<li>Boneh, Bünz, Fisch, <em>A Survey of Two Verifiable Delay Functions</em>, IACR ePrint 2018/712.</li>
+<li>Khovratovich, Maller, Bhat, <em>MinRoot: Candidate Sequential Function for Ethereum VDF</em>, 2022.</li>
+<li>De Feo, Masson, Petit, Sanso, <em>Verifiable Delay Functions from Supersingular Isogenies and Pairings</em>, ASIACRYPT 2019.</li>
+<li>Malavolta, Thyagarajan, <em>Homomorphic Time-Lock Puzzles and Applications</em>, CRYPTO 2019.</li>
+<li>Chia VDF reference: <a href="https://github.com/Chia-Network/chiavdf" rel="noopener nofollow">github.com/Chia-Network/chiavdf</a>.</li>
+<li>drand: <a href="https://drand.love" rel="noopener nofollow">drand.love</a>, <a href="https://github.com/drand/drand" rel="noopener nofollow">github.com/drand/drand</a>.</li>
+</ul>
+<p>Continue with <a href="/kb/drand-tlock/">drand and tlock</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/verifiable-random-functions/">
+  <span class="nm">Verifiable Random Functions (VRFs)</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/drand-tlock/">
+  <span class="nm">drand and tlock</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Verifiable%20Delay%20Functions%20%28VDFs%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A function whose evaluation requires a prescribed amount of sequential work — no parallel speedup — but whose output is fast to verify. The point is to force the passage of real wall-clock time onto an output that everyone can check cheaply.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

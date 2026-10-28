@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marmot: MLS over Nostr — ungovernable.tech</title>
+<meta name="description" content="Marmot layers MLS (RFC 9420) group encryption on Nostr identities and relays: end-to-end encrypted group chat without phone numbers or central servers.">
+<link rel="canonical" href="https://ungovernable.tech/kb/marmot-protocol/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Marmot: MLS over Nostr — ungovernable.tech">
+<meta property="og:description" content="Marmot layers MLS (RFC 9420) group encryption on Nostr identities and relays: end-to-end encrypted group chat without phone numbers or central servers.">
+<meta property="og:url" content="https://ungovernable.tech/kb/marmot-protocol/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Marmot: MLS over Nostr — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Marmot: MLS over Nostr — ungovernable.tech">
+<meta name="twitter:description" content="Marmot layers MLS (RFC 9420) group encryption on Nostr identities and relays: end-to-end encrypted group chat without phone numbers or central servers.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Marmot: MLS over Nostr", "description": "Marmot layers MLS (RFC 9420) group encryption on Nostr identities and relays: end-to-end encrypted group chat without phone numbers or central servers.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/marmot-protocol/", "mainEntityOfPage": "https://ungovernable.tech/kb/marmot-protocol/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Marmot: MLS over Nostr", "item": "https://ungovernable.tech/kb/marmot-protocol/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Marmot: MLS over Nostr</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SECURE MESSAGING ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Marmot: MLS over Nostr</h1>
+  <p class="aka">Also Marmot, MLS over Nostr.</p>
+  <p class="dek">MLS (RFC 9420) layered on Nostr&#39;s identity and relay infrastructure to deliver end-to-end encrypted, scalable, metadata-protected group messaging without centralized servers.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-marmot-is">What Marmot is</a><a href="#how-it-plugs-into-nostr">How it plugs into Nostr</a><a href="#the-three-event-flows">The three event flows</a><a href="#cryptographic-properties">Cryptographic properties</a><a href="#comparison">Comparison</a><a href="#why-marmot-is-interesting">Why Marmot is interesting</a><a href="#trade-offs">Trade-offs</a><a href="#implementation-surfaces">Implementation surfaces</a><a href="#operational-patterns">Operational patterns</a><a href="#attack-surface">Attack surface</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-marmot-is">What Marmot is</h2>
+<p>Marmot is a specification (a series of MIPs, Marmot Implementation Protocols) for using Nostr as the transport and identity layer for MLS, the IETF Messaging Layer Security standard. The result is a messaging system that combines:</p>
+<ul>
+<li>Signal-grade cryptographic guarantees (forward secrecy, post-compromise security) via MLS.</li>
+<li>Nostr-grade decentralization (no central server, key-rooted identity, censorship resistance) via Nostr.</li>
+<li>Logarithmic scaling for groups (MLS's TreeKEM) instead of Signal's per-pair Sender Keys.</li>
+<li>Metadata protection via NIP-59 gift-wrapping for membership-changing events.</li>
+</ul>
+<p>It addresses a real gap in the Nostr ecosystem: NIP-04 and NIP-17 are per-message DM ciphers without forward secrecy and without group support. Marmot is the next layer.</p>
+<p>Status: experimental. Active development through 2024-2026, specification under iteration.</p>
+<h2 id="how-it-plugs-into-nostr">How it plugs into Nostr</h2>
+<p>Nostr provides three things Marmot uses directly:</p>
+<ol>
+<li>Identity. Each user already has a <code>secp256k1</code> Nostr keypair (<code>npub</code>).</li>
+<li>Delivery substrate. Relays accept and forward signed events globally and asynchronously.</li>
+<li>Asynchronous semantics. Receivers can come online later and pull events.</li>
+</ol>
+<p>Marmot defines new event kinds on top of this:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>30443</code></td>
+<td>KeyPackage event — published "invitation cards"</td>
+</tr>
+<tr>
+<td><code>444</code></td>
+<td>Welcome rumor (gift-wrapped at kind <code>1059</code>)</td>
+</tr>
+<tr>
+<td><code>445</code></td>
+<td>Group event (Proposal / Commit / Application message)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The spec is in MIP-00 through MIP-05 in the <a href="https://github.com/marmot-protocol/marmot" rel="noopener nofollow">marmot-protocol/marmot</a> repository.</p>
+<h2 id="the-three-event-flows">The three event flows</h2>
+<h3 id="keypackage-publishing-mip-00">KeyPackage publishing (MIP-00)</h3>
+<p>Each user publishes a <code>kind:30443</code> <em>KeyPackage</em> containing:</p>
+<ul>
+<li>An MLS BasicCredential whose <code>identity</code> field is the raw 32-byte Nostr public key.</li>
+<li>A signing key (distinct from the Nostr identity, MLS-specific).</li>
+<li>Ciphersuite, MLS extensions, and supported proposal types (including <code>self_remove</code> for cooperative leaving).</li>
+<li>Relays where this KeyPackage is published (for discovery).</li>
+</ul>
+<p>KeyPackages are basically asynchronous invitation cards. When Alice wants to add Bob to a group, she fetches Bob's KeyPackage and uses it to encode a Welcome message addressed to him.</p>
+<h3 id="welcome-mip-02">Welcome (MIP-02)</h3>
+<p>When a user is added to a group, the admin sends a <em>Welcome event</em>:</p>
+<pre><code>kind: 1059 (gift wrap)
+   └── kind: 13 (NIP-59 seal)
+         └── kind: 444 (rumor — Welcome MLS message)
+</code></pre>
+<p>NIP-59 encrypts the Welcome and conceals its original sender, but the outer gift-wrap event has a <code>p</code> tag naming the recipient’s public key. Relays and observers who can see the event can read that tag; the encrypted contents do not reveal which group the invitation concerns. The Welcome MUST be sent only after the corresponding MLS Commit has been confirmed by relays. Sending it earlier causes a state fork where the new member sits at one MLS epoch and existing members at another, and decryption breaks until manual recovery.</p>
+<h3 id="group-events-mip-03">Group events (MIP-03)</h3>
+<p>After joining, members exchange <code>kind:445</code> events for everything inside the group:</p>
+<ul>
+<li>Proposals (add member, remove member, update keys).</li>
+<li>Commits (apply queued proposals, advance epoch).</li>
+<li>Application messages (the actual chat content).</li>
+</ul>
+<p>Each kind:445 event:</p>
+<ul>
+<li>Is signed by an <em>ephemeral</em> Nostr keypair, distinct per event, never reused. This hides the sender at the relay layer.</li>
+<li>Contains the MLS <code>MLSMessage</code> encrypted with ChaCha20-Poly1305 using a per-epoch key derived from MLS exporter secrets.</li>
+<li>Carries an <code>h</code> tag with the group's <code>nostr_group_id</code> (from the <code>marmot_group_data</code> extension) for relay routing without revealing the MLS group ID.</li>
+</ul>
+<h2 id="cryptographic-properties">Cryptographic properties</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Source</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>End-to-end encryption</td>
+<td>MLS + ChaCha20-Poly1305</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Forward secrecy</td>
+<td>MLS ratchet</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Post-compromise security</td>
+<td>MLS Commits rotate keys</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Membership privacy</td>
+<td>NIP-59 gift wrap on Welcome</td>
+<td>Welcome content is encrypted; the outer p tag exposes the recipient, so recipient and timing metadata remain visible</td>
+</tr>
+<tr>
+<td>Sender unlinkability per-message</td>
+<td>Ephemeral keypairs on kind:445</td>
+<td>Strong, with per-epoch caveats — see below</td>
+</tr>
+<tr>
+<td>Group size privacy</td>
+<td>Encrypted content; ephemeral senders</td>
+<td>Strong against external observers</td>
+</tr>
+<tr>
+<td>Identity continuity</td>
+<td>Nostr identity + distinct MLS signing key</td>
+<td>Group compromise doesn't burn Nostr identity</td>
+</tr>
+<tr>
+<td>Disappearing messages</td>
+<td>NIP-40 expiration via <code>marmot_group_data</code> extension</td>
+<td>Hint to relays; clients enforce</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="what-marmot-doesnt-try-to-hide">What Marmot doesn't try to hide</h3>
+<ul>
+<li>The fact that you publish KeyPackages. Anyone can see your <code>kind:30443</code> events.</li>
+<li>The recipient public key in each visible <code>kind:1059</code> gift wrap’s <code>p</code> tag, and the timing of those events.</li>
+<li>Endpoint compromise. Same as everywhere.</li>
+</ul>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Signal Sender Keys</th>
+<th>Matrix Megolm</th>
+<th>Marmot (MLS over Nostr)</th>
+<th>NIP-04 / NIP-17</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group scaling</td>
+<td>Linear per send</td>
+<td>Log (Megolm)</td>
+<td>Log (MLS TreeKEM)</td>
+<td>Linear</td>
+</tr>
+<tr>
+<td>Forward secrecy</td>
+<td>Yes</td>
+<td>Yes (rotation)</td>
+<td>Yes (per-Commit)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Post-compromise security</td>
+<td>Limited</td>
+<td>Per-rotation</td>
+<td>Yes (per-Commit)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Decentralization</td>
+<td>Single org</td>
+<td>Federated</td>
+<td>Permissionless</td>
+<td>Permissionless</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>Phone number</td>
+<td>MXID</td>
+<td>Nostr keypair</td>
+<td>Nostr keypair</td>
+</tr>
+<tr>
+<td>Metadata protection</td>
+<td>Sealed sender (server)</td>
+<td>Server-side</td>
+<td>Gift-wrapped Welcomes; ephemeral senders</td>
+<td>NIP-17 gift wrap (DMs only)</td>
+</tr>
+<tr>
+<td>Group join</td>
+<td>Server-mediated</td>
+<td>Federation handshake</td>
+<td>KeyPackage from relay</td>
+<td>N/A (no native groups)</td>
+</tr>
+<tr>
+<td>Spec status</td>
+<td>Closed</td>
+<td>Open (Matrix MLS in dev)</td>
+<td>Open spec, experimental</td>
+<td>Mature for DMs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="why-marmot-is-interesting">Why Marmot is interesting</h2>
+<ul>
+<li>Plugs the group-messaging gap in Nostr. NIP-17 is a DM solution; Marmot is the answer when you have 50 friends in a chat and the protocol still has to work.</li>
+<li>Decentralized Signal-equivalent. The first protocol to combine MLS-grade crypto with permissionless infrastructure. Neither Signal nor Matrix offers that combination today.</li>
+<li>Identity reuse without compromise. The Nostr identity key is preserved; group-internal signing uses a distinct MLS key. Compromising one doesn't burn the other.</li>
+<li>Clean separation of layers. Identity (Nostr key) ≠ group signing key (MLS) ≠ encryption key (per-epoch derived). Each can rotate or be revoked independently.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>MLS scaling: log-cost group operations.</li>
+<li>Forward secrecy and post-compromise security, both real.</li>
+<li>No central server to subpoena or shut down.</li>
+<li>Metadata-protected group membership.</li>
+<li>Identity continuity with the rest of the Nostr ecosystem.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Experimental. The spec is iterating; clients are early.</li>
+<li>Implementation complexity. MLS is a substantial library (OpenMLS in Rust, mls-rs from AWS).</li>
+<li>Race conditions on add. State-fork prevention requires careful timing of Commit confirmation before Welcome dispatch, easy to get wrong.</li>
+<li>Relay coverage required. A KeyPackage published only to a relay nobody else uses is invisible.</li>
+<li>Multi-device. MLS treats each device as a separate group member; a user with two devices joins a group twice.</li>
+<li>Backups and history sync. Standardization remains open; loss of device may mean loss of message history depending on client design.</li>
+</ul>
+<h2 id="implementation-surfaces">Implementation surfaces</h2>
+<ul>
+<li>MLS library: OpenMLS (Rust), mls-rs (AWS, Rust). Both can be used with Marmot.</li>
+<li>Nostr library: any Nostr client SDK (rust-nostr, nostr-tools, NDK).</li>
+<li>Reference clients: White Noise (Rust + iOS Swift), some early Damus and 0xchat work.</li>
+<li>KeyPackage publishing: clients publish KeyPackages on app launch and rotate them periodically.</li>
+</ul>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="activist-group-with-nostr-identities">Activist group with Nostr identities</h3>
+<p>Members already have npubs. They publish KeyPackages, an organizer creates a group, gift-wrapped Welcomes invite each member. All group communication flows through public Nostr relays as opaque ciphertext. Adding and removing members is an MLS Commit + Welcome flow; epochs advance.</p>
+<h3 id="multi-device-join">Multi-device join</h3>
+<p>Each device generates its own MLS signing key and publishes its own KeyPackage. The group has separate "Alice-on-phone" and "Alice-on-laptop" leaves. This is a feature for forward secrecy (compromise one device, the other still works) and a footgun for group size accounting.</p>
+<h3 id="hybrid-with-fips">Hybrid with <a href="/kb/fips-mesh/">FIPS</a></h3>
+<p>Group communication over the FIPS mesh: KeyPackages discovered via Nostr relays accessible over FIPS, then group events flow over the mesh. End-to-end encrypted by Marmot, mesh-routable by FIPS, identity unified by the Nostr keypair.</p>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KeyPackage exhaustion / reuse</td>
+<td><code>last_resort</code> extension for fallback; rotate eagerly</td>
+</tr>
+<tr>
+<td>State fork on race</td>
+<td>Strict Commit-confirmation-before-Welcome ordering</td>
+</tr>
+<tr>
+<td>Compromised member exfiltrates ratchet</td>
+<td>MLS PCS — eventually rotated out of group on next Commit</td>
+</tr>
+<tr>
+<td>Relay denial of service</td>
+<td>Multi-relay publishing; redundancy</td>
+</tr>
+<tr>
+<td>Identity key compromise</td>
+<td>Migrate via signed delegation; group recovery is application-defined</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Out of scope; standard hardening</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>MIP-00 through MIP-05 stabilization.</li>
+<li>White Noise reference clients (desktop and iOS).</li>
+<li>Damus integration experiments.</li>
+<li>OpenMLS version compatibility maintained.</li>
+<li>NIP-EE legacy: predecessor draft NIP for MLS-over-Nostr; superseded by Marmot's MIP organization.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/59.md" rel="noopener nofollow">NIP-59: gift-wrap routing tags and recipient metadata</a></p>
+</li>
+<li>
+<p>Marmot Protocol — <a href="https://github.com/marmot-protocol/marmot" rel="noopener nofollow">github.com/marmot-protocol/marmot</a> (MIP-00 through MIP-05).</p>
+</li>
+<li>RFC 9420, <em>Messaging Layer Security</em>, IETF, 2023.</li>
+<li>RFC 9750, <em>MLS Protocol Architecture</em>.</li>
+<li>Cohn-Gordon et al., <em>On Ends-to-Ends Encryption: Asynchronous Group Messaging with Strong Security Guarantees</em> (TreeKEM origin), CCS 2018.</li>
+<li>NIP-59 (gift-wrap), NIP-44 (cipher), NIP-EE (legacy MLS-over-Nostr) — <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">github.com/nostr-protocol/nips</a>.</li>
+<li>OpenMLS — <a href="https://github.com/openmls/openmls" rel="noopener nofollow">github.com/openmls/openmls</a>.</li>
+<li>mls-rs — <a href="https://github.com/awslabs/mls-rs" rel="noopener nofollow">github.com/awslabs/mls-rs</a>.</li>
+</ul>
+<p><strong>Update, October 2026.</strong> The numbered MIP documents described above are now deprecated: the Marmot repository holds a reorganised specification (foundation, protocol-core, transports, app components, features) marked <em>adopted</em>, with weekly normative changes listed in its changelog. The event kinds above are unchanged. For the main client built on it, see <a href="/kb/white-noise/">White Noise</a>; for an MLS-over-Nostr design that keeps a self-hostable coordinator instead of publishing to public relays, see <a href="/kb/cordn/">Cordn</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/fips-mesh/">
+  <span class="nm">FIPS (Free Internetworking Peering System)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cordn/">
+  <span class="nm">Cordn</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/remote-signing/">
+  <span class="nm">Remote Signing (NIP-46 and Friends)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/session-messenger/">
+  <span class="nm">Session</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Marmot%3A%20MLS%20over%20Nostr" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">MLS (RFC 9420) layered on Nostr&#39;s identity and relay infrastructure to deliver end-to-end encrypted, scalable, metadata-protected group messaging without centralized servers.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Secure Messaging, Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — August 22 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-22: Simon&#39;s polynomial-time DCP claim has been refuted — formally, and machine-checked.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-08-22/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — August 22 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-22: Simon&#39;s polynomial-time DCP claim has been refuted — formally, and machine-checked.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-08-22/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — August 22 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — August 22 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-22: Simon&#39;s polynomial-time DCP claim has been refuted — formally, and machine-checked.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — August 22 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-22: Simon's polynomial-time DCP claim has been refuted — formally, and machine-checked.", "datePublished": "2026-08-22", "dateModified": "2026-08-22", "url": "https://ungovernable.tech/briefings/post-quantum/2026-08-22/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-08-22/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-22", "item": "https://ungovernable.tech/briefings/post-quantum/2026-08-22/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-08-22</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — August 22 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-22</b></span>
+    <span><b>20</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-22 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-22. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ol>
+<li>
+<p><strong>Simon's polynomial-time DCP claim has been refuted — formally, and machine-checked.</strong> Gupte (MIT), Ragavan (Google Quantum AI / MIT) and Zhandry (Google Quantum AI / Stanford) posted ePrint 2026/1693 (approved August 15): <em>"The ePrint:2026/1591 Quantum Algorithm Does Not Solve DCP."</em> Their result is not a critique of Simon's proof — they show <strong>the algorithm itself cannot possibly work</strong>: after step 3 the algorithm never touches the classical Fourier labels again, and it can be implemented (up to error poly(n)·2^(−n/3)) using only the most-significant third of those labels — which is provably not enough information to extract the DCP secret's least-significant bit. Discarding as few as ω(log n) bits per label hides the answer information-theoretically. They close the obvious escape: either the algorithm is wrong, or its expected runtime is Ω(2^(n/9)) — it cannot be both subexponential and correct. <strong>Lean 4 code is released</strong> (github.com/sragavan99/lean-ePrint-2026-1591-refutation) so the result can be machine-checked. The kicker: Ragavan is one of the two personal-communication sources Simon's own paper cited for its SVP/LWE corollary — he is now a co-author of the refutation. Nine days from claim to no-go.</p>
+</li>
+<li>
+<p><strong>The verification arc that produced it was open, fast, and AI-assisted.</strong> Between Aug 6–15, a qcryptanalysis Discord effort (Bernstein, Kirshanova, Apon, Jaques, with Simon participating) converged on Lemmas 3–4 as the failure sites. Daniel Apon (Anduril, ex-NIST) published "The Search for Simon" (Aug 9) proving the generic proof strategy requires a missing theorem he calls AQSE and has no local repair, then stated Aug 10 he believed Lemma 3 false. Simon posted a revised draft Aug 11 defending Lemma 3; Apon answered the same night with a one-page counterexample (github.com/a-as-plus-e/lemma3-objection) showing the pairwise-independence the lemma needs fails by construction. A separate analysis found Lemma 4's substitution on p.14 replaces a doubly-cancelling signed sum with a non-negative quantity, making the amplitude ratio positive by construction — structurally incapable of detecting the catastrophic ρ ≈ −1 failure mode. Kirshanova's independent AI-assisted check converged on the same Lemma-4 bug. The no-go theorem subsumes all of this for a broad class of Regev-template algorithms.</p>
+</li>
+<li>
+<p><strong>RFC 10024 published (August 2026): hybrid PQ/T key agreement for TLS 1.3 is a Proposed Standard.</strong> The hybrid X25519MLKEM768 / ECDHE+ML-KEM constructions — deployed by Chrome, Cloudflare, Google, AWS, Apple — now have their permanent, cited-everywhere RFC (Kwiatkowski, Kampanakis, Westerbaan, Stebila; AD Paul Wouters; was draft-ietf-tls-ecdhe-mlkem). The endorsed default for TLS transport PQ is no longer a draft. Meanwhile <strong>pure ML-KEM TLS (draft-ietf-tls-mlkem) remains unpublished</strong> — IESG state unchanged after the Last Call closed Aug 13. freenode.net (Aug 16) documented Bernstein's four-part Aug 11 filing: <strong>75 sourced, non-withdrawn objections</strong> from the third WGLC, none addressable by document edits; his claim that the last-call moderators blocked the series from last-call@ietf.org (with timestamped archive links), and a demand that the chairs publish the record they filed in secret. An RFC 2026 formal complaint on the consensus call is signalled. If the IESG approves publication, the appeal path is fully prepared.</p>
+</li>
+<li>
+<p><strong>The attack line the refutation does <em>not</em> touch: Wen–Zheng stands.</strong> The CRYPTO 2026 Module-LWE ↔ IP-M-EDCP ↔ EDCP bridge (ePrint 2026/155) is peer-reviewed mathematics independent of Simon's algorithm — it now points at a target with no known poly-time solver. The research program is intact; only the claimed solver is dead. Bai et al.'s CRYPTO 2025 quasi-polynomial EDCP algorithm remains the genuine algorithmic advance in this line. Kuperberg 2005 (2^O(√n)) remains the best actual DCP algorithm. Post-refutation, "the exponents of LWE attacks are continuing to drop" (Bernstein, Aug 11 last-call message) — but nothing has changed for deployed parameters.</p>
+</li>
+<li>
+<p><strong>Backfill (missed by prior updates): Anthropic's Claude Mythos Preview recovered HAWK-256 challenge keys</strong> (July 28 disclosure). Two HAWK-256 challenge public keys → signing-equivalent keys in hours on one server, via a Galois involution (ζ → −ζ) in HAWK's power-of-two cyclotomic ring that roughly halves the SVP oracle dimension (Straznickas &amp; Weis, anthropic.com/document/hawk_key_recovery.pdf). A separate team independently attacked the same scheme with GPT-5.6. Mythos also improved the best-known attack on <strong>7-round AES-128</strong> (a 13-year-old record). No deployed system affected — HAWK is a NIST Round 3 candidate; the AES result needs 2^105 chosen plaintexts against 7 of 10 rounds. This is a <strong>tier-2 (algorithm-design) event, not tier-3</strong>: module-LIP in general is intact; HAWK's specific ring choice is the flaw; reparameterization (different ring conductors) is the fix. What changed is economics: a publishable cryptanalytic result now costs ~$100K and a week of model time.</p>
+</li>
+<li>
+<p><strong>Backfill: Classic McEliece quasipolynomial distinguisher</strong> (ePrint 2026/1630, Aug 10). Ghoshal, Ishai, Jain, Sun (IIT Madras / Technion+AWS / CMU) gave a classical n^O(log n) distinguisher for binary Goppa codes — the first structural distinguisher cheaper than information-set decoding (2^114–2^124 vs 2^151–2^287 Boolean-circuit cost) on <strong>every NIST parameter set</strong>, with no heuristic assumptions. Not a break: Classic McEliece never claimed public-key pseudorandomness (OW-CPA + CCA conversion). But the quantitative argument that made structural attacks easy to dismiss is gone — relevant to HQC-diversification planning since code-based confidence now rests on "generic decoding is the floor" for both KEM families' code branch.</p>
+</li>
+<li>
+<p><strong>Google Cloud attached dates to its PQC migration</strong> (Aug 11 post; Ivezic analysis Aug 13). Domain 1 (SNDL mitigation): end-2027 — quantum-confidential ALTS done 2025, API endpoints + load balancers done 2026, Cloud VPN / Interconnect / GCE OS Login / SDK / gcloud / GKE mesh 2026–27; hybrid TLS on LBs enabled-by-default after Oct 2026, always-on after Oct 2027. Domain 2 (integrity/non-repudiation): end-2028 — Binary Authorization 2026, Assured OSS 2027, CA Service 2027, Cloud IAM 2028, <strong>Google Trust Services MTC support 2028</strong>. Domain 3 (foundations/KMS): end-2028 — ML-KEM/ML-DSA/SLH-DSA in Cloud KMS already GA. Signatures trail confidentiality by exactly one year across the board.</p>
+</li>
+<li>
+<p><strong>CRYPTO 2026 concluded Aug 17–20 (Santa Barbara, 189/781 papers).</strong> The venue where hallway verdicts on Simon's preprint were expected — but the no-go landed first (Aug 15). From the program: practical lattice proof systems maturing (LaZer/LaBRADOR aggregate-signature comparisons — proof size and prover time favor lattices, verification ~10× slower), Bennett–Lai–Stephens-Davidowitz "advanced cryptography from lattice isomorphism" (new IBE and FHE from LIP — the same problem family HAWK uses, now building on it instead of only breaking it), and the Wen–Zheng equivalence in the proceedings. No post-conference statement from Simon as of Aug 22.</p>
+</li>
+</ol>
+<p><em>Freedom-tech implication: the scare of Aug 6 is dead; the discipline it demanded survives. Nothing about the deployment posture changes — hybrid X25519MLKEM768 for transport (now RFC 10024, citeable), hybrid Ed25519+ML-DSA for signatures, SLH-DSA as conservative backbone, HQC tracked for 2027, crypto-agility as architecture. The two durable lessons from the nine-day arc: (1) open verification works — Discord + Overleaf + Lean machine-checking compressed a community verdict from months to days, a model for every future claim; (2) the AI-cryptanalysis economics shift ($100K/week per publishable attack) means tier-2 findings will arrive at a cadence standardization processes weren't designed for — the agility argument is now an AI-cadence argument. And the backfilled HAWK story sharpens the Round 3 watch: one of the nine candidates took a ring-specific key-recovery hit in July; its reparameterization response is the thing to watch through the ~2027–28 evaluation window.</em></p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-the-refutation-how-the-claim-died-in-nine-days">1. The Refutation — How the Claim Died in Nine Days</h3>
+<p><strong>Paper</strong>: Aparna Gupte (MIT), Seyoon Ragavan (Google, MIT), Mark Zhandry (Google, Stanford), "The ePrint:2026/1591 Quantum Algorithm Does Not Solve DCP," ePrint 2026/1693, received and approved August 15, 2026.</p>
+<h4 id="the-theorem-plainly">The theorem, plainly</h4>
+<p>The refutation is stronger than a proof-gap objection. It is an impossibility result about the <em>algorithm</em>, not the <em>analysis</em>:</p>
+<ul>
+<li><strong>What Simon's algorithm throws away.</strong> After step 3, the algorithm never touches the classical Fourier labels again — and step 3 uses them only through the top log n bits of each block's inner product. Because the blocks are short, the low bits of those labels almost never change the output, so <strong>the entire step-3 state can be reconstructed from roughly the top third of each label</strong>.</li>
+<li><strong>Why that is fatal.</strong> GRZ prove that any algorithm following Regev's 2004 template and keeping only that much information <strong>cannot distinguish the secret's least-significant bit</strong> with advantage better than poly(n)·2^(−n/3). Discarding as few as ω(log n) bits per label is enough to hide the answer information-theoretically. No repair to the analysis rescues an algorithm that has already discarded the answer.</li>
+<li><strong>The dichotomy.</strong> Either the algorithm is wrong, or its expected runtime is Ω(2^(n/9)). It cannot be both subexponential and correct.</li>
+<li><strong>The scope.</strong> The no-go "encompasses a much broader class of algorithms than the specific algorithm by Simon." Main message: DCP algorithms on Regev's template "will probably have to make extensive use of the classical Fourier labels in the uncomputation stage."</li>
+<li><strong>The machine-checking.</strong> Lean 4 code released at github.com/sragavan99/lean-ePrint-2026-1591-refutation — the refutation itself can be verified by proof assistant, a level of rigor beyond the claim it kills.</li>
+</ul>
+<p>The authors stop short of claiming no repair path exists at all ("not aware of a repair path that meaningfully circumvents our theorem") — but any repair would have to abandon the algorithm, not fix its proof.</p>
+<h4 id="the-personal-communication-irony">The personal-communication irony</h4>
+<p>Simon's final corollary (the SVP/LWE parameter statement) rested on unpublished personal communications from <strong>Seyoon Ragavan</strong> and Daniele Micciancio. Ragavan is now a co-author of the refutation. Whatever he communicated privately in early August, his published position by Aug 15 was that the algorithm cannot work. The other corollary source (Micciancio) has not published a statement either way.</p>
+<h4 id="timeline-of-the-nine-days">Timeline of the nine days</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jul 31 / Aug 3</td>
+<td>Simon manuscript dated / submitted to ePrint</td>
+</tr>
+<tr>
+<td>Aug 6</td>
+<td>ePrint 2026/1591 approved; Ivezic publishes first analysis; sitg-consulting and fprox analyses follow</td>
+</tr>
+<tr>
+<td>Aug 6–14</td>
+<td>Open verification on qcryptanalysis Discord: Bernstein, Kirshanova (BKSW co-author), Apon, Jaques; Simon participates; Kirshanova shares real-time analysis via open Overleaf</td>
+</tr>
+<tr>
+<td>Aug 9</td>
+<td>Discord effort confirms Lemmas 3–4 are real proof gaps; Lemma 4 shows a structural defect (p.14 substitution makes amplitude ratio positive by construction — cannot detect ρ ≈ −1)</td>
+</tr>
+<tr>
+<td>Aug 9</td>
+<td>Apon publishes "The Search for Simon": generic strategy needs a missing AQSE theorem, no local repair</td>
+</tr>
+<tr>
+<td>Aug 10</td>
+<td>Apon (LinkedIn): "I don't believe Simon's DCP-LWE algorithm is correct. Lemma 3 is clearly false. After significant effort, I don't see how to repair the analysis."</td>
+</tr>
+<tr>
+<td>Aug 11</td>
+<td>Simon posts revised draft defending Lemma 3 (state partition depends only on Fourier labels, not the measured Hadamard mask)</td>
+</tr>
+<tr>
+<td>Aug 11</td>
+<td>Apon answers same night with one-page counterexample (github.com/a-as-plus-e/lemma3-objection): set A defined by zero mask blocks ⇒ states differing only in A-part carry identical phases for every mask ⇒ pairwise independence fails by construction</td>
+</tr>
+<tr>
+<td>Aug 11</td>
+<td>Bernstein files the four-part 75-objection Last Call series on draft-ietf-tls-mlkem (parallel front; see §3)</td>
+</tr>
+<tr>
+<td>Aug 15</td>
+<td><strong>GRZ no-go theorem posted and approved (ePrint 2026/1693)</strong>, with Lean 4 code</td>
+</tr>
+<tr>
+<td>Aug 17–20</td>
+<td>CRYPTO 2026, Santa Barbara — the refutation precedes the hallway track</td>
+</tr>
+<tr>
+<td>Aug 22</td>
+<td>No withdrawal notice on ePrint 2026/1591 as of this writing; no post-refutation statement from Simon</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="what-it-means-calibrated">What it means, calibrated</h4>
+<ul>
+<li><strong>For deployed crypto: nothing.</strong> "On the evidence available today, the lattice assumptions under ML-KEM and ML-DSA sit where they sat on July 30" (Ivezic). Migration guidance "fails to change for a boring reason rather than an uncertain one."</li>
+<li><strong>For the research program: direction intact, solver dead.</strong> Wen–Zheng (CRYPTO 2026) still maps Module-LWE into dihedral territory; Bai et al. 2025 still gives the genuine quasi-polynomial EDCP advance; Kuperberg 2005 still bounds what's actually achievable. The invitation to attack IP-M-EDCP stands.</li>
+<li><strong>For epistemics: the base rate held.</strong> Chen 2024 → withdrawn in days. Luo 2026 → fatally flawed. Simon 2026 → refuted in nine days. Three loud claims, three deaths, each caught by open expert scrutiny plus, now, machine checking. The system works — and it is getting faster at working.</li>
+<li><strong>For history: a near-symmetry that didn't happen.</strong> Had it survived, the researcher whose 1994 algorithm enabled Shor's would have produced the lattice counterpart 30 years later. Instead the episode becomes the textbook case for <em>why</em> preliminary-draft claims get 9-day treatment: the author's stature accelerates verification, it does not lower the standard of proof.</li>
+</ul>
+<p><strong>Sources</strong>: ePrint 2026/1693 (<code>eprint.iacr.org/2026/1693</code>); ePrint 2026/1591; IACR News entry (Aug 15); PostQuantum.com Simon analysis with Aug 15 update (Ivezic); github.com/sragavan99/lean-ePrint-2026-1591-refutation; github.com/a-as-plus-e/lemma3-objection; Regev, SIAM J. Computing 2004.</p>
+<h3 id="2-what-survives-the-refutation-wenzheng-bai-et-al-and-the-real-attack-line">2. What Survives the Refutation — Wen–Zheng, Bai et al., and the Real Attack Line</h3>
+<p>The reduction chain, redrawn post-refutation:</p>
+<pre><code>            published, peer-reviewed                  REFUTED (Aug 15, 2026)
+  ┌────────────────────────────────────┐    ┌─────────────────────────────┐
+  ML-KEM / ML-DSA (Module-LWE)          │    │  Simon's poly-time DCP      │
+     ↕ Wen–Zheng (CRYPTO 2026)          │    │  solver — proven NOT to     │
+  IP-M-EDCP ──→ EDCP ──→ DCP ───────────┼────┤  work (GRZ no-go, Lean 4)   │
+     (BKSW 2018, Regev 2004 lineage)    │    │  Best actual: Kuperberg     │
+  └────────────────────────────────────┘    │  2^O(√n), unchanged since '05│
+                                            └─────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>Wen–Zheng (ePrint 2026/155, CRYPTO 2026) is untouched.</strong> The equivalence between search Module-LWE and IP-M-EDCP over power-of-two cyclotomics with constant module rank — exactly ML-KEM's setting — is published mathematics. What it lost is its would-be customer: a claimed poly-time DCP solver. What it keeps is its value as a map: any future DCP/EDCP advance has a signposted route toward ML-KEM's ring family. Their open-problem invitation (attack IP-M-EDCP; is it strictly easier than EDCP?) remains the live question.</li>
+<li><strong>Bai et al. (CRYPTO 2025, ePrint 2025/1046) remains the real algorithmic advance.</strong> Quasi-polynomial EDCP over power-of-two moduli, constrained by sample/modulus limits from reaching standard parameters. The un-poly'd frontier.</li>
+<li><strong>Kirshanova's two observations</strong> from the verification effort (recorded during the arc, independent of the refutation): if-correct the algorithm solved worst-case unique-SVP (harder than LWE); and the noisy-sample tolerance "is irrelevant, it's never used." Historical footnotes now, but they document how the community read the claim's ceiling.</li>
+<li><strong>The concentration-risk point stands anyway.</strong> A vault whose entire PQ estate is Module-LWE family (ML-KEM + ML-DSA + FN-DSA would be two families) has a nameable correlation. HQC (2027) and SLH-DSA (now) remain the diversification levers — unchanged from last week, for reasons that are now boring rather than urgent.</li>
+</ul>
+<p><strong>Sources</strong>: ePrint 2026/155; ePrint 2025/1046; PostQuantum.com Wen–Zheng analysis (Ivezic, Aug 6).</p>
+<h3 id="3-tls-rfc-10024-published-pure-ml-kem-still-in-iesg-limbo">3. TLS: RFC 10024 Published; Pure ML-KEM Still in IESG Limbo</h3>
+<h4 id="the-hybrid-rfc">The hybrid RFC</h4>
+<p><strong>RFC 10024 — "Post-Quantum Traditional (PQ/T) Hybrid Key Agreement Mechanisms for TLS 1.3"</strong> (Kwiatkowski / Kampanakis / Westerbaan / Stebila; responsible AD Paul Wouters; was draft-ietf-tls-ecdhe-mlkem) published August 2026 as <strong>Proposed Standard</strong>. Datatracker last-updated Aug 10, 2026.</p>
+<p>This is the RFC behind <code>X25519MLKEM768</code> — the hybrid already carrying most PQ-protected web traffic (Cloudflare &gt;65% of human traffic as of April 2026, per the tracker). Practical consequences:</p>
+<ul>
+<li>The endorsed default is now citeable in procurement, compliance, and code documentation as an RFC rather than a draft. Trivial-seeming; matters enormously for enterprise and government migration paperwork (the DigiCert/HKMA execution-gap data from last week showed documentation friction is a real barrier).</li>
+<li>The hybrid/pure asymmetry is now starker: <strong>Recommended=Y Standards-Track RFC 10024</strong> vs <strong>Recommended=N Informational draft</strong> (if it publishes at all). The IANA registry keeps pointing deployments to hybrid.</li>
+<li>For <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>: update references from draft-ietf-tls-ecdhe-mlkem → RFC 10024.</li>
+</ul>
+<h4 id="the-pure-draft-after-last-call">The pure draft, after Last Call</h4>
+<p>As of Aug 22, draft-ietf-tls-mlkem remains <strong>unpublished</strong>; the datatracker state (In WG Last Call — Revised I-D Needed / I-D Exists; shepherd none) reflects the contested history rather than post-Last-Call progression. The IESG decision promised "in the coming weeks" has not landed.</p>
+<p>freenode.net (Aug 16, "Bernstein documents 75 objections the IESG cannot edit away") assembled the record of the final days:</p>
+<ul>
+<li><strong>The 75.</strong> From 82 registered "unambiguous, non-withdrawn opposition" messages in the third WGLC, Bernstein narrowed to 75, quoted one line from each, and archived every original — excluding pre-WGLC opposition, other venues, chair-blocked messages, and ambiguous phrasing "in the interests of avoiding any accusations that the quotes overstate the level of opposition." He verified none of the 75 suggested document modifications could remove the objections. As Izzy Grosof put it: "The performance improvements of a non-hybrid approach are trifling; the security risks are immense."</li>
+<li><strong>The denominator.</strong> The chairs' "roughly 7/10 WG participants favor advancing" claim came only after restricting the count to "pre-existing WG participants" — a denominator chosen after the objections arrived. Bernstein demands the IESG state, on the record, what weight each of the 75 objectors receives, and answer each substantive objection individually.</li>
+<li><strong>The blocked filing.</strong> Bernstein reports his four Aug 11 messages "appeared promptly on tls@ietf.org but not on last-call@ietf.org," with timestamped archive links. If the moderators of the IESG's own comment process blocked the most thorough opposition filing during the window, "the last call was not a last call. It was theater."</li>
+<li><strong>The private-record problem.</strong> The shepherd writeup moved "details regarding past appeals and mailing list conflicts" to private email with the responsible AD. Bernstein argues this violates RFC 2026's public-record requirement and has signalled a formal complaint.</li>
+<li><strong>No language models.</strong> Bernstein states the filing was assembled without LLM assistance "precisely so the record would be accurate and checkable" — a pointed contrast with the week's other big cryptanalysis story (§5).</li>
+</ul>
+<p>Watch: the IESG telechat agenda, an RFC 2026 complaint, and appeals from whichever side loses. All three scenarios from last week's table remain live.</p>
+<p><strong>Sources</strong>: datatracker.ietf.org/doc/rfc10024; datatracker.ietf.org/doc/draft-ietf-tls-mlkem; freenode.net Aug 16 analysis; mailarchive.ietf.org last-call and tls threads (Aug 11–13); PostQuantum.com Last Call analysis (Ivezic, July 30).</p>
+<h3 id="4-crypto-2026-wrap-the-conference-the-refutation-upstaged">4. CRYPTO 2026 Wrap — The Conference the Refutation Upstaged</h3>
+<p>CRYPTO 2026 (46th, Santa Barbara, Aug 17–20; Heninger &amp; Rosulek chairs; 189 full papers from 791 submissions<em>) ran the week after the no-go landed. (</em>Last week's note said 781 — the accepted-papers page was the source; treat 781/791 as a transposition discrepancy until checked against Springer proceedings.)</p>
+<p>Signals from the program and IBM's conference writeup:</p>
+<ul>
+<li><strong>Lattice proof systems are the practical frontier.</strong> Comparisons of aggregate signatures from Falcon via LaZer (Lyubashevsky–Seiler–Steuer, CCS 2024) + LaBRADOR (Beullens–Seiler, CRYPTO 2023): lattices win proof size and prover time, lose ~10× on verification. "Slower verification is the main obstacle to adoption of succinct lattice-based proof systems" — relevant to <a href="/kb/starks/">STARKs</a>-adjacent and ZK-lattice convergence.</li>
+<li><strong>Lattice isomorphism cuts both ways.</strong> Bennett–Lai–Stephens-Davidowitz (ePrint 2026/465, CRYPTO 2026): new IBE and FHE constructions from lattice isomorphism — building advanced crypto on the same problem family Mythos just attacked HAWK over (§5). The week the ring-specific weakness was old news, the general problem got more useful.</li>
+<li><strong>Wen–Zheng in the proceedings</strong> — the bridge paper is now formally part of the record.</li>
+<li><strong>No Simon statement.</strong> As of Aug 22: no withdrawal note on ePrint 2026/1591, no post-refutation response, no announced repair attempt. The Lean-checked no-go sits unanswered.</li>
+</ul>
+<p><strong>Sources</strong>: crypto.iacr.org/2026 program; IBM Research "IBM at Crypto 2026" writeup; ePrint 2026/465.</p>
+<h3 id="5-backfill-ai-cryptanalysis-goes-tier-two-july-28">5. Backfill — AI Cryptanalysis Goes Tier-Two (July 28)</h3>
+<p><em>Missed by the July and August updates; material for the risk picture and covered here for the record.</em></p>
+<p><strong>Event</strong>: Anthropic disclosed July 28 that <strong>Claude Mythos Preview</strong> (frontier cryptography research model) recovered signing-equivalent keys from <strong>two HAWK-256 challenge public keys</strong>, in hours, on a single server. A separate team independently attacked HAWK through a different mathematical path using <strong>GPT-5.6</strong>. In the same release, Mythos improved the best-known attack on <strong>7-round AES-128</strong> (standsince-2013 record; requires 2^105 chosen plaintexts; full 10-round AES unaffected).</p>
+<p><strong>The HAWK attack</strong> (Straznickas &amp; Weis, anthropic.com/document/hawk_key_recovery.pdf): every prior module-LIP attack worked through complex conjugation; Mythos used a different order-2 Galois involution (ζ → −ζ), showed the associated cocycle sits as a shortest vector in a rank-n lattice computable from the public key, then Ducas block reduction + van Gent–Pulles descent (ePrint 2025/928) reduces key recovery to exact-SVP calls in dimension n/2 + 1. The HAWK paper itself confirms the flaw follows the algebra (it identifies which ring conductors evade the attack) — <strong>a specification-level weakness, not an implementation bug</strong>.</p>
+<p><strong>Tier discipline</strong> (Ivezic's framing, worth keeping in this library):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Definition</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 — Implementation bugs</td>
+<td>Sound math, flawed code; patch the library</td>
+<td>Glasswing's OpenSSL CVE-2026-45445, wolfSSL CVE-2026-5194 (April 2026, Carlini)</td>
+</tr>
+<tr>
+<td><strong>2 — Algorithm-design weaknesses</strong></td>
+<td><strong>Chosen structure under-delivers claimed margin; reparameterize or redesign</strong></td>
+<td><strong>HAWK ring symmetry (this event); 7-round AES margin</strong></td>
+</tr>
+<tr>
+<td>3 — Full-parameter breaks</td>
+<td>Complete scheme defeated at intended parameters</td>
+<td>SIKE 2022</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Economics</strong>: a publishable cryptanalytic result now costs ~USD 100,000 and a week of model time; three independent efforts produced attacks on three cipher families within days of each other. For freedom-tech: the AI-cadence argument for crypto-agility — tier-2 findings will arrive faster than standardization cycles were designed to absorb.</p>
+<p><strong>Round 3 impact</strong>: HAWK remains one of nine NIST additional-signature candidates (lattice family representative). Its reparameterization response and the evaluation committee's treatment of the ring-symmetry result through the ~2027–28 window is now a named watch item. June's "former NIST cryptographer identified flaws in the June HAWK attack-paper heuristics" (covered in the June updates) is now prologue: the July result is the confirmed, non-heuristic version.</p>
+<p><strong>Sources</strong>: anthropic.com/research/discovering-cryptographic-weaknesses; anthropic.com/document/hawk_key_recovery.pdf; PostQuantum.com analysis (Ivezic, July 29); ePrint 2025/928.</p>
+<h3 id="6-backfill-classic-mceliece-quasipolynomial-distinguisher-aug-10">6. Backfill — Classic McEliece Quasipolynomial Distinguisher (Aug 10)</h3>
+<p><strong>Paper</strong>: Ghoshal (IIT Madras), Ishai (Technion + AWS), Jain &amp; Sun (CMU), "Quasipolynomial Cryptanalysis of the McEliece Cryptosystem (or: PIR Meets McEliece)," ePrint 2026/1630 (received Aug 7, approved Aug 10).</p>
+<ul>
+<li><strong>What it does</strong>: decides whether a matrix generates a Classic McEliece public code or a uniform random binary code, in classical time n^O(log n). Hold out one column; compute multilinear homogeneous polynomials of degree d whose order-&lt;s Hasse derivatives vanish on remaining columns; check vanishing at the held-out column. Goppa keys force this (Hermite interpolation); random matrices fail with constant probability. Multiple hold-outs amplify to 1−o(1).</li>
+<li><strong>The numbers</strong>: 2^114 (mceliece348864) → 2^124 (mceliece8192128) Boolean-circuit cost vs information-set decoding's 2^151–2^287 for the same sets. Storage 2^66.45–2^71.37 bits (13–380 EB, unoptimized). Previous best structural distinguisher (Hemmert–Wiemers 2025/1661 + key-recovery extension 2026/1339): 2^298–2^691.</li>
+<li><strong>Why it is not a break</strong>: Classic McEliece never claimed public-key pseudorandomness — OW-CPA on the encryption primitive + tight CCA2 conversion. No security claim fell. ISO added Classic McEliece to its asymmetric-ciphers standard June 2026.</li>
+<li><strong>Why it matters anyway</strong>: staying above generic-decoding cost was "the quantitative argument that made structural attacks easy to set aside, and that argument is gone" — the first heuristic-free structural distinguisher cheaper than ISD on every NIST parameter set. Improves on Randriambololona's Eurocrypt 2025 Best Paper syzygy distinguisher (which leaned on Betti-number heuristics). The subtitle ("PIR Meets McEliece") hints the technique came from PIR research — a cross-pollination to note for the <a href="/kb/private-information-retrieval/">PIR research line</a>.</li>
+<li><strong>HQC connection</strong>: HQC uses quasi-cyclic codes, not Goppa codes — not directly affected. But the code-based-diversification thesis now carries a asterisk: the <em>other</em> code-based KEM's structural margin story changed this month. Track the HQC standardization timeline (2026–27) with this context.</li>
+</ul>
+<p><strong>Sources</strong>: ePrint 2026/1630; classic.mceliece.org; PostQuantum.com analysis (Ivezic, Aug 10); Bernstein &amp; Chou CryptAttackTester (ePrint 2023/940).</p>
+<h3 id="7-google-clouds-dated-roadmap-aug-11-the-execution-gap-counterpoint">7. Google Cloud's Dated Roadmap (Aug 11) — The Execution-Gap Counterpoint</h3>
+<p>While HKMA banks score 2.3/10 and DigiCert respondents cite legacy complexity as barrier #1, Google Cloud published the most granular hyperscaler migration schedule yet (Haridas &amp; Bachman post; Ivezic analysis Aug 13):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Target</th>
+<th>Done</th>
+<th>In progress</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — SNDL mitigation</strong></td>
+<td>End-2027</td>
+<td>Quantum-confidential ALTS (2025); API endpoints incl. googleapis.com; LB hybrid TLS (2026)</td>
+<td>Cloud VPN, Interconnect, OS Login, SDK/gcloud, GKE mesh, Storage/BigQuery transfer + CLIs (2026–27)</td>
+</tr>
+<tr>
+<td><strong>2 — Integrity / non-repudiation</strong></td>
+<td>End-2028</td>
+<td>—</td>
+<td>Binary Authorization + Access Approval (2026); Assured OSS (2027); CA Service (2027); Cloud IAM (2028); <strong>Google Trust Services MTC (2028)</strong></td>
+</tr>
+<tr>
+<td><strong>3 — Foundations / KMS</strong></td>
+<td>End-2028</td>
+<td>Cloud KMS ML-KEM/ML-DSA/SLH-DSA GA; quantum-safe key import (2026)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>Load-balancer hybrid TLS: opt-in today → <strong>enabled by default after Oct 2026</strong> → always-on after Oct 2027. API endpoints already run ML-KEM hybrid. Signature dates (Domain 2) trail confidentiality by a year across every line — the Cloudflare thesis ("ML-DSA will have to do," see the Aug 01 update) reproduced at Google scale. The PLANTS/MTC dependency shows up precisely here: Google Trust Services MTC support dated 2028, aligned with the PLANTS draft's RFC trajectory.</p>
+<p><strong>Freedom-tech read</strong>: the pattern to copy is the three-domain split (confidentiality / integrity / foundations) with per-service dates and a customer-journey risk ordering — it is the structure the HKMA found missing in banks. And the MTC 2028 date is another independent data point for <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a> timeline modelling.</p>
+<p><strong>Sources</strong>: cloud.google.com blog (Haridas &amp; Bachman, Aug 11); PostQuantum.com analysis (Ivezic, Aug 13); Google Quantum Threat Model (bughunters.google.com); docs.cloud.google.com PQ-TLS docs.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Status (Aug 22 2026)</th>
+<th>Key Driver</th>
+<th>Freedom-Tech Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simon DCP claim</strong></td>
+<td><strong>Refuted</strong> — GRZ no-go (ePrint 2026/1693, Aug 15), Lean 4 machine-checked; algorithm discards top-third-of-labels info, provably insufficient; Ω(2^(n/9)) dichotomy</td>
+<td>Gupte / Ragavan / Zhandry</td>
+<td>None — deployment posture unchanged; archive as the verification-model case study</td>
+</tr>
+<tr>
+<td><strong>Wen–Zheng MLWE↔EDCP bridge</strong></td>
+<td><strong>Stands</strong> (CRYPTO 2026 proceedings); now points at target with no known poly-time solver</td>
+<td>Télécom Paris</td>
+<td>Keep IP-M-EDCP on the cryptanalysis watchlist; concentration-risk register entry stays</td>
+</tr>
+<tr>
+<td><strong>RFC 10024 (hybrid TLS)</strong></td>
+<td><strong>Published Aug 2026, Proposed Standard</strong></td>
+<td>Kwiatkowski / Kampanakis / Westerbaan / Stebila</td>
+<td>Update all references; cite in migration docs</td>
+</tr>
+<tr>
+<td><strong>Pure ML-KEM TLS</strong></td>
+<td>Unpublished; IESG decision pending; Bernstein 75-objection filing + blocked-last-call allegation + RFC 2026 complaint signalled</td>
+<td>IESG / TLS WG chairs</td>
+<td>Hybrid-only posture; monitor negotiation for solo-ML-KEM as misconfiguration</td>
+</tr>
+<tr>
+<td><strong>AI cryptanalysis (Mythos/GPT-5.6)</strong></td>
+<td>HAWK-256 challenge keys recovered (tier-2, ring-specific); 7-round AES-128 record improved; ~$100K/week economics</td>
+<td>Anthropic / independent team</td>
+<td>Crypto-agility now an AI-cadence argument; watch HAWK reparameterization in Round 3</td>
+</tr>
+<tr>
+<td><strong>McEliece distinguisher</strong></td>
+<td>Quasipoly structural distinguisher undercuts ISD on all NIST sets (2^114–2^124); not a break (OW-CPA claim intact)</td>
+<td>Ghoshal / Ishai / Jain / Sun</td>
+<td>Context for HQC-diversification planning; PIR cross-pollination note</td>
+</tr>
+<tr>
+<td><strong>Google Cloud roadmap</strong></td>
+<td>19 dated entries; SNDL end-2027, signatures/KMS end-2028; GTS MTC 2028; LB hybrid TLS default-on Oct 2026</td>
+<td>Google Cloud</td>
+<td>Template structure for org migration plans; MTC timeline data point</td>
+</tr>
+<tr>
+<td><strong>CRYPTO 2026</strong></td>
+<td>Concluded Aug 17–20; lattice proof systems practical frontier; LIP→IBE/FHE constructions; no Simon response</td>
+<td>IACR</td>
+<td>LaZer/LaBRADOR verification bottleneck noted for ZK-lattice work</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-nine-day-verification-arc-process-lessons">The Nine-Day Verification Arc — Process Lessons</h2>
+<p>The Simon episode (Aug 6 → Aug 15) is the fastest community refutation of a high-stakes cryptographic claim on record, and the process deserves as much attention as the mathematics:</p>
+<ol>
+<li><strong>Open venue, expert density.</strong> The qcryptalysis Discord assembled Bernstein, Kirshanova (BKSW co-author — the paper being built on), Apon (ex-NIST), Jaques within days, with the author participating. Kirshanova worked in an open Overleaf; Apon published his negative assessment on LinkedIn the same day he formed it.</li>
+<li><strong>AI as accelerant, not authority.</strong> Kirshanova reported her AI-assisted analysis independently found the Lemma-4 substitution bug — the same site the human analysis identified. Machine assistance compressed the search; humans signed the findings. (Contrast §5: the same class of AI found a <em>real</em> tier-2 break in HAWK.)</li>
+<li><strong>Machine-checked refutation.</strong> GRZ shipped Lean 4 code. The claim was an unverified preprint; the refutation is a verified theorem. The rigor asymmetry is the story: skepticism got the stronger formal tools.</li>
+<li><strong>Author engagement is not consensus.</strong> Simon participated, acknowledged gaps, and posted a revision — which Apon countered within hours. Participation accelerated convergence on <em>where</em> the problem was; it did not soften the verdict on <em>whether</em>.</li>
+<li><strong>Base rate updated, again.</strong> Chen 2024 (withdrawn in days), Luo 2026 (fatally flawed), Simon 2026 (no-go in nine days). The pattern for extraordinary quantum-lattice claims from serious authors: initial credibility high, survival rate zero so far. Plan verification capacity for the next one — it will arrive on AI timescales.</li>
+</ol>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/post-quantum/2026-08-15/"><span class="label">Previous</span><span class="pn-t">Post-Quantum Saturday — August 15 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <a href="/briefings/post-quantum/2026-09-05/"><span class="label">Next</span><span class="pn-t">Post-Quantum Saturday — September 05 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — July 05 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-07-05: Nostr Compass #29 (Jul 1): FIPS v0.4.0 adds Nym mixnet transport and mDNS LAN discovery for private Nostr meshes.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-07-05/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — July 05 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-07-05: Nostr Compass #29 (Jul 1): FIPS v0.4.0 adds Nym mixnet transport and mDNS LAN discovery for private Nostr meshes.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-07-05/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — July 05 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — July 05 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-07-05: Nostr Compass #29 (Jul 1): FIPS v0.4.0 adds Nym mixnet transport and mDNS LAN discovery for private Nostr meshes.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — July 05 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-07-05: Nostr Compass #29 (Jul 1): FIPS v0.4.0 adds Nym mixnet transport and mDNS LAN discovery for private Nostr meshes.", "datePublished": "2026-07-05", "dateModified": "2026-07-05", "url": "https://ungovernable.tech/briefings/identity/2026-07-05/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-07-05/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-07-05", "item": "https://ungovernable.tech/briefings/identity/2026-07-05/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-07-05</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — July 05 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-07-05</b></span>
+    <span><b>5</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-07-05 // may be outdated</p>
+  <p>This page reflects what was known on 2026-07-05. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Nostr Compass #29 (Jul 1)</strong>: FIPS v0.4.0 adds Nym mixnet transport and mDNS LAN discovery for private Nostr meshes; Buzz (ex-Sprout) v0.3.38 hardens relay attack surface for personas/teams/agents; CustID v0.1.10-beta launches as hardware-backed mobile NIP-46 signer + NFC challenge vault.</li>
+<li><strong>Signer ecosystem</strong>: Clave accepted to App Store; Signet 1.20.0 improves browser extension NIP-46 handling (no dashboard tab needed); Amber 6.2.2+ metadata and icon support.</li>
+<li><strong>NIP developments</strong>: Merged PRs for NIP-46 client metadata, NIP-86 signevent method, relay roles; NIP-85 Trusted Assertions and NIP-50 search remain active discussion points.</li>
+<li><strong>AI Agent Identity</strong>: Buzz continues to mature as Nostr-native workspace for human-AI collaboration with signed persona/team events; Nostr Codex Phone for remote agent control.</li>
+<li><strong>Mesh &amp; Discovery</strong>: FIPS mesh + myco P2P nsite sharing over BLE/L2CAP extends pseudonymity to offline/local-first scenarios.</li>
+<li><strong>Proof of Personhood</strong>: World ID partnerships (Tinder, Zoom, etc.) and account-based architecture (key rotation/recovery) continue enterprise traction; parallel academic and social-graph tracks.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: Nostr's key-based pseudonymity is solidifying into a full-stack sovereign identity layer. New mobile vaults (CustID), hardened agent relays (Buzz), mixnet-backed meshes (FIPS), and refined remote signing (NIP-46/55) reduce single points of failure while preserving self-sovereignty. Reputation (NIP-85) and PoP tools layer on top for Sybil resistance without doxxing. The week signals production hardening for ungovernable, pseudonymous coordination at scale.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nostr-compass-29-protocol-maturation">Nostr Compass #29 &amp; Protocol Maturation</h3>
+<p>Nostr Compass #29 (July 1, 2026) emphasizes infrastructure for private, agentic, and mesh-native identity:</p>
+<ul>
+<li><strong>FIPS v0.4.0</strong> (jmcorgan/fips): Private self-organizing P2P mesh using Nostr keypairs as node identities. Adds outbound Nym mixnet transport (via nym-socks5-client for cover traffic and correlation resistance), opt-in mDNS/DNS-SD LAN discovery, hitless rekey under loss, data-plane performance overhaul, OpenWrt/Nix packaging. Wire-compatible with v0.3.0. Includes sidecar Nostr relay examples over mixnet. Directly strengthens pseudonymous mesh identity and off-grid use.</li>
+<li>GitHub: <a href="https://github.com/jmcorgan/fips/releases/tag/v0.4.0" rel="noopener nofollow">https://github.com/jmcorgan/fips/releases/tag/v0.4.0</a></li>
+<li>
+<p>Ties into <a href="/pillars/mesh/">05-Off-Grid-Networks</a> and mixnet privacy.</p>
+</li>
+<li>
+<p><strong>Buzz v0.3.38</strong> (block/buzz, ex-Sprout): Hardens attack surface on relay-exposed persona/team/agent events (NIP-OA attestations); generalized model selection (new Databricks v2 backend). Continues publishing composable identities as signed relay events for AI-human collaboration.</p>
+</li>
+<li>GitHub: <a href="https://github.com/block/buzz" rel="noopener nofollow">https://github.com/block/buzz</a></li>
+<li>
+<p>Desktop releases and performance work ongoing.</p>
+</li>
+<li>
+<p><strong>CustID v0.1.10-beta</strong>: First public beta of mobile identity vault on Nostr + SISTR. Hardware-backed secure storage for multiple npub/nsec identities; acts as NIP-46 remote signer; NFC/QR challenge-response for physical/online access. Background NIP-65 optimizations for bunker viability. Zero-knowledge flows planned.</p>
+</li>
+<li>Directly advances key custody and pseudonymity portability on mobile.</li>
+<li>
+<p>Source: zapstore.dev listing.</p>
+</li>
+<li>
+<p>Additional: Whitenoise Linux (desktop Marmot/MLS client), myco (P2P nsite sharing over FIPS mesh + BLE), Nostr Codex Phone (remote Codex agent control over encrypted DMs), Amethyst/Notedeck/Applesauce updates with NIP-89, NIP-37, NIP-52, NIP-22 support.</p>
+</li>
+</ul>
+<p>NIPs repo merges: relay roles event, NIP-44 byte limit removal, NIP-34 fork semantics, NIP-46 client metadata, NIP-86 signevent method. Deep dives on NIP-86 (Relay Management API) and NIP-89 (Recommended Application Handlers).</p>
+<h3 id="signer-hardening-remote-signing-nip-46-nip-55">Signer Hardening &amp; Remote Signing (NIP-46 / NIP-55)</h3>
+<ul>
+<li><strong>Clave (iOS)</strong>: Accepted to App Store; push-woken background signing live.</li>
+<li><strong>Signet 1.20.0</strong>: Browser extension now handles NIP-46 requests without keeping dashboard tab open; live toolbar badge from SSE stream; improved approval flows.</li>
+<li>Source: freedom.tech Nostr releases tracker.</li>
+<li><strong>Amber (Android)</strong>: v6.2.2+ adds native icons, NIP-46 client metadata persistence, kind 30618 support, logs export.</li>
+<li>Trend: Signers are production load-bearing with metadata hygiene and seamless integration. Keys remain segregated.</li>
+</ul>
+<h3 id="web-of-trust-reputation-systems-nip-85">Web of Trust &amp; Reputation Systems (NIP-85)</h3>
+<ul>
+<li>NIP-85 (Trusted Assertions) remains draft/optional. Discussion continues around limitations for real-time personalized ranking (some projects like Vertex prefer DVMS approaches instead).</li>
+<li>wot-scoring and Nostr WoT extension/browser tools from prior weeks continue adoption.</li>
+<li>See <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a> for complementary approaches.</li>
+</ul>
+<h3 id="proof-of-personhood-broader-identity-landscape">Proof of Personhood &amp; Broader Identity Landscape</h3>
+<ul>
+<li><strong>World ID</strong>: Ongoing enterprise integrations (Tinder, Zoom, Docusign, Vercel, Okta) with new account-based architecture (key rotation, recovery, multi-key, sessions, one-time nullifiers). Public beta app for managing proof-of-human. Biometric Orb + SDK focus on private, portable verification.</li>
+<li>Source: world.org announcements (April 2026 updates still driving momentum).</li>
+<li>Parallel: BrightID, Idena, academic IACR frameworks, Polkadot ZK-PoP.</li>
+</ul>
+<h3 id="real-world-deployments-trade-offs">Real-World Deployments &amp; Trade-offs</h3>
+<ul>
+<li><strong>Agentic Identity</strong>: Buzz personas/teams + NIP-46 signers enable persistent, verifiable AI agent identities with policy controls and cross-provider model support. Nostr as control plane for local/remote agents (Codex Phone, etc.).</li>
+<li><strong>Mesh Pseudonymity</strong>: FIPS nodes use Nostr keypairs; myco enables offline app/identity sharing. Extends ungovernable identity to LAN/off-grid.</li>
+<li><strong>Custody &amp; Recovery</strong>: CustID emphasizes hardware-backed multi-identity vaults + NFC challenges; self-sovereign trade-off (no easy recovery) remains core.</li>
+<li><strong>P2P Trade/Reputation</strong>: Mostro v0.14.0 updates (NIP-69) continue; NIP-85 overlays for trust scoring.</li>
+<li><strong>NIP-05 &amp; Handles</strong>: Domain verification persists alongside WoT.</li>
+</ul>
+<p><strong>Evidence at a Glance</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project / Spec</th>
+<th>Maturity</th>
+<th>Active Dev</th>
+<th>Key Links</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buzz (ex-Sprout)</td>
+<td>Beta/Production</td>
+<td>High (v0.3.38+)</td>
+<td>github.com/block/buzz</td>
+<td>Agent/persona/team events, relay hardening</td>
+</tr>
+<tr>
+<td>CustID</td>
+<td>Beta (v0.1.10)</td>
+<td>High</td>
+<td>zapstore.dev / SISTR protocol</td>
+<td>Mobile NIP-46 vault + NFC challenges</td>
+</tr>
+<tr>
+<td>FIPS</td>
+<td>v0.4.0 (stable mesh)</td>
+<td>High</td>
+<td>github.com/jmcorgan/fips</td>
+<td>Nym mixnet + mDNS; Nostr keypair node IDs</td>
+</tr>
+<tr>
+<td>Signet</td>
+<td>v1.20.0</td>
+<td>Active</td>
+<td>freedom.tech releases</td>
+<td>Browser NIP-46 improvements</td>
+</tr>
+<tr>
+<td>Clave</td>
+<td>App Store</td>
+<td>High</td>
+<td>DocNR/clave</td>
+<td>iOS background signing</td>
+</tr>
+<tr>
+<td>Amber</td>
+<td>Production (6.2.2+)</td>
+<td>Active</td>
+<td>github.com/greenart7c3/Amber</td>
+<td>Metadata, icons, F-Droid</td>
+</tr>
+<tr>
+<td>NIP-85 / WoT</td>
+<td>Draft/Deploying</td>
+<td>Active</td>
+<td>nips.nostr.com/85, wot.klabo.world</td>
+<td>Trusted assertions, scoring</td>
+</tr>
+<tr>
+<td>World ID 2.x</td>
+<td>Production</td>
+<td>Ongoing</td>
+<td>world.org</td>
+<td>Account-based PoP, enterprise integrations</td>
+</tr>
+<tr>
+<td>NIP-46/55/86/89</td>
+<td>Spec advancing</td>
+<td>Merged PRs</td>
+<td>nips.nostr.com</td>
+<td>Client metadata, relay mgmt, handlers</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Related Files</strong>
+- <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>
+- <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a>
+- <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>
+- <a href="/kb/nostr-identity/">Nostr</a>
+- <a href="/kb/pubky/">Pubky</a>
+- <a href="/kb/keri/">KERI</a>
+- <a href="/kb/did-methods/">DID Methods</a>
+- <a href="/kb/ens-identity/">ENS as Identity</a>
+- <a href="/kb/meshcore/">MeshCore</a> (FIPS ties)
+- <a href="/pillars/anonymity/">08-Mix-Networks</a> (Nym integration)</p>
+<p><em>Next weekly update: July 12, 2026. Focus areas: CustID adoption metrics, Buzz agent ecosystem growth, FIPS mesh deployment reports, and any new NIP-85 production scoring tools.</em></p>
+<p><em>Sources synthesized from Nostr Compass #29 (2026-07-01), GitHub releases, freedom.tech Nostr beat, nips.nostr.com, world.org, and ecosystem trackers (as of 2026-07-05). All links and versions verified via primary sources. No fabricated data.</em></p>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-06-28/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — June 28 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-07-12/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — July 12 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

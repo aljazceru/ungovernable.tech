@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bitcoin Self-Custody, Step by Step — ungovernable.tech</title>
+<meta name="description" content="How to hold bitcoin that nobody can freeze: a hardware signer, your own node, a tested seed backup, multisig for larger amounts, and habits that protect privacy.">
+<link rel="canonical" href="https://ungovernable.tech/guides/bitcoin-self-custody/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Bitcoin Self-Custody, Step by Step — ungovernable.tech">
+<meta property="og:description" content="How to hold bitcoin that nobody can freeze: a hardware signer, your own node, a tested seed backup, multisig for larger amounts, and habits that protect privacy.">
+<meta property="og:url" content="https://ungovernable.tech/guides/bitcoin-self-custody/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bitcoin Self-Custody, Step by Step — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bitcoin Self-Custody, Step by Step — ungovernable.tech">
+<meta name="twitter:description" content="How to hold bitcoin that nobody can freeze: a hardware signer, your own node, a tested seed backup, multisig for larger amounts, and habits that protect privacy.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Bitcoin Self-Custody, Step by Step", "description": "How to hold bitcoin that nobody can freeze: a hardware signer, your own node, a tested seed backup, multisig for larger amounts, and habits that protect privacy.", "dateModified": "2026-10-25", "datePublished": "2026-10-17", "url": "https://ungovernable.tech/guides/bitcoin-self-custody/", "mainEntityOfPage": "https://ungovernable.tech/guides/bitcoin-self-custody/", "image": "https://ungovernable.tech/assets/og/pillar-money.png", "about": [{"@type": "Thing", "name": "Financial Sovereignty"}, {"@type": "Thing", "name": "Devices and Operational Security"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "intermediate"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Financial Sovereignty", "item": "https://ungovernable.tech/pillars/money/"}, {"@type": "ListItem", "position": 3, "name": "Bitcoin Self-Custody, Step by Step", "item": "https://ungovernable.tech/guides/bitcoin-self-custody/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/money/">Financial Sovereignty</a><span aria-hidden="true">/</span><span class="here">Bitcoin Self-Custody, Step by Step</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ FINANCIAL SOVEREIGNTY ]</span><span class="ktag">[ DEVICES AND OPERATIONAL SECURITY ]</span></p>
+  <h1>Bitcoin Self-Custody, Step by Step</h1>
+  
+  <p class="dek">Not your keys, not your coins. Holding your own keys is simple; holding them safely, privately and recoverably takes a plan.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    <span class="ktag">[ INTERMEDIATE ]</span>
+    <span class="ktag">[ 2-4 HOURS ]</span>
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#1-decide-how-much-security-you-need">1. Decide how much security you need</a><a href="#2-get-a-hardware-signer">2. Get a hardware signer</a><a href="#3-back-up-the-seed-properly">3. Back up the seed properly</a><a href="#4-run-your-own-node">4. Run your own node</a><a href="#5-for-larger-amounts-use-multisig">5. For larger amounts, use multisig</a><a href="#6-protect-your-privacy">6. Protect your privacy</a><a href="#7-physical-security">7. Physical security</a><a href="#sources">Sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>Money held by an exchange or bank can be frozen, seized, inflated away or lost when the custodian fails. Bitcoin lets you hold value as a secret only you know. The cost of that freedom is responsibility: there is no support desk, and a lost or stolen key is final. This guide walks through a setup that balances security, privacy and recoverability. For the background, read <a href="/kb/financial-sovereignty/">Financial Sovereignty</a> and <a href="/kb/hardware-wallets/">Hardware Wallets</a>.</p>
+<h2 id="1-decide-how-much-security-you-need">1. Decide how much security you need</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Amount at stake</th>
+<th>Reasonable setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spending money</td>
+<td>A reputable open-source mobile wallet, or Lightning (<a href="/kb/lightning-network/">Lightning Network</a>)</td>
+</tr>
+<tr>
+<td>Savings you would hate to lose</td>
+<td>A hardware signer with a metal seed backup and a passphrase, used with your own node</td>
+</tr>
+<tr>
+<td>Savings that would change your life</td>
+<td>Multisig: 2-of-3 keys on different hardware, stored in different places</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-get-a-hardware-signer">2. Get a hardware signer</h2>
+<p>A hardware signer (hardware wallet) keeps the private keys on a dedicated device and shows you what you are signing on its own screen, so malware on your computer cannot steal keys or silently change the destination. Prefer devices with open-source firmware and a good security track record; buy directly from the manufacturer; check the tamper evidence; and set it up yourself, never with a seed someone else gave you. Air-gapped devices that sign via QR code or microSD (including the DIY SeedSigner) avoid USB connections entirely. The trade-offs are covered in <a href="/kb/hardware-wallets/">Hardware Wallets</a>.</p>
+<h2 id="3-back-up-the-seed-properly">3. Back up the seed properly</h2>
+<p>The device generates a 12- or 24-word recovery phrase (BIP-39). Anyone with those words has your money.</p>
+<ul>
+<li>Write it down <strong>on paper first, then on metal</strong> (stamped or engraved steel survives fire and water). Never photograph it, type it into a computer or store it in the cloud.</li>
+<li>Consider a <strong>passphrase</strong> (sometimes called the 25th word). It creates a different wallet from the same seed, so a found seed alone is useless. The passphrase must be backed up separately; lose it and the funds are gone.</li>
+<li><strong>Test recovery</strong> before sending real money: wipe the device (or use a second one), restore from your backup, and check that you get the same addresses.</li>
+<li>Plan for <strong>inheritance</strong>: write instructions someone you trust could follow, without giving them access today.</li>
+</ul>
+<h2 id="4-run-your-own-node">4. Run your own node</h2>
+<p>A wallet that queries someone else's server tells that server which addresses are yours. Running your own full node means you verify the rules yourself and keep your balance private.</p>
+<ul>
+<li><strong>Bitcoin Core</strong> (<a href="https://bitcoincore.org/" rel="noopener nofollow">https://bitcoincore.org/</a>) is the reference implementation.</li>
+<li>Packaged node systems such as Umbrel, Start9 (StartOS) and RaspiBlitz bundle a node with an Electrum server and a web interface on a small dedicated computer.</li>
+<li>Connect your node over <strong>Tor</strong> so your IP address is not linked to it.</li>
+</ul>
+<p>Pair it with desktop wallet software such as <strong>Sparrow</strong> (<a href="https://sparrowwallet.com/" rel="noopener nofollow">https://sparrowwallet.com/</a>), which works with hardware signers, supports coin control and multisig, and can connect to your own node.</p>
+<p>For another way to receive the chain, see <a href="/kb/blockstream-satellite/">Blockstream Satellite</a>, including its receive-only link and hardware requirements. For accepting payments into your wallet, see <a href="/kb/btcpay-server/">BTCPay Server</a>.</p>
+<h2 id="5-for-larger-amounts-use-multisig">5. For larger amounts, use multisig</h2>
+<p>In a 2-of-3 multisig wallet, any two of three keys can spend. One key can be lost, stolen or destroyed without losing funds, and a single seized or coerced key is not enough. Use signers from <strong>different manufacturers</strong> and store them in <strong>different places</strong>. Back up the <strong>wallet descriptor</strong> (the description of which keys make up the wallet) as well as each seed: without it, recovery is much harder. Partially signed Bitcoin transactions (PSBT, BIP-174) let the signers co-sign without ever being connected to each other.</p>
+<h2 id="6-protect-your-privacy">6. Protect your privacy</h2>
+<p>The Bitcoin blockchain is public and permanent. Chain analysis companies link addresses into clusters and clusters to identities, often starting from exchange KYC records.</p>
+<ul>
+<li><strong>Never reuse addresses.</strong> Your wallet generates a new one for each payment.</li>
+<li><strong>Use coin control and labels.</strong> Know where each coin came from; do not merge coins from a KYC exchange with coins from private sources in one transaction.</li>
+<li><strong>Payjoin</strong> (BIP-78, and asynchronous BIP-77) breaks the common assumption that all inputs belong to the sender. <a href="/kb/silent-payments/"><strong>Silent Payments</strong></a> (BIP-352) give you a reusable static address without address reuse on-chain.</li>
+<li><strong>CoinJoin</strong> combines many users' transactions; see <a href="/kb/coinjoin/">CoinJoin and Payjoin</a>. The legal environment changed sharply in 2024: the Samourai Wallet founders were arrested on US charges (they pleaded guilty in 2025 to operating an unlicensed money-transmitting business), and the zkSNACKs coordinator used by Wasabi Wallet shut down. JoinMarket, which has no central coordinator, continues.</li>
+<li>Buying without KYC (peer-to-peer markets such as <a href="/kb/bisq/">Bisq</a>, <a href="/kb/robosats/">RoboSats</a> and Hodl Hodl, or in person) avoids creating the link in the first place. For custody and payment-privacy caveats, see <a href="/kb/compare-p2p-bitcoin-acquisition/">P2P Bitcoin acquisition</a>.</li>
+</ul>
+<p>For stronger on-chain privacy by default, see <a href="/kb/monero/">Monero</a>; compare <a href="/kb/zcash/">Zcash's shielded pools</a> for another design. For private everyday payments, see <a href="/kb/cashu-ecash/">Cashu and Chaumian Ecash</a> and <a href="/kb/fedimint/">Fedimint</a>, including the custody each mint requires you to trust.</p>
+<h2 id="7-physical-security">7. Physical security</h2>
+<p>The "$5 wrench attack" (someone threatening you until you hand over keys) is real and increasing. Do not talk about your holdings. Multisig with geographically separated keys, a decoy passphrase wallet, and time-delayed setups all reduce what an attacker can force you to do on the spot.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Bitcoin Core: <a href="https://bitcoincore.org/" rel="noopener nofollow">https://bitcoincore.org/</a></li>
+<li>BIP-39, <em>Mnemonic code for generating deterministic keys</em>: <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" rel="noopener nofollow">https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki</a></li>
+<li>BIP-174, <em>Partially Signed Bitcoin Transaction Format</em>: <a href="https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki" rel="noopener nofollow">https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki</a></li>
+<li>BIP-78, <em>Payjoin</em>: <a href="https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki" rel="noopener nofollow">https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki</a>; BIP-352, <em>Silent Payments</em>: <a href="https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki" rel="noopener nofollow">https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki</a></li>
+<li>Sparrow Wallet documentation: <a href="https://sparrowwallet.com/docs/" rel="noopener nofollow">https://sparrowwallet.com/docs/</a></li>
+<li>Bitcoin Wiki, <em>Privacy</em>: <a href="https://en.bitcoin.it/wiki/Privacy" rel="noopener nofollow">https://en.bitcoin.it/wiki/Privacy</a></li>
+<li>US Attorney's Office SDNY, <em>Founders of Samourai Wallet cryptocurrency mixing service plead guilty</em> (August 2025): <a href="https://www.justice.gov/usao-sdny/pr/founders-samourai-wallet-cryptocurrency-mixing-service-plead-guilty" rel="noopener nofollow">https://www.justice.gov/usao-sdny/pr/founders-samourai-wallet-cryptocurrency-mixing-service-plead-guilty</a></li>
+</ul>
+<p>Continue with <a href="/kb/stablecoins-and-sovereignty/">Stablecoins and sovereignty</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/hardware-wallets/">
+  <span class="nm">Hardware Wallets</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/financial-sovereignty/">
+  <span class="nm">Financial Sovereignty</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/coinjoin/">
+  <span class="nm">CoinJoin and Payjoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/lightning-network/">
+  <span class="nm">Lightning Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/cashu-ecash/">
+  <span class="nm">Cashu and Chaumian Ecash</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/threshold-signatures/">
+  <span class="nm">Threshold Signatures</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/monero/">
+  <span class="nm">Monero</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/compare-p2p-bitcoin-acquisition/">
+  <span class="nm">Compare: Peer-to-Peer Bitcoin Acquisition</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bisq/">
+  <span class="nm">Bisq</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/robosats/">
+  <span class="nm">RoboSats</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/silent-payments/">
+  <span class="nm">Silent Payments (BIP 352)</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/btcpay-server/">
+  <span class="nm">BTCPay Server</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/endpoint/">Devices and Operational Security</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Bitcoin%20Self-Custody%2C%20Step%20by%20Step" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Not your keys, not your coins. Holding your own keys is simple; holding them safely, privately and recoverably takes a plan.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Financial Sovereignty, Devices and Operational Security</dd>
+        <dt>Level</dt><dd>intermediate</dd>
+        <dt>Time</dt><dd>2-4 hours</dd>
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

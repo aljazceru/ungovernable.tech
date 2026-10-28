@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — September 18 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-18: Tor Browser 15.0.23 (Sep 15) — second post-0.4.9.12 point release in six days; Firefox 140.16.0esr rebase.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-09-18/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — September 18 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-18: Tor Browser 15.0.23 (Sep 15) — second post-0.4.9.12 point release in six days; Firefox 140.16.0esr rebase.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-09-18/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — September 18 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — September 18 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-18: Tor Browser 15.0.23 (Sep 15) — second post-0.4.9.12 point release in six days; Firefox 140.16.0esr rebase.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — September 18 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-18: Tor Browser 15.0.23 (Sep 15) — second post-0.4.9.12 point release in six days; Firefox 140.16.0esr rebase.", "datePublished": "2026-09-18", "dateModified": "2026-09-18", "url": "https://ungovernable.tech/briefings/mix-networks/2026-09-18/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-09-18/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-18", "item": "https://ungovernable.tech/briefings/mix-networks/2026-09-18/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-09-18</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — September 18 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-18</b></span>
+    <span><b>38</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-18 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-18. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This week is <strong>shipping + dirauth hardening week</strong>. <strong>Tor Browser 15.0.23 (Sep 15)</strong> is the <strong>second post-0.4.9.12 point release</strong> in six days — it ships Firefox 156 backports (140.16.0esr), NoScript 13.6.33.1984, two P1 <strong>WebAssembly-capable child realm</strong> fixes (tor-browser#45296 SharedWorker Identity Mismatch + tor-browser#45297 missing <code>setHTMLUnsafe</code> hook — both H1 severity, WebAssembly execution at the <em>Safer</em> level), and a <strong>publicly-disclosed expired DigiCert EV code-signing certificate for Windows installation packages</strong> (expired Sep 1, renewal delayed; Windows download page keeps 15.0.20 as the workaround while relying on the separately-signed auto-update channel). <strong>Tails 7.13 (Sep 16)</strong> is the second Tails on the new 2-week cadence — bundles Tor Browser 15.0.23 + Tor 0.4.9.12 and <strong>removes the Power Off confirmation dialog</strong> for the fast-path shutdown. <strong>HOPR ships three PIX/transport PRs in two days (Sep 15–17)</strong> — the headline is <strong>#8424 fix(transport): derive packet-pipeline concurrency defaults from CPU count</strong> which <strong>reverts the 4.1.x relay-throughput regression vs. 4.0.3</strong> by replacing the <code>pool_thread_count − ENCODE_RESERVED_THREADS</code> cap (which clamped to 1 on 4-core nodes) with <code>available_parallelism × 8</code>; <strong>#8426 feat(transport): pool arbitration</strong> layers a first-wins occupancy-gated arbiter on top so SURB encode is protected from decode floods with <strong>2.1× SURB encode throughput under a decode flood</strong> and zero overhead for pure forwarding. <strong>Katzenpost ships an entire dirauth hardening sweep (Sep 14–17, ~15 commits, +1,283 LOC including the 444-line #1138 "review the voting directory authority" PR)</strong> that closes a <strong>wire-protocol class of panics in the consensus path</strong> (<code>ed25519 Sphincs+ Verify</code> panic on a wrong-sized signature; ChaChaPoly nonce desync under concurrent sends; missing vote/reveal/sig → peer identity binding; missing-shared-random-reveal stalls the round; oversized wire messages vs. real network topology) and <strong>adopts hpqc's v0.0.87/v0.0.88/v0.0.89 degenerate-key hardening</strong> — hpqc NIKE/KEM primitives now return errors instead of panicking on low-order peer points and CTIDH base curve E0. <strong>Nym releases v2026.18-essaouira (Sep 17)</strong> as the <strong>first release-branch cut since v2026.17-djibouti (Sep 2)</strong> — it's the <strong>lock-free topology PR #7134</strong> plus geolocator container image, ansible-maintenance rewrite, residential-IP operator guides (vps/byoip/isp/mobile/home/swiss), and cred-proxy key bug fixes. <strong>I2P ships a Tim C-reported hardening sweep (Sep 16, 5 commits)</strong>: <strong>constant-time EdDSA sig comparison + constant-time AES in deprecated/unused method</strong> (both reported by Tim C, defensive against side-channel); <strong>Tunnels: Don't process dup fragments</strong> + <strong>Tunnels: Limit size of fragment reassembly map</strong> (both by Tim C, both DoS-relevant on attacker-controlled fragment floods); <strong>i2psnark: Limit max reported peers to protect against tracker bugs</strong> + <strong>i2psnark: Extend keepalive interval from 30 to 60s, only send on inactivity</strong> (i2psnark network-etiquette hygiene); <strong>i2control: Log and delay on auth failure</strong> (anti-bruteforce). <strong>Chat Control 2.0 negotiations resumed at the Council on Sep 12</strong>; no final deal yet — Katzenpost's letter remains front-paged and the previously-reported "~3 months / ~Oct 9 deadline" is the next material date. The Tor network <strong>stabilized around 9,330 running relays</strong> (essentially unchanged from 9,331 last week) — the post-EOL drain is over.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Tor Browser 15.0.23 (Sep 15)</strong> — second post-0.4.9.12 point release in six days; <strong>Firefox 140.16.0esr rebase</strong> (tor-browser#45303), <strong>Firefox 156 security backports</strong> (tor-browser#45299), NoScript 13.6.33.1984; <strong>two H1-severity WebAssembly-at-Safer-level fixes</strong> (tor-browser#45296 SharedWorker Identity Mismatch + tor-browser#45297 missing <code>setHTMLUnsafe</code> hook) — both allow WebAssembly execution at the <em>Safer</em> level which should be sandboxed; <strong>public disclosure of the expired DigiCert EV code-signing certificate for Windows installation packages</strong> (expired Sep 1, renewal delayed) — Windows download page keeps 15.0.20 as the workaround, users on 15.0.21/15.0.22 see "bad signature" warnings on fresh installs (auto-update channel uses a different key, so installed users are unaffected); tor-browser-build#41871 + #41875 update relprep.py for the new versions.ini URL.</li>
+<li><strong>Tails 7.13 (Sep 16)</strong> — second Tails on the new 2-week cadence (7.12 Sep 3 → 7.13 Sep 16, 13 days). Bundles <strong>Tor Browser 15.0.23 + Tor 0.4.9.12</strong>; <strong>removes the Power Off confirmation dialog</strong> on the fast-path shutdown (when no application needs to be closed and no document needs to be saved) — the visible UX change.</li>
+<li><strong>HOPR PIX/transport trilogy lands in two days (Sep 15–17)</strong> — <strong>#8424 (Sep 17)</strong> fixes the <strong>4.1.x relay-throughput regression</strong> (a 4-core node's ingress decode-concurrency default clamped to 1 from <code>pool_thread_count − ENCODE_RESERVED_THREADS = 2 − 2 = 0</code>); <strong>#8426 (Sep 17)</strong> adds the <strong>occupancy-gated encode/decode pool arbiter</strong> so SURB encode is protected from decode floods while pure forwarding pays zero overhead; <strong>#8411/#8412/#8413 (Sep 16)</strong> are the <strong>PIX Exit telemetry stack</strong> (bounded node-level aggregates, no PII: <code>hopr_pix_sessions_active{gate_mode}</code>, <code>hopr_pix_cycles_active{phase}</code>, <code>hopr_pix_gate_blocks_total{reason}</code>, <code>hopr_pix_cycle_egress_packets{outcome}</code>). Also: <strong>#8420/#8422 (Sep 15)</strong> are the <strong>datagram-aware UDP copy loop end-to-end</strong> — WireGuard-over-Session downloads on the Gnosis VPN exit were collapsing because the copy loop was coalescing several return-path UDP datagrams into one oversized session write under backpressure, losing datagram boundaries irrecoverably. And <strong>#8430 (Sep 17)</strong> drops <code>pix_ssa_quota</code> from <code>SessionClientConfig</code> because PIX dimensions were never a per-Session choice — <code>Capability::UsePIX</code> is now the whole per-Session PIX switch.</li>
+<li><strong>Katzenpost dirauth hardening sweep (Sep 14–17, ~15 commits)</strong> — the headline is <strong>#1138 (Sep 17, 444-line "review the voting directory authority" PR)</strong> by the og-clean branch which <strong>rejects bad input instead of panicking</strong> (Addresses, short descriptor identity keys), guards the shared-random and certificate paths (set-commit, cert epoch binding, vote-as-cert, reveal bounds, authenticator AD), gives the PKI wire message a <strong>real size ceiling derived from the configured schemes and topology</strong>, recovers per-conn panics, caps concurrent and per-peer conns, logs and drops unknown peers, bounds the first command and keepalive writes, and drains accepted conns on shutdown; persistent inter-authority connections stay opt-in, default off. <strong>#1154 (Sep 17) bumps hpqc to v0.0.89</strong> (BACAP API breaking changes); <strong>v0.0.87 + v0.0.88 land earlier in the week</strong> with the degenerate-key hardening adoption (#1136 Sep 14, <strong>nine commits Sep 14</strong>: reject all-zero shared secrets via <code>util.CtIsZero</code> in sphinx packet creation and unwrap, reject nil <code>Scheme.Blind</code> result, reject all-zero in-place Blind result, reject degenerate KEM key in <code>createKEMHeader</code>). <strong>This is the most consequential dirauth hardening pass Katzenpost has shipped</strong>.</li>
+<li><strong>Nym v2026.18-essaouira (Sep 17)</strong> — <strong>first release-branch cut since v2026.17-djibouti (Sep 2, 15 days)</strong>. Merge #7161 lands release/2026.18-essaouira → develop on Sep 17 12:09. Headline items: <strong>lock-free topology (#7134, Sep 15)</strong> — the biggest single-PR change in this cut; geolocator container image CI (Sep 17); <strong>#7162 nym-node-cli location handling UX</strong> (Sep 17); <strong>#7157 nym-node ansible system maintenance + log rotation</strong> (Sep 17); <strong>residential-IP operator research document</strong> (#7153 Sep 14, six subsections: vps/byoip/isp/mobile/home/swiss); cred-proxy key bug fixes (#7145 Sep 14); node-lookup additional logging (#7154 Sep 15); residential-IP display fix (#7155 Sep 15). NymVPN — <strong>NymVPN F-Droid still 3+ weeks behind</strong> (GrapheneOS forum report: F-Droid's last build was 2026.11.3 from July 28; GitHub has 2026.12.4-beta.4).</li>
+<li><strong>I2P Tim C hardening sweep (Sep 15–16, 6 commits)</strong> — all reported by Tim C: <strong>crypto: make EdDSA sig comparison constant time</strong> (defensive against side-channel timing); <strong>crypto: make AES operation constant time</strong> (in deprecated/unused method — defense in depth); <strong>Tunnels: Don't process dup fragments</strong> (DoS-relevant on attacker-controlled fragment floods); <strong>Tunnels: Limit size of fragment reassembly map</strong> (DoS — bound the unbounded-growth class); <strong>i2psnark: Limit max reported peers</strong> (tracker-bug defense); <strong>i2psnark: Extend keepalive interval from 30 to 60s, only send on inactivity</strong> (network etiquette); <strong>i2pcontrol: Log and delay on auth failure</strong> (anti-bruteforce). Also Sep 13–14 i2psnark work: add all trackers to magnet links, set next announce based on last response time (not request time, so failures get retried faster), change backup tracker to UDP and add to tracker list. Transport work (Sep 14, WIP): partial force-ipv6 for docker bridge, explicit force-ipv6 enum, stub NATPMP enums.</li>
+<li><strong>Chat Control 2.0 negotiations resumed (Sep 12)</strong> — the Council was scheduled to finalize Member State positions; no final deal reported as of Sep 18. The Danish Presidency is pushing for CSAM scanning; 6 Member States publicly opposed (Austria, Belgium, Czech Republic, Finland, Netherlands, Poland); Germany under Merz coalition "undecided"; Estonia, Greece, Luxembourg, Romania, Slovenia "undecided"; mult-party opposition in EP (Greens/EFA VOLT, Patriots for Europe incl. Filip Turek, Finnish EPP MEP Aura Salla). Katzenpost's letter remains front-paged. The previously-reported "~3 months / ~Oct 9 deadline" from the July EP second-reading procedure is the next material date.</li>
+<li><strong>Tor network at 9,330 running relays (Sep 18)</strong> — essentially flat from last week's 9,331 (Sep 8). Exit count holds at ~3,140. <strong>The post-EOL drain has stopped</strong>; the network has settled into the new post-0.4.8 equilibrium. Not back to the mid-2026 ~10.5K but no longer in free-fall.</li>
+<li><strong>Research scan (Sep 12–18)</strong> — ePrint keyword searches for <code>mixnet</code> / <code>onion routing</code> / <code>anonymous communication</code> returned <strong>no fresh first-line mixnet papers</strong> in the window. The active anchors remain DumboMix (2026/1699), De-SyRIS (2026/1723), Proof-of-Uniqueness (2026/1725), Verifiable SelfMix (2026/1617), QuMixnet, MOCHA (2025/861), Outfox (SIGCOMM 2025), Anonymous Communication on Expander Networks (2026/1404).</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: This is <strong>"the boring part matters"</strong> taken to its logical extreme. <strong>Tor ships two H1-severity WebAssembly-at-Safer fixes in the same point release</strong> that bumps Firefox 140.15 → 140.16 — the WebAssembly-at-Safer class is a long-latent failure mode where the sandboxed JS realm was supposed to be safe but a missing hook leaked a child realm that could execute WebAssembly. <strong>HOPR ships the 4.1.x relay-throughput regression fix in 10 days from identification</strong> (the gauge <code>hopr_egress_ring_buffer_dropped</code> pinned at 0.50/s was the tell) and pairs it with a pool arbiter so the fix is forward-compatible with the original design intent. <strong>Katzenpost ships a 444-line dirauth review that closes a half-dozen panic classes</strong> and adopts hpqc's degenerate-key hardening throughout — the wire-protocol size ceiling, in particular, is the kind of bug that lives in the protocol spec until a heterogeneous authority set is actually deployed. <strong>I2P ships six constant-time and DoS-bounded fixes in two days</strong>, all reported by a single researcher — a reminder that the Tor browser's WebAssembly-at-Safer class isn't unique to Tor. <strong>Nym cuts its first release-branch in 15 days</strong> with the headline being <strong>lock-free topology</strong> — a single PR that changes the topology-read path from a <code>RwLock</code> to a lock-free structure, which is the kind of change that doesn't move benchmarks but matters under contention. The week's banner story is "every deployable mixnet shipped something the field needed but didn't have a release note for last week".</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-browser-15023-two-h1-webassembly-at-safer-fixes-firefox-156-backports-expired-code-signing-cert">Tor Browser 15.0.23: Two H1 WebAssembly-at-Safer Fixes + Firefox 156 Backports + Expired Code-Signing Cert</h3>
+<p>Tor Browser 15.0.23 released <strong>Sep 15, 2026</strong> by ma1. The cadence continues: <strong>15.0.22 (Sep 9) → 15.0.23 (Sep 15) = 6 days</strong>. With Tails 7.13 adopting the new 2-week tempo on Sep 3, the Firefox-aligned cycle is now a mix of: regular 2-week Tor Browser releases + faster point releases when a Firefox security fix lands.</p>
+<p><strong>The changelog:</strong></p>
+<pre><code>All Platforms
++ Updated NoScript to 13.6.33.1984
++ Bug tor-browser#45296: (H1) SharedWorker Identity Mismatch allows WebAssembly execution at Safer
++ Bug tor-browser#45297: (H1) Missing setHTMLUnsafe hook leaves a permanent WebAssembly-capable child realm at Safer
++ Bug tor-browser#45299: Backport Security Fixes from Firefox 156
++ Bug tor-browser#45303: Rebase Tor Browser stable onto 140.16.0esr
++ Bug tor-browser-build#41875: Update relprep.py for the new versions.ini URL
+Windows + macOS + Linux
++ Updated Firefox to 140.16.0esr
+Linux
++ Bug tor-browser#44996: Change the 32-bit linux message to the expired version for the final 15.0 release
+Android
++ Updated GeckoView to 140.16.0esr
+Build System
++ All Platforms
+  - Bug tor-browser-build#41871: Update downloads repository references in relprep templates
+</code></pre>
+<p><strong>The two H1-severity WebAssembly-at-Safer fixes are the most security-critical items in the release</strong>:</p>
+<ul>
+<li><strong>tor-browser#45296 (H1)</strong> — <strong>SharedWorker Identity Mismatch allows WebAssembly execution at Safer</strong>. Tor Browser's security levels (Standard, Safer, Safest) constrain WebAssembly to specific security levels — at <em>Safer</em>, WebAssembly should be sandboxed to the realm's origin. A SharedWorker's identity mismatch allowed WebAssembly execution at a level below where it should be allowed, bypassing the security-level boundary. The fix matches the SharedWorker's identity to the realm's identity for security-level checks.</li>
+<li><strong>tor-browser#45297 (H1)</strong> — <strong>Missing <code>setHTMLUnsafe</code> hook leaves a permanent WebAssembly-capable child realm at Safer</strong>. The <code>setHTMLUnsafe</code> hook is one of the per-realm guards that the Tor Browser patches add to constrain WebAssembly execution to specific security levels. A missing hook for one method left a child realm permanently WebAssembly-capable at <em>Safer</em> — which should be impossible under the Tor Browser security model.</li>
+</ul>
+<p>Both bugs were reported through Mozilla's bug bounty program and given H1 (highest severity) ratings — the WebAssembly-at-Safer class is exactly the failure mode the Tor Browser security patches are designed to prevent. Both fixes ship in 15.0.23.</p>
+<p><strong>The Windows code-signing cert disclosure</strong> (from the Tor Project blog):</p>
+<blockquote>
+<p>The DigiCert EV code-signing certificate we use to sign Windows installation packages is expired since September 1st and we are currently in the process to renew it. Unfortunately, this process is delayed and not yet complete. This has caused Windows users trying to install Tor Browser 15.0.21 and 15.0.22 from scratch to receive "bad signature" warnings. As a temporary work-around, for Windows only we're keeping Tor Browser <em>15.0.20</em> (the latest correctly signed version) listed on our <a href="https://www.torproject.org/download/" rel="noopener nofollow">download page</a>, relying on automatic updates (which are signed with a different key, not involving this expired certificate) to bring Windows users to the current version. Users who prefer to download the latest version directly, ignoring the certificate expiration warning, can download it from <a href="https://dist.torproject.org/torbrowser/15.0.23/" rel="noopener nofollow">https://dist.torproject.org/torbrowser/15.0.23/</a>.</p>
+</blockquote>
+<p>This is a <strong>publicly-disclosed operational issue with a clean workaround</strong>:
+- Windows download page still lists <strong>15.0.20</strong> (the last release signed with the unexpired cert).
+- Auto-update channel uses a different key (not the expired EV cert), so installed users get upgraded to 15.0.23 cleanly.
+- Fresh Windows installers from <code>dist.torproject.org/torbrowser/15.0.23/</code> work but trigger "bad signature" warnings.
+- macOS and Linux users are unaffected — different signing mechanism.</p>
+<p>The blog post is dated Sep 15 and explicitly tells users the workaround; this is the right way to disclose an expired-cert issue (public, workaround included, no security impact for installed users).</p>
+<p><strong>Build-system changes</strong>:
+- <strong>tor-browser-build#41871</strong> — Update downloads repository references in relprep templates (i.e. the release-prep scripts now point at the right downloads repo).
+- <strong>tor-browser-build#41875</strong> — Update relprep.py for the new <code>versions.ini</code> URL (Mozilla changed where <code>versions.ini</code> lives; the release-prep scripts need to track the new location).</p>
+<p>These are the unglamorous but essential plumbing changes that keep the release-train moving. The Firefox-aligned 2-week cadence lives or dies on this kind of hygiene.</p>
+<h3 id="tails-713-second-tails-on-the-new-2-week-cadence">Tails 7.13: Second Tails on the New 2-Week Cadence</h3>
+<p>Tails 7.13 released <strong>Sep 16, 2026</strong> by the Tails team. The cadence: <strong>7.12 (Sep 3) → 7.13 (Sep 16) = 13 days</strong>. That's right in the middle of the 2-week target (10–14 days), and consistent with the Firefox-aligned tempo.</p>
+<p><strong>Changes and updates</strong>:</p>
+<pre><code>Update Tor Browser to 15.0.23.
+Update the Tor client to 0.4.9.12.
+Simplify the shutdown procedure.
+</code></pre>
+<p>The headline UX change is <strong>simplification of the shutdown procedure</strong>:</p>
+<blockquote>
+<p>Since Tails 7.10, you had to confirm shutting down in a Power Off dialog. For faster shutdowns, we removed this dialog when no application needs to be closed and no document needs to be saved before shutting down.</p>
+</blockquote>
+<p>This is a small thing, but it's the kind of friction reduction that matters for a Tails user who is shutting down urgently (e.g. they think they're being observed). The dialog is preserved for the cases where it's needed (open applications, unsaved documents); the fast-path is now one click faster.</p>
+<p>Tails 7.13 also continues the automatic-upgrade path from Tails 7.0+, and remains based on <strong>Debian 13 (Trixie) + GNOME 48</strong> (the platform from Tails 7.0 in early 2026).</p>
+<p><strong>The combined ship this week</strong>: Tor Browser 15.0.23 + Tails 7.13 + the 0.4.9.12 release from Sep 8 — every user-facing component of the Tor stack is now on the same release-cycle tempo.</p>
+<h3 id="hopr-pixtransport-trilogy-41x-throughput-regression-fix-pool-arbiter-pix-exit-telemetry-stack">HOPR PIX/Transport Trilogy: 4.1.x Throughput Regression Fix + Pool Arbiter + PIX Exit Telemetry Stack</h3>
+<p>HOPR shipped a dense cluster of PIX and transport-layer PRs Sep 15–17. The <strong>headline is the 4.1.x throughput regression fix</strong> (PR #8424) and the <strong>pool arbitration design</strong> (#8426), both written by Claude Opus 4.8 / 5 in the agent-traceable style that's become characteristic of recent HOPR PRs.</p>
+<h4 id="8424-sep-17-derive-packet-pipeline-concurrency-defaults-from-cpu-count">#8424 (Sep 17) — Derive Packet-Pipeline Concurrency Defaults from CPU Count</h4>
+<blockquote>
+<p><strong>The 4.1.x line regressed relay throughput relative to 4.0.3.</strong> Field measurements pinned it to the relays, not the exit: throughput collapsed only when the relays ran 4.1.x, regardless of the exit's version.</p>
+</blockquote>
+<p><strong>The cause</strong>: the ingress decode-concurrency default introduced in #8246. That change capped the default at <code>pool_thread_count − ENCODE_RESERVED_THREADS</code> to keep encode threads free for SURB generation on a busy exit. But in production the shared Rayon pool is sized to <code>available_parallelism()/2</code>, so <strong>on a 4-core node the default evaluates to <code>2 − 2 = 0</code>, which clamps to <code>1</code></strong> — the node decodes packets essentially one at a time. Because forwarding is decode-only, a relay carries no encode/SURB work for that reservation to protect, so the cap was pure loss there, and since a session is bidirectional, throttling one relay direction dragged down both download and upload.</p>
+<p><strong>The fix</strong>: the default is now derived from the CPU count rather than the pool size — both the decode and encode stages fall back to <code>available_parallelism × 8</code> — the pre-#8246 deep-queue depth. These values are ready-queue depths feeding the shared pool, not thread counts, so tying them to the (smaller) pool size was the category error that produced the collapse. The ingress throttle mechanism is unchanged; its watermark simply scales with the corrected concurrency.</p>
+<p>This intentionally restores the encode/decode balance to its pre-#8246 behaviour. The original goal of that change — protecting encode/SURB generation from decode floods under a congested shared pool — is real, but it belongs in a follow-up that arbitrates the pool dynamically.</p>
+<h4 id="8426-sep-17-pool-arbitration-the-follow-up-to-8424">#8426 (Sep 17) — Pool Arbitration (the Follow-Up to #8424)</h4>
+<blockquote>
+<p><strong>Task 2</strong> of the #8246 fix on master: wires the encode/decode pool arbiter into the packet pipeline. Task 1 (#8424) restored CPU-derived concurrency defaults, fixing the relay forwarding collapse; this PR removes the per-packet ingress sleep-gate and replaces it with an asymmetric, occupancy-gated arbiter (in <code>hopr-utilities</code>) that protects SURB encode from decode floods without ever throttling pure forwarding.</p>
+<p>The arbiter only throttles decode admission when the shared pool is saturated, encode work is present, and decode genuinely floods relative to encode — so a forwarding relay (encode ≈ 0) and any unsaturated node are never affected. It is configured <em>first-wins</em> (<code>configure_arbitration_once</code>) because the pool is process-global: a per-node pipeline startup cannot clobber a peer's arbiter or an explicit benchmark override. <code>PoolArbitrationConfig { enabled, occupancy_pct, encode_reserve_pct }</code> is operator-tunable with range validation.</p>
+</blockquote>
+<p><strong>Measured with real SPHINX op costs on a pinned pool</strong>: SURB encode ~2.1× protected under a decode flood with halved P99, and zero overhead for forwarding, balanced, and encode-heavy regimes.</p>
+<p>This is the <strong>structural answer</strong> to #8424: the previous fix preserved the encode/decode balance by giving each stage its full <code>available_parallelism × 8</code>; this fix adds back the original #8246 protection for encode (SURB generation) against decode floods — but only when encode work is actually present and decode is genuinely flooding relative to encode. A pure-forwarding relay pays nothing. A balanced relay pays nothing. Only the case #8246 was originally trying to fix (busy exit with concurrent encode and decode, decode flooding) gets throttled, and even then only when the pool is actually saturated.</p>
+<h4 id="8411-8412-8413-sep-16-pix-exit-telemetry-stack">#8411 / #8412 / #8413 (Sep 16) — PIX Exit Telemetry Stack</h4>
+<p>A three-PR stack that adds <strong>bounded node-level PIX Exit telemetry</strong> with no PII labels.</p>
+<ul>
+<li><strong>#8411 (Sep 16)</strong> — <code>feat(session): bounded node-level PIX Exit telemetry</code>: eight bounded aggregates under <code>hopr_pix_*</code> — <code>hopr_pix_sessions_active{gate_mode}</code> (live Sessions, funded vs unfunded), <code>hopr_pix_cycles_active{phase}</code>, <code>hopr_pix_predeposit_exposure_packets</code> (service given away, not yet paid for), <code>hopr_pix_cycles_total{event}</code> (requested / committed / funded / recovered / failed), <code>hopr_pix_admission_rejections_total{reason}</code> (why incoming PIX Sessions were refused), <code>hopr_pix_live_cycle_bytes</code> + <code>_reserved_total</code> / <code>_released_total</code> (reconstructor-cycle budget). The two existing per-Session gauges are unchanged — this adds alongside. The identifier deny-list guard lives in <code>generate-metrics-docs.sh</code> (run by the pre-commit hook) so a regression that adds a <code>session_id</code> label fails in CI.</li>
+<li><strong>#8412 (Sep 16)</strong> — <code>feat(session): PIX egress gate pressure telemetry</code>: <code>ServiceGate::try_acquire_sync</code> returns a <code>GateVerdict</code> instead of a <code>bool</code>. Both refusal sites already knew which case they were — this only stops discarding it. New metrics: <code>hopr_pix_egress_packets_total{mode}</code>, <code>hopr_pix_gate_blocks_total{reason}</code> (<code>predeposit_exhausted</code> / <code>share_lag</code> / <code>closed</code>), <code>hopr_pix_gate_block_seconds{reason}</code>. Counting is <strong>episodes, not refused packets</strong> — a blocked gate is polled again by whoever is sending, so counting refusals would measure how hard the caller retries rather than how long the Exit was stalled. Episode is an RAII guard opened at the refusal — not at first poll, since the refusal has already happened — and closed by <code>Drop</code>. Benchmarks: <code>funded</code> path 31 µs (unchanged), <code>predeposit</code> path 60 µs (+3.7 ns/packet, under 4 µs for a whole rotation at the shipped value).</li>
+<li><strong>#8413 (Sep 16)</strong> — <code>feat(session): PIX share and per-cycle recovery coverage telemetry</code>: <code>hopr_pix_shares_total{kind}</code> (newly accepted shares, <code>useful</code> vs <code>surplus</code>), <code>hopr_pix_cycle_egress_packets{outcome}</code> (what a cycle cost, observed once at finalization), <code>hopr_pix_cycle_useful_share_fraction{outcome}</code>, <code>hopr_pix_cycle_accepted_share_fraction{outcome}</code>. <strong>Design note: absolute snapshots, never summed.</strong> <code>SsaRecoveryProgress</code> is absolute and acknowledgement batches arrive out of order, coalesced, or not at all, so <code>shares_seen</code> must never be added to a counter. The supervisor keeps a high-water mark per cycle; the delta against it is taken at the one point where a snapshot is known to be both validated and newer than everything before it.</li>
+</ul>
+<p>Plus <code>OTLP.md</code> documenting the <code>hopr_pix_*</code> / <code>hopr_session_pix_*</code> exporter split and worked PromQL for every operator question the issue lists.</p>
+<h4 id="other-hopr-prs-this-week">Other HOPR PRs this week</h4>
+<ul>
+<li><strong>#8420 (Sep 15)</strong> — <code>fix(surb-store): keep newest reply openers so sustained uploads survive</code>. <strong>The same fix as #8417 (v4.0 line) on master</strong>: the inner per-pseudonym reply-opener cache was built with no eviction policy, so it uses moka's default Window-TinyLFU. Reply openers are written once and never read before they are used, so every entry carries the same zero access frequency and TinyLFU keeps the incumbent on each tie — <strong>a full cache freezes the oldest openers and drops every newer one</strong>. The exit's SURB ring always holds the newest SURBs — exactly the openers just discarded — so once the opener cache overflows, every reply becomes undecryptable, independent of pop order and buffer ratio. <strong>Fix</strong>: give the inner opener cache <code>EvictionPolicy::lru()</code>. On this write-only workload LRU evicts by insertion order — sheds the oldest, keeps the newest — a circular buffer that mirrors the SURB ring. Patch-bumps the crate to 6.3.1.</li>
+<li><strong>#8422 (Sep 15)</strong> — <code>fix(session): datagram-aware UDP copy loop end to end</code>. <strong>The Gnosis VPN WireGuard-over-Session download collapse fix.</strong> Root cause (hoprnet#8421): the session copy loop coalesces several return-path UDP datagrams into one oversized session write under backpressure — before the segmenter runs — so the datagram boundaries are lost and cannot be recovered. hoprnet#8358 (one frame per write) is necessary but not sufficient on its own. <strong>Forward-port of #8358 to master</strong> + <strong>datagram-aware copy loop, wired end to end</strong>. <code>transfer_session_datagram</code> is re-exported through the transport chain and used by both UDP session bridges. TCP bridges keep the byte-stream fast path.</li>
+<li><strong>#8424 (Sep 17)</strong> — see above.</li>
+<li><strong>#8426 (Sep 17)</strong> — see above.</li>
+<li><strong>#8428 (Sep 16)</strong> — <code>fix(logging): demote routine SURB expiry evictions and unbalanced-session notice to debug</code>. Log-level hygiene.</li>
+<li><strong>#8392 (Sep 16)</strong> — <code>feat(session): gate organic SURB production on the balancer target</code>. SURB production only runs when the balancer has signalled it wants traffic.</li>
+<li><strong>#8398 (Sep 15)</strong> — <code>feat(session): drain buffered SURBs after an Exit-side close when they cover the funded cycle</code>. Survivability: SURBs that cover a funded cycle get drained instead of dropped on close.</li>
+<li><strong>#8406 (Sep 16)</strong> — <code>chore(renovate): run on numeric release branches</code>. Renovate now processes <code>release/&lt;major&gt;.&lt;minor&gt;</code> branches in addition to the default branch. The regex <code>/^release\/\d+\.\d+$/</code> matches the scheme produced by the release-promotion workflow and deliberately excludes non-numeric legacy branches and hotfix/patch/nested suffixes.</li>
+<li><strong>#8411/#8412/#8413 (Sep 16)</strong> — see PIX Exit telemetry stack above.</li>
+<li><strong>#8430 (Sep 17)</strong> — <code>refactor(session)!: drop pix_ssa_quota from session client config</code>. <strong>Removes <code>pix_ssa_quota</code> from <code>SessionClientConfig</code>, <code>HoprSessionClientConfig</code>, and <code>HoprSessionClientExplicitPathConfig</code>.</strong> <code>Capability::UsePIX</code> is now the whole per-Session PIX switch. The reason: PIX dimensions were never a per-Session choice — <code>new_session</code> builds what it announces from the node's installed <code>SsaShareGenerator</code>; <code>pix_ssa_quota</code> was only compared against that value and then discarded. Exactly one value was ever accepted — the node's own — so the field carried a single bit of information (<code>is_some()</code>) while presenting itself as a dial.</li>
+</ul>
+<p><strong>The PIX/transport cluster as a whole</strong>: HOPR is <strong>making PIX (Payment-In-channel eXchange) operable at the supervisor level</strong>. The previous two weeks added the SURB protocol-version boundary (#8365) and the relayer-diversity diagnostics (#8368). This week adds <strong>observability for PIX operation</strong> — bounded node-level aggregates with no PII, gate-pressure episodes instead of refused-packet counters, and cycle-by-cycle recovery coverage — so an operator can actually answer the question "is the PIX Exit doing what it's supposed to?". This is the kind of work that turns a research-quality protocol into a production system.</p>
+<h3 id="katzenpost-dirauth-hardening-sweep-hpqc-v0087v0088v0089-adoption">Katzenpost: Dirauth Hardening Sweep + hpqc v0.0.87/v0.0.88/v0.0.89 Adoption</h3>
+<p>Katzenpost shipped <strong>~15 commits Sep 14–17</strong> that together form the most consequential dirauth hardening pass Katzenpost has shipped.</p>
+<h4 id="1138-sep-17-review-the-voting-directory-authority-the-og-clean-pr">#1138 (Sep 17) — Review the Voting Directory Authority (the og-clean PR)</h4>
+<blockquote>
+<p>Reviews the voting directory authority (the "og" dirauth) and fixes what turned up.</p>
+</blockquote>
+<p>The PR has 444 lines of changes. The headline:</p>
+<ul>
+<li><strong>Reject bad input instead of panicking</strong>: Addresses, short descriptor identity keys.</li>
+<li><strong>Guard the shared-random and certificate paths</strong>: set-commit, cert epoch binding, vote-as-cert, reveal bounds, authenticator AD.</li>
+<li><strong>Give the PKI wire message a real size ceiling that covers the inter-authority certificate, derived from the configured schemes and topology, and wire it into clients.</strong></li>
+<li><strong>Connections</strong>: recover per-conn panics, cap concurrent and per-peer conns, log and drop unknown peers, bound the first command and keepalive writes, drain accepted conns on shutdown.</li>
+<li><strong>Persistent inter-authority connections stay opt-in, default off.</strong></li>
+</ul>
+<p>Adds a scheme matrix and per-fix regression tests. Verified on a full mixnet and a mixed patched/unpatched authority quorum.</p>
+<p>This is the kind of code that doesn't generate a release note per-line; it generates a "we audited our own dirauth and here's what was wrong" PR. The size ceiling fix in particular is the kind of bug that lives in the protocol spec until a heterogeneous authority set is actually deployed — the assumption that every authority agrees on the PKI scheme was unenforced.</p>
+<h4 id="hpqc-v0087-v0088-v0089-adoption-sep-1417">hpqc v0.0.87 → v0.0.88 → v0.0.89 Adoption (Sep 14–17)</h4>
+<p>hpqc is Katzenpost's hybrid post-quantum crypto library. This week Katzenpost adopts three consecutive releases of hpqc that together implement <strong>degenerate-key hardening</strong>.</p>
+<p><strong>The high-level pattern</strong>: hpqc's NIKE/KEM primitives now reject or neutralize degenerate peer input instead of panicking or silently using it. Specifically:
+- <code>mkem Encapsulate</code> and <code>EnvelopeReply</code> now return an error (was: panic on degenerate recipient key).
+- <code>Scheme.Blind</code> returns nil (was: panic on degenerate group element).
+- <code>DeriveSecret</code> and the in-place <code>Blind</code> leave an all-zero result the caller must reject (was: attacker-predictable shared secret from a low-order point).</p>
+<p>The Katzenpost PRs that adopt this hardening:</p>
+<ul>
+<li><strong>#1136 (Sep 14, "adopt hpqc's degenerate-key hardening")</strong> — bump hpqc to v0.0.87, thread the new error return through every <code>mkem Encapsulate</code> and <code>EnvelopeReply</code> call site; a degenerate recipient now fails the operation. <strong>Reject an all-zero shared secret in sphinx packet creation and unwrap paths (util.CtIsZero)</strong>, per the hpqc DeriveSecret contract. <strong>Reject a nil <code>Scheme.Blind</code> result and an all-zero in-place Blind result</strong>, so a degenerate group element cannot propagate through the chain.</li>
+<li><strong>Followed by ~9 commits Sep 14</strong>: <code>sphinx: reject a degenerate shared secret</code>, <code>sphinx: reject a nil blinded key</code>, <code>sphinx: reject a degenerate blinded key from the in-place Blind</code>, <code>adapt to hpqc's mkem error returns</code>, <code>go.sum: pin hpqc v0.0.87</code>, <code>Merge origin/main into adopt-hpqc-degenerate-key-hardening</code>, etc.</li>
+<li><strong>Sep 17: #1154</strong> — <code>Bump hpqc v0.0.88</code> — breaking changes to hpqc's BACAP API now require Katzenpost to change its BACAP call sites.</li>
+<li><strong>Sep 17: <code>version bump to hpqc v0.0.89</code></strong> — additional BACAP-related call-site fixes (test fixture validity check, error-return handling).</li>
+</ul>
+<p>The pattern is exactly the same as the Sep 11 katzenpost PRs that adopted the prior hpqc version, but bigger and more consequential. <strong>The degenerate-key class</strong> — low-order X25519/X448 points, CTIDH base curve E0 — is exactly the kind of input that an attacker can supply to crash the peer. hpqc hardening moves from "panic" to "return error" to "caller must reject"; Katzenpost adopts every step.</p>
+<h4 id="other-katzenpost-prs-this-week">Other Katzenpost PRs this week</h4>
+<ul>
+<li><strong>Sep 17: <code>authority/voting/client: close the dialed conn on a scheme lookup error</code></strong> — <code>initSession</code> dialed the peer, then returned without closing conn if the peer's configured <code>WireKEMScheme</code> or <code>PKISignatureScheme</code> name was unregistered. Every PKI client operation against a misconfigured peer (e.g. each polling interval) leaked one socket. Also: warn when a reply is rejected as oversized — <code>deriveMaxMessageSize</code> assumes a bounded topology since a client cannot know the real one before its first consensus fetch, so a network that outgrows that allowance otherwise fails PKI fetches with no diagnostic beyond a bare wire error. Export <code>wire.IsOversizedMessageError</code> to detect it.</li>
+<li><strong>Sep 17: <code>courier: reject a configured authority set that disagrees on PKI scheme</code></strong> — <code>newPKIWorkerWithDefaultClient</code> derived its PKI signature scheme (and so its wire ceiling) solely from the first-listed authority, on the unenforced assumption that every authority shares it. A heterogeneous config silently under-estimated the ceiling for whichever authority was not consulted, rejecting its legitimate traffic as oversized.</li>
+<li><strong>Sep 17: <code>authority/voting: split onCertUpload and dialAndHandshakePeer</code></strong> — pure extraction to bring both under the 95-line screen limit. No behavior change.</li>
+<li><strong>Sep 16: <code>authority/voting: bind uploaded vote, reveal and sig to the peer</code></strong> — <code>onCertUpload</code> verified that the certificate's declared PublicKey matches the wire-authenticated peer, but <code>onVoteUpload</code>, <code>onRevealUpload</code> and <code>onSigUpload</code> did not (onVoteUpload's comment wrongly claimed otherwise). An authorized but byzantine authority could therefore relay another authority's genuine vote, reveal or signature over its own connection. Apply the same identity-binding check to all three.</li>
+<li><strong>Sep 16: <code>authority/voting: wait a full keepalive interval between peer commands</code></strong> — the persistent authority serve loop reset the idle read deadline via <code>RecvCommand</code>, whose <code>armIO</code> caps every read at the session <code>ReadTimeout</code> (<code>ResponseTimeoutSec</code>, 30s). That clobbered the intended keepalive idle timeout (120s), so a warm connection closed 30s into an idle gap and the next keepalive (60s) never arrived, defeating the persistent-connection feature. Raise the session read timeout to the keepalive interval for the serve loop.</li>
+<li><strong>Sep 16: <code>core/wire: serialize each logical send and receive as a unit</code></strong> — <code>SendCommand</code> guarded only each individual cipher operation, so two concurrent sends on one Session could interleave a message's header encrypt, body encrypt and rekey with another's, desyncing (or reusing) the ChaChaPoly nonce stream and corrupting every subsequent frame. Hold one exclusive lock across the whole send (through the wire write) and across the whole receive.</li>
+<li><strong>Sep 16: <code>authority/voting: a missing shared-random reveal must not break consensus</code></strong> — the certificate embedded every commit and every reveal an authority had seen. When an authority saw a peer's vote (commit) but never its reveal, which happens when a peer goes down between the vote and reveal deadlines, the commit and reveal sets had unequal cardinality, so <code>IsDocumentWellFormed</code> rejected the certificate and the authority emitted none. When enough honest authorities were in that state the round produced no certificates and consensus stalled: a single non-revealing authority could break a six-authority network far above its fault threshold. Embed only the commit/reveal pairs we hold both halves for, logging and dropping a commit whose reveal we never received; as long as at least threshold authorities revealed, consensus still forms. Verify at reveal-upload time that a reveal opens its commit, so an honest certificate can never carry a signed-but-mismatched pair. Turn the commit/reveal mismatch case in <code>getMyConsensus</code> from a panic into an error.</li>
+<li><strong>Sep 15–16: <code>core/cert,pki: reject wrong-sized signatures before the sign scheme panics</code></strong> — <code>cert.Verify</code> and <code>cert.AddSignature</code>, and the descriptor upload verifiers, passed an attacker-controlled signature payload straight to the sign scheme. The hybrid "Ed25519 Sphincs+" scheme's Verify panics on a wrong-sized signature. Length-check the payload against the scheme's <code>SignatureSize</code>, and reject a nil descriptor signature, before calling Verify.</li>
+<li><strong>Sep 15: <code>authority/voting: pin the wire-KEM ceiling test to Ed25519 so it runs on Windows</code></strong> — Ed25519 Sphincs+ is not built on Windows, so the McEliece and MLKEM cases both collapsed to the flat default and the scaling assertion failed.</li>
+<li><strong>Sep 15: <code>authority/voting: close temp db and log handles so Windows cleanup can remove them</code></strong> — on Windows an open bbolt state.db or file-backed log keeps a lock, so <code>t.TempDir</code>'s <code>RemoveAll</code> cleanup cannot delete the file and the new authority tests fail.</li>
+<li><strong>Sep 15: <code>authority/voting: default to Ed25519 on Windows (no cgo Sphincs+)</code></strong> — hpqc builds Sphincs+ only with cgo, which it does not do on Windows, so <code>ByName("Ed25519 Sphincs+")</code> is nil there.</li>
+</ul>
+<p><strong>The cluster as a whole</strong> is <strong>Katzenpost hardening its own dirauth</strong> — the panics-on-attacker-input class, the consensus-stall-on-missing-reveal class, the wire-format ceiling class, the persistent-connection-class bugs are all closed in this window. The hpqc adoption work is the input to many of those: a panic on a malformed signature used to take down a directory authority, and now it doesn't. <strong>Namenlos public mixnet</strong> is still listed as "coming next" on katzenpost.network; the project's public letter to the European Parliament ahead of Chat Control remains front-paged.</p>
+<h3 id="nym-v202618-essaouira-first-release-branch-cut-since-djibouti">Nym v2026.18-essaouira: First Release Branch Cut Since djibouti</h3>
+<p><strong>Merge #7161 (Sep 17 12:09:10Z)</strong> merges release/2026.18-essaouira to develop. The release notes (<code>#7159</code>, Sep 17) bump the version and document the changes. <strong>Nym Binaries v2026.18-essaouira is the first release-branch cut since v2026.17-djibouti (Sep 2) — 15 days</strong>.</p>
+<p><strong>Headline items in the cut</strong>:</p>
+<ul>
+<li><strong>#7134 (Sep 15) — Lock-free topology</strong>. The biggest single-PR change in this release. Replaces the topology-read path's <code>RwLock</code> with a lock-free structure (likely an <code>ArcSwap</code> or atomic-pointer-based snapshot). This doesn't move microbenchmarks but <strong>matters under contention</strong>: when the LP (Loopix-style) provider streams are simultaneously updating per-node entry/exit routing info, the previous lock caused convoy effects. The PR description is sparse but the title is unambiguous.</li>
+<li><strong>#7153 (Sep 14) — Residential IP research document</strong>. A complete operator-side research document for <strong>residential IP</strong> use in NymVPN: six subsections covering <strong>VPS</strong> (commercial VPS providers with residential IP ranges), <strong>BYOIP</strong> (bring-your-own-IP), <strong>ISP</strong> (consumer ISPs that allow running exit nodes), <strong>mobile</strong> (4G/5G mobile residential IPs), <strong>home</strong> (consumer home broadband), and <strong>Swiss</strong> (Switzerland-specific legal context). The <code>_meta.json</code> was updated twice to make this a top-level menu entry under operators/community-counsel/residential-ip. This is a real practitioner document for people who want to run a residential-exit node that won't get the IP reputation-trashed by GFW or blacklist operators.</li>
+<li><strong>#7154 (Sep 15) — Additional logs when performing node lookup</strong>. Diagnostic logging for node-lookup failures.</li>
+<li><strong>#7155 (Sep 15) — Fix residential IP display</strong>. Operator UI bugfix.</li>
+<li><strong>#7157 (Sep 17) — Nym node ansible system maintenance and node log rotation improvements</strong>. Six fixes in one PR: replace ansible maintenance flow; create script to enable discard on host (i.e. enable <code>fstrim</code> or discard-on-lvm-thin); fix broken rabbit; fix deploy timeout; fix upgrade timeout; fix base role timeout. <strong>Operator-experience work</strong>: the Ansible-based node management needed a clean rewrite, especially the deploy/upgrade timeout handling.</li>
+<li><strong>#7145 (Sep 14) — bugfix/cred-proxy-keys</strong>. Credential proxy key bug fixes. The cred-proxy is the bridge between Nym's zk-nym credential issuance and the LP registration path.</li>
+<li><strong>#7159 (Sep 17) — Release notes for v2026.18 essaouira</strong>. The PR that ties the release together.</li>
+<li><strong>#7161 (Sep 17) — Merge release/2026.18 essaouira to develop</strong>. The release cut.</li>
+<li><strong>#7162 (Sep 17) — nym-node-cli improve location handling for better UX</strong>. The <code>nym-node-cli</code> location-flag UX is improved; comments are fixed.</li>
+<li><strong><code>add ci to build geolocator image</code></strong> (Sep 17) — CI for the Geolocator container image. Geolocator is part of the Directory Contract stack from v2026.17-djibouti.</li>
+<li><strong>chore: update changelog</strong> (Sep 16) — release-prep hygiene.</li>
+</ul>
+<p><strong>NymVPN F-Droid lag</strong>: from the GrapheneOS Discussion Forum (a separate signal, not an Aljaz-direct news item): F-Droid's last NymVPN Android build is <strong>2026.11.3 from July 28</strong> — three weeks behind GitHub. The next two stable releases (2026.12.1, 2026.12.x) are not yet on F-Droid as of Sep 18. GrapheneOS Forum recommends using Obtainium to fetch from GitHub for users who don't want to rely on Play Services. The Play Store build is more current (2026.12.3 as of Aug 28). This is an F-Droid build pipeline lag, not a NymVPN security issue — but it's a real friction point for F-Droid users running NymVPN.</p>
+<h3 id="i2p-tim-c-hardening-sweep-i2psnark-network-etiquette-hygiene">I2P: Tim C Hardening Sweep + i2psnark Network-Etiquette Hygiene</h3>
+<p>I2P shipped <strong>~15 commits Sep 13–17</strong> split between <strong>I2P router core hardening (Tim C reports)</strong> and <strong>i2psnark tracker/announce hygiene</strong>.</p>
+<p><strong>Tim C hardening sweep (Sep 16, all reported by Tim C)</strong>:</p>
+<ul>
+<li><strong>Sep 16: <code>crypto: make EdDSA sig comparison constant time</code></strong> — Defensive against side-channel timing attacks on signature comparison. I2P has historically used non-constant-time memcmp for this; the fix is the textbook constant-time comparison.</li>
+<li><strong>Sep 16: <code>crypto: make AES operation constant time</code> in deprecated/unused method</strong> — Defense in depth: even though the method is deprecated/unused, making it constant-time means a future caller can't accidentally re-introduce a side-channel.</li>
+<li><strong>Sep 16: <code>Tunnels: Don't process dup fragments</code></strong> — A DoS-relevant fix: an attacker could supply duplicate fragment identifiers to cause redundant processing. (Reported by Tim C.)</li>
+<li><strong>Sep 16: <code>Tunnels: Limit size of fragment reassembly map</code></strong> — Bound the unbounded-growth class of bug. The fragment reassembly map could grow without limit if an attacker supplies many distinct fragments that never complete; this caps the map size to prevent OOM. (Reported by Tim C; fix adapted from Tim C.)</li>
+<li><strong>Sep 16: <code>i2pcontrol: Log and delay on auth failure</code></strong> — Anti-bruteforce: log failed authentication attempts and add a delay between them. Reported by Tim C.</li>
+</ul>
+<p><strong>i2psnark network-etiquette hardening (Sep 13–17)</strong>:</p>
+<ul>
+<li><strong>Sep 17: <code>streaming: Mark window size option methods unused</code></strong> — Cleanup: mark the unused methods.</li>
+<li><strong>Sep 15: <code>i2psnark: Limit max reported peers to protect against tracker bugs</code></strong> — Cap the number of peers reported to a tracker in a single announce, in case a tracker has a parsing bug that overflows on large lists.</li>
+<li><strong>Sep 15: <code>i2psnark: Extend keepalive interval from 30 to 60s, only send on inactivity</code></strong> — Network etiquette: don't send a keepalive every 30s if the connection is active; send it every 60s only when there's been inactivity. Reduces idle-bandwidth.</li>
+<li><strong>Sep 14: <code>Router: Update cert and re-enable new reseed</code></strong> — Update the bundled router certificate and re-enable the new reseed mechanism (i.e. the trusted reseed hosts that I2P clients use to bootstrap their router info from).</li>
+<li><strong>Sep 13: <code>i2psnark: Add all trackers to magnet links</code></strong> — Generate magnet links with the full tracker list, not just the primary tracker.</li>
+<li><strong>Sep 13: <code>i2psnark: Set next announce based on last response time, not request time</code></strong> — Tracker etiquette: schedule the next announce based on when the last response arrived, not when the last request was sent. Failures get retried faster because the response timing reflects when the tracker was actually reachable.</li>
+<li><strong>Sep 13: <code>i2psnark: Change backup tracker to UDP and add to tracker list</code></strong> — The backup tracker is moved from HTTP to UDP, and added as a peer in the announce list.</li>
+</ul>
+<p><strong>Transport WIP (Sep 14)</strong>:</p>
+<ul>
+<li><strong><code>Transport: Partial impl for force-ipv6 for docker bridge (WIP)</code></strong> — WIP: tested only to not break IPv6; untested on real docker bridge; more to follow.</li>
+<li><strong><code>Transport: Add explicit force-ipv6 enum (WIP)</code></strong> + <strong><code>Transport: Add explicit force-ipv6 case for clarity</code></strong> + <strong><code>Transport: Stub out NATPMP enums (WIP)</code></strong> — WIP plumbing for IPv6 force mode and NAT-PMP enum support.</li>
+</ul>
+<p><strong>No I2P core release this week</strong>. I2P 2.13.0 (Jul 24) remains current. <strong>I2P 2.14.0 with the Hybrid MLKEM SSU2 release</strong> is still targeted for October 2026.</p>
+<h3 id="chat-control-20-negotiations-resume-at-council-on-sep-12">Chat Control 2.0: Negotiations Resume at Council on Sep 12</h3>
+<p>EU Tech Loop reported Sep 9 that <strong>on September 12, European Member States would have to finalize their positions on the proposed regulation to force client-side scanning of CSAM in messaging apps</strong>. As of Sep 18:</p>
+<ul>
+<li>The Danish Presidency of the Council is pushing for CSAM scanning.</li>
+<li><strong>6 Member States publicly opposed</strong>: Austria, Belgium, Czech Republic, Finland, Netherlands, Poland.</li>
+<li><strong>Germany "undecided"</strong> under the Merz-led conservative coalition (previously a strong opponent under the SPD-led government).</li>
+<li><strong>Estonia, Greece, Luxembourg, Romania, Slovenia</strong> "undecided".</li>
+<li>Estonia's former CIO Luukas Ilves has publicly questioned Estonia's stance ("Estonia has always been a fervent proponent of end-to-end encryption...").</li>
+<li>Multiparty opposition in EP: Greens/EFA VOLT ("protecting children online is possible without mass surveillance"); Patriots for Europe incl. Czech MEP Filip Turek; Finnish EPP MEP Aura Salla.</li>
+</ul>
+<p><strong>No final Council position was reported as of Sep 18.</strong> The Council now has until <strong>~October 9, 2026</strong> to accept or reject the Parliament's amendments (the second-reading procedure's 3-month clock). The amendments that Parliament adopted on July 9 explicitly <strong>protect end-to-end encrypted services</strong> (369 and 362 votes, both cleared the 361-vote threshold) — but the Council could weaken or remove those amendments.</p>
+<p><strong>The mixnet-community response</strong>: Katzenpost's public letter to the European Parliament remains front-paged on katzenpost.network ("Chat Control, Thursday: you are about to outlaw what you paid us to build"). The Privacy Guides Nym analysis thread ("Analysis of Nym VPN and its 'guaranteed' privacy") continues to attract critical replies; update 10/09/26 was the prior week's state.</p>
+<h3 id="tor-network-9330-relays-post-eol-equilibrium">Tor Network: 9,330 Relays — Post-EOL Equilibrium</h3>
+<p>The relay count trajectory over the post-0.4.8-EOL period:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>Date</th>
+<th>Running</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Sep 1</td>
+<td>10,137</td>
+<td>prior week (Sep 11 update)</td>
+</tr>
+<tr>
+<td></td>
+<td>Sep 5</td>
+<td>9,436</td>
+<td>prior week</td>
+</tr>
+<tr>
+<td></td>
+<td>Sep 8</td>
+<td>9,331</td>
+<td>prior week</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Sep 18</strong></td>
+<td><strong>9,330</strong></td>
+<td><strong>this week</strong> (onionoo.torproject.org/summary Sep 18 00:00:00)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The count has stabilized at ~9,330</strong>. This is essentially the same as last week's 9,331 (Sep 8) and confirms the network has found its post-0.4.8-EOL equilibrium. The exit count holds at ~3,140.</p>
+<p><strong>Why this matters</strong>: the post-EOL drain was a one-time event, not a continuing decline. The network absorbed the cut without drama, just shrank to the operators who upgraded plus the cumulative effect of Hetzner de-peering (Dingledine DEF CON 34 estimate: ~20% of network's relay-exit infrastructure). The 2-week browser cadence + Tor VPN Beta's Arti build are unlikely to drive an immediate relay surge but should draw modest new-relay donations over time.</p>
+<h3 id="research-scan-sep-1218">Research Scan: Sep 12–18</h3>
+<p>ePrint keyword searches for <code>mixnet</code> / <code>onion routing</code> / <code>anonymous communication</code> returned <strong>no fresh first-line mixnet papers</strong> in the Sep 12–18 window. The active anchors remain:</p>
+<ul>
+<li><strong>DumboMix</strong> (ePrint 2026/1699, async anonymous broadcast with G.O.D. via Shamir-share MPC, O(1) multiplicative depth)</li>
+<li><strong>De-SyRIS</strong> (ePrint 2026/1723, decentralized Sybil-resistant identity without trusted issuer)</li>
+<li><strong>Proof-of-Uniqueness</strong> (ePrint 2026/1725, threshold-OPRF Sybil-resistant pseudonymous DIDs)</li>
+<li><strong>Cao &amp; Green reputation-framing attacks on Nym</strong> (ePrint 2026/101)</li>
+<li><strong>Verifiable SelfMix</strong> (ePrint 2026/1617)</li>
+<li><strong>QuMixnet</strong> (post-quantum mixnet protocol)</li>
+<li><strong>MOCHA</strong> (ePrint 2025/861, IH&amp;MMSEC 2025, Loopix client-anonymity measurement)</li>
+<li><strong>Outfox</strong> (ACM SIGCOMM 2025, simplified Sphinx for PQ)</li>
+<li><strong>Anonymous Communication on Expander Networks</strong> (ePrint 2026/1404, approved 2026-07-13) — Tufts/Brown result: differentially-private and anonymous protocols in polylog rounds with polylog server load over expander graphs.</li>
+</ul>
+<p>The pattern holds: <strong>shipping work</strong> (Tor WebAssembly-at-Safer fixes, HOPR 4.1.x regression + pool arbiter + PIX telemetry, Katzenpost dirauth hardening sweep, Nym essaouira lock-free topology, I2P constant-time + DoS-bounded) dominates over new theory. The Q3 2026 mixnet research agenda is <strong>consolidation of existing primitives under load and policy pressure</strong> — which is what this week's banner story is.</p>
+<h3 id="out-of-scene-but-adjacent">Out-of-Scene but Adjacent</h3>
+<ul>
+<li><strong>Privacy Guides Nym analysis</strong> — the independent researcher vs. NymVPN thread remains active through Sep 18. Last week's update 10/09/26 added multiple critical replies; Nym team's silence is the recurring pattern. Not a technical bug, but a brand-trust pattern that mixes into the Nym ecosystem coverage.</li>
+<li><strong>NymVPN F-Droid lag</strong> — F-Droid's NymVPN Android build is 3+ weeks behind GitHub as of Sep 18. Last F-Droid build is 2026.11.3 from July 28. Play Store is more current. GrapheneOS Forum recommends Obtainium for users who don't want Play Services.</li>
+<li><strong>EU Chat Control</strong> — Sep 12 was the scheduled Council position-finalize deadline; no deal as of Sep 18. The ~3-month / ~Oct 9 deadline from the July EP second-reading procedure is the next material date. The Katzenpost letter remains front-paged.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Tor Browser 15.0.23 released Sep 15</td>
+<td>"Tor Browser 15.0.23 is now available from the Tor Browser download page ... This version includes important security updates to Firefox"</td>
+<td>blog.torproject.org/new-release-tor-browser-15023</td>
+</tr>
+<tr>
+<td></td>
+<td>15.0.23 fixes (H1) WebAssembly-at-Safer SharedWorker</td>
+<td>"Bug tor-browser#45296: (H1) SharedWorker Identity Mismatch allows WebAssembly execution at Safer"</td>
+<td>Tor Browser 15.0.23 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>15.0.23 fixes (H1) WebAssembly-at-Safer setHTMLUnsafe hook</td>
+<td>"Bug tor-browser#45297: (H1) Missing setHTMLUnsafe hook leaves a permanent WebAssembly-capable child realm at Safer"</td>
+<td>Tor Browser 15.0.23 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>15.0.23 Firefox 140.16.0esr rebase</td>
+<td>"Updated Firefox to 140.16.0esr" + "Bug tor-browser#45303: Rebase Tor Browser stable onto 140.16.0esr"</td>
+<td>Tor Browser 15.0.23 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>15.0.23 Firefox 156 backports</td>
+<td>"Bug tor-browser#45299: Backport Security Fixes from Firefox 156"</td>
+<td>Tor Browser 15.0.23 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>Windows code-signing cert expired Sep 1, workarounds disclosed</td>
+<td>"The DigiCert EV code-signing certificate we use to sign Windows installation packages is expired since September 1st ... we're keeping Tor Browser 15.0.20 (the latest correctly signed version) listed on our download page, relying on automatic updates"</td>
+<td>blog.torproject.org/new-release-tor-browser-15023</td>
+</tr>
+<tr>
+<td></td>
+<td>Tails 7.13 released Sep 16</td>
+<td>"New Release: Tails 7.13 by tails</td>
+<td>September 16, 2026"</td>
+</tr>
+<tr>
+<td></td>
+<td>Tails 7.13 bundles Tor Browser 15.0.23 + Tor 0.4.9.12</td>
+<td>"Update Tor Browser to 15.0.23. Update the Tor client to 0.4.9.12"</td>
+<td>Tails 7.13 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>Tails 7.13 removes Power Off dialog on fast-path shutdown</td>
+<td>"Since Tails 7.10, you had to confirm shutting down in a Power Off dialog. For faster shutdowns, we removed this dialog when no application needs to be closed and no document needs to be saved before shutting down"</td>
+<td>Tails 7.13 changelog</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8424 4.1.x throughput regression fix</td>
+<td>"The 4.1.x line regressed relay throughput relative to 4.0.3. Field measurements pinned it to the relays, not the exit: throughput collapsed only when the relays ran 4.1.x"</td>
+<td>github.com/hoprnet/hoprnet/pull/8424</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8424 root cause: pool_thread_count − ENCODE_RESERVED_THREADS clamped to 1</td>
+<td>"On a 4-core node the default evaluates to <code>2 − 2 = 0</code>, which clamps to <code>1</code> — the node decodes packets essentially one at a time"</td>
+<td>github.com/hoprnet/hoprnet/pull/8424</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8424 fix: derive from available_parallelism × 8</td>
+<td>"Both the decode and encode stages fall back to available_parallelism × 8 — the pre-#8246 deep-queue depth"</td>
+<td>github.com/hoprnet/hoprnet/pull/8424</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8426 pool arbiter 2.1× SURB encode under decode flood</td>
+<td>"Measured with real SPHINX op costs on a pinned pool: SURB encode ~2.1× protected under a decode flood with halved P99, and zero overhead for forwarding, balanced, and encode-heavy regimes"</td>
+<td>github.com/hoprnet/hoprnet/pull/8426</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8426 zero overhead for pure forwarding</td>
+<td>"so a forwarding relay (encode ≈ 0) and any unsaturated node are never affected"</td>
+<td>github.com/hoprnet/hoprnet/pull/8426</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8420/#8422 datagram-aware UDP copy loop fix</td>
+<td>"WireGuard-over-Session downloads collapse on the Gnosis VPN exit. The root cause (hoprnet#8421) is that the session copy loop coalesces several return-path UDP datagrams into one oversized session write under backpressure"</td>
+<td>github.com/hoprnet/hoprnet/pull/8422</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8411/#8412/#8413 PIX Exit telemetry stack</td>
+<td>"Eight bounded aggregates under hopr_pix_* ... hopr_pix_sessions_active{gate_mode} ... hopr_pix_cycle_egress_packets{outcome} ... Episode is an RAII guard opened at the refusal ... Absolute snapshots, never summed"</td>
+<td>github.com/hoprnet/hoprnet/pull/8411, #8412, #8413</td>
+</tr>
+<tr>
+<td></td>
+<td>HOPR #8430 drops pix_ssa_quota</td>
+<td>"PIX dimensions were never a per-Session choice ... Capability::UsePIX is now the whole per-Session PIX switch"</td>
+<td>github.com/hoprnet/hoprnet/pull/8430</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost #1138 dirauth review, 444-line sweep</td>
+<td>"Reviews the voting directory authority (the 'og' dirauth) and fixes what turned up. Reject bad input instead of panicking ... Guards the shared-random and certificate paths ... PKI wire message a real size ceiling that covers the inter-authority certificate, derived from the configured schemes and topology"</td>
+<td>github.com/katzenpost/katzenpost/pull/1138</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost #1136 adopts hpqc v0.0.87 degenerate-key hardening</td>
+<td>"hpqc's NIKE/KEM primitives now reject or neutralize degenerate peer input instead of panicking or silently using it ... Reject an all-zero shared secret in the packet creation and unwrap paths (util.CtIsZero)"</td>
+<td>github.com/katzenpost/katzenpost/pull/1136</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost hpqc bump to v0.0.89 Sep 17</td>
+<td>"version bump to hpqc v0.0.89" + "Bump hpqc v0.0.88 (#1154): breaking changes to hpqc's BACAP api now require us to change our BACAP call sites here"</td>
+<td>katzenpost repo commits</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost missing-shared-random-reveal stalls consensus</td>
+<td>"When an authority saw a peer's vote (commit) but never its reveal, which happens when a peer goes down between the vote and reveal deadlines, the commit and reveal sets had unequal cardinality ... a single non-revealing authority could break a six-authority network far above its fault threshold"</td>
+<td>katzenpost commit Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost core/wire serialize logical send/receive as unit</td>
+<td>"two concurrent sends on one Session could interleave a message's header encrypt, body encrypt and rekey with another's, desyncing (or reusing) the ChaChaPoly nonce stream"</td>
+<td>katzenpost commit Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>Katzenpost core/cert,pki reject wrong-sized signatures</td>
+<td>"The hybrid 'Ed25519 Sphincs+' scheme's Verify panics on a wrong-sized signature, so a single malformed vote, reveal, cert, sig, or descriptor upload could crash a directory authority"</td>
+<td>katzenpost commit Sep 15</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym v2026.18-essaouira released Sep 17</td>
+<td>"Merge pull request #7161 from nymtech/merge/release/2026.18-essaouira" Sep 17 12:09:10Z</td>
+<td>github.com/nymtech/nym/commits</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym #7134 lock-free topology</td>
+<td>"Lock-free topology (#7134) Sep 15 12:35:48Z"</td>
+<td>github.com/nymtech/nym/commits</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym #7153 residential IP research (6 subsections)</td>
+<td>"Residential IP research docs (#7153) ... vps/byoip/isp/mobile/home/swiss"</td>
+<td>github.com/nymtech/nym/pull/7153</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym #7157 ansible maintenance + log rotation</td>
+<td>"nym node ansible system maintenance and node log rotation improvements ... fix deploy timeout ... fix upgrade timeout ... fix base role timeout"</td>
+<td>github.com/nymtech/nym/pull/7157</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym #7159 release notes essaouira</td>
+<td>"[DOCs/operators]: Release notes for v2026.18 essaouira (#7159)"</td>
+<td>github.com/nymtech/nym/pull/7159</td>
+</tr>
+<tr>
+<td></td>
+<td>Nym #7162 nym-node-cli location UX</td>
+<td>"nym-node-cli - improve location handling for better UX (#7162)"</td>
+<td>github.com/nymtech/nym/pull/7162</td>
+</tr>
+<tr>
+<td></td>
+<td>NymVPN F-Droid 3+ weeks behind</td>
+<td>"F-Droid is currently over 3 weeks behind on updates to the NymVPN Android app. The last release provided by F-Droid was version 2026.11.3, posted 2026-07-28"</td>
+<td>discuss.grapheneos.org/d/41915</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 16 constant-time EdDSA sig comparison</td>
+<td>"crypto: make EdDSA sig comparison constant time. Reported by: Tim C"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 16 constant-time AES in deprecated/unused</td>
+<td>"crypto: make AES operation constant time in deprecated/unused method. Reported by: Tim C"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 16 Tunnels: Don't process dup fragments</td>
+<td>"Tunnels: Don't process dup fragments. Reported by: Tim C"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 16 Tunnels: Limit size of fragment reassembly map</td>
+<td>"Tunnels: Limit size of fragment reassembly map. Reported by and fix adapted from: Tim C"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 16 i2pcontrol auth-failure log+delay</td>
+<td>"i2pcontrol: Log and delay on auth failure. Reported by: Tim C"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 16</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 15 i2psnark Limit max reported peers</td>
+<td>"i2psnark: Limit max reported peers to protect against tracker bugs"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 15</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 15 i2psnark Extend keepalive to 60s</td>
+<td>"i2psnark: Extend keepalive interval from 30 to 60s, only send on inactivity"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 15</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 13 i2psnark next announce based on last response time</td>
+<td>"i2psnark: Set next announce based on last response time not request time, so failures get retried faster"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 13</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 13 i2psnark backup tracker to UDP</td>
+<td>"i2psnark: Change backup tracker to UDP and add to tracker list"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 13</td>
+</tr>
+<tr>
+<td></td>
+<td>I2P Sep 14 Router: Update cert and re-enable new reseed</td>
+<td>"Router: Update cert and re-enable new reseed"</td>
+<td>github.com/i2p/i2p.i2p commits Sep 14</td>
+</tr>
+<tr>
+<td></td>
+<td>Chat Control Council Sep 12 position-finalize deadline</td>
+<td>"On September 12, European Member States will have to finalize their positions on the proposed regulation"</td>
+<td>eutechloop.com</td>
+</tr>
+<tr>
+<td></td>
+<td>6 MS publicly opposed to Chat Control</td>
+<td>"only 6 EU Member States are on the record opposing the current Chat Control proposal: Austria, Belgium, Czech Republic, Finland, the Netherlands and Poland"</td>
+<td>eutechloop.com</td>
+</tr>
+<tr>
+<td></td>
+<td>Germany "undecided" under Merz</td>
+<td>"While Germany was a strong opponent of chat control in the previous Social Democratic party-led government, the country now stands as 'undecided' under a Merz-led conservative coalition government"</td>
+<td>eutechloop.com</td>
+</tr>
+<tr>
+<td></td>
+<td>Council 3-month / ~Oct 9 deadline</td>
+<td>"Parliament amended rather than simply failing to reject, the file goes back to the Council, which has three months (roughly until October 9, 2026) to accept or reject the changes"</td>
+<td>hivesecurity.gitlab.io</td>
+</tr>
+<tr>
+<td></td>
+<td>Tor network 9,330 running relays Sep 18</td>
+<td>Onionoo summary "running": true count</td>
+<td>onionoo.torproject.org/summary 2026-09-18</td>
+</tr>
+<tr>
+<td></td>
+<td>Tor network 9,331 running relays Sep 8 (prior week)</td>
+<td>Onionoo summary 2026-09-08</td>
+<td>onionoo.torproject.org/summary</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-09-11/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — September 11 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-09-25/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — September 25 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

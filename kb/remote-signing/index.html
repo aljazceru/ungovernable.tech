@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Remote Signing (NIP-46 and Friends) — ungovernable.tech</title>
+<meta name="description" content="Remote signers and bunkers (NIP-46 and others) keep Nostr private keys on one device and sign for many apps, ending the habit of pasting keys.">
+<link rel="canonical" href="https://ungovernable.tech/kb/remote-signing/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Remote Signing (NIP-46 and Friends) — ungovernable.tech">
+<meta property="og:description" content="Remote signers and bunkers (NIP-46 and others) keep Nostr private keys on one device and sign for many apps, ending the habit of pasting keys.">
+<meta property="og:url" content="https://ungovernable.tech/kb/remote-signing/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Remote Signing (NIP-46 and Friends) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Remote Signing (NIP-46 and Friends) — ungovernable.tech">
+<meta name="twitter:description" content="Remote signers and bunkers (NIP-46 and others) keep Nostr private keys on one device and sign for many apps, ending the habit of pasting keys.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Remote Signing (NIP-46 and Friends)", "description": "Remote signers and bunkers (NIP-46 and others) keep Nostr private keys on one device and sign for many apps, ending the habit of pasting keys.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/remote-signing/", "mainEntityOfPage": "https://ungovernable.tech/kb/remote-signing/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}, {"@type": "Thing", "name": "Devices and Operational Security"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Remote Signing (NIP-46 and Friends)", "item": "https://ungovernable.tech/kb/remote-signing/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Remote Signing (NIP-46 and Friends)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span><span class="ktag">[ DEVICES AND OPERATIONAL SECURITY ]</span></p>
+  <h1>Remote Signing (NIP-46 and Friends)</h1>
+  <p class="aka">Also NIP-46, Nsec Bunker, Nostr Connect, Remote Signers.</p>
+  <p class="dek">The ecosystem that replaced &#34;paste your nsec into every client&#34; with proper key custody. NIP-46 bunkers, NIP-07 browser extensions, Amber on Android, hardware-wallet signing — same goal, different threat models. This file maps the landscape and the trust calculus for each option.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-remote-signing-matters-for-nostr">Why remote signing matters for Nostr</a><a href="#nip-07-browser-extension-signers">NIP-07 — browser extension signers</a><a href="#nip-46-nostr-connect-the-bunker-pattern">NIP-46 — Nostr Connect (the bunker pattern)</a><a href="#amber-android-the-deep-dive">Amber (Android) — the deep dive</a><a href="#hardware-wallet-signing">Hardware-wallet signing</a><a href="#comparison-table">Comparison table</a><a href="#threshold-signing-frostr-frost-nostr">Threshold signing — Frostr / FROST-Nostr</a><a href="#marmot-and-remote-signing">Marmot and remote signing</a><a href="#threat-models-in-practice">Threat models in practice</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-remote-signing-matters-for-nostr">Why remote signing matters for Nostr</h2>
+<p>A Nostr identity is just a secp256k1 keypair (see <a href="/kb/nostr-identity/">Nostr</a>). The <code>nsec</code> (private key) does everything: signs DMs, posts, zap requests, profile updates, FIPS routing announcements. Whoever has the <code>nsec</code> <em>is</em> the identity.</p>
+<p>The early UX was disastrous: every Nostr client wanted the user to paste the <code>nsec</code> into a text field on first run. Web apps, mobile apps, browser tabs, all asking for the secret key. This violated every principle of key custody:</p>
+<ul>
+<li>A malicious or compromised client steals the key.</li>
+<li>The user has no idea how many clients hold their key.</li>
+<li>Revocation is impossible — Nostr identity is the key.</li>
+<li>Multi-device use means the key is in N places, each a separate compromise vector.</li>
+</ul>
+<p>Remote signing fixes this. The signer holds the <code>nsec</code>; clients request signatures over the wire. The client never sees the key. This pattern aligns Nostr's UX with how modern wallets, password managers, and SSH agents work.</p>
+<h2 id="nip-07-browser-extension-signers">NIP-07 — browser extension signers</h2>
+<p><strong>NIP-07</strong> ("Window.nostr capability for web browsers") defines a browser API that web Nostr clients can call to request signatures from a browser extension. Spec: <a href="https://github.com/nostr-protocol/nips/blob/master/07.md" rel="noopener nofollow">NIP-07: browser signing interface</a>.</p>
+<pre><code class="language-javascript">// Web client never touches the key directly:
+const event = await window.nostr.signEvent({
+    kind: 1,
+    content: "hello world",
+    tags: [],
+    created_at: Math.floor(Date.now() / 1000),
+});
+</code></pre>
+<p>The extension holds the key, prompts the user for confirmation (or auto-approves whitelisted origins), and returns the signed event.</p>
+<h3 id="implementations">Implementations</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alby</strong> (<code>getalby.com</code>)</td>
+<td>Browser extension and self-hosted hub; also handles Lightning.</td>
+</tr>
+<tr>
+<td><strong>nos2x</strong> (<a href="https://github.com/fiatjaf/nos2x" rel="noopener nofollow">nos2x browser signer</a>)</td>
+<td>Minimal reference implementation by fiatjaf.</td>
+</tr>
+<tr>
+<td><strong>Flamingo</strong></td>
+<td>Newer entrant; emphasis on multi-account UX.</td>
+</tr>
+<tr>
+<td><strong>Nostore (iOS)</strong></td>
+<td>Safari extension equivalent.</td>
+</tr>
+<tr>
+<td><strong>Horse</strong></td>
+<td>Chrome extension with security-focused defaults.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="threat-model">Threat model</h3>
+<ul>
+<li>Key sits in the browser extension's storage (encrypted with a password, ideally).</li>
+<li>Web origin is checked; per-site approval prompts.</li>
+<li>Compromised browser or extension stack leaks the key.</li>
+<li>No hardware isolation. A determined attacker with browser access wins.</li>
+</ul>
+<p>NIP-07 is the <strong>convenience tier</strong>: better than pasting nsec, worse than hardware. Acceptable for low-stakes identities (casual social posting, low-value zaps).</p>
+<h2 id="nip-46-nostr-connect-the-bunker-pattern">NIP-46 — Nostr Connect (the bunker pattern)</h2>
+<p><strong>NIP-46</strong> ("Nostr Connect / Remote Signing") is the protocol for remote signing over Nostr relays. Spec: <a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46: remote signing</a>.</p>
+<p>The flow:</p>
+<pre><code>Client (e.g., a web app)             Bunker (signer service)
+    │                                       │
+    │  Pairing: user pastes bunker URI      │
+    │  ─────────────────────────────────►   │
+    │                                       │  (User on bunker
+    │                                       │   side approves)
+    │                                       │
+    │  signEvent(unsigned_event) request    │
+    │  ───── via Nostr relay (encrypted) ─► │
+    │                                       │  (Bunker signs)
+    │  signed_event response                │
+    │  ◄──── via Nostr relay (encrypted) ── │
+    │                                       │
+</code></pre>
+<p>Key properties:</p>
+<ul>
+<li><strong>Transport is Nostr relays.</strong> Both sides connect to a shared relay; messages are encrypted (NIP-44 v2, which uses ChaCha20 and HMAC-SHA-256).</li>
+<li><strong>Pairing</strong>: the user gets a <code>bunker://</code> or <code>nostrconnect://</code> URI from the bunker, pastes it into the client. The URI contains the bunker's signing pubkey and a connection secret.</li>
+<li><strong>The client never sees the nsec.</strong> It only sends unsigned events to the bunker and gets signed events back.</li>
+<li><strong>The bunker can enforce policy</strong>: rate limits, allowed event kinds, approval prompts before signing.</li>
+</ul>
+<h3 id="bunker-implementations">Bunker implementations</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Bunker</th>
+<th>Where it runs</th>
+<th>Threat model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amber</strong> (Android)</td>
+<td>User's phone</td>
+<td>Key on phone; signing requires explicit approval per request. Strong UX.</td>
+</tr>
+<tr>
+<td><strong>Nsec.app</strong> (<code>nsec.app</code>)</td>
+<td>Self-hosted web bunker</td>
+<td>Lightweight web app; key in browser local storage. Casual use.</td>
+</tr>
+<tr>
+<td><strong>Bunker.app</strong></td>
+<td>Hosted service</td>
+<td>Convenience custodial; trusts the operator.</td>
+</tr>
+<tr>
+<td><strong>Nsecbunker</strong> (<a href="https://github.com/kind-0/nsecbunkerd" rel="noopener nofollow">nsecbunker implementation</a>)</td>
+<td>Self-hosted daemon</td>
+<td>Server-side bunker; key in a TEE-friendly process; multi-user policy.</td>
+</tr>
+<tr>
+<td><strong>Keychat / Khatru-bunker</strong></td>
+<td>Self-hosted</td>
+<td>Variations on the daemon pattern.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="self-hosted-bunker-in-a-tee">Self-hosted bunker in a TEE</h3>
+<p>A pattern increasingly discussed: run the bunker inside a TEE (Intel TDX, AMD SEV-SNP, AWS Nitro Enclaves) so the key is hardware-isolated. The bunker exposes signing via NIP-46; the TEE attests to its code so the user can verify the bunker isn't a malicious copy. See <a href="/kb/confidential-computing/">Overview - Confidential Computing</a>.</p>
+<p>This gives:
+- Hardware key isolation.
+- Remote signing UX from any client.
+- Verifiable bunker code (no rogue admin extracting the key).</p>
+<p>It's the best-of-both-worlds option for users with serious operational threat models.</p>
+<h3 id="threat-model-for-nip-46">Threat model for NIP-46</h3>
+<ul>
+<li>The bunker holds the key. Compromise of the bunker = compromise of the identity.</li>
+<li>The relay sees encrypted traffic. Choose relays you trust not to log metadata.</li>
+<li>Pairing leaks the bunker pubkey (which is the signing key in some implementations) — a privacy concern, not a security one.</li>
+<li>Replay attacks are mitigated by per-session keys and timestamp validation.</li>
+<li>A compromised client can request many signatures; bunker policy (rate limit, kind filter, approval prompts) is the defense.</li>
+</ul>
+<h2 id="amber-android-the-deep-dive">Amber (Android) — the deep dive</h2>
+<p><strong>Amber</strong> (<a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber implementation</a>) is the dominant Android signer. It's not just a NIP-46 client; it can also act as a system-wide intent target, so any Nostr client on Android can request a signature via Android's intent mechanism.</p>
+<p>Architecture:</p>
+<ul>
+<li>Key stored on Android device, encrypted with a user-set password / biometric.</li>
+<li>Signing requests come in via Android intents (local IPC) or NIP-46 (relay-based).</li>
+<li>Each request prompts the user (or follows policy: auto-approve specific event kinds for whitelisted apps).</li>
+<li>Multi-account support; one Amber install can hold many nsecs.</li>
+</ul>
+<p>For Android Nostr users, Amber is the de-facto standard. UX is comparable to a password manager.</p>
+<p>iOS lacks an Amber equivalent (Apple's intent system is more locked-down); iOS users typically use NIP-46 to a web bunker or a desktop signer.</p>
+<h2 id="hardware-wallet-signing">Hardware-wallet signing</h2>
+<p>The strongest custody option: the key never leaves a hardware wallet.</p>
+<h3 id="coldcard">Coldcard</h3>
+<p>Coldcard’s documented message-signing interface must not be assumed to implement Nostr event signing. Check the exact firmware and event format before designing a hardware-signing workflow; Bitcoin signed-message support alone does not establish NIP-01 compatibility.</p>
+<h3 id="foundation-passport">Foundation Passport</h3>
+<p>Passport added Nostr signing capabilities (2024-2025). Similar QR-based UX. Targets Bitcoin-Nostr users who want unified hardware key management.</p>
+<h3 id="keystone">Keystone</h3>
+<p>Keystone Pro added Nostr signing support. Air-gapped QR workflow.</p>
+<h3 id="research-psbt-like-nostr-signing">Research: PSBT-like Nostr signing</h3>
+<p>A research direction: a "<strong>NSBT</strong>" (Nostr-equivalent of PSBT) format that lets multiple parties contribute to event construction (e.g., multisig FROST signing) and pass partially-signed events between hardware devices and software clients. As of early 2026, this is exploratory; no standard exists.</p>
+<h2 id="comparison-table">Comparison table</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Key custody</th>
+<th>UX</th>
+<th>Trust assumption</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pasted nsec (legacy)</strong></td>
+<td>Every client</td>
+<td>Easy</td>
+<td>Trust every app forever</td>
+<td><strong>Don't do this</strong></td>
+</tr>
+<tr>
+<td><strong>NIP-07 extension</strong></td>
+<td>Browser extension</td>
+<td>Easy</td>
+<td>Trust browser + extension</td>
+<td>Casual social, web only</td>
+</tr>
+<tr>
+<td><strong>NIP-46 hosted bunker</strong></td>
+<td>Bunker operator</td>
+<td>Easy</td>
+<td>Trust bunker operator</td>
+<td>Convenience custodial</td>
+</tr>
+<tr>
+<td><strong>NIP-46 self-hosted</strong></td>
+<td>Your server</td>
+<td>Medium</td>
+<td>Trust your own infra</td>
+<td>Self-sovereign default</td>
+</tr>
+<tr>
+<td><strong>NIP-46 TEE bunker</strong></td>
+<td>Attested TEE</td>
+<td>Medium</td>
+<td>Trust hardware vendor</td>
+<td>High-stakes self-sovereign</td>
+</tr>
+<tr>
+<td><strong>Amber (Android)</strong></td>
+<td>Phone</td>
+<td>Easy</td>
+<td>Trust phone OS</td>
+<td>Mobile-first users</td>
+</tr>
+<tr>
+<td><strong>Hardware wallet (Coldcard, Passport)</strong></td>
+<td>Air-gapped HW</td>
+<td>Slow</td>
+<td>Trust hardware vendor</td>
+<td>Cold-storage, high-stakes</td>
+</tr>
+<tr>
+<td><strong>FROST threshold (Frostr, draft NIP)</strong></td>
+<td>Distributed</td>
+<td>Hard</td>
+<td>Trust threshold of cosigners</td>
+<td>Group / org accounts</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="threshold-signing-frostr-frost-nostr">Threshold signing — Frostr / FROST-Nostr</h2>
+<p>A future-facing direction: <strong>FROST</strong> (Komlo &amp; Goldberg, IACR 2020/852) threshold Schnorr signatures, applied to secp256k1 Nostr keys. The Frostr proposal (<a href="https://github.com/cmdruid/frost" rel="noopener nofollow">Frostr FROST implementation</a>) and related drafts let <code>t-of-n</code> cosigners produce a Nostr signature without ever reconstructing the full nsec.</p>
+<p>Use cases:</p>
+<ul>
+<li><strong>Personal</strong>: split your key 2-of-3 across phone, laptop, hardware wallet. Lose one device, identity survives.</li>
+<li><strong>Organizational</strong>: a Nostr account controlled by 3-of-5 board members.</li>
+<li><strong>Custody-as-a-service</strong>: a user holds 1-of-3 shares; a custodian holds 2-of-3 but can't sign without the user.</li>
+</ul>
+<p>This intersects with <a href="/kb/threshold-signatures/">Threshold Signatures</a> (forthcoming) and is relevant to <a href="/kb/marmot-protocol/">Marmot Protocol</a> group identity.</p>
+<p>As of early 2026: tooling is alpha. Production-grade UX is at least 6-12 months out.</p>
+<h2 id="marmot-and-remote-signing">Marmot and remote signing</h2>
+<p><a href="/kb/marmot-protocol/">Marmot Protocol</a> (MLS over Nostr) signs <strong>a lot</strong>: every group operation, every welcome, every commit. A user in 5 active Marmot groups might generate dozens of signatures per day. This makes:</p>
+<ul>
+<li><strong>Hardware-wallet signing</strong> impractical for Marmot (too many prompts).</li>
+<li><strong>NIP-07 / NIP-46</strong> the right fit, with policy: auto-approve Marmot event kinds for the Marmot client.</li>
+<li><strong>TEE bunkers</strong> especially attractive: hardware-isolated key + high-frequency signing without UX friction.</li>
+</ul>
+<p>A typical recommendation: hardware wallet for high-stakes events (profile changes, account rotations, kind-0 metadata), NIP-46 or Amber for everything else. The signer's policy distinguishes between event kinds.</p>
+<h2 id="threat-models-in-practice">Threat models in practice</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>You're worried about</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Casual key theft from sketchy web apps</td>
+<td>NIP-07 or NIP-46</td>
+</tr>
+<tr>
+<td>Your laptop is compromised</td>
+<td>NIP-46 to phone (Amber) or TEE bunker</td>
+</tr>
+<tr>
+<td>Your phone is compromised</td>
+<td>Hardware wallet for high-value signatures</td>
+</tr>
+<tr>
+<td>Targeted attack against you specifically</td>
+<td>TEE bunker + hardware wallet for cold ops</td>
+</tr>
+<tr>
+<td>Account takeover (key theft)</td>
+<td>FROST threshold (when production-ready)</td>
+</tr>
+<tr>
+<td>Coercion (someone forces you to sign)</td>
+<td>Threshold with one party offline / abroad</td>
+</tr>
+<tr>
+<td>Mass surveillance of relay metadata</td>
+<td>Use Tor / <code>.onion</code> relays for bunker traffic</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths-of-remote-signing-generally">Strengths of remote signing generally</h3>
+<ul>
+<li>Removes the "every client holds your nsec" footgun.</li>
+<li>Makes high-stakes Nostr accounts viable (organizations, journalists, whistleblowers).</li>
+<li>Enables policy enforcement (rate limits, approval prompts, kind whitelists).</li>
+<li>Composable with hardware isolation (TEE, hardware wallets).</li>
+<li>NIP-46's relay-based transport works across NAT, firewalls, anywhere Nostr works.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>More moving parts. A bunker is one more thing to operate or trust.</li>
+<li>Latency. Every signature is a round-trip via relay.</li>
+<li>Bunker compromise is identity compromise. Operational discipline matters.</li>
+<li>UX is still rough for non-technical users.</li>
+<li>iOS lacks an Amber equivalent.</li>
+<li>Hardware-wallet flow is too slow for active Nostr use.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bunker server compromise</td>
+<td>Self-host; run in a TEE; minimize attack surface</td>
+</tr>
+<tr>
+<td>Compromised client requests many signatures</td>
+<td>Bunker policy: rate limit, approval prompts, kind whitelist</td>
+</tr>
+<tr>
+<td>Pairing URI leaked</td>
+<td>Single-use pairing tokens; rotate connection secrets</td>
+</tr>
+<tr>
+<td>Relay logs metadata</td>
+<td>Use trusted relays; route bunker traffic over Tor</td>
+</tr>
+<tr>
+<td>Hardware-wallet supply-chain attack</td>
+<td>Verify firmware signatures; buy direct from vendor</td>
+</tr>
+<tr>
+<td>User social-engineered into approving malicious request</td>
+<td>Bunker UX shows full event content before signing</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">Nostr Implementation Possibilities registry</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/07.md" rel="noopener nofollow">NIP-07: browser signing interface</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46: remote signing</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/44.md" rel="noopener nofollow">NIP-44: versioned encryption</a></li>
+<li><a href="https://eprint.iacr.org/2020/852" rel="noopener nofollow">FROST: Flexible Round-Optimized Schnorr Threshold Signatures</a></li>
+<li><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber implementation</a></li>
+<li><a href="https://github.com/kind-0/nsecbunkerd" rel="noopener nofollow">nsecbunker implementation</a></li>
+<li><a href="https://github.com/getAlby/lightning-browser-extension" rel="noopener nofollow">Alby browser extension</a></li>
+<li><a href="https://github.com/fiatjaf/nos2x" rel="noopener nofollow">nos2x browser signer</a></li>
+<li><a href="https://github.com/FROSTR-ORG/igloo-core" rel="noopener nofollow">Frostr implementation</a></li>
+<li><a href="https://coldcard.com/docs/upgrade/" rel="noopener nofollow">Coldcard firmware release history</a></li>
+<li><a href="https://coldcard.com/docs/message-signing/" rel="noopener nofollow">Coldcard message signing</a></li>
+<li><a href="https://github.com/cmdruid/frost" rel="noopener nofollow">Frostr FROST implementation</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/threshold-signatures/">
+  <span class="nm">Threshold Signatures</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/biscuit/">
+  <span class="nm">Biscuit authorization tokens</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/buzz/">
+  <span class="nm">Buzz</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/endpoint/">Devices and Operational Security</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Remote%20Signing%20%28NIP-46%20and%20Friends%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The ecosystem that replaced &#34;paste your nsec into every client&#34; with proper key custody. NIP-46 bunkers, NIP-07 browser extensions, Amber on Android, hardware-wallet signing — same goal, different threat models. This file maps the landscape and the trust calculus for each option.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust, Devices and Operational Security</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>13</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

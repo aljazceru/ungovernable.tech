@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nostr as an Identity Layer — ungovernable.tech</title>
+<meta name="description" content="On Nostr an identity is just a secp256k1 key pair: no registrar, platform or issuer. How keys, names, verification and delegation work.">
+<link rel="canonical" href="https://ungovernable.tech/kb/nostr-identity/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Nostr as an Identity Layer — ungovernable.tech">
+<meta property="og:description" content="On Nostr an identity is just a secp256k1 key pair: no registrar, platform or issuer. How keys, names, verification and delegation work.">
+<meta property="og:url" content="https://ungovernable.tech/kb/nostr-identity/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nostr as an Identity Layer — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nostr as an Identity Layer — ungovernable.tech">
+<meta name="twitter:description" content="On Nostr an identity is just a secp256k1 key pair: no registrar, platform or issuer. How keys, names, verification and delegation work.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Nostr as an Identity Layer", "description": "On Nostr an identity is just a secp256k1 key pair: no registrar, platform or issuer. How keys, names, verification and delegation work.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/nostr-identity/", "mainEntityOfPage": "https://ungovernable.tech/kb/nostr-identity/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Nostr as an Identity Layer", "item": "https://ungovernable.tech/kb/nostr-identity/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Nostr as an Identity Layer</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Nostr as an Identity Layer</h1>
+  <p class="aka">Also Nostr Identity, npub.</p>
+  <p class="dek">A Nostr identity is just a secp256k1 keypair. No registrar, no platform, no issuer involved. This file looks at Nostr through the identity lens; the messaging side is in Nostr Deep Dive.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-identity-comes-first-in-nostr">Why identity comes first in Nostr</a><a href="#the-basic-pieces">The basic pieces</a><a href="#using-one-key-across-multiple-devices">Using one key across multiple devices</a><a href="#knowing-whose-key-is-whose">Knowing whose key is whose</a><a href="#marmot-protocol-group-identity">Marmot Protocol — group identity</a><a href="#things-not-to-do">Things not to do</a><a href="#how-it-composes-with-the-rest-of-this-library">How it composes with the rest of this library</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#recent-developments-20242026">Recent developments (2024–2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-identity-comes-first-in-nostr">Why identity comes first in Nostr</h2>
+<p>Most messaging protocols start with messaging and add identity later. Nostr did it the other way around: a public key is the account, and notes, DMs, zaps, and marketplaces are built on top of that. Nothing has to be allocated or approved. If you have the key, you have the identity. If you lose it, it's gone.</p>
+<p>That makes Nostr a simpler identity primitive than the alternatives:</p>
+<ul>
+<li>Email is tied to an SMTP host that can shut you down.</li>
+<li>DNS names are issued by registrars.</li>
+<li>W3C DIDs work but are heavier and need method-specific resolvers.</li>
+<li>OIDC depends on the issuer continuing to exist and cooperate.</li>
+</ul>
+<p>The trade-offs: there is no built-in human-readable name (Zooko's triangle), no native discovery, and losing the key means losing the account.</p>
+<h2 id="the-basic-pieces">The basic pieces</h2>
+<h3 id="npub-and-nsec"><code>npub</code> and <code>nsec</code></h3>
+<ul>
+<li><code>nsec</code> is a bech32-encoded private key (secp256k1).</li>
+<li><code>npub</code> is the bech32-encoded x-only public key.</li>
+<li>Event payloads use the hex form; <code>npub</code> is what users see.</li>
+</ul>
+<p>The <code>nsec</code> does everything: signing Nostr events, signing Lightning zap requests, signing FIPS routing announcements (see <a href="/kb/fips-mesh/">FIPS</a>), and proving ownership in OIDC-replacement flows. One key, many uses.</p>
+<h3 id="nip-05-human-readable-handles">NIP-05 — human-readable handles</h3>
+<p><code>alice@ungovernable.tech</code> resolves through <code>https://ungovernable.tech/.well-known/nostr.json</code> to an <code>npub</code>. It's an alias only; the key is still the real identity.</p>
+<p>The trust is whatever TLS to that domain is worth, which means it falls back to DNS and the CA system. Ways to reduce that dependency:</p>
+<ul>
+<li>Serve NIP-05 over PKARR or Pubky, so the record is self-authenticating (see <a href="/kb/pubky/">Pubky</a>).</li>
+<li>Serve NIP-05 from a <code>.onion</code> address, removing DNS and CAs from the picture.</li>
+<li>Have clients pin the <code>npub</code> on first contact (TOFU), so a later DNS attack doesn't silently swap the key.</li>
+</ul>
+<h3 id="nip-26-unrecommended-delegation">NIP-26 — unrecommended delegation</h3>
+<p>NIP-26 describes delegated event signing, but the NIPs README marks it <strong>unrecommended</strong>. It should not be the basis of a new key-custody plan. For signing from a separate device, see <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> and NIP-46 remote signing.</p>
+<h2 id="using-one-key-across-multiple-devices">Using one key across multiple devices</h2>
+<p>If your only key sits on a phone that gets compromised, you lose your identity. Common workarounds:</p>
+<h3 id="hardware-signed-events">Hardware-signed events</h3>
+<p>Coldcard, Keystone, and a few other hardware wallets added Nostr event signing in 2024 and 2025. The key never leaves the device; events are signed via QR or USB. The trade-off is signing latency.</p>
+<h3 id="nip-46-bunker">NIP-46 (Bunker)</h3>
+<p>A signer service holds the key, and the application calls a remote signing API. The signer can enforce policies: which event kinds are allowed, rate limits, approval prompts. It can run on:</p>
+<ul>
+<li>A separate device (phone, hardware wallet).</li>
+<li>A self-hosted server, with the key in a TEE (see <a href="/kb/confidential-computing/">Overview - Confidential Computing</a>).</li>
+<li>Your own Android phone running Amber. Amber keeps the private key in a dedicated app on the device and signs for clients through Android signing interfaces and NIP-46; it is not a custodial hosting service.</li>
+</ul>
+<h3 id="account-recovery-frost-draft-nip">Account recovery (FROST, draft NIP)</h3>
+<p>Threshold signatures (FROST) let <code>t</code> of <code>n</code> cosigners sign Nostr events together. Lose one share and you still have your identity. Production tooling is rolling out in 2025 and 2026.</p>
+<h2 id="knowing-whose-key-is-whose">Knowing whose key is whose</h2>
+<p>There is no directory, so "is this <code>npub</code> really Alice?" is a real problem. The usual answers:</p>
+<h3 id="web-of-trust">Web of trust</h3>
+<p>Each user's follow graph and signed metadata form a trust graph. Tools like Vertex, Wikifreedia, and social.coracle.social use it to filter feeds, surface accounts your friends have verified, and reduce spam. See <a href="/kb/web-of-trust/">Overview - Web of Trust</a>.</p>
+<h3 id="nip-05-verification">NIP-05 verification</h3>
+<p>Domain-bound aliases. Fine for low or moderate stakes, but vulnerable to DNS-level attacks.</p>
+<h3 id="cross-signing">Cross-signing</h3>
+<p>A trusted root (for example, a journalist's known organization) signs an attestation that <code>npub X</code> belongs to person Y. Manual but high-assurance.</p>
+<h3 id="out-of-band-qr-in-person">Out-of-band (QR, in person)</h3>
+<p>The strongest option. Same idea as Briar's in-room key exchange.</p>
+<h2 id="marmot-protocol-group-identity">Marmot Protocol — group identity</h2>
+<p><a href="/kb/marmot-protocol/">Marmot Protocol</a> (specified in MIPs at github.com/marmot-protocol) brings MLS to Nostr. For identity, this means:</p>
+<ul>
+<li>The Nostr pubkey is used as the MLS BasicCredential identity, so the same key works on the social side and the group-messaging side.</li>
+<li>Each member's group activity uses an MLS-derived signing key, separate from the main Nostr key. If a group-signing key is compromised, the Nostr identity itself is not.</li>
+<li>MLS provides forward secrecy and post-compromise security. Plain Nostr DMs (NIP-04 and NIP-17) do not.</li>
+<li>KeyPackage events (kind 30443) are publicly addressable invitations. The identity layer stays public; the group messaging stays end-to-end encrypted.</li>
+</ul>
+<p>The practical effect is that Marmot lets you cleanly separate Nostr-the-identity-layer from Nostr-the-encryption-layer. Serious group messaging on Nostr basically requires this split.</p>
+<h2 id="things-not-to-do">Things not to do</h2>
+<ul>
+<li><strong>Use one <code>npub</code> for everything.</strong> Reusing a public identity across contexts links those activities. Use separate keys when separation matters; NIP-26 delegation is unrecommended.</li>
+<li><strong>Confuse a local signer with a custodian.</strong> Amber keeps keys on your own device. Custody depends on who controls the signing device and its keys.</li>
+<li><strong>Send <code>nsec</code> to a relay.</strong> Relays only need signed events. If a relay sees an <code>nsec</code>, you've already lost.</li>
+<li><strong>Treat NIP-05 as authentication.</strong> It's an alias, not a credential. Don't trust it for high-stakes verification without other corroboration.</li>
+<li><strong>Announce a new account by posting "I left, my new account is X" from the old one.</strong> Without a cryptographic delegation, the protocol can't verify the link; followers have to re-establish trust by hand.</li>
+</ul>
+<h2 id="how-it-composes-with-the-rest-of-this-library">How it composes with the rest of this library</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Other primitive</th>
+<th>Combined identity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/pubky/">Pubky</a></td>
+<td>NIP-05 served over PKARR — DNS-free human-readable handles</td>
+</tr>
+<tr>
+<td><a href="/kb/fips-mesh/">FIPS</a></td>
+<td>The same <code>npub</code> addresses your network nodes</td>
+</tr>
+<tr>
+<td><a href="/kb/lightning-network/">Lightning Network Deep Dive</a></td>
+<td>Zaps tie payments to a social identity</td>
+</tr>
+<tr>
+<td><a href="/kb/marmot-protocol/">Marmot Protocol</a></td>
+<td>Group messaging keyed to a social identity</td>
+</tr>
+<tr>
+<td><a href="/kb/confidential-computing/">Overview - Confidential Computing</a></td>
+<td>An attested signing service holding <code>nsec</code> in a TEE</td>
+</tr>
+<tr>
+<td><a href="/kb/web-of-trust/">Overview - Web of Trust</a></td>
+<td>Social-graph reputation built on raw <code>npubs</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="whats-good">What's good</h3>
+<ul>
+<li>Identity is just a key. Nothing to allocate, register, or apply for.</li>
+<li>Easy to move. There's no "account migration" because the same key works anywhere.</li>
+<li>Composable across protocols. One key for many uses, with the linkability caveat.</li>
+<li>Open to anyone. New identity-related NIPs can ship without permission.</li>
+</ul>
+<h3 id="whats-hard">What's hard</h3>
+<ul>
+<li>Key custody is the whole game. Without prior planning, there's no recovery.</li>
+<li>Using a single key for everything makes you fully linkable by default.</li>
+<li>Discovery is hard. There's no directory, so bootstrapping needs WoT or out-of-band contact.</li>
+<li>Nostr is not a credential system. For issuer/verifier roles, use VCs or SD-JWT (see <a href="/kb/decentralized-identity/">Overview - Decentralized Identity</a>).</li>
+<li>Sybil attacks are easy. Anyone can mint as many keys as they want.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>What helps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key extracted from a device</td>
+<td>Hardware wallets; NIP-46 with a TEE-backed signer</td>
+</tr>
+<tr>
+<td>NIP-05 DNS attack</td>
+<td>Self-hosting, PKARR, <code>.onion</code> fallback</td>
+</tr>
+<tr>
+<td>Social-engineered pubkey</td>
+<td>Cross-signing, WoT, out-of-band confirmation</td>
+</tr>
+<tr>
+<td>Sybil flood or spam</td>
+<td>WoT-rooted feeds, paid relays, content filters</td>
+</tr>
+<tr>
+<td>Cross-context linkability</td>
+<td>Separate keys for separate contexts; NIP-26 is unrecommended</td>
+</tr>
+<tr>
+<td>Compromised signing service</td>
+<td>Use only attested or self-hosted signers</td>
+</tr>
+<tr>
+<td>Quantum attack (future)</td>
+<td>Migrating to a PQ signature scheme; no NIP yet</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-20242026">Recent developments (2024–2026)</h2>
+<ul>
+<li>Marmot Protocol MIPs are stabilizing MLS-over-Nostr.</li>
+<li>Hardware-signed events on Coldcard, Keystone, and Foundation Passport.</li>
+<li>NIP-46 Bunker widely supported (Amber, Nsec.app).</li>
+<li>FROST and threshold-Nostr experiments for multi-party key custody.</li>
+<li>NIP-05 served over PKARR via Pubky integration.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber: local Android signer</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/55.md" rel="noopener nofollow">NIP-55: Android signer interface</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46: remote signing</a></li>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-26 status</a></p>
+</li>
+<li>
+<p>fiatjaf, <em>Nostr — Notes and Other Stuff Transmitted by Relays</em>, 2020. <a href="https://github.com/nostr-protocol/nostr" rel="noopener nofollow">github.com/nostr-protocol/nostr</a></p>
+</li>
+<li>NIPs registry — <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">github.com/nostr-protocol/nips</a></li>
+<li>NIP-05, NIP-26, NIP-46 specifications.</li>
+<li>Marmot Protocol MIPs — <a href="https://github.com/marmot-protocol/marmot" rel="noopener nofollow">github.com/marmot-protocol/marmot</a></li>
+<li>FROST — Komlo &amp; Goldberg, <em>FROST: Flexible Round-Optimized Schnorr Threshold Signatures</em>, IACR 2020/852.</li>
+<li><a href="https://datatracker.ietf.org/doc/rfc9591/" rel="noopener nofollow">RFC 9591 — FROST Protocol</a> — IRTF stable specification (June 2024).</li>
+<li><a href="https://github.com/nostr-protocol/nips/issues/654" rel="noopener nofollow">nostr-protocol/nips#654</a> — NIP-26 delegation revocation proposal.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/fips-mesh/">
+  <span class="nm">FIPS (Free Internetworking Peering System)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/guides/nostr-key-custody/">
+  <span class="nm">Nostr Key Custody and Recovery</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/web-of-trust/">
+  <span class="nm">Webs of Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/lightning-network/">
+  <span class="nm">Lightning Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/decentralized-identity/">
+  <span class="nm">Decentralized Identity</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/did-methods/">
+  <span class="nm">Decentralized Identifier (DID) Methods</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/nostr-vpn/">
+  <span class="nm">Nostr VPN</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Nostr%20as%20an%20Identity%20Layer" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A Nostr identity is just a secp256k1 keypair. No registrar, no platform, no issuer involved. This file looks at Nostr through the identity lens; the messaging side is in Nostr Deep Dive.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>8</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Session — ungovernable.tech</title>
+<meta name="description" content="Session, a messenger that needs no phone number and routes messages over an onion network of nodes: how it works and its cryptographic trade-offs.">
+<link rel="canonical" href="https://ungovernable.tech/kb/session-messenger/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Session — ungovernable.tech">
+<meta property="og:description" content="Session, a messenger that needs no phone number and routes messages over an onion network of nodes: how it works and its cryptographic trade-offs.">
+<meta property="og:url" content="https://ungovernable.tech/kb/session-messenger/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Session — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Session — ungovernable.tech">
+<meta name="twitter:description" content="Session, a messenger that needs no phone number and routes messages over an onion network of nodes: how it works and its cryptographic trade-offs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Session", "description": "Session, a messenger that needs no phone number and routes messages over an onion network of nodes: how it works and its cryptographic trade-offs.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/session-messenger/", "mainEntityOfPage": "https://ungovernable.tech/kb/session-messenger/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Session", "item": "https://ungovernable.tech/kb/session-messenger/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Session</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>Session</h1>
+  <p class="aka">Also Session Messenger, Oxen Session, Loki Messenger.</p>
+  <p class="dek">A messenger that uses an X25519 keypair as the only identifier (no phone number, no email) and routes messages over the Oxen Service Node onion network. Storage relays hold encrypted messages for offline recipients. Originally a Signal Protocol fork; replaced X3DH with a simpler onion-routed key agreement; still uses Double Ratchet for direct conversations. Funded by the $OXEN token; that&#39;s both its strength (incentivized infrastructure) and its main critique (token economics, smaller deployment).</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#identity-x25519-keypair">Identity = X25519 keypair</a><a href="#routing-oxen-service-nodes">Routing: Oxen Service Nodes</a><a href="#cryptography">Cryptography</a><a href="#comparison">Comparison</a><a href="#tokenomics-critique">Tokenomics critique</a><a href="#threat-model">Threat model</a><a href="#deployment-status">Deployment status</a><a href="#operational-notes">Operational notes</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="identity-x25519-keypair">Identity = X25519 keypair</h2>
+<p>Open Session, generate a keypair, you have a <strong>Session ID</strong>:</p>
+<pre><code>05 [32-byte X25519 public key in hex]
+e.g.   05a3b7e1f2c9...   (66 hex chars total)
+</code></pre>
+<p>That's the entire identity. No phone number, no email, no display name needed at the protocol layer. Two users connect by exchanging Session IDs (QR codes, scrap of paper, another channel). There is no centralized directory.</p>
+<p>This is the same primitive as Signal's username-based contacts (introduced 2024) but Session has done it from day one (2019).</p>
+<p>The <code>05</code> prefix is a version/network byte. Underneath, identity is a Curve25519 keypair, and message authentication uses Ed25519-from-X25519 conversions where signatures are needed.</p>
+<h2 id="routing-oxen-service-nodes">Routing: Oxen Service Nodes</h2>
+<p>Where Signal has central servers and SimpleX has relay queues, Session uses a global onion-routed network of <strong>Oxen Service Nodes</strong> (formerly Loki Service Nodes; the project rebranded from Loki to Oxen in 2021 to escape the OPM/Lazarus naming overlap).</p>
+<p>Each Service Node is a server staked by some operator with $OXEN tokens. Service Nodes:</p>
+<ul>
+<li>Run Lokinet (a Tor-like onion-routed mixnet, separate product from Session itself).</li>
+<li>Participate in <strong>Session's storage layer</strong>: a Service Node group ("swarm") holds encrypted messages for accounts whose Session ID falls in a particular range of the keyspace.</li>
+<li>Earn $OXEN block rewards for being online and serving requests.</li>
+</ul>
+<p>When Alice sends a message to Bob:</p>
+<ol>
+<li>Alice's client encrypts the message to Bob's X25519 public key.</li>
+<li>Alice constructs an onion-routed path through three Service Nodes.</li>
+<li>The exit node delivers the message to Bob's swarm (the Service Nodes responsible for his Session ID).</li>
+<li>The swarm stores the encrypted blob.</li>
+<li>When Bob next polls his swarm (push notifications via APNs/FCM are a separate question), he downloads waiting messages.</li>
+</ol>
+<p>Bob's IP is never exposed to Alice; Alice's IP is never exposed to the swarm; the swarm cannot decrypt the content.</p>
+<p>This is what Session means when it says "no phone number, no metadata." The metadata is real — it includes "this Session ID has stored messages on this swarm" — but the user-IP-to-Session-ID linkage that Signal exposes (via account creation, push tokens, contact discovery) is genuinely absent.</p>
+<h2 id="cryptography">Cryptography</h2>
+<h3 id="content-encryption">Content encryption</h3>
+<p>For 1:1 chats Session uses <strong>Double Ratchet</strong> — the same Signal Protocol primitive, with the X25519 keypair as the long-term identity input. Forward secrecy and post-compromise security via Diffie-Hellman ratcheting on every message round-trip.</p>
+<p>Originally Session used Signal's full X3DH for session setup. In <strong>2020 they replaced X3DH with a simpler onion-routed handshake</strong> because X3DH's prekey publishing model assumed central servers and Session didn't have those. The simpler design reuses long-term identity keys for initial key derivation; the trade-off is that the very-first-message has weaker forward secrecy than Signal's prekey design provides.</p>
+<h3 id="group-messaging">Group messaging</h3>
+<p>Session has used several group designs:</p>
+<ul>
+<li><strong>Closed groups</strong> — Sender Keys (Signal-style): a shared symmetric key per group, rotated on member changes. O(N) cost per change, weak post-compromise security at group level.</li>
+<li><strong>Open groups (community servers)</strong> — server-relayed, lighter encryption, public-channel use case.</li>
+<li><strong>MLS-style groups (2024+)</strong> — Session has been integrating an MLS-derived design (TreeKEM, RFC 9420) for stronger group security. As of 2026 this is rolling out alongside the older closed-group implementation.</li>
+</ul>
+<p>The MLS migration mirrors what Wire (<a href="/kb/mls-wire/">Wire MLS</a>) did earlier and what <a href="/kb/marmot-protocol/">Marmot Protocol</a> is doing in the Nostr ecosystem — the industry has converged on MLS as the right primitive for large encrypted groups.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Signal</th>
+<th>Session</th>
+<th>SimpleX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User identifier</td>
+<td>Phone (or username 2024+)</td>
+<td>X25519 pubkey (Session ID)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Phone number required</td>
+<td>Yes (or username)</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Onion routing built-in</td>
+<td>No (sealed sender helps)</td>
+<td>Yes (Oxen Service Nodes)</td>
+<td>No (use Tor manually)</td>
+</tr>
+<tr>
+<td>Content E2EE</td>
+<td>Double Ratchet + X3DH/PQXDH</td>
+<td>Double Ratchet, simpler setup</td>
+<td>Double Ratchet</td>
+</tr>
+<tr>
+<td>Asynchronous delivery</td>
+<td>Yes (Signal servers)</td>
+<td>Yes (Service Node swarms)</td>
+<td>Yes (SMP queues)</td>
+</tr>
+<tr>
+<td>Post-quantum</td>
+<td>PQXDH (2023+)</td>
+<td>No public deployment plan</td>
+<td>Hybrid Kyber (2023+)</td>
+</tr>
+<tr>
+<td>Funding model</td>
+<td>Signal Foundation (Brian Acton donation, donations)</td>
+<td>$OXEN token + grants</td>
+<td>Grants + venture</td>
+</tr>
+<tr>
+<td>Self-hostable infrastructure</td>
+<td>No (server is open but the network is closed)</td>
+<td>Run a Service Node (requires staking $OXEN)</td>
+<td>Yes, run an SMP relay</td>
+</tr>
+<tr>
+<td>Adoption (2026)</td>
+<td>Hundreds of millions</td>
+<td>~1M active (estimated)</td>
+<td>~200K-500K active</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="tokenomics-critique">Tokenomics critique</h2>
+<p>Session is funded by the Oxen Privacy Tech Foundation, whose original revenue model is the <strong>$OXEN token</strong> (formerly $LOKI). Service Node operators stake $OXEN to run nodes; block rewards (15,000-coin emissions) pay them; the foundation funds development.</p>
+<p>The honest critiques:</p>
+<ul>
+<li><strong>Token incentives can drift from user welfare.</strong> The economic incentive is to operate Service Nodes and serve requests, not to advocate for users against subpoenas or jurisdictional pressure.</li>
+<li><strong>Service-node operator concentration.</strong> As with most PoS networks, operator distribution skews. A handful of operators run a substantial fraction of nodes.</li>
+<li><strong>Project governance.</strong> OPTF is registered in Australia. Australian legislation (Assistance and Access Act 2018) gives authorities broad capabilities to compel technical assistance. Session has stated they would refuse / publicize, but the legal framework is real.</li>
+<li><strong>Rug-pull risk.</strong> A token-funded project depends on token price to fund development. The 2022 crypto winter visibly stressed many such projects; Session survived, but the dependency is structural.</li>
+</ul>
+<p>Counterarguments:</p>
+<ul>
+<li>The economic incentive does buy real, distributed infrastructure that does not concentrate around a single legal entity.</li>
+<li>Service Nodes don't have access to plaintext or to a useful social graph by design; even a fully compromised operator set leaks limited information.</li>
+<li>The codebase is open, the network is verifiable, the token is incidental to message delivery.</li>
+</ul>
+<p>For users who want a fully working metadata-light messenger today and are uninterested in self-hosting, Session is one of the few options. For users who want to avoid token-economics governance, SimpleX with Tor or Briar may fit better.</p>
+<h2 id="threat-model">Threat model</h2>
+<h3 id="what-session-prevents">What Session prevents</h3>
+<ul>
+<li><strong>Server-side social-graph reconstruction by a single operator.</strong> No central server, no operator-account index.</li>
+<li><strong>IP-to-identity linkage.</strong> Onion routing keeps your IP off your Session ID.</li>
+<li><strong>Sender-receiver linkage at the swarm.</strong> Senders go through onion paths; receivers poll over onion paths.</li>
+<li><strong>Plaintext in transit.</strong> Standard E2EE.</li>
+</ul>
+<h3 id="what-it-doesnt">What it doesn't</h3>
+<ul>
+<li><strong>Endpoint compromise.</strong> Same as always.</li>
+<li><strong>Service-node global passive adversary.</strong> A coordinated entity running enough Service Nodes could perform timing correlation to deanonymize specific traffic. The published Session research argues this is hard at current Service Node counts; it is not impossible.</li>
+<li><strong>Compromise of Session ID exchange channels.</strong> If an adversary controls how Alice and Bob exchanged IDs, they can MITM at first contact. Out-of-band verification (compare ID strings via voice / in person) addresses this.</li>
+<li><strong>Quantum.</strong> Curve25519 throughout; no post-quantum option as of 2026.</li>
+</ul>
+<h2 id="deployment-status">Deployment status</h2>
+<ul>
+<li><strong>Clients</strong>: iOS, Android, macOS, Linux, Windows. F-Droid available.</li>
+<li><strong>License</strong>: GPL-3.0.</li>
+<li><strong>Audits</strong>: Quarkslab audited the cryptographic core in 2020 (<a href="https://github.com/oxen-io/oxen-docs" rel="noopener nofollow">published findings</a>). NCC Group audited Lokinet in 2020. Audit cadence is less frequent than Signal's; 2024-2026 audit transparency is mixed.</li>
+<li><strong>Users</strong>: official statements claim ~1 million active users; the absence of phone numbers means there's no exact count. Conditional claim: low single-digit millions of installs, hundreds of thousands of active monthly users.</li>
+</ul>
+<h2 id="operational-notes">Operational notes</h2>
+<ul>
+<li>Back up your seed phrase (recovery phrase encodes the X25519 private key). Lose it, lose your identity and your message history.</li>
+<li>Push notifications on iOS/Android use Google FCM and Apple APNs as wake-up signals; the actual messages are still pulled by the client over onion paths. The push token is associated with the Session ID at the push-server, which is the one piece of operator-side metadata Session does keep.</li>
+<li>For higher-stakes use, disable push notifications; the client polls instead.</li>
+<li>Run a Session ID alongside SimpleX or Signal as redundancy; treat each as a separate channel for separate threat models.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Session whitepaper — <a href="https://getsession.org/whitepaper" rel="noopener nofollow">getsession.org/whitepaper</a>.</li>
+<li>Oxen documentation — <a href="https://docs.oxen.io" rel="noopener nofollow">docs.oxen.io</a>.</li>
+<li>Session source — <a href="https://github.com/oxen-io/session-android" rel="noopener nofollow">github.com/oxen-io/session-android</a>, <a href="https://github.com/oxen-io/session-ios" rel="noopener nofollow">session-ios</a>, <a href="https://github.com/oxen-io/session-desktop" rel="noopener nofollow">session-desktop</a>.</li>
+<li>Lokinet (Oxen onion routing) — <a href="https://lokinet.org" rel="noopener nofollow">lokinet.org</a>.</li>
+<li>Oxen Privacy Tech Foundation — <a href="https://optf.ngo" rel="noopener nofollow">optf.ngo</a>.</li>
+<li>Quarkslab audit (2020) — published in OPTF blog and GitHub.</li>
+<li>Marlinspike &amp; Perrin, "The Double Ratchet Algorithm" (2016).</li>
+<li>Australian Assistance and Access Act 2018 — <a href="https://www.legislation.gov.au/Details/C2018A00148" rel="noopener nofollow">legislation.gov.au</a> (jurisdictional context).</li>
+</ul>
+<p>For a current comparison of identifiers, encryption defaults and network dependencies, see <a href="/kb/compare-messengers/">Choosing a private messenger</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Session" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A messenger that uses an X25519 keypair as the only identifier (no phone number, no email) and routes messages over the Oxen Service Node onion network. Storage relays hold encrypted messages for offline recipients. Originally a Signal Protocol fork; replaced X3DH with a simpler onion-routed key agreement; still uses Double Ratchet for direct conversations. Funded by the $OXEN token; that&#39;s both its strength (incentivized infrastructure) and its main critique (token economics, smaller deployment).</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Secure Messaging</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

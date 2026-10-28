@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — October 17 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-10-17: OpenSSL 4.1.0-beta2 shipped Oct 9 (in-window carry) — released with DTLS 1.3 (RFC 9147), RFC 8701 GREASE, IKEv2.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-10-17/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — October 17 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-10-17: OpenSSL 4.1.0-beta2 shipped Oct 9 (in-window carry) — released with DTLS 1.3 (RFC 9147), RFC 8701 GREASE, IKEv2.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-10-17/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — October 17 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — October 17 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-10-17: OpenSSL 4.1.0-beta2 shipped Oct 9 (in-window carry) — released with DTLS 1.3 (RFC 9147), RFC 8701 GREASE, IKEv2.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — October 17 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-10-17: OpenSSL 4.1.0-beta2 shipped Oct 9 (in-window carry) — released with DTLS 1.3 (RFC 9147), RFC 8701 GREASE, IKEv2.", "datePublished": "2026-10-17", "dateModified": "2026-10-17", "url": "https://ungovernable.tech/briefings/post-quantum/2026-10-17/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-10-17/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-10-17", "item": "https://ungovernable.tech/briefings/post-quantum/2026-10-17/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-10-17</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — October 17 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-10-17</b></span>
+    <span><b>39</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-10-17 // may be outdated</p>
+  <p>This page reflects what was known on 2026-10-17. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a>, <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>, <a href="/kb/dihedral-coset-attacks/">The Dihedral Coset Attack Line</a>, algorithm notes (<a href="/kb/ml-kem/">ML-KEM</a>, <a href="/kb/ml-dsa/">ML-DSA</a>, <a href="/kb/slh-dsa/">SLH-DSA</a>, <a href="/kb/hqc/">HQC</a>, <a href="/kb/fn-dsa-falcon/">FN-DSA Falcon</a>), <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>, <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>, and <a href="/kb/bitcoin-post-quantum-migration/">Bitcoin PQ Migration</a>. This note covers the <strong>week since the <a href="/briefings/post-quantum/2026-10-10/">October 10 update</a></strong> — the Oct 10 → Oct 17 window. The headline event of the week is <strong>OpenSSL 4.1.0-beta2 shipping on Oct 9 (in-window carrying)</strong> — the first pre-release of OpenSSL 4.1 to integrate DTLS 1.3 (RFC 9147) and ppc64le ML-DSA/ML-KEM NTT optimizations — but <strong>also explicitly disclosed as carrying two unreleased security issues in the new DTLS 1.3 implementation</strong> (OpenSSL issues <a href="https://github.com/openssl/openssl/issues/33172" rel="noopener nofollow">#33172</a> and <a href="https://github.com/openssl/openssl/issues/33173" rel="noopener nofollow">#33173</a>), with the project statement <em>"We did not want to release 4.1.0 with known security issues in the new implementation. For that reason, we have released 4.1.0-beta2 instead"</em>; <strong>4.1.0 final is therefore pushed to a date after the beta2 fixes</strong> rather than the previously-targeted "October 2026". The secondary event is <strong>the IACR hardware-PQC cluster: CHES 2026 (Oct 11–15, Antalya) and the affiliated LightSec 2026 (Oct 11)</strong> — the SEALSQ peer-reviewed paper <em>Cross-information lattice attack on ML-KEM</em> (LightSec 2026) showed a profiling + lattice-reduction side-channel attack on the ML-KEM key-generation encoding step that recovers sensitive information under realistic conditions. The third event is <strong>Apple's MTC commitment</strong> (Sept 21, pre-window) culminating in <strong>a draft Apple MTC policy targeted for the end of October 2026</strong>, with <strong>three cosignatures per cert (ML-DSA-44 + ECDSA-P256 from issuer, ML-DSA-44 from a mirror Operator), 7-day validity, FIPS 140-3 Level 3 / Common Criteria EAL 4+ HSMs, IANA-registered PENs as Trust Anchor IDs, annual audit</strong> — completing the Chrome / Let's Encrypt / Apple institutional backing for MTCs ahead of the <strong>OMB M-26-15 PQC Migration Plan deadline on Oct 22 (5 days out)</strong>. The OMB deadline and <strong>OpenSSL 3.4 EOL</strong> are on the same day. The week is the <strong>operational pivot point</strong> from library-cycle churn to mandate-cycle execution.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ol>
+<li>
+<p><strong>OpenSSL 4.1.0-beta2 shipped Oct 9 (in-window carry)</strong> — released with DTLS 1.3 (RFC 9147), RFC 8701 GREASE, IKEv2 KDF, Elbrus2000 (e2k) initial support, optimized ML-DSA and ML-KEM NTT on ppc64le, optimized ML-DSA on x86_64, AVX-512 SHAKE x4 for ML-DSA, AVX-512/VAES for AES-CBC decryption; <strong>two known unreleased security issues in the DTLS 1.3 implementation</strong> (OpenSSL <a href="https://github.com/openssl/openssl/issues/33172" rel="noopener nofollow">#33172</a>, <a href="https://github.com/openssl/openssl/issues/33173" rel="noopener nofollow">#33173</a>) forced beta2 instead of final; the project statement that they <em>"did not want to release 4.1.0 with known security issues in the new implementation"</em> implies <strong>4.1.0 final is pushed beyond October 2026</strong> — the prior OpenSSL 4.1 release-target blog-post commitment ("4.1.0 final: October 2026") is broken; <strong>the new target window is November or later</strong>, gated on the DTLS 1.3 security fixes. <strong>4.1.0-beta1's <code>#32878</code> DTLS 1.3 KeyUpdate retransmission buffer drop bug</strong> is also still open (retransmit lost NewSessionTicket records). The ML-DSA / ML-KEM ppc64le + AVX-512 SHAKE x4 work is the largest single PQC CPU-side optimization in any OpenSSL 4.x release and <strong>is the primary reason the library community will accept the multi-month delay</strong>. <strong>OpenSSL 3.4 EOL on 2026-10-22 (5 days out, same date as M-26-15)</strong> now coincides with the migration-plan deadline. Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> and <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+</li>
+<li>
+<p><strong>IACR CHES 2026 (Oct 11–15, Antalya) + LightSec 2026 (Oct 11 affiliated)</strong> — CHES 2026 is the IACR hardware-PQC primary venue. <strong>Key PQC-related work in the conference / workshop program</strong>: (a) <strong>SEALSQ "Cross-information lattice attack on ML-KEM" at LightSec 2026</strong> (Oct 11) — combines profiling-based side-channel techniques with lattice reduction against the <strong>ML-KEM key-generation encoding step</strong>; recovers sensitive information under realistic conditions; the work pairs the attack with practical countermeasures and complements SEALSQ's QS7001 secure element (Common Criteria EAL5+ in progress); (b) <strong>TCHES 2027 pre-prints cluster</strong> includes <a href="https://eprint.iacr.org/2026/2474" rel="noopener nofollow">ePrint 2026/2474</a> <em>Software-Pipelining The Number Theoretic Transform on Neural Processing Units</em> (Vermeersch/Pottier/Norga/de Ruijter/Verbauwhede) — first systematic NTT acceleration on AMD AI Engine NPUs (radix-2/4/8, 14-bit / 30-bit moduli, polynomial degree 4096/2048) with manual loop fission; (c) <strong>MDPI Electronics 15(2) 475</strong> (the W41 prior-week survey) is the canonical cite for FPGA/ASIC lattice-PQ energy-efficiency at &gt;50,000 unit volumes (18.7× gain); (d) <strong>CHES 2026 program page</strong> is JavaScript-only and did not render to text in the harvest window — the <strong>full paper list is available as JSON</strong> but the per-paper abstracts were not reachable. <strong>For freedom-tech</strong>: the SEALSQ LightSec 2026 result is the <strong>first peer-reviewed third-party confirmation of the Bernstein / June 2026 ML-DSA "exploiting bugs" thesis applied to ML-KEM</strong> — both lattice-based standardized algorithms are now formally documented as carrying side-channel fragility that <strong>scales to secret recovery from a few million signatures, not the hundreds of millions previously believed</strong>. Cross-reference <a href="/kb/ml-kem/">ML-KEM</a> and <a href="/kb/ml-dsa/">ML-DSA</a>.</p>
+</li>
+<li>
+<p><strong>Apple commits to Merkle Tree Certificates (Sept 21, pre-window) — draft MTC policy end of October 2026.</strong> Per the <a href="https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk/m/pR3A5uRZCAAJ" rel="noopener nofollow">Sept 21 post on the Chromium CT-policy list by Dustin Hollenback</a>, the Apple Root Program will publish <strong>a draft MTC policy by the end of October 2026</strong> in the <a href="https://github.com/apple/apple-root-program" rel="noopener nofollow">apple/apple-root-program</a> repo, followed by a public feedback survey. <strong>Key draft policy requirements</strong>: (a) <strong>three cosignatures per cert</strong> — ML-DSA-44 + ECDSA-P256-SHA256 from the issuing Operator, plus ML-DSA-44 from a different Operator as a mirror; (b) <strong>all cosigner keys in FIPS 140-3 Level 3 or Common Criteria EAL 4+ HSMs</strong>; (c) <strong>Operators register IANA PENs as Trust Anchor IDs</strong>; (d) <strong>7-day certificate validity</strong>; (e) <strong>annual audit</strong>; (f) <strong>Operators publish "far more non-private operational detail, including a record for every domain validation"</strong>. <strong>Apple will begin accepting MTC CA Operator applications by late summer 2027</strong>. <strong>Apple's S/MIME path is the parallel track: traditional X.509 with composite ML-DSA + ECDSA/RSA signatures</strong>, citing that S/MIME's lower issuance volume and less latency sensitivity make the larger cert sizes "less disruptive". <strong>MTC institutional backing is now complete: Chrome (Feb 2026 proposal + Chrome Quantum-resistant Root Store Q3 2027), Let's Encrypt (June 2026), Cloudflare (50% of Chrome Beta 146 in 2026), Apple (Sept 21)</strong> — Mozilla is the only major browser root program not yet on record. The <strong>Apple draft policy at the end of October 2026 + the OMB M-26-15 deadline on Oct 22 are the two most consequential PQC events of the Oct 10 → Oct 17 window</strong>, because they together fix the operational form of the next-generation public Web PKI. Cross-reference <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+</li>
+<li>
+<p><strong>AWS-LC: still at v5.11.0, 16 days in.</strong> v5.11.0 from Oct 1 remains the current tagged release across the <strong>Oct 10 → Oct 17 window</strong> (now 16 days). The September weekly cadence is broken through October. <strong>No <code>Prepare v5.12.0</code> PR is open</strong>. The W41 PR cluster (<a href="https://github.com/aws/aws-lc/pull/3601" rel="noopener nofollow">#3601</a> ML-DSA prehash mutual-exclusion fix, <a href="https://github.com/aws/aws-lc/pull/3602" rel="noopener nofollow">#3602</a> quictls-pkcs11 fork removal, <a href="https://github.com/aws/aws-lc/pull/3604" rel="noopener nofollow">#3604</a> ML-DSA default signature algorithm param fix, <a href="https://github.com/aws/aws-lc/pull/3609" rel="noopener nofollow">#3609</a> TLS DH known-safe-groups test) is still open on the master branch and is the candidate set for v5.12.0. The <strong><a href="https://aws.amazon.com/blogs/security/quantum-resistant-signing-on-aws-part-1-build-a-software-supply-chain-with-ml-dsa" rel="noopener nofollow">AWS Security Blog "Quantum-resistant signing on AWS" Part 1</a></strong> was published in the window — <strong>the first end-to-end guide from any cloud provider for post-quantum signing across the software supply chain</strong>, walking through constructing an ML-DSA root of trust, IAM Roles Anywhere trust anchors using ML-DSA, and full ML-DSA PKI operationalization. <strong>AWS CloudHSM ML-DSA</strong> in FIPS mode for <code>hsm2m.medium</code> clusters has been GA since 2026-09-01 (per the AWS CloudHSM User Guide update on 2026-09-26) — the prior "preview" status on the AWS PQC migration page is now stale. <strong>ACM validation entries A8958 / A8978 / A8991 / A8993 (Sept 18-21 2026)</strong> for the AWS-LC SHA / SHA3 / C_ family of dynamic builds confirm the v5.x FIPS module is the FIPS-validated line. Cross-reference <a href="/kb/ml-dsa/">ML-DSA</a> and <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+</li>
+<li>
+<p><strong>liboqs / oqs-provider: still at 0.16.0 / 0.10.0, 100 / 477 days respectively.</strong> <a href="https://github.com/open-quantum-safe/liboqs/releases" rel="noopener nofollow">liboqs 0.16.0</a> (July 9, 2026) remains the current tagged release across the entire <strong>July 9 → Oct 17 window</strong> (now 100 days) — the longest liboqs release gap in 2026 (the prior gap, 0.15.0 → 0.14.0, was 94 days between Jul 10 2025 and Nov 14 2025). <strong><code>oqs-provider</code> 0.10.0 from July 28, 2025</strong> remains the stable tagged line (now 477 days). <strong>For freedom-tech deployers</strong>: pin to a known commit SHA rather than rely on the tag; the <code>main</code> branch is the authoritative source for any algorithm-specific bug fixes that are not yet in 0.16.0. <strong>The 0.17.0 release is most likely to ship in November or December 2026</strong> if the cadence holds. Cross-reference <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+</li>
+<li>
+<p><strong>Pure PQ-TLS: still Blocked, 23 days.</strong> The Sept 24 RFC Editor re-block on <code>draft-ietf-tls-mlkem-11</code> and <code>draft-ietf-tls-mldsa-06</code> has now held for <strong>23 days</strong> (and 36 days since <code>mldsa-06</code> was last uploaded on 2026-09-11; 31 days for <code>mlkem-11</code> since 2026-09-16). <strong>Both documents remain in RFC Editor "Blocked" (Stream Hold) state</strong> per the <a href="https://datatracker.ietf.org/wg/tls" rel="noopener nofollow">tls WG landing page datatracker snapshot</a>. The responsible AD for both remains <strong>Deb Cooley</strong> (with Joseph A. Salowey as ML-KEM shepherd alongside Cooley). <strong>No new appeal correspondence has been published to the tls@ietf.org archive in this window</strong>. <strong>28 days to IETF-127 (Nov 14)</strong>; the TLS WG agenda on Nov 14 will inherit this dispute. <strong>Hybrid RFC 10024 (<code>PQ/T Hybrid Key Agreement Mechanisms for TLS 1.3</code>) remains the operationally-endorsed default.</strong> The Sept 25 freenode synthesis remains the most recent substantive public record of the dispute. Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>.</p>
+</li>
+<li>
+<p><strong>ePrint 2026/2402 (Oct 7) breaks a Crypto'20 lattice blind signature — Yi-Fu Lai + Yu Yu (SJTU).</strong> The paper <a href="https://eprint.iacr.org/2026/2402" rel="noopener nofollow"><em>Revisiting Lattice-based Blind Signatures Again</em></a> shows an attack on a lattice-based blind signature proposed at Crypto'20. The scheme is a linear hash function based framework with a lattice-based instantiation. The authors first notice a <strong>bug in the security proof of blindness</strong> that has been overlooked for years, then develop an attack under the honest key + honest-but-curious signer setting against the blindness notion by exploiting correlations between tree leaves. They also discuss how to repair the scheme. <strong>For freedom-tech</strong>: blindness breaks of <em>lattice</em>-based blind signatures are rare and the <em>specific</em> weakness (correlations between tree leaves in a hash-function-based framework) is the same class of bug pattern that has hit lattice KEMs in prior work; freedom-tech implementers who use or plan to use lattice-based blind signatures (e.g., for anonymous credentials, e-cash, or attestation systems) should track this paper. Cross-reference <a href="/kb/ml-dsa/">ML-DSA</a>.</p>
+</li>
+<li>
+<p><strong>ePrint 2026/2091 (W41, Sep 28) — ElGhamrawy et al. — soft-analytic approach to ILWE cuts ML-DSA secret recovery from 139M to 2.25M signatures.</strong> The paper <a href="https://eprint.iacr.org/2026/2091" rel="noopener nofollow"><em>Keep Track of Your Errors: Solving ILWE and Improving Attacks on ML-DSA</em></a> (ElGhamrawy/Eisenbarth/Hermelink/Rabich/Sieck/Streit/Thietke/Zhang — U-Luebeck/DFKI/MPI-SP/Fraunhofer AISEC/TUM/RUB) shows that <strong>the number of signatures required for ML-DSA side-channel secret-recovery attacks has been drastically overestimated</strong> — distribution hints (Eurocrypt 2025) can be derived from Integer LWE (ILWE) samples and a belief-propagation-based solver recovers the secret key efficiently. <strong>In a noise-free attack setting, the approach reduces the average number of signatures required by a factor of 62 — from 139 million to 2.25 million — compared with linear regression, with larger improvements under noise.</strong> The paper also analyzes a <strong>recently discovered timing leakage in ML-DSA</strong> and shows how to solve for the secret key with far fewer signatures. <strong>The paper is the post-FIPS-204 side-channel reality check</strong>: ML-DSA implementations are not side-channel safe in the absence of explicit masking / constant-time / verification-of-implementations discipline, and the <em>threshold for practical key recovery is now in the low-millions, not hundreds of millions</em>. <strong>Combined with the SEALSQ ML-KEM key-generation side-channel at LightSec 2026</strong> (item 2 above), this is the week that documents the <em>lattice standardization</em> side-channel surface as <strong>comparable to classical ECC in adversary cost</strong> — an order-of-magnitude change from the pre-2026 expectation. Cross-reference <a href="/kb/ml-dsa/">ML-DSA</a> and <a href="/kb/ml-kem/">ML-KEM</a>.</p>
+</li>
+<li>
+<p><strong>OMB M-26-15 deadline: 5 days out — Wednesday Oct 22, 2026.</strong> Every covered civilian agency must submit a PQC Migration Plan to OMB and ONCD by 2026-10-22. The GSA FICAM PQC working group's bi-weekly cadence (kickoff Aug 12, 2026 per the M-26-15 60-day clock) places the <strong>5th meeting on Oct 21 (Tuesday) — 1 day before the deadline</strong>; the cadence math: Aug 12 → Aug 26 → Sep 9 → Sep 23 → Oct 7 → <strong>Oct 21</strong> (5th meeting). <strong>17 federal agencies</strong> participated in the first meeting per the publicly-published Zscaler / MeriTalk analyses citing the post-meeting summary. <strong>No GSA press release or agenda publication has surfaced for the 5th meeting.</strong> CISA and DoW lead FedRAMP-authorized CSP and SaaS/PaaS/IaaS PQC migration coordination; the <strong>DoW PQC Strategy</strong> (<a href="https://dodcio.defense.gov/Portals/0/Documents/Library/DoW-PQC-Strategy.pdf" rel="noopener nofollow">dodcio.defense.gov</a>) sets PQC required by <strong>December 31, 2031</strong> and CRQC-vulnerable-with-larger-keys phased out <strong>December 31, 2030</strong>. <strong>The M-26-15 deadline (Oct 22) and the IETF-127 final-agenda publication (Oct 23) fall on adjacent days</strong>, meaning agency submissions and the IETF final agenda will land within 24 hours of each other. <strong>OpenSSL 3.4 EOL is the same day as M-26-15</strong> (Oct 22): agencies still on 3.4 LTS must plan for end-of-life immediately after the M-26-15 deadline lands, or accept unpatched OpenSSL exposure. <strong>GSA PQC Summit on Sept 16</strong> (prior window) is the last public GSA event on record. Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> and <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+</li>
+<li>
+<p><strong>wolfSSL 5.9.1 (W41, Sept-Oct 2026) — ML-KEM default-on, 22 CVEs, context-aware ML-DSA API default.</strong> Per the <a href="https://www.wolfssl.com/wolfssl-5-9-1-release-blog/" rel="noopener nofollow">wolfSSL 5.9.1 release blog</a>, <strong>ML-KEM (FIPS 203) is now enabled by default</strong> — Post-quantum key encapsulation is on by default, making it easier to adopt quantum-resistant cryptography. The <strong>context-aware FIPS 204 ML-DSA (Dilithium) API is now the default</strong> (with the legacy non-context API gated behind <code>WOLFSSL_DILITHIUM_NO_CTX</code>). <strong>Sensitive memory buffers in the ML-DSA implementation are now zeroized to prevent leakage of cryptographic material.</strong> Private key validation checks were added for Ed25519, Ed448, ML-DSA, and ML-KEM operations. The release also fixed out-of-bounds shift and undefined behavior issues in ML-DSA and SLH-DSA implementations. <strong>22 CVEs addressed</strong> across critical, high, medium, and low severity levels — including the <strong>ECDSA certificate verification with EdDSA or ML-DSA enabled</strong> issue that affected the <strong>PKCS7 with ORI callback set or AuthEnvelopedData with AES-GCM</strong> path. The <strong>DTLS 1.3 (--enable-dtls13)</strong>, <strong>ECH (--enable-ech)</strong>, <strong>ECCSI signature verification (--enable-eccsi)</strong>, and <strong>ChaCha20-Poly130ri via EVP</strong> paths are also affected. <strong>For freedom-tech embedded / IoT / router deployers</strong> — wolfSSL is a dominant TLS library in routers, IoT firmware, automotive, and embedded Linux; the <strong>ML-KEM default-on + ML-DSA context-aware default + private key validation are the most consequential embedded-side PQC defaults of the 2026 cycle</strong>. Cross-reference <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+</li>
+</ol>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-openssl-410-beta2-dtls-13-ships-with-two-known-security-issues-410-final-pushed">1. OpenSSL 4.1.0-beta2 — DTLS 1.3 ships with two known security issues, 4.1.0 final pushed</h3>
+<p>The <strong><a href="https://github.com/openssl/openssl/releases/tag/openssl-4.1.0-beta2" rel="noopener nofollow">OpenSSL 4.1.0-beta2 release</a></strong> was tagged on <strong>2026-10-09T12:22:55Z</strong> and announced via <a href="https://groups.google.com/a/openssl.org/g/openssl-announce/c/Z_yEPgiRe-k" rel="noopener nofollow">openssl-announce</a> the same day at 11:43:56 UTC. The release is the second pre-release of the 4.1 line, and <strong>carries the largest PQC CPU-side optimization in any OpenSSL 4.x release</strong>:</p>
+<ul>
+<li><strong>Optimized ML-DSA and ML-KEM NTT operations on <code>ppc64le</code></strong> (POWER9 / POWER10 hardware)</li>
+<li><strong>Optimized ML-DSA operations on <code>x86_64</code></strong></li>
+<li><strong>AVX-512-optimized SHAKE x4 operations for ML-DSA on <code>x86_64</code></strong> (4-way SHAKE using AVX-512 to accelerate the matrix expansion in ML-DSA signing)</li>
+<li><strong>AVX-512 and VAES optimizations for AES-CBC decryption on <code>x86_64</code></strong></li>
+<li><strong>DTLS 1.3 (RFC 9147) support</strong> + <strong><code>ossl-guide-dtlsv13(7)</code> manual page</strong></li>
+<li><strong>RFC 8701 GREASE</strong> (Generate Random Extensions And Sustain Extensibility)</li>
+<li><strong>DTLS in the SSL listener API</strong></li>
+<li><strong>IKEv2 KDF</strong></li>
+<li><strong>Initial Elbrus2000 (e2k) architecture support</strong> (Russian Elbrus 2000 CPUs)</li>
+</ul>
+<p><strong>The release was forced to beta2 (rather than final) by two security issues in the new DTLS 1.3 code</strong>:</p>
+<blockquote>
+<p><em>"These potential security issues in the DTLS-1.3 code were reported today. We did not want to release 4.1.0 with known security issues in the new implementation. For that reason, we have released 4.1.0-beta2 instead."</em> — <a href="https://groups.google.com/a/openssl.org/g/openssl-announce/c/Z_yEPgiRe-k" rel="noopener nofollow">OpenSSL 4.1.0-beta2 release announcement</a>, Oct 9</p>
+</blockquote>
+<p>The two security issues are tracked as OpenSSL <a href="https://github.com/openssl/openssl/issues/33172" rel="noopener nofollow">#33172</a> and <a href="https://github.com/openssl/openssl/issues/33173" rel="noopener nofollow">#33173</a>. <strong>The 4.1.0 final-release target in the OpenSSL 4.1 release-planning blog ("4.1.0 final: October 2026") is therefore broken</strong> — the final release is now gated on the DTLS 1.3 security fixes, with the earliest realistic date being <strong>November 2026</strong> and a realistic late-Q4 / early-Q1-2027 window.</p>
+<p><strong>The DTLS 1.3 KeyUpdate retransmission buffer drop bug from beta1</strong> (OpenSSL <a href="https://github.com/openssl/openssl/issues/32878" rel="noopener nofollow">#32878</a>) is also still open — when a DTLS 1.3 KeyUpdate is received, all other outstanding post-handshake records are dropped from the retransmission buffer, meaning post-handshake records still awaiting an ACK (such as a NewSessionTicket) will no longer be retransmitted if the original transmission is lost. A fix is in progress and planned for a future release.</p>
+<p><strong>For freedom-tech deployers planning 4.1 adoption in late 2026 / early 2027</strong>: 4.1 is <strong>the feature release that will absorb DTLS 1.3 + PQC optimization work</strong> — AVX-512 SHAKE for ML-DSA, ppc64le ML-DSA/ML-KEM NTT, s390x ML-DSA — and the <strong>first OpenSSL release with the DTLS 1.3 datagram protocol</strong> in the stack. <strong>OpenSSL 3.4 EOL is 2026-10-22</strong> — same date as M-26-15 — and agencies still on the 3.4 LTS line <strong>must plan for end-of-life immediately after the M-26-15 deadline</strong> lands. The 3.5 LTS is supported through <strong>2030-04-08</strong>; 4.0 is supported through <strong>2027-05-14</strong>; 3.6 EOL <strong>2026-11-01 is now 15 days out</strong>.</p>
+<p><strong>The OpenSSL 4.2 master-branch changes</strong> (the development branch post-4.1) are visible in the <a href="https://github.com/openssl/openssl/blob/master/CHANGES.md" rel="noopener nofollow">master CHANGES.md</a> and include:</p>
+<ul>
+<li><strong>TLS 1.3 client PSK offer conditional on cipher-share digest</strong> + <strong>0-RTT only when actually usable</strong> (Viktor Dukhovni)</li>
+<li><strong><code>MLKEM512X25519</code> and <code>SecP256r1MLKEM512</code> hybrid TLS KEMs</strong> for the newly assigned IANA codepoints per <a href="https://datatracker.ietf.org/doc/html/draft-rosomakho-tls-ecdhe-mlkem512-00.html" rel="noopener nofollow">draft-rosomakho-tls-ecdhe-mlkem512-00</a> (Viktor Dukhovni) — the <strong>first 4.x-branch hybrid with ML-KEM-512 (the smallest, lowest-latency parameter set)</strong> rather than the standard <code>X25519MLKEM768</code></li>
+<li><strong>FIPS provider <code>fips-indicator</code> gettable context parameter</strong> that returns 1 for approved operations (Shane Lontis and Paul Dale) — for the <strong>OpenSSL 4.x FIPS 140-3 module</strong>, which is the next FIPS validation target after the AWS-LC FIPS 3.x / 4.x modules</li>
+<li><strong>AVX-512 and VAES optimizations for AES-CTR mode</strong> (2.9× to 3.9× speedup for inputs ≥ 1024 bytes) (Madan Mohan Manokar)</li>
+<li><strong>ASCON-AEAD128 cipher as specified in NIST SP 800-232</strong> — the NIST-selected lightweight AEAD</li>
+</ul>
+<p>The <strong>MLKEM512X25519</strong> addition is significant for <strong>constrained environments and post-quantum agility</strong>: ML-KEM-512 has smaller keys (800-byte public, 1632-byte private, 768-byte ciphertext) than ML-KEM-768 (1184 / 2400 / 1088) at the cost of lower security margin (≈ 118-bit vs 192-bit). For high-volume REST APIs or embedded TLS clients where the ML-KEM-768 size overhead is the issue, ML-KEM-512 is the IETF codepoint to watch.</p>
+<p>Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> and <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+<h3 id="2-iacr-ches-2026-lightsec-2026-the-lattice-standardization-side-channel-reality-check">2. IACR CHES 2026 + LightSec 2026: the lattice standardization side-channel reality check</h3>
+<p><strong><a href="https://ches.iacr.org/2026/program.php" rel="noopener nofollow">CHES 2026</a> (Oct 11–15, Antalya, Turkey)</strong> is the IACR hardware-PQC primary venue. The CHES program covers FPGA/ASIC acceleration of lattice-based KEMs and signatures, side-channel attacks on ML-KEM implementations, and hardware-software co-design for PQ primitives. <strong>The CHES 2026 program page is JavaScript-only and did not render to text in the harvest window</strong> — the full paper list is available as JSON but per-paper abstracts were not reachable.</p>
+<p><strong><a href="https://www.sealsq.com/investors/news-releases/sealsq-presents-peer-reviewed-research-on-attack-and-countermeasures-on-ml-kem-key-generation-at-lightsec" rel="noopener nofollow">LightSec 2026</a></strong> (the 7th International Workshop on Lightweight Cryptography for Security &amp; Privacy, <strong>Oct 11, Antalya, official affiliated event of CHES 2026</strong>) is the venue for the most important PQC side-channel paper of the week:</p>
+<p><strong>SEALSQ "Cross-information lattice attack on ML-KEM"</strong> — combines profiling-based techniques with lattice reduction against the <strong>ML-KEM key-generation encoding step</strong>. The attack recovers sensitive information under realistic conditions. The work pairs the attack with practical countermeasures and complements SEALSQ's <strong>QS7001 secure element</strong>, which is undergoing Common Criteria EAL5+ certification. The peer-reviewed paper is the <strong>first third-party confirmation of the Bernstein / June 2026 ML-DSA "exploiting bugs" thesis applied to ML-KEM</strong> — both lattice-based standardized algorithms are now formally documented as carrying side-channel fragility.</p>
+<p><strong>TCHES 2027 pre-prints cluster</strong> (papers appearing in the IACR Transactions on Cryptographic Hardware and Embedded Systems 2027 volume, surfaced as pre-prints in this window) include:</p>
+<ul>
+<li><strong><a href="https://eprint.iacr.org/2026/2474" rel="noopener nofollow">ePrint 2026/2474</a> <em>Software-Pipelining The Number Theoretic Transform on Neural Processing Units: A Loop-Fission Methodology</em></strong> (Vermeersch/Pottier/Norga/de Ruijter/Verbauwhede — KU Leuven) — <strong>first systematic NTT acceleration on AMD AI Engine NPUs</strong> using manual loop fission. The work develops efficient Barrett reduction primitives and constructs three high-throughput, low-latency NTT implementations (radix-2, radix-4, and radix-8), achieving significant performance gains over the AIE compiler and prior literature. <strong>On AMD's first-generation AIE specifically, speedups reach ~7-10× in throughput and ~5-7× in latency per AIE tile</strong> compared with prior work. Supports arbitrary NTT-friendly moduli and polynomial sizes up to degree 4096 for 14-bit moduli and 2048 for 30-bit moduli. The paper is <strong>TCHES 2027-bound</strong> (publication info: "Published by the IACR in TCHES 2027"). <strong>For freedom-tech</strong>: NPUs are a fast-growing class of AI accelerators (AMD AI Engine, Apple Neural Engine, Qualcomm Hexagon NPU, Google Edge TPU); the work shows that <strong>NPUs are a viable third-class hardware accelerator for lattice PQC after GPUs and FPGAs</strong> — relevant for <strong>edge ML + PQC co-acceleration on AMD Ryzen AI laptops and servers</strong>.</li>
+</ul>
+<p><strong>For freedom-tech</strong>: the SEALSQ LightSec 2026 result is the <strong>week's most consequential deployment-relevant PQC paper</strong>, because it formally documents that <strong>both lattice-based NIST standards (ML-KEM for KEM, ML-DSA for signatures) carry side-channel fragility comparable to classical ECC</strong> — an order-of-magnitude change from the pre-2026 expectation that "lattice PQC is side-channel easy because the arithmetic is regular". <strong>Combined with <a href="https://eprint.iacr.org/2026/2091" rel="noopener nofollow">ePrint 2026/2091</a> (item 8 above)</strong>, the week's side-channel literature is the <strong>post-FIPS-203/204 reality check</strong>: the lattice-PQC side-channel surface is comparable to classical ECC, and <strong>constant-time / masked implementations are required for both ML-KEM and ML-DSA in production</strong>, not only in the HSM context.</p>
+<p>Cross-reference <a href="/kb/ml-kem/">ML-KEM</a> and <a href="/kb/ml-dsa/">ML-DSA</a>.</p>
+<h3 id="3-apple-commits-to-merkle-tree-certificates-institutional-backing-for-mtcs-is-now-complete">3. Apple commits to Merkle Tree Certificates — institutional backing for MTCs is now complete</h3>
+<p>The <strong><a href="https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk/m/pR3A5uRZCAAJ" rel="noopener nofollow">Apple Root Program MTC policy</a> (Sept 21, 2026, pre-window but in-scope for the W42 cycle because the Apple draft policy is targeted for end of October 2026)</strong> announced that:</p>
+<ul>
+<li><strong>A draft MTC policy will be published by the end of October 2026</strong> in the <a href="https://github.com/apple/apple-root-program" rel="noopener nofollow">apple/apple-root-program</a> GitHub repository, followed by a public feedback survey.</li>
+<li><strong>MTC CA Operator applications will begin by late summer 2027</strong>.</li>
+</ul>
+<p><strong>The draft MTC policy requirements (per Apple's published statement)</strong>:</p>
+<ul>
+<li><strong>Three cosignatures per certificate</strong>:
+  1. <strong>ML-DSA cosignature (minimum ML-DSA-44)</strong> from the issuing Operator
+  2. <strong>Classical cosignature (minimum ECDSA-P256-SHA256)</strong> from the issuing Operator
+  3. <strong>ML-DSA cosignature (minimum ML-DSA-44)</strong> from a <em>different</em> Operator acting as a mirror</li>
+<li><strong>All cosigner keys in HSMs validated to FIPS 140-3 Level 3 or Common Criteria EAL 4+</strong></li>
+<li><strong>Operators register IANA Private Enterprise Numbers (PENs)</strong> to serve as the basis for Trust Anchor Identifiers</li>
+<li><strong>Certificate validity capped at seven days</strong> (same as Chrome's MTC validity window)</li>
+<li><strong>An annual audit</strong></li>
+<li><strong>Operators must publish "far more non-private operational detail, including a record for every domain validation"</strong></li>
+</ul>
+<p><strong>Apple's rationale for the three-cosignature + 7-day validity design</strong> is bandwidth: "Post-quantum certificate chains are roughly an order of magnitude larger than the classical chains they replace, because TLS handshakes typically contain five signatures and two public keys. Experiments with ML-DSA signatures in traditional X.509 hierarchies showed 'significant degradation of TLS handshakes in real-world deployments.'"</p>
+<p><strong>Apple's S/MIME path is the parallel track</strong> — traditional X.509 with composite algorithms combining ML-DSA with ECDSA or RSA, citing that S/MIME has "lower certificate issuance volume and less latency sensitivity than TLS", so the increased cert sizes are "less disruptive to the existing X.509 ecosystem." The policy amendment will allow signing traditional X.509 certificates with composite algorithms combining ML-DSA with ECDSA or RSA. <strong>ML-DSA provides security against quantum attacks; ECDSA/RSA provides decades of deployment experience.</strong></p>
+<p><strong>MTC institutional backing is now complete</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Institution</th>
+<th>Commitment</th>
+<th>Date</th>
+<th>MTC deployment timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chrome</strong></td>
+<td>MTC as the path; no traditional X.509 PQ certs in Chrome Root Store</td>
+<td>Feb 27, 2026 (Google blog)</td>
+<td>Chrome Quantum-resistant Root Store Q3 2027</td>
+</tr>
+<tr>
+<td><strong>Cloudflare</strong></td>
+<td>MTCs in 2026 trial; 50% of Chrome Beta 146 in trial</td>
+<td>2026 (in trial)</td>
+<td>Production: target Q3 2027 + Chrome quantum-resistant root store</td>
+</tr>
+<tr>
+<td><strong>Let's Encrypt</strong></td>
+<td>Committed to MTCs; MTC chosen path</td>
+<td>June 3, 2026</td>
+<td>Staging late 2026; production 2027</td>
+</tr>
+<tr>
+<td><strong>Apple</strong></td>
+<td>First post-quantum policy position; MTCs + composite for S/MIME</td>
+<td>Sept 21, 2026</td>
+<td>Draft policy end of October 2026; applications late summer 2027</td>
+</tr>
+<tr>
+<td><strong>Mozilla</strong></td>
+<td><strong>Not yet on record</strong></td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>MTC draft is at -06</strong> (datatracker page now confirms <code>draft-ietf-plants-merkle-tree-certs-06</code> dated 2026-09-21 — <em>the prior W41 note's "MTC -05" correction was itself wrong</em>; the Sept 21 -06 has been the current document for 26 days and counting in this window). The companion <code>draft-gray-plants-mtc-deploy-use-cases-01</code> is the only MTC companion document and is still at -01 (Sept 18, 2026 last update with 2026-09-02 revision text). <strong>Chrome's Q2 2026 update committed "more MTC details to be published this month"</strong> — October 2026 — so the <strong>Apple draft MTC policy publication at the end of October 2026</strong> is the W43 trigger event to watch. The <strong>Web PKI consensus has now crystallized on MTCs across Chrome + Cloudflare + Let's Encrypt + Apple</strong>: MTCs are the path, not traditional X.509 with PQ signatures.</p>
+<p><strong>For freedom-tech deployers operating their own root CAs</strong> (e.g., corporate PKI, mesh networks, decentralized identity systems): the <strong>Apple 7-day validity + 3-cosignature + HSM-FIPS-140-3-L3 requirement set is the highest bar yet published</strong> for MTCs. The <strong>Chrome + Cloudflare + Let's Encrypt + Apple MTC requirements are converging on a common profile</strong> that any private MTC CA will have to implement to interop with the public Web. The <strong>Mozilla absence</strong> is the biggest open question — Firefox may be the holdout, or may follow in the W43-W44 cycle.</p>
+<p>Cross-reference <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+<h3 id="4-aws-lc-v5110-16-days-in-no-v5120-pr-open">4. AWS-LC: v5.11.0 16 days in, no v5.12.0 PR open</h3>
+<p><strong><a href="https://github.com/aws/aws-lc/releases/tag/v5.11.0" rel="noopener nofollow">AWS-LC v5.11.0</a> from 2026-10-01 23:32 UTC</strong> remains the current tagged release across the entire <strong>Oct 10 → Oct 17 window</strong> (now 16 days). The PR cluster closed inside v5.11.0 has been live for 16 days with no follow-up bug reports.</p>
+<p><strong>PR-level activity in the Oct 10 → Oct 17 window</strong> (no tag-bearing PRs but the <code>master</code> branch is active):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Author</th>
+<th>Title</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/aws/aws-lc/pulls?q=is%3Aopen+is%3Apr" rel="noopener nofollow">#3610+</a></td>
+<td>(multiple)</td>
+<td>Routine master-branch commits, ACVP / cAVP / CI hygiene</td>
+<td>No tag-bearing PR</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The prior-week W41 PR cluster is still the candidate set for v5.12.0</strong>:</p>
+<ul>
+<li><strong><a href="https://github.com/aws/aws-lc/pull/3601" rel="noopener nofollow">#3601</a></strong> — the <strong>ML-DSA prehash parameters mutual-exclusion fix</strong> by sashwathbhat (Oct 6) — is the <strong>first ML-DSA correctness fix in the post-final-FIPS-204 era</strong> to surface as a PR; expected to ride v5.12.0 (target window now Oct 24 – Nov 14, dependent on whether the W43 cycle triggers a v5.12.0 cut or whether v5.12.0 is bundled into a v6.0.0 cycle for the FIPS 4.x module update)</li>
+<li><strong><a href="https://github.com/aws/aws-lc/pull/3600" rel="noopener nofollow">#3600</a></strong> — FIPS-CC Validated EFI to ACVP (Oct 6)</li>
+<li><strong><a href="https://github.com/aws/aws-lc/pull/3604" rel="noopener nofollow">#3604</a></strong> — ML-DSA default signature algorithm param fix (Oct 6)</li>
+<li><strong><a href="https://github.com/aws/aws-lc/pull/3602" rel="noopener nofollow">#3602</a></strong> — quictls-pkcs11 fork removal (Oct 6)</li>
+<li><strong><a href="https://github.com/aws/aws-lc/pull/3609" rel="noopener nofollow">#3609</a></strong> — TLS DH known-safe-groups test (Oct 6)</li>
+</ul>
+<p><strong><a href="https://aws.amazon.com/blogs/security/quantum-resistant-signing-on-aws-part-1-build-a-software-supply-chain-with-ml-dsa" rel="noopener nofollow">AWS Security Blog "Quantum-resistant signing on AWS, Part 1"</a></strong> published in the window — <strong>the first end-to-end guide from any cloud provider for post-quantum signing across the software supply chain</strong>. The post walks through constructing an ML-DSA root of trust, IAM Roles Anywhere trust anchors using ML-DSA, and full ML-DSA PKI operationalization, including:</p>
+<ul>
+<li><strong>CNSA 2.0 acquisition deadline: January 1, 2027</strong> — <em>"All new NSS acquisitions must be CNSA 2.0 compliant at deployment, effective 1 January 2027"</em> (CNSA 2.0 FAQ v2.1, Dec 2024)</li>
+<li><strong>Full ML-DSA PKI operational</strong>; <strong>IAM Roles Anywhere trust anchors using ML-DSA</strong>; <strong>all new builds carry ML-DSA signatures</strong></li>
+<li><strong>The "harvest now, decrypt later + sign now, forge later" framing</strong> for firmware: <em>"Consider firmware signed with ECDSA P-256 and deployed to a fleet of embedded devices in 2026. These devices verify the firmware signature on every boot for their 15-year operational lifetime and can't be recalled to re-sign after deployment. If a CRQC becomes operational in 2035, an attacker could produce a valid-looking signature over tampered firmware, and every device in the fleet would accept it as authentic on next restart."</em></li>
+</ul>
+<p><strong>AWS CloudHSM ML-DSA</strong> in FIPS mode for <code>hsm2m.medium</code> clusters has been GA since 2026-09-01 (per the AWS CloudHSM User Guide update on 2026-09-26). The migration page still shows "preview" status for some ML-DSA items; that status text is <strong>stale as of 2026-09-26</strong> and should be updated to "GA". <strong>ACM validation entries A8958 / A8978 / A8991 / A8993 (Sept 18-21 2026)</strong> for the AWS-LC SHA / SHA3 / C_ family of dynamic builds confirm the v5.x FIPS module is the FIPS-validated line.</p>
+<p><strong>For freedom-tech deployers</strong>: AWS-LC is the <strong>dominant PQC-capable library on AWS, Cloudflare, and many other cloud-provider-adjacent stacks</strong>. The v5.11.0 16-day-in plateau is consistent with prior AWS-LC cadence: 1-3 weeks between stable releases through September into early October, then a 2-4 week pause before the next stable cluster. <strong>Pin to v5.11.0 or a known commit SHA; the <code>master</code> branch receives commits but no v5.12.0 PR is open</strong>.</p>
+<p>Cross-reference <a href="/kb/ml-dsa/">ML-DSA</a> and <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+<h3 id="5-liboqs-oqs-provider-100-477-days-respectively-no-fresh-tag">5. liboqs / oqs-provider: 100 / 477 days respectively, no fresh tag</h3>
+<p><strong><a href="https://github.com/open-quantum-safe/liboqs/releases" rel="noopener nofollow">liboqs 0.16.0</a> (July 9, 2026)</strong> remains the current tagged release across the entire <strong>July 9 → Oct 17 window</strong> (now <strong>100 days and counting</strong>) — the longest liboqs release gap in 2026 (the prior gap, 0.15.0 → 0.14.0, was 94 days between Jul 10 2025 and Nov 14 2025). The 0.16.0 release is the <strong>first to integrate mldsa-native as the default implementation</strong> behind <code>SIG_ml_dsa_&lt;44|65|87&gt;</code> and includes <strong>deprecation removal of SPHINCS+</strong>. The 0.16.0 release also includes cuPQC (NVIDIA GPU acceleration) for ML-KEM as a backend.</p>
+<p><strong><code>oqs-provider</code> 0.10.0 from July 28, 2025</strong> remains the stable tagged line (now <strong>477 days</strong>). The most recent <code>main</code>-branch commit is the Sept 19 <code>36cafae0</code> MAYO/MQOM/SNOVA Round 3 update (carried from the W41 prior-week note). <strong>No new oqs-provider tag in the entire 2025-Sep → 2026-Oct window</strong>.</p>
+<p><strong>For freedom-tech deployers</strong>: pin to a known commit SHA rather than rely on the tag; the <code>main</code> branch is the authoritative source for any algorithm-specific bug fixes that are not yet in 0.16.0. <strong>The 0.17.0 release is most likely to ship in November or December 2026</strong> if the cadence holds; the gap to 0.17.0 will then be <strong>4-5 months</strong>. <strong>For freedom-tech deployers</strong> that use <code>oqs-provider</code> with OpenSSL 3.x to expose PQ algorithms to existing software (Apache httpd, nginx, haproxy, curl), <strong>the 477-day oqs-provider tag gap is a known-issue for production stability</strong> — most production deployers use a pinned <code>oqs-provider</code> git SHA in a vendor patch.</p>
+<p>Cross-reference <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+<h3 id="6-pure-pq-tls-23-days-blocked-the-ietf-127-inheritance">6. Pure PQ-TLS: 23 days Blocked, the IETF-127 inheritance</h3>
+<p>The <strong>Sept 24 RFC Editor re-block on both <code>draft-ietf-tls-mlkem-11</code> and <code>draft-ietf-tls-mldsa-06</code></strong> has now held for <strong>23 days</strong> (and 36 days since <code>mldsa-06</code> was last uploaded on 2026-09-11; 31 days for <code>mlkem-11</code> since 2026-09-16). <strong>Both documents remain in RFC Editor "Blocked" (Stream Hold) state</strong> per the <a href="https://datatracker.ietf.org/wg/tls" rel="noopener nofollow">tls WG landing page datatracker snapshot</a>.</p>
+<p>The responsible AD for both remains <strong>Deb Cooley</strong> (with Joseph A. Salowey as ML-KEM shepherd alongside Cooley). <strong>No new appeal correspondence has been published to the tls@ietf.org archive in this window</strong>. The <strong>most recent substantive public record of the dispute remains the Sept 25 freenode synthesis</strong>:</p>
+<blockquote>
+<p><em>"the [draft-ietf-tls-mlkem] document remains an information document with a recommended status of 'N' in the IANA registry meaning that there was no consensus to recommend this group."</em> — <a href="https://freenode.net/article/ietf-rejects-appeal-on-ml-kem-tls-consensus-and-nsa-conflict-claims" rel="noopener nofollow">Sept 25 freenode synthesis: IETF rejects appeal on ML-KEM TLS consensus and NSA conflict claims</a></p>
+</blockquote>
+<p>The IETF 2026 complaint thread remains open per the <a href="https://datatracker.ietf.org/group/iesg/appeals/artifact/230" rel="noopener nofollow">datatracker appeal artifact 230</a> (the original appeal filing) and the <a href="https://freenode.net/article/moderated-over-a-footnote-bernstein-pure-ml-kem-and-the-ietf-s-closed-door" rel="noopener nofollow">freenode June 30 IAB denial writeup</a>. <strong>28 days to IETF-127 (Nov 14)</strong>; the TLS WG agenda on Nov 14 will inherit this dispute. The IETF meeting is in San Francisco per <a href="https://www.ietf.org/meeting/127" rel="noopener nofollow">ietf.org/meeting/127</a>.</p>
+<p><strong>Hybrid RFC 10024 (<code>PQ/T Hybrid Key Agreement Mechanisms for TLS 1.3</code>, Aug 2026)</strong> remains the operationally-endorsed default. <strong>The Sept 24 RFC Editor re-block does not affect hybrid implementations</strong> — the IETF's Recommended=N registry status for pure ML-KEM in IANA is <em>the</em> signal that hybrid is the path.</p>
+<p><strong>For freedom-tech deployers</strong>: <strong>do not block on the pure PQ-TLS dispute</strong> — deploy hybrid <code>X25519MLKEM768</code> (RFC 10024) and avoid the procedural risk.</p>
+<p>Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>.</p>
+<h3 id="7-eprint-cluster-lattice-cryptanalysis-continues-to-consolidate-around-concealed-ilwe">7. ePrint cluster — lattice cryptanalysis continues to consolidate around (Concealed) ILWE</h3>
+<p>The week's ePrint cluster — papers that hit the IACR Cryptology ePrint Archive in or near the Oct 10 → Oct 17 window — confirms a <strong>two-track lattice-PQC research programme</strong>: <strong>deployment-protocol (W42: 2026/2480 WireGuard + ML-DSA + ML-KEM)</strong> and <strong>cryptanalytic surface (W42: 2026/2402 lattice blind-sig break; carry-over 2026/2091 ILWE soft-analytic)</strong>.</p>
+<p><strong><a href="https://eprint.iacr.org/2026/2480" rel="noopener nofollow">ePrint 2026/2480</a> <em>Post-Quantum Certificate-Based PSK Provisioning for WireGuard via Mutual TLS, DTLS, and QUIC: Design and Performance Study</em></strong> (Che Hang Ng/Emil Künstner/Bastian Küppers/Theodor Schnitzler/Misha Glazunov — likely academic + industry co-author mix) — presents an architecture that provides WireGuard's resistance against future quantum adversaries. <strong>The approach preserves the core protocol, minimizes deployment effort, and adds certificate-based identities to WireGuard peers</strong>. PQ resistance is achieved via an external mutually authenticated control channel built on the TLS 1.3 handshake and layered on top of TCP, UDP, or QUIC. <strong>Key establishment includes ML-KEM</strong>. An auxiliary shared secret is derived from the exported keying material of the resulting session and injected into WireGuard's native Pre-Shared Key (PSK) interface. The control channel is authenticated with X.509 certificates issued by a PKI using <strong>ML-DSA for PQ certificate signing</strong>. The paper develops a <strong>Tamarin model</strong> of the composition layer and symbolically analyzes the <strong>secrecy, binding, and provisioning-order properties</strong> of the interface between TLS 1.3 handshake and WireGuard, identifying the critical conditions necessary for secure deployment. The design is evaluated for handshake latency and CPU time for <strong>classical, pure PQ, and hybrid key establishment, classical and ML-DSA certificates, and the three transports</strong>, comparing it against an existing PQ WireGuard baseline.</p>
+<p><strong>For freedom-tech</strong>: this is the <strong>first formal Tamarin-verified hybrid PQ + ML-DSA-authenticated WireGuard deployment architecture</strong> — directly relevant to mesh networks, decentralized VPN overlays, and any freedom-tech system currently running WireGuard and considering PQ migration. <strong>The "external TLS 1.3 control channel + native PSK injection" pattern is reusable</strong> for other protocols that lack native PQ negotiation (OpenVPN, IPsec, custom RPC).</p>
+<p><strong><a href="https://eprint.iacr.org/2026/2402" rel="noopener nofollow">ePrint 2026/2402</a> <em>Revisiting Lattice-based Blind Signatures Again</em></strong> (Yi-Fu Lai + Yu Yu — Shanghai Jiao Tong University, Oct 7) — shows an attack on a <strong>lattice-based blind signature proposed at Crypto'20</strong> (the paper cites a 2020 paper but the specific scheme is not named in the abstract). The attack is under the <strong>honest key + honest-but-curious signer setting</strong> against the blindness notion by exploiting correlations between tree leaves. The paper also discusses how to repair the scheme.</p>
+<p><strong>For freedom-tech</strong>: blindness breaks of <em>lattice</em>-based blind signatures are rare and the <em>specific</em> weakness (correlations between tree leaves in a hash-function-based framework) is the same class of bug pattern that has hit lattice KEMs in prior work; freedom-tech implementers who use or plan to use lattice-based blind signatures (e.g., for <strong>anonymous credentials, e-cash, anonymous attestations, decentralized identity systems</strong>) should track this paper.</p>
+<p><strong><a href="https://eprint.iacr.org/2026/2091" rel="noopener nofollow">ePrint 2026/2091</a> <em>Keep Track of Your Errors: Solving ILWE and Improving Attacks on ML-DSA</em></strong> (ElGhamrawy/Eisenbarth/Hermelink/Rabich/Sieck/Streit/Thietke/Zhang — U-Luebeck/DFKI/MPI-SP/Fraunhofer AISEC/TUM/RUB) — <strong>W41 carry-over, published Sept 28, but in scope for the W42 cycle</strong> — shows that <strong>the number of signatures required for ML-DSA side-channel secret-recovery attacks has been drastically overestimated</strong> — distribution hints (Eurocrypt 2025) can be derived from Integer LWE (ILWE) samples and a <strong>belief-propagation-based solver recovers the secret key efficiently</strong>. <strong>In a noise-free attack setting, the approach reduces the average number of signatures required by a factor of 62 — from 139 million to 2.25 million</strong> — compared with linear regression, with larger improvements under noise. The paper also analyzes a <strong>recently discovered timing leakage in ML-DSA</strong> and shows how to solve for the secret key with far fewer signatures.</p>
+<p><strong>For freedom-tech</strong>: the <strong>ML-DSA side-channel threshold for practical key recovery is now in the low millions, not hundreds of millions</strong> — comparable to the threshold for ECDSA side-channel key recovery. <strong>Implementers must enforce constant-time discipline on every signature operation, not only on the private-key generation step</strong>, and <strong>masked implementations are required for ML-DSA in production for high-value keys</strong> (e.g., firmware signing, code signing, root CA keys).</p>
+<p>The <strong>Cloudflare ML-KEM measurement</strong> that the ePrint 2026/2091 paper cites as "as of August 2026, 59% of Cloudflare's requests use ML-KEM" is the <strong>production-deployment benchmark</strong> for the W42 cycle — confirms that <strong>ML-KEM is the dominant PQ KEM in production TLS traffic</strong> and that the <strong>ML-KEM side-channel surface is the most consequential PQC attack surface in deployment today</strong>.</p>
+<p>Cross-reference <a href="/kb/ml-kem/">ML-KEM</a> and <a href="/kb/ml-dsa/">ML-DSA</a>.</p>
+<h3 id="8-omb-m-26-15-gsa-ficam-cadence-the-deadline-clock">8. OMB M-26-15 + GSA FICAM cadence — the deadline clock</h3>
+<p><strong><a href="https://quantumxc.com/blogs-podcasts/omb-m-26-15-pqc-migration-plan" rel="noopener nofollow">OMB M-26-15</a></strong> (June 24, 2026, "Execution of the Migration to Post-Quantum Cryptography") directs every covered civilian agency to submit a PQC Migration Plan to OMB and ONCD within 120 days. <strong>That deadline is October 22, 2026</strong> — <strong>5 days out as of this update</strong>.</p>
+<p><strong>The nine required plan content elements</strong> (per the <a href="https://www.zscaler.com/blogs/product-insights/what-omb-memorandum-m-26-15-requires-your-agency-pqc-migration-plan" rel="noopener nofollow">Zscaler analysis</a> and the <a href="https://quantumxc.com/blogs-podcasts/omb-m-26-15-pqc-migration-plan" rel="noopener nofollow">Quantum XChange breakdown</a>):</p>
+<ol>
+<li>A risk-based system prioritization strategy</li>
+<li>Timelines and milestones for each migration phase</li>
+<li>Testing and deployment timelines to meet the <strong>January 2, 2030 TLS 1.3 deadline</strong> (the EO 14412 deadline for high-value-asset / high-impact-system key establishment)</li>
+<li>Inventory methodologies and automated tools</li>
+<li>A crypto-agile architecture implementation plan</li>
+<li>A third-party coordination plan</li>
+<li>Funding and personnel estimates</li>
+<li>A risk management strategy for the migration period</li>
+<li>Governance roles and responsibilities</li>
+</ol>
+<p><strong>The GSA FICAM PQC working group</strong> is the interagency coordination vehicle:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Meeting</th>
+<th>Date</th>
+<th>Days from kickoff</th>
+<th>Cadence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st (kickoff)</td>
+<td>2026-08-12</td>
+<td>0</td>
+<td>Aug 12 per M-26-15 60-day clock</td>
+</tr>
+<tr>
+<td>2nd</td>
+<td>2026-08-26</td>
+<td>14</td>
+<td>+2 weeks</td>
+</tr>
+<tr>
+<td>3rd</td>
+<td>2026-09-09</td>
+<td>28</td>
+<td>+2 weeks</td>
+</tr>
+<tr>
+<td>4th</td>
+<td>2026-09-23</td>
+<td>42</td>
+<td>+2 weeks</td>
+</tr>
+<tr>
+<td>5th</td>
+<td><strong>2026-10-21</strong></td>
+<td>70</td>
+<td><strong>+2 weeks, 1 day before M-26-15 deadline</strong></td>
+</tr>
+<tr>
+<td>(Submission)</td>
+<td><strong>2026-10-22</strong></td>
+<td>71</td>
+<td><strong>M-26-15 deadline</strong></td>
+</tr>
+<tr>
+<td>(next)</td>
+<td>2026-11-04</td>
+<td>84</td>
+<td>+2 weeks (presumed)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The 5th meeting on Oct 21 (Tuesday) is the last interagency coordination point before the Oct 22 (Wednesday) deadline.</strong> The meeting's agenda is not yet public.</p>
+<p><strong>17 federal agencies</strong> participated in the first meeting per the <a href="https://www.meritalk.com/articles/gsa-updates-identity-access-programs-for-post-quantum-migration" rel="noopener nofollow">MeriTalk Aug 24 GSA report</a> and the <a href="https://quantumcomputingreport.com/gsa-and-treasury-launch-dual-agency-post-quantum-cryptography-initiatives-for-u-s-federal-financial-infrastructure" rel="noopener nofollow">Quantum Computing Report GSA + Treasury PQC initiatives coverage</a> (citing 40 participants from 17 federal agencies).</p>
+<p><strong>GSA's parallel actions</strong> (per the Aug 24 MeriTalk article):</p>
+<ul>
+<li><strong>Updating the Federal Identity, Credential, and Access Management (FICAM) architecture</strong> to support quantum-resistant algorithms, emphasizing <strong>crypto agility</strong> — the ability to quickly shift between cryptographic methods</li>
+<li><strong>Expanding the FIPS 201 Evaluation Program</strong> (PACS lab) to evaluate quantum-resistant solutions for federal buildings (employee badges, visitor passes, building access controls)</li>
+<li><strong>2026 Post-Quantum Cryptography Summit on Sept 16</strong> — hybrid event (GSA + industry) for federal migration planning (prior window)</li>
+</ul>
+<p><strong>DoW PQC Strategy</strong> (<a href="https://dodcio.defense.gov/Portals/0/Documents/Library/DoW-PQC-Strategy.pdf" rel="noopener nofollow">dodcio.defense.gov</a>) sets PQC required by <strong>December 31, 2031</strong> and CRQC-vulnerable-with-larger-keys phased out <strong>December 31, 2030</strong> — <strong>NSS follows a separate track under CNSA 2.0 rather than M-26-15</strong>.</p>
+<p><strong>The M-26-15 deadline (Oct 22) and the IETF-127 final-agenda publication (Oct 23) fall on adjacent days</strong>, meaning agency submissions and the IETF final agenda will land within 24 hours of each other. <strong>OpenSSL 3.4 EOL is the same day as M-26-15</strong> (Oct 22): agencies still on 3.4 LTS must plan for end-of-life immediately after the M-26-15 deadline lands, or accept unpatched OpenSSL exposure.</p>
+<p><strong>For freedom-tech deployers and PQC practitioners</strong>: the <strong>M-26-15 submission deadline is the single most important federal PQC event of the W42 cycle</strong>, and the <strong>post-submission public record</strong> (whether agencies publish their plans or keep them internal) will be the operative transparency signal for the W43 cycle.</p>
+<p>Cross-reference <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> and <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+<h3 id="9-wolfssl-591-ml-kem-default-on-the-embedded-pqc-turning-point">9. wolfSSL 5.9.1 — ML-KEM default-on, the embedded PQC turning point</h3>
+<p><strong><a href="https://www.wolfssl.com/wolfssl-5-9-1-release-blog/" rel="noopener nofollow">wolfSSL 5.9.1</a></strong> (W41, late August / early September 2026) — <strong>ML-KEM (FIPS 203) is now enabled by default</strong> in wolfSSL builds. The release also makes the <strong>context-aware FIPS 204 ML-DSA (Dilithium) API the default</strong>, with the legacy non-context API gated behind <code>WOLFSSL_DILITHIUM_NO_CTX</code>. <strong>Sensitive memory buffers in the ML-DSA implementation are now zeroized</strong> to prevent leakage of cryptographic material. <strong>Private key validation checks</strong> were added for <strong>Ed25519, Ed448, ML-DSA, and ML-KEM</strong> operations. The release also fixed <strong>out-of-bounds shift and undefined behavior issues in ML-DSA and SLH-DSA implementations</strong>.</p>
+<p><strong>22 CVEs addressed</strong> across critical, high, medium, and low severity levels, including:</p>
+<ul>
+<li><strong>PKCS7 with ORI callback set or AuthEnvelopedData with AES-GCM</strong> (<code>--enable-pkcs7</code>)</li>
+<li><strong>ECDSA certificate verification with EdDSA or ML-DSA enabled</strong></li>
+<li><strong>URI nameConstraints enforcement with intermediate CAs</strong></li>
+<li><strong>X.509 certificate conversion via CertFromX509 with AuthorityKeyIdentifier</strong></li>
+<li><strong>DTLS 1.3 (<code>--enable-dtls13</code>)</strong></li>
+<li><strong>ECH (<code>--enable-ech</code>)</strong></li>
+<li><strong>ECCSI signature verification (<code>--enable-eccsi</code>)</strong></li>
+<li><strong>AES-EAX/CMAC with large messages</strong></li>
+<li><strong>ChaCha20-Poly1305 via EVP or X509_verify_cert via the OpenSSL compatibility layer (<code>--enable-opensslextra</code>)</strong></li>
+</ul>
+<p><strong>For freedom-tech embedded / IoT / router / automotive deployers</strong> — wolfSSL is a dominant TLS library in <strong>routers (Cisco, Juniper, Netgear firmware), IoT firmware (medical devices, smart home, industrial control), automotive (V2X, telematics), embedded Linux (OpenWrt, Buildroot, Yocto)</strong>, and <strong>the ML-KEM default-on + ML-DSA context-aware default + private key validation are the most consequential embedded-side PQC defaults of the 2026 cycle</strong>. <strong>wolfSSL's ML-KEM default-on is the leading indicator that the embedded-TLS layer is preparing to absorb the M-26-15 + EO 14412 + CNSA 2.0 deadlines</strong>.</p>
+<p><strong>Brainpool curve support</strong> was added to <code>wolfSSL_CTX_set1_sigalgs_list</code> for broader European cryptographic standard compatibility (relevant to the <strong>BSI TR-02102</strong> PQC migration profile in Germany). <strong>DTLS 1.3 / TLS 1.3 write-dup support</strong> was added (Duplicate SSL functionality allows read-side delegation of post-handshake tasks to the write-side).</p>
+<p>Cross-reference <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>.</p>
+<h3 id="10-mtc-document-trail-and-the-chrome-mtc-details-this-month-trigger">10. MTC document trail and the "Chrome MTC details this month" trigger</h3>
+<p>The <strong>MTC document trail</strong> (per the <a href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/" rel="noopener nofollow">IETF datatracker</a>):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Current version</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>draft-ietf-plants-merkle-tree-certs</code></td>
+<td><strong>-06</strong></td>
+<td>2026-09-21 (26 days in this window)</td>
+<td><strong>WG Document</strong>, no shepherd, no AD, no IANA review</td>
+</tr>
+<tr>
+<td><code>draft-gray-plants-mtc-deploy-use-cases</code></td>
+<td>-01</td>
+<td>revision 2026-09-02; last updated 2026-09-18</td>
+<td>WG Document</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Correction to the prior W41 note</strong>: the <strong>MTC document is at -06 (Sept 21, 2026)</strong>, <em>not</em> -05. The W41 note's "MTC -05 corrected" was itself incorrect; the datatracker page now shows -06 as the current document and the W42-window I-D Action announcement on the <a href="https://mailarchive.ietf.org/arch/msg/plants/7IygJcRUq7QjyV1BPRDBz7MTU3o" rel="noopener nofollow">plants mailing list on Sept 22</a> confirms the -06 upload.</p>
+<p><strong>The MTC document remains in WG Document state, no shepherd, no AD, no IANA review.</strong> The PLANTS WG roadmap (Chrome: MTC CA policy circulated Q2 2026, "more MTC details to be published this month" referring to October 2026) is unchanged. <strong>The trigger event for the W43 cycle is the Chrome MTC CA policy publication and the Apple draft MTC policy at the end of October 2026</strong> — both are committed by their respective organizations.</p>
+<p><strong>The PLANTS WG</strong> (PKI, Logs, And Tree Signatures) has 5 active documents per the <a href="https://datatracker.ietf.org/wg/plants" rel="noopener nofollow">datatracker WG page</a>: the main MTC draft, the MTC deployment use cases companion, the MTC profiles draft, the binary transparency tree draft, and the open issues draft. <strong>The MTC document trail is the most important public-Web-PKI work in flight in 2026</strong>.</p>
+<p>Cross-reference <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+<h2 id="fips-206-fn-dsa-falcon-silence-ches-2026-program-details-and-the-acm-ccs-2026-lotrs-paper">FIPS 206 (FN-DSA / Falcon) silence, CHES 2026 program details, and the ACM CCS 2026 LoTRS paper</h2>
+<h3 id="fips-206-fn-dsa-falcon-silence-43-days-and-counting">FIPS 206 (FN-DSA / Falcon) silence: 43 days and counting</h3>
+<p>Per the <a href="https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/1HXzjlMUU6Y" rel="noopener nofollow">NIST pqc-forum thread</a>, <strong>no public-facing material from the FIPS 206 team since Ray Perlner's Sept 4 reply</strong> ("we are ready to send out a draft within a few days once it's approved, but we don't really know when that will be"). The most recent public record is the <strong>Sept 25, 2025 Perlner presentation at the 6th PQC Standardization Conference</strong> (<a href="https://csrc.nist.gov/presentations/2025/fips-206-fn-dsa-falcon" rel="noopener nofollow">csrc.nist.gov/presentations/2025/fips-206-fn-dsa-falcon</a>) and the Sept 2025 <a href="https://freenode.net/article/nist-locks-fn-dsa-to-fixed-point-math-for-fips-206" rel="noopener nofollow">freenode.net FN-DSA fixed-point math piece</a>. <strong>The fixed-point signing design decision (32.32 keygen, 64.64 signing) remains the substantive change operators should plan around.</strong> Per the <a href="https://dcnnmagazine.com/build/quantum-computing/quantum-ready-fn-dsa-fips-206-nears-draft-approval" rel="noopener nofollow">DCNN Magazine Oct 5 "Quantum-ready FN-DSA nears draft approval" coverage</a>, <strong>companies such as DigiCert are preparing for FN-DSA's rollout but will not implement FN-DSA in production until the standard is finalized</strong> — the same posture as the <a href="https://www.encryptionconsulting.com/education-center/fn-dsa-fips-206" rel="noopener nofollow">Encryption Consulting FN-DSA explainer</a>. The IPD is expected in the next 1-2 months; the final FIPS 206 is expected late 2026 / early 2027.</p>
+<p><strong>The COSE draft <code>draft-ietf-cose-falcon-04</code></strong> (Prorock, expired 2026-09-16) has <strong>still not been re-uploaded as a -05</strong> in this window — a maintenance concern; operators should verify the document state on the datatracker before relying on the text.</p>
+<h3 id="ches-2026-program-and-the-sealsq-lightsec-2026-paper">CHES 2026 program and the SEALSQ LightSec 2026 paper</h3>
+<p>The <strong>CHES 2026 program page</strong> is JavaScript-only and did not render to text in the harvest window — the <strong>full paper list is available as JSON</strong> but the per-paper abstracts were not reachable. <strong>The CHES 2026 pre-prints cluster</strong> (papers appearing in TCHES 2026 or 2027) includes <a href="https://eprint.iacr.org/2026/2474" rel="noopener nofollow">ePrint 2026/2474</a> (item 2 above).</p>
+<p><strong>The SEALSQ LightSec 2026 paper</strong> is the <strong>single most deployment-relevant PQC paper of the week</strong> — the <strong>first peer-reviewed third-party confirmation of lattice-standardization side-channel fragility for ML-KEM</strong> (comparable to the Bernstein June 2026 "Exploiting ML-DSA bugs" paper for ML-DSA). <strong>For freedom-tech</strong>: the post-FIPS-203/204 side-channel surface is now formally comparable to classical ECC, and <strong>constant-time / masked implementations are required for both ML-KEM and ML-DSA in production</strong>.</p>
+<h3 id="acm-ccs-2026-lotrs-paper-carry-over">ACM CCS 2026 LoTRS paper (carry-over)</h3>
+<p>The <strong><a href="https://eprint.iacr.org/2026/974" rel="noopener nofollow">ePrint 2026/974 <em>LoTRS: Practical Post-Quantum Structured Threshold Ring Signatures from Lattices</em></a></strong> (Jagganath/Esgin/Steinfeld/Sakzad/Saarinen/Liu — Monash + Data61 + Tampere + CSIRO) was <strong>published in ACM CCS 2026</strong> (in scope for the W42 cycle as a venue marker). <strong>LoTRS is the first construction in which a TRS variant is obtained by combining: (i) an aggregated signing layer — a two-round lattice-based multisignature protocol producing an aggregated signature relation, with (ii) a selection-hiding layer — a t-out-of-N proof that hides the chosen ring element supporting that relation.</strong> The concrete construction instantiates the aggregated signing layer using the lattice-based scheme from Crypto'23 and the selection-hiding layer from Esgin et al.'s lattice-based one-out-of-many proof (IEEE S&amp;P'22). <strong>For freedom-tech</strong>: LoTRS is a <strong>practical lattice-based threshold ring signature</strong> — relevant to <strong>group signing for Nostr/Bluesky-style decentralized social networks, multi-signature Bitcoin/Ethereum wallets with ring-anonymity, and DAO governance with ring-anonymized voters</strong>.</p>
+<h2 id="federal-clock-omb-cycle-and-ietf-127-inheritance">Federal clock, OMB cycle, and IETF-127 inheritance</h2>
+<h3 id="the-federal-pqc-clock-w42-cycle">The federal PQC clock (W42 cycle)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Date</th>
+<th>Days from this update</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OMB M-26-15 5th interagency coordination meeting (GSA FICAM)</td>
+<td>2026-10-21</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>OMB M-26-15 PQC Migration Plan deadline</strong></td>
+<td><strong>2026-10-22</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td><strong>OpenSSL 3.4 EOL</strong></td>
+<td><strong>2026-10-22</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td>IETF-127 final agenda publication</td>
+<td>2026-10-23</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Apple draft MTC policy</td>
+<td>by end of October 2026</td>
+<td>14 (max)</td>
+</tr>
+<tr>
+<td>Chrome MTC details (Q2 commitment "this month")</td>
+<td>October 2026</td>
+<td>14 (max)</td>
+</tr>
+<tr>
+<td><strong>NIST WPEC 2026 (Privacy-Enhancing Cryptography)</strong></td>
+<td>2026-10-26 to 10-29</td>
+<td>9-12</td>
+</tr>
+<tr>
+<td><strong>FIPS 'n' Chips FNC2026</strong></td>
+<td>2026-10-26 to 10-27 Austin TX</td>
+<td>9-10</td>
+</tr>
+<tr>
+<td>GSA FICAM PQC WG 6th meeting (presumed)</td>
+<td>2026-11-04</td>
+<td>18</td>
+</tr>
+<tr>
+<td><strong>IETF-127 San Francisco</strong></td>
+<td>2026-11-14 to 11-20</td>
+<td>28</td>
+</tr>
+<tr>
+<td>OpenSSL 3.6 EOL</td>
+<td>2026-11-01</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Cloudflare Google + Apple PQC deployment targets</td>
+<td>2027-2029</td>
+<td>365+</td>
+</tr>
+<tr>
+<td>Chrome Quantum-resistant Root Store CA onboarding</td>
+<td>Q3 2027</td>
+<td>270+</td>
+</tr>
+<tr>
+<td>DoW PQC required for all systems</td>
+<td>2031-12-31</td>
+<td>1900+</td>
+</tr>
+<tr>
+<td>EO 14412 / M-26-15 high-value-asset / high-impact-system key establishment</td>
+<td>2030-01-02 (TLS 1.3 deadline)</td>
+<td>1170+</td>
+</tr>
+<tr>
+<td>M-26-15 digital signature migration</td>
+<td>2031 (per OMB phased schedule)</td>
+<td>1500+</td>
+</tr>
+<tr>
+<td>M-26-15 full migration</td>
+<td>2035 (per OMB phased schedule)</td>
+<td>3000+</td>
+</tr>
+<tr>
+<td>NSM-10 PQC risk-mitigation</td>
+<td>2035</td>
+<td>3000+</td>
+</tr>
+<tr>
+<td>CNSA 2.0 first enforcement (new NSS acquisitions)</td>
+<td>2027-01-01</td>
+<td>76</td>
+</tr>
+<tr>
+<td>CNSA 2.0 full enforcement</td>
+<td>2031</td>
+<td>1500+</td>
+</tr>
+<tr>
+<td>CNSA 2.0 legacy CRQC-vulnerable phased out</td>
+<td>2033</td>
+<td>2300+</td>
+</tr>
+<tr>
+<td>FIPS 206 (FN-DSA / Falcon) final expected</td>
+<td>late 2026 / early 2027</td>
+<td>90-180</td>
+</tr>
+<tr>
+<td>HQC final expected</td>
+<td>2026-2027</td>
+<td>90-365</td>
+</tr>
+<tr>
+<td>NIST Additional Signatures Round 3 evaluation end</td>
+<td>2027-2028</td>
+<td>365-730</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ietf-127-inheritance">IETF-127 inheritance</h3>
+<p><strong>IETF-127 (San Francisco, Nov 14-20, 2026)</strong> will inherit:</p>
+<ol>
+<li><strong>The pure PQ-TLS Blocked state</strong> (23 days in this update, 56+ days at IETF-127)</li>
+<li><strong>The OpenSSL 4.1.0-beta2 DTLS 1.3 security issues</strong> (informing TLS WG discussions of post-quantum-aware datagram protocols)</li>
+<li><strong>The Chrome + Apple MTC commitments</strong> (the PLANTS WG session will be the most consequential in the cycle)</li>
+<li><strong>The GSA PQC interagency working group 5th-meeting-on-day-before-deadline cadence</strong> (informing any federal-agency-side presentations)</li>
+<li><strong>The Cloudflare 59% ML-KEM deployment measurement</strong> (informing the TLS WG deployment-data working group discussions)</li>
+</ol>
+<p><strong>For freedom-tech deployers attending IETF-127</strong>: the <strong>PLANTS WG session on Mon Nov 17</strong> (per the standard IETF WG scheduling) is the most relevant session for MTC implementers.</p>
+<h2 id="cryptanalysis-eprints-oct-10-oct-17-window">Cryptanalysis ePrints (Oct 10 – Oct 17 window)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Title</th>
+<th>Significance</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2026/2480</strong></td>
+<td>Post-Quantum Certificate-Based PSK Provisioning for WireGuard via Mutual TLS, DTLS, and QUIC: Design and Performance Study</td>
+<td>First Tamarin-verified hybrid PQ + ML-DSA-authenticated WireGuard</td>
+<td><a href="https://eprint.iacr.org/2026/2480" rel="noopener nofollow">ePrint</a></td>
+</tr>
+<tr>
+<td><strong>2026/2474</strong></td>
+<td>Software-Pipelining The Number Theoretic Transform on Neural Processing Units: A Loop-Fission Methodology</td>
+<td>First NTT acceleration on AMD AI Engine NPUs; TCHES 2027</td>
+<td><a href="https://eprint.iacr.org/2026/2474" rel="noopener nofollow">ePrint</a></td>
+</tr>
+<tr>
+<td><strong>2026/2402</strong></td>
+<td>Revisiting Lattice-based Blind Signatures Again</td>
+<td>Breaks a Crypto'20 lattice-based blind signature scheme (Lai + Yu)</td>
+<td><a href="https://eprint.iacr.org/2026/2402" rel="noopener nofollow">ePrint</a></td>
+</tr>
+<tr>
+<td><strong>2026/2091</strong></td>
+<td>Keep Track of Your Errors: Solving ILWE and Improving Attacks on ML-DSA</td>
+<td><strong>ML-DSA secret recovery from 139M → 2.25M signatures</strong>; reveals recently discovered timing leakage (carry-over from W41)</td>
+<td><a href="https://eprint.iacr.org/2026/2091" rel="noopener nofollow">ePrint</a></td>
+</tr>
+<tr>
+<td>2026/974</td>
+<td>LoTRS: Practical Post-Quantum Structured Threshold Ring Signatures from Lattices</td>
+<td>First practical lattice threshold ring signature; <strong>ACM CCS 2026</strong></td>
+<td><a href="https://eprint.iacr.org/2026/974" rel="noopener nofollow">ePrint</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases-and-trade-offs-w42-cycle">Use cases and trade-offs (W42 cycle)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Recommended algorithm</th>
+<th>Library / protocol</th>
+<th>Trade-off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TLS key exchange (Web)</strong></td>
+<td>Hybrid X25519 + ML-KEM-768 (RFC 10024)</td>
+<td>OpenSSL 3.5+, Go 1.24+, rustls, BoringSSL</td>
+<td>Pure ML-KEM Blocked; hybrid is the path</td>
+</tr>
+<tr>
+<td><strong>TLS key exchange (constrained / embedded)</strong></td>
+<td>Hybrid X25519 + ML-KEM-512 (draft-rosomakho-tls-ecdhe-mlkem512)</td>
+<td>OpenSSL 4.2 master (4.1 has ppc64le NTT but not yet ML-KEM-512 hybrid codepoint)</td>
+<td>Lower security margin (~118-bit); smaller handshake</td>
+</tr>
+<tr>
+<td><strong>TLS key exchange (datagram / DTLS)</strong></td>
+<td>DTLS 1.3 (RFC 9147) with hybrid</td>
+<td>OpenSSL 4.1.0-beta2 (4.1 final pending DTLS 1.3 security fixes); wolfSSL 5.9.1 (--enable-dtls13)</td>
+<td>2 known security issues in OpenSSL DTLS 1.3 code; wolfSSL DTLS 1.3 also addressed CVEs</td>
+</tr>
+<tr>
+<td><strong>Signatures (long-lived)</strong></td>
+<td>Hybrid Ed25519 + ML-DSA-65</td>
+<td>aws-lc-rs 1.18.1, liboqs 0.16.0, oqs-provider 0.10.0</td>
+<td>ML-DSA side-channel threshold now in low millions of signatures; constant-time discipline required</td>
+</tr>
+<tr>
+<td><strong>Signatures (compact)</strong></td>
+<td>ML-DSA-44 (3.1 KB) or ML-DSA-65 (3.3 KB)</td>
+<td>All major libraries</td>
+<td>ML-DSA-44 at NIST Cat 2; ML-DSA-65 at NIST Cat 3</td>
+</tr>
+<tr>
+<td><strong>Signatures (very compact, when finalized)</strong></td>
+<td>FN-DSA (Falcon)</td>
+<td>Pending FIPS 206 final; COSE draft-ietf-cose-falcon-04 expired 2026-09-16, no -05</td>
+<td>FIPS 206 IPD expected late 2026 / early 2027; floating-point Gaussian sampling implementation difficulty</td>
+</tr>
+<tr>
+<td><strong>Signatures (conservative backup)</strong></td>
+<td>SLH-DSA (FIPS 205)</td>
+<td>All major libraries</td>
+<td>8-50× larger signatures; minimal algebraic assumptions</td>
+</tr>
+<tr>
+<td><strong>Public Web PKI (cert signing)</strong></td>
+<td><strong>MTC (Merkle Tree Certificates) per Chrome + Cloudflare + Let's Encrypt + Apple</strong></td>
+<td>Cloudflare (trial 2026); Let's Encrypt (staging late 2026, production 2027); Apple (draft policy end Oct 2026, applications late summer 2027)</td>
+<td>MTC institutional backing complete (Mozilla pending); Apple 3-cosignature + 7-day validity + FIPS 140-3 L3 HSM is the highest published bar</td>
+</tr>
+<tr>
+<td><strong>S/MIME (cert signing)</strong></td>
+<td>Composite ML-DSA + ECDSA / RSA</td>
+<td>Apple policy amendment (per Sept 21 announcement)</td>
+<td>S/MIME path uses traditional X.509 with composite signatures</td>
+</tr>
+<tr>
+<td><strong>WireGuard VPN (PQ migration)</strong></td>
+<td>External TLS 1.3 control channel with ML-KEM + ML-DSA certs; inject derived secret as PSK</td>
+<td>ePrint 2026/2480 architecture</td>
+<td>First Tamarin-verified hybrid PQ + ML-DSA-authenticated WireGuard; minimal deployment effort</td>
+</tr>
+<tr>
+<td><strong>Code signing (high-value)</strong></td>
+<td>Hybrid Ed25519 + ML-DSA</td>
+<td>AWS KMS ML-DSA (GA), AWS Private CA ML-DSA (GA Q2 2026), AWS CloudHSM ML-DSA (FIPS mode GA 2026-09-01)</td>
+<td>AWS end-to-end ML-DSA supply-chain signing published Oct 2026</td>
+</tr>
+<tr>
+<td><strong>Backup KEM (diversity)</strong></td>
+<td>HQC (when finalized)</td>
+<td>liboqs main branch</td>
+<td>Code-based KEM for lattice-diversity; HQC final expected 2026-2027</td>
+</tr>
+<tr>
+<td><strong>Mesh / off-grid (bandwidth-constrained)</strong></td>
+<td>Hybrid X25519 + ML-KEM-512</td>
+<td>OpenSSL 4.2 master; AWS-LC</td>
+<td>ML-KEM-512 hybrid has smallest handshake of any PQ-capable option</td>
+</tr>
+<tr>
+<td><strong>Anonymous credentials / ring signatures</strong></td>
+<td>LoTRS (lattice threshold ring signature)</td>
+<td>ePrint 2026/974 (ACM CCS 2026)</td>
+<td>First practical lattice-based threshold ring signature</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="w43-triggers-to-watch-next-week">W43 triggers to watch (next week)</h2>
+<ul>
+<li><strong>OMB M-26-15 PQC Migration Plan submissions land on Oct 22 (Wed)</strong> — first agency submissions may be public, may include the GSA, DoD-adjacent, and small civilian agencies</li>
+<li><strong>Apple draft MTC policy publication</strong> — by end of October 2026</li>
+<li><strong>Chrome MTC details</strong> — per Q2 2026 commitment "more MTC details to be published this month"</li>
+<li><strong>FIPS 206 (FN-DSA / Falcon) IPD</strong> — expected any day; the silence at 43 days is now anomalous</li>
+<li><strong>OpenSSL 4.1.0 final</strong> — pushed from October 2026 to a date after the DTLS 1.3 security fixes; W43 may see a beta3 or rc1</li>
+<li><strong>AWS-LC v5.12.0</strong> — if the W41 PR cluster is the candidate, the next stable is in the Oct 24 – Nov 14 window</li>
+<li><strong>liboqs 0.17.0</strong> — if the cadence holds, the next release is in November or December 2026</li>
+<li><strong>NIST WPEC 2026 (Oct 26-29)</strong> — second NIST Privacy-Enhancing Cryptography workshop; acceptance lists to publish</li>
+<li><strong>FIPS 'n' Chips FNC2026 (Oct 26-27 Austin TX)</strong> — hardware-PQC talks; PQC side-channel work in particular</li>
+<li><strong>GSA FICAM PQC WG 6th meeting (presumed Nov 4)</strong> — post-deadline review</li>
+<li><strong>IETF-127 (Nov 14-20 San Francisco)</strong> — PLANTS WG session on MTCs; TLS WG session on the Blocked state; SECDIR review of any new PQC drafts</li>
+</ul>
+<p><em>Compiled 2026-10-17 02:00:46 UTC. Sources: AWS Security Blog (Oct 2026), OpenSSL 4.1.0-beta2 release (2026-10-09), openssl-announce (Oct 9 11:43 UTC), IACR ePrint Archive (2026/2091, 2026/2402, 2026/2474, 2026/2480, 2026/974), CHES 2026 + LightSec 2026 programs, Apple Root Program post-quantum policy (Sept 21, 2026), Chrome/Cloudflare MTC coverage (Oct 2026), wolfSSL 5.9.1 release blog, OMB M-26-15 (June 24, 2026), GSA FICAM PQC working group (MeriTalk Aug 24, 2026), SEALSQ LightSec 2026 paper, NIST pqc-forum (FIPS 206 silence), datatracker (IETF MTC, ML-KEM-TLS, ML-DSA-TLS, LAMPS composite), liboqs 0.16.0 (July 9, 2026), oqs-provider 0.10.0 (July 28, 2025), AWS-LC v5.11.0 (Oct 1, 2026), ePrint 2026/2091 (W41 carry-over), the [prior-week note|10-Post-Quantum/Post-Quantum Saturday — October 10 2026 Weekly Update] and the [PQC Deployment and Libraries Tracker].</em></p>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/post-quantum/2026-10-10/"><span class="label">Previous</span><span class="pn-t">Post-Quantum Saturday — October 10 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <span></span>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

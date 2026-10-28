@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AT Protocol and did:plc — ungovernable.tech</title>
+<meta name="description" content="Bluesky&#39;s AT Protocol identity model: portable signed repositories anchored to did:plc or did:web, and how much of it depends on Bluesky itself.">
+<link rel="canonical" href="https://ungovernable.tech/kb/at-protocol/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="AT Protocol and did:plc — ungovernable.tech">
+<meta property="og:description" content="Bluesky&#39;s AT Protocol identity model: portable signed repositories anchored to did:plc or did:web, and how much of it depends on Bluesky itself.">
+<meta property="og:url" content="https://ungovernable.tech/kb/at-protocol/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AT Protocol and did:plc — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AT Protocol and did:plc — ungovernable.tech">
+<meta name="twitter:description" content="Bluesky&#39;s AT Protocol identity model: portable signed repositories anchored to did:plc or did:web, and how much of it depends on Bluesky itself.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "AT Protocol and did:plc", "description": "Bluesky's AT Protocol identity model: portable signed repositories anchored to did:plc or did:web, and how much of it depends on Bluesky itself.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/at-protocol/", "mainEntityOfPage": "https://ungovernable.tech/kb/at-protocol/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "AT Protocol and did:plc", "item": "https://ungovernable.tech/kb/at-protocol/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">AT Protocol and did:plc</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>AT Protocol and did:plc</h1>
+  <p class="aka">Also AT Protocol, ATProto, did:plc, Bluesky Identity.</p>
+  <p class="dek">Bluesky&#39;s identity model: signed, portable user repositories anchored to a DID, with did:plc as the operationally centralized log Bluesky runs while the data model leaves room for future decentralization. This file looks at how the architecture actually works in 2026 and where the centralization sits.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-at-protocol-is">What AT Protocol is</a><a href="#three-component-architecture">Three-component architecture</a><a href="#repository-signing">Repository signing</a><a href="#didplc-the-identity-layer">did:plc — the identity layer</a><a href="#didweb-fallback">did:web fallback</a><a href="#account-portability">Account portability</a><a href="#comparison-with-nostrs-pure-keypair-model">Comparison with Nostr&#39;s pure-keypair model</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#future-decentralization-paths">Future decentralization paths</a><a href="#when-to-use-at-protocol">When to use AT Protocol</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-at-protocol-is">What AT Protocol is</h2>
+<p>The <strong>Authenticated Transfer Protocol (AT Protocol, atproto)</strong> is the underlying protocol Bluesky launched on. It was designed to be:</p>
+<ul>
+<li><strong>Account-portable</strong>: a user's data and identity can move between hosting providers without losing followers or history.</li>
+<li><strong>Federated-ish</strong>: hosting providers (PDSs) are independent, but a global network of indexers and relays serves a unified view.</li>
+<li><strong>Self-authenticating</strong>: data is signed by the user, so any provider can serve it and verifiers can check authenticity.</li>
+</ul>
+<p>The architecture was published in 2022 by Bluesky (a Public Benefit LLC originally incubated by Twitter, now independent), and the network went public in 2023.</p>
+<h2 id="three-component-architecture">Three-component architecture</h2>
+<pre><code>                         ┌────────────┐
+                         │  AppView   │  (indexers serving the
+                         │  (bsky.app)│   "feed" view to clients)
+                         └─────┬──────┘
+                               │ reads from
+                               ▼
+              ┌───────────────────────────────────┐
+              │         Relay (firehose)          │  (Aggregates the
+              │   public stream of all repo ops   │   global event log)
+              └─────┬─────────────────────────────┘
+                    │ subscribes to
+                    ▼
+           ┌─────────┐  ┌─────────┐  ┌─────────┐
+           │  PDS A  │  │  PDS B  │  │  PDS C  │  (Personal Data
+           │ (hosts  │  │  ...    │  │  ...    │   Servers — store
+           │ Alice)  │  │         │  │         │   user repositories)
+           └─────────┘  └─────────┘  └─────────┘
+                  ▲                                   ▲
+                  │                                   │
+              ┌───┴────┐                         ┌────┴────┐
+              │ Alice's│                         │  did:plc│
+              │ client │ &lt;-- looks up DID --&gt;    │   log   │  (centralized
+              │        │                         │         │   directory)
+              └────────┘                         └─────────┘
+</code></pre>
+<h3 id="pds-personal-data-server">PDS — Personal Data Server</h3>
+<p>The user's data lives on a PDS. A PDS:</p>
+<ul>
+<li>Stores the user's repository (a Merkle-search-tree of records).</li>
+<li>Serves authenticated reads to clients.</li>
+<li>Signs repository commits with the repository signing key. Rotation keys authorize DID updates and are a separate role.</li>
+<li>Publishes the user's commits to the relay firehose.</li>
+</ul>
+<p>Anyone can run a PDS. The default is <code>bsky.social</code>, run by Bluesky PBC, but third-party PDSs exist. Account migration between PDSs is a defined protocol step.</p>
+<h3 id="relay">Relay</h3>
+<p>The relay subscribes to all PDSs and republishes a unified firehose of events: every commit on every repo, in real time. Anyone can run a relay. There is one dominant relay (Bluesky's), but the protocol allows multiple.</p>
+<h3 id="appview">AppView</h3>
+<p>An AppView indexes the firehose and serves derived views (timelines, search, notifications) to clients. The official <code>bsky.app</code> AppView is what most users hit. Independent AppViews exist (e.g., <code>frontpage.fyi</code>, custom feed services).</p>
+<h3 id="lexicon">Lexicon</h3>
+<p>AT Protocol uses a schema language called <strong>Lexicon</strong> to define record types. This is the equivalent of defining "what a post / like / follow looks like" — and lets third-party AppViews understand the data structure.</p>
+<h2 id="repository-signing">Repository signing</h2>
+<p>Each user repository is a <strong>Merkle-search-tree</strong> of records. The MST root is signed with the user's repository signing key on every commit. This means:</p>
+<ul>
+<li>Any record can be verified by anyone, with just the user's pubkey, by checking the Merkle proof from the record up to the signed root.</li>
+<li>The PDS doesn't need to be trusted. It serves data; cryptographic verification happens on the client.</li>
+<li>Migration between PDSs is just copying the repository to the new host and updating the DID to point there.</li>
+</ul>
+<p>Repository signing key is held by the PDS in current deployments — meaning the PDS can sign anything on the user's behalf. This is operational simplicity but a meaningful trust assumption: <strong>your PDS can write to your repository</strong>.</p>
+<h2 id="didplc-the-identity-layer">did:plc — the identity layer</h2>
+<p>Each user has a DID. The dominant method is <code>did:plc</code>. The identifier is opaque and random:</p>
+<pre><code>did:plc:ewvi7nxzyoun6zhxrhs64oiz
+</code></pre>
+<p>PLC expands to <strong>"provisional ledger of credentials"</strong> in Bluesky's original naming, reflecting the intent to keep the log replaceable. As of 2026, <code>did:plc</code> remains the deployed AT Protocol identity log.</p>
+<h3 id="how-didplc-works">How did:plc works</h3>
+<p>The PLC operator (currently a Bluesky-run service at <code>plc.directory</code>) maintains an <strong>append-only log of signed operations</strong> for every DID. Each DID's history is a chain:</p>
+<pre><code>op1 (genesis): create did:plc:..., signed by initial rotation keys
+   ↓
+op2 (update): rotate keys, change PDS endpoint, ..., signed by current rotation keys
+   ↓
+op3 (update): ...
+</code></pre>
+<p>Anyone can fetch the operation log for a DID from <code>plc.directory</code> and verify the signature chain. The current DID Document is derived from the latest valid operation.</p>
+<h3 id="whats-signed">What's signed</h3>
+<p>Each operation is signed by <strong>rotation keys</strong> — keys whose authority is to update the DID. A typical user has:</p>
+<ul>
+<li>1-2 rotation keys (one held by the user / their wallet, optionally one held by the PDS).</li>
+<li>The PDS's signing key (registered in the DID Document).</li>
+</ul>
+<p>To rotate the PDS or update key material, the user signs a new operation with a rotation key and submits it to plc.directory.</p>
+<h3 id="what-centralized-log-means-in-practice">What "centralized log" means in practice</h3>
+<p>Bluesky operates <code>plc.directory</code>. This means:</p>
+<ul>
+<li>Bluesky controls the canonical PLC log. They could refuse to accept operations, censor specific DIDs, or rewrite history (subject to detection).</li>
+<li>Verifiers can detect rewriting by comparing operation hashes across cached copies of the log. There are independent mirrors (e.g., <code>plc.bsky.app</code> and community-run mirrors) but no consensus protocol that prevents the operator from misbehaving.</li>
+<li>The data model is designed to be portable to a decentralized substrate (Bluesky has discussed running PLC on a BFT consensus layer or anchoring it to Bitcoin in the future). <strong>As of 2026, this has not happened.</strong></li>
+</ul>
+<h3 id="the-honest-critique">The honest critique</h3>
+<p>did:plc carries the "DID" framing — implying decentralization — but is <strong>operationally centralized</strong>. The PLC log is run by one organization. A user's identity is portable between PDSs, but the DID itself depends on Bluesky continuing to run plc.directory and accept operations honestly.</p>
+<p>This is a different centralization than did:web (DNS) or did:plc's competitors:</p>
+<ul>
+<li><strong>did:web</strong>: DNS-trust-rooted; everyone running their own domain has independent control. But identifiers are domain-bound.</li>
+<li><strong>did:plc</strong>: identifiers derive from the genesis operation and are portable across PDSs, but the log is run by one operator. <strong>Slightly more decentralized for ordinary users than did:web (you don't need a domain), substantially less so than did:ion (Bitcoin-anchored).</strong></li>
+<li><strong>did:ion</strong>: Bitcoin-anchored via Sidetree. Decentralized, but operationally heavier and slower.</li>
+</ul>
+<p>In practice: did:plc is "decentralized enough" for Bluesky's threat model (Twitter-replacement social) but is not what a user looking for cypherpunk-grade sovereign identity should rely on.</p>
+<h2 id="didweb-fallback">did:web fallback</h2>
+<p>ATProto also accepts <code>did:web</code> for users who own a domain. A user's DID can be <code>did:web:alice.example.com</code>, with the DID Document served at <code>https://alice.example.com/.well-known/did.json</code>. This:</p>
+<ul>
+<li>Removes plc.directory from the trust path.</li>
+<li>Trades plc.directory for DNS + CA trust.</li>
+<li>Lets users with their own domain own their identifier independently of Bluesky.</li>
+</ul>
+<p>A handful of users, mostly developers and organizations, run did:web identities on ATProto. The mass-market UX is did:plc.</p>
+<h2 id="account-portability">Account portability</h2>
+<p>A user with a did:plc identity can migrate their account from one PDS to another:</p>
+<ol>
+<li>New PDS pulls the repository from the old PDS.</li>
+<li>User signs a PLC operation rotating the PDS endpoint to the new PDS, signed by their rotation key.</li>
+<li>Submit operation to plc.directory.</li>
+<li>Old PDS marks the account as migrated; new PDS becomes authoritative.</li>
+</ol>
+<p>This actually works. People run their own PDSs (or use third-party hosting like PDS-as-a-service providers) and migrate accounts without losing followers or post history. This is a meaningful achievement.</p>
+<p>The catch: <strong>the migration depends on plc.directory</strong>. Bluesky operating the log is the bottleneck. If they refuse to accept your operation, your account is stuck.</p>
+<h2 id="comparison-with-nostrs-pure-keypair-model">Comparison with Nostr's pure-keypair model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>AT Protocol (did:plc)</th>
+<th>Nostr (pubkey)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identifier</strong></td>
+<td>Opaque DID + portable</td>
+<td>Public key (npub)</td>
+</tr>
+<tr>
+<td><strong>Identity registry</strong></td>
+<td>plc.directory (centralized)</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Rotation</strong></td>
+<td>Yes, via signed PLC operations</td>
+<td>Not native; NIP-26 delegation is unrecommended</td>
+</tr>
+<tr>
+<td><strong>Account portability</strong></td>
+<td>Yes (PDS migration via DID update)</td>
+<td>Trivial (key works on any relay)</td>
+</tr>
+<tr>
+<td><strong>Hosting</strong></td>
+<td>PDS holds repository</td>
+<td>Relays hold events; user-signed</td>
+</tr>
+<tr>
+<td><strong>Recovery</strong></td>
+<td>Rotation keys held offline</td>
+<td>None native; external schemes (FROST, multisig)</td>
+</tr>
+<tr>
+<td><strong>Discovery</strong></td>
+<td>AppView + handles via DNS (<code>alice.bsky.social</code>)</td>
+<td>NIP-05 + WoT</td>
+</tr>
+<tr>
+<td><strong>Censorship-resistance</strong></td>
+<td>Limited by plc.directory and PDS / relay availability</td>
+<td>Strong (any relay works)</td>
+</tr>
+<tr>
+<td><strong>Data model</strong></td>
+<td>Lexicon-typed records</td>
+<td>Free-form events with kinds</td>
+</tr>
+</tbody>
+</table></div>
+<p>The key trade-off: ATProto bought account portability and rotation by accepting a centralized PLC log. Nostr kept everything pure-key but pays in lack of native rotation.</p>
+<p>For a user who wants:
+- <strong>Mass-market social</strong> with rotation and migration: ATProto / did:plc.
+- <strong>Censorship-resistant pseudonymity</strong>: Nostr.
+- <strong>Both</strong>: keep accounts on both networks.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Account portability between PDSs actually works in practice.</li>
+<li>Self-authenticating data: records signed by user, MST roots verifiable.</li>
+<li>Rotation via signed PLC operations.</li>
+<li>Lexicon schemas allow third-party AppViews.</li>
+<li>Production scale: tens of millions of users as of 2025-2026.</li>
+<li>Smooth UX. The user doesn't need to know what a DID is.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Centralized PLC log</strong>. The "DID" framing is generous; one operator runs the canonical log.</li>
+<li>PDS holds the signing key in current deployments (not the user) — your PDS can sign on your behalf.</li>
+<li>AppView centralization. Most users hit one AppView (<code>bsky.app</code>); algorithmic curation lives there.</li>
+<li>Relay centralization. Bluesky's relay is the dominant firehose.</li>
+<li>did:web is the only fully self-hosted option, and it inherits DNS / CA trust.</li>
+<li>Account portability is a single-operator feature: it depends on plc.directory accepting your operation.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>plc.directory censors / refuses operations</td>
+<td>Existing did:plc identities depend on the directory accepting updates; did:web is a separate identity choice</td>
+</tr>
+<tr>
+<td>PDS forges records on user's behalf</td>
+<td>User-side signing where supported; attestation of PDS behavior</td>
+</tr>
+<tr>
+<td>Rotation key compromise</td>
+<td>Multiple rotation keys, kept offline; recovery via secondary rotation keys</td>
+</tr>
+<tr>
+<td>Repository signing key compromise</td>
+<td>Rotation to new key via PLC operation</td>
+</tr>
+<tr>
+<td>AppView fabricates feed contents</td>
+<td>Independent AppViews; user verification of records via PDS</td>
+</tr>
+<tr>
+<td>DNS hijack of did:web</td>
+<td>Same as did:web — DNSSEC, registrar lock</td>
+</tr>
+<tr>
+<td>Quantum attack on signing keys</td>
+<td>atproto signature-agnostic in principle; the specified curves are P-256 and secp256k1</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="future-decentralization-paths">Future decentralization paths</h2>
+<p>Bluesky has discussed several paths to decentralizing the PLC log:</p>
+<ol>
+<li><strong>BFT consensus across multiple operators</strong>. Several organizations run independent PLC nodes; consensus on each operation. Discussed publicly; not deployed.</li>
+<li><strong>Bitcoin / blockchain anchoring</strong>. Like did:ion's Sidetree. Slow but decentralized. Not on Bluesky's near-term roadmap.</li>
+<li><strong>Choose a DID method when creating an identity</strong>. did:web is supported, but changing DID method changes the account’s identifier; it is not ordinary PDS migration.</li>
+</ol>
+<p>As of early 2026, none of these have moved. plc.directory remains operationally centralized. The data model gives Bluesky an exit ramp; whether they take it depends on community pressure and engineering priorities.</p>
+<h2 id="when-to-use-at-protocol">When to use AT Protocol</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mass-market public social media</td>
+<td>Strong fit; production-scale UX</td>
+</tr>
+<tr>
+<td>Account portability across hosting providers</td>
+<td>Strong fit</td>
+</tr>
+<tr>
+<td>Censorship-resistant identity</td>
+<td>Weak fit; use Nostr instead</td>
+</tr>
+<tr>
+<td>Sovereign-grade identity</td>
+<td>Weak fit; use Nostr, KERI, or did:ion</td>
+</tr>
+<tr>
+<td>Rich record schemas (lexicons)</td>
+<td>Strong fit</td>
+</tr>
+<tr>
+<td>End-to-end encrypted messaging</td>
+<td>Not a fit; ATProto is public by design (use Marmot on Nostr or Signal)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs registry: delegation status</a></li>
+<li><a href="https://atproto.com/specs/atp" rel="noopener nofollow">AT Protocol specification</a></li>
+<li><a href="https://github.com/did-method-plc/did-method-plc" rel="noopener nofollow">did:plc specification and directory implementation</a></li>
+<li><a href="https://atproto.com/specs/lexicon" rel="noopener nofollow">Lexicon specification</a></li>
+<li><a href="https://web.plc.directory/" rel="noopener nofollow">PLC Directory</a></li>
+<li><a href="https://atproto.com/guides/account-migration" rel="noopener nofollow">AT Protocol account migration</a></li>
+<li><a href="https://www.w3.org/TR/did-core/" rel="noopener nofollow">W3C DID Core</a></li>
+<li><a href="https://github.com/bluesky-social/atproto" rel="noopener nofollow">AT Protocol reference implementations</a></li>
+<li><a href="https://atproto.com/specs/cryptography" rel="noopener nofollow">AT Protocol cryptographic curves</a></li>
+<li><a href="https://atproto.com/specs/repository" rel="noopener nofollow">AT Protocol repository specification</a></li>
+<li><a href="https://atproto.com/specs/did" rel="noopener nofollow">AT Protocol DID requirements</a></li>
+</ul>
+
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=AT%20Protocol%20and%20did%3Aplc" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Bluesky&#39;s identity model: signed, portable user repositories anchored to a DID, with did:plc as the operationally centralized log Bluesky runs while the data model leaves room for future decentralization. This file looks at how the architecture actually works in 2026 and where the centralization sits.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>11</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Aethir — ungovernable.tech</title>
+<meta name="description" content="Aethir, an enterprise-oriented decentralized GPU cloud: how its marketplace works, who supplies the hardware, and what users actually have to trust.">
+<link rel="canonical" href="https://ungovernable.tech/kb/aethir/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Aethir — ungovernable.tech">
+<meta property="og:description" content="Aethir, an enterprise-oriented decentralized GPU cloud: how its marketplace works, who supplies the hardware, and what users actually have to trust.">
+<meta property="og:url" content="https://ungovernable.tech/kb/aethir/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aethir — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aethir — ungovernable.tech">
+<meta name="twitter:description" content="Aethir, an enterprise-oriented decentralized GPU cloud: how its marketplace works, who supplies the hardware, and what users actually have to trust.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Aethir", "description": "Aethir, an enterprise-oriented decentralized GPU cloud: how its marketplace works, who supplies the hardware, and what users actually have to trust.", "dateModified": "2026-09-08", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/aethir/", "mainEntityOfPage": "https://ungovernable.tech/kb/aethir/", "image": "https://ungovernable.tech/assets/og/pillar-compute.png", "about": [{"@type": "Thing", "name": "Decentralized Compute"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Compute", "item": "https://ungovernable.tech/pillars/compute/"}, {"@type": "ListItem", "position": 3, "name": "Aethir", "item": "https://ungovernable.tech/kb/aethir/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/compute/">Decentralized Compute</a><span aria-hidden="true">/</span><span class="here">Aethir</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ DECENTRALIZED COMPUTE ]</span></p>
+  <h1>Aethir</h1>
+  <p class="aka">Also Aethir Cloud.</p>
+  <p class="dek">An enterprise-leaning DePIN GPU cloud — substantial commercial GPU inventory, partnerships with traditional AI, gaming, and robotics companies, and a tokenized infrastructure financing model.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-09-08</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#position">Position</a><a href="#architecture">Architecture</a><a href="#ath-strategic-compute-reserve">ATH Strategic Compute Reserve</a><a href="#comparison">Comparison</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#operational-patterns">Operational patterns</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#honest-assessment">Honest assessment</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="position">Position</h2>
+<p>Aethir's pitch differs from Akash and Phala:</p>
+<ul>
+<li>Akash is an open-marketplace primitive — anyone runs containers anywhere.</li>
+<li>Phala is a TEE-attested confidential compute primitive.</li>
+<li>Aethir is an enterprise GPU cloud with DePIN economics — large H100/H200 fleets, enterprise AI customers, and a tokenized financing model that treats GPUs as yield-bearing infrastructure.</li>
+</ul>
+<p>This makes Aethir an outlier in this library's framing: more "Web3 alternative to AWS GPU instances" than "permissionless escape hatch from cloud." Whether that matters depends on what you're optimizing for — cost-performance vs. sovereignty.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="cloud-hosts">Cloud Hosts</h3>
+<p>GPU operators contribute hardware. Cloud Hosts are the supply side. Hosts:</p>
+<ul>
+<li>Run Aethir's container runtime.</li>
+<li>Are scored on uptime, performance, and SLA adherence.</li>
+<li>Earn ATH proportional to contribution.</li>
+<li>Stake ATH as a performance bond.</li>
+</ul>
+<h3 id="checkers">Checkers</h3>
+<p>A separate role validates that Cloud Hosts are providing the resources they claim. Checkers run probes, measure performance, and report on chain.</p>
+<h3 id="workloads">Workloads</h3>
+<p>Tenants book GPU time for:</p>
+<ul>
+<li>AI inference and training.</li>
+<li>Cloud gaming (low-latency rendering streamed to thin clients).</li>
+<li>Compute-heavy graphics and simulation workloads.</li>
+<li>Edge AI deployment.</li>
+</ul>
+<h3 id="ath-token">ATH token</h3>
+<ul>
+<li>Powers payments, staking, and governance.</li>
+<li>ATH staking is required for Cloud Host operation.</li>
+<li>Slashing for SLA failures.</li>
+<li>Treasury and grants for ecosystem development.</li>
+</ul>
+<h2 id="ath-strategic-compute-reserve">ATH Strategic Compute Reserve</h2>
+<p>Notable 2025 development: Predictive Oncology (POAI), a publicly listed company, announced an ATH-focused digital asset treasury — branded as "the world's first Strategic Compute Reserve." The treasury accumulates ATH as an asset class representing tokenized GPU compute.</p>
+<p>This is novel: a public company financing GPU exposure via a DePIN token rather than buying GPUs directly or paying hyperscaler bills. Whether this scales beyond a single early adopter remains to be seen, but it's a real demonstration of DePIN tokens as financial instruments.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Aethir</th>
+<th>Akash</th>
+<th>Phala / dstack</th>
+<th>io.net</th>
+<th>AWS / GCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPU class</td>
+<td>H100/H200/B200 enterprise</td>
+<td>Mixed (consumer + DC)</td>
+<td>TDX + H100 CC</td>
+<td>Mixed</td>
+<td>All classes</td>
+</tr>
+<tr>
+<td>Workload</td>
+<td>AI + cloud gaming + sim</td>
+<td>Generic Kubernetes</td>
+<td>TEE-aware</td>
+<td>AI inference</td>
+<td>Anything</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>Trust Cloud Host (with stake bond)</td>
+<td>Trust provider</td>
+<td>TEE attestation</td>
+<td>Trust provider</td>
+<td>Trust hyperscaler</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>ATH</td>
+<td>AKT</td>
+<td>PHA</td>
+<td>IO</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Confidential</td>
+<td>No (roadmap)</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>Optional (Nitro / TDX SKUs)</td>
+</tr>
+<tr>
+<td>Enterprise customers</td>
+<td>Strong</td>
+<td>Some</td>
+<td>Some</td>
+<td>Strong</td>
+<td>Universal</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="cloud-gaming">Cloud gaming</h3>
+<p>Aethir's strongest market fit. Distributed GPUs near end users (low latency) running AAA games streamed to thin clients. Gamers don't buy GPUs; operators monetize spare capacity.</p>
+<h3 id="ai-inference-at-scale">AI inference at scale</h3>
+<p>For workloads where TEE attestation isn't required and cost-performance matters, Aethir's H100/H200 inventory is competitive with hyperscalers without the lock-in.</p>
+<h3 id="ai-and-robotics-development">AI and robotics development</h3>
+<p>Documented partnerships with AI gaming companies, robotics firms, and other enterprise AI customers using Aethir as primary or supplemental GPU capacity.</p>
+<h3 id="depin-financing">DePIN financing</h3>
+<p>Treat ATH as exposure to GPU compute capacity (via the Strategic Compute Reserve pattern). For balance-sheet treasury allocation rather than direct AI workload management.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Enterprise-class GPU inventory at scale.</li>
+<li>Real production users including public-company partnerships.</li>
+<li>Cloud gaming is a genuine product-market fit.</li>
+<li>Performance-bonded Cloud Hosts via stake slashing.</li>
+<li>Token model funds infrastructure capex.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Less sovereignty-aligned than Akash or Phala — closer to "Web3 enterprise cloud" than "permissionless escape hatch."</li>
+<li>No confidential computing by default. Depends on Cloud Host honesty.</li>
+<li>Token-economic dependency. ATH price affects Cloud Host margins.</li>
+<li>Centralization in Cloud Host operators (large operators dominate inventory).</li>
+<li>Less interesting for the typical vault user. Most users in the threat models this library addresses don't need enterprise H200 fleets.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud Host fraud (claims unused GPUs)</td>
+<td>Checker probes; staking + slashing</td>
+</tr>
+<tr>
+<td>Cloud Host data exfiltration</td>
+<td>Not currently mitigated by protocol — TEE roadmap</td>
+</tr>
+<tr>
+<td>Token manipulation</td>
+<td>Stake bonding; multi-source liquidity</td>
+</tr>
+<tr>
+<td>Sybil Cloud Hosts</td>
+<td>Hardware attestation requirements</td>
+</tr>
+<tr>
+<td>Service downtime</td>
+<td>SLA penalties, Checker reporting</td>
+</tr>
+<tr>
+<td>Smart contract exploits</td>
+<td>Audited contracts, time-locked admin</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="cloud-gaming-deployment">Cloud gaming deployment</h3>
+<p>A game studio deploys server-side game logic on Aethir Cloud Hosts; players connect to the nearest available GPU; the game streams over WebRTC. A cost-effective alternative to AWS GameLift for indie and mid-tier studios.</p>
+<h3 id="ai-inference-for-saas">AI inference for SaaS</h3>
+<p>A B2B SaaS that needs LLM inference uses Aethir as the primary GPU provider. Pay in ATH (or via fiat onramps); benefit from below-hyperscaler pricing.</p>
+<h3 id="depin-treasury-allocation">DePIN treasury allocation</h3>
+<p>A treasury (corporate or DAO) allocates a portion to ATH as exposure to "tokenized GPU capacity" rather than holding fiat or buying physical hardware.</p>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<h3 id="260m-axe-compute-deal-largest-decentralized-gpu-contract-in-history-june-2026">$260M Axe Compute Deal — Largest Decentralized GPU Contract in History (June 2026)</h3>
+<p>Axe Compute (NASDAQ: AGPU) signed a <strong>$260 million multi-year enterprise contract</strong> centered on a <strong>2,304-GPU NVIDIA B300 Blackwell cluster</strong> powered by Aethir's decentralized GPU cloud.</p>
+<ul>
+<li>2,304 NVIDIA B300 Blackwell GPUs in a single enterprise cluster.</li>
+<li>One of the largest single-GPU infrastructure deals in decentralized cloud history.</li>
+<li>Aethir positioned as infrastructure provider (not building data centers).</li>
+<li>Qualitatively different from prior enterprise adoption: a public NASDAQ-listed company committing $260M to decentralized infrastructure for AI workloads — not a pilot or DePIN-native company.</li>
+<li>Demonstrates decentralized GPU networks can serve enterprise hyperscale workloads.</li>
+</ul>
+<h3 id="ath-strategic-compute-reserve_1">ATH Strategic Compute Reserve</h3>
+<p>Notable 2025 development: Predictive Oncology (POAI), a publicly listed company, announced an ATH-focused digital asset treasury — branded as "the world's first Strategic Compute Reserve." The treasury accumulates ATH as an asset class representing tokenized GPU compute.</p>
+<p>The Axe Compute deal may signal larger institutional appetite for DePIN-based GPU financing. ATH token serves as the settlement and staking instrument for these arrangements.</p>
+<h3 id="aethir-ai-compute-panel-june-2-2026">Aethir AI Compute Panel — June 2, 2026</h3>
+<p>Aethir joined <strong>Nosana, Akash, and io.net</strong> for a live panel discussion titled <em>Centralized vs. Decentralized AI Compute</em> on June 2, 2026 at 5 PM CET.</p>
+<p>Agenda: competitive positioning, GPU demand/supply dynamics, potential cross-network collaborations, and enterprise onboarding. For DePIN narrative, this panel surfaces all four major DePIN GPU networks simultaneously, reinforcing decentralized compute as a coherent sector rather than isolated projects.</p>
+<h3 id="h2-2026-roadmap-agentic-ai-booking-real-time-gpu-inference">H2 2026 Roadmap: Agentic AI Booking Real-Time GPU Inference</h3>
+<p>Aethir's H2 2026 roadmap includes agentic AI booking real-time GPU inference — autonomous agents that procure GPU compute as needed without human mediation. This is the AI-native infrastructure model: agents that pay for their own compute.</p>
+<h3 id="cloud-host-scaling-and-enterprise-partnerships">Cloud Host Scaling and Enterprise Partnerships</h3>
+<ul>
+<li>Cloud Host onboarding scaled significantly.</li>
+<li>Strategic Compute Reserve (Predictive Oncology, 2025) — first major DePIN treasury.</li>
+<li>Cloud gaming partnerships with established studios.</li>
+<li>Robotics and edge AI customer signings.</li>
+<li>TEE roadmap. Confidential compute support is being explored.</li>
+</ul>
+<h3 id="accelerate-20-mw-of-owned-capacity-august-24-2026">ACCELERATE — 20 MW of Owned Capacity (August 24, 2026)</h3>
+<p>Aethir's largest move into physical infrastructure: <strong>10 sites totaling up to 20 MW across the US and Europe</strong>, purpose-built for <strong>NVIDIA B300 and GB300 clusters (64–256 nodes)</strong>, engineered to go from site selection to live capacity "in months, not years." Targets: <strong>up to $700M in contracts by end-2026, $2B+ in total contract value</strong> at full build-out. Until now Aethir aggregated third-party GPU capacity (hundreds of thousands of containers, 90+ countries); ACCELERATE takes it down the stack into owning and developing sites — the aggregator-becomes-owner move, with an updated IDC tokenomics policy (burn mechanism + variable platform fee) promised alongside. CSO Mark Rydon: "The winners won't be whoever plans the biggest campus. They'll be whoever delivers working capacity first."</p>
+<h3 id="axe-compute-q2-317m-prepayments-32b-signed-august-18-2026">Axe Compute Q2 — $317M Prepayments, $3.2B Signed (August 18, 2026)</h3>
+<p>Axe Compute (SEC-reporting neocloud, CIK 0001446159; Aethir Foundation shareholder) disclosed:</p>
+<ul>
+<li><strong>$317M+ in customer prepayments</strong> (on top of $60.8M at June 30) under the &gt;$3B July contracts; <strong>$3.2B total 2026 signed contract value</strong>; $5.9B qualified pipeline (98 opportunities).</li>
+<li>Financing model: customers prepay <strong>20–45% of project cost</strong>; the contracted revenue stream then raises project financing — infrastructure funded by customers, not the public market.</li>
+<li><strong>Duos Technologies</strong>: ~49% project equity in 55 MW of new US capacity ($140M investment; &gt;$500M hosting value).</li>
+<li><strong>Columbus, GA: empty building → 288-node Blackwell cluster in ~45 days</strong> ($20–21M expected quarterly revenue fully live).</li>
+<li>Run-rate $37M exiting Q2 against $696M guided at full deployment.</li>
+</ul>
+<h3 id="contract-token-divergence-august-2026">Contract-Token Divergence (August 2026)</h3>
+<p><strong>Coinbase delists ATH perpetual futures September 3</strong> (routine review, spot unaffected) and <strong>ATH hit its all-time low Aug 14 ($0.003641)</strong> even as signed contracts multiplied past $3.2B — the widest token-vs-equity divergence in the sector, and the open question for ATH's redesigned tokenomics.</p>
+<h3 id="accelerate-confirmed-idc-tokenomics-refresh-september-2026">ACCELERATE Confirmed + IDC Tokenomics Refresh (September 2026)</h3>
+<p>ACCELERATE was the largest structural commitment in Aethir's history (Aug 24 announcement, framing landed Sept 2–7):</p>
+<ul>
+<li><strong>10 sites</strong> in US + Europe; <strong>up to 20 MW</strong>; <strong>NVIDIA B300 + GB300</strong> clusters (64–256 nodes each).</li>
+<li><strong>Up to $700M</strong> contract value by end of 2026; <strong>over $2B</strong> once all ten sites built.</li>
+<li><strong>IDC tokenomics refresh: burn mechanism + variable platform fee</strong> (formalized ME News Sep 7). The introduction of a variable fee is the structural counterpart to the burn: provider earnings become volume-sensitive, and the Foundation can tune fee level to absorb ATH price volatility without forcing per-epoch payout renegotiation.</li>
+</ul>
+<p>The Own Your Mind Aug 24 assessment ("ATH's value accrual low for having no fee distribution and no buy-and-burn") was the structural critique Aethir is responding to. With burn + variable fee now in the protocol roadmap, the answer is concrete — the question is whether it arrives before prepay-funded site builds outpace token-minted reward obligations.</p>
+<p>The Sep 2 community article <strong>"AI Model Routing in 2026: Inside the Stripe &amp; OpenRouter Deal"</strong> is a direct piece of competitive content: Aethir is publishing positioning copy for its $2B buildout against the new reality that inference demand routes through a TradFi-owned aggregator. Whether Aethir ends up inside or outside OpenRouter's catalog is a Sep/Oct decision to watch.</p>
+<p>See <a href="/briefings/compute/2026-09-08/">Decentralized Compute Tuesday — September 08 2026 Weekly Update</a> for the full ACCELERATE buildout table and IDC tokenomics framing.</p>
+<h2 id="honest-assessment">Honest assessment</h2>
+<p>Aethir solves a different problem than the rest of this library's compute coverage. For sovereignty-focused users, Akash and Phala are usually the better fits — they're permissionless, censorship-resistant by design, and don't have enterprise-only economics.</p>
+<p>Aethir's value to this library is showing what the "tokenized cloud" pattern looks like when it scales to real enterprise customers: it works, it competes on cost-performance with hyperscalers for specific workloads, and it has financial-instrument properties that previous decentralized-compute systems didn't. Whether that's progress for sovereignty or a parallel story is a judgment call.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Aethir — <a href="https://aethir.com" rel="noopener nofollow">aethir.com</a>.</li>
+<li>Documentation — <a href="https://docs.aethir.com" rel="noopener nofollow">docs.aethir.com</a>.</li>
+<li>Whitepaper — <a href="https://aethir.com/whitepaper" rel="noopener nofollow">aethir.com/whitepaper</a>.</li>
+<li>Predictive Oncology Strategic Compute Reserve announcement — <a href="https://investors.predictive-oncology.com" rel="noopener nofollow">investors.predictive-oncology.com</a>.</li>
+<li>DePIN sector reports (Messari, Delphi Digital).</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-decentralized-compute/">
+  <span class="nm">Compare decentralized compute platforms</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-09-08</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Aethir" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">An enterprise-leaning DePIN GPU cloud — substantial commercial GPU inventory, partnerships with traditional AI, gaming, and robotics companies, and a tokenized infrastructure financing model.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Decentralized Compute</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-09-08</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

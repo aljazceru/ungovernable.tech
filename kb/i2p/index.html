@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>I2P (Invisible Internet Project) — ungovernable.tech</title>
+<meta name="description" content="I2P, the Invisible Internet Project: an anonymous overlay network optimised for hidden services, with garlic routing and every user a router.">
+<link rel="canonical" href="https://ungovernable.tech/kb/i2p/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="I2P (Invisible Internet Project) — ungovernable.tech">
+<meta property="og:description" content="I2P, the Invisible Internet Project: an anonymous overlay network optimised for hidden services, with garlic routing and every user a router.">
+<meta property="og:url" content="https://ungovernable.tech/kb/i2p/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="I2P (Invisible Internet Project) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="I2P (Invisible Internet Project) — ungovernable.tech">
+<meta name="twitter:description" content="I2P, the Invisible Internet Project: an anonymous overlay network optimised for hidden services, with garlic routing and every user a router.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "I2P (Invisible Internet Project)", "description": "I2P, the Invisible Internet Project: an anonymous overlay network optimised for hidden services, with garlic routing and every user a router.", "dateModified": "2026-09-04", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/i2p/", "mainEntityOfPage": "https://ungovernable.tech/kb/i2p/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "I2P (Invisible Internet Project)", "item": "https://ungovernable.tech/kb/i2p/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">I2P (Invisible Internet Project)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>I2P (Invisible Internet Project)</h1>
+  <p class="aka">Also Invisible Internet Project.</p>
+  <p class="dek">The Invisible Internet Project. An anonymous overlay network optimized for hidden services rather than clearnet browsing, with garlic routing, unidirectional tunnels, and a fully decentralized peer database.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-09-04</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#i2p-vs-tor-in-one-paragraph">I2P vs Tor in one paragraph</a><a href="#architecture">Architecture</a><a href="#i2p-native-applications">I2P-native applications</a><a href="#cryptography">Cryptography</a><a href="#two-implementations">Two implementations</a><a href="#performance">Performance</a><a href="#2026-releases-post-quantum-ratchet-and-kimwolf-stress-test">2026 releases, post-quantum ratchet, and Kimwolf stress test</a><a href="#threat-model">Threat model</a><a href="#comparison-with-tor">Comparison with Tor</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#september-04-2026-update-i2psnark-hardening-continues-2140-pq-ssu2-targeted-oct-2026">September 04, 2026 Update — i2psnark Hardening Continues; 2.14.0 PQ-SSU2 Targeted Oct 2026</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="i2p-vs-tor-in-one-paragraph">I2P vs Tor in one paragraph</h2>
+<p>Tor is optimized to make clearnet browsing private. Most circuits exit to public sites. I2P is optimized to make a self-contained anonymous network. Most traffic stays inside I2P, between <em>eepsites</em>, IRC, BitTorrent, and other I2P-native services. There's no central directory; peer information lives in a fully distributed <em>netDB</em>. Tunnels are unidirectional (separate inbound and outbound). Clearnet exits exist (<code>outproxies</code>) but are explicitly secondary.</p>
+<p>For "I want to use Twitter privately", use Tor. For "I want to host an anonymous service or run an anonymous BitTorrent client", I2P often does it better.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="tunnels-are-unidirectional">Tunnels are unidirectional</h3>
+<p>Each I2P node has separate inbound and outbound tunnels:</p>
+<pre><code>Alice's outbound:  Alice → A → B → C → ...exit
+Alice's inbound:   ...entry → D → E → F → Alice
+</code></pre>
+<p>A peer reaching Alice goes via her <em>inbound</em> tunnel; her replies go via her <em>outbound</em> tunnel. The two halves don't share relays. This makes timing correlation across in/out traffic harder than in Tor's symmetric circuits.</p>
+<h3 id="garlic-routing">Garlic routing</h3>
+<p>Each I2P packet ("clove") may bundle several inner messages (the "garlic bulb") with different destinations or delivery instructions. Effects:</p>
+<ul>
+<li>Padding via cover messages becomes natural. A clove can include a real message and a dummy.</li>
+<li>Multi-recipient delivery in one packet (replies, ACKs, and new requests piggybacked).</li>
+<li>Length analysis is harder because of variable garlic sizes.</li>
+</ul>
+<h3 id="netdb-network-database">NetDB (network database)</h3>
+<p>Replaces Tor's centralized directory authorities. Peer information (RouterInfo) and destination information (LeaseSet) live in a distributed Kademlia-derived database. <em>Floodfill</em> nodes participate in storage; peers query nearby floodfills for routing data.</p>
+<p>This is more decentralized than Tor (no authority quorum) but more complex to bootstrap. New nodes need a "reseed", initial RouterInfos signed by known sources, to join the netDB.</p>
+<h3 id="destinations-and-leasesets">Destinations and LeaseSets</h3>
+<ul>
+<li>A <em>destination</em> is an I2P address, a long base64 string derived from key material.</li>
+<li>A <em>LeaseSet</em> is the destination's currently-published inbound tunnels (typically rotating every 10 minutes or so).</li>
+<li>Clients fetch the LeaseSet from netDB to know how to reach a destination.</li>
+</ul>
+<p>The b32 form (<code>example.b32.i2p</code>) is a 52-character base32 of the destination's hash, analogous to a Tor v3 onion address.</p>
+<h2 id="i2p-native-applications">I2P-native applications</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>App</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>eepsites</strong></td>
+<td>I2P hidden websites (<code>.i2p</code> URLs)</td>
+</tr>
+<tr>
+<td><strong>i2p-bote</strong></td>
+<td>Email-style asynchronous messaging via DHT</td>
+</tr>
+<tr>
+<td><strong>i2psnark</strong></td>
+<td>I2P-only BitTorrent client</td>
+</tr>
+<tr>
+<td><strong>IRC over I2P</strong></td>
+<td>I2P2 anonymous IRC servers</td>
+</tr>
+<tr>
+<td><strong>i2pchat</strong> / <strong>MuWire</strong></td>
+<td>File sharing and chat</td>
+</tr>
+</tbody>
+</table></div>
+<p>Web access uses the I2P proxy (default <code>127.0.0.1:4444</code>). Many services exist clearnet-equivalent inside I2P.</p>
+<h3 id="outproxies">Outproxies</h3>
+<p>A small number of nodes egress to the clearnet, typically restricted to specific use cases (HTTP only). I2P discourages clearnet exit as the primary use case. For that, prefer Tor.</p>
+<h2 id="cryptography">Cryptography</h2>
+<ul>
+<li>Curve25519 + AES-256 for tunnel encryption.</li>
+<li>ECIES for message encryption (replaced ElGamal in 2023).</li>
+<li>Ed25519 signatures for newer destinations.</li>
+<li>Hash-based MACs for tunnel integrity.</li>
+</ul>
+<p>I2P moved from ElGamal-2048 to ECIES + Curve25519 starting around 2021, with completion for new destinations by 2023. Older RSA-based destinations are deprecated.</p>
+<h3 id="post-quantum-cryptography-proposal-proposal-169">Post-quantum cryptography proposal (Proposal 169)</h3>
+<p>I2P is implementing post-quantum cryptography per <strong>Proposal 169</strong> (i2p.net/en/proposals/169-pq-crypto). The approach is <strong>hybrid only</strong> — combining classical and PQ primitives — so that breaking either alone does not compromise the system. Key implementation details:</p>
+<p><strong>Key exchange (hybrid ML-KEM + X25519)</strong>:
+| Type | Code | Public key length | Notes |
+|------|------|-----------------|-------|
+| <code>MLKEM512_X25519</code> | 5 | 32 B | Leasesets only |
+| <code>MLKEM768_X25519</code> | 6 | 32 B | Leasesets only |
+| <code>MLKEM1024_X25519</code> | 7 | 32 B | Leasesets only |
+| <code>MLKEM512</code> | 800 | Handshakes only | |
+| <code>MLKEM768</code> | 1184 | Handshakes only | |
+| <code>MLKEM1024</code> | 1568 | Handshakes only | Not for SSU2 (MTU limit) |</p>
+<p>Key exchange sizes increase 8-15x over classical; this is the primary PQ overhead. <strong>SSU2</strong> (new transport) beta is Q3 2026 with MLKEM768 minimum MTU of 1318 bytes (IPv4). <strong>NTCP2</strong> (TCP transport) beta shipped Q1 2026, release Q2 2026.</p>
+<p><strong>Signatures (hybrid MLDSA + Ed25519)</strong>:
+| Type | Code | Public key | Signature |
+|------|------|-----------|---------|
+| <code>MLDSA44</code> | 12 | 1312 B | 2420 B |
+| <code>MLDSA65</code> | 13 | 1952 B | 3309 B |
+| <code>MLDSA87</code> | 14 | 2592 B | 4627 B |</p>
+<p>Signature sizes increase 38-76x over Ed25519 — this is a significant size and in-transit overhead. <strong>MLDSA signature types are on hold until 2027-2028</strong> pending IETF PLANTS working group decisions on algorithm selection and size reduction.</p>
+<p>The ratchet-layer PQ implementation is enabled by default in I2P 2.11.0+ (2026-02). The handshake-layer PQ (NTCP2, SSU2) is staged: NTCP2 PQ in production Q2 2026, SSU2 PQ in beta Q2 2026, release Q3 2026. The delay for SSU2 is the MTU constraint: MLKEM1024 keys are too large for the 1500-byte MTU limit.</p>
+<p>This makes I2P a concrete example of a live anonymity network doing phased PQ migration with hybrid primitives — the same cryptographic migration challenges that apply to TLS, SSH, and messaging systems apply here.</p>
+<h2 id="two-implementations">Two implementations</h2>
+<h3 id="i2p-java">I2P (Java)</h3>
+<p>The original. Heavier (JVM), feature-rich. Web console at <code>127.0.0.1:7657</code>. Default reseed and bundled apps. Most users.</p>
+<h3 id="i2pd-c">i2pd (C++)</h3>
+<p>Lighter, faster, embeddable. CLI-first, smaller resource footprint. A better fit for embedded devices and as a daemon. Compatible with the same network.</p>
+<p>Both are fully interoperable. They are the same network, two clients.</p>
+<h2 id="performance">Performance</h2>
+<p>I2P typically has better aggregate throughput than Tor for in-network traffic. Many users with many tunnels and active BitTorrent shape a different bandwidth pattern. Latency varies similarly to Tor (seconds-scale for hidden-service round trips).</p>
+<p>For BitTorrent specifically, I2P is the preferred anonymous network. Tor explicitly discourages BitTorrent because of its impact on exit relays and the protocol's tendency to leak peer identifiers.</p>
+<h2 id="2026-releases-post-quantum-ratchet-and-kimwolf-stress-test">2026 releases, post-quantum ratchet, and Kimwolf stress test</h2>
+<p>I2P 2.11.0 (2026-02-09) raised the runtime baseline to Java 17, moved to Jetty 12, enabled post-quantum crypto at the ratchet layer by default, upgraded SAMv3 datagram support, and shipped first-round spam-attack mitigations. I2P 2.12.0 (2026-04-20) continued performance/security work, improved PQ interoperability, and fixed a SAMv3 lookup bug affecting Bitcoin and BitTorrent clients.</p>
+<p>The Kimwolf botnet incident in February 2026 is a live operational lesson. Krebs on Security reported that Kimwolf operators attempted to join roughly 700,000 infected devices as I2P nodes while using the network for fallback command-and-control, degrading successful connections. For a decentralized anonymity network this is exactly the hard problem: openness makes bootstrapping and censorship resistance possible, but it also creates Sybil and spam pressure.</p>
+<p>Maturity assessment: I2P is a mature production network, especially for in-network services and BitTorrent, but ongoing Sybil resistance and PQ migration are active engineering areas.</p>
+<h2 id="threat-model">Threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sender unlinkability inside I2P</td>
+<td>Yes (multi-hop unidirectional tunnels)</td>
+</tr>
+<tr>
+<td>Receiver unlinkability inside I2P</td>
+<td>Yes (LeaseSets rotate)</td>
+</tr>
+<tr>
+<td>Defense against global passive observer</td>
+<td>Limited. Same low-latency limitation as Tor</td>
+</tr>
+<tr>
+<td>Sybil resistance</td>
+<td>Floodfill voting plus per-peer rate limits; weaker than authority-vetted Tor</td>
+</tr>
+<tr>
+<td>Censorship resistance</td>
+<td>Strong. Fully distributed netDB, no central choke point</td>
+</tr>
+</tbody>
+</table></div>
+<p>Like Tor, I2P does <strong>not</strong> defend against an adversary observing both ends with traffic analysis. For that, use <a href="/kb/nym/">Nym</a> or <a href="/kb/katzenpost/">Katzenpost</a>.</p>
+<h2 id="comparison-with-tor">Comparison with Tor</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Tor</th>
+<th>I2P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Optimized for</strong></td>
+<td>Browsing clearnet privately</td>
+<td>Hidden services and in-network apps</td>
+</tr>
+<tr>
+<td><strong>Routing</strong></td>
+<td>Symmetric three-hop circuits</td>
+<td>Asymmetric unidirectional tunnels (configurable hops)</td>
+</tr>
+<tr>
+<td><strong>Directory</strong></td>
+<td>Centralized authorities</td>
+<td>Distributed netDB (Kademlia-derived)</td>
+</tr>
+<tr>
+<td><strong>Hidden service address</strong></td>
+<td>56-char <code>.onion</code> (Ed25519)</td>
+<td>52-char <code>.b32.i2p</code> (hash of destination)</td>
+</tr>
+<tr>
+<td><strong>Bandwidth model</strong></td>
+<td>Bandwidth-weighted relay selection</td>
+<td>All peers route by default</td>
+</tr>
+<tr>
+<td><strong>BitTorrent</strong></td>
+<td>Discouraged</td>
+<td>Native and supported</td>
+</tr>
+<tr>
+<td><strong>Bootstrapping</strong></td>
+<td>Public consensus</td>
+<td>Manual reseed</td>
+</tr>
+<tr>
+<td><strong>Pluggable transports</strong></td>
+<td>Many (obfs4, meek, snowflake)</td>
+<td>Fewer; obfuscation roadmap</td>
+</tr>
+<tr>
+<td><strong>Maturity</strong></td>
+<td>Higher (older codebase, more usage)</td>
+<td>Smaller community, active dev</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Fully decentralized. No directory authorities to compromise.</li>
+<li>Garlic routing provides flexibility that Tor cells don't.</li>
+<li>Unidirectional tunnels are harder to correlate.</li>
+<li>Native BitTorrent. No exit-relay tension.</li>
+<li>Designed for in-network services.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Smaller user base. Anonymity sets matter, and Tor's are bigger for many use cases.</li>
+<li>Bootstrapping is friction. Reseed dependence.</li>
+<li>Outproxies are a weak point for clearnet usage. Concentrated and limited.</li>
+<li>Documentation aimed at developers more than end users.</li>
+<li>No first-class browser. The typical setup is Java I2P plus Firefox configured for the proxy.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traffic confirmation</td>
+<td>Same as Tor. A global observer can correlate</td>
+</tr>
+<tr>
+<td>Sybil flooding netDB</td>
+<td>Floodfill rate limits; reputation under research</td>
+</tr>
+<tr>
+<td>Reseed compromise</td>
+<td>Multiple reseed sources; pinned hashes</td>
+</tr>
+<tr>
+<td>Malicious floodfill</td>
+<td>Replicated stores; verification of signatures</td>
+</tr>
+<tr>
+<td>Clearnet leakage via outproxies</td>
+<td>Avoid outproxies for sensitive content</td>
+</tr>
+<tr>
+<td>Application leakage</td>
+<td>Use I2P-aware apps; audit configs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>ECIES rollout completed for new destinations.</li>
+<li>i2pd packaging improvements; smaller binaries.</li>
+<li>Tunnel build encryption improvements (LS2 / ECIES-X25519).</li>
+<li>Ongoing PQ migration. Research and roadmap, no production deployment yet.</li>
+<li>Better mobile clients. Android (i2pd-based) is more polished.</li>
+</ul>
+<h2 id="september-04-2026-update-i2psnark-hardening-continues-2140-pq-ssu2-targeted-oct-2026">September 04, 2026 Update — i2psnark Hardening Continues; 2.14.0 PQ-SSU2 Targeted Oct 2026</h2>
+<p>The i2p.i2p Java repo shows <strong>27 commits Aug 24 → Sep 2</strong>, concentrated in <code>i2psnark</code> (the built-in BitTorrent client):</p>
+<ul>
+<li><strong>i2psnark magnet/trackers</strong> (Aug 28–29): UDP-URL-without-path validation, magnet-link tracker parsing (clip long magnets, save and show all trackers, use all trackers in magnet, add length from xl param to magnet name).</li>
+<li><strong>i2psnark disk-space</strong> (Aug 31, Sep 1): Check available space when adding torrent files, stop FetchAndAdd if not enough space, show free disk space on add-torrent form, default tracker type to open on add tracker form.</li>
+<li><strong>i2psnark audio preview</strong> (Sep 2): Increase min completion for audio preview, js audio playlist controls, loading directives for HTML5 elements, build fix from previous checkin.</li>
+<li><strong>i2psnark WIP</strong> (Aug 27, ongoing): <code>i2psnark: v2 WIP part 7</code> — multi-commit refactor of the BitTorrent client internals.</li>
+<li><strong>Router</strong> (Aug 29, 31): <code>Router: Ensure log gzipper finishes after shutdown signal</code> (signal-handler correctness), <code>reseed update</code> (Aug 31), <code>bump -5</code> (Aug 31, version-internal bump).</li>
+<li><strong>I2CP</strong> (Aug 26, 30): <code>I2CP: Add new discardMessage() to session API</code> (Aug 26, was new last week), <code>I2CP: API interface javadoc clarifications</code> (Aug 30).</li>
+<li><strong>i2psnark KRPC</strong> (Aug 26, 31): <code>i2psnark: Compress KRPC DG1 messages</code>, <code>i2psnark: Send sorted dictionaries in extensions as required by spec</code>, <code>i2psnark: Don't NPE on missing map in extension handshake</code> (Aug 31), <code>i2psnark: Compress UDP connect requests</code> (Aug 26 — was new last week).</li>
+</ul>
+<p><strong>No I2P core release this window</strong>; I2P 2.13.0 (Jul 24, 2026) remains current. Per proposal 169, <strong>I2P 2.14.0 is targeted for October 2026 with the Hybrid MLKEM SSU2 release</strong> (PQ handshake for the UDP transport layer). Proposal status table (Apr 9):
+- <strong>Ratchet</strong>: Complete in Java I2P and i2pd (shipped)
+- <strong>NTCP2</strong>: Beta Q1 2026 → Release Q2 2026 (shipped in 2.12.0)
+- <strong>SSU2</strong>: Beta Q2 2026 → Release Q3 2026 (the missing piece, now ~3 months late from the Apr 9 schedule but on track for Oct)
+- <strong>MLDSA SigTypes 12-14</strong>: On hold until 2027</p>
+<p>The Oct 2026 2.14.0 target now looks achievable — the Aug/Sep i2psnark work and the I2CP API additions are the kind of housekeeping that precedes a major protocol-version cut-over.</p>
+<p>See <a href="/briefings/mix-networks/2026-09-04/">Mix Networks Friday — September 04 2026 Weekly Update</a> for the full weekly delta.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><em>I2P Documentation</em> — <a href="https://geti2p.net/en/docs/" rel="noopener nofollow">geti2p.net/en/docs</a></li>
+<li>I2P specifications — <a href="https://geti2p.net/spec" rel="noopener nofollow">geti2p.net/spec</a></li>
+<li>i2pd — <a href="https://i2pd.website" rel="noopener nofollow">i2pd.website</a></li>
+<li>Zantout &amp; Haraty, <em>I2P Data Communication System</em> (background paper).</li>
+<li>LS2 specification — <em>I2P LeaseSet 2 with ECIES</em>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nym/">
+  <span class="nm">Nym Mixnet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/hornet/">
+  <span class="nm">HORNET</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/mix-networks-tracker/">
+  <span class="nm">Mix Networks Research and Deployment Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=I2P%20%28Invisible%20Internet%20Project%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">The Invisible Internet Project. An anonymous overlay network optimized for hidden services rather than clearnet browsing, with garlic routing, unidirectional tunnels, and a fully decentralized peer database.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

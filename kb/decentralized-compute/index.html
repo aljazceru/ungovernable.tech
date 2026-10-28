@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized Compute — ungovernable.tech</title>
+<meta name="description" content="Permissionless markets for CPU and GPU time: how decentralized compute networks work, how they handle trust, and where capacity is real or token-driven.">
+<link rel="canonical" href="https://ungovernable.tech/kb/decentralized-compute/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized Compute — ungovernable.tech">
+<meta property="og:description" content="Permissionless markets for CPU and GPU time: how decentralized compute networks work, how they handle trust, and where capacity is real or token-driven.">
+<meta property="og:url" content="https://ungovernable.tech/kb/decentralized-compute/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized Compute — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized Compute — ungovernable.tech">
+<meta name="twitter:description" content="Permissionless markets for CPU and GPU time: how decentralized compute networks work, how they handle trust, and where capacity is real or token-driven.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Decentralized Compute", "description": "Permissionless markets for CPU and GPU time: how decentralized compute networks work, how they handle trust, and where capacity is real or token-driven.", "dateModified": "2026-06-16", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/decentralized-compute/", "mainEntityOfPage": "https://ungovernable.tech/kb/decentralized-compute/", "image": "https://ungovernable.tech/assets/og/pillar-compute.png", "about": [{"@type": "Thing", "name": "Decentralized Compute"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Compute", "item": "https://ungovernable.tech/pillars/compute/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized Compute", "item": "https://ungovernable.tech/kb/decentralized-compute/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/compute/">Decentralized Compute</a><span aria-hidden="true">/</span><span class="here">Decentralized Compute</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ DECENTRALIZED COMPUTE ]</span></p>
+  <h1>Decentralized Compute</h1>
+  <p class="aka">Also DePIN Compute, P2P Compute.</p>
+  <p class="dek">Permissionless markets for CPU, GPU, and (increasingly) confidential-GPU time. The supply side of an internet where you can rent computation without a cloud account, and — when combined with TEEs — without trusting the node operator.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-06-16</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-decentralize-compute">Why decentralize compute</a><a href="#major-networks">Major networks</a><a href="#patterns">Patterns</a><a href="#recent-developments-2025-2026">Recent developments (2025-2026)</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-decentralize-compute">Why decentralize compute</h2>
+<ul>
+<li>No account gatekeeping. Sanctioned, under-banked, or pseudonymous users can pay in crypto and get compute.</li>
+<li>Provider diversity. Side-steps concentration risk (three hyperscalers run most of the world's inference).</li>
+<li>Price discovery. Idle GPUs from gamers, universities, and miners can be priced at marginal cost, beating hyperscaler margins for some workloads.</li>
+<li>Confidential by default. Combining decentralized compute with TEEs and attestation means the node operator can't read prompts and can't steal the model — a trust model no centralized cloud offers.</li>
+</ul>
+<h2 id="major-networks">Major networks</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Network</th>
+<th>Focus</th>
+<th>Tech</th>
+<th>Confidential</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/akash/">Akash</a></td>
+<td>General K8s workloads</td>
+<td>Cosmos SDK; reverse-auction; GPU support 2024+</td>
+<td>AEP-65 (TEE) live May 2026</td>
+</tr>
+<tr>
+<td><a href="/kb/golem/">Golem</a></td>
+<td>Task-based CPU compute</td>
+<td>Long-running; generic tasks; GLM on ETH/Polygon</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="/kb/render-network/">Render Network</a></td>
+<td>GPU rendering / ML</td>
+<td>RENDER on Solana; OctaneRender; Dispersed AI compute 2025+</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="/kb/io-net/">io.net</a></td>
+<td>GPU aggregation for ML</td>
+<td>Solana; aggregates Render/Filecoin/consumer GPUs</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Fluence</td>
+<td>Serverless WASM compute</td>
+<td>Rust/Aqua; IPC Arbitrum Orbit L2; USDC payments; FLT staking</td>
+<td>TEE roadmap 2026</td>
+</tr>
+<tr>
+<td><a href="/kb/bacalhau/">Bacalhau and Compute-over-Data</a></td>
+<td>Compute-over-data orchestration</td>
+<td>Go single binary; Docker/WASM; IPFS/S3/HTTP/local sources</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/kb/phala-and-0g/">Phala and 0G</a></td>
+<td>TEE marketplace / AI OS</td>
+<td>TDX + H100 CC; on-chain attestation; Ethereum L2 (Nov 2025)</td>
+<td>Yes (native)</td>
+</tr>
+<tr>
+<td>Marlin Oyster</td>
+<td>CVM marketplace</td>
+<td>Nitro + TDX + H100 CC</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Nosana</td>
+<td>AI inference</td>
+<td>Solana-based GPU grid; production workload focus in 2025</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/kb/decentralized-training/">Decentralized Training</a></td>
+<td>Gensyn / Prime Intellect</td>
+<td>Proofs of training work; DiLoCo / asynchronous RL</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/kb/bittensor/">Bittensor</a></td>
+<td>Token-incentivized AI subnets</td>
+<td>Validator scoring and Yuma consensus</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/kb/aethir/">Aethir</a></td>
+<td>Enterprise GPU cloud</td>
+<td>ATH token; Strategic Compute Reserve</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="patterns">Patterns</h2>
+<h3 id="raw-compute-non-confidential">Raw compute (non-confidential)</h3>
+<p>Akash, Golem, Render. Suitable for open workloads (rendering, public model inference, batch jobs) where the provider seeing the data doesn't matter.</p>
+<p>Akash 2025-2026 changes:</p>
+<ul>
+<li>Homenode Early Access (May 2026): average users with RTX 4090/5090 can now participate as providers.</li>
+<li><strong>$5M monthly compute spend</strong> crossed in Q1 2026.</li>
+<li>BME (Burn-Mint Equilibrium) went live March 23, 2026 — every compute transaction burns AKT.</li>
+<li>AkashML processing <strong>1.7B tokens/day</strong> on OpenRouter (November 2025 launch).</li>
+<li>NVIDIA H200 nodes added to the GPU waitlist.</li>
+<li>AEP-65: Confidential Computing with TEE (target July 2026).</li>
+<li>AEP-29: Hardware Verification using Trusted Execution — providers prove CPU/GPU specs via attestation (live).</li>
+<li>Lease-to-lease networking: dynamic IP address management between tenant workloads.</li>
+<li>Akash Agents: one-click AI agent deployments on decentralized compute.</li>
+</ul>
+<h3 id="confidential-compute">Confidential compute</h3>
+<p>Phala, Marlin, Oasis ROFL, Automata, and Fluence run workloads inside TEEs on community-operated nodes. On-chain smart contracts verify attestation quotes before a job is considered valid and paid. This is how you get:</p>
+<ul>
+<li>Private inference on open-weights LLMs without trusting any cloud (Tinfoil sits adjacent; Phala is the canonical on-chain version).</li>
+<li>Verifiable off-chain computation for smart contracts (oracles).</li>
+<li>Private DeFi strategies, private order matching.</li>
+</ul>
+<p>2025-2026 TEE confidential AI work:</p>
+<ul>
+<li>Phala: <strong>10,004 total users, 398 paid, 2,529 CVMs, 3.05B tokens/day peak</strong> (end-2025 report).</li>
+<li>OLLM + Phala: confidential AI gateway launched December 2025; drop-in OpenAI-compatible API with verifiable TEE attestation.</li>
+<li>Phala + 0G: Phala's TEE SDK integrated into 0G's decentralized AI Operating System for confidential inference.</li>
+<li>Phala + Venice AI: end-to-end encrypted AI inference mode launched — prompts encrypted on device, stay encrypted in transit, decrypted only inside the TEE.</li>
+<li>Phala + ai16z: TEE technology integrated into the Eliza AI Agent framework (Q4 2024).</li>
+<li>Phala + NeurochainAI: partnership supplying GPU TEE compute infrastructure.</li>
+<li>Akash AEP-65: Confidential Computing with TEE (target: July 2026).</li>
+<li>Akash AEP-29: Hardware Verification using Trusted Execution for provider attestation (live).</li>
+<li>NVIDIA H100 CC now production-grade on Phala.</li>
+</ul>
+<p>See <a href="/kb/confidential-ai-inference/">Confidential-AI-Inference</a> and <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a>.</p>
+<h3 id="verifiable-compute-without-tees">Verifiable compute without TEEs</h3>
+<p>Gensyn, RISC Zero, and Succinct use cryptographic proofs (ZK or optimistic challenges) to prove compute was performed correctly without TEEs. Slower, but no hardware trust required.</p>
+<p>2025-2026 Gensyn work:</p>
+<ul>
+<li>ICLR 2026 workshop hosted on open problems in decentralized training.</li>
+<li>Testnet dashboard showing contributor stats.</li>
+<li>On-chain identity tracking node progress.</li>
+<li>Collaborative foundation models via local assistants.</li>
+</ul>
+<h3 id="compute-over-data">Compute-over-data</h3>
+<p>Bacalhau moves the job to the data rather than moving the data to the job. This is a different axis from raw GPU rental: it is most useful when the scarce resource is not H100 time but bandwidth, egress budget, locality, or data-sovereignty constraints. Bacalhau's current stack is a Go single-binary orchestrator with Docker/WASM execution and IPFS/S3/HTTP/local data sources; the strongest deployments are controlled distributed fleets, Filecoin/IPFS jobs, edge analytics, and DuckDB-style partitioned queries. Natural fit for ZK, FHE, or TEE privacy layers. See <a href="/kb/bacalhau/">Bacalhau and Compute-over-Data</a>.</p>
+<h3 id="solana-based-gpu-networks">Solana-based GPU networks</h3>
+<p>Nosana: decentralized GPU grid on Solana, optimized for AI inference.</p>
+<ul>
+<li>2025-2026 changes:</li>
+<li>Public GPU-grid testnet for AI inference workloads.</li>
+<li>Documented partnerships include Exabits, Piknik, Inferia, Sogni, Rivalz, OpenGPU.</li>
+<li>Node operators earn NOS rewards.</li>
+<li>Focus areas: 3D rendering, video processing, scientific simulations, AI inference.</li>
+</ul>
+<h3 id="enterprise-gpu-clouds">Enterprise GPU clouds</h3>
+<p>Aethir: enterprise-grade decentralized GPU cloud focused on enterprise customers.</p>
+<ul>
+<li>2025-2026 changes:</li>
+<li>ATH Strategic Compute Reserve with Predictive Oncology (first of its kind).</li>
+<li>Enterprise case studies with AI and robotics clients.</li>
+<li>Cloud Host incentive model based on GPU usage, uptime, and performance.</li>
+<li>H2 2026: agentic AI booking real-time GPU inference.</li>
+<li>Focus: AI-driven gaming user acquisition, enterprise AI workloads.</li>
+</ul>
+<h2 id="recent-developments-2025-2026">Recent developments (2025-2026)</h2>
+<h3 id="akash-confidential-computing-live-bme-homenode-500k-akt-burned">Akash — Confidential Computing Live, BME, Homenode, 500K AKT Burned</h3>
+<ul>
+<li><strong>AEP-65 Confidential Computing: Live May 19, 2026.</strong> Provider operators cannot read tenant workloads inside TEE. AEP-29 (Hardware Verification) already live. This eliminates the primary trust gap separating Akash (trust the provider) from Phala/Marlin (TEE-attested).</li>
+<li><strong>BME (Burn-Mint Equilibrium)</strong>: Live March 23, 2026. Every compute lease burns AKT, producing ACT stablecoin for providers. Crossed <strong>$5M monthly compute spend</strong> in Q1 2026. As of May 26, 2026: <strong>500,000 AKT burned</strong> via BME — direct on-chain evidence of real compute usage translating to token deflation.</li>
+<li><strong>Homenode Early Access</strong>: Live May 2026. Average users with RTX 4090/5090 can now participate as providers.</li>
+<li><strong>Akash Agents Platform</strong>: One-click AI agent deployments on decentralized compute. Built by community member Sandeep Narahari, powered by AkashML inference (OpenAI-compatible API).</li>
+<li><strong>AkashML</strong>: Processing <strong>1.7 billion tokens/day</strong> on OpenRouter (November 2025 launch).</li>
+<li><strong>Mainnet 18 (June 11, 2026)</strong>: Resource Reclamation (AEP-82) — graceful lease exit with on-chain escrow; Oracle v2 — wall-clock timestamps for deterministic staleness detection and TWAP.</li>
+<li><strong>Razer $0.01/image</strong>: Partnership demonstrating Akash's cost advantage in image generation workloads.</li>
+</ul>
+<h3 id="phala-ethereum-l2-migration-november-2025-tee-confidential-ai">Phala — Ethereum L2 Migration (November 2025), TEE Confidential AI</h3>
+<ul>
+<li><strong>Polkadot → Ethereum L2</strong>: Community-approved migration completed November 19, 2025. PHA → vPHA (ERC-20, 1:1). Phala L2 = execution layer for GPU/TDX confidential compute; Ethereum L1 = staking and governance.</li>
+<li><strong>Ethereum ecosystem integration</strong>: Access to the largest smart contract ecosystem, tooling, and enterprise integrations.</li>
+<li><strong>2025 metrics</strong>: 10,004 total users, 398 paid, 2,529 CVMs, 3.05B tokens/day peak (end-2025).</li>
+<li><strong>dstack SDK</strong>: Docker-compose-style TDX confidential VMs with on-chain attestation.</li>
+</ul>
+<h3 id="aethir-260m-enterprise-deal-2304-b300-gpus">Aethir — $260M Enterprise Deal, 2,304 B300 GPUs</h3>
+<ul>
+<li><strong>Largest decentralized GPU contract in history</strong>: Axe Compute (NASDAQ: AGPU) signed a <strong>$260 million multi-year enterprise contract</strong> centered on a <strong>2,304-GPU NVIDIA B300 Blackwell cluster</strong> powered by Aethir's decentralized GPU cloud.</li>
+<li>Qualitatively different from prior enterprise adoption: a public NASDAQ-listed company committing $260M to decentralized infrastructure for AI workloads — not a pilot or DePIN-native company.</li>
+<li><strong>ATH Strategic Compute Reserve</strong> model continues to attract institutional interest (Predictive Oncology was first public-company treasury participant).</li>
+<li><strong>Aethir AI Compute Panel</strong> on June 2, 2026 brought together Nosana, Akash, Aethir, and io.net for a live discussion on centralized vs. decentralized AI compute.</li>
+</ul>
+<h3 id="ionet-dell-technologies-partnership-30000-gpus">io.net — Dell Technologies Partnership, 30,000+ GPUs</h3>
+<ul>
+<li><strong>Dell Technologies Authorized Partner and Cloud Service Provider</strong> — the partnership merges io.net's decentralized GPU network with Dell's hardware and enterprise sales channel.</li>
+<li><strong>Additional partnerships</strong>: Creator.Bid (image model scaling), Alpha Network (secure decentralized AI/Web3 environment), Mira Network (strategic AI landscape partnership).</li>
+<li><strong>Production metrics</strong>: Wondera ($2.48M savings vs AWS, 552,000 GPU hours, 96 GPUs including 64 H100s + 32 H200s); Leonardo.Ai (scaled from 14K to 19M users, 50%+ cost reduction vs AWS).</li>
+<li>Platform claim: <strong>30,000+ GPUs</strong> available, up to 70% lower cost than AWS.</li>
+</ul>
+<h3 id="fluence-instant-gpu-access-live-flt-grid-league">Fluence — Instant GPU Access Live, FLT Grid League</h3>
+<ul>
+<li><strong>GPU Containers/VMs now instant-access</strong> (June 2026): No waitlist, direct access via Fluence Console for GPU Containers, VMs, and Bare Metal deployments. USDC pricing on Arbitrum Orbit L2.</li>
+<li><strong>GPU Auction</strong>: New price discovery mechanism for compute capacity, demonstrated at SuperAI Conference (Singapore, June 2026).</li>
+<li><strong>FLT Grid League</strong>: Trading competition on Gate.io with 3,000 USDC prize pool — tying FLT liquidity to speculative volume.</li>
+<li><strong>DAO governance migrated</strong> to native Token App (flt.fluence.network/governance) from Tally.</li>
+<li>SuperAI Conference (June 2026): booth showcasing GPU cluster availability alongside io.net.</li>
+</ul>
+<h3 id="render-network-dispersed-ai-compute-subnet-breakpoint-2025">Render Network — Dispersed AI Compute Subnet (Breakpoint 2025)</h3>
+<ul>
+<li><strong>Dispersed.com</strong> launched at Solana Breakpoint 2025 as the AI compute subnet. GPU marketplace grew 87% YoY; rendering compute power grew 40%.</li>
+<li><strong>RenderCon 2026</strong>: New governance proposal for additional compute subnet, Dispersed node architecture.</li>
+<li><strong>Token rebrand</strong>: RNDR → RENDER (Solana SPL token).</li>
+<li><strong>AI narrative tailwind</strong>: Among primary beneficiaries of 2025-2026 AI crypto sector rotation alongside AKT's 72% YTD surge.</li>
+</ul>
+<h3 id="decentralized-compute-market-context-2026">Decentralized Compute Market Context (2026)</h3>
+<ul>
+<li>DePIN combined market cap: ~$19-20B across ~250 projects (CoinGecko, 2026).</li>
+<li>On-chain revenue: ~$150M/month across leading DePIN networks (January 2026).</li>
+<li>DePIN GPU compute crossed <strong>$200M+ annualized protocol revenue</strong> in early 2026.</li>
+<li>Hyperscaler GPU cost pressure: H100 at $7.90+/hour on AWS vs. decentralized alternatives at significant discounts.</li>
+<li>xAI Colossus: 555,000 GPUs as of January 2026, roadmap to 1M — single largest AI compute concentration, illustrating why decentralized GPU markets remain structurally relevant.</li>
+<li><strong>Greg Osuri's energy constraint argument</strong>: Northern Virginia projected to fall out of electricity reliability standards by June 2027; agents consume 10–40x more tokens than human-to-AI interaction; local energy + peer-to-peer compute on home meshes is the path that doesn't require building new power plants.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Censorship resistance. No single provider can kick you off.</li>
+<li>Combined with TEEs, a stronger privacy story than any hyperscaler.</li>
+<li>Aligned economic incentives (stakers lose money for cheating).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Reliability. Hyperscaler SLAs beat decentralized networks by a wide margin; workloads need retries and redundancy.</li>
+<li>Performance variance. Heterogeneous hardware; no guaranteed NVLink topologies for multi-GPU jobs.</li>
+<li>Compliance friction. Data-residency and regulatory audits are harder.</li>
+<li>Egress and data gravity. Moving large datasets in and out of decentralized storage is slow.</li>
+<li>Onboarding UX. Crypto wallets and CLI tools keep mainstream users out for now.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<ul>
+<li>Malicious node operator. The whole reason to use TEEs and attestation. Without them, the operator is fully trusted.</li>
+<li>Sybil attacks on reputation systems.</li>
+<li>Stake-grinding and free-rider attacks on proof-of-compute schemes.</li>
+<li>Oracle compromises. If off-chain data feeding on-chain payments is wrong, the whole market distorts.</li>
+<li>Network splits. Partitioned verifiers may accept inconsistent attestation collateral.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Akash — <code>akash.network/docs</code> | <a href="https://akash.network/roadmap/2026/" rel="noopener nofollow">2026 Roadmap</a></li>
+<li>Bacalhau — <a href="https://bacalhau.org/docs/" rel="noopener nofollow">Docs</a> | <a href="https://github.com/bacalhau-project/bacalhau" rel="noopener nofollow">GitHub</a> | <a href="https://docs.ipfs.tech/concepts/cod/" rel="noopener nofollow">IPFS CoD docs</a></li>
+<li>Phala Cloud / dstack — <code>phala.network</code> | <a href="https://www.bitget.com/news/detail/12560604458724" rel="noopener nofollow">0G Partnership</a></li>
+<li>Marlin Oyster — <code>docs.marlin.org</code></li>
+<li>Oasis ROFL — <code>docs.oasis.io/build/rofl</code></li>
+<li>Gensyn — <a href="https://www.gensyn.ai" rel="noopener nofollow">gensyn.ai</a> | <a href="https://www.gensyn.ai/contribute" rel="noopener nofollow">Contribute</a> | <a href="https://x.com/gensynai/highlights" rel="noopener nofollow">ICLR 2026</a></li>
+<li>Nosana — <code>nosana.com</code> | <a href="https://nosana.com/blog/" rel="noopener nofollow">Blog</a></li>
+<li>Aethir — <code>aethir.com</code> | <a href="https://ecosystem.aethir.com/blog-posts/aethirs-12-month-strategic-roadmap-supercharging-enterprise-ai-compute-growth" rel="noopener nofollow">Strategic Roadmap</a></li>
+<li>0G — <code>0g.ai</code></li>
+<li>Render Network — <code>rendernetwork.com</code></li>
+<li>io.net — <code>io.net</code></li>
+</ul>
+<p>Continue with <a href="/kb/compare-decentralized-compute/">Compare decentralized compute platforms</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/akash/">
+  <span class="nm">Akash Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/golem/">
+  <span class="nm">Golem Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/render-network/">
+  <span class="nm">Render Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/io-net/">
+  <span class="nm">io.net</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/phala-and-0g/">
+  <span class="nm">Phala and 0G</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-training/">
+  <span class="nm">Decentralized Training</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/bittensor/">
+  <span class="nm">Bittensor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/aethir/">
+  <span class="nm">Aethir</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-ai-inference/">
+  <span class="nm">Confidential AI Inference</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nvidia-gpu-tee/">
+  <span class="nm">NVIDIA GPU TEEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-decentralized-compute/">
+  <span class="nm">Compare decentralized compute platforms</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-06-16</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Decentralized%20Compute" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Permissionless markets for CPU, GPU, and (increasingly) confidential-GPU time. The supply side of an internet where you can rent computation without a cloud account, and — when combined with TEEs — without trusting the node operator.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Decentralized Compute</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-06-16</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

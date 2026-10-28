@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Confidential AI Inference — ungovernable.tech</title>
+<meta name="description" content="Running AI inference so the provider cannot see your prompts and you cannot see the model weights: confidential GPUs, attestation and their limits.">
+<link rel="canonical" href="https://ungovernable.tech/kb/confidential-ai-inference/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Confidential AI Inference — ungovernable.tech">
+<meta property="og:description" content="Running AI inference so the provider cannot see your prompts and you cannot see the model weights: confidential GPUs, attestation and their limits.">
+<meta property="og:url" content="https://ungovernable.tech/kb/confidential-ai-inference/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Confidential AI Inference — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Confidential AI Inference — ungovernable.tech">
+<meta name="twitter:description" content="Running AI inference so the provider cannot see your prompts and you cannot see the model weights: confidential GPUs, attestation and their limits.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Confidential AI Inference", "description": "Running AI inference so the provider cannot see your prompts and you cannot see the model weights: confidential GPUs, attestation and their limits.", "dateModified": "2026-10-25", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/confidential-ai-inference/", "mainEntityOfPage": "https://ungovernable.tech/kb/confidential-ai-inference/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}, {"@type": "Thing", "name": "Decentralized Compute"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "Confidential AI Inference", "item": "https://ungovernable.tech/kb/confidential-ai-inference/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">Confidential AI Inference</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span><span class="ktag">[ DECENTRALIZED COMPUTE ]</span></p>
+  <h1>Confidential AI Inference</h1>
+  <p class="aka">Also Confidential Inference, Private Inference, Confidential AI.</p>
+  <p class="dek">Running ML inference where the model owner does not see the inputs and the user does not see the weights, with both sides able to cryptographically verify the promise.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-problem">The problem</a><a href="#the-ideal-trust-property">The ideal trust property</a><a href="#architectural-patterns">Architectural patterns</a><a href="#production-and-near-production-systems">Production and near-production systems</a><a href="#attack-surface-specific-to-inference">Attack surface specific to inference</a><a href="#threat-model-checklist-use-before-deploying">Threat model checklist (use before deploying)</a><a href="#decision-matrix">Decision matrix</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-problem">The problem</h2>
+<p>Modern AI inference forces a three-way trust failure:</p>
+<ol>
+<li>User to provider. Users hand raw prompts, images, documents, medical records, or code to a remote GPU they do not control. The provider (and anyone with subpoena or coercion power over it) sees everything.</li>
+<li>Provider to user. Providers must ship model weights to any host that runs the workload. Weights get stolen, leaked, or exfiltrated by customers, insiders, or compromised hypervisors.</li>
+<li>Both to infrastructure. Cloud operators, hypervisors, orchestration layers, and supply chains sit between user and model and can silently swap models, log prompts, or tamper with outputs.</li>
+</ol>
+<p>Confidential inference closes all three gaps by running the model inside a Trusted Execution Environment whose identity (code hash, firmware version, GPU identity) is cryptographically attested to the counterparty before any prompt or weight is sent.</p>
+<h2 id="the-ideal-trust-property">The ideal trust property</h2>
+<p>A fully confidential inference service satisfies all of the following for every request:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input secrecy</strong></td>
+<td>Prompt / image / audio plaintext exists only inside the TEE</td>
+</tr>
+<tr>
+<td><strong>Output secrecy</strong></td>
+<td>Response is encrypted to the client inside the TEE</td>
+</tr>
+<tr>
+<td><strong>Weight secrecy</strong></td>
+<td>Model weights are either sealed to the TEE identity or decrypted only inside it</td>
+</tr>
+<tr>
+<td><strong>Code integrity</strong></td>
+<td>The exact binary serving the request is measured and published</td>
+</tr>
+<tr>
+<td><strong>Binding</strong></td>
+<td>The session key is bound to the attestation so MITM is impossible</td>
+</tr>
+<tr>
+<td><strong>Non-retention</strong></td>
+<td>No logs, no KV-cache persistence, no side-channel telemetry leaves the enclave</td>
+</tr>
+<tr>
+<td><strong>Auditability</strong></td>
+<td>A third party can later prove what code was running, without needing the provider's cooperation</td>
+</tr>
+</tbody>
+</table></div>
+<p>No production system hits 7/7 yet. The state of the art (Apple PCC, NVIDIA H100 CC plus attestation, Tinfoil, Phala, Oasis, Marlin) hits 4-6 depending on threat model.</p>
+<h2 id="architectural-patterns">Architectural patterns</h2>
+<h3 id="1-single-tee-cpu-inference-small-models">1. Single-TEE CPU inference (small models)</h3>
+<p>The whole model runs inside an Intel TDX or AMD SEV-SNP confidential VM. No GPU.</p>
+<ul>
+<li>Fits: models below 20B parameters that can tolerate CPU latency, or fine-tuned small transformers (embeddings, classifiers, tool-call routers).</li>
+<li>Providers: Azure DCesv5 (TDX) or DCasv5 (SEV-SNP), GCP C3 (TDX) or N2D (SEV-SNP), AWS M6a/C6a (SEV-SNP).</li>
+<li>Example stacks: Gramine + llama.cpp, Enarx, Occlum, MSFT Confidential Inferencing Containers.</li>
+<li>Limitation: no matrix-multiply accelerator. 50-200x slower than a GPU for large models.</li>
+</ul>
+<h3 id="2-cpu-tee-plus-gpu-tee-the-modern-pattern">2. CPU-TEE plus GPU-TEE (the modern pattern)</h3>
+<p>A confidential VM (TDX/SEV-SNP) is paired with a confidential GPU (NVIDIA H100 / H200 / Blackwell in CC mode). Protected CPU–GPU transfers use encrypted bounce buffers over the untrusted link. The CPU and GPU supply attestation evidence that the deployment must validate and bind to its secure channel.</p>
+<ul>
+<li>Fits: frontier LLMs, diffusion, multimodal — anything GPU-bound.</li>
+<li>Providers: Azure NCC H100 v5, GCP A3 Confidential, Oracle OCI H100 CC, Coreweave/Lambda early access.</li>
+<li>Key doc: <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a>.</li>
+<li>Caveat: 5-15% throughput cost; first-token latency goes up by 30-120ms from the attestation handshake.</li>
+</ul>
+<h3 id="3-split-federated-inference">3. Split / federated inference</h3>
+<p>Embedding layer runs in a CPU TEE near the user (or on-device); deep layers run on a remote GPU TEE; activations are encrypted between hops.</p>
+<ul>
+<li>Pro: limits blast radius if one enclave is broken.</li>
+<li>Con: activation-leakage attacks (reconstruction from hidden states) are an active research area. Do not assume "activations ≈ noise."</li>
+</ul>
+<h3 id="4-cryptographic-inference-fhe-mpc-zkml">4. Cryptographic inference (FHE / MPC / ZKML)</h3>
+<p>Not TEE-based at all: homomorphic encryption, secure multi-party computation, or zero-knowledge ML circuits.</p>
+<ul>
+<li>FHE (Zama Concrete-ML, OpenFHE): input privacy and weight privacy, but ~10³-10⁶× overhead. Only viable for tiny models today.</li>
+<li>MPC (CrypTen, MP-SPDZ): 2-3 non-colluding parties, interactive. Good for specific enterprise joint-compute deals.</li>
+<li>ZKML (EZKL, Giza, RISC Zero + onnx): proves the output was computed correctly from a committed model. Not input privacy by itself. Pair with TEE for the full story.</li>
+</ul>
+<h3 id="5-on-device-inference">5. On-device inference</h3>
+<p>Run the model on the user's own hardware: Apple Neural Engine, Qualcomm Hexagon, local llama.cpp on M-series or 5090. No confidentiality problem because the user is the trusted party.</p>
+<ul>
+<li>Gold standard for privacy when the model fits. Always ask "can this run locally?" before reaching for a TEE.</li>
+<li>See <a href="/kb/confidential-computing/">Overview - Confidential Computing</a> §Use Cases.</li>
+</ul>
+<h2 id="production-and-near-production-systems">Production and near-production systems</h2>
+<h3 id="apple-private-cloud-compute-pcc-2024-onward">Apple Private Cloud Compute (PCC), 2024 onward</h3>
+<p>The most ambitious consumer deployment. An iPhone can offload an Apple-Intelligence request to PCC servers where:</p>
+<ul>
+<li>Custom Apple Silicon server nodes run a hardened variant of iOS/Darwin with Secure Enclave, Secure Boot, and sealed memory.</li>
+<li>Every build image is reproducibly hashed and published to a transparency log; clients refuse to send prompts to any node whose image hash is not in the log.</li>
+<li>No persistent storage, no admin interface, no remote shell. The design aims to prevent retention of user request data while allowing restricted operational metrics.</li>
+<li>End-to-end encrypted session keyed to attestation.</li>
+</ul>
+<p>Why it matters: the first mass-market system where "the server operator genuinely cannot see your prompt" is a deployed guarantee rather than marketing. Threat model writeup: <a href="https://security.apple.com/blog/private-cloud-compute/" rel="noopener nofollow">Apple Private Cloud Compute: security design</a>.</p>
+<p>What it is not: open. Only Apple builds on Apple silicon can join. No third-party audit of running instances; you trust the transparency log and Apple's signing keys.</p>
+<h3 id="nvidia-h100-h200-blackwell-confidential-computing">NVIDIA H100 / H200 / Blackwell Confidential Computing</h3>
+<p>NVIDIA's Hopper (and Blackwell) GPUs ship a hardware root of trust, protected CPU–GPU data transfers (SPDM-established keys and AES-GCM), and attestable firmware. Paired with a TDX or SEV-SNP host, they form the only production GPU-TEE today. See <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a> for the full mechanism.</p>
+<h3 id="tinfoil-tinfoilsh">Tinfoil (tinfoil.sh)</h3>
+<ul>
+<li>CPU-TEE (SEV-SNP / TDX) plus NVIDIA CC GPU hosting of open-weights LLMs (Llama 3.x, DeepSeek, Mistral).</li>
+<li>Clients verify attestation in-browser before any prompt is transmitted.</li>
+<li>Reproducible container builds published to Sigstore; the attestation quote commits to the exact image digest.</li>
+<li>Threat model: trusted = NVIDIA + AMD/Intel silicon + Tinfoil's build pipeline (transparency-logged). Untrusted = Tinfoil operators, cloud, ISPs.</li>
+</ul>
+<h3 id="phala-cloud-phala-network">Phala Cloud / Phala Network</h3>
+<ul>
+<li>Decentralized TEE marketplace (Intel SGX, then TDX, with NVIDIA CC support).</li>
+<li>Workloads run on chain-registered worker nodes; attestation quotes are verified by the blockchain before a job is considered valid.</li>
+<li>The <code>dstack</code> SDK packages docker-compose workloads into TDX CVMs with deterministic attestation.</li>
+</ul>
+<h3 id="oasis-sapphire-rofl">Oasis (Sapphire / ROFL)</h3>
+<ul>
+<li>Confidential EVM (Sapphire) runs smart-contract state in SGX.</li>
+<li>ROFL (Runtime Off-chain Logic) runs larger compute, including LLM inference, in TDX with on-chain attestation receipts.</li>
+<li>Good fit when you want "confidential inference as a verifiable oracle."</li>
+</ul>
+<h3 id="marlin-oyster">Marlin (Oyster)</h3>
+<ul>
+<li>CVM marketplace (AWS Nitro Enclaves + NVIDIA CC).</li>
+<li>Focus: serverless confidential functions; pay-per-second; attestation returned with every response.</li>
+</ul>
+<h3 id="edgeless-systems-contrast-constellation-marblerun">Edgeless Systems (Contrast, Constellation, MarbleRun)</h3>
+<ul>
+<li>Enterprise Kubernetes plus CoCo stack; attestation-gated secret injection into confidential pods.</li>
+<li>Constellation: always-encrypted K8s cluster on SEV-SNP / TDX.</li>
+<li>Used for private inference in regulated industries (health, finance).</li>
+</ul>
+<h3 id="secret-network-fortanix-anjuna">Secret Network / Fortanix / Anjuna</h3>
+<ul>
+<li>Secret Network: SGX-backed confidential smart contracts, some ML-oracle experiments.</li>
+<li>Fortanix Confidential Computing Manager: enterprise TEE orchestration, SGX/TDX.</li>
+<li>Anjuna: "lift and shift" confidential VM wrapper. No code changes; auto-enables SEV-SNP/TDX plus attestation gating on AWS/Azure/GCP.</li>
+</ul>
+<h2 id="attack-surface-specific-to-inference">Attack surface specific to inference</h2>
+<p>Even a perfect TEE does not give you a perfect confidential-inference system. Model-specific and workflow-specific leaks:</p>
+<h3 id="prompt-and-activation-leakage">Prompt and activation leakage</h3>
+<ul>
+<li>Timing side channels: decode latency varies with token choice, KV-cache state, and speculative decoding hit/miss. An observer of response timing alone can sometimes reconstruct which tokens were generated. Mitigations: constant-time decoding (rare), padded batches, fixed <code>max_tokens</code>, jittered emission.</li>
+<li>Memory access patterns: even inside an enclave, DRAM traffic is visible to the memory controller. Sparse-MoE routing has been shown to leak the active expert, which leaks the token class. Dense models are safer; MoE in TEE is an open problem.</li>
+<li>Speculative decoding across tenants: shared draft models leak cross-request information. Do not share drafts across confidentiality domains.</li>
+</ul>
+<h3 id="output-channels">Output channels</h3>
+<ul>
+<li>Model memorization: a confidential model may still regurgitate training-data secrets. TEEs protect this request's data, not the corpus the model memorized.</li>
+<li>Logit leakage via streaming: per-token streaming plus timing equals more side-channel surface than batched completion. Prefer batched for high-sensitivity use.</li>
+<li>Tool-use side effects: the moment the model makes an external HTTP call the enclave guarantee ends. Keep tool execution inside a second enclave, or accept the leak.</li>
+</ul>
+<h3 id="weight-exfiltration">Weight exfiltration</h3>
+<ul>
+<li>Attester-less weight delivery is a bug. Weights must be encrypted to the enclave measurement, not to a long-lived account key the operator holds.</li>
+<li>Page-swap and cold-boot: older SGX could be coerced into paging EPC; SEV-SNP and TDX mitigate but do not eliminate this. Disable hibernation on confidential hosts.</li>
+<li>Model stealing via queries: unrelated to TEEs. If the API is public, adversaries can distill weights through query volume. Rate-limit and watermark.</li>
+</ul>
+<h3 id="attestation-pipeline-attacks">Attestation-pipeline attacks</h3>
+<ul>
+<li>Stale TCB: an attestation can be valid and vulnerable. Always require a minimum TCB level and reject SEV-SNP microcode below the latest CVE-fixed version.</li>
+<li>Collateral DoS: Intel and AMD attestation services can be unavailable. Cache TCB info and verifier collateral locally; support offline verification.</li>
+<li>Rogue signer: a compromised CPU signing key ends the model. Multi-vendor deployments (TDX and SEV-SNP nodes with quorum) reduce systemic risk; see <a href="/kb/remote-attestation/">Attestation-Architecture</a>.</li>
+</ul>
+<h3 id="supply-chain">Supply chain</h3>
+<ul>
+<li>Build reproducibility: if you cannot rebuild the enclave image bit-for-bit, your attestation quote means "trust the build server," not "trust the code." Use SLSA L3+, sigstore, and transparency-logged image hashes.</li>
+<li>Dependency creep: every added Python package expands MRENCLAVE and shrinks auditability. Minimal runtimes (musl + static llama.cpp) beat full PyTorch stacks for high-assurance contexts.</li>
+</ul>
+<h2 id="threat-model-checklist-use-before-deploying">Threat model checklist (use before deploying)</h2>
+<ol>
+<li>Who is in your TCB? List every party: silicon vendor, firmware signer, BIOS, hypervisor vendor, image builder, transparency-log operator, key-release service. Anyone on that list can break you.</li>
+<li>Where does the plaintext prompt first appear? Client TLS to TEE public key? Verify the TLS endpoint is inside the enclave, not a front-end proxy.</li>
+<li>How is the model key released? KMS to enclave via attested channel? Or baked into the image (rotation nightmare)?</li>
+<li>What does "no logging" mean? Structural (no disk, no syslog compiled in) or policy (config flag)? Only structural counts.</li>
+<li>Freshness? Does the attestation quote include a client-supplied nonce? Otherwise replay is trivial.</li>
+<li>Revocation? If a CVE drops today, how do you turn off every vulnerable TCB right now? Pre-wire the kill switch.</li>
+<li>What does the user verify? A one-line "this is secure" UI is theater. Give them the image hash plus a way to check it against the transparency log, even if 99% ignore it.</li>
+</ol>
+<h2 id="decision-matrix">Decision matrix</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Pick</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumer, Apple-ecosystem only</td>
+<td>Apple PCC (transparent, but closed)</td>
+</tr>
+<tr>
+<td>Open-weights LLM, lowest friction</td>
+<td>Tinfoil / Phala</td>
+</tr>
+<tr>
+<td>Enterprise K8s, regulated data</td>
+<td>Edgeless Constellation, Anjuna, Fortanix</td>
+</tr>
+<tr>
+<td>Verifiable inference for smart contracts</td>
+<td>Oasis ROFL, Marlin Oyster, Phala</td>
+</tr>
+<tr>
+<td>Input <em>and</em> weight privacy, no hardware trust</td>
+<td>FHE (small models only)</td>
+</tr>
+<tr>
+<td>Output-correctness proof only</td>
+<td>ZKML (no input privacy by itself)</td>
+</tr>
+<tr>
+<td>Maximum privacy, small model</td>
+<td>On-device — don't use a TEE at all</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://security.apple.com/documentation/private-cloud-compute/" rel="noopener nofollow">Apple: Private Cloud Compute Security Guide</a></li>
+<li><a href="https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/" rel="noopener nofollow">NVIDIA: Confidential Computing on H100 GPUs</a></li>
+<li><a href="https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/CCC-A-Technical-Analysis-of-Confidential-Computing-v1.3_unlocked.pdf" rel="noopener nofollow">Confidential Computing Consortium: Technical Analysis</a></li>
+<li><a href="https://eprint.iacr.org/2016/086" rel="noopener nofollow">Intel SGX Explained</a></li>
+<li><a href="https://arxiv.org/abs/2302.12150" rel="noopener nofollow">Li et al.: A Survey of Secure Computation Using Trusted Execution Environments</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-ai" rel="noopener nofollow">Microsoft: Confidential AI</a></li>
+<li><a href="https://security.apple.com/blog/private-cloud-compute/" rel="noopener nofollow">Apple Private Cloud Compute: security design</a></li>
+<li><a href="https://github.com/microsoft/onnxruntime-openenclave" rel="noopener nofollow">ONNX Runtime Open Enclave port for confidential inference</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nvidia-gpu-tee/">
+  <span class="nm">NVIDIA GPU TEEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/akash/">
+  <span class="nm">Akash Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/apple-secure-enclave/">
+  <span class="nm">Apple Secure Enclave (SEP)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-dvm/">
+  <span class="nm">Confidential Data Vending Machines</span>
+  <span class="ty">Research note</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-censorship-resistance/">
+  <span class="nm">Map: Censorship Resistance</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-threat-models/">
+  <span class="nm">Map: Threat Models</span>
+  <span class="ty">Map</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/compute/">Decentralized Compute</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Confidential%20AI%20Inference" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Running ML inference where the model owner does not see the inputs and the user does not see the weights, with both sides able to cryptographically verify the promise.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Confidential Computing, Decentralized Compute</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>8</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

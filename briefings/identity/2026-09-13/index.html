@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — September 13 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-13: Citrine 3.1.1 (Sep 11) fixes a NIP-42 authentication bypass (release, Freedom.Tech).">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-09-13/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — September 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-13: Citrine 3.1.1 (Sep 11) fixes a NIP-42 authentication bypass (release, Freedom.Tech).">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-09-13/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — September 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — September 13 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-13: Citrine 3.1.1 (Sep 11) fixes a NIP-42 authentication bypass (release, Freedom.Tech).">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — September 13 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-13: Citrine 3.1.1 (Sep 11) fixes a NIP-42 authentication bypass (release, Freedom.Tech).", "datePublished": "2026-09-13", "dateModified": "2026-09-13", "url": "https://ungovernable.tech/briefings/identity/2026-09-13/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-09-13/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-13", "item": "https://ungovernable.tech/briefings/identity/2026-09-13/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-09-13</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — September 13 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-13</b></span>
+    <span><b>24</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-13 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-13. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The weekly companion to <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, covering September 7 – 13, 2026 (since the <a href="/briefings/identity/2026-09-06/">September 06 update</a>). The week's centre of gravity is <strong>relay-side signature verification</strong>: Citrine 3.1.1 shipped Sep 11 with a fix for a NIP-42 authentication bypass in which kind-22242 AUTH events had been added to the relay's per-connection auth state <em>without</em> checking the Schnorr signature on the inbound event. The same week, relayer 2.2.19 (Sep 8) introduced a <code>FiltersCounter</code> interface so NIP-45 <code>COUNT</code> over overlapping filters stops double-counting events that satisfy more than one filter in a request, and Amethyst 1.15.1 (Sep 11) closed its Android build break and shipped translation work. On the NIPs repository: PR #2463 (NIP-A3 payment type ambiguity) merged Sep 9; PR #2465 (NIP-90 optional DVM heartbeat event, kind 11998, believethehype) opened Sep 10 with a working production implementation in <code>believethehype/nostrdvm</code> and second-implementation confirmation from Amethyst on Sep 12; PR #2461 (NIP-AC WebRTC signaling, Named666, Sep 4) is a draft that moves p2p voice and video off the centralized relay hop. <strong>NIP #2434 (post-quantum identity keys) is now 33 days frozen</strong> — a week past last week's 26-day count, with no new comment on the structural standardization thread. The institutional PGP and Nostr WoT ecosystems stayed quiet for a second week: GnuPG last commit Sep 2, Sequoia last commit Aug 31, no kind:10203 attestations added in eight days, and nostr-wot-extension main at v0.7.0 with no new tag this week. The shape of the week: <strong>a relay-side authentication-bypass fix ships to a 5K+-star Android client the same week a NIP for relay-side liveness (kind 11998) opens its second-implementation discussion — relay-side correctness is being treated as a first-class surface again</strong>, after a fortnight where the spec text was the story.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Citrine 3.1.1 (Sep 11) fixes a NIP-42 authentication bypass</strong> (<a href="https://github.com/greenart7c3/Citrine/releases/tag/v3.1.1" rel="noopener nofollow">release</a>, <a href="https://freedom.tech/posts/2026-09-11-citrine-3-1-1/" rel="noopener nofollow">Freedom.Tech</a>). The aggregator was adding <code>kind:22242</code> AUTH events to its per-connection authenticated pubkey state <em>without</em> verifying the event's BIP-340 Schnorr signature. An attacker who knew a target's <code>pubkey</code> could send an unsigned <code>kind:22242</code> to the aggregator; the aggregator would mark the connection as authenticated as that pubkey and serve that pubkey's stored NIP-78 application data and any future owner-gated content. The fix is signature verification before mutating connection state — the same check NIP-42 already specifies relays must do. Two other fixes: subscription IDs (<code>REQ</code> ids) are now scoped per connection rather than process-global, eliminating a class of cross-connection <code>subId</code> collisions; the aggregator now speaks NIP-45 <code>COUNT</code> for fast query measurement. Citrine is the de-facto Nostr aggregator on Android (F-Droid, Zapstore, Obtainium, direct APK); the bypass was reachable from any connected client and cost no authentication. <strong>The fix is the kind of release relay operators should know about — Citrine runs as a local relay on the phone, so the exposure surface is the user's own device.</strong></li>
+<li><strong>relayer 2.2.19 (Sep 8) introduces <code>FiltersCounter</code> to fix NIP-45 overlapping COUNT filters</strong> (<a href="https://github.com/fiatjaf/relayer/releases/tag/v2.2.19" rel="noopener nofollow">release</a>, <a href="https://nostr-wot.com/news/relayer-2-2-19-fixes-overlapping-count-filters" rel="noopener nofollow">Nostr WoT newsroom</a>). NIP-45 says multiple <code>COUNT</code> filters in a single request are OR'd into one result; relayer was calling <code>CountEvents</code> once per filter and adding the answers, so an event that satisfied more than one filter could be counted more than once. The new interface adds <code>CountEventsFilters</code> which receives the full filter list and returns the union count; backends that implement it get exact counts, backends that don't fall back to the old per-filter summation. Three tests pin down the difference (single-filter stays on <code>CountEvents</code>, overlapping filters receive <code>CountEventsFilters</code>, and a union-aware store returns 4 instead of 6 for a contrived overlap case). The fix is interface-shaped: the relay is correct as soon as the storage backend opts in, and stays backwards compatible with stores that have not adopted the new interface. The release is small — two commits, three files — but the observation matters: <code>COUNT</code> is the cheap alternative to retrieving potentially-large result sets, and inflated counts change what a client renders even when the underlying event set has not changed.</li>
+<li><strong>NIPs PR #2463 (NIP-A3 payment type ambiguity, alopatindev) merged Sep 9</strong> (<a href="https://github.com/nostr-protocol/nips/pull/2463" rel="noopener nofollow">PR</a>, merged by fiatjaf). The fix adds one sentence to NIP-A3: <em>in case of <code>type</code> ambiguity, use payment-address URI <code>scheme</code> when it's available</em>. The PR was opened Sep 8 with the bitcoin cash case as the worked example (<code>bitcoin cash</code> vs <code>bitcoincash</code> vs <code>bitcoin-cash</code>; the cashaddr spec's <code>qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a</code> example disambiguates via the spec-mandated prefix). The follow-up conversation thread — fiatjaf on Sep 9 asking <em>"What does this mean? Can you give an example?"</em> and alopatindev's same-day response with the bitcoin cash walk-through — is itself a lesson: NIP-A3 was rewritten by fiatjaf within 24 hours of its Aug 26 merge (<a href="/briefings/identity/2026-08-30/">August 30 update</a>), so the spec text is still settling; this week's PR is a second-order clarification, not a redesign.</li>
+<li><strong>NIPs PR #2465 (NIP-90 optional DVM heartbeat event, kind 11998, believethehype) opened Sep 10</strong> (<a href="https://github.com/nostr-protocol/nips/pull/2465" rel="noopener nofollow">PR</a>). The shape: a <code>kind:11998</code> event with <code>["expiration", "&lt;unix&gt;"]</code> and otherwise empty content; a DVM publishes one every five minutes; clients filter NIP-89 announcements by whether a fresh heartbeat is observable. The PR ships with a working implementation in <code>believethehype/nostrdvm</code> (a DVM framework where several content-discovery DVMs at kind 5000-5999 already emit heartbeats across multiple relays), and Amethyst committed second-implementation support on Sep 12 (<em>"Now supported in Amethyst."</em>). The proposal is liveness-shaped, not capability-shaped — NIP-89 already covers what a DVM supports, but says nothing about whether the machine is currently running. PR is open with one reviewer (believethehype); no merge in the window.</li>
+<li><strong>NIPs PR #2461 (NIP-AC WebRTC signaling for p2p connections, Named666, Sep 4) still draft.</strong> Two days into the window and ten days after opening; the proposal moves voice/video p2p off the relay hop, which is the same architectural direction Amethyst 1.09.0 (<a href="https://freedom.tech/posts/2026-05-15-amethyst-1-09-0/" rel="noopener nofollow">May 15</a>) shipped WebRTC calling on. The NIP-AC text is the standardization piece that Amethyst shipped ahead of.</li>
+<li><strong>Amethyst 1.15.1 (Sep 11) — Android build fix + translation work</strong> (<a href="https://freedom.tech/posts/2026-09-11-amethyst-1-15-1/" rel="noopener nofollow">Freedom.Tech</a>). Smaller release: build break on Android, plus translation work from contributors. The PR-2465 second-implementation note from Amethyst on Sep 12 is the more identity-relevant signal — the consumer of NIP-90 DVMs now also consumes NIP-90 DVM heartbeats, so discovery feeds can filter out dead machines at the client.</li>
+<li><strong>Amber 6.6.3 (Sep 9) — start-on-boot ignored after updates + WorkManager crash on offline builds</strong> (<a href="https://freedom.tech/posts/2026-09-09-amber-6-6-3/" rel="noopener nofollow">Freedom.Tech</a>). Amber 6.6.1 (Sep 4) fixed permission-list parsing when a permission lacked a kind field, and rejected signer requests returning the request id. The September cadence (6.6.1 Sep 4, 6.6.3 Sep 9) is the same hardening-release pattern as <a href="/briefings/identity/2026-08-23/">August 23</a>'s 6.5.x advisories — bug fixes that aren't user-visible but matter operationally. Amber remains the canonical Android signer.</li>
+<li><strong>ngit-cli 3.0.0 (Sep 8) and 3.0.1 (Sep 10)</strong> (<a href="https://freedom.tech/posts/2026-09-08-ngit-cli-3-0-0/" rel="noopener nofollow">Freedom.Tech</a>, <a href="https://freedom.tech/posts/2026-09-10-ngit-cli-3-0-1/" rel="noopener nofollow">3.0.1</a>). 3.0.0 is the <em>largest ngit release to date</em>; 3.0.1 fixes that skill install/upgrade now leaves managed files uncommitted so each repo applies its own validation and commit flow, and changes available paths to be emitted in both human and JSON output. NIP-34 (<code>git</code> stuff) — where ngit lives — is the surface where Nostr-as-infrastructure meets Nostr-as-identity: PR/Patch/Issue events on a per-user basis.</li>
+<li><strong>Damus TestFlight build/1337 (Sep 8) — TestFlight build 1339, no changelog.</strong> Housekeeping release; no spec-affecting changes in the diff.</li>
+<li><strong>NIP #2434 (post-quantum identity keys) now 33 days frozen</strong> (since Aug 11). The window from 26 days → 33 days. Three implementations still live (nostr-wot-extension 0.4.0/0.7.0, NDK PR #713, Gleez reference) and one specification draft (Leon Acosta + QuantaKrypto's kind 10203 draft). No new comment from fiatjaf this week. The September 4 Nostr WoT piece <em><a href="https://nostr-wot.com/blog/post-quantum-nostr-identities" rel="noopener nofollow">"Post-quantum Nostr identities, from your seed where possible"</a></em> remains the structural argument; no PR has been opened against it.</li>
+<li><strong>Institutional quiet for a second week.</strong> GnuPG no commits since Sep 2. Sequoia no commits since Aug 31. <code>kind:10203</code> attestation count holds at 24 (no new attestations in the window; the September 10 WoT update noted the 24-stair-step plateau first held). No NIP-2434 reply. No v0.7.1 nostr-wot-extension tag.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>relay-side correctness is back on the front page</strong>. Citrine 3.1.1 ships a NIP-42 signature-verification fix that the spec text already required but the code did not enforce — a <em>spec-conformance fix</em>, not a protocol-design fix. relayer 2.2.19 ships an interface addition that makes NIP-45 <code>COUNT</code> over overlapping filters correct as soon as a storage backend opts in. NIP-90 PR #2465 opens a discussion of <em>liveness</em> at the protocol level, with a working production implementation in <code>believethehype/nostrdvm</code> and Amethyst second-implementation evidence inside 48 hours. Three independent stories, one underlying theme: the relay hop is now being treated as a correctness surface the same way the spec text has been treated for the last fortnight. The structural PQ identity conversation stayed frozen (NIP #2434 +33 days), the institutional PGP layer stayed quiet (GnuPG/Sequoia zero commits), and the kind:10203 attestation plateau held at 24.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="citrine-311-the-nip-42-auth-bypass-fix">Citrine 3.1.1: the NIP-42 AUTH bypass fix</h3>
+<p>Citrine is greenart7c3's Android Nostr aggregator — a local relay plus multi-relay client bundled into one APK and distributed via Zapstore, Obtainium, F-Droid, and direct download. As an aggregator it accepts inbound <code>EVENT</code> and <code>AUTH</code> messages on its local WebSocket and exposes the union to other Nostr clients on the device. The 3.1.1 release notes (<a href="https://freedom.tech/posts/2026-09-11-citrine-3-1-1/" rel="noopener nofollow">Freedom.Tech</a>, <a href="https://github.com/greenart7c3/Citrine/releases/tag/v3.1.1" rel="noopener nofollow">GitHub release</a>) are explicit about the bug:</p>
+<blockquote>
+<p>Fixed an NIP-42 auth bypass where kind-22242 AUTH events were added to the connection without signature verification.</p>
+</blockquote>
+<p>The NIP-42 authentication flow is straightforward on paper (<a href="https://github.com/nostr-protocol/nips/blob/master/42.md" rel="noopener nofollow">NIP-42 spec</a>). The relay sends an <code>AUTH</code> challenge with a random string. The client constructs a <code>kind:22242</code> ephemeral event with <code>["relay", "&lt;relay url&gt;"]</code> and <code>["challenge", "&lt;challenge string&gt;"]</code> tags, signs it with the user's Nostr key (BIP-340 Schnorr over secp256k1), and sends it back via the <code>AUTH</code> wire message. The relay then verifies four things on the inbound event before promoting the connection to authenticated state:</p>
+<ol>
+<li>The <code>kind</code> is <code>22242</code>.</li>
+<li>The event <code>created_at</code> is close to current time (typically within ~10 minutes).</li>
+<li>The <code>challenge</code> tag matches what the relay sent.</li>
+<li>The <code>relay</code> tag matches the relay's URL.</li>
+<li>The Schnorr signature on the event verifies against the claimed <code>pubkey</code>.</li>
+</ol>
+<p>The bug Citrine shipped 3.1.1 to fix was step 5. The aggregator was accepting the inbound <code>AUTH</code> message and updating its per-connection <code>authenticatedPubkey</code> field on the basis of the <em>claimed</em> <code>pubkey</code> in the event, without verifying that the Schnorr signature on the event actually validated against that pubkey. With that check missing, anyone who knew a target's <code>npub</code> could send an unsigned <code>kind:22242</code> claiming that pubkey, and the aggregator would treat the connection as authenticated <em>as</em> that pubkey.</p>
+<p>The impact surface is whatever the aggregator exposes only to authenticated owners. The week before this release, <a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">NIP-78 PR #2458</a> (merged Sep 3) added an AUTH section requiring that relays run NIP-42 before touching kinds 78 and 30078, and return them only to the authenticated owner. Ditto on relay.ditto.pub shipped NIP-78 AUTH enforcement. Citrine's aggregator is a relay-class surface too — it stores NIP-78 events as part of its cache — and so the same NIP-78 enforcement that Ditto shipped could ship to Citrine without spec change. The Citrine 3.1.1 fix is the prerequisite: an authenticated-connection state that any other Nostr client running against the Citrine local relay could trust.</p>
+<p>The other Citrine 3.1.1 fixes are hardening rather than security:</p>
+<ul>
+<li><strong>Per-connection subscription ID scoping.</strong> Citrine 3.1.0 (Aug 14) was treating <code>REQ</code> ids as process-global. A second connection on the same Citrine process that opened a subscription with an id matching one already in use would step on the existing subscription. 3.1.1 namespaces subIds by connection.</li>
+<li><strong>NIP-45 <code>COUNT</code> support.</strong> Citrine now answers <code>COUNT</code> messages with the total count matching a filter set, returning the integer the spec promises without forcing a client to retrieve every event just to measure the set.</li>
+</ul>
+<p>Citrine 3.1.1 was tagged Sep 11 and shipped to F-Droid, Zapstore, and Obtainium the same day. The signing key (<code>greenart7c3</code>, RSA <code>44F0AAEB...</code>) is on keys.openpgp.org, the manifest signature verifies, and the <a href="https://github.com/greenart7c3/Citrine/releases/tag/v3.1.1" rel="noopener nofollow">manifest-v3.1.1.txt</a> sha256 set is published. Two prior advisories in the 6.x line of Amber were signature-bypass class — Amber 6.5.x (<a href="/briefings/identity/2026-08-23/">August 23</a>) shipped <em>authorization-scope</em> releases for the relay-auth confused-deputy class of bugs. Citrine 3.1.1 is the same family: signature/permission boundaries not being enforced at the relay hop.</p>
+<h3 id="relayer-2219-nip-45-count-over-overlapping-filters">relayer 2.2.19: NIP-45 COUNT over overlapping filters</h3>
+<p>relayer is fiatjaf's reference Nostr relay implementation in Go. The 2.2.19 release (<a href="https://github.com/fiatjaf/relayer/releases/tag/v2.2.19" rel="noopener nofollow">GitHub</a>, <a href="https://nostr-wot.com/news/relayer-2-2-19-fixes-overlapping-count-filters" rel="noopener nofollow">Nostr WoT newsroom</a>) is two commits and three files. The diff is small; the observation it embodies is not.</p>
+<p>The bug: NIP-45 says multiple filters in a single <code>COUNT</code> request are OR'd into one result. The relevant text in the spec is <em>"If a filter has multiple authors or kinds, the relay should count events that match any of them."</em> The relay returns a single integer. relayer's implementation called <code>CountEvents</code> once per filter and added the answers. That is correct when the filters cannot match the same event. It is too high when they overlap.</p>
+<p>The contrived example from the <a href="https://nostr-wot.com/news/relayer-2-2-19-fixes-overlapping-count-filters" rel="noopener nofollow">newsroom writeup</a>: filter A asks for kind 1; filter B asks for kinds 1 and 7. A kind 1 event satisfies both filters but NIP-45's OR rule means it belongs in the result once. Adding two independent counts includes it twice.</p>
+<p>The fix is interface-shaped:</p>
+<pre><code class="language-go">// New in 2.2.19
+type FiltersCounter interface {
+    CountEventsFilters(filters ...nostr.Filter) (int64, error)
+}
+</code></pre>
+<p>The request handler uses this path when there is more than one filter. For a single filter, it continues to call the existing <code>CountEvents</code> method. Stores that implement <code>FiltersCounter</code> get exact union counts; stores that don't fall back to the per-filter summation (with the code comment noting the boundary explicitly: that fallback is exact when filters do not overlap).</p>
+<p>Three new tests pin down the distinction: (a) a store with only the older counter still receives two separate calls; (b) overlapping filters sent to a union-aware store return 4 instead of the summed value of 6; (c) a request with one filter stays on the original method.</p>
+<p>The observable result: <code>COUNT</code> is intended to save clients from retrieving a potentially-large result set merely to measure it. Counts for reactions, replies, reposts, or followers can be built from filters that overlap. Inflating those numbers because one stored event satisfies more than one filter changes the answer the client displays, even though the underlying event set has not changed.</p>
+<p>The release also changes error handling on the union path: if <code>CountEventsFilters</code> fails, the relay returns <code>error: failed to count events</code> instead of continuing with a partial result. The older per-filter fallback still logs a failed individual count and continues through the remaining filters.</p>
+<p>The narrow release — two commits, three files — is itself the signal. A relay that gets the spec right and exposes the right interface will be adopted as the storage backend grows; a relay that ships with a wrong but fast path will continue to be wrong on top of an updated interface. The 2.2.19 release is the right shape: opt-in correctness, no breaking change for backends, and tests that pin down both paths.</p>
+<h3 id="nip-a3-payment-type-ambiguity-pr-2463">NIP-A3 payment type ambiguity: PR #2463</h3>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/A3.md" rel="noopener nofollow">NIP-A3</a> — the <code>payto:</code> URI scheme for Nostr — was <a href="/briefings/identity/2026-08-30/">rewritten by fiatjaf within 24 hours of its August 26 merge</a> (101 lines removed, kind 10133 and the <code>payto</code> tag survived). PR #2463 (<a href="https://github.com/nostr-protocol/nips/pull/2463" rel="noopener nofollow">GitHub</a>, opened Sep 8 by alopatindev, merged Sep 9 by fiatjaf) is a second-order clarification: in case of <code>type</code> ambiguity, use the payment-address URI <code>scheme</code> when it is available.</p>
+<p>The example in the conversation thread is the bitcoin cash disambiguation: <code>bitcoin cash</code> (with a space) versus <code>bitcoincash</code> (camelcase) versus <code>bitcoin-cash</code> (hyphenated). The <a href="https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/cashaddr.md#examples-of-address-translation" rel="noopener nofollow">cashaddr spec</a> defines a prefix/scheme that disambiguates; the NIP-A3 client should consult that spec and use the prefix-formatted address in the <code>["payto", "bitcoincash", "&lt;prefixed-address&gt;"]</code> tag.</p>
+<p>fiatjaf's Sep 9 reply — <em>"I don't know, I feel like that should be obvious and people who didn't follow this approach naturally are also not going to read this line"</em> — is the editorial judgment. The merge landed with the wording that alopatindev rewrote after fiatjaf's <em>"What does this mean?"</em> earlier the same day. The takeaway is the conversation shape: a contributor (alopatindev) opens a clarifying PR, fiatjaf asks for an example, alopatindev gives one, fiatjaf asks whether the line is needed at all, alopatindev rewords, fiatjaf merges. NIP-A3 continues to be the active surface in the protocol where payment targets meet Nostr identities.</p>
+<h3 id="nip-90-dvm-heartbeat-pr-2465">NIP-90 DVM heartbeat: PR #2465</h3>
+<p><a href="https://github.com/nostr-protocol/nips/blob/master/90.md" rel="noopener nofollow">NIP-90</a> — Data Vending Machines — defines how clients request computation from a server speaking Nostr. The protocol shape is: client publishes a job kind (5000-5999), worker publishes a result kind (6000-6999), both are replaceable, the relay routes the job to a worker who can do it. <a href="https://github.com/nostr-protocol/nips/blob/master/89.md" rel="noopener nofollow">NIP-89</a> is the announcement half: kinds 31989 and 31990 describe what a DVM supports.</p>
+<p>What NIP-89 does not say: whether the machine is currently running. A DVM that went offline leaves its announcement behind, and discovery feeds surface stale machines.</p>
+<p>PR #2465 (<a href="https://github.com/nostr-protocol/nips/pull/2465" rel="noopener nofollow">GitHub</a>, opened Sep 10 by believethehype) proposes a fix:</p>
+<pre><code class="language-json">{
+  "kind": 11998,
+  "pubkey": "&lt;DVM-pubkey&gt;",
+  "content": "",
+  "tags": [
+    ["expiration", "&lt;unix-seconds&gt;"]
+  ]
+}
+</code></pre>
+<p>A DVM publishes a <code>kind:11998</code> heartbeat every five minutes (the <code>expiration</code> tag is the canonical Nostr pattern for <em>this event is valid until this time</em>, after which relays should drop it). Clients filter NIP-89 announcements by whether a fresh heartbeat is observable on any of the DVM's read relays.</p>
+<p>The proposal is <em>opt-in</em> — NIP-89 does not require heartbeats, but clients that consume them get a higher-fidelity view of which DVMs are actually live. The kind number 11998 is in the replaceable-event range (10000-19999), so updates replace each other rather than accumulating.</p>
+<p>The implementation is already running in production: <code>believethehype/nostrdvm</code> is a DVM framework where several content-discovery DVMs (kinds 5000-5999) already emit heartbeats on a 5-minute interval across multiple relays, and the framework's clients use them for liveness filtering. Amethyst committed second-implementation support on Sep 12 (<em>"Now supported in Amethyst."</em>). That second-implementation note is the operative answer to <em>"how quickly would NIP-90 liveness spread if it lands?"</em> — the consumer of NIP-89 DVM announcements is already consuming the heartbeat within 48 hours of the PR opening.</p>
+<p>The PR is open. No merge in the window. The PR diff is one kind and one normative paragraph; the harder part is whether the spec text should say heartbeats are required or merely permitted, and whether clients that filter out dead machines should be required to disclose that filtering. Both are open questions in the PR conversation.</p>
+<h3 id="nip-ac-webrtc-signaling-pr-2461">NIP-AC WebRTC signaling: PR #2461</h3>
+<p><a href="https://github.com/nostr-protocol/nips/pull/2461" rel="noopener nofollow">NIP-AC</a> (WebRTC signaling for p2p connections, Named666, opened Sep 4, draft as of this writing) is the standardization proposal behind Amethyst 1.09.0's May 15 WebRTC calling (<a href="https://freedom.tech/posts/2026-05-15-amethyst-1-09-0/" rel="noopener nofollow">release</a>). The shape: rather than routing voice and video through a relay that can see the connection metadata, the WebRTC SDP exchange rides on the existing Nostr event surface (kinds, tags) and the media flows peer-to-peer once the SDP handshake completes.</p>
+<p>The NIP is draft. The implementation is in the consumer (Amethyst). The gap is the spec text that lets other clients interoperate with Amethyst's p2p calls — and the absence of the spec text is the reason Amethyst's calls are today Amethyst-only.</p>
+<p>The PR conversation has seven comments as of Sep 13 and no merge. The two-week window between PR #2461 opening (Sep 4) and PR #2465 opening (Sep 10) is the <em>standardization lag</em> — Amethyst shipped the consumer in May, the proposal to standardize it opened in September, and the second proposal (DVM liveness) opened within a week. This is the consumer-before-spec pattern that runs through Nostr development: a single client implements a feature, the spec text catches up later.</p>
+<h3 id="the-relay-side-correctness-thread">The relay-side correctness thread</h3>
+<p>The three independent stories this week — Citrine 3.1.1, relayer 2.2.19, NIP-90 #2465 — share a theme that was latent in the spec-text work of the previous fortnight:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Surface</th>
+<th>Class of bug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Citrine 3.1.1 NIP-42 fix</td>
+<td>local relay aggregator</td>
+<td>signature-verification bypass on auth events</td>
+</tr>
+<tr>
+<td>relayer 2.2.19 NIP-45 fix</td>
+<td>relay reference implementation</td>
+<td>interface missing for union-count correctness</td>
+</tr>
+<tr>
+<td>NIP-90 #2465 DVM heartbeat</td>
+<td>protocol layer</td>
+<td>liveness signaling missing for NIP-89 announcements</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two are code fixes and one is a protocol proposal. All three treat the relay hop as a correctness surface, and the fixes ship together because each was reported independently. The pattern: relays are now the bottleneck layer where spec text is interpreted, and the bugs that surface there are the bugs the spec text was supposed to prevent.</p>
+<p>The relay-side correctness story has been building across multiple weeks of this library. <a href="/briefings/identity/2026-08-23/">August 23</a> documented Amber 6.5.x's authorization-scope advisories (relay-auth confused deputy class). <a href="/briefings/identity/2026-08-30/">August 30</a> documented Cambium admission control for kind-22242 bursts. <a href="/briefings/identity/2026-09-06/">September 06</a> documented strfry 1.1.2's WebSocket continuation-frame DoS fix in vendored uWebSockets. This week adds the Citrine auth-bypass fix and the relayer COUNT-overlap fix. The relay hop is where the bugs are being closed — slowly, one release at a time, with second-implementation evidence from a different relay than the one that originally shipped the fix.</p>
+<h3 id="the-frozen-thread-nip-2434-33-days">The frozen thread: NIP #2434 +33 days</h3>
+<p>NIP #2434 (<a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">GitHub</a>, opened Aug 11 by ConorClancy89) — NIP-XX: Post-Quantum Identity Keys — is now 33 days frozen. The PR proposes standardizing the kind:10203 attestation that nostr-wot-extension 0.4.0 (Aug 16), NDK PR #713 (Aug 23), Gleez reference architecture (Aug 30), and Obelisk (Sep 4) all already ship.</p>
+<p>Last week's <a href="/briefings/identity/2026-09-06/">September 06 update</a> counted the days at 26. This week's count is 33. The window from 26 → 33 has no new comment on the PR — only fiatjaf's Aug 11 redirect to <a href="https://github.com/nostr-protocol/nips/issues/1971" rel="noopener nofollow">issue #1971</a> remains in the conversation.</p>
+<p>The structural argument the Sep 4 Nostr WoT piece made still stands: kind:10203 is a workaround for an identity layer that never declared its own algorithm, the workaround works, needs no relay changes, and should be replaced by something structural. The structural replacement would be a kind:0 field that survives client-side profile rebuilds — but most clients rebuild kind:0 from fields they know about, so a <code>pq_kem</code> field would silently vanish on the first profile edit. The kind:10203 attestation exists because the identity layer cannot host algorithm identifiers. Until either (a) the identity layer changes shape to host algorithm identifiers, or (b) clients stop rebuilding kind:0 from a fixed field list, the kind:10203 attestation is the only surface that holds.</p>
+<p>The plateau: 24 attestations published, no new ones in eight days. The plateau first held at 24 in the September 10 WoT update. The kind:10203 attestation is in the same shape that NIP-42's kind:22242 was in before NIP-78 added AUTH enforcement — a workaround that is correct as far as it goes, but which cannot become the protocol-level answer until the surrounding protocol changes.</p>
+<h3 id="the-institutional-quiet">The institutional quiet</h3>
+<p>For a second consecutive week, the institutional PGP layer has zero commits:</p>
+<ul>
+<li><strong>GnuPG</strong> — last commit Sep 2 (per <a href="/briefings/web-of-trust/2026-09-10/">September 10 WoT update</a>).</li>
+<li><strong>Sequoia</strong> — last commit Aug 31 (same).</li>
+<li><strong>PGPlib / netpgp / rnp</strong> — no movement.</li>
+<li><strong>Keyoxide / Keyoxide.io</strong> — no movement.</li>
+</ul>
+<p>The Nostr WoT ecosystem is similarly quiet:</p>
+<ul>
+<li><strong>nostr-wot-extension</strong> — main at v0.7.0 (Sep 9, per <a href="/briefings/web-of-trust/2026-09-10/">September 10 WoT update</a>); no new tag this week.</li>
+<li><strong>nostr-wot-extension v0.7.1</strong> — opened for LNURL on Sep 9 (same update); no merge in the window.</li>
+<li><strong>Nostr WoT newsroom</strong> — no new pieces this week; the September 10 update covered the v0.6.0/v0.7.0/v0.7.1 cluster.</li>
+<li><strong>Kind:10203 attestations</strong> — hold at 24 (no new attestations in the window; the August 31 stair-step did not repeat).</li>
+</ul>
+<p>The institutional quiet is the second consecutive week. The WoT update called it the same way last week. The pattern: when the relay hop and the spec text are the active surfaces, the institutional layer steps back. When the institutional layer is active (early August's Nostr Compass #34 kind:10203 stair-step, late August's nostr-wot 0.4.0), the spec text steps back. This week is the relay-hop week.</p>
+<h2 id="watch-list-updated">Watch List (Updated)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Source</th>
+<th>Status</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Citrine 3.1.1 — NIP-42 auth bypass fix</td>
+<td>github.com/greenart7c3/Citrine</td>
+<td><strong>Tagged Sep 11</strong></td>
+<td>kind-22242 events added without Schnorr signature verification; aggregator was marking connections authenticated as claimed pubkey. Per-connection subId scoping + NIP-45 COUNT</td>
+</tr>
+<tr>
+<td>relayer 2.2.19 — <code>FiltersCounter</code> interface</td>
+<td>github.com/fiatjaf/relayer</td>
+<td><strong>Tagged Sep 8</strong></td>
+<td>NIP-45 COUNT over overlapping filters was double-counting; new <code>CountEventsFilters</code> interface returns union count when storage backend opts in</td>
+</tr>
+<tr>
+<td>NIPs PR #2463 — NIP-A3 payment type ambiguity</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Merged Sep 9</strong></td>
+<td>alopatindev; one-sentence clarification: use payment URI <code>scheme</code> when <code>type</code> is ambiguous; bitcoin cash disambiguation as worked example</td>
+</tr>
+<tr>
+<td>NIPs PR #2465 — NIP-90 DVM heartbeat (kind 11998)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Open since Sep 10</strong></td>
+<td>believethehype; working impl in <code>believethehype/nostrdvm</code>; Amethyst second-implementation confirmation Sep 12</td>
+</tr>
+<tr>
+<td>NIPs PR #2461 — NIP-AC WebRTC signaling</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Draft since Sep 4</strong></td>
+<td>Named666; standardization of Amethyst 1.09.0's May 15 WebRTC calling</td>
+</tr>
+<tr>
+<td>Amethyst 1.15.1</td>
+<td>github.com/vitorpamplona/Amethyst</td>
+<td><strong>Tagged Sep 11</strong></td>
+<td>Android build break fixed; translation work</td>
+</tr>
+<tr>
+<td>Amber 6.6.3</td>
+<td>github.com/greenart7c3/Amber</td>
+<td><strong>Tagged Sep 9</strong></td>
+<td>start-on-boot ignored after updates; WorkManager crash on offline builds</td>
+</tr>
+<tr>
+<td>Amber 6.6.1</td>
+<td>github.com/greenart7c3/Amber</td>
+<td><strong>Tagged Sep 4</strong></td>
+<td>Permission-list parsing when permission lacks <code>kind</code>; signer requests return request id on rejection</td>
+</tr>
+<tr>
+<td>ngit-cli 3.0.0 / 3.0.1</td>
+<td>github.com/hoytech/ngit-cli</td>
+<td><strong>Tagged Sep 8 / Sep 10</strong></td>
+<td>Largest ngit release to date; 3.0.1 leaves managed files uncommitted for per-repo validation</td>
+</tr>
+<tr>
+<td>Damus TestFlight build/1337</td>
+<td>github.com/damus-io/damus</td>
+<td><strong>Tagged Sep 8</strong></td>
+<td>TestFlight build 1339; no changelog</td>
+</tr>
+<tr>
+<td>nostr-wot-extension v0.7.0</td>
+<td>github.com/nostr-wot/nostr-wot-extension</td>
+<td><strong>At v0.7.0 since Sep 9</strong></td>
+<td>Last week's release; v0.7.1 opened for LNURL Sep 9, no merge</td>
+</tr>
+<tr>
+<td>Kind:10203 attestation count</td>
+<td>nostr-wot.com/news</td>
+<td><strong>24 (no change)</strong></td>
+<td>Stair-step plateau holds; first held Sep 10</td>
+</tr>
+<tr>
+<td>NIP #2434 (PQ identity keys)</td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>33 days frozen</strong></td>
+<td>Up from 26 days last week; only fiatjaf's Aug 11 redirect comment</td>
+</tr>
+<tr>
+<td>GnuPG</td>
+<td>gnupg.org</td>
+<td><strong>Quiet since Sep 2</strong></td>
+<td>Second consecutive quiet week</td>
+</tr>
+<tr>
+<td>Sequoia</td>
+<td>sequoia-pgp.org</td>
+<td><strong>Quiet since Aug 31</strong></td>
+<td>Second consecutive quiet week</td>
+</tr>
+<tr>
+<td>"Post-quantum Nostr identities, from your seed where possible"</td>
+<td>nostr-wot.com/blog</td>
+<td><strong>Published Sep 4</strong></td>
+<td>Still the structural argument for kind 10203 standardization; no PR opened against it this week</td>
+</tr>
+<tr>
+<td>NIP-90 heartbeat (PR #2465)</td>
+<td>nostrdvm production</td>
+<td><strong>Running</strong></td>
+<td>believethehype/nostrdvm framework; 5-minute interval across multiple relays</td>
+</tr>
+<tr>
+<td>Amethyst NIP-90 second-implementation</td>
+<td>github.com/vitorpamplona/Amethyst</td>
+<td><strong>Confirmed Sep 12</strong></td>
+<td>"Now supported in Amethyst" comment on PR #2465</td>
+</tr>
+<tr>
+<td>Nostr Compass #38 (Sep 2)</td>
+<td>nostrcompass.org</td>
+<td><strong>Published</strong></td>
+<td>Last weekly digest; covers Voca 1.0, nostream DVM routing, NDK Dart, NIP-67/NIP-84 merges</td>
+</tr>
+<tr>
+<td><strong>New: NIP-90 heartbeat opt-in vs required debate</strong></td>
+<td>github.com/nostr-protocol/nips</td>
+<td><strong>Not yet open</strong></td>
+<td>The PR is opt-in by fiatjaf-style norm; the consumer (Amethyst) is already in</td>
+</tr>
+<tr>
+<td><strong>New: Citrine 3.1.1 advisory scope</strong></td>
+<td>freedom.tech / f-droid</td>
+<td><strong>Shipped Sep 11</strong></td>
+<td>Surface is local relay on Android; exposure is the user's own device, not the relay network</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sources-cross-references">Sources &amp; Cross-References</h2>
+<h3 id="primary-sources">Primary sources</h3>
+<ul>
+<li><a href="https://github.com/greenart7c3/Citrine/releases/tag/v3.1.1" rel="noopener nofollow">Citrine 3.1.1 release</a> (Sep 11, greenart7c3)</li>
+<li><a href="https://freedom.tech/posts/2026-09-11-citrine-3-1-1/" rel="noopener nofollow">Citrine 3.1.1 on Freedom.Tech</a> (Sep 11)</li>
+<li><a href="https://github.com/greenart7c3/Citrine/compare/v3.1.0...v3.1.1" rel="noopener nofollow">Citrine compare 3.1.0...3.1.1</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/42.md" rel="noopener nofollow">NIP-42 specification</a> — the spec text that Citrine 3.1.1 ships to comply with</li>
+<li><a href="https://github.com/fiatjaf/relayer/releases/tag/v2.2.19" rel="noopener nofollow">relayer 2.2.19 release</a> (Sep 8, fiatjaf)</li>
+<li><a href="https://github.com/fiatjaf/relayer/compare/v2.2.18...v2.2.19" rel="noopener nofollow">relayer compare 2.2.18...2.2.19</a> — two commits, three files</li>
+<li><a href="https://nostr-wot.com/news/relayer-2-2-19-fixes-overlapping-count-filters" rel="noopener nofollow">Nostr WoT newsroom: relayer 2.2.19 fixes overlapping COUNT filters</a> (Sep 8)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2463" rel="noopener nofollow">NIPs PR #2463 — NIP-A3: fix payment type ambiguity</a> (opened Sep 8 by alopatindev, merged Sep 9 by fiatjaf)</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2465" rel="noopener nofollow">NIPs PR #2465 — NIP-90: add optional DVM heartbeat event (kind 11998)</a> (opened Sep 10 by believethehype)</li>
+<li><a href="https://github.com/believethehype/nostrdvm" rel="noopener nofollow">believethehype/nostrdvm</a> — DVM framework with heartbeats in production</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2461" rel="noopener nofollow">NIPs PR #2461 — NIP-AC: WebRTC signaling for p2p connections</a> (opened Sep 4 by Named666, draft)</li>
+<li><a href="https://freedom.tech/posts/2026-09-11-amethyst-1-15-1/" rel="noopener nofollow">Amethyst 1.15.1 on Freedom.Tech</a> (Sep 11)</li>
+<li><a href="https://freedom.tech/posts/2026-09-09-amber-6-6-3/" rel="noopener nofollow">Amber 6.6.3 on Freedom.Tech</a> (Sep 9)</li>
+<li><a href="https://freedom.tech/posts/2026-09-04-amber-6-6-1/" rel="noopener nofollow">Amber 6.6.1 on Freedom.Tech</a> (Sep 4)</li>
+<li><a href="https://freedom.tech/posts/2026-09-08-ngit-cli-3-0-0/" rel="noopener nofollow">ngit-cli 3.0.0 on Freedom.Tech</a> (Sep 8)</li>
+<li><a href="https://freedom.tech/posts/2026-09-10-ngit-cli-3-0-1/" rel="noopener nofollow">ngit-cli 3.0.1 on Freedom.Tech</a> (Sep 10)</li>
+<li><a href="https://freedom.tech/posts/2026-09-08-damus/" rel="noopener nofollow">Damus build/1337 release</a> (Sep 8)</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-09-02-newsletter" rel="noopener nofollow">Nostr Compass #38 (Sep 2)</a> — last weekly digest</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2458" rel="noopener nofollow">NIP-78 PR #2458 — NIP-78 puts custom app data behind AUTH</a> — last week's context for Citrine 3.1.1</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/45.md" rel="noopener nofollow">NIP-45 specification</a> — the spec text that relayer 2.2.19 ships to comply with</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/89.md" rel="noopener nofollow">NIP-89 specification</a> — application handler discovery; the announcement half that PR #2465's heartbeat complements</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/90.md" rel="noopener nofollow">NIP-90 specification</a> — DVM job routing; the surface PR #2465 extends</li>
+</ul>
+<h3 id="related-weekly-updates">Related weekly updates</h3>
+<ul>
+<li><a href="/briefings/identity/2026-09-06/">Identity and Pseudonymity Sunday — September 06 2026 Weekly Update</a> — four-PR AUTH wave (NIP-67 hint, NIP-78 AUTH, NIP-84 i tags, NIP-01 limit:0); strfry 1.1.2 WebSocket-DoS fix; Leon Acosta + QuantaKrypto kind-10203-as-workaround writeup; NIP #2434 then 26 days frozen</li>
+<li><a href="/briefings/web-of-trust/2026-09-10/">Web of Trust Thursday — September 10 2026 Weekly Update</a> — nostr-wot-extension v0.6.0/v0.7.0/v0.7.1 cluster; kind:30385 collision with NIP-85; newsroom social-posting pipeline; kind:10203 plateau first held at 24; institutional quiet</li>
+<li><a href="/briefings/identity/2026-08-30/">Identity and Pseudonymity Sunday — August 30 2026 Weekly Update</a> — three-NIP block (NIP-22 deletion, NIP-30 kind-1111 emoji, NIP-A3 rewrite); Amethyst 1.14.0; Foundation Passport Nostr signer; Gleez PQ Nostr reference</li>
+<li><a href="/briefings/identity/2026-08-23/">Identity and Pseudonymity Sunday — August 23 2026 Weekly Update</a> — DCP refutation validates PQ identity keys; NDK second PQ DM implementation; Amber 6.5.x auth-scope advisories; Cambium 22242 admission control; Concord sharding merged</li>
+<li><a href="/briefings/identity/2026-08-16/">Identity and Pseudonymity Sunday — August 16 2026 Weekly Update</a> — nostr-wot-extension 0.4.0 ships PQ Nostr identity keys; World ID 4.0; LFDT Decentralized Trust Graph</li>
+<li><a href="/briefings/post-quantum/2026-09-05/">Post-Quantum Saturday — September 05 2026 Weekly Update</a> — ML-KEM draft-10 approved; ML-DSA-in-TLS appeal 59 days; SVP / WeaveTLS / McEliece; relevant context for NIP #2434</li>
+</ul>
+<h3 id="related-vault-files">Related vault files</h3>
+<ul>
+<li><a href="/kb/nostr-identity/">Nostr</a> — primary protocol reference; NIP-42, NIP-45, NIP-78, NIP-89, NIP-90, NIP-A3, NIP-AC all defined or referenced</li>
+<li><a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> — key-rooted identity architecture; <code>updated:</code> stamp is <em>this week</em></li>
+<li><a href="/kb/decentralized-identity/">Overview - Decentralized Identity</a> — formal DID/VC stack; companion file to the key-rooted lens</li>
+<li><a href="/kb/web-of-trust/">Overview - Web of Trust</a> — PGP and Nostr follow graphs; institutional quiet noted in <a href="/briefings/web-of-trust/2026-09-10/">September 10 WoT update</a></li>
+<li><a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a> — NIP-46 bunkers, Amber, Frostr/Bifrost, threshold signing, migration; Amber 6.6.x cadence is part of the operational hardening story</li>
+<li><a href="/kb/remote-signing/">Remote Signing</a> — NIP-46 bunker topologies; the third hardware path (Passport) lands here too</li>
+<li><a href="https://github.com/greenart7c3/Citrine" rel="noopener nofollow">Citrine</a> — Android local relay aggregator; 3.1.1 release is now the canonical version for NIP-42 signature verification</li>
+<li><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">Amber</a> — Android signer; 6.6.x cadence is bug-fix releases ahead of any feature release</li>
+<li><a href="https://github.com/vitorpamplona/amethyst" rel="noopener nofollow">Amethyst</a> — Android/iOS Nostr client; 1.15.1 is the current version; second-implementation evidence on NIP-90 PR #2465</li>
+<li><a href="https://github.com/soapbox-pub/ditto" rel="noopener nofollow">Ditto</a> — alexgleason's relay; second-implementation evidence for NIP-78 AUTH (last week); the NIP-78 enforcement that Citrine 3.1.1 prerequisites was already Ditto's posture</li>
+<li><a href="https://github.com/hoytech/strfry" rel="noopener nofollow">strfry</a> — hoytech's relay; 1.1.2 WebSocket-DoS fix is last week's relay-class fix; Citrine 3.1.1 is this week's</li>
+<li>relayer — fiatjaf's reference relay; 2.2.19 is the canonical version for NIP-45 union-count correctness</li>
+<li><a href="https://github.com/DanConwayDev/ngit-cli" rel="noopener nofollow">ngit-cli</a> — NIP-34 git tooling; 3.0.x is the current major</li>
+<li><a href="https://mostro.network" rel="noopener nofollow">Mostro</a> — NIP-69 P2P Bitcoin trading; 0.18.7 / 0.18.6 cadence is bug-fix release ahead of feature</li>
+<li><a href="https://damus.io" rel="noopener nofollow">Damus</a> — iOS Nostr client; TestFlight build/1337 is current; tagged-release cadence slowed</li>
+<li><a href="/kb/pubky/">Pubky</a> — Ed25519 + Mainline DHT (PKARR); the alternative identity architecture</li>
+<li><a href="/kb/verifiable-credentials/">Verifiable Credentials</a> — W3C VC 2.0, SD-JWT, BBS+, mDL, EU Digital Wallet</li>
+<li><a href="/kb/keri/">KERI</a> — Key Event Receipt Infrastructure</li>
+<li><a href="/kb/did-methods/">DID Methods</a> — did:nostr, did:pubky</li>
+<li><a href="/kb/marmot-protocol/">Marmot Protocol</a> — MLS over Nostr; NIP-104; relevant to NIP-AC WebRTC peer connections</li>
+<li>MDK — Rust Marmot development kit; Nostr Compass #34 cited it for convergence/recovery work</li>
+<li><a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a> — agent-as-keypair; NIP-90 DVM heartbeats are the liveness signal for agent-style DVMs</li>
+<li><a href="/pillars/pqc/">Migration Plan — PQ Encryption for Existing Nostr-Clients</a> — kind:10203 standardization; NIP #2434 still frozen at 33 days</li>
+<li><a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> — interop salt/info coordination problem; Nostr WoT pieces from <a href="/briefings/identity/2026-09-06/">Sep 06</a> anchor the structural argument</li>
+<li><a href="/guides/hybrid-kem-migration/">Cryptographic Agility</a> — new related concept worth a vault page; <em>"Put the algorithm identifier in the identity on day one"</em> is the line that anchors it</li>
+<li><a href="/kb/hardware-wallets/">Hardware Signers</a> — Heartwood, Amber, Passport are the canonical three</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/42.md" rel="noopener nofollow">NIP-42</a> — spec text for client authentication; the spec-conformance Citrine 3.1.1 ships to enforce</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/45.md" rel="noopener nofollow">NIP-45</a> — spec text for event counting; the spec text relayer 2.2.19 ships an interface addition for</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/78.md" rel="noopener nofollow">NIP-78</a> — spec text for application-specific data; the AUTH enforcement that the Citrine 3.1.1 fix enables</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/89.md" rel="noopener nofollow">NIP-89</a> — spec text for application handler discovery; the announcement half PR #2465 complements</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/90.md" rel="noopener nofollow">NIP-90</a> — spec text for DVM job routing; PR #2465 adds an optional liveness half</li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/A3.md" rel="noopener nofollow">NIP-A3</a> — spec text for payto URIs; PR #2463 is a one-sentence clarification</li>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIP-AC</a> — proposed spec text for WebRTC signaling; PR #2461 in draft</li>
+<li><a href="https://github.com/uNetworking/uWebSockets" rel="noopener nofollow">uWebSockets</a> — relay-side WebSocket stack; the strfry DoS fix landed in this vendored library ([Identity and Pseudonymity Sunday — September 06 2026 Weekly Update|Sept 06 update])</li>
+<li>FiltersCounter — new interface addition in relayer 2.2.19; the contract that storage backends opt into</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-09-06/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — September 06 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-09-20/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — September 20 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

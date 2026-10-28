@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — August 28 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-28: Nym Directory Contract — MERGED (Aug 21): The full stack documented as &#34;open PRs&#34; last week — #6933 (Directory.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-08-28/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — August 28 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-28: Nym Directory Contract — MERGED (Aug 21): The full stack documented as &#34;open PRs&#34; last week — #6933 (Directory.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-08-28/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — August 28 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — August 28 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-28: Nym Directory Contract — MERGED (Aug 21): The full stack documented as &#34;open PRs&#34; last week — #6933 (Directory.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — August 28 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-28: Nym Directory Contract — MERGED (Aug 21): The full stack documented as \"open PRs\" last week — #6933 (Directory.", "datePublished": "2026-08-28", "dateModified": "2026-08-28", "url": "https://ungovernable.tech/briefings/mix-networks/2026-08-28/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-08-28/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-28", "item": "https://ungovernable.tech/briefings/mix-networks/2026-08-28/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-08-28</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — August 28 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-28</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-28 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-28. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This edition is about <strong>shipping</strong>: the <a href="/kb/nym/">Nym</a> <strong>Directory Contract stack — all eight PRs — merged on August 21</strong>, converting last week's "architectural answer" from proposal to merged code; <a href="/kb/katzenpost/">Katzenpost</a> landed a <strong>seven-part replica-proxy congestion epic</strong> (self-tuning proxy sweep, undeliverable-request fail-fast, fatal-error-channel hardening); <a href="/kb/tor/">Tor</a>'s Rust rewrite <strong>Arti</strong> pushed a 40+-commit day on the <strong>dirauth plugin</strong> (compute-mds, flavored-consensus refactor) — the C-tor retirement path advancing in public; and the Tor Project published results of its <strong>first participatory quadratic-funding round</strong> ($174,536 distributed to 10 internet-freedom projects, with a quietly remarkable datum: <strong>Monero was 27% of donations and invisible to the public tracker</strong>). On research: <strong>DumboMix</strong> (ePrint 2026/1699) makes robust asynchronous anonymous broadcast practical, and two Sybil-resistant-identity papers (2026/1723, 2026/1725) land adjacent to this library's <a href="/kb/nostr-web-of-trust/">WoT</a> thread. Tor's network grew again: <strong>10,146 running relays</strong>.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Nym Directory Contract — MERGED (Aug 21)</strong>: The full stack documented as "open PRs" last week — #6933 (Directory Contract), #6936 (verifiable retrieval), #6948 (attested anchor), #7013 (node publishing) — plus companions <strong>#7004</strong> (checkpoint bootstrapping), <strong>#6954</strong> (Attestation Provider), <strong>#6941</strong> (TM Light Client anchor), <strong>#6949</strong> (nym-api public keys + proof-of-possession) — all merged the same day. On-chain, LtHash-verifiable node directory is now the shipped architecture, not the plan. The corporate-gating critique documented Aug 14 has its structural answer in main.</li>
+<li><strong>Nym hardening week</strong>: Replay window raised to <strong>8k following WireGuard</strong> and made configurable (PR #7103, merged Aug 27); <strong>HTTP domain rotation decoupled from domain fronting</strong> with recovery logic (PR #7105, open Aug 27 — censorship-resilience work); new <strong><code>nym-swizzle-zcash</code></strong> crate in the workspace (PR #7093, Aug 25) extending the Swizzle credential family to Zcash; integration documentation for per-endpoint routing of browsers/WebViews through the mixnet (PR #7089, merged Aug 25); <strong>Network Monitor v3</strong> per-kind scheduling/submission PRs (#7095, #7100).</li>
+<li><strong><a href="/kb/nym/">NymVPN</a> release train</strong>: v2026.12.1 (Aug 21) → <strong>v2026.12.2</strong> (Aug 25, all platforms except macOS) → <strong>v2026.12.3</strong> (Aug 27, restores macOS) — three client releases in seven days, with F-Droid APK signing-fingerprint verification documented in release notes.</li>
+<li><strong><a href="/kb/katzenpost/">Katzenpost</a> replica-proxy congestion epic</strong>: A 7-part series (umbrella #1091) reworking the replica proxy path: instrumentation (#1101), decoupled outgoing sends (#1098), fail-undeliverable-instead-of-retry-queue (#1100), gated read-repair + shutdown ordering (#1102), sweep sized to one ProxyRequestTimeout (#1103), and the proxy path <strong>documented as self-tuning</strong> (#1099). Plus: optionally <strong>persist mix keys on clean shutdown</strong> (#1081, merged), never-close-fatalErrCh (#1108), and a client-side proposal to <strong>agree on a PKI epoch instead of pinning one</strong> (#1105, open).</li>
+<li><strong>Arti dirauth maturation</strong>: 40+ commits on Aug 27 alone — the <strong>dirauth plugin gains <code>compute-mds</code></strong> (microdescriptor computation, with CTorAnnotated compatibility type), <code>FlavoredConsensus*</code> refactored to compile-time flavors with signature handling reworked, <code>oneshot_broadcast</code> promoted to tor-async-utils. Arti is building the authority side of the network, not just the client side.</li>
+<li><strong>Tor participatory funding results (Aug 17)</strong>: First quadratic-funding round closed — <strong>$201,481 total, $174,536 distributed</strong> to 10 projects (Onion Browser $111K top allocation; minimum $5K floor). 580 donors, 662 contributions, average $41. Donation split by value: <strong>52% BTC, 27% XMR, 13% ETH, 8% ZEC — and the Monero quarter was invisible to the public tracker</strong>, which showed only transparent chains (~$19,620 of ~$27,000). A clean natural experiment in why the mixnet-adjacent funding stack needs privacy by default.</li>
+<li><strong>Tor network</strong>: <strong>10,146 running relays</strong> (Aug 25 metrics snapshot) — 3,276 Exit, 6,246 Guard, 9,230 Stable, 5,512 HSDir. Third consecutive weekly increase from the ~9,000 DEF CON 34 baseline.</li>
+<li><strong>Research — DumboMix (ePrint 2026/1699, updated Aug 21)</strong>: Asynchronous anonymous broadcast with <strong>guaranteed output delivery</strong> under ≤⌊(n−1)/3⌋ Byzantine servers — MPC-based mixing over Shamir shares with O(1) multiplicative depth online, uniformly-shuffled-reveal proof. The Dumbo-family async-BFT lineage finally meets mixnet semantics.</li>
+<li><strong>Research — Sybil-resistant identity (adjacent)</strong>: <strong>De-SyRIS</strong> (2026/1723, decentralized Sybil-resistant identity <em>without trusted issuer</em>) and <strong>Proof-of-Uniqueness</strong> (2026/1725, threshold-OPRF Sybil-resistant pseudonymous DIDs) — both feed the <a href="/kb/proof-of-personhood/">Sybil resistance</a> thread that Cao &amp; Green's Nym paper made central to mixnet security.</li>
+<li><strong>Freedom-tech takeaway</strong>: All three production mixnets/anonymity networks shipped <em>infrastructure trust</em> work this week — Nym merged its decentralized directory, Katzenpost made its storage layer self-tuning and fail-safe, Arti built authority tooling in Rust. The pattern from the Aug 21 update (adoption + accountability) now has a third leg: <strong>boring, load-bearing maturity</strong>. The networks that survive are the ones that keep shipping.</li>
+</ul>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nym-directory-contract-from-open-prs-to-merged-architecture">Nym Directory Contract: From Open PRs to Merged Architecture</h3>
+<p>Last week's update documented the Directory Contract stack as four open PRs — an "architectural answer" to the corporate-centralization critique. As of <strong>August 21</strong>, the entire stack merged:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Title</th>
+<th>Merged</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6933" rel="noopener nofollow">#6933</a></td>
+<td>feat: Directory Contract</td>
+<td>2026-08-21</td>
+<td>The CosmWasm contract: on-chain source of truth for nym-node configuration</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6936" rel="noopener nofollow">#6936</a></td>
+<td>feat: Verifiable Directory Contract retrieval</td>
+<td>2026-08-21</td>
+<td>Off-chain retrieval + LtHash verification client</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6948" rel="noopener nofollow">#6948</a></td>
+<td>feat: Directory Client: Attested Anchor</td>
+<td>2026-08-21</td>
+<td>Client-side anchored attestation of directory contents</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6941" rel="noopener nofollow">#6941</a></td>
+<td>feat: Directory Client: TM Light Client Anchor</td>
+<td>2026-08-21</td>
+<td>Tendermint light-client anchoring (trust-minimized chain verification)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6954" rel="noopener nofollow">#6954</a></td>
+<td>feat: Directory Attestation Provider</td>
+<td>2026-08-21</td>
+<td>Server-side attestation provider</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7004" rel="noopener nofollow">#7004</a></td>
+<td>feat: Directory checkpoint bootstrapping</td>
+<td>2026-08-21</td>
+<td>Checkpoint-based bootstrapping of directory state</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/7013" rel="noopener nofollow">#7013</a></td>
+<td>feat: Directory node publishing</td>
+<td>2026-08-21</td>
+<td>Node-side push publishing of signed config</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nymtech/nym/pull/6949" rel="noopener nofollow">#6949</a></td>
+<td>feat: expose nym-api public keys + proof of possession</td>
+<td>2026-08-21</td>
+<td>API key exposure for verification of api-signed artifacts</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two additions to last week's table deserve emphasis. <strong>#6941 (TM Light Client Anchor)</strong> means directory consumers don't need to trust a full node — a Tendermint light client verifies the chain's directory state with minimal trust assumptions, the same pattern Cosmos chains use for wallet light-client verification. <strong>#7004 (checkpoint bootstrapping)</strong> addresses the cold-start problem: new clients can bootstrap directory state from checkpoints instead of replaying history — operationally essential if the on-chain directory is to be usable on day one for new nodes.</p>
+<p><strong>What changes</strong>: The Aug 14 critique — "one corporation gates the network" via directory control — now has a <em>shipped</em> structural counter: node existence, configuration, and topology are on-chain, ed25519-signed, and LtHash-verifiable by any consumer with a light client. A coerced or compromised Nym Technologies SA can no longer silently rewrite who the network is.</p>
+<p><strong>What still doesn't change</strong>: The Cao &amp; Green framing attack (ePrint 2026/101) lives in the <em>performance-measurement</em> layer, not the directory layer. Which nodes carry traffic — the active set — is still selected by the reputation machinery the paper showed is manipulable. The merged directory makes the roster verifiable; it does not make the <em>ranking</em> honest. That remains the open battleground, alongside credential issuance (coconut/Swizzle), which remains company-operated.</p>
+<p><strong>Primary sources</strong>: PR links above; merge dates from the nymtech/nym commit history (commits <code>feat: Directory Contract</code> through <code>feat: Directory node publishing</code>, all 2026-08-21).</p>
+<h3 id="nym-hardening-week-replay-windows-domain-rotation-swizzle-zcash">Nym Hardening Week: Replay Windows, Domain Rotation, Swizzle-Zcash</h3>
+<p>Beyond the merge event, the Nym repo shows a cluster of transport-resilience work:</p>
+<p><strong>Replay window → 8k, configurable (PR #7103, merged Aug 27)</strong>: The default replay-protection window for transport sessions was raised to <strong>8,192 bits, explicitly "following wireguard"</strong>, and made configurable for future changes. Replay windows are the anti-replay anchor for packet-counter-based schemes; sizing them matters for long-lived sessions with reordering. Following WireGuard's sizing is a sensible default-heritage choice — and the configurability means the constant is no longer baked in.</p>
+<p><strong>HTTP domain rotation decoupled from fronting (PR #7105, open Aug 27)</strong>: Reworks <code>http-api-client</code> so that <strong>rate-limit errors trigger host rotation without forcing domain fronting on</strong>, fronting policy is more configurable, and — notably — <strong>recovery logic can transition back from fronting-enabled to fronting-disabled</strong> instead of latching. This is censorship-resilience engineering in the classic Tor-bridges tradition: rotate endpoints when throttled, escalate to fronting only when needed, de-escalate when the direct path recovers. The PR description reads like operational experience with the API endpoints being rate-limited in practice.</p>
+<p><strong><code>nym-swizzle-zcash</code> (PR #7093, merged Aug 25)</strong>: A new crate in the workspace — the Swizzle credential family (Nym's coconut-derived blind-credential system) gains a Zcash-specific instantiation, with workspace dependencies reordered for publication. Combined with the existing <strong>Zcash Ironwood free-tier</strong> integration (Jul 27) documented in <a href="/kb/nym/">Nym</a>, the Zcash↔Nym relationship is deepening at the credential layer, not just the VPN-marketing layer. Watch this space: if Swizzle credentials become the issuance mechanism for ecosystem partners, the "credential issuance still company-operated" caveat gets its own architectural answer eventually.</p>
+<p><strong>Integration docs (PR #7089, merged Aug 25)</strong>: New guides for <strong>planning per-endpoint integrations and routing browser/WebView applications through the mixnet</strong>, with redirects from retired "retrofitting" pages. The docs are catching up to the integration wave (Edge, Peach) — lowering the cost of the <em>next</em> Peach.</p>
+<p><strong>Network Monitor v3 (#7095, #7100, open)</strong>: Per-kind scheduling and submission — the measurement infrastructure that feeds the reputation system is itself being reworked. Relevant given that measurement integrity is the open attack surface per Cao &amp; Green.</p>
+<p><strong>Also merged</strong>: #7099 (future link-protocol compatibility path), #7106 (nym-node config migration fix), #7107 (nym-api fixes making future re-DKG smoother — the re-DKG robustness thread from PR #7082 continues).</p>
+<h3 id="nymvpn-three-releases-in-seven-days">NymVPN: Three Releases in Seven Days</h3>
+<p>The client release train accelerated: <strong>v2026.12.1</strong> (Aug 21, full-platform including Windows installers and macOS pkg + iOS TestFlight), <strong>v2026.12.2</strong> (Aug 25, all platforms <em>except</em> macOS), <strong>v2026.12.3</strong> (Aug 27, <strong>restores macOS</strong>). The .3 release notes document the component set (<code>nym-vpnd</code> daemon, <code>nym-vpnc</code> CLI, <code>nym-socks5-proxy</code> for geo-exclusion routing, <code>nym-diagnostic</code>, <code>nym-setup</code>) and include the <strong>F-Droid APK signing-certificate SHA-256 fingerprint</strong> with <code>apksigner verify</code> instructions — release engineering hygiene consistent with a product that expects adversarial distribution-channel attacks.</p>
+<p>The cadence itself is the signal: weekly-ish client releases with platform gaps closed within days. This is the operational tempo of a consumer VPN product, not a research prototype.</p>
+<p><strong>Primary sources</strong>: <a href="https://github.com/nymtech/nym-vpn-client/releases" rel="noopener nofollow">https://github.com/nymtech/nym-vpn-client/releases</a> (tags <code>nym-vpn-v2026.12.1/2/3</code>).</p>
+<h3 id="katzenpost-the-replica-proxy-congestion-epic">Katzenpost: The Replica-Proxy Congestion Epic</h3>
+<p><a href="/kb/katzenpost/">Katzenpost</a> shipped its most substantial engineering push since resuming commits (Aug 14, per the Aug 21 update): a <strong>seven-part series reworking the replica proxy path</strong>, under umbrella issue <strong>#1091 "Replica proxy congestion"</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>PR</th>
+<th>Merged</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1101" rel="noopener nofollow">#1101</a></td>
+<td>2026-08-26</td>
+<td>Instrument the proxy path — measurement before optimization</td>
+</tr>
+<tr>
+<td>2</td>
+<td>(in #1098 series)</td>
+<td>—</td>
+<td>(see 4: decoupled sends)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1100" rel="noopener nofollow">#1100</a></td>
+<td>2026-08-26</td>
+<td><strong>Fail undeliverable proxy requests instead of retry-queuing</strong> — bounded memory, honest errors</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1098" rel="noopener nofollow">#1098</a></td>
+<td>2026-08-26</td>
+<td><strong>Decouple outgoing sends from replies</strong> — the proxy no longer blocks sends on reply state</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1102" rel="noopener nofollow">#1102</a></td>
+<td>open</td>
+<td>Gate read-repair on box-not-found + fix shutdown ordering</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1103" rel="noopener nofollow">#1103</a></td>
+<td>open</td>
+<td><strong>Size the proxy sweep to one ProxyRequestTimeout</strong> — the sweep self-limits</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/katzenpost/katzenpost/pull/1099" rel="noopener nofollow">#1099</a></td>
+<td>open</td>
+<td><strong>Document the proxy path as self-tuning</strong> — the design goal, stated</td>
+</tr>
+</tbody>
+</table></div>
+<p>Read together: the replica proxy (which mediates client access to the message-store replicas used for asynchronous mailbox delivery) had a congestion failure mode — undeliverable requests were retry-queued (unbounded work), sends and replies were coupled (head-of-line blocking), and sweeps weren't sized to timeouts (overload cascades). The epic fixes all three and then <em>documents the result as self-tuning</em> — a claim about steady-state behavior, not just a bug fix.</p>
+<p><strong>Supporting hardening in the same window</strong>:</p>
+<ul>
+<li><strong>#1108</strong> (merged Aug 26): replica/server/dirauth <strong>never close <code>fatalErrCh</code></strong> — closing a channel that multiple senders write to is a Go panic pattern; this removes a crash class from long-running federated deployments.</li>
+<li><strong>#1081</strong> (merged Aug 27): server <strong>optionally persists mix keys on clean shutdown</strong> — node operators can restart without re-keying, which matters for topology stability (re-keying on every restart churns the trust graph).</li>
+<li><strong>#1105</strong> (open Aug 26): client <strong>agrees on a PKI epoch instead of pinning one</strong> — clients that pin an epoch can desynchronize from consensus; agreeing on the current epoch is the robust pattern.</li>
+<li><strong>#1107</strong> (open Aug 26): docker port-architecture simplification — deployment ergonomics.</li>
+</ul>
+<p>The pattern matches last week's read ("operational maturity, not features") but escalates it: this is a codebase being prepared for <strong>federated deployments where operators restart nodes, replicas congest, and nothing should fall over</strong>. Katzenpost remains the mixnet design most explicitly built for the post-quantum, federated-authority future (<a href="/kb/katzenpost/">Katzenpost</a> pillar note).</p>
+<h3 id="arti-the-dirauth-plugin-grows-up">Arti: The Dirauth Plugin Grows Up</h3>
+<p>The Rust Tor implementation (<a href="/kb/tor/">Tor</a>'s successor path) had a 40+-commit day on <strong>August 27</strong>, dominated by <code>arti-dirauth</code> work:</p>
+<ul>
+<li><strong><code>compute-mds</code> implemented in the dirauth plugin</strong> — microdescriptor computation, the authority-side function that produces the mds consensus artifact clients consume. With the <code>CTorAnnotated</code> helper type for C-tor compatibility parsing, this is the plugin system (arti's mechanism for authority functionality to live outside the core) gaining the load-bearing consensus-generation path.</li>
+<li><strong><code>FlavoredConsensus*</code> refactor</strong>: <code>FlavoredConsensus</code> → <code>FlavoredConsensusBody</code> (compile-time flavor determination instead of runtime), new <code>FlavoredConsensusUnverified::sigs()</code> / <code>FlavoredConsensusSignatures</code> replacing the removed <code>signatories()</code>, <code>ItemStream::with_inner_lines_mut</code> in tor-netdoc. This is consensus <em>signature handling</em> — the authority-crypto surface — being rebuilt in safe Rust types.</li>
+<li><strong><code>oneshot_broadcast</code> promoted to tor-async-utils</strong> with doc tests and exhaustive <code>SenderDropped</code> — async infrastructure shared across the protocol stack.</li>
+<li><strong><code>always-on-flowctl-cgo</code></strong> merged — flow control for always-on onion services (the arti-side service model), continuing the CGO (client-guard... circuit) work noted in the Aug 7 update (arti 2.5.1's experimental CGO).</li>
+<li><code>FilenameOrStdio</code> reading support, <code>Nickname</code> accessors, <code>MicrodescError</code> error-kind integration — the long tail of a codebase being productionized.</li>
+</ul>
+<p>No arti release this week (2.5.1 from Aug 3 remains current), but the direction is unmistakable: <strong>arti is building the directory-authority side of the network</strong>. The C-tor 0.4.8 sunset (announced June, deadline September) and the Rust relay rewrite mentioned at DEF CON 34 both presuppose that arti can eventually run the authority functions. This week's commits are that presupposition being made concrete. The dirauth <em>plugin</em> architecture notably keeps authority logic modular — consistent with a future where authorities run hardened, minimal Rust binaries.</p>
+<h3 id="tor-participatory-funding-quadratic-funding-works-and-monero-was-invisible">Tor Participatory Funding: Quadratic Funding Works, and Monero Was Invisible</h3>
+<p>The Tor Project published results of its <strong>first participatory funding round</strong> (blog, Aug 17, "Funding internet freedom together"):</p>
+<ul>
+<li><strong>Totals</strong>: $201,481 raised; <strong>$174,536 distributed</strong> via quadratic funding to 10 projects; 15% overhead for campaign infrastructure.</li>
+<li><strong>Participation</strong>: 580 unique donors, 662 contributions, <strong>average donation $41</strong> — the QF design (many small donors → more match) visibly worked as intended.</li>
+<li><strong>Allocations</strong>: Onion Browser $111,119 (63.3% of the QF share — iOS Tor access, name recognition compounding), Unredacted $40,729, Osservatorio Nessuno $14,633, then a $5,000 floor each for Paskoocheh/ASL19, OpenArchive, SecureDrop, Ricochet Refresh, OONI, OnionShare, Miaan Group. The <strong>minimum-$5K threshold</strong> was an explicit design choice so every participant cleared meaningful support.</li>
+<li><strong>The Monero datum</strong>: donations arrived in BTC, ETH, ZEC, XMR, and GLM. By value: <strong>52% Bitcoin, 27% Monero, 13% Ethereum, 8% Zcash</strong>. But "Monero was invisible to the public tracker" — the public total showed only transparent chains (~$19,620 of ~$27,000 direct). A quarter of the community's support, invisible by design.</li>
+</ul>
+<p>Two readings matter for this library. First, <strong>funding-model resilience</strong>: the round was explicitly an experiment in de-risking the single-funder fragility exposed by the 2025 US policy shift (grants rescinded mid-contract). $200K is small against Tor's budget, but the <em>mechanism</em> — QF allocation, crypto-native donation rails, minimum floors — is now proven and repeatable. Second, <strong>the Monero invisibility is a natural experiment in transparent-chain measurement bias</strong>: any public tracker of crypto-denominated support undercounts privacy-coin users by construction. (The blog itself makes the point gently by reporting both numbers.) For <a href="/kb/nym/">Nym</a>'s economics thread and for any future Daemon-network funding mechanics, the lesson is concrete: if you want honest public accounting of community support, you must design for the invisible donors, not just report them anecdotally.</p>
+<p><strong>Primary source</strong>: <a href="https://blog.torproject.org/funding-internet-freedom-together/" rel="noopener nofollow">https://blog.torproject.org/funding-internet-freedom-together/</a> (Aug 17, 2026).</p>
+<h3 id="tor-network-metrics">Tor Network Metrics</h3>
+<p>From the metrics relayflags snapshot (Aug 25): <strong>10,146 running relays</strong> — up from 10,128 (Aug 18) and ~9,000 (DEF CON 34 baseline, early August). Exit 3,276, Guard 6,246, Stable 9,230, HSDir 5,512. The slow post-DEF CON growth continues; the Hetzner-concentration concern (Aug 14 update, ~20% of network) is unchanged pending fresh topology data.</p>
+<h3 id="research-dumbomix-and-the-sybil-resistance-pair">Research: DumboMix and the Sybil-Resistance Pair</h3>
+<p><strong>DumboMix: Robust Asynchronous Anonymous Broadcast Made Practical</strong> (ePrint <strong>2026/1699</strong>, Wei Tang, Hanwen Feng, Jiliang Li, Yuan Lu, Qiang Tang; last updated Aug 21):</p>
+<ul>
+<li><strong>What it is</strong>: A framework for <strong>asynchronous anonymous broadcast with guaranteed output delivery (robustness)</strong> — n servers privately solicit N client messages that remain secret until revealed in uniform random order, tolerating ≤⌊(n−1)/3⌋ Byzantine servers <em>and</em> unpredictable network delays (full asynchrony — no timing assumptions, the hardest setting).</li>
+<li><strong>How</strong>: Two mixing methods (DumboMix1/2) built on Shamir-secret-shared <strong>MPC over ℤₚ</strong>: online phase needs only <strong>O(1) multiplicative depth</strong>, expected O(N²) public×shared scalar multiplications, ≤ O(N) shared×shared multiplications. With a robust underlying MPC, all revealed inputs are provably uniformly shuffled.</li>
+<li><strong>Why it matters here</strong>: The Dumbo family (Dumbo-Ng, Dumbo-MVBA...) is the state of the art in asynchronous BFT; this paper grafts <strong>mixnet semantics (uniform random shuffle, secrecy until reveal)</strong> onto it. For this library's threads: it's the committee-based alternative to Katzenpost's dirauth-federated model — anonymous broadcast as an MPC service rather than a network layer. Relevant to anonymous messaging boards, whistleblowing drop boxes (the Ricochet Refresh / SecureDrop funding recipients above are the customer base for this primitive), and any federated system needing shuffled reveal without a trusted mixer. Successor to the Aug 21 update's Verifiable SelfMix (2026/1617) in the "anonymous publication" line.</li>
+<li><a href="https://eprint.iacr.org/2026/1699" rel="noopener nofollow">https://eprint.iacr.org/2026/1699</a></li>
+</ul>
+<p><strong>Adjacent — Sybil-resistant identity</strong> (cross-listed to the <a href="/kb/nostr-web-of-trust/">WoT</a> and <a href="/kb/proof-of-personhood/">PoP</a> threads):</p>
+<ul>
+<li><strong>De-SyRIS</strong> (ePrint <strong>2026/1723</strong>, Aug 18): decentralized Sybil-resistant identity system <strong>without a trusted credential issuer</strong> — directly relevant to both Nostr's key-based identity (no issuer at all) and Nym's coconut/Swizzle credentials (company issuer, decentralization open).</li>
+<li><strong>Proof-of-Uniqueness</strong> (ePrint <strong>2026/1725</strong>, Aug 18): Sybil-resistant privacy-preserving decentralized identity via <strong>threshold-OPRF</strong> — the same primitive family as World ID 4.0's OPRF design (covered in the Aug 16 Identity update) and Nym's coconut signatures (threshold blind signatures are dual to threshold ORFs).</li>
+</ul>
+<p>Both papers are evidence that the Cao &amp; Green "survivability dilemma" (open entry vs. attack resistance) is becoming a recognized <em>field</em> rather than a per-network headache — the prerequisite for mixnet reputation systems getting principled fixes.</p>
+<h3 id="quick-hits">Quick Hits</h3>
+<ul>
+<li><strong><a href="/kb/i2p/">I2P</a></strong>: Steady state, no release (2.13.0 from Jul 24 current; 2.14.0 targeted ~late October with SSU2-PQ). Week's commits: i2psnark <strong>KRPC DG1 message compression + UDP connect-request compression</strong> (Aug 26), close-all-RAFs file-handling fix (Aug 25), removal of ancient single-torrent/CLI code (Aug 24), and a new <strong><code>discardMessage()</code> I2CP session API</strong> (Aug 26) — client-protocol hygiene.</li>
+<li><strong><a href="/kb/hopr/">HOPR</a></strong>: Per-SSA deposit data in <code>SsaRequest</code> sourced from the deposit pool (Aug 27) — the PIX/payment-integration track continues; session teardown ERROR-spam fix (Aug 22).</li>
+<li><strong>Tor Browser / Tails</strong>: No new releases this week (15.0.20 / Tails 7.11 from Aug 18–19 remain current; alpha line holds at 16.0a9).</li>
+<li><strong>Snowflake Volunteer</strong>: No new version since 1.12 (Aug 10, 10 languages).</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directory Contract stack (8 PRs) merged</td>
+<td>Commit log: all <code>feat: Directory*</code> commits dated 2026-08-21</td>
+<td>github.com/nymtech/nym (commits, PRs #6933/#6936/#6941/#6948/#6949/#6954/#7004/#7013)</td>
+</tr>
+<tr>
+<td>Replay window → 8k (WireGuard-aligned)</td>
+<td>PR #7103 merged 2026-08-27, CodeRabbit summary confirms default 8,192 + configurability</td>
+<td>github.com/nymtech/nym/pull/7103</td>
+</tr>
+<tr>
+<td>Domain rotation decoupled from fronting</td>
+<td>PR #7105 body (open, 2026-08-27): rotation-on-rate-limit, no forced fronting, recovery path</td>
+<td>github.com/nymtech/nym/pull/7105</td>
+</tr>
+<tr>
+<td><code>nym-swizzle-zcash</code> crate added</td>
+<td>PR #7093 merged 2026-08-25</td>
+<td>github.com/nymtech/nym/pull/7093</td>
+</tr>
+<tr>
+<td>NymVPN 3 releases in 7 days</td>
+<td>Release tags 2026.12.1 (08-21), .2 (08-25), .3 (08-27)</td>
+<td>github.com/nymtech/nym-vpn-client/releases</td>
+</tr>
+<tr>
+<td>Katzenpost replica epic 7 parts</td>
+<td>PRs #1098–#1103 + #1099 under umbrella #1091; #1100/#1098/#1101/#1104/#1108 merged 08-26</td>
+<td>github.com/katzenpost/katzenpost</td>
+</tr>
+<tr>
+<td>Mix-key persistence on clean shutdown</td>
+<td>PR #1081 merged 2026-08-27</td>
+<td>github.com/katzenpost/katzenpost/pull/1081</td>
+</tr>
+<tr>
+<td>Arti dirauth <code>compute-mds</code> + consensus refactor</td>
+<td>40+ commits 2026-08-27 incl. <code>arti-dirauth: plugin: Implement compute-mds</code>, <code>FlavoredConsensusBody</code> rename</td>
+<td>gitlab.torproject.org/tpo/core/arti</td>
+</tr>
+<tr>
+<td>Tor QF round: $174,536 / 10 projects / 580 donors</td>
+<td>Blog "Funding internet freedom together" (2026-08-17)</td>
+<td>blog.torproject.org/funding-internet-freedom-together/</td>
+</tr>
+<tr>
+<td>Monero 27% of donations, invisible to tracker</td>
+<td>Same blog: "Monero was invisible to the public tracker, yet made up more than a quarter of the total"</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Tor 10,146 running relays</td>
+<td>relayflags.csv, 2026-08-25: Running 10146, Exit 3276, Guard 6246, Stable 9230, HSDir 5512</td>
+<td>metrics.torproject.org/relayflags.csv</td>
+</tr>
+<tr>
+<td>DumboMix async anonymous broadcast G.O.D.</td>
+<td>ePrint 2026/1699 abstract: ≤⌊(n−1)/3⌋ Byzantine, O(1) mult. depth, uniform shuffle</td>
+<td>eprint.iacr.org/2026/1699</td>
+</tr>
+<tr>
+<td>Sybil-resistant identity papers</td>
+<td>ePrint 2026/1723 (De-SyRIS), 2026/1725 (Proof-of-Uniqueness)</td>
+<td>eprint.iacr.org/2026/1723, /1725</td>
+</tr>
+<tr>
+<td>I2P i2psnark compression + I2CP API</td>
+<td>Commits 2026-08-24/25/26</td>
+<td>github.com/i2p/i2p.i2p</td>
+</tr>
+</tbody>
+</table></div>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-08-21/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — August 21 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-09-04/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — September 04 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

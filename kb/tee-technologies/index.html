@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TEE Technologies: SGX, TDX, SEV-SNP and Friends — ungovernable.tech</title>
+<meta name="description" content="Intel SGX and TDX, AMD SEV-SNP, Arm TrustZone and CCA, and other TEEs compared: isolation models, attestation and known weaknesses.">
+<link rel="canonical" href="https://ungovernable.tech/kb/tee-technologies/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="TEE Technologies: SGX, TDX, SEV-SNP and Friends — ungovernable.tech">
+<meta property="og:description" content="Intel SGX and TDX, AMD SEV-SNP, Arm TrustZone and CCA, and other TEEs compared: isolation models, attestation and known weaknesses.">
+<meta property="og:url" content="https://ungovernable.tech/kb/tee-technologies/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TEE Technologies: SGX, TDX, SEV-SNP and Friends — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TEE Technologies: SGX, TDX, SEV-SNP and Friends — ungovernable.tech">
+<meta name="twitter:description" content="Intel SGX and TDX, AMD SEV-SNP, Arm TrustZone and CCA, and other TEEs compared: isolation models, attestation and known weaknesses.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "TEE Technologies: SGX, TDX, SEV-SNP and Friends", "description": "Intel SGX and TDX, AMD SEV-SNP, Arm TrustZone and CCA, and other TEEs compared: isolation models, attestation and known weaknesses.", "dateModified": "2026-04-25", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/tee-technologies/", "mainEntityOfPage": "https://ungovernable.tech/kb/tee-technologies/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "TEE Technologies: SGX, TDX, SEV-SNP and Friends", "item": "https://ungovernable.tech/kb/tee-technologies/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">TEE Technologies: SGX, TDX, SEV-SNP and Friends</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>TEE Technologies: SGX, TDX, SEV-SNP and Friends</h1>
+  <p class="aka">Also TEE Deep Dive, enclave architecture.</p>
+  <p class="dek">Detailed technical analysis of the major Trusted Execution Environment architectures.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-04-25</b></span>
+    <span><b>9</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#1-the-problem-data-in-use">1. The problem: data in use</a><a href="#2-intel-software-guard-extensions-sgx">2. Intel Software Guard Extensions (SGX)</a><a href="#3-amd-secure-encrypted-virtualization-sev">3. AMD Secure Encrypted Virtualization (SEV)</a><a href="#4-intel-trust-domain-extensions-tdx">4. Intel Trust Domain Extensions (TDX)</a><a href="#5-arm-confidential-compute-architecture-cca">5. Arm Confidential Compute Architecture (CCA)</a><a href="#6-comparison-matrix">6. Comparison matrix</a><a href="#7-cloud-provider-offerings">7. Cloud provider offerings</a><a href="#8-attack-surface-and-mitigations">8. Attack surface and mitigations</a><a href="#9-implementation-considerations">9. Implementation considerations</a><a href="#10-further-reading">10. Further reading</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Confidential computing protects data while it is being processed. That is the gap left after at-rest and in-transit encryption. The mechanism is the Trusted Execution Environment (TEE): a hardware enclave that isolates a computation from the rest of the system (OS, hypervisor, cloud provider).</p>
+<p>This document walks through the major TEE designs in technical detail.</p>
+<h2 id="1-the-problem-data-in-use">1. The problem: data in use</h2>
+<p>Traditional encryption protects data in two states:
+- At rest: storage encryption (AES-256, LUKS, TDE).
+- In transit: TLS/SSL on the network.</p>
+<p>The gap is data in use. While the CPU is working on it, plaintext sits in RAM. That exposes sensitive workloads to:
+- Malicious cloud providers or hypervisors.
+- Row hammer and cold-boot attacks.
+- Malicious insiders with physical access.
+- Software vulnerabilities in the host OS.</p>
+<p>Confidential computing addresses this by creating hardware-protected enclaves where data is decrypted only for authorized code running inside the TEE.</p>
+<h2 id="2-intel-software-guard-extensions-sgx">2. Intel Software Guard Extensions (SGX)</h2>
+<h3 id="overview">Overview</h3>
+<p>Intel SGX is the first modern confidential-computing technology, introduced in 2015 with 6th-Generation Core processors (Skylake). It provides fine-grained enclave protection at the application level.</p>
+<h3 id="architecture">Architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                User Space                          │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐        │
+│  │Regular │    │ Enclave │    │Regular │        │
+│  │ App A  │    │ (SGX)   │    │ App B  │        │
+│  └─────────┘    └─────────┘    └─────────┘        │
+│        │             │             │               │
+│        └──────┬──────┘────────────┘               │
+│               ▼                                    │
+│  ┌─────────────────────────────────────────┐     │
+│  │       Operating System (Untrusted)       │     │
+│  └─────────────────────────────────────────┘     │
+│                      │                            │
+│  ┌─────────────────────────────────────────┐     │
+│  │     System Firmware / BIOS (Untrusted)  │     │
+│  └─────────────────────────────────────────┘     │
+│                      ▼                             │
+│  ┌─────────────────────────────────────────┐     │
+│  │    Processor Reserved Memory (PRM)      │     │
+│  │  ┌─────────────���─────────────────────┐  │     │
+│  │  │    Enclave Page Cache (EPC)         │  │     │
+│  │  │  Encrypted Memory Regions          │  │     │
+│  │  └───────────────────────────────────┘  │     │
+│  └─────────────────────────────────────────┘     │
+│                      ▼                            │
+│  ┌─────────────────────────────────────────┐     │
+│  │         CPU (Trusted)                   │     │
+│  │   Memory Encryption Engine (MEE)       │     │
+│  └─────────────────────────────────────────┘     │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="key-components">Key components</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EPC (Enclave Page Cache)</strong></td>
+<td>Specialized memory region in DRAM for encrypted enclave pages</td>
+</tr>
+<tr>
+<td><strong>EPCM (EPC Map)</strong></td>
+<td>Metadata table inside CPU tracking enclave pages</td>
+</tr>
+<tr>
+<td><strong>MEE (Memory Encryption Engine)</strong></td>
+<td>Hardware block that encrypts/decrypts EPC contents</td>
+</tr>
+<tr>
+<td><strong>Enclave Mode</strong></td>
+<td>CPU execution mode granting special memory access semantics</td>
+</tr>
+<tr>
+<td><strong>MRENCLAVE</strong></td>
+<td>Measurement hash identifying enclave code + data</td>
+</tr>
+<tr>
+<td><strong>REPORT Key</strong></td>
+<td>Key for generating attestation reports</td>
+</tr>
+<tr>
+<td><strong>SEAL Key</strong></td>
+<td>Key for encrypting data to persist outside enclave</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="new-cpu-instructions">New CPU instructions</h3>
+<ul>
+<li><code>EINIT</code>: initialize and launch an enclave.</li>
+<li><code>EENTER</code>: transfer control into the enclave.</li>
+<li><code>EEXIT</code>: exit the enclave.</li>
+<li><code>EADD</code>: add pages to an enclave.</li>
+<li><code>EEXTEND</code>: extend the enclave measurement (256-byte chunks).</li>
+<li><code>EREMOVE</code>: remove pages from the enclave.</li>
+<li><code>EGETKEY</code>: derive sealing or attestation keys.</li>
+<li><code>EREPORT</code>: create an attestation report for another enclave.</li>
+</ul>
+<h3 id="security-properties">Security properties</h3>
+<ul>
+<li>Memory encryption: EPC contents are encrypted by the MEE using keys burned into the CPU.</li>
+<li>Access control: the CPU blocks all memory access to EPC except from an enclave running in enclave mode.</li>
+<li>Isolation: even privileged software (OS, hypervisor, SMM) cannot read enclave memory.</li>
+<li>Attestation: remote parties can verify the enclave's identity via signed reports.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Small enclave size: EPC is limited to roughly 256MB on most CPUs (128MB max).</li>
+<li>No virtualization: SGX cannot run a full OS; application-level only.</li>
+<li>Page swap limitations: EPC pages can be swapped but require special handling.</li>
+<li>Attack surface: smaller than VM-level solutions but with fewer features.</li>
+<li>Side-channel vulnerabilities: Spectre, L1TF, Foreshadow attacks.</li>
+</ul>
+<h3 id="use-cases">Use cases</h3>
+<ul>
+<li>Cryptographic key management.</li>
+<li>Secure authentication.</li>
+<li>Database query processing on sensitive data.</li>
+<li>AI model inference on private data.</li>
+<li>Blockchain privacy (transaction validation).</li>
+</ul>
+<h2 id="3-amd-secure-encrypted-virtualization-sev">3. AMD Secure Encrypted Virtualization (SEV)</h2>
+<h3 id="evolution">Evolution</h3>
+<p>AMD's confidential computing has gone through several generations:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Year (first ship)</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SEV</strong></td>
+<td>2017 (Naples / Zen 1)</td>
+<td>Memory encryption per VM</td>
+</tr>
+<tr>
+<td><strong>SEV-ES</strong></td>
+<td>2019 (Rome / Zen 2)</td>
+<td>+ Encrypted register state</td>
+</tr>
+<tr>
+<td><strong>SEV-SNP</strong></td>
+<td>2021 (Milan / Zen 3)</td>
+<td>+ Secure Nested Paging (integrity protection via RMP)</td>
+</tr>
+<tr>
+<td><strong>SEV-SNP Ciphertext Hiding</strong></td>
+<td>2024 (Turin / Zen 5)</td>
+<td>Hides ciphertext from hypervisor reads (defense vs CipherLeaks-style attacks)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sev-architecture">SEV architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                   Hypervisor (Untrusted)                │
+│  ┌─────────────────────────────���─��──────────────────┐ │
+│  │           VMs with encrypted memory              │ │
+│  │  ┌─────────────┐   ┌─────────────┐               │ │
+│  │  │  VM 1 (SEV) │   │  VM 2 (SEV) │               │ │
+│  │  │  Key: K1    │   │  Key: K2    │               │ │
+│  │  └─────────────┘   └─────────────┘               │ │
+│  └──────────────────────────────────────────────────┘ │
+│                         │                              │
+│  ┌──────────────────────────────────────────────────┐ │
+│  │      System BIOS / AMD-V (Untrusted)             │ │
+│  └──────────────────────────────────────────────────┘ │
+│                         ▼                             │
+│  ┌──────────────────────────────────────────────────┐ │
+│  │      AMD EPYC CPU (Encrypted Memory Engine)     │ │
+│  │   Per-VM encryption keys, isolated address spaces│ │
+│  └──────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="sev-vs-sev-es-vs-sev-snp">SEV vs SEV-ES vs SEV-SNP</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>SEV</th>
+<th>SEV-ES</th>
+<th>SEV-SNP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Memory encryption</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>Register encryption</strong></td>
+<td>—</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>Integrity protection</strong></td>
+<td>—</td>
+<td>—</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>Data replay prevention</strong></td>
+<td>—</td>
+<td>—</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>Malicious hypervisor</strong></td>
+<td>Partial</td>
+<td>Partial</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>Side-channel protection</strong></td>
+<td>—</td>
+<td>—</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sev-snp-security-properties">SEV-SNP security properties</h3>
+<ol>
+<li>Confidentiality: each VM has a unique encryption key; the hypervisor cannot read VM memory.</li>
+<li>Integrity: the RMP (Reverse Map Table) prevents memory remapping attacks. The hypervisor cannot remap a guest physical page to a different host page without invalidating the integrity check.</li>
+<li>Attestation: SNP provides hardware-attested launch certificates.</li>
+<li>Migration: supports secure live migration between hosts.</li>
+</ol>
+<h3 id="advantages-over-sgx">Advantages over SGX</h3>
+<ul>
+<li>Full VM isolation: can run entire operating systems.</li>
+<li>Larger workloads: no enclave size limits.</li>
+<li>Standard virtualization: works with KVM, VMware, Hyper-V.</li>
+<li>Multi-vCPU support: scales across multiple cores.</li>
+</ul>
+<h3 id="limitations_1">Limitations</h3>
+<ul>
+<li>AMD-only: only available on EPYC processors (Zen 2+).</li>
+<li>Hypervisor trust: assumes hypervisor cooperation (though SNP mitigates).</li>
+<li>Performance overhead: ~1-5% latency for encrypted memory operations.</li>
+<li>Live migration: more complex than non-confidential VMs.</li>
+</ul>
+<h2 id="4-intel-trust-domain-extensions-tdx">4. Intel Trust Domain Extensions (TDX)</h2>
+<h3 id="overview_1">Overview</h3>
+<p>Intel TDX, introduced in 2022, provides VM-level confidential computing. It is designed for cloud environments that need full OS isolation, complementing rather than replacing SGX.</p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Confidential VMs: full virtual machines with encrypted memory.</li>
+<li>TDX Module: a new CPU mode for managing confidential VMs.</li>
+<li>TD-Shield: memory encryption and isolation.</li>
+<li>Flexibility: supports both enumerated and flex-attestation.</li>
+</ul>
+<h3 id="architecture_1">Architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│              Virtual Machine Monitor               │
+│                    (VMM - Untrusted)               │
+└��────────────────────────────────────────────────────┘
+                         │
+              ┌────────┴────────┐
+              │   TDX Module     │
+              │   (CPU mode)     │
+              └────────┬────────┘
+                         │
+┌─────────────────────────────────────────────────────┐
+│              Confidential VMs (TD)                 │
+│  ┌─────────────┐   ┌─────────────┐   ┌──────────┐ │
+│  │   TD 1      │   │   TD 2      │   │  TD N    │ │
+│  └─────────────┘   └─────────────┘   └──────────┘ │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="comparison-with-sgx">Comparison with SGX</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>SGX</th>
+<th>TDX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Isolation Level</strong></td>
+<td>Enclave (app)</td>
+<td>VM</td>
+</tr>
+<tr>
+<td><strong>Memory Limit</strong></td>
+<td>~256MB</td>
+<td>No practical limit</td>
+</tr>
+<tr>
+<td><strong>Full OS Support</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Good</td>
+<td>Good</td>
+</tr>
+<tr>
+<td><strong>Migration</strong></td>
+<td>Complex</td>
+<td>Supported</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-arm-confidential-compute-architecture-cca">5. Arm Confidential Compute Architecture (CCA)</h2>
+<h3 id="overview_2">Overview</h3>
+<p>Arm CCA, introduced with the Armv9-A architecture (2021), builds on TrustZone and adds Realm execution: a new security world for confidential computing.</p>
+<h3 id="trustzone-cca-evolution">TrustZone -&gt; CCA evolution</h3>
+<pre><code>TrustZone (Armv8):
+┌─────────────────────────────────────┐
+│     Normal World (Rich OS)          │
+├─────────────────────────────────────┤
+│         Secure World (TEE)         │
+│    (Static, immutable partitions)  │
+└─────────────────────────────────────┘
+
+Armv9 CCA:
+┌─────────────────────────────────────┐
+│     Normal World (Rich OS/VM)       │
+├─────────────────────────────────────┤
+│         Secure World (TEE)          │
+├─────────────────────────────────────┤
+│      NEW: Realm World               │
+│   (Dynamic, confidential VMs)     │
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="key-components_1">Key components</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Realm</strong></td>
+<td>Secure execution environment for confidential VMs</td>
+</tr>
+<tr>
+<td><strong>RME (Realm Management Extension)</strong></td>
+<td>Hardware extensions enabling CCA</td>
+</tr>
+<tr>
+<td><strong>RMM (Realm Management Monitor)</strong></td>
+<td>Firmware managing Realm lifecycle</td>
+</tr>
+<tr>
+<td><strong>Realm(world)</strong></td>
+<td>New physical address space inaccessible to NS/Secure worlds</td>
+</tr>
+<tr>
+<td><strong>GPA (Granule Protection Analog)</strong></td>
+<td>Hardware mechanism protecting Realm memory</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="security-model">Security model</h3>
+<ul>
+<li>Realm Management Monitor (RMM): small TCB firmware that mediates all Realm operations.</li>
+<li>Hyp switch: hypervisor requests become RMM calls rather than direct hardware access.</li>
+<li>Dynamic allocation: Realms can grow and shrink memory dynamically.</li>
+<li>Attestation: RMM provides secure attestation of Realm state.</li>
+</ul>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>Full VM support: runs entire OSes in Realms.</li>
+<li>Hardware-verified monitor: RMM in verified ARM assembly.</li>
+<li>Performance: uses VHE (Virtualization Host Extension) for minimal overhead.</li>
+<li>Ecosystem: builds on the TrustZone ecosystem.</li>
+</ul>
+<h2 id="6-comparison-matrix">6. Comparison matrix</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Intel SGX</th>
+<th>AMD SEV-SNP</th>
+<th>Intel TDX</th>
+<th>Arm CCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Isolation Level</strong></td>
+<td>Application</td>
+<td>VM</td>
+<td>VM</td>
+<td>VM</td>
+</tr>
+<tr>
+<td><strong>Granularity</strong></td>
+<td>Enclave</td>
+<td>Full VM</td>
+<td>Confidential VM</td>
+<td>Realm</td>
+</tr>
+<tr>
+<td><strong>Max Memory</strong></td>
+<td>~256MB</td>
+<td>No limit</td>
+<td>No limit</td>
+<td>No limit</td>
+</tr>
+<tr>
+<td><strong>Multi-tenancy</strong></td>
+<td>Multiple enclaves</td>
+<td>Multiple VMs</td>
+<td>Multiple VMs</td>
+<td>Multiple Realms</td>
+</tr>
+<tr>
+<td><strong>Full OS Support</strong></td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Encryption Key</strong></td>
+<td>Per-enclave</td>
+<td>Per-VM</td>
+<td>Per-VM</td>
+<td>Per-Realm</td>
+</tr>
+<tr>
+<td><strong>Integrity Protection</strong></td>
+<td>MEE</td>
+<td>RMP (SEV-SNP)</td>
+<td>TD-MR (TDX)</td>
+<td>RMM attestation</td>
+</tr>
+<tr>
+<td><strong>Attestation</strong></td>
+<td>Local/Remote</td>
+<td>SNP reports</td>
+<td>TD quote</td>
+<td>RMM attestation</td>
+</tr>
+<tr>
+<td><strong>Processor</strong></td>
+<td>Intel (6th gen Skylake+; client-deprecated 11th gen)</td>
+<td>SEV: Zen 1+ (Naples 2017); SEV-SNP: Zen 3+ (Milan 2021)</td>
+<td>Intel 5th gen Xeon (Emerald Rapids GA)</td>
+<td>Armv9 (C1+)</td>
+</tr>
+<tr>
+<td><strong>Performance Overhead</strong></td>
+<td>1-10%</td>
+<td>1-5%</td>
+<td>1-5%</td>
+<td>1-3%</td>
+</tr>
+<tr>
+<td><strong>Cloud Support</strong></td>
+<td>Azure, GCP</td>
+<td>AWS, Azure, GCP</td>
+<td>GCP, Azure</td>
+<td>Coming</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="when-to-use-each">When to use each</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Recommended TEE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cryptographic key handling</td>
+<td>Intel SGX</td>
+</tr>
+<tr>
+<td>Database query processing</td>
+<td>Intel SGX or SEV-SNP</td>
+</tr>
+<tr>
+<td>Full VM isolation</td>
+<td>SEV-SNP or TDX or CCA</td>
+</tr>
+<tr>
+<td>Cloud-native workloads</td>
+<td>SEV-SNP (Azure, AWS)</td>
+</tr>
+<tr>
+<td>Mobile/Edge</td>
+<td>Arm TrustZone/CCA</td>
+</tr>
+<tr>
+<td>Blockchain validators</td>
+<td>SGX or SEV-SNP</td>
+</tr>
+<tr>
+<td>AI model inference</td>
+<td>SEV-SNP (confidential GPU)</td>
+</tr>
+<tr>
+<td>Enterprise cloud</td>
+<td>SEV-SNP or TDX</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-cloud-provider-offerings">7. Cloud provider offerings</h2>
+<h3 id="aws-nitro-enclaves">AWS Nitro Enclaves</h3>
+<ul>
+<li>Uses the Nitro hypervisor (custom).</li>
+<li>Provides isolated execution environments.</li>
+<li>VPC-attached encrypted containers.</li>
+<li>No dedicated hardware TEE; relies on the Nitro security model.</li>
+</ul>
+<h3 id="azure-confidential-computing">Azure Confidential Computing</h3>
+<ul>
+<li>Intel SGX: DCsv2, DCsv3, DCdsv2 VMs.</li>
+<li>AMD SEV-SNP: DCasv5 / ECasv5 / DCadsv5 series.</li>
+<li>Intel TDX: DCesv5 / ECesv5 series (distinct from the SEV-SNP DCasv5).</li>
+<li>Attestation: Microsoft Azure Attestation (MAA).</li>
+</ul>
+<h3 id="google-cloud-confidential-vms">Google Cloud Confidential VMs</h3>
+<ul>
+<li>AMD SEV (legacy): N2D, C2D.</li>
+<li>AMD SEV-SNP: N2D (Milan, GA June 2024) and newer.</li>
+<li>Intel TDX: C3 (Sapphire Rapids), preview/GA depending on region.</li>
+<li>NVIDIA H100 CC: A3 Confidential (preview as of late 2025).</li>
+<li>Confidential Space: container-based enclaves.</li>
+<li>Customer-managed encryption keys with Cloud KMS.</li>
+</ul>
+<h3 id="comparison-matrix">Comparison matrix</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>SGX</th>
+<th>SEV-SNP</th>
+<th>TDX</th>
+<th>Arm CCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AWS</strong></td>
+<td>Nitro Enclaves</td>
+<td>✓ (EC2)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Azure</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓ (preview)</td>
+</tr>
+<tr>
+<td><strong>Google</strong></td>
+<td>—</td>
+<td>✓</td>
+<td>✓</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-attack-surface-and-mitigations">8. Attack surface and mitigations</h2>
+<h3 id="known-attacks">Known attacks</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Target</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Speculative execution</strong> (Spectre)</td>
+<td>SGX</td>
+<td>Microcode updates, side-channel resistant code</td>
+</tr>
+<tr>
+<td><strong>Side channels</strong> (timing)</td>
+<td>All TEEs</td>
+<td>Constant-time implementations</td>
+</tr>
+<tr>
+<td><strong>Row hammer</strong></td>
+<td>SGX</td>
+<td>EPC page swapping, refresh rates</td>
+</tr>
+<tr>
+<td><strong>L1TF</strong> (Foreshadow)</td>
+<td>SGX</td>
+<td>BIOS updates, hypervisor patches</td>
+</tr>
+<tr>
+<td><strong>Malicious hypervisor</strong></td>
+<td>SEV</td>
+<td>SEV-SNP integrity protection</td>
+</tr>
+<tr>
+<td><strong>Cold boot attacks</strong></td>
+<td>All</td>
+<td>Memory encryption at rest</td>
+</tr>
+<tr>
+<td><strong>Firmware attacks</strong></td>
+<td>All</td>
+<td>TCB verification, measured boot</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="defense-layers">Defense layers</h3>
+<ol>
+<li>Hardware root of trust: keys burned into the CPU.</li>
+<li>Secure boot chain: verify firmware before execution.</li>
+<li>Attestation: prove TCB state to remote parties.</li>
+<li>Encryption: all data at rest inside the TEE.</li>
+<li>Isolation: no direct hardware access from untrusted software.</li>
+</ol>
+<h3 id="best-practices">Best practices</h3>
+<ul>
+<li>Use the latest TEE generation (SEV-SNP &gt; TDX &gt; SGX).</li>
+<li>Keep TCB updated.</li>
+<li>Combine multiple TEE generations for defense in depth.</li>
+<li>Use constant-time code to prevent timing attacks.</li>
+</ul>
+<h2 id="9-implementation-considerations">9. Implementation considerations</h2>
+<h3 id="for-developers">For developers</h3>
+<ol>
+<li>Pick a TEE: SGX for fine-grained, SEV/TDX/CCA for full VMs.</li>
+<li>Minimize TCB: only put sensitive code in the enclave.</li>
+<li>Design for attestation: plan how to verify enclave identity.</li>
+<li>Handle secrets carefully: never log or expose them.</li>
+<li>Test side-channel resistance: use constant-time patterns.</li>
+<li>Use a library OS (Gramine, Occlum) for running unmodified apps.</li>
+</ol>
+<h3 id="for-infrastructure">For infrastructure</h3>
+<ol>
+<li>Hardware selection: ensure the CPU supports the required TEE.</li>
+<li>Firmware updates: keep CPU microcode current.</li>
+<li>Secure boot: enable measured/verified boot.</li>
+<li>Key management: use hardware-backed key storage.</li>
+<li>Monitoring: log TEE operations for audit.</li>
+<li>Attestation service: set up remote-attestation services for verification.</li>
+</ol>
+<h3 id="recommended-frameworks">Recommended frameworks</h3>
+<ul>
+<li>Gramine: library OS for running unmodified apps in SGX.</li>
+<li>Occlum: memory-safe OS for SGX enclaves.</li>
+<li>Kata Containers: VM-based containers with TEE.</li>
+<li>Confidential Containers (CoCo): Kubernetes integration.</li>
+<li>Marblerun: CoCo orchestrator for Kubernetes.</li>
+</ul>
+<h2 id="10-further-reading">10. Further reading</h2>
+<ul>
+<li><a href="https://confidentialcomputing.io" rel="noopener nofollow">Confidential Computing Consortium</a></li>
+<li><a href="https://software.intel.com/sgx" rel="noopener nofollow">Intel SGX Developer Guide</a></li>
+<li><a href="https://www.amd.com/sev-snp" rel="noopener nofollow">AMD SEV-SNP Specification</a></li>
+<li><a href="https://developer.arm.com/cca" rel="noopener nofollow">Arm CCA Architecture</a></li>
+<li><a href="https://cloudsecurityalliance.org/research/topics/confidential-computing" rel="noopener nofollow">Cloud Security Alliance - Confidential Computing</a></li>
+<li><a href="https://gramineproject.io/" rel="noopener nofollow">Gramine Project</a></li>
+<li><a href="https://occlum.io/" rel="noopener nofollow">Occlum</a></li>
+</ul>
+<p><em>Part of the Ungovernable.tech knowledge base. Last updated: April 2026</em></p>
+<p>Continue with <a href="/kb/tee-state-and-revocation/">TEE state, recovery and revocation</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/tee-state-and-revocation/">
+  <span class="nm">TEE state, recovery and revocation</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/verifying-a-confidential-workload/">
+  <span class="nm">Verifying a confidential workload</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=TEE%20Technologies%3A%20SGX%2C%20TDX%2C%20SEV-SNP%20and%20Friends" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Detailed technical analysis of the major Trusted Execution Environment architectures.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

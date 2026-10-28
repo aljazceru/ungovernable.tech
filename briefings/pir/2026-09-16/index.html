@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — September 16 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-16: IT-2-server PIR communication lower bound: 5 → 6 — ePrint 2026/1959, submitted 2026-09-10, approved 2026-09-13.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-09-16/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — September 16 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-16: IT-2-server PIR communication lower bound: 5 → 6 — ePrint 2026/1959, submitted 2026-09-10, approved 2026-09-13.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-09-16/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — September 16 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — September 16 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-16: IT-2-server PIR communication lower bound: 5 → 6 — ePrint 2026/1959, submitted 2026-09-10, approved 2026-09-13.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — September 16 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-16: IT-2-server PIR communication lower bound: 5 → 6 — ePrint 2026/1959, submitted 2026-09-10, approved 2026-09-13.", "datePublished": "2026-09-16", "dateModified": "2026-09-16", "url": "https://ungovernable.tech/briefings/pir/2026-09-16/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-09-16/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-16", "item": "https://ungovernable.tech/briefings/pir/2026-09-16/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-09-16</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — September 16 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-16</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-16 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-16. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The seven-day window between the September 9 and September 16 sweeps saw <strong>four new ePrint papers</strong> spanning the full PIR stack: a foundational lower bound (Keewoo Lee / Ethereum Foundation lifts the 20-year IT-2-server bound from 5·log n to (6−o(1))·log n), a 2× throughput improvement on InsPIRe (ReinsPIRe, Google / Columbia / Waterloo), a new silent-preprocessing PIR based on NTRU rather than RLWE (NTPIR, Ant Group, <strong>CCS 2026</strong> accepted), and a DNS-tailored single-server PIR that outperforms all previous schemes on communication (DNSPIR, RHUL / NTNU, <strong>PoPETS'27</strong> accepted). SandwichPIR repo remains static at 2 stars with no new commits since the Aug 28 ePrint snapshot; the new Keewoo Lee lower bound is the clearest signal that <strong>the canonical IT-2-server construction has been formally closed for nearly three decades of tightening attempts</strong> and that further deployment wins must come from the single-server LWE/FHE side.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+<li><strong>IT-2-server PIR communication lower bound: 5 → 6</strong> — <a href="https://eprint.iacr.org/2026/1959" rel="noopener nofollow">ePrint 2026/1959</a>, submitted 2026-09-10, approved 2026-09-13. <strong>Keewoo Lee (Ethereum Foundation)</strong>, Berkeley PhD and VeriSimplePIR (S&amp;P 2026) co-author. The bound lifts Wehner–de Wolf (ICALP 2005) from 5·log n to (6−o(1))·log n. Proof follows the quantum route but with a sharper readout: real-valued outcome whose mean is the correct answer instead of a binary outcome with small bias toward correct; pays only the second moment instead of the inverse square of the bias. The same technique drops the linearity assumption in the Goldreich–Karloff–Schulman–Trevisan (CCC 2002) bounds "almost for free". <strong>This is a foundational tightening — the 5·log n bound has stood since 2005</strong>; every 2-server PIR construction is now formally below the optimum by at least one full log factor.</li>
+<li><strong>ReinsPIRe: 2× throughput over InsPIRe (S&amp;P 2026)</strong> — <a href="https://eprint.iacr.org/2026/1934" rel="noopener nofollow">ePrint 2026/1934</a>, submitted 2026-09-08. <strong>Mahdavi / Patel / Seo / Yeo (Google, Columbia, Waterloo)</strong> — same team as InsPIRe. <strong>5.9 GB/s/server-core</strong> throughput (2× InsPIRe), achieved by letting most server FHE ops avoid NTT polynomial encodings entirely (moduli natively supported by modern hardware, smaller cryptographic material). Two applications packaged: <strong>(a)</strong> in-storage PIR with external SSD — 3.3× better throughput; <strong>(b)</strong> <strong>vReinsPIRe</strong> verifiable PIR — smallest online communication cost + ~50× smaller long-term client storage vs prior low-comm verifiable PIR (VeriSimplePIR / UC VPIR). <strong>The most consequential single-server PIR throughput result since InsPIRe's own publication, and it lands 5 months later in the same author's stack.</strong></li>
+<li><strong>NTPIR: silent-preprocessing PIR on NTRU</strong> — <a href="https://eprint.iacr.org/2026/1910" rel="noopener nofollow">ePrint 2026/1910</a>, submitted 2026-09-07, accepted <strong>CCS 2026</strong> (DOI <a href="https://doi.org/10.1145/3830454.3846680" rel="noopener nofollow">10.1145/3830454.3846680</a>). <strong>Zhihao Li / Cheng Hong (Ant Group)</strong>. Three new techniques: <strong>(1) Pack-then-switch</strong> — ring packing in RLWE domain, single key switch to NTRU, yielding single-element packed intermediates (vs RLWE ring packing as the bottleneck in prior silent-preprocessing PIR); <strong>(2) Split-point picking</strong> — collapses automorphism complexity from linear to √N; <strong>(3) FFT-based polynomial mult + approximate gadget decomposition</strong> with concrete correctness error ≤ 2⁻⁴⁰. <strong>Up to 1.81× server-side online speedup vs InsPIRe⁽²⁾ (S&amp;P'26)</strong> on 1–8 GB databases; <strong>7–41× faster preprocessing</strong> at 8 GB. At highest-throughput config: <strong>8,609 MB/s on 8 GB = 1.38× InsPIRe⁽²⁾, 1.8× SimpleYPIR, 2.0× HintlessPIR.</strong> <strong>First high-throughput PIR to make NTRU competitive with RLWE for the silent-preprocessing pipeline.</strong> The trade-off: NTRU lacks RLWE's public-randomness component, which the Pack-then-switch technique recovers.</li>
+<li><strong>DNSPIR: PIR optimized for private DNS</strong> — <a href="https://eprint.iacr.org/2026/1872" rel="noopener nofollow">ePrint 2026/1872</a>, submitted 2026-09-02, accepted <strong>PoPETS'27 (minor revision)</strong>. <strong>Lea Nürnberger / Simon Pohmann / Mattia Veroni / Christian Weinert (RHUL + NTNU)</strong>. New RLWE-based matrix-vector multiplication algorithm: <strong>no NTT-friendly plaintext moduli required, single key-switching key, significantly lower noise growth</strong>. On a 2-billion-entry database (≈ all domains worldwide): <strong>~80 KB communication per query, &lt;5 s server computation — outperforms all prior PIR on communication cost</strong> (only slightly increased runtime). End-to-end iterative DNS across three nameservers: sub-second lookups in small settings; <strong>264 KB total for a full .com resolution, &lt;5 s</strong> — practical for selective use during privacy-sensitive browsing. <strong>First PIR with comm cost below 100 KB at 2⁹-entry scale; bridges the gap between research PIR and a DoH/QNAME-minimisation-style deployment.</strong></li>
+<li><strong>SandwichPIR repo</strong>: static — <a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a> still at <strong>2 stars, 2 commits total</strong>, last <code>eprint</code> commit 2026-08-28. <strong>No commits in the window</strong>, 19 days since the Aug 28 reference commit, 17 days since the Aug 26 <code>release</code> commit. The reference implementation is mature (matches paper numbers; rodeo L40S tensor-core backend; wikipedia/ artifact; full Sweep.py harness) but adoption is glacially slow — the repo isn't trending in any aggregator and hasn't attracted external forks or issues. <strong>The Sep 9 sweep flagged 2 stars and Sep 16 confirms it hasn't moved.</strong> Compare OpenMined/PIR at <strong>46 stars, 11 watchers</strong> (stale but better-known); vectorized_batchpir at 13 stars. SandwichPIR's low visibility despite being the highest-impact PIR paper of 2026 is a real adoption problem for the GPU-PIR niche — likely because the hardware dependency (CUDA 12.4 + L40S) is a deployment moat.</li>
+<li><strong>Kohaku</strong>: <strong>401 stars</strong> (up from ~395 across the window), 81 forks, <strong>no PIR-tagged PRs in the search filter</strong> (the Sep 2 sweep's PR #271 <code>anon-rpc</code> provider backend remains the most recent PIR-adjacent wire-up). Repo is now at 215 commits on <code>master</code>, with the dominant activity being PQ-account, Railgun / 4337 mempool integration, and wallet-SDK plumbing per the Sep 13 identity sweep. <strong>The PIR layer in Kohaku remains TEE+ORAM, with PIR as the longer-term target — consistent with the HackMD roadmap and Vitalik's 2026 privacy-roadmap framing in the Sep 11 Cryptoslate piece.</strong></li>
+</ol>
+<h2 id="lead-story-keewoo-lee-closes-a-20-year-lower-bound-hunt">Lead Story — Keewoo Lee Closes a 20-Year Lower-Bound Hunt</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/1959" rel="noopener nofollow">Information-theoretic two-server PIR requires (6−o(1))·log n bits of communication</a> |
+||<strong>Author</strong>: <strong>Keewoo Lee</strong>, Ethereum Foundation (Berkeley PhD 2024) |
+||<strong>Submitted</strong>: 2026-09-10 |
+||<strong>Approved</strong>: 2026-09-13 |
+||<strong>ePrint ID</strong>: 2026/1959 |
+||<strong>Category</strong>: Foundations |
+||<strong>Category note</strong>: this is the only Foundations-tagged PIR paper of the cycle — every other Sept submission is in Cryptographic Protocols or Applications |</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Bound</th>
+<th>Year</th>
+<th>Authors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4·log n</td>
+<td>1998</td>
+<td>Mann (M.Sc. thesis)</td>
+</tr>
+<tr>
+<td>4.4·log n</td>
+<td>2003</td>
+<td>Kerenidis–de Wolf (STOC)</td>
+</tr>
+<tr>
+<td><strong>5·log n</strong></td>
+<td><strong>2005</strong></td>
+<td><strong>Wehner–de Wolf (ICALP)</strong> — <em>stood for 20 years</em></td>
+</tr>
+<tr>
+<td><strong>5.7·log n</strong></td>
+<td>2026 (May)</td>
+<td><a href="https://eprint.iacr.org/2026/846" rel="noopener nofollow">2026/846</a> prior step (per Sep 9 sweep notes)</td>
+</tr>
+<tr>
+<td><strong>(6−o(1))·log n</strong></td>
+<td><strong>2026 (Sep 10)</strong></td>
+<td><strong>Keewoo Lee — this paper</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Why the bound matters concretely</strong>: every information-theoretic 2-server PIR scheme to date (Chor–Gilboa–Naor, Beimel–Ishai–Malkin CRYPTO 2000, Dvir–Gopi JACM 2016, Henzinger–Ragavan EUROCRYPT 2026 sublinear-time, the Beimel–Ishai line on preprocessing) is <strong>at least one full log factor away from the new bound</strong>, even though Dvir–Gopi's O(n^{1/3}) scheme is asymptotically tight up to constants. The Lee bound raises the bar on <strong>information-theoretic</strong> communication; it does <strong>not</strong> affect the computational LWE/FHE-based single-server family (ReinsPIRe, NTPIR, InsPIRe, YPIR, SimplePIR), which doesn't approach log n communication in any case.</p>
+<p><strong>The trick (compact)</strong>: prior quantum-route proofs encoded the database in a quantum state, read out a binary outcome with small bias toward the correct answer, and amplified. Lee lets the outcome be <strong>real-valued</strong> with mean equal to the correct answer; amplification now pays only the <strong>second moment</strong>, not the inverse square of the bias. The same readout also drops the linearity assumption in Goldreich–Karloff–Schulman–Trevisan (CCC 2002) "almost for free".</p>
+<p><strong>Why this is structurally important</strong>: the lower-bound community has been trying to close this gap since 2005. The Henzinger–Ragavan EUROCRYPT 2026 construction (Aug 5 sweep) achieves <strong>n^{1−Ω(1)} server time</strong> but communication is n^{0.31}·poly(λ) — still super-logarithmic. The new Lee bound says: no IT-2-server scheme can do better than 6·log n communication. So either (a) you accept computational hardness (LWE/RLWE/NTRU/Ring-LPN) and break the IT-PIR ceiling, or (b) you accept IT-PIR but pay O(n^{1/3}) (Dvir–Gopi) or worse communication. <strong>The choice is fundamental to deployment architecture.</strong></p>
+<p><strong>Keewoo Lee's track record (Berkeley CV)</strong>:
+- VeriSimplePIR (S&amp;P 2026) — verifiable PIR with small client storage, Mayank Rathee + Raluca Ada Popa
+- USENIX Security 2026 — Bypassing Prompt Guards in Production (with Fairoze / Garg / Wang)
+- EDCON 2024 — Oblivious Message Retrieval for ZCash
+- MPC &amp; FHE Residency at PSE Team (Ethereum Foundation), Tokyo, Jul 2024
+- Currently <strong>Ethereum Foundation</strong> (contact email: keewoo.lee@ethereum.org)</p>
+<p><strong>The Ethereum Foundation affiliation is the deployment tell</strong>: VeriSimplePIR is the small-client-storage PIR that Kohaku has been positioned to use; Lee's lower-bound work <strong>tightens the IT-2-server ceiling that Kohaku's "use two non-colluding Helios light clients" pattern would hit</strong>. The Foundation is mapping the deployment envelope from both sides: how low can IT-2-server go (answer: 6 log n), and how low can single-server computational go (ReinsPIRe / NTPIR / SandwichPIR race).</p>
+<h2 id="story-2-reinspire-doubles-inspire-throughput-adds-verifiable-variant">Story 2 — ReinsPIRe Doubles InsPIRe Throughput, Adds Verifiable Variant</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/1934" rel="noopener nofollow">ReinsPIRe: High-Throughput, Low-Communication PIR with Server Preprocessing</a> |
+||<strong>Authors</strong>: Rasoul Akhavan Mahdavi (Google / Waterloo), Sarvar Patel (Google), Joon Young Seo (Google), Kevin Yeo (Google / Columbia) |
+||<strong>Submitted</strong>: 2026-09-08 |
+||<strong>ePrint ID</strong>: 2026/1934 |
+||<strong>Category</strong>: Cryptographic protocols |</p>
+<p>The ReinsPIRe–InsPIRe pipeline (same team, 5 months apart) is now the <strong>dominant single-server PIR stack on Google Cloud</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Throughput (server-core)</th>
+<th>Communication</th>
+<th>Hint/Cryptographic material</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>InsPIRe</strong> (S&amp;P 2026)</td>
+<td>~3 GB/s/server-core</td>
+<td>Low (one extra ciphertext client→server)</td>
+<td>5× smaller keys vs prior</td>
+</tr>
+<tr>
+<td><strong>ReinsPIRe</strong> (Sep 8)</td>
+<td><strong>5.9 GB/s/server-core (2×)</strong></td>
+<td>Same as InsPIRe</td>
+<td><strong>Smaller cryptographic material</strong> (most server FHE ops avoid NTT)</td>
+</tr>
+<tr>
+<td>NTPIR (Sep 7)</td>
+<td>8,609 MB/s on 8 GB</td>
+<td>Same as InsPIRe</td>
+<td>Single-element NTRU packed</td>
+</tr>
+<tr>
+<td>YPIR (USENIX 2024)</td>
+<td>12.1 GB/s/core on 32 GB</td>
+<td>2.5 MB total</td>
+<td>Highest absolute throughput</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The architectural win</strong>: prior InsPIRe/FHE-PIR schemes encode everything via NTT polynomial representation. ReinsPIRe lets most server-side operations run as <strong>plain matrix multiplication on hardware-native moduli</strong> — no NTT round-trips. The polynomial mult for the small remaining operations still uses matrix multiplication. Result: drastically smaller memory bandwidth pressure + 2× throughput. <strong>This is the same family of engineering wins that SandwichPIR rodeo and YPIR SimplePIR/FHE pipelines already exploit; ReinsPIRe applies them to the CRS-model preprocessing family that InsPIRe pioneered.</strong></p>
+<p><strong>vReinsPIRe</strong>: ReinsPIRe also ships a verifiable variant. <strong>Smallest online communication cost among verifiable PIRs + ~50× smaller long-term client storage vs prior low-comm verifiable PIR</strong>. Comparable to VeriSimplePIR (S&amp;P 2026, Rathee/Lee/Popa) on comm; much smaller storage footprint.**</p>
+<p><strong>The in-storage PIR variant</strong>: when the database is too large for RAM and lives on SSD, <strong>3.3× better throughput than prior work</strong> because the smaller cryptographic material reduces the per-query I/O. Realistic for ≥ 100 GB databases where in-memory PIR is impractical.</p>
+<p><strong>Deployment picture</strong>: ReinsPIRe lands 5 months after InsPIRe (S&amp;P 2026) and explicitly improves it. It does <strong>not</strong> supersede SandwichPIR (which is the GPU-tensor-core extreme) or YPIR (the highest-throughput absolute); it sits in the <strong>CPU high-throughput + small comm + server-side preprocessing</strong> niche alongside InsPIRe and <strong>2× ahead of it</strong>.</p>
+<h2 id="story-3-ntpir-first-high-throughput-silent-preprocessing-pir-on-ntru">Story 3 — NTPIR: First High-Throughput Silent-Preprocessing PIR on NTRU</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/1910" rel="noopener nofollow">NTPIR: Efficient Silent-Preprocessing PIR using NTR</a> |
+||<strong>Authors</strong>: <strong>Zhihao Li, Cheng Hong (Ant Group)</strong> |
+||<strong>Submitted</strong>: 2026-09-07 |
+||<strong>ePrint ID</strong>: 2026/1910 |
+||<strong>Category</strong>: Applications |
+||<strong>Publication info</strong>: <strong>Accepted at CCS 2026</strong> (DOI <a href="https://doi.org/10.1145/3830454.3846680" rel="noopener nofollow">10.1145/3830454.3846680</a>) |</p>
+<p>NTPIR addresses the <strong>silicon-level question</strong>: can you replace RLWE with NTRU in the silent-preprocessing pipeline without losing throughput?</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tradeoff</th>
+<th>RLWE</th>
+<th>NTRU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public randomness component</td>
+<td>✓ (required by offline/online split)</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Ciphertext size</td>
+<td>Multi-element</td>
+<td>Single ring element</td>
+</tr>
+<tr>
+<td>Ring packing overhead</td>
+<td><strong>Primary bottleneck</strong></td>
+<td>None</td>
+</tr>
+</tbody>
+</table></div>
+<p>NTPIR's contribution is the <strong>Pack-then-switch</strong> technique: ring packing happens in the RLWE domain, then <strong>one key switch</strong> translates to NTRU. The single key switch costs less than the RLWE public-randomness overhead. <strong>Result</strong>: single-element packed intermediates + NTRU's natural compactness + split-point picking to fold second-layer column selection into response packing.</p>
+<p><strong>Numbers</strong> (8 GB database, highest-throughput config):
+- 8,609 MB/s server throughput
+- <strong>1.38× InsPIRe⁽²⁾</strong>, <strong>1.8× SimpleYPIR</strong>, <strong>2.0× HintlessPIR</strong>
+- 7–41× faster preprocessing than InsPIRe⁽²⁾
+- Up to 1.81× online speedup vs InsPIRe⁽²⁾
+- Concrete correctness error ≤ 2⁻⁴⁰</p>
+<p><strong>Split-point picking</strong> is the second independent contribution: instead of performing automorphisms per packed second-layer input (linear complexity), split-point picking integrates the selection with the packing (√N complexity). This is the structural change; the NTRU switch is the engineering change.</p>
+<p><strong>Why Ant Group cares</strong>: Cheng Hong is the <strong>Director of Cryptography and Privacy Research at Ant Group</strong>; Ant Group has been the dominant industrial deployer of LWE/RLWE-based PIR-style primitives for <strong>Antchain private transactions</strong> (and Alipay privacy-preserving computation since the Alibaba Gemini Lab era). NTPIR's CCS 2026 acceptance is the clearest signal yet that <strong>NTRU-based PIR will enter production deployment in a Chinese fintech stack</strong> within 12 months.</p>
+<p><strong>Architectural position</strong>: NTPIR's headline throughput (8.6 GB/s) is <strong>below YPIR's 12.1 GB/s/core on 32 GB</strong> but <strong>above InsPIRe⁽²⁾ at smaller databases</strong>. The NTRU ciphertext compactness makes NTPIR preferable for <strong>network-bandwidth-bound</strong> deployments; the absolute throughput makes it competitive with <strong>compute-bound</strong> InsPIRe⁽²⁾.</p>
+<h2 id="story-4-dnspir-first-pir-with-100-kb-comm-at-2-billion-entries">Story 4 — DNSPIR: First PIR With &lt;100 KB Comm at 2 Billion Entries</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/1872" rel="noopener nofollow">DNSPIR: Private Information Retrieval Optimized for Privacy-Preserving DNS Lookups</a> |
+||<strong>Authors</strong>: Lea Nürnberger, Simon Pohmann (RHUL), Mattia Veroni (NTNU), Christian Weinert (RHUL) |
+||<strong>Submitted</strong>: 2026-09-02 |
+||<strong>ePrint ID</strong>: 2026/1872 |
+||<strong>Category</strong>: Cryptographic protocols |
+||<strong>Publication info</strong>: <strong>Accepted at PoPETS'27</strong> (minor revision) |</p>
+<p>DNSPIR is the first PIR paper to take the <strong>specific workload of DNS resolution</strong> and tailor the matrix-vector multiplication algorithm to it. The DNS workload has unusual properties: small record size (~1 KB for most answers, even with DNSSEC/NSEC), very large database (2 billion+ entries — the entire authoritative zone), and <strong>iterative resolution</strong> across multiple nameservers (root → TLD → authoritative).</p>
+<p><strong>Key technical contributions</strong>:
+- New RLWE-based matrix-vector multiplication algorithm that <strong>does not require NTT-friendly plaintext moduli</strong> (the constraint that bounded NTTlessPIR, InsPIRe, and ReinsPIRe).
+- <strong>Single key-switching key</strong> instead of multiple (lower noise growth, smaller material).
+- <strong>Significantly lower noise growth</strong> than prior RLWE matrix-vector mult methods.</p>
+<p><strong>End-to-end numbers</strong>:
+- Single 2-billion-entry database: <strong>~80 KB comm per query, &lt;5 s server computation</strong>.
+- <strong>Outperforms all prior PIR on communication</strong> at this scale (vs ReinsPIRe / NTPIR / InsPIRe / SimplePIR / YPIR — all of which are in the 100s of KB to MB range for comparable DB sizes).
+- Slightly increased runtime vs the fastest schemes — DNSPIR trades ~2× server compute for ~10× comm reduction.
+- Iterative DNS across 3 nameservers: <strong>&lt;5 s, 264 KB total</strong> for resolving a <code>.com</code> domain; sub-second for smaller zones.</p>
+<p><strong>Deployment realism</strong>: "Practical when used selectively for privacy-sensitive browsing activities" is the authors' framing. The 264 KB / 5 s budget is impractical for every DNS query but reasonable for <strong>selective resolution of sensitive names</strong> (e.g. resolving Tor hidden-service descriptors, fetching DNSSEC-signed zone cuts for certificate transparency). This is the <strong>first cryptographic-private-DNS scheme that competes with the QNAME-minimisation / DoH3 ( Oblivious DoH over Tor) approach on communication</strong>, with much stronger privacy guarantees (the server doesn't learn the queried name).</p>
+<p><strong>Why RHUL/NYT (the Weinert group)</strong> matters: Christian Weinert co-authored OPPW25 (Okada–Player–Pohmann–Weinert, EUROCRYPT 2025) on algebraic homomorphic encryption for doubly-efficient PIR. The Fheanor library (<a href="https://eprint.iacr.org/2025/864" rel="noopener nofollow">ePrint 2025/864</a>) is the same group's work — DNSPIR likely uses an early version. The lineage is "doubly-efficient PIR → FHE library optimized for algebraic HE → PIR optimized for DNS" — a textbook example of a research line maturing into deployment-shape artifacts.</p>
+<p><strong>Position vs existing private-DNS work</strong>:
+- Tor + DoH: network-layer privacy, server sees queries in plaintext
+- Oblivious DoH (ODoH, Oblivious DoH over Tor): hides client IP from DoH server, server sees query in plaintext
+- Query minimization (QNAME minimization): reduces info per query but server still sees the suffix
+- <strong>DNSPIR</strong>: server sees nothing about the queried name — strongest privacy, first scheme with comm under 100 KB</p>
+<h2 id="story-5-ecosystem-staleness-velocity-check">Story 5 — Ecosystem Staleness / Velocity Check</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Sep 9 state</th>
+<th>Sep 16 state</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SandwichPIR (<a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a>)</td>
+<td>2 stars, 2 commits, last Aug 28</td>
+<td><strong>2 stars, 2 commits, last Aug 28</strong></td>
+<td><strong>0 (19-day plateau)</strong></td>
+</tr>
+<tr>
+<td>OpenMined/PIR</td>
+<td>46 stars</td>
+<td>46 stars (unchanged)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>vectorized_batchpir</td>
+<td>13 stars</td>
+<td>13 stars</td>
+<td>0</td>
+</tr>
+<tr>
+<td>google/private-retrieval</td>
+<td>unchanged</td>
+<td>unchanged</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Kohaku repo</td>
+<td>~395 stars</td>
+<td><strong>401 stars, 81 forks, 215 commits</strong></td>
+<td>+6 stars, +215 commits cumulative</td>
+</tr>
+<tr>
+<td>Kohaku PIR-tagged PRs</td>
+<td>(PR #271 anon-rpc open)</td>
+<td><strong>0 PIR-tagged PRs in filter</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Apple swift-homomorphic-encryption</td>
+<td>June 3 v1.0.7</td>
+<td>unchanged</td>
+<td>0</td>
+</tr>
+<tr>
+<td>google/hintless_pir</td>
+<td>24 stars, last Jul 23 (48 days stale)</td>
+<td>unchanged</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The aggregate picture</strong>: the <strong>research frontier is moving fast</strong> (4 ePrint papers, 1 lower bound, 1 throughput doubling, 1 NTRU-based scheme, 1 DNS-specialized scheme, all in 7 days). The <strong>deployment frontier is glacial</strong> — SandwichPIR, hintless_pir, OpenMined/PIR, vectorized_batchpir, swift-homomorphic-encryption all show zero activity. The pipeline from "paper → reference implementation → forkable artifact → production" is <strong>still ~24 months for LWE-PIR</strong>, and <strong>the only project actively closing that gap is Kohaku</strong>, which is using TEE+ORAM (not PIR) for production and tracking PIR for the next-generation roadmap.</p>
+<h2 id="connections-to-other-vault-sections">Connections to Other Vault Sections</h2>
+<ul>
+<li><a href="/pillars/naming/">Decentralized DNS</a> — DNSPIR is the first PIR paper whose primary deployment motivation is <strong>private DNS resolution</strong>; sits orthogonally to <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>, ENS, pkarr, and Handshake. The Aug 31 DNS sweep covered the consensus-layer alternatives; DNSPIR covers the <strong>access-pattern</strong> layer (resolver↔authoritative).</li>
+<li><a href="/kb/decentralized-compute/">Decentralized Compute</a> — ReinsPIRe and SandwichPIR both target the <strong>GPU-accelerated / high-throughput compute server</strong> deployment model that <a href="/pillars/compute/">Decentralized Compute</a> tracks via Phala, Aethir, Akash, io.net. The Ant Group NTPIR result is the first NTRU-based PIR — NTRU lattice hardness assumptions overlap with the <a href="/pillars/pqc/">Post-Quantum</a> migration story; Ant Group has been a major contributor to PQ-NIST submissions.</li>
+<li><a href="/pillars/confidential/">Confidential Computing</a> — <strong>ReinsPIRe / InsPIRe / NTPIR / SandwichPIR all push single-server PIR toward production economics; TEE+ORAM (Intel SGX, AMD SEV, NVIDIA H100) is the only currently shipping private-reads layer in Kohaku</strong>. The two are complementary: TEE provides hardware-rooted attestation; PIR provides cryptographic access-pattern hiding even against a malicious TEE vendor.</li>
+<li><a href="/pillars/identity/">Identity &amp; Pseudonymity</a> — Keewoo Lee's Ethereum Foundation affiliation + VeriSimplePIR (S&amp;P 2026) + this lower bound means the <strong>Ethereum Foundation is mapping the PIR deployment envelope from the foundation up</strong>. Identity (Nostr, NIP-85, <a href="/briefings/identity/2026-09-13/">Identity Sunday Sept 13</a>) and PIR converge on the wallet/private-reads surface — both are needed for pseudonymous blockchain interaction.</li>
+<li><a href="/pillars/zk/">Zero-Knowledge</a> — ZK proofs (Groth16, PLONK, STARK) and PIR are the two complementary building blocks for <strong>cryptographic access-pattern hiding</strong> in client-server protocols. The Aug 5 PIR sweep catalogued the SK-PIR toolbox exports to encrypted matrix-vector products — same family of primitives.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keewoo Lee, Ethereum Foundation, VeriSimplePIR (S&amp;P 2026)</td>
+<td><a href="https://keewoolee.github.io/assets/pdf/CV_KeewooLee.pdf" rel="noopener nofollow">Keewoo Lee CV</a>, <a href="https://people.eecs.berkeley.edu/~sanjamg/publications" rel="noopener nofollow">Sanjam Garg publications page</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Lee 6·log n bound vs Wehner–de Wolf 5·log n (ICALP 2005)</td>
+<td><a href="https://eprint.iacr.org/2026/1959" rel="noopener nofollow">ePrint 2026/1959 abstract</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>ReinsPIRe 5.9 GB/s/server-core (2× InsPIRe)</td>
+<td><a href="https://eprint.iacr.org/2026/1934" rel="noopener nofollow">ePrint 2026/1934 abstract</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>InsPIRe at S&amp;P 2026 (Mahdavi/Patel/Seo/Yeo)</td>
+<td><a href="https://www.cs.columbia.edu/2026/security-research-recognized-at-ieee-sp-2026" rel="noopener nofollow">Columbia CS announcement</a>, <a href="https://sp2026.ieee-security.org/accepted-papers.html" rel="noopener nofollow">IEEE S&amp;P 2026 accepted papers</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>NTPIR 8,609 MB/s on 8 GB, CCS 2026 accepted</td>
+<td><a href="https://eprint.iacr.org/2026/1910" rel="noopener nofollow">ePrint 2026/1910 metadata</a>, <a href="https://www.sigsac.org/ccs/CCS2026/program/accepted-papers.html" rel="noopener nofollow">CCS 2026 accepted papers</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>DNSPIR 80 KB comm, &lt;5 s, 2 billion entries, PoPETS'27</td>
+<td><a href="https://eprint.iacr.org/2026/1872" rel="noopener nofollow">ePrint 2026/1872 metadata</a>, <a href="https://pure.royalholloway.ac.uk/en/persons/christian-weinert" rel="noopener nofollow">Christian Weinert RHUL portal</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>SandwichPIR 2 stars, 2 commits, last Aug 28</td>
+<td><a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">github.com/sidsabh/sandwichpir</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Kohaku 401 stars, 81 forks, 215 commits</td>
+<td><a href="https://github.com/ethereum/kohaku" rel="noopener nofollow">github.com/ethereum/kohaku</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Ant Group (Cheng Hong, Director of Cryptography)</td>
+<td><a href="https://cn.linkedin.com/in/cheng-vince-hong" rel="noopener nofollow">LinkedIn</a>, <a href="https://antcplab.github.io" rel="noopener nofollow">Ant CP Lab</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>VeriSimplePIR (Rathee/Lee/Popa, S&amp;P 2026)</td>
+<td><a href="https://sp2026.ieee-security.org/accepted-papers.html" rel="noopener nofollow">IEEE S&amp;P 2026 accepted papers</a></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>YPIR 12.1 GB/s/core on 32 GB</td>
+<td><a href="https://www.usenix.org/conference/usenixsecurity24/presentation/menon" rel="noopener nofollow">USENIX Security 2024 paper</a></td>
+<td>✓</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="filing-notes">Filing Notes</h2>
+<ul>
+<li><strong>Topic</strong>: PIR (Private Information Retrieval) — Wednesday rotation, week of Sep 14–20, 2026</li>
+<li><strong>Cross-section touch</strong>: <a href="/pillars/naming/">Decentralized DNS</a> (DNSPIR), <a href="/pillars/pqc/">Post-Quantum</a> (NTRU lineage), <a href="/kb/decentralized-compute/">Decentralized Compute</a> (high-throughput server deployment), <a href="/pillars/confidential/">Confidential Computing</a> (TEE+ORAM vs PIR deployment race), <a href="/pillars/identity/">Identity</a> (Kohaku/Ethereum Foundation pipeline)</li>
+<li><strong>Source papers catalogued</strong>: 4 new (2026/1959, 2026/1934, 2026/1910, 2026/1872)</li>
+<li><strong>Repositories re-verified</strong>: 6 (SandwichPIR, Kohaku, OpenMined/PIR, vectorized_batchpir, google/private-retrieval, google/hintless_pir)</li>
+<li><strong>Adjacent news</strong>: <a href="/briefings/identity/2026-09-13/">Identity Sunday Sept 13</a> (Kohaku star growth, PQ-account, NIP-42), <a href="/pillars/pqc/">Post-Quantum Saturday</a> (NTRU lattice assumptions overlap)</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/pir/2026-09-09/"><span class="label">Previous</span><span class="pn-t">PIR Wednesday — September 9 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-09-23/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — September 23 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

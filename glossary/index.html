@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Glossary — ungovernable.tech</title>
+<meta name="description" content="Definitions for the terms used across ungovernable.tech, from attestation and AEAD to webs of trust and VDFs.">
+<link rel="canonical" href="https://ungovernable.tech/glossary/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Glossary — ungovernable.tech">
+<meta property="og:description" content="Definitions for the terms used across ungovernable.tech, from attestation and AEAD to webs of trust and VDFs.">
+<meta property="og:url" content="https://ungovernable.tech/glossary/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glossary — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Glossary — ungovernable.tech">
+<meta name="twitter:description" content="Definitions for the terms used across ungovernable.tech, from attestation and AEAD to webs of trust and VDFs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/" aria-current="page">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span class="here">Glossary</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Definitions</p>
+  <h1>Glossary</h1>
+  <p class="dek">124 short definitions for terms used across the library. Terms link to the entries that cover them in depth.</p>
+  <nav class="az" aria-label="Glossary letters">
+    <a href="#L-A">A</a><a href="#L-B">B</a><a href="#L-C">C</a><a href="#L-D">D</a><a href="#L-E">E</a><a href="#L-F">F</a><a href="#L-G">G</a><a href="#L-H">H</a><a href="#L-I">I</a><a href="#L-K">K</a><a href="#L-L">L</a><a href="#L-M">M</a><a href="#L-N">N</a><a href="#L-O">O</a><a href="#L-P">P</a><a href="#L-R">R</a><a href="#L-S">S</a><a href="#L-T">T</a><a href="#L-V">V</a><a href="#L-W">W</a><a href="#L-X">X</a><a href="#L-Y">Y</a><a href="#L-Z">Z</a>
+  </nav>
+</header>
+
+<section class="gsec">
+  <h2 class="letter" id="L-A">A</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="aead">
+      <dt>AEAD</dt>
+      <dd><p>Authenticated Encryption with Associated Data. Modern symmetric mode (AES-GCM, ChaCha20-Poly1305) that combines confidentiality and integrity in one primitive.</p></dd>
+    </div>
+    
+    <div class="gterm" id="alice-bob-eve-mallory">
+      <dt>Alice / Bob / Eve / Mallory</dt>
+      <dd><p>Standard cryptographic example names. Alice and Bob are honest parties; Eve is a passive eavesdropper; Mallory is an active attacker.</p></dd>
+    </div>
+    
+    <div class="gterm" id="anonymity-set">
+      <dt>Anonymity set</dt>
+      <dd><p>The possible subjects an observer cannot distinguish as responsible for an action, such as sending a message. The set depends on the observer's information and can change over time; it is not automatically every user of a network. See <a href="https://dud.inf.tu-dresden.de/literatur/Anon_Terminology_v0.34.pdf" rel="noopener nofollow">Pfitzmann and Hansen's terminology paper</a>.</p><span class="see">See <em><a href="/kb/metadata-resistance/">Metadata Resistance</a>, <a href="/kb/tor/">Tor</a>, <a href="/kb/mix-networks/">Mix Networks</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="attestation">
+      <dt>Attestation</dt>
+      <dd><p>Cryptographic proof of the identity, configuration, and code hash of a piece of software running inside a TEE. Anchored in the hardware vendor's signing keys (Intel DCAP, AMD KDS, NVIDIA NRAS). See <a href="/kb/remote-attestation/">Attestation-Architecture</a>.</p><span class="see">See <em><a href="/kb/remote-attestation/">Remote Attestation Architecture</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="attested-tls">
+      <dt>Attested TLS</dt>
+      <dd><p>A TLS connection where the server's keypair is generated inside an enclave and the attestation report is bound to the TLS certificate (or pinned in a Channel Binding). Lets a client verify it is talking to specific code on specific hardware, not just any holder of the cert.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-B">B</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="bbs">
+      <dt>BBS+</dt>
+      <dd><p>Pairing-based signature scheme that supports selective disclosure of attributes and zero-knowledge proofs of possession. Foundation of W3C Verifiable Credentials with privacy.</p></dd>
+    </div>
+    
+    <div class="gterm" id="bitchat">
+      <dt>Bitchat</dt>
+      <dd><p>Phone-only Bluetooth-LE mesh messenger from Permissionlesstech, with a Nostr fallback for global reach. Up to seven hops over BLE, Noise-encrypted, no accounts. Geohash-based location channels on the Nostr side. See <a href="/kb/bitchat/">Bitchat</a>.</p><span class="see">See <em><a href="/kb/bitchat/">Bitchat</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="blinding-blind-signature">
+      <dt>Blinding / Blind signature</dt>
+      <dd><p>Cryptographic technique where a signer signs a message it cannot read. Used by Chaumian eCash, Cashu, and parts of mixnet payment schemes.</p></dd>
+    </div>
+    
+    <div class="gterm" id="bridge">
+      <dt>Bridge</dt>
+      <dd><p>A Tor relay omitted from the public relay directory, providing an alternative entry when known relays are blocked. See <a href="/kb/pluggable-transports/">pluggable transports and bridges</a> and <a href="https://community.torproject.org/relay/types-of-relays/" rel="noopener nofollow">Tor's relay guide</a>.</p><span class="see">See <em><a href="/kb/tor/">Tor</a>, <a href="/kb/pluggable-transports/">Pluggable transports and bridges</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="bulletproofs">
+      <dt>Bulletproofs</dt>
+      <dd><p>Short, non-interactive zero-knowledge range proofs that need no trusted setup. Used in Monero (transaction amounts) and various confidential-transaction protocols.</p></dd>
+    </div>
+    
+    <div class="gterm" id="bundle-protocol">
+      <dt>Bundle Protocol</dt>
+      <dd><p>A protocol for carrying application data across networks with intermittent connectivity. Version 7 is specified in <a href="https://www.rfc-editor.org/rfc/rfc9171.html" rel="noopener nofollow">RFC 9171</a>; custody transfer is outside its base protocol. See <a href="/kb/delay-tolerant-networking/">delay-tolerant networking</a>.</p><span class="see">See <em><a href="/kb/delay-tolerant-networking/">Delay-tolerant networking</a>, <a href="/kb/off-grid-networks/">Off-Grid Networks</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-C">C</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="ccip-read-eip-3668">
+      <dt>CCIP-Read (EIP-3668)</dt>
+      <dd><p>Pattern that lets ENS resolvers serve names from off-chain backends with cryptographic proofs.</p></dd>
+    </div>
+    
+    <div class="gterm" id="chaumian-ecash">
+      <dt>Chaumian eCash</dt>
+      <dd><p>Bearer token system using blind signatures (Chaum, 1983). Modern implementations: Cashu (Bitcoin/Lightning), GNU Taler.</p></dd>
+    </div>
+    
+    <div class="gterm" id="coco-confidential-containers">
+      <dt>CoCo (Confidential Containers)</dt>
+      <dd><p>CNCF project bringing confidential computing to Kubernetes via Kata plus TEE-backed VMs and a Trustee KBS. See <a href="/kb/confidential-containers/">Confidential-Containers</a>.</p><span class="see">See <em><a href="/kb/confidential-containers/">Confidential Containers (CoCo)</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="confidential-computing">
+      <dt>Confidential Computing</dt>
+      <dd><p>Hardware-backed protection of data during computation, complementing at-rest and in-transit encryption.</p></dd>
+    </div>
+    
+    <div class="gterm" id="content-addressing">
+      <dt>Content addressing</dt>
+      <dd><p>Identifying data by an identifier derived from its contents rather than its server location. In IPFS, changing content changes its CID; the identifier does not itself keep a copy available. <a href="https://docs.ipfs.tech/concepts/content-addressing/" rel="noopener nofollow">IPFS content addressing</a>.</p><span class="see">See <em><a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a>, <a href="/kb/bittorrent-archives/">BitTorrent for Archive Distribution</a>, <a href="/kb/blossom/">Blossom: Blob Storage on Nostr</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="cover-traffic">
+      <dt>Cover traffic</dt>
+      <dd><p>Dummy packets sent on a schedule to hide whether real traffic is flowing. Core to mixnet metadata defense.</p></dd>
+    </div>
+    
+    <div class="gterm" id="crr-continual-re-randomization">
+      <dt>CRR (Continual Re-Randomization)</dt>
+      <dd><p>Property of mix networks where each hop re-encrypts (or re-blinds) the packet so the bit pattern changes between links.</p></dd>
+    </div>
+    
+    <div class="gterm" id="cryptographic-inventory">
+      <dt>Cryptographic inventory</dt>
+      <dd><p>A maintained record of where systems depend on cryptography and which implementations, owners and suppliers must participate in a migration. See the <a href="/kb/pqc-cryptographic-inventory/">inventory workflow</a> and <a href="https://www.cisa.gov/resources-tools/resources/quantum-readiness-migration-post-quantum-cryptography" rel="noopener nofollow">CISA, NSA and NIST guidance</a>.</p><span class="see">See <em><a href="/kb/pqc-cryptographic-inventory/">Build a post-quantum cryptographic inventory</a>, <a href="/kb/post-quantum-cryptography/">Post-Quantum Cryptography</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-D">D</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="dcap-data-center-attestation-primitives">
+      <dt>DCAP (Data Center Attestation Primitives)</dt>
+      <dd><p>Intel's open attestation infrastructure for SGX/TDX, replacing the EPID-based Attestation Service for production use.</p></dd>
+    </div>
+    
+    <div class="gterm" id="decentralized-storage">
+      <dt>Decentralized storage</dt>
+      <dd><p>Storage architecture where integrity, persistence, or retrieval is distributed across independent operators rather than a single cloud account. Includes content-addressed systems (IPFS), paid storage markets (Filecoin, Sia), archival networks (Arweave), and app-specific blob layers (Blossom).</p></dd>
+    </div>
+    
+    <div class="gterm" id="deep-packet-inspection-dpi">
+      <dt>Deep packet inspection (DPI)</dt>
+      <dd><p>Inspection of network traffic to recognise protocols from packet contents or patterns, including when the carried data is encrypted. Censors can use it to identify and block tunnels. See <a href="/kb/wireguard/">WireGuard</a> and <a href="https://psiphon.ca/en/faq.html" rel="noopener nofollow">Psiphon's protocol explanation</a>.</p><span class="see">See <em><a href="/kb/wireguard/">WireGuard</a>, <a href="/kb/psiphon/">Psiphon</a>, <a href="/kb/pluggable-transports/">Pluggable transports and bridges</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="dht-distributed-hash-table">
+      <dt>DHT (Distributed Hash Table)</dt>
+      <dd><p>Key-value store spread across many nodes (Kademlia, Mainline). Used for peer discovery, BitTorrent trackers, PKARR record storage.</p></dd>
+    </div>
+    
+    <div class="gterm" id="did-decentralized-identifier">
+      <dt>DID (Decentralized Identifier)</dt>
+      <dd><p>W3C URI scheme <code>did:method:id</code> resolving to a DID Document with public keys and service endpoints. Methods: <code>did:key</code>, <code>did:web</code>, <code>did:ion</code>, <code>did:plc</code>, <code>did:peer</code>, <code>did:ens</code>.</p></dd>
+    </div>
+    
+    <div class="gterm" id="double-ratchet">
+      <dt>Double Ratchet</dt>
+      <dd><p>Per-message key rotation algorithm in Signal/MLS that combines a Diffie-Hellman ratchet with a symmetric KDF chain to deliver forward secrecy and post-compromise security.</p></dd>
+    </div>
+    
+    <div class="gterm" id="dtn-delay-tolerant-network">
+      <dt>DTN (Delay-Tolerant Network)</dt>
+      <dd><p>Networking architecture (RFC 4838) for intermittent or high-latency links. Uses store-carry-forward bundles. Used in mesh, satellite, and disconnected operation.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-E">E</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="ed25519">
+      <dt>Ed25519</dt>
+      <dd><p>EdDSA signature scheme over Curve25519. Compact, fast, deterministic; widely used in Tor v3, SSH, age, Pubky/PKARR, Yggdrasil, MLS BasicCredentials. <em>Note: Nostr uses Schnorr over secp256k1 (BIP-340), not Ed25519.</em></p></dd>
+    </div>
+    
+    <div class="gterm" id="eip-7702-eip-4337">
+      <dt>EIP-7702 / EIP-4337</dt>
+      <dd><p>Ethereum account-abstraction proposals enabling smart-contract behavior on EOAs and bundled UserOps respectively.</p></dd>
+    </div>
+    
+    <div class="gterm" id="enclave">
+      <dt>Enclave</dt>
+      <dd><p>Hardware-isolated region of memory and execution; the umbrella term for SGX enclaves, SEV-SNP VMs, TDX TDs, and similar.</p></dd>
+    </div>
+    
+    <div class="gterm" id="erasure-coding">
+      <dt>Erasure coding</dt>
+      <dd><p>Encoding data into N shares so that any k valid shares can reconstruct it. <a href="/kb/tahoe-lafs/">Tahoe-LAFS</a> uses this to tolerate missing shares; availability still depends on share placement and retention. <a href="https://tahoe-lafs.readthedocs.io/en/latest/architecture.html" rel="noopener nofollow">Architecture</a>.</p><span class="see">See <em><a href="/kb/tahoe-lafs/">Tahoe-LAFS</a>, <a href="/kb/compare-storage/">Choosing Decentralized Storage</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-F">F</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="fhe-fully-homomorphic-encryption">
+      <dt>FHE (Fully Homomorphic Encryption)</dt>
+      <dd><p>Encryption that supports arbitrary computation on ciphertexts. See <a href="/kb/fully-homomorphic-encryption/">Overview - Fully Homomorphic Encryption</a>.</p><span class="see">See <em><a href="/kb/fully-homomorphic-encryption/">Fully Homomorphic Encryption</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="fhevm">
+      <dt>fhEVM</dt>
+      <dd><p>Ethereum-compatible EVM that operates on FHE ciphertexts. Zama's flagship.</p></dd>
+    </div>
+    
+    <div class="gterm" id="fips">
+      <dt>FIPS</dt>
+      <dd><p><em>Free Internetworking Peering System.</em> Mesh routing protocol that uses Nostr secp256k1 keypairs as native node identities. Multi-transport (UDP, TCP, Ethernet, Tor, BLE), Noise-encrypted hop-to-hop and end-to-end. See <a href="/kb/fips-mesh/">FIPS</a>.</p><span class="see">See <em><a href="/kb/fips-mesh/">FIPS (Free Internetworking Peering System)</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="forward-secrecy">
+      <dt>Forward Secrecy</dt>
+      <dd><p>Property where compromising long-term keys does not compromise past session keys. Achieved via ephemeral DH (TLS 1.3, Signal X3DH/PQXDH).</p></dd>
+    </div>
+    
+    <div class="gterm" id="frost">
+      <dt>FROST</dt>
+      <dd><p>Flexible Round-Optimized Schnorr Threshold signatures (Komlo &amp; Goldberg 2020; standardized as RFC 9591 in 2024). Used for threshold Bitcoin/Nostr key custody.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-G">G</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="garlic-routing">
+      <dt>Garlic Routing</dt>
+      <dd><p>I2P's variant of onion routing where one packet ("garlic clove bundle") may contain multiple inner messages with different destinations.</p></dd>
+    </div>
+    
+    <div class="gterm" id="geohash">
+      <dt>Geohash</dt>
+      <dd><p>Hierarchical encoding of geographic coordinates as a base32 string where shorter prefixes denote larger areas. Used by <a href="/kb/bitchat/">Bitchat</a> location channels; precision selects neighborhood, city, or region scope.</p><span class="see">See <em><a href="/kb/bitchat/">Bitchat</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="gns-gnu-name-system">
+      <dt>GNS (GNU Name System)</dt>
+      <dd><p>Privacy-preserving petname-based hierarchical naming, RFC 9498.</p></dd>
+    </div>
+    
+    <div class="gterm" id="groth16">
+      <dt>Groth16</dt>
+      <dd><p>Pairing-based zk-SNARK with constant-size proofs (~128-200 bytes depending on curve: 2×G1 + 1×G2 over BN254 / BLS12-381) and per-circuit trusted setup. Used by Zcash Sapling, Tornado Cash, Semaphore.</p></dd>
+    </div>
+    
+    <div class="gterm" id="grover-s-algorithm">
+      <dt>Grover&#39;s algorithm</dt>
+      <dd><p>Quantum search algorithm giving a √N speedup over classical brute force. Effectively halves symmetric key strength. AES-256 retains a 128-bit security margin against it.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-H">H</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="halo2">
+      <dt>Halo2</dt>
+      <dd><p>PLONK-family proof system from Electric Coin Co.; recursive composition without a fresh trusted setup per circuit. Used in Zcash Orchard.</p></dd>
+    </div>
+    
+    <div class="gterm" id="handshake-hns">
+      <dt>Handshake (HNS)</dt>
+      <dd><p>Blockchain-based replacement for the DNS root zone, with permissionless TLD ownership.</p></dd>
+    </div>
+    
+    <div class="gterm" id="harvest-now-decrypt-later">
+      <dt>Harvest now, decrypt later</dt>
+      <dd><p>Adversary records encrypted traffic today expecting to decrypt it once a quantum computer exists. The motivation for migrating long-secrecy traffic to post-quantum KEMs now.</p></dd>
+    </div>
+    
+    <div class="gterm" id="hybrid-kem">
+      <dt>Hybrid KEM</dt>
+      <dd><p>Composition of a classical KEM (such as X25519) and a post-quantum KEM (such as ML-KEM-768) where the shared secret is the KDF of both halves. Currently deployed in TLS 1.3, SSH, Signal PQXDH, iMessage PQ3.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-I">I</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="i2p-invisible-internet-project">
+      <dt>I2P (Invisible Internet Project)</dt>
+      <dd><p>Anonymous overlay network using garlic routing and unidirectional tunnels.</p></dd>
+    </div>
+    
+    <div class="gterm" id="ietf">
+      <dt>IETF</dt>
+      <dd><p>Internet Engineering Task Force; the body that publishes RFCs.</p></dd>
+    </div>
+    
+    <div class="gterm" id="ion-did-ion">
+      <dt>Ion / did:ion</dt>
+      <dd><p>DIF DID method anchored on Bitcoin via Sidetree (a Layer-2 ledger).</p></dd>
+    </div>
+    
+    <div class="gterm" id="ipfs-cid">
+      <dt>IPFS CID</dt>
+      <dd><p>Content Identifier used by IPFS to name data by cryptographic hash plus codec metadata. A CID proves byte integrity, while availability depends on pinning or storage deals.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-K">K</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="kademlia">
+      <dt>Kademlia</dt>
+      <dd><p>DHT algorithm using XOR distance for routing. The basis of Mainline DHT, IPFS, libp2p Kad-DHT.</p></dd>
+    </div>
+    
+    <div class="gterm" id="kbs-key-broker-service">
+      <dt>KBS (Key Broker Service)</dt>
+      <dd><p>Component in CoCo Trustee that releases secrets to enclaves only on a valid attestation.</p></dd>
+    </div>
+    
+    <div class="gterm" id="kds-key-distribution-service">
+      <dt>KDS (Key Distribution Service)</dt>
+      <dd><p>AMD's attestation backend: serves VCEK / VLEK certificates that endorse SEV-SNP attestation reports.</p></dd>
+    </div>
+    
+    <div class="gterm" id="kem-key-encapsulation-mechanism">
+      <dt>KEM (Key Encapsulation Mechanism)</dt>
+      <dd><p>Primitive that produces an encapsulated symmetric key for a recipient public key. Replaces Diffie-Hellman in post-quantum protocols.</p></dd>
+    </div>
+    
+    <div class="gterm" id="key-escrow">
+      <dt>Key Escrow</dt>
+      <dd><p>Third-party holding of decryption keys. Contradicts sovereignty; historically pushed by states (Clipper chip).</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-L">L</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="lattice-cryptography">
+      <dt>Lattice cryptography</dt>
+      <dd><p>Hardness assumptions based on lattice problems (LWE, Ring-LWE, Module-LWE, NTRU). Foundation of FHE and most NIST PQC KEM/signature standards (ML-KEM, ML-DSA, FN-DSA); SLH-DSA is the hash-based exception.</p></dd>
+    </div>
+    
+    <div class="gterm" id="lightning-network">
+      <dt>Lightning Network</dt>
+      <dd><p>Layer 2 Bitcoin protocol of bidirectional payment channels with hash-time-locked routed payments. See <a href="/kb/lightning-network/">Lightning Network Deep Dive</a>.</p><span class="see">See <em><a href="/kb/lightning-network/">Lightning Network</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="loopix">
+      <dt>Loopix</dt>
+      <dd><p>Continuous-time mix network design (Piotrowska et al., 2017): Poisson-mixing with cover traffic. Foundation of Nym and Katzenpost.</p></dd>
+    </div>
+    
+    <div class="gterm" id="lora">
+      <dt>LoRa</dt>
+      <dd><p>Low-power long-range radio modulation (sub-GHz ISM bands) used by <a href="/kb/meshtastic/">Meshtastic</a>, <a href="/kb/meshcore/">MeshCore</a> and other off-grid networks.</p><span class="see">See <em><a href="/kb/meshtastic/">Meshtastic</a>, <a href="/kb/meshcore/">MeshCore</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="lwe-learning-with-errors">
+      <dt>LWE (Learning With Errors)</dt>
+      <dd><p>Lattice problem on which most modern lattice crypto rests.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-M">M</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="mainline-dht">
+      <dt>Mainline DHT</dt>
+      <dd><p>The BitTorrent DHT, around 10 million nodes worldwide. Used by PKARR/Pubky for record publication.</p></dd>
+    </div>
+    
+    <div class="gterm" id="marmot-protocol">
+      <dt>Marmot Protocol</dt>
+      <dd><p>Specification for using MLS (RFC 9420) over Nostr's identity and relay infrastructure for forward-secret, post-compromise-secure, scalable group messaging. KeyPackages (kind 30443), gift-wrapped Welcomes (kind 444 inside 1059), encrypted group events (kind 445). See <a href="/kb/marmot-protocol/">Marmot Protocol</a>.</p><span class="see">See <em><a href="/kb/marmot-protocol/">Marmot: MLS over Nostr</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="mdl-mobile-driver-s-license-iso-18013-5">
+      <dt>mDL (Mobile Driver&#39;s License, ISO 18013-5)</dt>
+      <dd><p>Standard for mobile credentials with selective disclosure. Deployed in several US states and the EU Digital Wallet.</p></dd>
+    </div>
+    
+    <div class="gterm" id="mev-maximal-extractable-value">
+      <dt>MEV (Maximal Extractable Value)</dt>
+      <dd><p>Value extracted from transaction ordering by validators, builders, and searchers. <em>Originally "Miner Extractable Value"; renamed in 2022 to cover non-miner extractors.</em></p></dd>
+    </div>
+    
+    <div class="gterm" id="mixnet">
+      <dt>Mixnet</dt>
+      <dd><p>Network that batches, reorders, and re-encrypts traffic across multiple hops to hide who-talks-to-whom from a global observer. See <a href="/kb/mix-networks/">Overview - Mix Networks</a>.</p><span class="see">See <em><a href="/kb/mix-networks/">Mix Networks</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="ml-dsa-fips-204">
+      <dt>ML-DSA (FIPS 204)</dt>
+      <dd><p>Module-LWE signature scheme based on Dilithium. Replaces ECDSA / RSA-PSS for post-quantum signatures.</p></dd>
+    </div>
+    
+    <div class="gterm" id="ml-kem-fips-203">
+      <dt>ML-KEM (FIPS 203)</dt>
+      <dd><p>Module-LWE key encapsulation based on Kyber. Replaces ECDH / RSA-KEM for post-quantum key exchange.</p></dd>
+    </div>
+    
+    <div class="gterm" id="mls-messaging-layer-security-rfc-9420">
+      <dt>MLS (Messaging Layer Security, RFC 9420)</dt>
+      <dd><p>IETF standard for group E2EE with continuous group key agreement (TreeKEM). Used in Wire and Cisco Webex; Matrix MLS profile in development.</p></dd>
+    </div>
+    
+    <div class="gterm" id="mpc-multi-party-computation">
+      <dt>MPC (Multi-Party Computation)</dt>
+      <dd><p>Cryptographic primitive where parties jointly compute a function over their private inputs without revealing them. Honest-majority and dishonest-majority variants exist.</p></dd>
+    </div>
+    
+    <div class="gterm" id="mrenclave-mrsigner">
+      <dt>MRENCLAVE / MRSIGNER</dt>
+      <dd><p>SGX measurements: hash of the enclave's initial code/data (MRENCLAVE) and the signing identity (MRSIGNER). Used in attestation policies.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-N">N</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="namecoin">
+      <dt>Namecoin</dt>
+      <dd><p>Earliest functional blockchain naming system (2011), merged-mined with Bitcoin. <code>.bit</code> TLD.</p></dd>
+    </div>
+    
+    <div class="gterm" id="nip-05-nip-44-nip-17">
+      <dt>NIP-05 / NIP-44 / NIP-17</dt>
+      <dd><p>Nostr Implementation Possibilities. NIP-05: human-readable <code>user@domain</code> identifiers via <code>.well-known/nostr.json</code>; NIP-44: versioned DM payload format (ChaCha20 + HMAC-SHA256, conversation key from secp256k1 ECDH); NIP-17: gift-wrapped DMs with metadata protection (combines NIP-44 and NIP-59).</p></dd>
+    </div>
+    
+    <div class="gterm" id="nostr">
+      <dt>Nostr</dt>
+      <dd><p><em>Notes and Other Stuff Transmitted by Relays.</em> Pubkey-rooted social protocol; events signed by <strong>Schnorr signatures over secp256k1</strong> (BIP-340), served by relays. See <a href="/kb/nostr-identity/">Nostr</a> and <a href="/kb/nostr-protocol/">Nostr Deep Dive</a>.</p><span class="see">See <em><a href="/kb/nostr-identity/">Nostr as an Identity Layer</a>, <a href="/kb/nostr-protocol/">Nostr: The Protocol</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="nras-nvidia-remote-attestation-service">
+      <dt>NRAS (NVIDIA Remote Attestation Service)</dt>
+      <dd><p>Attestation backend for H100/H200/Blackwell confidential computing.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-O">O</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="offline-attenuation">
+      <dt>Offline attenuation</dt>
+      <dd><p>Adding restrictions to an authorization token without contacting its issuer. Biscuit uses signed blocks and scoped policy checks so an appended block can reduce authority. See <a href="/kb/biscuit/">Biscuit</a> and its <a href="https://biscuitsec.org/docs/getting-started/introduction/" rel="noopener nofollow">introduction</a>.</p><span class="see">See <em><a href="/kb/biscuit/">Biscuit authorization tokens</a>, <a href="/kb/verifiable-credentials/">Verifiable Credentials</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="onion-routing">
+      <dt>Onion routing</dt>
+      <dd><p>Layered encryption such that each relay can peel one layer revealing only the next hop. Tor is the canonical implementation.</p></dd>
+    </div>
+    
+    <div class="gterm" id="oprf-oblivious-pseudo-random-function">
+      <dt>OPRF (Oblivious Pseudo-Random Function)</dt>
+      <dd><p>Two-party protocol where the client gets <code>f_k(x)</code> without learning <code>k</code> and the server does not learn <code>x</code>. Used in PIR, password-authenticated key exchange, and private set intersection.</p></dd>
+    </div>
+    
+    <div class="gterm" id="oram-oblivious-ram">
+      <dt>ORAM (Oblivious RAM)</dt>
+      <dd><p>Technique that hides memory access patterns from an observer who can see which addresses are touched.</p></dd>
+    </div>
+    
+    <div class="gterm" id="overlay-network">
+      <dt>Overlay network</dt>
+      <dd><p>Logical network running on top of an existing underlay (Yggdrasil, cjdns, Tor, I2P).</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-P">P</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="payjoin-bip-78">
+      <dt>Payjoin (BIP-78)</dt>
+      <dd><p>Two-party CoinJoin variant where the receiver contributes inputs, breaking the common-input-ownership heuristic.</p></dd>
+    </div>
+    
+    <div class="gterm" id="pcc-private-cloud-compute">
+      <dt>PCC (Private Cloud Compute)</dt>
+      <dd><p>Apple's confidential AI inference platform (announced 2024). Combines Secure Enclave, code transparency log, and stateless attested servers.</p></dd>
+    </div>
+    
+    <div class="gterm" id="petname">
+      <dt>Petname</dt>
+      <dd><p>Local nickname for a globally-unique cryptographic identifier (Stiegler's petname system; Zooko's triangle resolution).</p></dd>
+    </div>
+    
+    <div class="gterm" id="pinning">
+      <dt>Pinning</dt>
+      <dd><p>Protecting IPFS data from garbage collection on a node. A pin is a local retention choice, not a guarantee that another node will keep the data or stay online. <a href="https://docs.ipfs.tech/concepts/persistence/" rel="noopener nofollow">IPFS persistence documentation</a>.</p><span class="see">See <em><a href="/kb/ipfs-and-filecoin/">IPFS and Filecoin</a>, <a href="/kb/ipns-dnslink/">IPNS and DNSLink</a>, <a href="/kb/compare-storage/">Choosing Decentralized Storage</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="pir-private-information-retrieval">
+      <dt>PIR (Private Information Retrieval)</dt>
+      <dd><p>Protocol that lets a client retrieve record <code>i</code> from a database while the server learns nothing about <code>i</code>. See <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a>.</p><span class="see">See <em><a href="/kb/private-information-retrieval/">Private Information Retrieval</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="pkarr">
+      <dt>PKARR</dt>
+      <dd><p>Public-Key-Addressable Resource Records over Mainline DHT. Names are Ed25519 keys; records are signed and stored under the keyhash.</p></dd>
+    </div>
+    
+    <div class="gterm" id="pluggable-transport">
+      <dt>Pluggable transport</dt>
+      <dd><p>A transport layer that changes how a connection looks on the network to make blocking harder. Tor documents obfs4, Snowflake, meek and WebTunnel in its <a href="https://support.torproject.org/tor-browser/circumvention/unblocking-tor/" rel="noopener nofollow">circumvention guide</a>. Compare them in <a href="/kb/pluggable-transports/">pluggable transports and bridges</a>.</p><span class="see">See <em><a href="/kb/pluggable-transports/">Pluggable transports and bridges</a>, <a href="/kb/tor/">Tor</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="post-compromise-security">
+      <dt>Post-compromise security</dt>
+      <dd><p>Recovery of confidentiality for future messages after an attacker loses access and honest participants introduce fresh secret key material. It does not repair an ongoing endpoint compromise or erase previously exposed messages. See <a href="https://www.rfc-editor.org/rfc/rfc9420.html" rel="noopener nofollow">RFC 9420</a>.</p><span class="see">See <em><a href="/kb/signal-protocol/">The Signal Protocol</a>, <a href="/kb/mls-wire/">MLS (RFC 9420) and Wire</a>, <a href="/kb/xmpp-omemo/">XMPP with OMEMO</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="pow-pos">
+      <dt>PoW / PoS</dt>
+      <dd><p>Proof of Work / Proof of Stake. Sybil-resistance mechanisms for permissionless consensus.</p></dd>
+    </div>
+    
+    <div class="gterm" id="pqc-post-quantum-cryptography">
+      <dt>PQC (Post-Quantum Cryptography)</dt>
+      <dd><p>Cryptography secure against polynomial-time quantum adversaries. See <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a>.</p><span class="see">See <em><a href="/kb/post-quantum-cryptography/">Post-Quantum Cryptography</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="pqxdh">
+      <dt>PQXDH</dt>
+      <dd><p>Post-quantum extended X3DH; the hybrid (X25519 + ML-KEM-1024) key agreement used by Signal since 2023.</p></dd>
+    </div>
+    
+    <div class="gterm" id="pseudonymity">
+      <dt>Pseudonymity</dt>
+      <dd><p>Being identified by a pseudonym. Reusing it can link activities even when a personal name is unknown; separate pseudonyms can reduce linkage across contexts. See <a href="https://www.rfc-editor.org/rfc/rfc6973.html" rel="noopener nofollow">RFC 6973</a> and <a href="/kb/identity-and-pseudonymity/">identity and pseudonymity</a>.</p><span class="see">See <em><a href="/kb/identity-and-pseudonymity/">Identity and Pseudonymity</a>, <a href="/kb/metadata-resistance/">Metadata Resistance</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="pubky">
+      <dt>Pubky</dt>
+      <dd><p>PKARR-based identity and naming system from Synonym. Adds a <em>homeserver</em> data plane (HTTP-fetched signed user data) and <code>pkdns</code> for DNS bridging. Reference social app: Pubky.app. See <a href="/kb/pubky/">Pubky</a>.</p><span class="see">See <em><a href="/kb/pubky/">Pubky</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-R">R</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="ratchet">
+      <dt>Ratchet</dt>
+      <dd><p>A keying scheme that derives new keys irreversibly forward, providing forward secrecy. <em>Symmetric ratchet</em>: KDF chain. <em>DH ratchet</em>: Diffie-Hellman re-key per round-trip.</p></dd>
+    </div>
+    
+    <div class="gterm" id="rats-remote-attestation-procedures">
+      <dt>RATS (Remote ATtestation procedureS)</dt>
+      <dd><p>IETF working group and architecture (RFC 9334) for remote attestation. Defines the Attester / Verifier / Relying-Party roles used across CC ecosystems.</p></dd>
+    </div>
+    
+    <div class="gterm" id="reticulum">
+      <dt>Reticulum</dt>
+      <dd><p>Markqvist's encrypted-by-default mesh networking stack with cryptographic destinations. Runs over LoRa, packet radio, TCP, serial. See <a href="/kb/reticulum/">Reticulum</a>.</p><span class="see">See <em><a href="/kb/reticulum/">Reticulum</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="reunion">
+      <dt>Reunion</dt>
+      <dd><p>Anonymous contact-establishment protocol over the Katzenpost mixnet. Lets two parties find each other without prior knowledge of network addresses.</p></dd>
+    </div>
+    
+    <div class="gterm" id="ring-lwe">
+      <dt>Ring-LWE</dt>
+      <dd><p>Variant of LWE on polynomial rings. Smaller keys and faster ops than plain LWE.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-S">S</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="schnorr-signature">
+      <dt>Schnorr signature</dt>
+      <dd><p>Linear, aggregatable signature scheme. Bitcoin Taproot uses Schnorr/BIP340.</p></dd>
+    </div>
+    
+    <div class="gterm" id="sd-jwt-rfc-9901-2025">
+      <dt>SD-JWT (RFC 9901, 2025)</dt>
+      <dd><p>Selective Disclosure JWT. JWT-based credential format where each claim is committed via a salted hash; the holder discloses the claims they choose by revealing the corresponding hash preimages. Standardized as RFC 9901 in November 2025.</p></dd>
+    </div>
+    
+    <div class="gterm" id="sev-snp">
+      <dt>SEV-SNP</dt>
+      <dd><p>AMD Secure Encrypted Virtualization with Secure Nested Paging. VM-level TEE with integrity protection. See <a href="/kb/tee-technologies/">TEE-Technologies-Deep-Dive</a>.</p><span class="see">See <em><a href="/kb/tee-technologies/">TEE Technologies: SGX, TDX, SEV-SNP and Friends</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="sgx-software-guard-extensions">
+      <dt>SGX (Software Guard Extensions)</dt>
+      <dd><p>Intel's per-process TEE (2015–). Powerful but punctuated by side-channel breaks; legacy for new workloads.</p></dd>
+    </div>
+    
+    <div class="gterm" id="sphinx-packet">
+      <dt>Sphinx packet</dt>
+      <dd><p>Format for fixed-size, layered-encrypted mixnet packets that hide path length and per-hop processing.</p></dd>
+    </div>
+    
+    <div class="gterm" id="stark">
+      <dt>STARK</dt>
+      <dd><p>Scalable Transparent Argument of Knowledge. Hash-based, no trusted setup, post-quantum candidate; large proofs but fast verifier.</p></dd>
+    </div>
+    
+    <div class="gterm" id="steganography">
+      <dt>Steganography</dt>
+      <dd><p>Hiding data within other data (messages in images, traffic shaped to look like benign traffic).</p></dd>
+    </div>
+    
+    <div class="gterm" id="sybil-attack">
+      <dt>Sybil attack</dt>
+      <dd><p>One participant presents multiple identities to gain influence that a system intended to distribute among independent participants. See <a href="https://www.microsoft.com/en-us/research/publication/the-sybil-attack/" rel="noopener nofollow">Douceur's original paper</a> and <a href="/kb/proof-of-personhood/">proof of personhood</a>.</p><span class="see">See <em><a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>, <a href="/kb/web-of-trust/">Webs of Trust</a></em></span></dd>
+    </div>
+    
+    <div class="gterm" id="sybil-resistance">
+      <dt>Sybil resistance</dt>
+      <dd><p>Measures that limit the influence one participant can gain through multiple identities. The assumption matters: <a href="https://www.microsoft.com/en-us/research/publication/the-sybil-attack/" rel="noopener nofollow">Douceur's analysis</a> examines identity certification and the limits of resource-based tests. A <a href="/guides/building-a-zk-membership-proof/">membership proof</a> alone does not establish one identity per person.</p><span class="see">See <em><a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>, <a href="/kb/semaphore/">Semaphore</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-T">T</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="taproot-bip-340-341-342">
+      <dt>Taproot (BIP-340/341/342)</dt>
+      <dd><p>Bitcoin upgrade (2021) introducing Schnorr signatures and MAST script trees; basis for sub-second-cost cooperative-spend privacy.</p></dd>
+    </div>
+    
+    <div class="gterm" id="tcb-trusted-computing-base">
+      <dt>TCB (Trusted Computing Base)</dt>
+      <dd><p>The set of hardware/firmware/software a security claim relies on. Smaller TCB means smaller attack surface. TCB versions appear in attestation reports.</p></dd>
+    </div>
+    
+    <div class="gterm" id="tdx-trust-domain-extensions">
+      <dt>TDX (Trust Domain Extensions)</dt>
+      <dd><p>Intel's VM-level TEE (2022–).</p></dd>
+    </div>
+    
+    <div class="gterm" id="tee-trusted-execution-environment">
+      <dt>TEE (Trusted Execution Environment)</dt>
+      <dd><p>Hardware mechanism for isolated execution. Umbrella term covering SGX, TDX, SEV-SNP, Arm CCA, IBM SE.</p></dd>
+    </div>
+    
+    <div class="gterm" id="threshold-signature">
+      <dt>Threshold signature</dt>
+      <dd><p>Signature where any <code>t</code> of <code>n</code> parties can sign; fewer than <code>t</code> cannot. FROST (Schnorr), GG20 (ECDSA), Pedersen DKG.</p></dd>
+    </div>
+    
+    <div class="gterm" id="tor-tor-the-onion-router">
+      <dt>TOR / Tor (The Onion Router)</dt>
+      <dd><p>Low-latency onion-routing anonymity network. Three-hop default circuits; v3 hidden services.</p></dd>
+    </div>
+    
+    <div class="gterm" id="trustee">
+      <dt>Trustee</dt>
+      <dd><p>CoCo's KBS implementation; gates secret release on attestation policy.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-V">V</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="vc-verifiable-credential-w3c">
+      <dt>VC (Verifiable Credential, W3C)</dt>
+      <dd><p>Signed JSON-LD or JWT structure asserting claims about a subject. Issuer, Holder, Verifier model.</p></dd>
+    </div>
+    
+    <div class="gterm" id="vcek-vlek">
+      <dt>VCEK / VLEK</dt>
+      <dd><p>AMD chip-bound (VCEK) and platform-bound (VLEK) endorsement keys signed by KDS, used to verify SEV-SNP attestation reports.</p></dd>
+    </div>
+    
+    <div class="gterm" id="vfhe-verifiable-fhe">
+      <dt>vFHE (Verifiable FHE)</dt>
+      <dd><p>FHE composed with a SNARK over the homomorphic circuit so the decryptor can verify the server computed the function honestly.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-W">W</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="wireguard">
+      <dt>WireGuard</dt>
+      <dd><p>Modern VPN protocol; minimal cryptographic core (Curve25519, ChaCha20-Poly1305, BLAKE2s). Influences Yggdrasil, Tailscale, Mullvad.</p></dd>
+    </div>
+    
+    <div class="gterm" id="wot-web-of-trust">
+      <dt>WoT (Web of Trust)</dt>
+      <dd><p>Peer-attestation trust model: OpenPGP and Nostr social-graph variants. See <a href="/kb/web-of-trust/">Overview - Web of Trust</a>.</p><span class="see">See <em><a href="/kb/web-of-trust/">Webs of Trust</a></em></span></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-X">X</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="x25519">
+      <dt>X25519</dt>
+      <dd><p>Diffie-Hellman over Curve25519. Default ECDH primitive in TLS 1.3, Signal, WireGuard.</p></dd>
+    </div>
+    
+    <div class="gterm" id="x3dh">
+      <dt>X3DH</dt>
+      <dd><p>Extended Triple Diffie-Hellman key agreement (Signal, 2016). Replaced by PQXDH in production.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-Y">Y</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="yggdrasil">
+      <dt>Yggdrasil</dt>
+      <dd><p>Encrypted IPv6 mesh overlay; routing by cryptographic identity.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+<section class="gsec">
+  <h2 class="letter" id="L-Z">Z</h2>
+  <dl class="gloss">
+    
+    <div class="gterm" id="zama">
+      <dt>Zama</dt>
+      <dd><p>Commercial FHE company; ships Concrete (TFHE) and fhEVM.</p></dd>
+    </div>
+    
+    <div class="gterm" id="zk-proof-zero-knowledge-proof">
+      <dt>ZK Proof (Zero-Knowledge Proof)</dt>
+      <dd><p>Prove a statement true without revealing why.</p></dd>
+    </div>
+    
+    <div class="gterm" id="zk-snark">
+      <dt>ZK-SNARK</dt>
+      <dd><p>Zero-Knowledge Succinct Non-interactive ARgument of Knowledge.</p></dd>
+    </div>
+    
+    <div class="gterm" id="zk-stark">
+      <dt>ZK-STARK</dt>
+      <dd><p>Zero-Knowledge Scalable Transparent ARgument of Knowledge.</p></dd>
+    </div>
+    
+    <div class="gterm" id="zooko-s-triangle">
+      <dt>Zooko&#39;s triangle</dt>
+      <dd><p>Hypothesis that names cannot be simultaneously human-meaningful, decentralized, and globally unique. Petnames plus cryptographic IDs (for example Pubky, ENS) are partial resolutions.</p></dd>
+    </div>
+    
+  </dl>
+</section>
+
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

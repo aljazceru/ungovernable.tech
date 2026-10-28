@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Off-Grid Networks — ungovernable.tech</title>
+<meta name="description" content="Communication networks that work without the public internet: LoRa meshes, Bluetooth meshes, overlay networks, packet radio and satellite links.">
+<link rel="canonical" href="https://ungovernable.tech/kb/off-grid-networks/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Off-Grid Networks — ungovernable.tech">
+<meta property="og:description" content="Communication networks that work without the public internet: LoRa meshes, Bluetooth meshes, overlay networks, packet radio and satellite links.">
+<meta property="og:url" content="https://ungovernable.tech/kb/off-grid-networks/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Off-Grid Networks — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Off-Grid Networks — ungovernable.tech">
+<meta name="twitter:description" content="Communication networks that work without the public internet: LoRa meshes, Bluetooth meshes, overlay networks, packet radio and satellite links.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Off-Grid Networks", "description": "Communication networks that work without the public internet: LoRa meshes, Bluetooth meshes, overlay networks, packet radio and satellite links.", "dateModified": "2026-10-25", "datePublished": "2026-04-15", "url": "https://ungovernable.tech/kb/off-grid-networks/", "mainEntityOfPage": "https://ungovernable.tech/kb/off-grid-networks/", "image": "https://ungovernable.tech/assets/og/pillar-mesh.png", "about": [{"@type": "Thing", "name": "Off-Grid and Mesh Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Off-Grid and Mesh Networks", "item": "https://ungovernable.tech/pillars/mesh/"}, {"@type": "ListItem", "position": 3, "name": "Off-Grid Networks", "item": "https://ungovernable.tech/kb/off-grid-networks/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/mesh/">Off-Grid and Mesh Networks</a><span aria-hidden="true">/</span><span class="here">Off-Grid Networks</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ OFF-GRID AND MESH NETWORKS ]</span></p>
+  <h1>Off-Grid Networks</h1>
+  <p class="aka">Also Mesh Networking, Mesh Networks, LoRa Mesh, Delay Tolerant Networks, DTN.</p>
+  <p class="dek">Off-grid networks are communication systems that work without depending on the public internet.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-this-covers">What this covers</a><a href="#background">Background</a><a href="#categories">Categories</a><a href="#comparison">Comparison</a><a href="#implementations">Implementations</a><a href="#use-cases">Use cases</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-this-covers">What this covers</h2>
+<p>Off-grid networks are communication systems that work without depending on the public internet. They are useful when:</p>
+<ul>
+<li>The internet is censored or shut down.</li>
+<li>Infrastructure is destroyed by disaster or war.</li>
+<li>Operational security requires no internet path.</li>
+<li>The goal is to reduce a digital footprint.</li>
+</ul>
+<p>The main building blocks are mesh networking (devices talking directly to one another), LoRa radio (long-range and low-power), delay-tolerant protocols (for intermittent links), and overlay networks (encrypted tunnels that ride on whatever transport is available).</p>
+<h2 id="background">Background</h2>
+<h3 id="early-mesh-networks-1980s-2000s">Early mesh networks (1980s-2000s)</h3>
+<p>Mesh networking research started in military and academic settings:</p>
+<ul>
+<li>DARPA Packet Radio Research (1970s-80s) — predecessors of modern mesh.</li>
+<li>IEEE 802.11s (2007) — Wi-Fi mesh standard.</li>
+<li>Serval Project (2012) — phone-to-phone mesh over Wi-Fi.</li>
+</ul>
+<h3 id="recent-activity-2019-present">Recent activity (2019-present)</h3>
+<ul>
+<li>Yggdrasil (2018) — modern IPv6 overlay network.</li>
+<li>Meshtastic (2019) — open-source LoRa mesh, broad adoption.</li>
+<li>MeshCore (mid-2020s) — lightweight C++ multi-hop LoRa routing library + role-based firmware (Companion/Repeater/Room Server); MIT; explicit control for embedded and custom meshes.</li>
+<li>Reticulum (2018+, RNS 0.x branches matured 2021-2024) — Markqvist's encrypted-by-default mesh stack.</li>
+<li>Bitchat (2024) — phone-only BLE mesh with a Nostr fallback.</li>
+<li>FIPS (2024+) — Nostr-keyed mesh routing protocol.</li>
+<li>Nostr VPN (2026 releases) — application of FIPS + Nostr identity for full Tailscale-replacement mesh VPN (no central server, gift-wrapped discovery, dual encryption layers). See dedicated note.</li>
+<li>Blackout Comms (2025+) — encrypted LoRa mesh with advanced features (Mesh Memory, frequency hopping); hardware + firmware focus, comparisons to Meshtastic/MeshCore.</li>
+</ul>
+<h3 id="older-lineages-still-alive-in-2026">Older lineages still alive in 2026</h3>
+<ul>
+<li><strong>HF amateur data modes</strong> — Winlink (1999+), JS8Call (2018), VARA, FLDIGI/FLAMP. See <a href="/kb/hf-data-modes/">HF Data Modes</a>.</li>
+<li><strong>BATMAN-adv</strong> (Freifunk, 2007+) and <strong>cjdns</strong> (2011+, Hyperboria). See <a href="/kb/batman-adv-and-cjdns/">BATMAN-adv and cjdns</a>.</li>
+<li><strong>Hyphanet</strong> (formerly Freenet, 2000-present, renamed 2023). Anonymous content-store P2P. See <a href="/kb/hyphanet-and-freenet/">Hyphanet and Freenet</a>.</li>
+<li><strong>Commercial satellite IoT</strong> — Iridium SBD (1999+), Globalstar (consumer SOS via Apple 2022+), Astrocast, Lacuna. See <a href="/kb/satellite-iot/">Satellite IoT</a>.</li>
+</ul>
+<h3 id="what-drove-this">What drove this</h3>
+<ol>
+<li>Internet shutdowns used as a political tool.</li>
+<li>The wish to avoid internet dependency for privacy reasons.</li>
+<li>Disaster resilience: hurricanes, earthquakes, war.</li>
+<li>Building alternatives to corporate infrastructure.</li>
+</ol>
+<h2 id="categories">Categories</h2>
+<h3 id="1-lora-mesh-networks">1. LoRa mesh networks</h3>
+<p>LoRa (Long Range) is a proprietary chirp-spread-spectrum modulation. Typical figures:</p>
+<ul>
+<li>Range: 2-10 km in rural areas, longer with line of sight.</li>
+<li>Power: very low, batteries last years.</li>
+<li>Bandwidth: very low (~300 bps to 19 kbps).</li>
+<li>Frequencies: ISM bands (433 MHz, 868 MHz EU, 915 MHz US).</li>
+</ul>
+<h4 id="meshtastic">Meshtastic</h4>
+<p>The most widely used LoRa mesh platform:</p>
+<ul>
+<li>Hardware: cheap ESP32-based radios ($20-50).</li>
+<li>Software: open-source firmware.</li>
+<li>Range: up to 10 km with stock antennas.</li>
+<li>Features: GPS, encrypted messaging, sensor integration.</li>
+<li>Ecosystem: multiple clients, maps, tracking dashboards.</li>
+</ul>
+<p><a href="https://github.com/ripple-lib/ripple" rel="noopener nofollow">Ripple</a> — experimental LoRa mesh.
+<a href="https://github.com/cubeos-app/meshsat" rel="noopener nofollow">cubeos-app/meshsat</a> — Meshtastic-Iridium bridge.</p>
+<h4 id="meshcore">MeshCore</h4>
+<p>Lightweight C++ routing library + firmware (Companion/Repeater/Room Server) for embedded and controllable LoRa meshes. Explicit roles (companions do not repeat to protect route quality), MIT, web flasher for common boards (Heltec, RAK, LILYGO T-Deck etc.), cross-platform companion apps, Room Server for BBS-style shared posts, KISS integration. See <a href="/kb/meshcore/">MeshCore</a> for deep dive. Positioned for developers and custom deployments vs. Meshtastic's broader consumer focus.</p>
+<p>Blackout Comms (chatters.io) is a parallel LoRa encrypted mesh effort with advanced security features (Mesh Memory for device persistence across power cycles, frequency hopping, zero-touch trust) and dedicated hardware (Communicators + optional Mesh Links). Publishes head-to-head comparisons with Meshtastic and MeshCore. Good for users prioritizing hardened off-grid text + tracking.</p>
+<h3 id="2-reticulum-stack">2. Reticulum stack</h3>
+<p>A full networking stack for secure mesh communication:</p>
+<ul>
+<li>Auto-discovery: nodes find each other on their own.</li>
+<li>Encryption: all traffic encrypted with Wireguard-style keys.</li>
+<li>Addressing: distributed addressing without DNS.</li>
+<li>Protocols: includes LXMF (messaging) and NomadNet (client).</li>
+</ul>
+<p><a href="https://github.com/markqvist/NomadNet" rel="noopener nofollow">NomadNet</a> — encrypted chat over Reticulum.
+<a href="https://github.com/markqvist/Sideband" rel="noopener nofollow">Sideband</a> — mobile LXMF client.</p>
+<h3 id="3-overlay-networks">3. Overlay networks</h3>
+<p>These run over the existing internet but provide direct P2P connectivity.</p>
+<h4 id="yggdrasil">Yggdrasil</h4>
+<ul>
+<li>Architecture: end-to-end encrypted overlay with Wireguard-style crypto.</li>
+<li>Routing: greedy routing on a spanning tree.</li>
+<li>Clients: native on many platforms.</li>
+<li>Performance: slower than the native internet but fully encrypted.</li>
+</ul>
+<h4 id="cjdns">cjdns</h4>
+<ul>
+<li>Legacy: the original encrypted IPv6 mesh protocol.</li>
+<li>Status: less actively maintained.</li>
+<li>Network: Hyperboria, the largest cjdns network.</li>
+</ul>
+<h3 id="4-delay-tolerant-networks-dtn">4. Delay-tolerant networks (DTN)</h3>
+<p>When connectivity is intermittent, DTN protocols store and forward.</p>
+<h4 id="briar">Briar</h4>
+<ul>
+<li>Transport: Bluetooth, Wi-Fi, Tor.</li>
+<li>Protocol: store-and-forward messaging.</li>
+<li>Use case: secure messaging when internet is unavailable.</li>
+<li>Platforms: Android (primary); desktop via Tor; iOS unsupported.</li>
+</ul>
+<h4 id="secure-scuttlebutt-ssb">Secure Scuttlebutt (SSB)</h4>
+<ul>
+<li>Protocol: append-only log with gossip replication.</li>
+<li>Platform: Manyverse (Android), Patchwork (desktop).</li>
+<li>Use case: social networking without servers.</li>
+</ul>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Network</th>
+<th>Type</th>
+<th>Range</th>
+<th>Internet required</th>
+<th>Encryption</th>
+<th>Active development</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meshtastic</strong></td>
+<td>LoRa</td>
+<td>2-10 km</td>
+<td>No</td>
+<td>Yes</td>
+<td>Very active</td>
+</tr>
+<tr>
+<td><strong>MeshCore</strong></td>
+<td>LoRa</td>
+<td>2-10+ km</td>
+<td>No</td>
+<td>App-level + examples</td>
+<td>Active (growing 2026)</td>
+</tr>
+<tr>
+<td><strong>Reticulum</strong></td>
+<td>WiFi/LoRa/BT</td>
+<td>Varies</td>
+<td>Optional</td>
+<td>Yes</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>Yggdrasil</strong></td>
+<td>Overlay</td>
+<td>N/A</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td><strong>cjdns</strong></td>
+<td>Overlay</td>
+<td>N/A</td>
+<td>Optional</td>
+<td>Yes</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Nostr VPN (FIPS)</strong></td>
+<td>Overlay + mesh (Nostr discovery)</td>
+<td>N/A (global via relays + direct)</td>
+<td>Optional (relays for signaling)</td>
+<td>Yes (dual layer)</td>
+<td>Active (rapid 2026 releases)</td>
+</tr>
+<tr>
+<td><strong>Briar</strong></td>
+<td>BT/WiFi</td>
+<td>10-100m</td>
+<td>No</td>
+<td>Yes</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>SSB</strong></td>
+<td>P2P</td>
+<td>N/A</td>
+<td>Optional</td>
+<td>No</td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="implementations">Implementations</h2>
+<h3 id="mesh-hardware">Mesh hardware</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Price</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Heltec LoRa</strong></td>
+<td>$20-30</td>
+<td>ESP32, OLED, GPS</td>
+</tr>
+<tr>
+<td><strong>TTGO LoRa</strong></td>
+<td>$25-40</td>
+<td>ESP32, battery holder</td>
+</tr>
+<tr>
+<td><strong>RAK WisBlock</strong></td>
+<td>$50+</td>
+<td>Modular, professional</td>
+</tr>
+<tr>
+<td><strong>RAK WisMesh Pocket</strong></td>
+<td>$80</td>
+<td>Pre-built handheld</td>
+</tr>
+<tr>
+<td><strong>SpecFive Spectre</strong></td>
+<td>$150</td>
+<td>Android phone + LoRa</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="software-ecosystem">Software ecosystem</h3>
+<ul>
+<li><a href="https://meshtastic.org/" rel="noopener nofollow">Meshtastic</a> — firmware and apps.</li>
+<li><a href="https://reticulum.network/" rel="noopener nofollow">Reticulum</a> — full stack.</li>
+<li><a href="https://yggdrasil-network.github.io/" rel="noopener nofollow">Yggdrasil</a> — overlay.</li>
+<li><a href="https://github.com/ajmcquilkin/awesome-meshtastic" rel="noopener nofollow">awesome-meshtastic</a> — resources.</li>
+</ul>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="1-disaster-communication">1. Disaster communication</h3>
+<p>When cell towers and internet are down, mesh networks provide local communication:</p>
+<ul>
+<li>Hurricane response teams use Meshtastic.</li>
+<li>Wartime communication in Ukraine.</li>
+<li>Wildfire evacuation coordination.</li>
+</ul>
+<h3 id="2-privacy-and-operational-security">2. Privacy and operational security</h3>
+<ul>
+<li>No internet path means no metadata leakage.</li>
+<li>Air-gapped networks for sensitive operations.</li>
+<li>A way around surveillance infrastructure.</li>
+</ul>
+<h3 id="3-rural-connectivity">3. Rural connectivity</h3>
+<p>In areas with no internet infrastructure:</p>
+<ul>
+<li>Remote villages in developing countries.</li>
+<li>Scientific expeditions.</li>
+<li>Maritime communications.</li>
+</ul>
+<h3 id="4-protest-and-resistance">4. Protest and resistance</h3>
+<ul>
+<li>Hong Kong protests used mesh networks.</li>
+<li>Iran internet shutdown workarounds.</li>
+<li>Emergency communication infrastructure.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Maturity</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meshtastic</td>
+<td>Production</td>
+<td>Thousands of users, active dev</td>
+</tr>
+<tr>
+<td>MeshCore</td>
+<td>Production / active dev</td>
+<td>Firmware shipping, flasher, clients, community hardware; MIT core</td>
+</tr>
+<tr>
+<td>Reticulum</td>
+<td>Production</td>
+<td>Working software, growing</td>
+</tr>
+<tr>
+<td><a href="/kb/yggdrasil/">Yggdrasil</a></td>
+<td>Experimental</td>
+<td>The project describes itself as alpha-stage</td>
+</tr>
+<tr>
+<td><a href="/kb/briar/">Briar</a></td>
+<td>Maintenance mode</td>
+<td>Essential security updates and bug fixes</td>
+</tr>
+<tr>
+<td>SSB</td>
+<td>Beta</td>
+<td>Active community</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Independence: no internet required.</li>
+<li>Censorship resistance: hard to block what isn't seen.</li>
+<li>Low power: can run on batteries or solar.</li>
+<li>Lower cost: no ISP, no cellular plan.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Range is bounded; mesh needs nodes in proximity.</li>
+<li>Bandwidth is low; LoRa is very slow.</li>
+<li>More users mean a better network.</li>
+<li>Hardware and setup add complexity.</li>
+<li>Discovery is hard.</li>
+</ul>
+<h3 id="operational-notes">Operational notes</h3>
+<ul>
+<li>More nodes mean more range (the mesh effect).</li>
+<li>Antenna choice matters a lot.</li>
+<li>Line of sight increases range substantially.</li>
+<li>Battery life depends on usage patterns.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<h3 id="physical-layer">Physical layer</h3>
+<ul>
+<li>RF jamming (counter: frequency hopping, spread spectrum).</li>
+<li>Direction finding (counter: low-power transmissions, movement).</li>
+<li>RF interference.</li>
+</ul>
+<h3 id="network-layer">Network layer</h3>
+<ul>
+<li>Sybil attacks (counter: node reputation).</li>
+<li>Eclipse attacks (counter: diverse peer selection).</li>
+<li>Routing attacks.</li>
+</ul>
+<h3 id="social-layer">Social layer</h3>
+<ul>
+<li>Bad hardware (counter: buy from reputable vendors, inspect board revisions, and keep spare known-good radios).</li>
+<li>Compromised firmware (counter: reproducible builds).</li>
+<li>User error (counter: training).</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://briarproject.org/news/2026-maintenance-mode/" rel="noopener nofollow">Briar maintenance-mode announcement</a></li>
+</ul>
+<p>For internet access built and owned by its users rather than a telco, see <a href="/kb/community-networks/">Community Networks</a>.</p>
+<p>MeshCore is covered in depth at <a href="/kb/meshcore/">MeshCore</a>, beside <a href="/kb/meshtastic/">Meshtastic</a>. Correction to the table above: MeshCore encrypts by default in firmware (AES-128 in ECB mode with a 2-byte MAC), not only at app level. Bitchat launched in July 2025; see <a href="/kb/bitchat/">Bitchat</a>.</p>
+<p>Continue with <a href="/kb/libremesh/">LibreMesh</a>, <a href="/kb/aprs/">APRS</a> and <a href="/kb/secure-scuttlebutt/">Secure Scuttlebutt</a>.</p>
+<p>For reach, hardware, encryption and readiness across the options, see <a href="/kb/compare-off-grid/">off-grid communication compared</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/meshtastic/">
+  <span class="nm">Meshtastic</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/meshcore/">
+  <span class="nm">MeshCore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bitchat/">
+  <span class="nm">Bitchat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/reticulum/">
+  <span class="nm">Reticulum</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/building-a-mesh/">
+  <span class="nm">Building a Local Mesh Network</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/hf-data-modes/">
+  <span class="nm">HF Radio Data Modes</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/batman-adv-and-cjdns/">
+  <span class="nm">B.A.T.M.A.N. advanced and cjdns</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/hyphanet-and-freenet/">
+  <span class="nm">Hyphanet and Freenet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/satellite-iot/">
+  <span class="nm">Satellite IoT and Direct-to-Device Links</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/yggdrasil/">
+  <span class="nm">Yggdrasil</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/briar/">
+  <span class="nm">Briar</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/community-networks/">
+  <span class="nm">Community Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Off-Grid%20Networks" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Off-grid networks are communication systems that work without depending on the public internet.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Off-Grid and Mesh Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

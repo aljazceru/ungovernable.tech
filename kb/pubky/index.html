@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pubky — ungovernable.tech</title>
+<meta name="description" content="Pubky, an open protocol for key-based identity and data built on PKARR and the Mainline DHT: homeservers, the social app and its status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/pubky/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Pubky — ungovernable.tech">
+<meta property="og:description" content="Pubky, an open protocol for key-based identity and data built on PKARR and the Mainline DHT: homeservers, the social app and its status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/pubky/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pubky — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pubky — ungovernable.tech">
+<meta name="twitter:description" content="Pubky, an open protocol for key-based identity and data built on PKARR and the Mainline DHT: homeservers, the social app and its status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Pubky", "description": "Pubky, an open protocol for key-based identity and data built on PKARR and the Mainline DHT: homeservers, the social app and its status.", "dateModified": "2026-05-11", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/pubky/", "mainEntityOfPage": "https://ungovernable.tech/kb/pubky/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}, {"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Pubky", "item": "https://ungovernable.tech/kb/pubky/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Pubky</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Pubky</h1>
+  <p class="aka">Also Pubky Core, Pubky Network, PKARR.</p>
+  <p class="dek">An open protocol and identity platform built around PKARR (Public-Key-Addressable Resource Records) over the BitTorrent Mainline DHT. Pubky Core is the production-grade suite from Synonym that adds SDKs, homeservers, a semantic social graph, mobile key management, and indexing infrastructure. The result is a censorship-resistant, fee-free, key-rooted identity and data platform. See PKARR for the underlying naming primitive.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-05-11</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-pubky-core-is">What Pubky Core is</a><a href="#architecture">Architecture</a><a href="#semantic-social-graph">Semantic social graph</a><a href="#operational-patterns">Operational patterns</a><a href="#pubky-vs-nostr-at-the-identity-layer">Pubky vs Nostr at the identity layer</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#recent-developments-20242026">Recent developments (2024–2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-pubky-core-is">What Pubky Core is</h2>
+<p>Pubky Core is the full-stack realization of the PKARR primitive. Rather than stopping at signed DNS records on a DHT, Pubky Core provides:</p>
+<ul>
+<li><strong>Pubky Core protocol</strong> — formal specification for key-based authentication, capability tokens, key-value storage semantics, and homeserver discovery.</li>
+<li><strong>Pubky Homeserver</strong> — production-ready server hosting per-user key-value data over a RESTful HTTP API, with multiple persistence backends.</li>
+<li><strong>Pubky Core SDK</strong> — client libraries in Rust, JavaScript/WASM, Swift (iOS/macOS), and Kotlin (Android).</li>
+<li><strong>Pubky Ring</strong> — mobile key manager app (iOS/Android) for managing pubkys, authorizing apps, and controlling sessions.</li>
+<li><strong>Pubky.app</strong> — a live social media PWA built on the protocol.</li>
+<li><strong>Pubky Nexus</strong> — production indexing service for social features and API.</li>
+<li><strong>pkdns</strong> — DNS resolver bridging PKARR into legacy DNS.</li>
+</ul>
+<p>The guiding philosophy: <em>"The Web, long centralized, must decentralize; Long decentralized, must centralize."</em> Pubky Core targets the practical middle ground between fully centralized web2 and purely theoretical decentralized systems.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="three-layer-stack">Three-layer stack</h3>
+<pre><code>Identity layer:
+  Ed25519 keypair → public key as zone identifier
+  └─ PKARR: DHT[hash(pk)] = signed DNS records
+
+Data plane layer:
+  Pubky Homeserver: RESTful HTTP API over HTTPS
+  └─ Key-value store per public key
+  └─ Publishes homeserver location in PKARR record
+
+Application layer:
+  Pubky Core SDK → apps (social, identity, etc.)
+  Pubky Nexus → indexing and social graph
+  Pubky Ring → mobile key management
+</code></pre>
+<h3 id="homeserver-architecture">Homeserver architecture</h3>
+<p>The homeserver is the core data plane. Each user has a homeserver (self-hosted or hosted) that stores signed key-value records. The address is discovered via PKARR.</p>
+<p>Properties:
+- Multiple persistence backends: Files, LMDB, SQL (SQLite, PostgreSQL).
+- RESTful HTTP API over HTTPS — works with existing web infrastructure.
+- Pub/sub event streams for real-time features.
+- Rate limiting (DDoS protection), Prometheus metrics, admin API.
+- Session management with secure, time-limited sessions.
+- Recovery files for encrypted backup and key recovery.</p>
+<h3 id="sdk-availability">SDK availability</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Package</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rust</td>
+<td><code>pubky</code> on crates.io</td>
+<td>Full-featured native SDK</td>
+</tr>
+<tr>
+<td>JavaScript/WASM</td>
+<td><code>@synonymdev/pubky</code> on npm</td>
+<td>Browser and Node.js</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td><code>pubky-swift</code></td>
+<td>iOS/macOS native</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>pubky-kotlin</code></td>
+<td>Android native</td>
+</tr>
+</tbody>
+</table></div>
+<p>The JavaScript SDK supports both browser and Node.js environments, enabling web app development without native dependencies.</p>
+<h3 id="pubky-ring-mobile-key-manager">Pubky Ring — mobile key manager</h3>
+<p><a href="https://github.com/pubky/pubky-ring" rel="noopener nofollow">github.com/pubky/pubky-ring</a> is the mobile companion app:</p>
+<ul>
+<li>Manages pubky keys on iOS and Android.</li>
+<li>Authorizes applications with scoped capability tokens.</li>
+<li>Controls active sessions.</li>
+<li>Signs and verifies data with the stored key.</li>
+</ul>
+<p>This separates key custody from application access — the Ring holds the key, apps request authorization through it.</p>
+<h3 id="pubky-nexus-indexing-and-social-graph">Pubky Nexus — indexing and social graph</h3>
+<p><a href="https://github.com/pubky/pubky-nexus" rel="noopener nofollow">github.com/pubky/pubky-nexus</a> is the production indexing service:</p>
+<ul>
+<li>Staging API: <code>https://nexus.staging.pubky.app/swagger-ui/</code></li>
+<li>Production API: <code>https://nexus.pubky.app/swagger-ui/</code></li>
+<li>Provides social graph features (follows, blocks, semantic relationships) that require cross-user aggregation.</li>
+<li>Enables search and discovery across the Pubky social ecosystem.</li>
+</ul>
+<h2 id="semantic-social-graph">Semantic social graph</h2>
+<p>The distinguishing application-layer feature. Tagged relationships enable:</p>
+<ul>
+<li><strong>User-controlled filtering</strong> — each user tags their relationships (friend, colleague, community) and filters content accordingly.</li>
+<li><strong>Discovery and matching</strong> — tagged graphs support algorithmic matching without centralized profiling.</li>
+<li><strong>Coordination</strong> — community organization through structured relationship metadata.</li>
+<li><strong>Privacy-preserving</strong> — the graph lives in user-controlled homeservers; Nexus aggregates only what users explicitly share.</li>
+</ul>
+<p>The semantic social graph is distinct from both Nostr's flat relay event model and ActivityPub's server-federation model: each user owns structured, tagged relationship data that can be selectively shared or aggregated.</p>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="self-hosted-personal-stack">Self-hosted personal stack</h3>
+<pre><code>1. Generate Ed25519 keypair → Pubky identity (zone key)
+2. Run pkdns locally or use a community resolver
+3. Publish PKARR record with homeserver pointer (TXT record)
+4. Run Pubky Homeserver (Docker, ~one-VM workload)
+5. Use Pubky.app social PWA or SDK-based client
+6. Manage keys with Pubky Ring mobile app
+</code></pre>
+<p>The equivalent of self-hosting an online presence without DNS, a domain, or a platform.</p>
+<h3 id="nip-05-over-pkarr-for-nostr-users">NIP-05 over PKARR (for Nostr users)</h3>
+<p>For Nostr users who want a censorship-resistant NIP-05 alias:</p>
+<pre><code>PKARR record → points homeserver URL
+homeserver → serves /.well-known/nostr.json
+nostr.json → maps username → npub
+</code></pre>
+<p>An adversary can attack the homeserver host but cannot compel ICANN, a registrar, or a DNS provider.</p>
+<h3 id="combined-nostr-pubky-stack">Combined Nostr + Pubky stack</h3>
+<p>Hold both keys and bind them via cross-signed records. Use Nostr for real-time social and Pubky for structured content (long-form posts, profile, file storage, follow lists).</p>
+<h2 id="pubky-vs-nostr-at-the-identity-layer">Pubky vs Nostr at the identity layer</h2>
+<p>Both are key-rooted identity systems. They differ:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th><a href="/kb/nostr-identity/">Nostr</a></th>
+<th>Pubky</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>secp256k1 / Schnorr (<code>npub</code>)</td>
+<td>Ed25519 (PKARR key)</td>
+</tr>
+<tr>
+<td>Discovery / addressing</td>
+<td>Relays + NIP-05</td>
+<td>Mainline DHT (PKARR)</td>
+</tr>
+<tr>
+<td>Data model</td>
+<td>Append-only signed events to relays</td>
+<td>Key-value signed records on homeserver</td>
+</tr>
+<tr>
+<td>Naming</td>
+<td>NIP-05 alias</td>
+<td>PKARR + optional NIP-05</td>
+</tr>
+<tr>
+<td>Social graph</td>
+<td>Relay-scoped event streams</td>
+<td>Semantic social graph with user-controlled tagging</td>
+</tr>
+<tr>
+<td>SDK support</td>
+<td>Multiple (ndk, swift-nostr, etc.)</td>
+<td>Rust / JS / Swift / Kotlin (first-party)</td>
+</tr>
+<tr>
+<td>Mobile key manager</td>
+<td>Third-party</td>
+<td>Pubky Ring (first-party)</td>
+</tr>
+<tr>
+<td>Censorship resistance</td>
+<td>Per-relay; multi-relay redundancy</td>
+<td>Per-homeserver + DHT</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Real-time event stream</td>
+<td>HTTP fetch + DHT resolve</td>
+</tr>
+<tr>
+<td>Ecosystem maturity</td>
+<td>Larger (2024-2026)</td>
+<td>Smaller, growing</td>
+</tr>
+</tbody>
+</table></div>
+<p>The systems are more complementary than competing. Many users hold both keys or use cross-signing to bind them.</p>
+<h2 id="threat-model">Threat model</h2>
+<h3 id="defends-against">Defends against</h3>
+<ul>
+<li><strong>Record forgery</strong> — signatures bind records to the zone key.</li>
+<li><strong>Replay</strong> — sequence numbers and BEP 44 semantics order updates.</li>
+<li><strong>Registrar coercion</strong> — there is no registrar.</li>
+<li><strong>TLD seizure</strong> — there is no TLD.</li>
+<li><strong>Platform deplatforming</strong> — homeservers are user-controlled or freely chosen.</li>
+<li><strong>CA compromise</strong> — TLS is used but not required for PKARR resolution itself.</li>
+</ul>
+<h3 id="does-not-defend-against">Does not defend against</h3>
+<ul>
+<li><strong>DHT record-hiding</strong> — an adversary near a key's hash can refuse to serve it. Mitigations: republish to multiple bootstrap nodes, pin via known peers.</li>
+<li><strong>Lookup observation</strong> — DHT queries leak the key hash to intermediate nodes. Use Tor for private lookups.</li>
+<li><strong>Key compromise</strong> — lose the key, lose the zone. Threshold custody (FROST) is the mitigation.</li>
+<li><strong>Quantum attack</strong> — Ed25519 is not post-quantum. No PQ migration path specified yet.</li>
+<li><strong>Homeserver availability</strong> — the homeserver host can go down. Multi-homing and backup are the mitigations.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>No blockchain, no token, no fees. Just cryptography and an ambient DHT (~10M nodes, 15+ years proven).</li>
+<li>Self-authenticating names — the address proves the key.</li>
+<li>Bridges into legacy DNS via pkdns.</li>
+<li>No takedown vector at the naming layer.</li>
+<li>Production SDKs (four languages), homeserver, social app, mobile key manager, and indexing service — a coherent full stack rather than a fragmented ecosystem.</li>
+<li>Semantic social graph provides structure that Nostr's relay model lacks.</li>
+<li>Pubky Ring provides first-party key management for mobile.</li>
+<li>"Credible exit": switch homeservers/apps/identity managers without losing data or social graph.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>DHT availability is an assumption. Mainline is ambient but adversarial scenarios are less studied than Tor or I2P.</li>
+<li>Records are small; non-trivial data lives on the homeserver, not in PKARR.</li>
+<li>Homeserver hosting is an operational burden for non-technical users.</li>
+<li>Public homeservers re-introduce some centralization.</li>
+<li>Quantum vulnerability: Ed25519-based, no deployed PQ migration path.</li>
+</ul>
+<h2 id="recent-developments-20242026">Recent developments (2024–2026)</h2>
+<ul>
+<li><code>pkdns</code> reached stable production with Linux and Docker deployments (2024–2025).</li>
+<li>Pubky homeserver reference implementation matured (2025).</li>
+<li>Pubky.app social launched in 2025.</li>
+<li><strong>Pubky Core SDK suite launched (2025–2026)</strong> — Rust, JavaScript/WASM, Swift, Kotlin SDKs released with comprehensive documentation.</li>
+<li><strong>Pubky Ring mobile key manager</strong> — iOS/Android app released for key custody and session management.</li>
+<li><strong>Pubky Nexus</strong> — production indexing API launched (staging + production endpoints).</li>
+<li><strong>Iroh integration explored (2026)</strong> — Pubky Dev Community Call #2 examined integrating Iroh (a modern Rust P2P library) with PKARR for improved relay/transport reliability.</li>
+<li>Semantic social graph tooling and API stabilized (2025–2026).</li>
+<li>Community bridges with Nostr (NIP-05 over PKARR) continue to develop.</li>
+<li>No PQ-signature variant standardized yet.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<h3 id="documentation-and-specs">Documentation and specs</h3>
+<ul>
+<li>Pubky docs — <a href="https://docs.pubky.org" rel="noopener nofollow">docs.pubky.org</a></li>
+<li>Pubky Core overview — <a href="https://docs.pubky.org/Explore/PubkyCore/Introduction" rel="noopener nofollow">docs.pubky.org/Explore/PubkyCore/Introduction</a></li>
+<li>Pubky API reference — <a href="https://docs.pubky.org/Explore/PubkyCore/API" rel="noopener nofollow">docs.pubky.org/Explore/PubkyCore/API</a></li>
+<li>Pubky security model — <a href="https://docs.pubky.org/Explore/PubkyCore/SecurityModel" rel="noopener nofollow">docs.pubky.org/Explore/PubkyCore/SecurityModel</a></li>
+</ul>
+<h3 id="repositories">Repositories</h3>
+<ul>
+<li><a href="https://github.com/pubky/pubky-core" rel="noopener nofollow">pubky/pubky-core</a> — SDKs, homeserver, protocol specs (MIT)</li>
+<li><a href="https://github.com/pubky/pkarr" rel="noopener nofollow">pubky/pkarr</a> — the PKARR protocol library</li>
+<li><a href="https://github.com/pubky/pkdns" rel="noopener nofollow">pubky/pkdns</a> — DNS resolver bridging PKARR</li>
+<li><a href="https://github.com/pubky/pubky-ring" rel="noopener nofollow">pubky/pubky-ring</a> — mobile key manager (iOS/Android)</li>
+<li><a href="https://github.com/pubky/pubky-nexus" rel="noopener nofollow">pubky/pubky-nexus</a> — social graph indexing API</li>
+<li><a href="https://github.com/pubky/pubky-app" rel="noopener nofollow">pubky/pubky-app</a> — Pubky.app social PWA</li>
+<li><a href="https://github.com/pubky/pubky" rel="noopener nofollow">pubky/pubky-homeserver</a> — homeserver reference implementation</li>
+</ul>
+<h3 id="research-and-background">Research and background</h3>
+<ul>
+<li>Aiello, Hartshorn et al., <em>PKARR — Public-Key-Addressable Resource Records</em>, 2023.</li>
+<li>Maymounkov &amp; Mazières, <em>Kademlia: A Peer-to-Peer Information System Based on the XOR Metric</em>, IPTPS 2002.</li>
+<li>BEP 44 — <em>Storing arbitrary data in the DHT</em> (BitTorrent Enhancement Proposal).</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/did-methods/">
+  <span class="nm">Decentralized Identifier (DID) Methods</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/fips-mesh/">
+  <span class="nm">FIPS (Free Internetworking Peering System)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/mesh-naming/">
+  <span class="nm">Naming on Mesh and Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/naming/">Sovereign Naming</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-05-11</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Pubky" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">An open protocol and identity platform built around PKARR (Public-Key-Addressable Resource Records) over the BitTorrent Mainline DHT. Pubky Core is the production-grade suite from Synonym that adds SDKs, homeservers, a semantic social graph, mobile key management, and indexing infrastructure. The result is a censorship-resistant, fee-free, key-rooted identity and data platform. See PKARR for the underlying naming primitive.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust, Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-05-11</dd>
+        <dt>Sources linked</dt><dd>11</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

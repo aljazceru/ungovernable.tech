@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — August 14 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-14: Tor / DEF CON 34: Roger &#34;arma&#34; Dingledine&#39;s &#34;Shepherding the Tor network&#34; (Sunday, Aug 9) delivered the keynote.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-08-14/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — August 14 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-14: Tor / DEF CON 34: Roger &#34;arma&#34; Dingledine&#39;s &#34;Shepherding the Tor network&#34; (Sunday, Aug 9) delivered the keynote.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-08-14/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — August 14 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — August 14 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-14: Tor / DEF CON 34: Roger &#34;arma&#34; Dingledine&#39;s &#34;Shepherding the Tor network&#34; (Sunday, Aug 9) delivered the keynote.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — August 14 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-14: Tor / DEF CON 34: Roger \"arma\" Dingledine's \"Shepherding the Tor network\" (Sunday, Aug 9) delivered the keynote.", "datePublished": "2026-08-14", "dateModified": "2026-08-14", "url": "https://ungovernable.tech/briefings/mix-networks/2026-08-14/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-08-14/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-14", "item": "https://ungovernable.tech/briefings/mix-networks/2026-08-14/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-08-14</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — August 14 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-14</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-14 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-14. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This edition is dominated by <strong>DEF CON 34 (August 6–9, Las Vegas)</strong> — now concluded — which delivered Roger Dingledine's most significant public Tor operational briefing in years: the network's routing algorithm is "trading safety for speed" as cheap European hosting recentralizes relay infrastructure. We also cover the new <strong>Snowflake Volunteer</strong> standalone Android app expanding the censorship-circumvention proxy pool, the conclusion of DEF CON 34 with several anonymity/privacy-relevant talks (TEE breaking via DDR5 interposition, ESP32 counter-surveillance, PQ implementation attacks, whistleblower tech), a new <strong>QuMixnet</strong> quantum-safe mixnet protocol paper, a Tor de-anonymization experimental testbed paper, and the continued quiet on the Nym/I2P/Katzenpost release front.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong><a href="/kb/tor/">Tor</a> / DEF CON 34</strong>: <strong>Roger "arma" Dingledine's "Shepherding the Tor network"</strong> (Sunday, Aug 9) delivered the keynote operational briefing. Headlines: Tor's routing algorithm is <strong>"trading safety for speed"</strong> as cheap European hosting (especially Hetzner, now ~20% of the network) recentralizes relay infrastructure geographically. Dingledine ranked practical threats: <strong>opsec mistakes &gt; browser fingerprinting &gt; browser 0-days &gt; confirmation attacks &gt; traffic analysis</strong>. The nine directory authorities provide admission control (bad-relay eviction) but represent a centralization tradeoff. Tor is rewriting relay code in Rust (the Arti arc) to address C-code maintainability. Call to action: more US-based relay operators needed.</li>
+<li><strong><a href="/kb/tor/">Tor</a> / Snowflake</strong>: <strong>Snowflake Volunteer</strong> — a new standalone Android app by <a href="https://www.bloco.io/" rel="noopener nofollow">Bloco</a> (Portugal), built on Guardian Project's IPtProxy library. Launched publicly in April 2026 on F-Droid and Google Play. By June, ~1,700 daily unique proxy IPs from the app alone (29% monthly growth), reaching highs of 2,100+. The overall Snowflake volunteer pool averaged ~146,000 unique daily proxies in H1 2026, with Orbot's Kindness Mode contributing roughly a third. Available in 8 languages.</li>
+<li><strong>DEF CON 34 — Anonymity/Privacy-Relevant Talks</strong>: Multiple talks directly relevant to the mixnet/anonymity ecosystem: <strong>"Harvest Now, Decrypt Later: Practical Attacks on PQ Crypto Implementations"</strong> (Aleksandr Krasnov), <strong>"TEE.fail: Breaking TEEs via DDR5 Memory Bus Interposition"</strong> (Daniel Genkin, Jalen Chuang), <strong>"ESP32 as a counter-surveillance platform"</strong> (Cooper Quintin, EFF), <strong>"Lessons from a decade of building whistleblower tech"</strong> (Trevor Timm, redshiftzero), <strong>"Talkers Without Borders"</strong> (AIS covert comms channel without internet), <strong>"Breaking Ciphers and Zero-Knowledge Proofs"</strong>, <strong>"Forget FIPS: Russian and Chinese Crypto Standards"</strong>, <strong>"gpwn: Wiretapping fiber GPON ISP deployments"</strong>, <strong>"Cracking North Korea's Information Control"</strong>, and <strong>"Crypto Is Fine. The Code Is Not"</strong> at the Crypto &amp; Privacy Village.</li>
+<li><strong>Research — QuMixnet</strong>: New paper by Dibaj, Eghlidos, and Pilaram in <em>ISC International Journal of Information Security</em> (Vol. 18, No. 3, 2026) proposes a <strong>quantum-safe mixnet protocol</strong> — adds to the growing PQ-mixnet literature alongside Katzenpost's built-in PQ and Nym's Outfox design.</li>
+<li><strong>Research — Tor De-Anonymization Testbed</strong>: Kainz et al. (MDPI <em>Journal of Cybersecurity and Privacy</em>, Vol. 6, No. 2, 2026) present an experimental Tor testbed demonstrating three de-anonymization vectors: malware-based reverse shells, malicious document payloads (PDF/Office), and hidden-service misconfigurations. Confirms that user behavior and configuration errors — not Tor protocol breaks — are the primary risk.</li>
+<li><strong><a href="/kb/nym/">Nym</a></strong>: No new binary releases since v2026.14-amsterdam (Jul 21). The Privacy Guides "Nym Mixnet: privacy theater" thread was updated Aug 8, continuing the community scrutiny of Nym's centralization risk — specifically that a single corporation (Nym Technologies SA) can gate the entire network via credential issuance, making 684+ community-run nodes "useless overnight" if the company is compelled.</li>
+<li><strong><a href="/kb/i2p/">I2P</a> / <a href="/kb/katzenpost/">Katzenpost</a></strong>: No new releases since I2P 2.13.0 (Jul 24) and the ongoing Katzenpost Pigeonhole development covered last week.</li>
+<li><strong>Freedom-tech takeaway</strong>: Dingledine's DEF CON talk crystallizes the central tension in anonymity-network design for 2026: <strong>optimization for speed recentralizes infrastructure</strong>, undermining the geographic and jurisdictional diversity that is the network's core defense. This is not a Tor-specific problem — it applies equally to Nym's node economics and any volunteer-operated anonymity network. The Snowflake Volunteer app demonstrates how lowering the barrier to participation (a single-purpose mobile app) measurably grows the censor-resistance capacity. And the DEF CON talk roster shows that anonymity and metadata privacy are active research frontiers, not solved problems.</li>
+</ul>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="def-con-34-shepherding-the-tor-network-roger-dingledines-operational-briefing">DEF CON 34: "Shepherding the Tor network" — Roger Dingledine's Operational Briefing</h3>
+<p>Roger "arma" Dingledine, Tor Project cofounder and original developer, delivered <strong>"Shepherding the Tor network"</strong> on Sunday, August 9 at 10 AM (Main Track 5, 60 minutes). This is the most significant public Tor operational briefing since his DEF CON 32 "Measuring the Tor Network" talk (2024). Based on the Network World coverage (Aug 10, 2026), the talk covered:</p>
+<h4 id="tor-runs-on-altruism-not-profit">Tor runs on altruism, not profit</h4>
+<blockquote>
+<p>"The building block that Tor is based on is altruism. It is: I want to make the world a better place, I have these extra resources, whether it's bandwidth or a computer or something, and of course I'm going to give back to my community so that people in authoritarian regimes like Egypt or the U.S. or wherever we're going, can have more safety on the internet."</p>
+</blockquote>
+<p>The network has grown to ~9,000 relays (up from ~7,000 cited in earlier vault entries — Tor metrics show growth through 2026). Each relay operator sets an exit policy; some allow only ports 80/443, others carry no exit traffic.</p>
+<h4 id="directory-authorities-the-centralization-tradeoff">Directory authorities: the centralization tradeoff</h4>
+<p>Nine directory authorities publish an hourly consensus telling clients which relays exist. Dingledine runs one and knows the other eight operators personally. This is a deliberate tradeoff: the nine-authority model enables <strong>admission control</strong> — the ability to evict bad relays:</p>
+<blockquote>
+<p>"If some jerk in Russia signs up 1,000 Tor relays, then we have the ability, once we've identified them, to get those relays out of the network, and that has turned out to be really useful over time."</p>
+</blockquote>
+<p>The tradeoff: if an attacker compromises or coerces a majority of the nine, the network's integrity is at risk. This is the same centralization-vs-resilience tension documented in the Nym/Stark Industries case study from last week's update.</p>
+<h4 id="threat-ranking-by-practical-frequency-not-theoretical-severity">Threat ranking (by practical frequency, not theoretical severity)</h4>
+<p>Dingledine ranked threats by how often they actually cause deanonymization:</p>
+<ol>
+<li><strong>Opsec mistakes</strong> — the most common cause. Law enforcement contacts tracked suspects who briefly used an open connection without Tor.</li>
+<li><strong>Browser fingerprinting</strong> — Tor Browser normalizes JavaScript behavior, window size, and other variables to make users look identical.</li>
+<li><strong>Browser exploits</strong> — Firefox 0-days purchased on the vulnerability market frequently work against Tor Browser due to the shared rendering engine.</li>
+<li><strong>Confirmation attacks</strong> — an adversary who already suspects a specific user monitors their connection alongside a destination site, correlating traffic flows.</li>
+<li><strong>Traffic analysis</strong> — matching flows within a large observed set without a known suspect. Dingledine called this "a hard research problem at scale."</li>
+</ol>
+<p>This ranking is operationally critical: it means the primary attack vector against Tor users is <strong>behavioral, not cryptographic</strong>. The network's protocol is sound; users break their own anonymity through operational errors.</p>
+<h4 id="cheap-hosting-is-recentralizing-the-network">Cheap hosting is recentralizing the network</h4>
+<p>This is the talk's most significant disclosure. Running a relay now typically means provisioning a VPS rather than a personal machine. The economic gravity is toward cheap European providers:</p>
+<blockquote>
+<p>"Everybody's like, I'll run mine on Hetzner also, and then suddenly Hetzner is 20% of the Tor network."</p>
+</blockquote>
+<p>Tor's own load-balancing and bandwidth-measurement systems then <strong>amplify</strong> this concentration: European relays are measurably faster due to proximity to other European relays, so the routing algorithm favors them. The result is a <strong>positive feedback loop</strong>: speed optimization pushes traffic toward a geographically concentrated, provider-concentrated set of infrastructure, directly undermining the network's design goal of distributing traffic across many jurisdictions.</p>
+<blockquote>
+<p>"If the goal of the Tor network is to spread out all the traffic over many continents, then we've got a conflict here between making Tor fast and making Tor safe."</p>
+</blockquote>
+<p>This is the most precise articulation of the speed-vs-safety tension in Tor's history, and it generalizes to all volunteer-operated anonymity networks (Nym, I2P). The Nym/Stark Industries incident from last week's update is a case study in the consequences of provider concentration.</p>
+<h4 id="fixes-underway">Fixes underway</h4>
+<ul>
+<li><strong>Rust rewrite</strong> — moving relay code away from C to Rust (the <a href="/kb/tor/">Arti</a> arc), addressing maintainability of a C codebase with a large configuration surface.</li>
+<li><strong>US relay growth</strong> — Dingledine explicitly called for more US-based relay operators: "we live in a world where it's increasingly important for us to help the people here in the U.S."</li>
+</ul>
+<p><strong>Primary Sources</strong>:
+- DEF CON 34 event page: <a href="https://defcon.org/html/defcon-34/dc-34-speakers.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-speakers.html</a> (Shepherding the Tor network)
+- Tor Project event announcement: <a href="https://blog.torproject.org/event/defcon-2026" rel="noopener nofollow">https://blog.torproject.org/event/defcon-2026</a>
+- Network World coverage (Aug 10, 2026): <a href="https://www.networkworld.com/article/4207439/tor-still-runs-on-altruism-but-cheap-hosting-is-pulling-it-off-course.html" rel="noopener nofollow">https://www.networkworld.com/article/4207439/tor-still-runs-on-altruism-but-cheap-hosting-is-pulling-it-off-course.html</a>
+- DEF CON 34 schedule: <a href="https://defcon.org/html/defcon-34/dc-34-schedule.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-schedule.html</a></p>
+<h3 id="snowflake-volunteer-a-standalone-android-app-for-censorship-circumvention">Snowflake Volunteer: A Standalone Android App for Censorship Circumvention</h3>
+<p>The Tor Project announced <strong>Snowflake Volunteer</strong> (August 3, 2026 blog post) — a new standalone Android app that lets anyone run a Snowflake proxy from their phone. This is operationally significant for the censorship-resistance stack:</p>
+<p><strong>What it is</strong>: A single-purpose app, built open-source by <a href="https://www.bloco.io/" rel="noopener nofollow">Bloco</a> (an Android app studio from Portugal), that runs a Snowflake proxy in the background. Users control:
+- Background running (with battery optimization)
+- Wi-Fi-only / unmetered-network restriction
+- Charging-only mode
+- Concurrent connection limits
+- Statistics showing how many people they've helped over time</p>
+<p><strong>Built on</strong>: Guardian Project's <a href="https://github.com/tladesignz/IPtProxy" rel="noopener nofollow">IPtProxy</a> library, which packages the pluggable-transport toolchain for mobile integration.</p>
+<p><strong>Impact metrics</strong> (from Snowflake broker data, Jan–Jun 2026):
+- <strong>Overall Snowflake volunteer pool</strong>: ~146,000 unique daily proxy IPs (average across H1 2026)
+- Orbot's Kindness Mode contributed roughly a third (~48,000)
+- <strong>Snowflake Volunteer app specifically</strong>: ~1,300 daily unique IPs in May → ~1,700 in June (29% monthly growth), peaking at 2,100+
+- Available in 8 languages (Chinese, English, French, German, Japanese, Portuguese, Turkish, Vietnamese)</p>
+<p><strong>Why this matters</strong>: Snowflake's effectiveness against censorship depends on a large, rotating pool of volunteer proxies that censors cannot easily enumerate or block. A dedicated mobile app lowers the barrier to participation far below browser extensions or CLI tools. The 29% monthly growth rate from a single new app demonstrates that reducing friction measurably grows the censor-resistance capacity. This is a model for how anonymity networks can expand their volunteer base.</p>
+<p><strong>Primary Sources</strong>:
+- Tor Blog announcement: <a href="https://blog.torproject.org/snowflake-volunteer-standalone-app-to-help-people-bypass-censorship" rel="noopener nofollow">https://blog.torproject.org/snowflake-volunteer-standalone-app-to-help-people-bypass-censorship</a>
+- F-Droid: <a href="https://f-droid.org/en/packages/io.bloco.snowflake/" rel="noopener nofollow">https://f-droid.org/en/packages/io.bloco.snowflake/</a>
+- Google Play: <a href="https://play.google.com/store/apps/details?id=io.bloco.snowflake" rel="noopener nofollow">https://play.google.com/store/apps/details?id=io.bloco.snowflake</a>
+- Source code: <a href="https://github.com/blocoio/snowflake" rel="noopener nofollow">https://github.com/blocoio/snowflake</a>
+- Localization: <a href="https://hosted.weblate.org/projects/snowflake-volunteers/" rel="noopener nofollow">https://hosted.weblate.org/projects/snowflake-volunteers/</a></p>
+<h3 id="def-con-34-other-anonymity-and-privacy-relevant-talks">DEF CON 34: Other Anonymity- and Privacy-Relevant Talks</h3>
+<p>DEF CON 34 concluded Sunday, August 9. The following talks from the <a href="https://defcon.org/html/defcon-34/dc-34-speakers.html" rel="noopener nofollow">main stage schedule</a> and <a href="https://cryptovillage.org" rel="noopener nofollow">Crypto &amp; Privacy Village</a> are directly relevant to the mix-network/anonymity ecosystem. Talk videos are typically published to the <a href="https://www.youtube.com/@DEFCONConference" rel="noopener nofollow">DEF CON YouTube channel</a> in the weeks following the conference.</p>
+<h4 id="harvest-now-decrypt-later-practical-attacks-on-post-quantum-cryptography-implementations">Harvest Now, Decrypt Later: Practical Attacks on Post-Quantum Cryptography Implementations</h4>
+<p><strong>Aleksandr Krasnov</strong> — Directly relevant to the <a href="/pillars/pqc/">PQ migration</a> and the harvest-now-decrypt-later threat model that motivates Katzenpost's PQ-by-default design and Nym's Outfox PQ packet format. Practical attacks on PQ implementations (as opposed to the algorithms themselves) are the real-world risk vector.</p>
+<h4 id="teefail-breaking-trusted-execution-environments-via-ddr5-memory-bus-interposition">TEE.fail: Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition</h4>
+<p><strong>Daniel Genkin, Jalen Chuang</strong> — Physical side-channel attack breaking TEEs through DDR5 memory bus interposition. Relevant to <a href="/kb/confidential-computing/">confidential computing</a> and the <a href="/kb/tee-side-channel-attacks/">TEE side-channel attack surface</a>. If TEEs can be broken via memory bus interposition, the attestation chain that underpins confidential AI inference and other TEE-based privacy patterns is weakened.</p>
+<h4 id="esp32-as-a-counter-surveillance-platform">ESP32 as a Counter-Surveillance Platform</h4>
+<p><strong>Cooper "Cybertiger" Quintin (EFF), Colonel Panic, The Wrew</strong> — Using the ESP32 microcontroller as a counter-surveillance tool. Relevant to <a href="/kb/off-grid-networks/">off-grid networks</a> and low-cost hardware for detecting surveillance devices. Cooper Quintin is a longtime EFF technologist.</p>
+<h4 id="lessons-from-a-decade-of-building-whistleblower-tech">Lessons from a Decade of Building Whistleblower Tech</h4>
+<p><strong>Trevor Timm, redshiftzero (Jennifer Helsby)</strong> — Trevor Timm is executive director of the Freedom of the Press Foundation; redshiftzero is a security engineer and SecureDrop contributor. A decade of operational lessons from building tools for whistleblowers and journalists — the user community that most depends on anonymity networks like Tor. Relevant to the <a href="/kb/map-censorship-resistance/">censorion resistance</a> and <a href="/kb/map-metadata-privacy/">metadata privacy</a> maps.</p>
+<h4 id="talkers-without-borders-worldwide-free-speech-without-an-internet-connection">Talkers Without Borders: Worldwide Free Speech Without an Internet Connection</h4>
+<p><strong>T. Gwyddon "data" Owen, amp</strong> — Demonstrates a covert communications channel using AIS (Automatic Identification System, the maritime tracking protocol) that operates without a conventional server or internet connection. Relevant to <a href="/kb/off-grid-networks/">off-grid networks</a> and the <a href="/kb/satellite-iot/">satellite IoT</a> / <a href="/kb/hf-data-modes/">HF data modes</a> stack. Demonstrates how existing global communications infrastructure can be co-opted for censorship-resistant communication.</p>
+<h4 id="cracking-north-koreas-information-control">Cracking North Korea's Information Control</h4>
+<p><strong>JDT</strong> — How smugglers, defectors, and technologists are breaking open North Korea's information control system. Relevant to <a href="/kb/map-censorship-resistance/">censorship resistance</a> as a real-world case study of anti-censorship operations in the most locked-down information environment on Earth.</p>
+<h4 id="crypto-is-fine-the-code-is-not-real-world-cryptographic-failures">Crypto Is Fine. The Code Is Not: Real-World Cryptographic Failures</h4>
+<p><strong>Diptendu Kar</strong> (Crypto &amp; Privacy Village, Stage 2) — Data-driven analysis of OWASP Cryptographic Failures using GitHub Security Advisories as of January 2026. Focuses on signature verification bypasses and algorithm confusion bugs in real open-source libraries. Relevant to the implementation-correctness theme that runs through this library: the math is sound; the code is where systems break.</p>
+<h4 id="breaking-ciphers-and-zero-knowledge-proofs">Breaking Ciphers and Zero-Knowledge Proofs</h4>
+<p><strong>Luke Szramowski, Diego "rehrar" Salazar, Rigo Salazar</strong> (Creator Stage) — Relevant to <a href="/kb/zero-knowledge-proofs/">zero-knowledge proofs</a> and the broader cryptographic ecosystem.</p>
+<h4 id="forget-fips-an-analysis-of-russian-and-chinese-cryptographic-standards">Forget FIPS: An Analysis of Russian and Chinese Cryptographic Standards</h4>
+<p><strong>1nfocalypse</strong> (Creator Stage) — Analysis of non-Western cryptographic standards (GOST, SM2/SM3/SM4). Relevant to understanding the cryptographic infrastructure of adversarial nation-states and the fragmentation of global crypto standards.</p>
+<h4 id="gpwn-wiretapping-fiber-gpon-isp-deployments">gpwn: Wiretapping Fiber (GPON) ISP Deployments</h4>
+<p><strong>Rithwik "thel3l" Jayasimha, Rithvik Vibhu</strong> — Attacking GPON (Gigabit Passive Optical Network) ISP deployments from the comfort of your home. Relevant to the threat model for anonymity networks: if ISP-level infrastructure can be wiretapped, the global passive adversary becomes more feasible. Directly relevant to the <a href="/kb/map-metadata-privacy/">metadata privacy</a> discussion.</p>
+<h4 id="norecognition-could-a-pattern-on-your-clothing-fool-facial-recognition">noRecognition: Could a Pattern on Your Clothing Fool Facial Recognition?</h4>
+<p><strong>Bill "hevnsnt" Swearingin</strong> — Counter-surveillance through adversarial clothing patterns. Relevant to the broader <a href="/kb/map-censorship-resistance/">anti-surveillance</a> stack beyond digital networks.</p>
+<h4 id="fireside-chat-with-gen-paul-nakasone">Fireside Chat with Gen. Paul Nakasone</h4>
+<p><strong>Paul Nakasone, Jeff "The Dark Tangent" Moss</strong> — Former director of US Cyber Command and the NSA in conversation. Relevant context for understanding the adversary's perspective on anonymity networks — Nakasone oversaw the NSA during a period of active offensive cyber operations against anonymity infrastructure.</p>
+<p><strong>Primary Sources</strong>:
+- DEF CON 34 main stage talks: <a href="https://defcon.org/html/defcon-34/dc-34-speakers.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-speakers.html</a>
+- DEF CON 34 creator stage talks: <a href="https://defcon.org/html/defcon-34/dc-34-creator-talks.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-creator-talks.html</a>
+- DEF CON 34 villages: <a href="https://defcon.org/html/defcon-34/dc-34-villages.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-villages.html</a>
+- Crypto &amp; Privacy Village (CPV 13): <a href="https://cryptovillage.org" rel="noopener nofollow">https://cryptovillage.org</a>
+- DEF CON 34 schedule: <a href="https://defcon.org/html/defcon-34/dc-34-schedule.html" rel="noopener nofollow">https://defcon.org/html/defcon-34/dc-34-schedule.html</a></p>
+<h3 id="research-qumixnet-a-quantum-safe-mixnet-protocol">Research: QuMixnet — A Quantum-Safe Mixnet Protocol</h3>
+<p>A new paper by <strong>Dibaj, Eghlidos, and Pilaram</strong> published in <em>The ISC International Journal of Information Security</em> (iSPIRE), Vol. 18, No. 3, pp. 129–141, 2026, proposes <strong>QuMixnet</strong> — a quantum-safe mixnet protocol. This adds to the growing body of PQ-mixnet literature:</p>
+<ul>
+<li><strong>Katzenpost</strong>: PQ-by-default from inception (hybrid KEM, SQISIGN signatures in development)</li>
+<li><strong>Nym</strong>: Outfox packet format with built-in PQ security (published at ACM CCS-ARC 2025; Rial, Piotrowska, Halpin)</li>
+<li><strong>QuMixnet</strong>: An academic proposal for a quantum-safe mixnet protocol using lattice-based cryptographic primitives</li>
+</ul>
+<p>The PQ-mixnet design space is motivated by the <strong>harvest-now-decrypt-later</strong> threat: an adversary records encrypted mixnet traffic today and decrypts it once a quantum computer becomes available. For metadata (who communicated with whom, when), this is arguably more dangerous than for content — metadata about a source's communication patterns can identify them even if the content is decades old.</p>
+<p><strong>Citation</strong>: Dibaj, S.M., Eghlidos, T., Pilaram, H. (2026). "QuMixnet: A Quantum-Safe Mixnet Protocol." <em>The ISC International Journal of Information Security</em>, 18(3), 129–141. DOI: <a href="https://www.isecure-journal.com/article_237326.html" rel="noopener nofollow">10.22042/isecure.2025.237326</a></p>
+<p><strong>Cross-reference</strong>: See <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a> and <a href="/kb/ml-kem/">ML-KEM</a> for the NIST-standardized lattice-based KEM that underpins most PQ-mixnet designs.</p>
+<h3 id="research-tor-de-anonymization-experimental-testbed">Research: Tor De-Anonymization Experimental Testbed</h3>
+<p>Kainz, Petro, Michalko, Murin, and Šimko published <strong>"De-Anonymization Techniques in the Tor Network Using an Experimental Testbed"</strong> in <em>MDPI Journal of Cybersecurity and Privacy</em>, Vol. 6, No. 2, Article 72, 2026. The paper:</p>
+<ul>
+<li>Builds a <strong>fully functional experimental Tor environment</strong> using virtual machines, allowing safe simulation of attacks without impacting the public network.</li>
+<li>Evaluates three de-anonymization vectors:
+  1. <strong>Malware-based reverse shells</strong> — establishing external communication from a compromised Tor client to reveal the real IP.
+  2. <strong>Malicious document payloads</strong> — crafted PDF and Office files that trigger outbound connections when opened, bypassing Tor routing.
+  3. <strong>Hidden-service misconfigurations</strong> — service configuration errors that reveal the hidden service's real IP address.</li>
+<li><strong>Key conclusion</strong>: "Although the Tor network itself is resilient, user behavior, improper configurations, and insecure content handling can lead to significant privacy risks."</li>
+</ul>
+<p>This aligns precisely with Dingledine's DEF CON threat ranking: the protocol is sound; <strong>users and applications are the vulnerability</strong>. The paper provides a practical reference for building experimental Tor networks and a security-oriented analysis of known de-anonymization vectors.</p>
+<p><strong>Citation</strong>: Kainz, O., Petro, S., Michalko, M., Murin, M., Šimko, E. (2026). "De-Anonymization Techniques in the Tor Network Using an Experimental Testbed." <em>Journal of Cybersecurity and Privacy</em>, 6(2), 72. DOI: <a href="https://www.mdpi.com/2624-800X/6/2/72" rel="noopener nofollow">10.3390/jcp6020072</a></p>
+<h3 id="nym-continued-community-scrutiny-of-centralization-risk">Nym: Continued Community Scrutiny of Centralization Risk</h3>
+<p>No new Nym binary releases since v2026.14-amsterdam (Jul 21, 2026). The Privacy Guides community discussion continues to evolve:</p>
+<ul>
+<li>The <strong>"Nym Mixnet: privacy theater"</strong> thread (updated Aug 8, 2026) raises a structural critique distinct from the "guaranteed privacy" marketing-scrutiny thread covered last week: <strong>a single corporation (Nym Technologies SA) can gate the entire network</strong> through credential issuance. If Nym changes terms, raises prices, complies with a court order, or shuts down, "all those 684 community-run nodes become useless overnight."</li>
+<li>This is the mirror image of Tor's directory-authority centralization tradeoff (Dingledine's DEF CON talk): both networks accept some centralization for admission control, but the nature of the centralization differs (nine personally-known dirauth operators vs. one Swiss corporation).</li>
+<li>The critique acknowledges the cryptographic soundness of the mixnet itself but questions whether the governance and economic model is truly decentralized.</li>
+</ul>
+<p><strong>Nym 2026 censorship-resistance roadmap</strong> (published earlier in 2026, referenced for context):
+- 2025 delivered: AmneziaWG (Fast Mode), QUIC pluggable transport, Stealth API hardening, Outfox PQ packet format design.
+- 2026 targets: centralized configuration control plane, resilient bootstrapping mechanisms, context-aware configuration delivery, operational observability/feedback loops, expanded pluggable transport integrations (v2ray-style).
+- The roadmap explicitly acknowledges that "static defenses like QUIC and AmneziaWG are now being attacked with censorship that can adapt in near real time using AI."</p>
+<p><strong>Primary Sources</strong>:
+- Privacy Guides "privacy theater" thread: <a href="https://discuss.privacyguides.net/t/nym-mixnet-privacy-theater/38335" rel="noopener nofollow">https://discuss.privacyguides.net/t/nym-mixnet-privacy-theater/38335</a>
+- Nym censorship-resistance roadmap: <a href="https://nym.com/blog/nym-censorship-resistance-2026" rel="noopener nofollow">https://nym.com/blog/nym-censorship-resistance-2026</a>
+- Nym network status: <a href="https://nym.com/network" rel="noopener nofollow">https://nym.com/network</a></p>
+<h3 id="i2p-and-katzenpost-quiet-period">I2P and Katzenpost: Quiet Period</h3>
+<ul>
+<li><strong>I2P</strong>: No new releases since 2.13.0 (Jul 24, 2026). Next target remains 2.14.0 (late October 2026 per roadmap).</li>
+<li><strong>Katzenpost</strong>: No new commits or releases since the July 15 monorepo update covered last week. Pigeonhole scattered-storage architecture development continues. QUIC transport remains in progress.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project / Event</th>
+<th>Latest Release / Event</th>
+<th>Key Feature</th>
+<th>Date</th>
+<th>Severity / Maturity</th>
+<th>Primary Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tor (DEF CON 34)</strong></td>
+<td>"Shepherding the Tor network" talk</td>
+<td>Dingledine: speed-vs-safety tension; Hetzner ~20% of network; Rust relay rewrite; US relay growth needed</td>
+<td>Aug 9, 2026</td>
+<td><strong>Critical strategic insight</strong></td>
+<td>networkworld.com/article/4207439</td>
+</tr>
+<tr>
+<td><strong>Snowflake Volunteer</strong></td>
+<td>Standalone Android app</td>
+<td>~1,700 daily proxies (29% monthly growth); 146K total Snowflake volunteers H1 2026</td>
+<td>Aug 3, 2026 (blog); Apr 2026 (launch)</td>
+<td>Production / growing</td>
+<td>blog.torproject.org</td>
+</tr>
+<tr>
+<td><strong>DEF CON 34 — PQ Attacks</strong></td>
+<td>"Harvest Now, Decrypt Later"</td>
+<td>Practical attacks on PQ crypto implementations</td>
+<td>Aug 6–9, 2026</td>
+<td>Research frontier</td>
+<td>defcon.org/html/defcon-34/dc-34-speakers.html</td>
+</tr>
+<tr>
+<td><strong>DEF CON 34 — TEE.fail</strong></td>
+<td>DDR5 memory bus TEE break</td>
+<td>Physical side-channel breaking TEEs via DDR5 interposition</td>
+<td>Aug 6–9, 2026</td>
+<td><strong>Critical for TEE-based privacy</strong></td>
+<td>defcon.org</td>
+</tr>
+<tr>
+<td><strong>DEF CON 34 — Counter-surveillance</strong></td>
+<td>ESP32 counter-surveillance + whistleblower tech + NK info control + AIS covert comms</td>
+<td>Multiple talks on off-grid anti-surveillance and censorship resistance</td>
+<td>Aug 6–9, 2026</td>
+<td>Active research</td>
+<td>defcon.org</td>
+</tr>
+<tr>
+<td><strong>Research — QuMixnet</strong></td>
+<td>iSPIRE Vol. 18(3):129–141</td>
+<td>Quantum-safe mixnet protocol design</td>
+<td>2026</td>
+<td>Academic proposal</td>
+<td>isecure-journal.com/article_237326</td>
+</tr>
+<tr>
+<td><strong>Research — Tor de-anon testbed</strong></td>
+<td>MDPI JCP 6(2):72</td>
+<td>Experimental Tor testbed; user error &gt; protocol break</td>
+<td>2026</td>
+<td>Academic / practical</td>
+<td>mdpi.com/2624-800X/6/2/72</td>
+</tr>
+<tr>
+<td><strong>Nym</strong></td>
+<td>v2026.14-amsterdam (no new release)</td>
+<td>Community scrutiny: corporate gating of network is centralization risk</td>
+<td>Jul 21 (last release)</td>
+<td>Production / debated</td>
+<td>nym.com/network</td>
+</tr>
+<tr>
+<td><strong>I2P</strong></td>
+<td>2.13.0 (no new release)</td>
+<td>Stable; next: 2.14.0 (Oct 2026)</td>
+<td>Jul 24, 2026</td>
+<td>High / production</td>
+<td>github.com/i2p/i2p.i2p/releases</td>
+</tr>
+<tr>
+<td><strong>Katzenpost</strong></td>
+<td>No new commits (since Jul 15)</td>
+<td>Pigeonhole + QUIC transport in progress</td>
+<td>Active development</td>
+<td>Research-grade</td>
+<td>github.com/katzenpost/katzenpost</td>
+</tr>
+<tr>
+<td><strong>Tor Browser</strong></td>
+<td>15.0.19 (stable) / 16.0a9 (alpha)</td>
+<td>No new release this week</td>
+<td>Jul 21/23</td>
+<td>Very High</td>
+<td>blog.torproject.org</td>
+</tr>
+<tr>
+<td><strong>Arti</strong></td>
+<td>2.5.1</td>
+<td>No new release this week</td>
+<td>Aug 4, 2026</td>
+<td>Stable client / advancing relay</td>
+<td>blog.torproject.org/arti_2_5_1_released</td>
+</tr>
+</tbody>
+</table></div>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-08-07/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — August 07 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-08-21/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — August 21 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

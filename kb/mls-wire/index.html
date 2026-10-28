@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MLS (RFC 9420) and Wire — ungovernable.tech</title>
+<meta name="description" content="Messaging Layer Security (RFC 9420) brings efficient end-to-end encryption to large groups. How MLS works and how Wire deploys it in production.">
+<link rel="canonical" href="https://ungovernable.tech/kb/mls-wire/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="MLS (RFC 9420) and Wire — ungovernable.tech">
+<meta property="og:description" content="Messaging Layer Security (RFC 9420) brings efficient end-to-end encryption to large groups. How MLS works and how Wire deploys it in production.">
+<meta property="og:url" content="https://ungovernable.tech/kb/mls-wire/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MLS (RFC 9420) and Wire — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MLS (RFC 9420) and Wire — ungovernable.tech">
+<meta name="twitter:description" content="Messaging Layer Security (RFC 9420) brings efficient end-to-end encryption to large groups. How MLS works and how Wire deploys it in production.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "MLS (RFC 9420) and Wire", "description": "Messaging Layer Security (RFC 9420) brings efficient end-to-end encryption to large groups. How MLS works and how Wire deploys it in production.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/mls-wire/", "mainEntityOfPage": "https://ungovernable.tech/kb/mls-wire/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "MLS (RFC 9420) and Wire", "item": "https://ungovernable.tech/kb/mls-wire/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">MLS (RFC 9420) and Wire</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>MLS (RFC 9420) and Wire</h1>
+  <p class="aka">Also Wire, Wire Swiss, Wire MLS deployment.</p>
+  <p class="dek">Wire is a Swiss / German enterprise messenger that has, alongside Cisco Webex, served as the canonical reference deployment of MLS (Messaging Layer Security, RFC 9420). Founded 2012 by ex-Skype engineers, Wire shipped MLS in production starting 2022, ahead of the RFC&#39;s final publication in July 2023. The interesting object here is less Wire-the-company and more Wire-the-MLS-implementation: the place where MLS first met real-world enterprise scale.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-this-file">Why this file</a><a href="#brief-company-history">Brief company history</a><a href="#what-mls-is-briefly">What MLS is, briefly</a><a href="#wires-mls-implementation">Wire&#39;s MLS implementation</a><a href="#real-world-mls-deployment-lessons">Real-world MLS deployment lessons</a><a href="#how-wire-differs-from-signal-lineage">How Wire differs from Signal lineage</a><a href="#threat-model">Threat model</a><a href="#deployment-scale">Deployment scale</a><a href="#place-in-the-mls-ecosystem">Place in the MLS ecosystem</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-this-file">Why this file</h2>
+<p>Wire matters in this knowledge base for two reasons distinct from Wire-the-product:</p>
+<ol>
+<li><strong>It is a working production deployment of MLS.</strong> The RFC is abstract; Wire is the practical compass — the place to look when wondering "what does MLS actually look like with millions of group members across hundreds of organizations?"</li>
+<li><strong>It demonstrates a different design lineage from Signal.</strong> Wire was built independently of the Signal Protocol family. Its cryptography (Proteus, Wire's adapted Axolotl-style protocol) ran in parallel for a decade; the MLS migration is the convergence point.</li>
+</ol>
+<p>For users picking a messenger, Wire is a credible enterprise option in EU regulatory environments. For protocol designers, Wire is the early-canon MLS reference.</p>
+<h2 id="brief-company-history">Brief company history</h2>
+<ul>
+<li><strong>2012</strong>: Wire Swiss GmbH founded in Zurich by Jonathan Christensen, Alan Duric, and Priidu Zilmer (former Skype). Initial focus: HD voice + chat for consumers.</li>
+<li><strong>2014-2017</strong>: Consumer focus; E2EE rolled out (2016); apps for iOS, Android, web, desktop.</li>
+<li><strong>2018</strong>: Pivot to enterprise / government. The Berlin office became the engineering center of gravity.</li>
+<li><strong>2018-2020</strong>: ISO 27001, BSI C5, EU GDPR-compliant deployments. Customers in EU government, healthcare, defense.</li>
+<li><strong>2022</strong>: First MLS production rollout. Wire publishes details in their CoreCrypto open-source library.</li>
+<li><strong>2023</strong>: RFC 9420 final, July 2023. Wire's MLS implementation is one of the cited reference deployments.</li>
+<li><strong>2024-2026</strong>: MLS is the default for new groups; legacy Proteus is deprecated (still supported for old conversations).</li>
+</ul>
+<p>The honest framing: Wire is a commercial company with a focused enterprise market, not a privacy-NGO product. Its threat model is "EU regulator-friendly secure communications for organizations that don't want to use US-jurisdictional cloud," not "activists evading nation-state adversaries."</p>
+<h2 id="what-mls-is-briefly">What MLS is, briefly</h2>
+<p>MLS (Messaging Layer Security, RFC 9420) is the IETF standard for end-to-end encrypted group messaging. It generalizes Signal's per-pair Sender Keys to a group key agreement that scales <strong>logarithmically in group size</strong> rather than linearly.</p>
+<p>Core MLS primitives:</p>
+<ul>
+<li><strong>Group state</strong>: a tree of public keys (the <strong>TreeKEM</strong> ratchet tree) where each leaf is a group member's KeyPackage and internal nodes hold derived keys.</li>
+<li><strong>Commits</strong>: a member proposes changes (add, remove, update) and produces a Commit message; group state advances atomically.</li>
+<li><strong>Welcome messages</strong>: when a new member is added, they receive a Welcome containing the group state encrypted to their KeyPackage.</li>
+<li><strong>Application messages</strong>: ordinary chat encrypted under the current epoch's key.</li>
+</ul>
+<p>Properties:</p>
+<ul>
+<li><strong>Forward secrecy</strong>: past group keys cannot be derived from current state.</li>
+<li><strong>Post-compromise security</strong>: a compromised member key is recovered by the group's next ratchet update (Commit with an Update proposal).</li>
+<li><strong>Logarithmic add/remove cost</strong>: O(log N) work per membership change instead of Signal's O(N).</li>
+<li><strong>Asynchronous</strong>: members do not need to be online when changes happen.</li>
+</ul>
+<p>For a primer on MLS layered over Nostr instead of an enterprise stack, see <a href="/kb/marmot-protocol/">Marmot Protocol</a>.</p>
+<h2 id="wires-mls-implementation">Wire's MLS implementation</h2>
+<p>Wire's open-source CoreCrypto library (<a href="https://github.com/wireapp/core-crypto" rel="noopener nofollow">github.com/wireapp/core-crypto</a>) implements MLS in Rust, with bindings for Wire's mobile and desktop clients. It is distinct from OpenMLS (<a href="https://github.com/openmls/openmls" rel="noopener nofollow">github.com/openmls/openmls</a>, the other major Rust MLS library), though there is significant cross-pollination of designs.</p>
+<p>Key choices Wire made:</p>
+<ul>
+<li><strong>Credential type</strong>: BasicCredentials with <strong>X.509 certificate chains</strong>. This integrates with enterprise PKI: the Credential identity is verified against a corporate CA. For consumer accounts it falls back to a BasicCredential with Ed25519 directly.</li>
+<li><strong>Ciphersuite</strong>: MLS_128_DHKEMX25519_AES128GCM_SHA256_Ed25519 as default. Hybrid post-quantum ciphersuites being added 2024-2026 in line with the RFC's PQ work.</li>
+<li><strong>Server role</strong>: the Wire backend is a <strong>Delivery Service</strong> that fans out Commits and application messages. It cannot read content. It enforces ordering and basic anti-replay.</li>
+<li><strong>Authentication Service</strong>: Wire-operated CA for BasicCredentials in consumer use; client-supplied X.509 for enterprise.</li>
+</ul>
+<p>The cryptographic model is RFC-compliant; Wire participated in the IETF MLS working group and contributed to drafts.</p>
+<h2 id="real-world-mls-deployment-lessons">Real-world MLS deployment lessons</h2>
+<p>The published Wire engineering writeups (and conference talks at Real World Crypto, IETF, and elsewhere) surface practical issues that the RFC alone leaves abstract:</p>
+<ul>
+<li><strong>KeyPackage management is operationally heavy.</strong> Each device publishes prekey-style KeyPackages, which expire, need renewal, and must be available at any moment for asynchronous Adds. Mobile clients with intermittent connectivity stress this.</li>
+<li><strong>Group epoch contention.</strong> When two members attempt simultaneous Commits, only one wins; the other has to retry. At scale (large groups, many concurrent admins) this causes ordering issues. Wire learned to optimize for low-contention groups.</li>
+<li><strong>Welcome message size.</strong> Adding a member to a 1,000-person group requires a Welcome with significant state; clients must download and process it. Large enterprise groups exposed scaling issues that pure-protocol modeling didn't predict.</li>
+<li><strong>Federation across MLS domains</strong> is, as of 2026, still being standardized. Wire to-Wire works; Wire-to-Webex doesn't yet. The RFC anticipates federation; the operational tooling lags.</li>
+<li><strong>Backwards compatibility</strong> with Wire's earlier Proteus protocol. Old groups remain on Proteus until migrated; new groups default to MLS. Migration is not transparent for users.</li>
+</ul>
+<p>These lessons are valuable to anyone planning an MLS deployment; they are why Wire and Cisco Webex matter as canonical references rather than just product placements.</p>
+<h2 id="how-wire-differs-from-signal-lineage">How Wire differs from Signal lineage</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Wire (Proteus then MLS)</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial protocol</td>
+<td>Proteus (Axolotl-derived; 2014)</td>
+<td>Signal Protocol / Double Ratchet (2014)</td>
+</tr>
+<tr>
+<td>Group encryption (originally)</td>
+<td>Per-pair Proteus</td>
+<td>Sender Keys</td>
+</tr>
+<tr>
+<td>Group encryption (current)</td>
+<td>MLS (RFC 9420)</td>
+<td>Sender Keys still primary; MLS exploration</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>Email address (consumer), X.509 (enterprise)</td>
+<td>Phone number; usernames (2024+)</td>
+</tr>
+<tr>
+<td>Multi-device</td>
+<td>First-class from launch</td>
+<td>Linked devices via Sesame</td>
+</tr>
+<tr>
+<td>Voice/video</td>
+<td>First-class (Skype lineage)</td>
+<td>Via Signal calling stack</td>
+</tr>
+<tr>
+<td>Hosting model</td>
+<td>EU clouds (Frankfurt, mostly)</td>
+<td>Signal Foundation infrastructure</td>
+</tr>
+<tr>
+<td>Federation</td>
+<td>None (Wire is a single network)</td>
+<td>None (Signal is a single network)</td>
+</tr>
+<tr>
+<td>Open-source</td>
+<td>Server and clients open-source (AGPL/GPL)</td>
+<td>Server open, network closed</td>
+</tr>
+</tbody>
+</table></div>
+<p>The shared part: both are Signal-quality E2EE messengers with multi-device support and forward secrecy. The differences are jurisdictional posture (EU enterprise vs US foundation), funding (commercial vs nonprofit), and protocol family (MLS-first vs Sender-Keys-first).</p>
+<p>For protocol designers, Wire's MLS work is a parallel reference to Signal's PQXDH work — both are how to extend a 2014-era E2EE design into the 2025+ era.</p>
+<h2 id="threat-model">Threat model</h2>
+<p>What Wire MLS provides:</p>
+<ul>
+<li><strong>Group E2EE with logarithmic membership-change cost.</strong> Useful for organizations with hundreds of members in some channels.</li>
+<li><strong>Forward secrecy and post-compromise security at group level.</strong></li>
+<li><strong>Server cannot read content.</strong> The Delivery Service sees ciphertext + envelope metadata.</li>
+<li><strong>EU-data-residency by default.</strong> Wire's enterprise tier offers Frankfurt and German cloud regions; for some customers Wire is on-premise.</li>
+</ul>
+<p>What it doesn't:</p>
+<ul>
+<li><strong>Wire is a centralized network.</strong> No federation, no self-host of the network at the protocol layer (enterprise on-prem deployments exist but are isolated networks).</li>
+<li><strong>Server-side metadata.</strong> Like Signal, Wire's server sees who-talks-to-whom for Delivery Service routing. MLS does not standardize sealed-sender-style metadata reduction.</li>
+<li><strong>Endpoint compromise.</strong> Same as everywhere.</li>
+<li><strong>Jurisdictional pressure.</strong> Wire is a Swiss / German company subject to EU and Swiss law. The legal regime is friendly to E2EE compared to many alternatives, but Wire is not a no-jurisdiction project.</li>
+</ul>
+<p>The honest enterprise threat model: Wire is the right answer if you're a European hospital, government agency, or NGO that wants better than Microsoft Teams without the operational nightmare of self-hosting Matrix. It is not the right answer for activists in repressive states (use <a href="/kb/briar/">Briar</a>, <a href="/kb/simplex/">SimpleX</a>, <a href="/kb/cwtch/">Cwtch</a>).</p>
+<h2 id="deployment-scale">Deployment scale</h2>
+<p>Wire's published numbers are commercial and somewhat opaque:</p>
+<ul>
+<li>Estimated <strong>500K-1M paid seats</strong> in 2025-2026 across enterprise and government customers.</li>
+<li>Notable customers: German federal IT (BWI, "Bundeswehr-IT"), various EU institutions, healthcare networks.</li>
+<li>Public free tier exists but has been deprioritized over time; consumer use is much smaller.</li>
+</ul>
+<p>These numbers put Wire well below Signal in absolute users but well above niche messengers in revenue per user and in deployment scale within the enterprise category.</p>
+<h2 id="place-in-the-mls-ecosystem">Place in the MLS ecosystem</h2>
+<p>As of 2026 the MLS production deployments include:</p>
+<ul>
+<li><strong>Wire</strong> — first major rollout, 2022.</li>
+<li><strong>Cisco Webex</strong> — large-scale rollout, 2023-2024 (Webex was a major contributor to RFC 9420).</li>
+<li><strong>Google</strong> — RCS / Messages have been planning MLS migration; partial rollout in 2024-2025.</li>
+<li><strong>Discord</strong> — investigating MLS for E2EE DMs (announcements 2024).</li>
+<li><strong>Matrix</strong> — MLS profile under development and pre-scale; see <a href="/kb/matrix/">Matrix and E2EE</a>.</li>
+<li><strong>Marmot</strong> — MLS over Nostr (<a href="/kb/marmot-protocol/">Marmot Protocol</a>).</li>
+<li><strong>Session</strong> — MLS-style group migration in progress (<a href="/kb/session-messenger/">Session</a>).</li>
+</ul>
+<p>Wire is "the place where MLS first ran in anger" and is the implementation other adopters compare against.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>RFC 9420, "The Messaging Layer Security (MLS) Protocol" (Barnes, Beurdouche, Robert, Millican, Omara, Cohn-Gordon; July 2023). <a href="https://datatracker.ietf.org/doc/rfc9420" rel="noopener nofollow">datatracker.ietf.org/doc/rfc9420</a>.</li>
+<li>RFC 9419, "Architecture for MLS" (March 2024).</li>
+<li>Wire CoreCrypto — <a href="https://github.com/wireapp/core-crypto" rel="noopener nofollow">github.com/wireapp/core-crypto</a>.</li>
+<li>Wire server source — <a href="https://github.com/wireapp/wire-server" rel="noopener nofollow">github.com/wireapp/wire-server</a>.</li>
+<li>Wire whitepaper, "Wire Security Whitepaper" — <a href="https://wire.com/en/security" rel="noopener nofollow">wire.com/en/security</a>.</li>
+<li>Beurdouche et al., "TreeKEM: Asynchronous Decentralized Key Management for Large Dynamic Groups" — the academic basis for MLS group key agreement.</li>
+<li>Cohn-Gordon et al., "On Ends-to-Ends Encryption: Asynchronous Group Messaging with Strong Security Guarantees" (CCS 2018) — foundational paper.</li>
+<li>OpenMLS (alternative implementation) — <a href="https://github.com/openmls/openmls" rel="noopener nofollow">github.com/openmls/openmls</a>.</li>
+<li>Real World Crypto talks (2022-2024) by Wire and Cisco engineers on production MLS deployment lessons.</li>
+</ul>
+<p>MLS is also being deployed without any central Delivery Service: <a href="/kb/white-noise/">White Noise</a> runs it over public Nostr relays via the <a href="/kb/marmot-protocol/">Marmot</a> protocol, and <a href="/kb/cordn/">Cordn</a> keeps a single ordering coordinator per group that anyone can self-host behind a firewall.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/briar/">
+  <span class="nm">Briar</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/simplex/">
+  <span class="nm">SimpleX Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cwtch/">
+  <span class="nm">Cwtch</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/matrix/">
+  <span class="nm">Matrix and End-to-End Encryption</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/session-messenger/">
+  <span class="nm">Session</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cordn/">
+  <span class="nm">Cordn</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=MLS%20%28RFC%209420%29%20and%20Wire" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Wire is a Swiss / German enterprise messenger that has, alongside Cisco Webex, served as the canonical reference deployment of MLS (Messaging Layer Security, RFC 9420). Founded 2012 by ex-Skype engineers, Wire shipped MLS in production starting 2022, ahead of the RFC&#39;s final publication in July 2023. The interesting object here is less Wire-the-company and more Wire-the-MLS-implementation: the place where MLS first met real-world enterprise scale.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Secure Messaging</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

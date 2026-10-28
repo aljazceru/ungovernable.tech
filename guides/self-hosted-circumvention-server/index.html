@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Run a private circumvention server for people you know — ungovernable.tech</title>
+<meta name="description" content="Set up Outline or WireGuard for a trusted group, test routing and revocation, and compare running a Tor bridge or Snowflake proxy instead.">
+<link rel="canonical" href="https://ungovernable.tech/guides/self-hosted-circumvention-server/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Run a private circumvention server for people you know — ungovernable.tech">
+<meta property="og:description" content="Set up Outline or WireGuard for a trusted group, test routing and revocation, and compare running a Tor bridge or Snowflake proxy instead.">
+<meta property="og:url" content="https://ungovernable.tech/guides/self-hosted-circumvention-server/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-circumvention.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Run a private circumvention server for people you know — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Run a private circumvention server for people you know — ungovernable.tech">
+<meta name="twitter:description" content="Set up Outline or WireGuard for a trusted group, test routing and revocation, and compare running a Tor bridge or Snowflake proxy instead.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-circumvention.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Run a private circumvention server for people you know", "description": "Set up Outline or WireGuard for a trusted group, test routing and revocation, and compare running a Tor bridge or Snowflake proxy instead.", "dateModified": "2026-10-25", "datePublished": "2026-10-25", "url": "https://ungovernable.tech/guides/self-hosted-circumvention-server/", "mainEntityOfPage": "https://ungovernable.tech/guides/self-hosted-circumvention-server/", "image": "https://ungovernable.tech/assets/og/pillar-circumvention.png", "about": [{"@type": "Thing", "name": "Censorship Circumvention"}, {"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en", "proficiencyLevel": "intermediate"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Censorship Circumvention", "item": "https://ungovernable.tech/pillars/circumvention/"}, {"@type": "ListItem", "position": 3, "name": "Run a private circumvention server for people you know", "item": "https://ungovernable.tech/guides/self-hosted-circumvention-server/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/" aria-current="page">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/circumvention/">Censorship Circumvention</a><span aria-hidden="true">/</span><span class="here">Run a private circumvention server for people you know</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag ktag-k">Field guide</span><span class="ktag">[ GUIDE ]</span><span class="ktag">[ CENSORSHIP CIRCUMVENTION ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Run a private circumvention server for people you know</h1>
+  
+  <p class="dek">Choose who can connect, explain what you can observe, and practise replacing the server before someone depends on it.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>7</b> min read</span>
+    <span class="ktag">[ INTERMEDIATE ]</span>
+    <span class="ktag">[ AN AFTERNOON, PLUS ONGOING MAINTENANCE ]</span>
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#choose-the-role">Choose the role</a><a href="#before-you-rent-a-server">Before you rent a server</a><a href="#option-1-outline-manager">Option 1: Outline Manager</a><a href="#option-2-a-wireguard-gateway">Option 2: a WireGuard gateway</a><a href="#option-3-help-people-enter-tor">Option 3: help people enter Tor</a><a href="#verify-with-one-willing-user">Verify with one willing user</a><a href="#limits-and-ongoing-care">Limits and ongoing care</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>The goal is a working route for a small group, with an operator they know and a recovery plan they can use. <a href="/kb/outline/">Outline</a> provides a manager and shareable access keys. <a href="/kb/wireguard/">WireGuard</a> provides an encrypted IP tunnel with explicit peer and routing configuration. A <a href="/kb/pluggable-transports/">Tor bridge or Snowflake proxy</a> contributes an entry route into Tor instead of serving as the group's internet exit.</p>
+<h2 id="choose-the-role">Choose the role</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Choose it when</th>
+<th>Responsibility you accept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outline</strong></td>
+<td>You want Manager-assisted deployment and individual access keys.</td>
+<td>Run the host, manage keys and explain the server's visibility into connections.</td>
+</tr>
+<tr>
+<td><strong>WireGuard</strong></td>
+<td>UDP and the WireGuard protocol work on the users' networks, and you can administer routing and DNS.</td>
+<td>Configure each peer and check that intended traffic actually uses the tunnel. Standard WireGuard has no built-in obfuscation.</td>
+</tr>
+<tr>
+<td><strong>Tor bridge</strong></td>
+<td>You want to offer a Tor entry point.</td>
+<td>Maintain the bridge and its transport, check reachability and handle bridge distribution.</td>
+</tr>
+<tr>
+<td><strong>Snowflake proxy</strong></td>
+<td>You want to donate connectivity with a browser extension or a standalone proxy.</td>
+<td>Keep the proxy available; it helps users selected by the Snowflake system, rather than issuing private access keys to friends.</td>
+</tr>
+</tbody>
+</table></div>
+<p>First read <a href="/guides/censorship-circumvention/">Getting Around Internet Censorship</a> and look at existing <a href="/kb/ooni/">OONI measurements</a>. Do not ask someone to run probes without first discussing OONI's <a href="https://ooni.org/about/risks/" rel="noopener nofollow">documented risks</a>.</p>
+<h2 id="before-you-rent-a-server">Before you rent a server</h2>
+<p>Choose a host with internet access outside the blocking you are trying to bypass. Check its terms for proxy or VPN operation, the cost of outbound traffic and the account-recovery process. Use a separate server for this role, keep its system supported and updated, and restrict administrative access. Agree who will pay, maintain it and contact users if it stops working.</p>
+<p>Explain the trust model before sharing access: an Outline or WireGuard gateway receives client connections and forwards traffic to destinations. It can observe connection metadata and unencrypted application traffic; HTTPS remains separately encrypted. Minimise diagnostic logging and tell users what you retain. An operator policy is not a technical guarantee against observation by the host.</p>
+<h2 id="option-1-outline-manager">Option 1: Outline Manager</h2>
+<p>Follow <a href="https://support.getoutline.org/manager/server-setup/setup-server" rel="noopener nofollow">Outline's server setup instructions</a> alongside these steps.</p>
+<ol>
+<li><strong>Install Manager on your computer.</strong> Use the official <a href="https://getoutline.org/get-started/" rel="noopener nofollow">Get started page</a>. Manager administers the server; the people connecting use Outline Client.</li>
+<li><strong>Create the server.</strong> Select a supported cloud setup flow, or the option for your own Linux infrastructure. For the latter, follow Manager's instructions for connecting to the machine and running its installation script. Read the script before running it with administrative privileges.</li>
+<li><strong>Complete registration in Manager.</strong> For a manual installation, the installer returns management configuration containing <code>apiUrl</code> and <code>certSha256</code>. Enter that configuration where Manager requests it, and store it privately. It is not a client invitation.</li>
+<li><strong>Check the firewall.</strong> Follow the ports reported by the installer: the management API uses TCP; access-key traffic needs TCP and UDP. Where practical, restrict the management port to your administration connection. Check both the host firewall and the provider's network firewall. The <a href="https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh" rel="noopener nofollow">official installer</a> documents these requirements.</li>
+<li><strong>Create a key per person or device.</strong> Set data limits if needed. Send each invitation through an existing private channel. The recipient installs Client, imports the key and connects. Avoid a shared key that would require revoking the whole group at once.</li>
+<li><strong>Test revocation before rollout.</strong> Create a disposable key, connect with it, delete it in Manager, and check that a fresh connection using it fails. Keep your administrative configuration out of screenshots and group messages.</li>
+</ol>
+<p>Review the <a href="https://getoutline.org/policies/privacy/" rel="noopener nofollow">Outline privacy policy</a> as well: automatic crash reports and optional server metrics are separate from any logs you or the hosting provider keep.</p>
+<h2 id="option-2-a-wireguard-gateway">Option 2: a WireGuard gateway</h2>
+<p>Use this only after confirming that ordinary WireGuard works on the intended network. Its <a href="https://www.wireguard.com/known-limitations/" rel="noopener nofollow">known limitations</a> explicitly leave traffic disguise to another layer. If it is fingerprinted or blocked, compare Outline, <a href="/kb/psiphon/">Psiphon</a> or Tor transports before investing in a standard WireGuard deployment.</p>
+<p>For an Ubuntu server and Linux client, follow Canonical's <a href="https://documentation.ubuntu.com/server/how-to/wireguard-vpn/vpn-as-the-default-gateway/" rel="noopener nofollow">VPN as the default gateway</a> procedure. It includes both sides of the connection, forwarding, source NAT and DNS. The sequence matters:</p>
+<ol>
+<li><strong>Install and generate separate keys.</strong> Use the <a href="https://www.wireguard.com/install/" rel="noopener nofollow">official installation instructions</a> for each system. On Ubuntu, install <code>wireguard</code>. On each peer, generate its own keypair as in the <a href="https://www.wireguard.com/quickstart/" rel="noopener nofollow">quick start</a>:<pre><code>umask 077
+wg genkey &gt; privatekey
+wg pubkey &lt; privatekey &gt; publickey
+</code></pre>
+</li>
+</ol>
+<p>Exchange public keys through an authenticated channel. Keep each private key on its own device, in a protected configuration location; never send it to the other peer.</p>
+<ol start="2">
+<li><strong>Create the peer configurations.</strong> Assign non-overlapping tunnel addresses. The server's peer entry gets the client's public key and that client's tunnel address in <code>AllowedIPs</code>. The client's peer entry gets the server's public key, reachable address and UDP port. For an IPv4 internet gateway, its <code>AllowedIPs</code> is <code>0.0.0.0/0</code>. Use the <a href="https://git.zx2c4.com/wireguard-tools/about/src/man/wg.8" rel="noopener nofollow">wg manual</a> for the exact fields and Canonical's complete example for file placement. Give additional clients distinct keys and addresses.</li>
+<li><strong>Make the server a gateway.</strong> Allow the chosen UDP port through both firewalls. Enable IP forwarding, add source NAT for the tunnel subnet where required, and allow forwarding between the tunnel and internet interface. Follow the distribution's persistent firewall configuration so this survives a reboot. A handshake without forwarding does not provide internet access.</li>
+<li><strong>Set DNS and decide on IPv6.</strong> Select a resolver deliberately and route its queries through the tunnel. Canonical documents <code>resolvectl</code> configuration; <a href="https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8" rel="noopener nofollow">wg-quick</a> also has DNS configuration support. <code>0.0.0.0/0</code> covers only IPv4. Either configure IPv6 addressing, forwarding and <code>::/0</code> routing too, or block IPv6 outside the tunnel on the client. Do not assume an IPv4-only example protects IPv6 traffic.</li>
+<li><strong>Bring up and verify both ends.</strong> Use <code>wg-quick up</code> with the interface names from your configuration. Inspect <code>wg show</code> for a recent handshake and changing transfer counters; then test actual traffic as below. Configure startup using your operating system's service management and repeat the tests after reboot.</li>
+<li><strong>Revoke a test peer.</strong> Remove its peer entry from the server's saved configuration and running interface, then check that it can no longer connect. The <code>wg</code> manual documents <code>peer &lt;public-key&gt; remove</code>. If you require traffic to stop when the tunnel fails, configure and test a firewall policy; the <code>wg-quick</code> manual supplies a kill-switch example, with separate IPv6 considerations.</li>
+</ol>
+<h2 id="option-3-help-people-enter-tor">Option 3: help people enter Tor</h2>
+<p><strong>An obfs4 bridge.</strong> Follow the <a href="https://community.torproject.org/relay/setup/bridge/" rel="noopener nofollow">Tor Project's bridge setup guide</a>, selecting the instructions for your system. Configure the bridge role and transport, open the required ports, and use the <a href="https://community.torproject.org/relay/setup/bridge/post-install/" rel="noopener nofollow">post-install checks</a> to retrieve and test the complete bridge line in Tor Browser. If you will distribute the address yourself, set <code>BridgeDistribution none</code> in <code>torrc</code> before starting the bridge. The <a href="https://manpages.debian.org/trixie/tor/tor.1.en.html" rel="noopener nofollow">Tor manual packaged by Debian</a> documents that this asks BridgeDB not to distribute the address; the default lets BridgeDB choose. This controls distribution, not who can connect once they have the bridge details. Do not post private bridge lines publicly.</p>
+<p><strong>A WebTunnel bridge.</strong> The <a href="https://community.torproject.org/relay/setup/webtunnel/" rel="noopener nofollow">WebTunnel guide</a> adds a domain, a valid TLS certificate and a web server that forwards a secret URL path to the transport. Choose this if you can also maintain that website and certificate.</p>
+<p><strong>A Snowflake proxy.</strong> Follow the <a href="https://community.torproject.org/relay/setup/snowflake/" rel="noopener nofollow">Snowflake operator guide</a>: install and enable the browser extension, or choose the standalone deployment. Check its status for connection errors. The extension helps other users; to use Snowflake yourself, select it in Tor Browser. This is a contribution to the shared system, not a private server assigned to your group.</p>
+<p>The <a href="https://community.torproject.org/relay/types-of-relays/" rel="noopener nofollow">Tor relay-role guide</a> explains why bridge and exit operation differ. These instructions are for an entry route; an exit relay has different operational and legal responsibilities.</p>
+<h2 id="verify-with-one-willing-user">Verify with one willing user</h2>
+<ul>
+<li><strong>Test from the affected network.</strong> Success from the server operator's uncensored connection does not establish reachability for the people who need it.</li>
+<li><strong>Test routing, not just the connection indicator.</strong> Check the public address seen by a service you trust, the resolver used for DNS, and both IPv4 and IPv6. Compare with the intended route without sharing sensitive browsing history.</li>
+<li><strong>Test failure.</strong> Interrupt the tunnel and observe whether applications reconnect directly. Check the behaviour after sleep, network changes and reboot. Explain any gaps before someone relies on it.</li>
+<li><strong>Test recovery.</strong> Practise revoking a key and issuing a replacement. Record how to recreate the server, restore administration and contact users through an independent channel.</li>
+</ul>
+<h2 id="limits-and-ongoing-care">Limits and ongoing care</h2>
+<p>Keep software updated, review access when someone leaves, and monitor capacity without collecting browsing histories. Keep an alternative transport ready. Outline's FAQ explicitly anticipates replacing a blocked server; a new address is a recovery option, not a guarantee against the same blocking technique.</p>
+<p>These options need a surviving internet path. Keep <a href="/guides/internet-shutdown-preparedness/">Internet Shutdown Preparedness</a> beside the server plan, and use <a href="/guides/running-freedom-infrastructure/">Running Infrastructure for Freedom</a> to choose other ways to contribute.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://getoutline.org/get-started/" rel="noopener nofollow">Outline setup flow</a>, <a href="https://support.getoutline.org/manager/server-setup/setup-server" rel="noopener nofollow">server setup</a>, <a href="https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh" rel="noopener nofollow">installer</a>, <a href="https://getoutline.org/faq/" rel="noopener nofollow">FAQ</a> and <a href="https://getoutline.org/policies/privacy/" rel="noopener nofollow">privacy policy</a>.</li>
+<li><a href="https://www.wireguard.com/install/" rel="noopener nofollow">WireGuard installation</a>, <a href="https://www.wireguard.com/quickstart/" rel="noopener nofollow">quick start</a>, <a href="https://www.wireguard.com/known-limitations/" rel="noopener nofollow">limitations</a>, <a href="https://git.zx2c4.com/wireguard-tools/about/src/man/wg.8" rel="noopener nofollow">wg manual</a> and <a href="https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8" rel="noopener nofollow">wg-quick manual</a>.</li>
+<li><a href="https://documentation.ubuntu.com/server/how-to/wireguard-vpn/vpn-as-the-default-gateway/" rel="noopener nofollow">Canonical's complete WireGuard gateway procedure</a>.</li>
+<li><a href="https://community.torproject.org/relay/setup/bridge/" rel="noopener nofollow">Tor bridge setup</a>, <a href="https://community.torproject.org/relay/setup/bridge/post-install/" rel="noopener nofollow">post-install verification</a>, <a href="https://community.torproject.org/relay/setup/webtunnel/" rel="noopener nofollow">WebTunnel setup</a>, <a href="https://community.torproject.org/relay/setup/snowflake/" rel="noopener nofollow">Snowflake operation</a> and <a href="https://community.torproject.org/relay/types-of-relays/" rel="noopener nofollow">relay roles</a>.</li>
+<li><a href="https://manpages.debian.org/trixie/tor/tor.1.en.html" rel="noopener nofollow">Tor manual: BridgeDistribution</a>.</li>
+<li><a href="https://snowflake.torproject.org/" rel="noopener nofollow">Snowflake's user and volunteer roles</a> and <a href="https://ooni.org/about/risks/" rel="noopener nofollow">OONI's probe risks</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/outline/">
+  <span class="nm">Outline</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/wireguard/">
+  <span class="nm">WireGuard</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/pluggable-transports/">
+  <span class="nm">Pluggable transports and bridges</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/psiphon/">
+  <span class="nm">Psiphon</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ooni/">
+  <span class="nm">OONI</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/censorship-circumvention/">
+  <span class="nm">Getting Around Internet Censorship</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/internet-shutdown-preparedness/">
+  <span class="nm">Internet Shutdown Preparedness</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/map-censorship-resistance/">
+  <span class="nm">Map: Censorship Resistance</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/nostr-vpn/">
+  <span class="nm">Nostr VPN</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/anonymity/">Anonymity Networks</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Run%20a%20private%20circumvention%20server%20for%20people%20you%20know" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Choose who can connect, explain what you can observe, and practise replacing the server before someone depends on it.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Guide</dd>
+        <dt>Pillars</dt><dd>Censorship Circumvention, Anonymity Networks</dd>
+        <dt>Level</dt><dd>intermediate</dd>
+        <dt>Time</dt><dd>An afternoon, plus ongoing maintenance</dd>
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>19</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

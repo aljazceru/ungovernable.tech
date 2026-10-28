@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Choosing Decentralized Storage — ungovernable.tech</title>
+<meta name="description" content="Compare IPFS, Filecoin, Arweave, Tahoe-LAFS, Syncthing, BitTorrent, Hypercore and Blossom by retention, privacy, updates and operating obligations.">
+<link rel="canonical" href="https://ungovernable.tech/kb/compare-storage/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Choosing Decentralized Storage — ungovernable.tech">
+<meta property="og:description" content="Compare IPFS, Filecoin, Arweave, Tahoe-LAFS, Syncthing, BitTorrent, Hypercore and Blossom by retention, privacy, updates and operating obligations.">
+<meta property="og:url" content="https://ungovernable.tech/kb/compare-storage/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-storage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Choosing Decentralized Storage — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Choosing Decentralized Storage — ungovernable.tech">
+<meta name="twitter:description" content="Compare IPFS, Filecoin, Arweave, Tahoe-LAFS, Syncthing, BitTorrent, Hypercore and Blossom by retention, privacy, updates and operating obligations.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-storage.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Choosing Decentralized Storage", "description": "Compare IPFS, Filecoin, Arweave, Tahoe-LAFS, Syncthing, BitTorrent, Hypercore and Blossom by retention, privacy, updates and operating obligations.", "dateModified": "2026-10-25", "datePublished": "2026-10-25", "url": "https://ungovernable.tech/kb/compare-storage/", "mainEntityOfPage": "https://ungovernable.tech/kb/compare-storage/", "image": "https://ungovernable.tech/assets/og/pillar-storage.png", "about": [{"@type": "Thing", "name": "Decentralized Storage"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Storage", "item": "https://ungovernable.tech/pillars/storage/"}, {"@type": "ListItem", "position": 3, "name": "Choosing Decentralized Storage", "item": "https://ungovernable.tech/kb/compare-storage/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/storage/">Decentralized Storage</a><span aria-hidden="true">/</span><span class="here">Choosing Decentralized Storage</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ COMPARISON ]</span><span class="ktag">[ DECENTRALIZED STORAGE ]</span></p>
+  <h1>Choosing Decentralized Storage</h1>
+  
+  <p class="dek">Choose who keeps the bytes, who can read them and how you recover them before choosing a protocol.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>4</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#comparison">Comparison</a><a href="#how-to-choose">How to choose</a><a href="#trust-model-threat-model">Trust model / threat model</a><a href="#readiness">Readiness</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Content addressing answers whether retrieved bytes match an identifier. Replication, storage agreements and active operators determine whether those bytes remain retrievable. Encryption determines who can read them. These are separate questions, and the systems below combine them differently.</p>
+<p>The comparison covers each base system. Applications and hosting services may add encryption, retention policies or payment arrangements. Costs describe what must be funded, not a price quote. The censorship column is an assessment of the failure points implied by each design, not a measured score or a promise of immunity.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Durability guarantee or condition</th>
+<th>Who must stay online for retrieval?</th>
+<th>Encryption</th>
+<th>Mutability</th>
+<th>Censorship resistance and dependencies</th>
+<th>Cost model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/ipfs-and-filecoin/">IPFS</a></td>
+<td>A CID does not guarantee retention; pin the blocks on retained replicas.</td>
+<td>A reachable holder of the required blocks.</td>
+<td>Transport encryption; encrypt private content separately.</td>
+<td>Changing content changes its CID; <a href="/kb/ipns-dnslink/">IPNS or DNSLink</a> can update a pointer.</td>
+<td>Replicas can serve the same CID; gateways and reachable holders remain blocking points.</td>
+<td>Your storage and bandwidth, or a pinning service's terms.</td>
+</tr>
+<tr>
+<td><a href="/kb/ipfs-and-filecoin/">Filecoin</a></td>
+<td>Storage agreements backed by proofs and economic penalties, for an agreed duration.</td>
+<td>Storage providers and a working retrieval path.</td>
+<td>Encrypt sensitive data before handing it to a provider.</td>
+<td>Store changed content as new data and arrange its storage.</td>
+<td>Several chosen providers can reduce dependence on one; providers still decide which deals to accept.</td>
+<td>Negotiated storage terms; account for retrieval arrangements too.</td>
+</tr>
+<tr>
+<td><a href="/kb/arweave/">Arweave</a></td>
+<td>An endowment-funded permanence design that depends on continued network incentives and operation.</td>
+<td>Network nodes holding data and a reachable serving path.</td>
+<td>Treat publication as public; encrypt sensitive material beforehand.</td>
+<td>Published data is archival; publish new data for an update.</td>
+<td>Replication reduces dependence on one host; access still needs functioning network and serving infrastructure.</td>
+<td>Upfront upload fee and storage-endowment contribution.</td>
+</tr>
+<tr>
+<td><a href="/kb/tahoe-lafs/">Tahoe-LAFS</a></td>
+<td>Recoverable while at least <em>k</em> distinct valid shares survive out of <em>N</em>; repair lost redundancy.</td>
+<td>Servers holding enough shares, plus the reader's trusted client.</td>
+<td>Client encrypts before distributing shares.</td>
+<td>Immutable files and mutable files or directories with appropriate capabilities.</td>
+<td>Distributed shares tolerate some server loss; enough withholding servers can deny retrieval.</td>
+<td>Grid storage, bandwidth and administration; any hosting agreement is separate.</td>
+</tr>
+<tr>
+<td><a href="/kb/syncthing/">Syncthing</a></td>
+<td>Replicas while devices retain files; edits and deletions propagate.</td>
+<td>Devices exchanging data must overlap in connectivity, possibly through another retaining device.</td>
+<td>TLS; trusted peers hold readable data. Untrusted encrypted storage is beta.</td>
+<td>Live folder synchronization.</td>
+<td>No required central file host; approved peers and their connectivity remain necessary.</td>
+<td>Devices, disks, connectivity and any rented host.</td>
+</tr>
+<tr>
+<td><a href="/kb/bittorrent-archives/">BitTorrent</a></td>
+<td>Available while reachable seeds or peers collectively retain all pieces, or web seeds supply them.</td>
+<td>Enough peers or web seeds to supply the requested data.</td>
+<td>Encrypt confidential archives before making the torrent; peers see addresses.</td>
+<td>A torrent identifies a fixed snapshot.</td>
+<td>DHT can remove tracker dependence; missing pieces and blocked peers still stop retrieval.</td>
+<td>Seeding bandwidth and storage; any web-seed hosting.</td>
+</tr>
+<tr>
+<td><a href="/kb/hypercore/">Hypercore / Hyperdrive</a></td>
+<td>Operators must retain the needed blocks; sparse replicas may not hold everything.</td>
+<td>Peers with requested blocks; a writer must publish new updates.</td>
+<td>Noise connections in Hyperswarm; content encryption is an application choice.</td>
+<td>Logs and versioned files; the API also permits truncation and forks.</td>
+<td>Replication permits several sources; availability depends on retained blocks and reachable peers.</td>
+<td>Peer storage, bandwidth and application operation.</td>
+</tr>
+<tr>
+<td><a href="/kb/blossom/">Blossom</a></td>
+<td>Server policy and explicit copies; mirroring is an optional endpoint.</td>
+<td>A server retaining the requested blob.</td>
+<td>Publicly accessible blobs; encrypt content before upload when needed.</td>
+<td>A changed blob gets a different SHA-256 hash.</td>
+<td>Re-uploading identical bytes preserves the hash; each server can reject storage or mirroring.</td>
+<td>Server terms, including possible upload or mirroring payment.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-to-choose">How to choose</h2>
+<ul>
+<li><strong>Working files across your devices:</strong> start with <a href="/kb/syncthing/">Syncthing</a> and a separate archive. Follow <a href="/guides/private-file-sync-and-backup/">Private File Sync and Backup</a>.</li>
+<li><strong>Encrypted storage across operators:</strong> assess <a href="/kb/tahoe-lafs/">Tahoe-LAFS</a>, including share placement, capability recovery and repair.</li>
+<li><strong>Public snapshot distribution:</strong> compare IPFS pins and BitTorrent seeding. Arrange who keeps copies after initial interest fades.</li>
+<li><strong>Paid retention or permanent publication:</strong> inspect Filecoin's storage and retrieval obligations or Arweave's permanence model. Keep another copy rather than assuming economic incentives remove every failure mode.</li>
+<li><strong>Application data or media:</strong> compare Hypercore's replicated data APIs, <a href="/kb/local-first-crdts/">local-first CRDTs</a> for collaborative state, and Blossom's blob-server interfaces.</li>
+</ul>
+<h2 id="trust-model-threat-model">Trust model / threat model</h2>
+<p>Separate loss of a provider from loss of a decryption key, compromised publishing authority, blocked connectivity and an accidental deletion. No single row resolves all of them. A retained ciphertext copy without its recovery key is not a successful backup, and a valid hash without a reachable copy cannot restore a file.</p>
+<h2 id="readiness">Readiness</h2>
+<p><strong>Usable as a selection framework.</strong> Readiness differs by component: Syncthing's untrusted mode is explicitly beta, Hypercore is a developer toolkit, and Blossom's upload and mirroring documents are drafts. Check each entry and the particular implementation you intend to run.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>IPFS: <a href="https://docs.ipfs.tech/concepts/persistence/" rel="noopener nofollow">persistence and pinning</a>, <a href="https://docs.ipfs.tech/concepts/content-addressing/" rel="noopener nofollow">content addressing</a> and <a href="https://docs.ipfs.tech/concepts/privacy-and-encryption/" rel="noopener nofollow">privacy and encryption</a>.</li>
+<li>Filecoin: <a href="https://docs.filecoin.io/basics/what-is-filecoin/overview" rel="noopener nofollow">storage model and incentives</a>, <a href="https://filecoin.io/blog/how-storage-and-retrieval-deals-work-on-filecoin" rel="noopener nofollow">storage and retrieval deal flow</a> and <a href="https://www.filecoin.io/blog/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web" rel="noopener nofollow">client-side encryption guidance</a>.</li>
+<li>Arweave: <a href="https://arweave.org/files/arweave-lightpaper.pdf" rel="noopener nofollow">protocol lightpaper and storage endowment</a> and <a href="https://www.arweave.org/" rel="noopener nofollow">project overview</a>.</li>
+<li>Tahoe-LAFS: <a href="https://tahoe-lafs.readthedocs.io/en/latest/about-tahoe.html" rel="noopener nofollow">security and availability model</a> and <a href="https://tahoe-lafs.readthedocs.io/en/latest/architecture.html" rel="noopener nofollow">capabilities and reliability</a>.</li>
+<li>Syncthing: <a href="https://docs.syncthing.net/users/faq.html" rel="noopener nofollow">sync and backup limitations</a>, <a href="https://docs.syncthing.net/users/security.html" rel="noopener nofollow">transport security</a> and <a href="https://docs.syncthing.net/users/untrusted.html" rel="noopener nofollow">untrusted-device beta</a>.</li>
+<li>BitTorrent: <a href="https://www.bittorrent.org/beps/bep_0003.html" rel="noopener nofollow">base protocol</a>, <a href="https://www.bittorrent.org/beps/bep_0005.html" rel="noopener nofollow">DHT</a> and <a href="https://www.bittorrent.org/beps/bep_0019.html" rel="noopener nofollow">web seeds</a>.</li>
+<li>Hypercore stack: <a href="https://github.com/holepunchto/hypercore" rel="noopener nofollow">log replication</a>, <a href="https://github.com/holepunchto/hyperdrive" rel="noopener nofollow">Hyperdrive</a> and <a href="https://github.com/holepunchto/hyperswarm" rel="noopener nofollow">Hyperswarm</a>.</li>
+<li>Blossom: <a href="https://github.com/hzrd149/blossom" rel="noopener nofollow">protocol overview</a>, <a href="https://github.com/hzrd149/blossom/blob/master/buds/02.md" rel="noopener nofollow">blob upload and server policies</a> and <a href="https://github.com/hzrd149/blossom/blob/master/buds/04.md" rel="noopener nofollow">optional mirroring</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/decentralized-storage/">
+  <span class="nm">Decentralized Storage</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ipfs-and-filecoin/">
+  <span class="nm">IPFS and Filecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/arweave/">
+  <span class="nm">Arweave</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/blossom/">
+  <span class="nm">Blossom: Blob Storage on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/tahoe-lafs/">
+  <span class="nm">Tahoe-LAFS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/syncthing/">
+  <span class="nm">Syncthing</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bittorrent-archives/">
+  <span class="nm">BitTorrent for Archive Distribution</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/hypercore/">
+  <span class="nm">Hypercore and Hyperdrive</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/private-file-sync-and-backup/">
+  <span class="nm">Private File Sync and Backup</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ipns-dnslink/">
+  <span class="nm">IPNS and DNSLink</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/local-first-crdts/">
+  <span class="nm">Local-first Software and CRDTs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Choosing%20Decentralized%20Storage" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Choose who keeps the bytes, who can read them and how you recover them before choosing a protocol.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Comparison</dd>
+        <dt>Pillars</dt><dd>Decentralized Storage</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>22</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

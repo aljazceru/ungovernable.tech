@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized Training — ungovernable.tech</title>
+<meta name="description" content="Training large AI models across distributed, heterogeneous hardware over the internet: the techniques, the bandwidth problem and the projects trying it.">
+<link rel="canonical" href="https://ungovernable.tech/kb/decentralized-training/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized Training — ungovernable.tech">
+<meta property="og:description" content="Training large AI models across distributed, heterogeneous hardware over the internet: the techniques, the bandwidth problem and the projects trying it.">
+<meta property="og:url" content="https://ungovernable.tech/kb/decentralized-training/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized Training — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized Training — ungovernable.tech">
+<meta name="twitter:description" content="Training large AI models across distributed, heterogeneous hardware over the internet: the techniques, the bandwidth problem and the projects trying it.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-compute.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Decentralized Training", "description": "Training large AI models across distributed, heterogeneous hardware over the internet: the techniques, the bandwidth problem and the projects trying it.", "dateModified": "2026-05-12", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/decentralized-training/", "mainEntityOfPage": "https://ungovernable.tech/kb/decentralized-training/", "image": "https://ungovernable.tech/assets/og/pillar-compute.png", "about": [{"@type": "Thing", "name": "Decentralized Compute"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Decentralized Compute", "item": "https://ungovernable.tech/pillars/compute/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized Training", "item": "https://ungovernable.tech/kb/decentralized-training/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/compute/">Decentralized Compute</a><span aria-hidden="true">/</span><span class="here">Decentralized Training</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ DECENTRALIZED COMPUTE ]</span></p>
+  <h1>Decentralized Training</h1>
+  <p class="aka">Also Gensyn, Prime Intellect, DiLoCo.</p>
+  <p class="dek">Training large models across geographically distributed, heterogeneous hardware. The hard problem: getting a 70B-parameter model trained without 10,000 GPUs in one datacenter. Two production-direction projects (Gensyn and Prime Intellect) and the algorithmic primitives that make it possible.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-05-12</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-bandwidth-wall">The bandwidth wall</a><a href="#diloco-and-friends">DiLoCo and friends</a><a href="#prime-intellect">Prime Intellect</a><a href="#gensyn">Gensyn</a><a href="#the-verification-problem">The verification problem</a><a href="#comparison">Comparison</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-bandwidth-wall">The bandwidth wall</h2>
+<p>The fundamental tension: training large models requires synchronizing gradients across many GPUs. Naive data-parallel training synchronizes after every step, which needs datacenter-class interconnect (NVLink at terabytes per second). Two GPUs in different cities can communicate at internet bandwidth — orders of magnitude slower.</p>
+<p>For a long time this killed decentralized training. The breakthrough has been algorithms that <strong>synchronize less often</strong> without hurting model quality.</p>
+<h2 id="diloco-and-friends">DiLoCo and friends</h2>
+<p><strong>DiLoCo</strong> (Distributed Low-Communication training, Google DeepMind 2024): instead of synchronizing every step, each worker performs many local optimizer steps and only communicates aggregated weight deltas every <code>N</code> steps. The communication-to-compute ratio drops by orders of magnitude.</p>
+<p>The insight: with appropriate optimizer choices (Nesterov momentum across the outer loop, AdamW inner) the convergence cost of less-frequent synchronization is small for many model classes.</p>
+<p>Variants and follow-ups:</p>
+<ul>
+<li>OpenDiLoCo (Prime Intellect, 2024): open-source DiLoCo implementation.</li>
+<li>INTELLECT-1 (Prime Intellect, 2024): first 10B-parameter model trained across continents using DiLoCo.</li>
+<li>INTELLECT-2 (2025): 32B-parameter follow-up.</li>
+<li>Lo-FI / SWARM-style federated approaches.</li>
+</ul>
+<p>These make decentralized training plausible for model sizes that previously required hyperscaler-only infrastructure.</p>
+<h2 id="prime-intellect">Prime Intellect</h2>
+<p>Position: open-source decentralized training of frontier models, with a coordination chain and a community of GPU contributors.</p>
+<p>Stack:</p>
+<ul>
+<li>OpenDiLoCo for the training algorithm.</li>
+<li>Coordination chain for tracking contributions, attestation, and reward distribution.</li>
+<li>GPU contributor network. Anyone with capable hardware can join.</li>
+<li>Attested workers. TEE attestation is being explored to handle adversarial workers.</li>
+</ul>
+<p>Track record:</p>
+<ul>
+<li>INTELLECT-1 (10B params, 2024) trained across distributed contributors.</li>
+<li>INTELLECT-2 (32B params, 2025) scale-up.</li>
+<li>Push toward frontier (70B+) models for 2026.</li>
+</ul>
+<p>Why it matters:</p>
+<ul>
+<li>Demonstrates that frontier model training can happen outside hyperscalers.</li>
+<li>Opens the supply side of model creation to communities, not just OpenAI / Anthropic / Google scale.</li>
+<li>Open weights end-to-end.</li>
+</ul>
+<h2 id="gensyn">Gensyn</h2>
+<p>Position: a decentralized network for ML training where participants get paid for verifiable contributions.</p>
+<p>Architecture:</p>
+<ul>
+<li>Solver / verifier model. Solvers train; verifiers spot-check via cryptographic proofs of work.</li>
+<li>Proof of training work. A verifiable claim that a particular update came from a particular dataset and model weights.</li>
+<li>Substrate-based chain for coordination.</li>
+<li>Heterogeneous hardware. Consumer GPUs welcome.</li>
+</ul>
+<p>The cryptographic proof-of-training story is what differentiates Gensyn: rather than trusting solver claims about gradients, the protocol can verify them at much lower cost than redoing the training.</p>
+<p>Status (2026): Gensyn's mainnet went live April 22, 2026 on a custom Ethereum rollup (OP Stack), alongside the $AI token launch. The core verification system — <strong>Verde</strong> (cryptographically verifiable ML evaluation) and the <strong>Reproducible Runtime</strong> (bitwise-exact reproducibility across devices) — is deployed in production as <strong>Judge</strong>, a verifiable AI evaluation system that replaces opaque API-based evaluation (e.g., GPT-5 as judge) with open, independently verifiable judgment. The first live application is <strong>Delphi</strong>, an AI-settled prediction market. BlockAssist (AI Minecraft assistant for assistance learning research) was sunset. Galaxy Research published a comprehensive report on decentralized AI training highlighting Gensyn's Judge/Verde system as evidence that verifiable training and evaluation have reached production maturity. Market cap ~$57M (May 2026). Uniswap V3 deployment targeted for Q3 2026.</p>
+<h2 id="the-verification-problem">The verification problem</h2>
+<p>Decentralized training has a unique attack: a malicious worker submits fake gradient updates to corrupt the model (or to claim payment without doing the work). Solutions:</p>
+<h3 id="spot-checking">Spot-checking</h3>
+<p>Verifiers redo a small fraction of work to catch obvious cheating. Cheap but not sound against sophisticated attacks.</p>
+<h3 id="cryptographic-proofs">Cryptographic proofs</h3>
+<p>Compute a SNARK over the training step, proving "given these weights and this data sample, the gradient is X". Pure math, but currently impractical at frontier-model scale (proving overhead too high).</p>
+<h3 id="tee-attestation">TEE attestation</h3>
+<p>A worker runs training in a TEE; attestation pins the binary; the binary is audited; therefore the gradient comes from honest training. Practical today; trades hardware-vendor trust for cryptographic verification.</p>
+<h3 id="replay-based-verification">Replay-based verification</h3>
+<p>A random subset of steps is replayed by independent workers; consensus on output. Works in honest-majority models.</p>
+<h3 id="optimistic-plus-slashing">Optimistic plus slashing</h3>
+<p>Workers submit gradients; a challenge period follows; another worker can challenge with proof of incorrect computation. Stake gets slashed if the challenge succeeds.</p>
+<p>Gensyn's proof-of-training-work falls in the cryptographic / replay-based category. Prime Intellect leans optimistic plus TEE-based.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Gensyn</th>
+<th>Prime Intellect</th>
+<th>Hyperscaler training</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verification</td>
+<td>Cryptographic proof of work</td>
+<td>TEE + optimistic + reputation</td>
+<td>Trust the operator</td>
+</tr>
+<tr>
+<td>Algorithm</td>
+<td>Generic; not tied to one optimizer</td>
+<td>DiLoCo-family</td>
+<td>All-reduce / allgather</td>
+</tr>
+<tr>
+<td>Scale (2026)</td>
+<td>Smaller deployments</td>
+<td>INTELLECT-2 (32B)</td>
+<td>Hundreds of billions</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>Consumer + datacenter</td>
+<td>Mostly datacenter-class</td>
+<td>Datacenter-only</td>
+</tr>
+<tr>
+<td>Open weights</td>
+<td>Per-contract</td>
+<td>Always</td>
+<td>Often closed</td>
+</tr>
+<tr>
+<td>Token model</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="open-weights-frontier-model-training">Open-weights frontier model training</h3>
+<p>Communities pool GPU contributions to train and release open-weights models that beat or match hyperscaler closed models. Prime Intellect's INTELLECT runs are the prototype.</p>
+<h3 id="sovereign-training">Sovereign training</h3>
+<p>A consortium (academic, civic, sovereign-state) wants to train a model without depending on US or Chinese hyperscalers. Decentralized training plus TEE attestation lets them distribute trust across their members.</p>
+<h3 id="federated-learning-at-internet-scale">Federated learning at internet scale</h3>
+<p>Privacy-preserving training where each participant's data stays local; only model updates are shared. DiLoCo-class algorithms make this scale; TEE / MPC / FHE add privacy guarantees on top.</p>
+<h3 id="continual-or-community-fine-tuning">Continual or community fine-tuning</h3>
+<p>An open-weights base model is fine-tuned by a community on specialized data, with each contributor verifiably credited and rewarded.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Breaks the hyperscaler monopoly on frontier-model training.</li>
+<li>Communities can train models that align with their values rather than corporate ones.</li>
+<li>Algorithmic progress is real. DiLoCo-class methods cut communication 100x with small quality cost.</li>
+<li>Open weights by default in most projects.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Still bandwidth-limited at the highest scales.</li>
+<li>Verification overhead in cryptographic and TEE approaches.</li>
+<li>Coordination complexity beats traditional cloud at small scale.</li>
+<li>Frontier scale is still elusive. INTELLECT-2's 32B is impressive but small compared to commercial frontiers.</li>
+<li>Token incentive design is hard; bad incentives produce bad-faith workers.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Malicious worker submits fake gradients</td>
+<td>Cryptographic proofs, TEE attestation, optimistic challenges</td>
+</tr>
+<tr>
+<td>Sybil flooding</td>
+<td>Stake-weighted contribution; reputation</td>
+</tr>
+<tr>
+<td>Data-poisoning attacks</td>
+<td>Robust aggregation; outlier detection</td>
+</tr>
+<tr>
+<td>Model exfiltration</td>
+<td>Confidential training (TEE / FHE)</td>
+</tr>
+<tr>
+<td>Token-incentive hacks</td>
+<td>Slashing, capped rewards, reputation cooldowns</td>
+</tr>
+<tr>
+<td>Network-level censorship</td>
+<td>Multi-relay coordination; Tor/mixnet underneath</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>DiLoCo (Google, 2024) provided the algorithmic foundation.</li>
+<li>OpenDiLoCo (Prime Intellect, 2024) gave the open-source implementation.</li>
+<li>INTELLECT-1 (Oct 2024): 10B-parameter model trained decentrally.</li>
+<li>INTELLECT-2 (2025): 32B follow-up; Prime Intellect's arXiv paper (<code>arXiv:2505.07291</code>) frames it as a reasoning model trained through globally decentralized reinforcement learning, with <code>prime-rl</code>, TOPLOC rollout validation, and SHARDCAST weight broadcasting.</li>
+<li><strong>Prime Intellect $130M Series A (July 8, 2026)</strong>: Led by Intel Capital, with Founders Fund and others. Funds the "Open Superintelligence Stack."</li>
+<li><strong>Prime Agent (August 5, 2026)</strong>: Open-sourced self-improving coding harness — 95.5% on ARC-AGI-3 (above human baseline 95.4%). Built on Recursive Language Model (RLM) abstraction with Continual Harness architecture. MIT-licensed.</li>
+<li><strong>Multi-Agent Systems in PRIME-RL (August 7, 2026)</strong>: RL stack expanded to support arbitrary multi-agent interactions, with verifiers <code>0.3.0</code> and prime-rl <code>0.8.0</code>. Agents can communicate within "nuclear family" scope (parent/sibling/child).</li>
+<li><strong>Scaling Agentic RL (July 22, 2026)</strong>: Demonstrated RL training at 365,000+ parallel environments across SWE, Terminal, and Search tasks.</li>
+<li><strong>verifiers v1 (July 10, 2026)</strong>: Modular component library for RL environments and LLM agent training.</li>
+<li><strong>NVIDIA Nemotron Coalition (June 4, 2026)</strong>: Prime Intellect joined to advance open frontier models; post-training of Nemotron 3 on the Lab platform.</li>
+<li><strong>Customer deployments</strong>: Zapier (AutomationBench as continuous agent improvement loop); Ramp (RL beating frontier models at spreadsheet search).</li>
+<li>Gensyn Mainnet + $AI token launch (April 22, 2026) on Ethereum rollup (OP Stack).</li>
+<li>Gensyn <strong>Judge/Verde</strong> verifiable AI evaluation system live in production; <strong>Delphi</strong> AI-settled prediction market live on testnet.</li>
+<li>Gensyn BlockAssist (AI Minecraft assistant) sunset; RL Swarm, CodeAssist paused. Focus shifted to Judge/Delphi/Verde verification stack.</li>
+<li>Gensyn's <code>rl-swarm</code> remains a useful open-source artifact (GitHub API 2026-05-05: 1,691 stars, 620 forks, MIT).</li>
+<li>Prime Intellect's active codebases are moving quickly (GitHub API 2026-05-05: <code>PrimeIntellect-ai/prime-rl</code> 1,338 stars, pushed 2026-05-05; <code>PrimeIntellect-ai/prime</code> 193 stars, pushed 2026-05-04).</li>
+<li>TEE-attested training experiments composing with Phala / Marlin.</li>
+<li>Federated continual learning is a deployed pattern in some industry consortiums.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Douillard et al., <em>DiLoCo: Distributed Low-Communication Training of Language Models</em>, Google DeepMind, 2024.</li>
+<li>Prime Intellect, <em>INTELLECT-1 Technical Report</em>, 2024.</li>
+<li>Prime Intellect, <em>INTELLECT-2: A Reasoning Model Trained Through Globally Decentralized Reinforcement Learning</em>, 2025. <a href="https://arxiv.org/abs/2505.07291" rel="noopener nofollow">arXiv:2505.07291</a> | <a href="https://www.primeintellect.ai/blog/intellect-2" rel="noopener nofollow">Launch blog</a> | <a href="https://github.com/PrimeIntellect-ai/prime-rl" rel="noopener nofollow">prime-rl</a> | <a href="https://github.com/PrimeIntellect-ai/prime" rel="noopener nofollow">prime</a>.</li>
+<li>OpenDiLoCo — <a href="https://github.com/PrimeIntellect-ai/OpenDiLoCo" rel="noopener nofollow">github.com/PrimeIntellect-ai/OpenDiLoCo</a>.</li>
+<li>Gensyn — <a href="https://gensyn.ai" rel="noopener nofollow">gensyn.ai</a>; <a href="https://docs.gensyn.ai/testnet" rel="noopener nofollow">Testnet docs</a>; <a href="https://github.com/gensyn-ai/rl-swarm" rel="noopener nofollow">rl-swarm</a>.</li>
+<li>DiLoCo follow-up papers (Lo-FI, SWARM) on arXiv.</li>
+<li><em>Federated Learning at Scale</em>, McMahan et al., 2017.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-05-12</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Decentralized%20Training" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">Training large models across geographically distributed, heterogeneous hardware. The hard problem: getting a 70B-parameter model trained without 10,000 GPUs in one datacenter. Two production-direction projects (Gensyn and Prime Intellect) and the algorithmic primitives that make it possible.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Decentralized Compute</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-05-12</dd>
+        <dt>Sources linked</dt><dd>8</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

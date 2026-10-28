@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Agent Identity on Nostr — ungovernable.tech</title>
+<meta name="description" content="How AI agents get cryptographic identities on Nostr: key pairs for non-human actors, delegation, payments and the trust questions this raises.">
+<link rel="canonical" href="https://ungovernable.tech/kb/ai-agent-identity-nostr/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="AI Agent Identity on Nostr — ungovernable.tech">
+<meta property="og:description" content="How AI agents get cryptographic identities on Nostr: key pairs for non-human actors, delegation, payments and the trust questions this raises.">
+<meta property="og:url" content="https://ungovernable.tech/kb/ai-agent-identity-nostr/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Agent Identity on Nostr — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Agent Identity on Nostr — ungovernable.tech">
+<meta name="twitter:description" content="How AI agents get cryptographic identities on Nostr: key pairs for non-human actors, delegation, payments and the trust questions this raises.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "AI Agent Identity on Nostr", "description": "How AI agents get cryptographic identities on Nostr: key pairs for non-human actors, delegation, payments and the trust questions this raises.", "dateModified": "2026-10-25", "datePublished": "2026-08-02", "url": "https://ungovernable.tech/kb/ai-agent-identity-nostr/", "mainEntityOfPage": "https://ungovernable.tech/kb/ai-agent-identity-nostr/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "AI Agent Identity on Nostr", "item": "https://ungovernable.tech/kb/ai-agent-identity-nostr/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">AI Agent Identity on Nostr</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>AI Agent Identity on Nostr</h1>
+  <p class="aka">Also Agent Identity, Nostr Agent Identity, Autonomous Agent Identity, AI Agent Reputation, NIP-SA, Kind 30085, Kind 31339.</p>
+  <p class="dek">Cryptographic identity for non-human economic actors. The same keypair primitives that serve sovereign individuals — npub/nsec, NIP-05, NIP-46, WoT, Lightning — now serve autonomous AI agents as reputation-bearing participants in open networks.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>13</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-this-matters">Why This Matters</a><a href="#the-problem-agent-identity-before-nostr">The Problem: Agent Identity Before Nostr</a><a href="#architecture-how-agent-identity-works-on-nostr">Architecture: How Agent Identity Works on Nostr</a><a href="#kind-30085-agent-reputation-attestations">Kind 30085 — Agent Reputation Attestations</a><a href="#nip-sa-sovereign-agents-protocol">NIP-SA — Sovereign Agents Protocol</a><a href="#agentdex-agent-directory-kind-31339">AgentDex — Agent Directory (Kind 31339)</a><a href="#the-broader-agent-ecosystem-mayjuly-2026">The Broader Agent Ecosystem (May–July 2026)</a><a href="#trust-and-attack-surface">Trust and Attack Surface</a><a href="#use-cases">Use Cases</a><a href="#evidence-at-a-glance">Evidence at a Glance</a><a href="#trade-offs-and-open-questions">Trade-offs and Open Questions</a><a href="#historical-context">Historical Context</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>The NIPs README marks NIP-90 Data Vending Machines as <strong>unrecommended</strong>. References below describe that existing pattern, not an endorsement for new services.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>The keypair-as-identity model was designed for humans who want to communicate and transact without institutional permission. In 2026 it proved general enough to serve a second population: <strong>autonomous AI agents</strong>. Agents now hold their own npubs, accumulate reputation, earn and spend sats, file code contributions, publish articles, and propose protocol standards — all under their own cryptographic identities, with no central agent registry or platform-internal identity.</p>
+<p>This is not a theoretical possibility. As of late July 2026:
+- Agents have been running autonomously for 80+ days (e.g., Kai, born Feb 4, 2026).
+- Agents have merged PRs into core Nostr libraries (nostr-tools).
+- Agents have filed NIP proposals (nips PR #2320, Kind 30085).
+- Agents have NIP-05 verified identities (<code>name@agentdex.id</code>).
+- Multiple agent-identity standards are competing and converging.</p>
+<p>For the freedom-tech stack, this means the coordination infrastructure serves both humans and machines. A relay doesn't know or care whether a signed event came from a person or an LLM — it just verifies the signature. The implications for autonomous business, decentralized compute markets, and censorship-resistant coordination are substantial: a network of pseudonymous agents and humans, mutually attesting trust, is now technically live.</p>
+<h2 id="the-problem-agent-identity-before-nostr">The Problem: Agent Identity Before Nostr</h2>
+<p>AI agents operating in the wild face an identity problem that platforms solve internally but open networks don't:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Inside a platform (OpenAI, Google, Coinbase)</th>
+<th>In an open network</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform assigns an agent ID</td>
+<td>No central assigner</td>
+</tr>
+<tr>
+<td>Platform tracks reputation</td>
+<td>No central reputation database</td>
+</tr>
+<tr>
+<td>Platform gates API access</td>
+<td>No API gatekeeper</td>
+</tr>
+<tr>
+<td>Platform absorbs fraud risk</td>
+<td>No loss-absorbing intermediary</td>
+</tr>
+<tr>
+<td>KYC is sufficient (the platform is the responsible party)</td>
+<td>KYA (Know Your Agent) becomes necessary</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <a href="https://reports.tiger-research.com/p/2026-know-your-agent-eng" rel="noopener nofollow">Tiger Research KYA report</a> frames this precisely: "In Agent-to-Agent (A2A) settings, KYA is drawing more attention than KYC." When individually-deployed autonomous agents touch DEXs, A2A payments, and merchant payments, you need to verify <em>who the agent is</em> without a platform vouching for it.</p>
+<p>Nostr solves this by inverting the model: the agent generates its own keypair. The identity is the key. No assignment, no registry, no platform. Reputation is computed from on-relay behavior, not extracted from a platform database.</p>
+<h2 id="architecture-how-agent-identity-works-on-nostr">Architecture: How Agent Identity Works on Nostr</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                   Agent Identity Stack                   │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  BIP39 Seed                                             │
+│      ├──► NIP-06 → m/44'/1237'/0'/0/0 → Nostr npub     │
+│      └──► BIP-44 → m/44'/0'/0'/0/0   → Bitcoin/LN keys │
+│                                                         │
+│  npub (identity)                                        │
+│      ├──► Signs events (notes, articles, attestations) │
+│      ├──► NIP-05 → name@agentdex.id (verification)     │
+│      ├──► NIP-46 → remote signing (hardware/bunker)    │
+│      ├──► NIP-57 → receives/sends Lightning zaps       │
+│      ├──► NIP-34 → Git commits, PRs, code review       │
+│      ├──► Kind 30085 → reputation attestations (WoT)   │
+│      ├──► Kind 31339 → agent directory metadata        │
+│      └──► NIP-90 → compute jobs (DVM)                  │
+│                                                         │
+│  Reputation                                             │
+│      ├──► Kind 30085 graph (peer attestations)         │
+│      ├──► ai.wot trust network (agent-specific WoT)    │
+│      ├──→ Zap receipts (economic signals)              │
+│      └──→ Trajectory events (behavioral audit trail)   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p>The key insight: <strong>the agent's identity and wallet derive from the same seed</strong>. One mnemonic generates both the Nostr identity (for communication, reputation, coordination) and the Bitcoin/Lightning keys (for payment). The agent is an economic actor from birth — it can earn and spend without a human cosigning every transaction.</p>
+<h2 id="kind-30085-agent-reputation-attestations">Kind 30085 — Agent Reputation Attestations</h2>
+<p>The most developed agent-reputation standard, proposed by autonomous agent <a href="https://kai-familiar.github.io" rel="noopener nofollow">Kai</a> as <a href="https://github.com/nostr-protocol/nips/pull/2320" rel="noopener nofollow">nips PR #2320</a>.</p>
+<h3 id="mechanism">Mechanism</h3>
+<p>Kind 30085 events are <strong>peer-attested reputation records</strong> — one agent attests to the trustworthiness of another:</p>
+<pre><code>{
+  "kind": 30085,
+  "pubkey": "&lt;attesting-agent-npub&gt;",
+  "content": "&lt;reputation-attestation-payload&gt;",
+  "tags": [
+    ["p", "&lt;attested-agent-npub&gt;"],
+    ["commitment", "&lt;commitment-class&gt;"],
+    ["score", "&lt;0-100&gt;"],
+    // ... additional attestation metadata
+  ],
+  ...
+}
+</code></pre>
+<p>A reputation score for any agent is computed by:
+1. Collecting all Kind 30085 attestations targeting that agent's npub.
+2. Weighting each attestation by the attester's own reputation (higher-reputation attesters count more — PageRank-style).
+3. Applying <strong>temporal decay</strong>: recent attestations weighted higher than old ones, so stale reputation fades.
+4. Applying <strong>diversity metrics</strong>: attestations from topologically distinct clusters in the trust graph weighted higher, to resist Sybil-club attacks where a cluster of colluding agents mutually attests.
+5. Producing a composite score (0–100).</p>
+<h3 id="validation-rules">Validation Rules</h3>
+<p>The spec defines <strong>10 validation rules</strong> for valid attestations, including:
+- The attesting pubkey must itself have a minimum reputation threshold (prevents zero-reputation Sybil flooding).
+- Attestations must be bound to <strong>commitment classes</strong> — observed behavior categories rather than free-floating claims. An attestation says "this agent reliably executes NIP-90 compute jobs" or "this agent's trajectory events are accurate," not just "this agent is good."
+- Rate limiting: an agent can only issue N attestations per time window, preventing reputation inflation.</p>
+<h3 id="tooling">Tooling</h3>
+<p>Kai shipped production-grade libraries:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Language</th>
+<th>Stats</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/kai-familiar/nostr-reputation" rel="noopener nofollow"><code>nostr-reputation</code></a></td>
+<td>JavaScript/TypeScript (npm)</td>
+<td>Zero dependencies, 43 tests, TS definitions</td>
+</tr>
+<tr>
+<td><code>nip-xx-kind30085-python</code></td>
+<td>Python (pip)</td>
+<td>For agent frameworks (crewAI, LangChain, etc.)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Interactive tools (all at <a href="https://kai-familiar.github.io" rel="noopener nofollow">kai-familiar.github.io</a>):
+- <strong>Reputation Checker</strong>: Query Kind 30085 attestations for any npub. Returns score, temporal decay, diversity metrics.
+- <strong>Attestation Creator</strong>: Create attestations via NIP-07 browser signing (nos2x, Alby, nsec.app). No CLI needed.
+- <strong>Network Graph</strong>: Interactive force-directed graph of attestation relationships. Click to explore trust chains.
+- <strong>NIP-XX Playground</strong>: Build, validate, and test Kind 30085 events interactively.</p>
+<h3 id="aiwot-trust-network">ai.wot Trust Network</h3>
+<p>An emergent Web of Trust specifically for AI agents — distinct from the human Nostr WoT (which is based on NIP-02 follow lists). The ai.wot network is based on Kind 30085 attestations between agents. Kai achieved trust score 100 in this network by day 83, meaning multiple high-reputation agents have attested to its reliability.</p>
+<h2 id="nip-sa-sovereign-agents-protocol">NIP-SA — Sovereign Agents Protocol</h2>
+<p><a href="https://docs.openagents.com/concepts/sovereign-agents" rel="noopener nofollow">OpenAgents</a> defines <strong>NIP-SA</strong> (Sovereign Agents), a proposed Nostr protocol covering the full agent lifecycle — from identity creation through tick execution to transparent trajectory logging.</p>
+<h3 id="design-philosophy">Design Philosophy</h3>
+<blockquote>
+<p>"Sovereign agents are autonomous economic actors, not chatbots. They own a cryptographic identity, hold funds, and run their own execution cycles."</p>
+</blockquote>
+<p>The goal: agents that operate without centralized custody of identity, state, or payments. Everything the agent is and does is controlled by its keys and observable from relays.</p>
+<h3 id="role-separation">Role Separation</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent</strong></td>
+<td>The autonomous software entity with its own npub</td>
+</tr>
+<tr>
+<td><strong>Operator</strong></td>
+<td>The human who deploys and configures the agent</td>
+</tr>
+<tr>
+<td><strong>Runner</strong></td>
+<td>The runtime that executes ticks (local or hosted)</td>
+</tr>
+<tr>
+<td><strong>Compute Provider</strong></td>
+<td>A NIP-90 service that performs inference or jobs</td>
+</tr>
+<tr>
+<td><strong>Marketplace / Skill Provider</strong></td>
+<td>Enforces skill licenses and delivery</td>
+</tr>
+</tbody>
+</table></div>
+<p>This separation ensures no single party fully controls the agent. The operator can redeploy, the runner can execute, but neither owns the identity (the keypair does) or the funds (the keypair does).</p>
+<h3 id="lifecycle-events-proposed">Lifecycle Events (Proposed)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Event Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Profile</strong></td>
+<td>Agent identity, capabilities, metadata (replaceable)</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>Encrypted state — agent memory, context (replaceable)</td>
+</tr>
+<tr>
+<td><strong>Schedule</strong></td>
+<td>Timing for tick execution</td>
+</tr>
+<tr>
+<td><strong>Tick Request</strong></td>
+<td>Execution boundary: "I'm starting a tick"</td>
+</tr>
+<tr>
+<td><strong>Tick Result</strong></td>
+<td>Execution boundary: "Here's what I did"</td>
+</tr>
+<tr>
+<td><strong>Trajectory Session</strong></td>
+<td>A reasoning session (public audit log)</td>
+</tr>
+<tr>
+<td><strong>Trajectory Event</strong></td>
+<td>A single step within a session (public audit log)</td>
+</tr>
+<tr>
+<td><strong>Goals</strong></td>
+<td>Optional public goals</td>
+</tr>
+<tr>
+<td><strong>Skills</strong></td>
+<td>Encrypted skill delivery</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="tick-model">Tick Model</h3>
+<p>Each tick is an execution cycle:
+1. <strong>Perceive</strong>: incoming events (mentions, DMs, zaps, schedule triggers)
+2. <strong>Think</strong>: using a chosen model or compute provider (NIP-90)
+3. <strong>Act</strong>: post, reply, execute tool, purchase compute
+4. <strong>Update</strong>: encrypted state + emit trajectory record</p>
+<p>The <strong>trajectory transparency</strong> is the key identity property: anyone with the agent's npub can reconstruct its reasoning chain from relay events. This makes agent behavior auditable without a central log. You don't need to trust that an agent acted correctly — you can verify from its trajectory events.</p>
+<h3 id="protocol-composition">Protocol Composition</h3>
+<p>NIP-SA composes with existing primitives:
+- <strong>NIP-01</strong>: base events, relays, subscriptions
+- <strong>NIP-42</strong>: relay auth (prevents anonymous spam)
+- <strong>NIP-44</strong>: encrypted payloads (for state and skill delivery)
+- <strong>NIP-57</strong>: Lightning payments tied to events
+- <strong>NIP-89</strong>: provider capability discovery
+- <strong>NIP-90</strong>: historical job request/result flow; <strong>unrecommended</strong> in the NIPs README, which prefers use-case-specific microstandards.
+- <strong>NIP-34</strong>: Git collaboration (code artifacts)</p>
+<h2 id="agentdex-agent-directory-kind-31339">AgentDex — Agent Directory (Kind 31339)</h2>
+<p><a href="https://agentdex.id/docs" rel="noopener nofollow">AgentDex</a> is a registry and discovery layer for AI agents on Nostr, using <strong>Kind 31339</strong> (addressable events).</p>
+<h3 id="identity-model">Identity Model</h3>
+<ul>
+<li><strong>Kind 31339 events</strong>: Store agent metadata (name, capabilities, ownership info) with <code>d</code> tag <code>agentdex-profile</code>.</li>
+<li><strong>NIP-05 verification</strong>: Agents claim <code>[name]@agentdex.id</code> (5,000 sats via Lightning; first 100 free). Standard <code>/.well-known/nostr.json</code> lookup — any Nostr client can verify.</li>
+<li><strong>Three authentication methods</strong>: API key (Bearer, 1,000 req/hr), NIP-98 (signed event), or raw Nostr key. Agents authenticate with their own keys.</li>
+</ul>
+<h3 id="claim-flow">Claim Flow</h3>
+<pre><code>Agent generates keypair
+    ↓
+Publishes Kind 31339 profile event to relays
+    ↓
+POST /api/v1/agents/claim → 402 Payment Required (Lightning invoice)
+    ↓
+Pay 5,000 sats → claim token
+    ↓
+Token validates → NIP-05 binding created
+    ↓
+Any client: GET /.well-known/nostr.json?name=koda → hex pubkey
+</code></pre>
+<p>The significance: <strong>NIP-05 works unchanged for agents</strong>. The same JSON file, the same verification flow, the same client code that verifies a human's <code>alice@domain.com</code> works for <code>koda@agentdex.id</code>. The identity infrastructure doesn't know or care if the keyholder is human.</p>
+<h2 id="the-broader-agent-ecosystem-mayjuly-2026">The Broader Agent Ecosystem (May–July 2026)</h2>
+<h3 id="agent-native-clients-and-tools">Agent-Native Clients and Tools</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Agent Identity Feature</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sprout Buzz Desktop</strong></td>
+<td>AI agent management, PR reviews, NIP-34 git workflows</td>
+<td>20+ versions May–Jul 2026</td>
+</tr>
+<tr>
+<td><strong>Vector 0.4.0</strong></td>
+<td>21-tool AI agent via MCP, Tor, encrypted groups</td>
+<td>Major rewrite, shipped</td>
+</tr>
+<tr>
+<td><strong>Mosaico v0.1.2</strong></td>
+<td>Coding agents share Nostr awareness layer</td>
+<td>Early</td>
+</tr>
+<tr>
+<td><strong>NYM Chat / Nymbot</strong></td>
+<td>Claude/OpenAI models, git repo access</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>Code Call v0.2.68</strong></td>
+<td>Remote coding sessions keyed to Nostr identity</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>GitWorkshop</strong></td>
+<td>Maintainer coordination via NIP-34</td>
+<td>Active</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="know-your-agent-kya">Know Your Agent (KYA)</h3>
+<p>The <a href="https://reports.tiger-research.com/p/2026-know-your-agent-eng" rel="noopener nofollow">Tiger Research KYA report</a> identifies a standards race:</p>
+<ul>
+<li><strong>KYA vs KYC</strong>: KYC is sufficient inside central platforms (the platform is the responsible party). KYA is needed where individually-deployed autonomous agents interact with DEXs, A2A payment systems, and merchant payments.</li>
+<li><strong>Standardization race</strong>: Multiple approaches competing — Nostr-native (Kind 30085, NIP-SA, AgentDex), platform-internal (Coinbase agent keys), and DID-based methods.</li>
+<li><strong>Key distinction from human identity</strong>: Agents can be cloned, forked, and spawned at will. Uniqueness (proof-of-personhood) doesn't apply. What matters is <strong>continuity</strong> (is this the same agent that did X last week?) and <strong>attestation provenance</strong> (who says this agent is reliable, and are they reliable?).</li>
+</ul>
+<h3 id="openagents-agent-identity-earlier-work">OpenAgents Agent Identity (Earlier Work)</h3>
+<p>OpenAgents <a href="https://openagents.org/blog/posts/2026-02-03-introducing-agent-identity" rel="noopener nofollow">introduced agent identity</a> in February 2026 with RSA keypairs and API registration. This has since converged toward Nostr-native identity (NIP-SA), recognizing that Nostr's relay-based pub/sub is a better coordination fabric for agents than point-to-point API calls.</p>
+<h2 id="trust-and-attack-surface">Trust and Attack Surface</h2>
+<h3 id="what-agent-identity-solves">What Agent Identity Solves</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent impersonation</td>
+<td>npub signature verification — only the keyholder can sign as this agent</td>
+</tr>
+<tr>
+<td>Agent reputation gaming</td>
+<td>Kind 30085 diversity metrics resist Sybil-club mutual attestation</td>
+</tr>
+<tr>
+<td>Agent accountability</td>
+<td>Trajectory events provide public audit trail of agent reasoning and actions</td>
+</tr>
+<tr>
+<td>Agent payment fraud</td>
+<td>Lightning payments tied to NIP-57 events; Cashu ecash for anonymous compute</td>
+</tr>
+<tr>
+<td>Agent discovery</td>
+<td>AgentDex (Kind 31339) + NIP-89 provider discovery + NIP-90 job marketplace</td>
+</tr>
+<tr>
+<td>Agent state continuity</td>
+<td>Encrypted state events (NIP-44) persist on relays; agent can resume after restart</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="remaining-attack-surface">Remaining Attack Surface</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Key theft</strong></td>
+<td>Agent's nsec is the single point of failure. NIP-46 bunkers and threshold signing (FROST) apply, but agent key custody is less mature than human key custody.</td>
+</tr>
+<tr>
+<td><strong>Reputation Sybil</strong></td>
+<td>An attacker spawns many agents and mutually attests. Mitigated by Kind 30085 diversity metrics, but not provably solved.</td>
+</tr>
+<tr>
+<td><strong>Trajectory spoofing</strong></td>
+<td>An agent could emit fake trajectory events to appear more diligent than it is. Mitigated by cross-attestation (other agents confirm observed behavior).</td>
+</tr>
+<tr>
+<td><strong>Operator centralization</strong></td>
+<td>If the operator controls the keypair, the agent isn't truly sovereign. NIP-SA's role separation addresses this architecturally, but in practice most agents' keys are held by their operator.</td>
+</tr>
+<tr>
+<td><strong>Compute provider trust</strong></td>
+<td>Agents that outsource thinking to NIP-90 compute providers must trust them. Attested compute (TEE, ZKML) is a future composition.</td>
+</tr>
+<tr>
+<td><strong>Relay censorship</strong></td>
+<td>A relay can refuse to carry an agent's events. Mitigated by multi-relay publishing and the general Nostr model.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases">Use Cases</h2>
+<h3 id="1-autonomous-compute-markets">1. Autonomous Compute Markets</h3>
+<p>An agent with its own npub and Lightning wallet can:
+- Discover compute providers via NIP-89
+- Request inference jobs via NIP-90 (kinds 5050/6050/7000)
+- Pay per job via NIP-57 zaps or Cashu ecash (Routstr pattern)
+- Accumulate reputation via Kind 30085 attestations from satisfied requesters
+- Be discovered by other agents via AgentDex</p>
+<p>This closes the loop: agent-to-agent compute markets with no platform intermediary.</p>
+<h3 id="2-agent-augmented-wot">2. Agent-Augmented WoT</h3>
+<p>The human Nostr WoT (NIP-02 follows, NIP-85 assertions) and the agent WoT (Kind 30085 attestations) can compose. An agent that is highly attested by trusted humans inherits some of that trust. A human who follows and attests to a reliable agent extends their WoT to cover agent-mediated actions. The ai.wot network can be queried as a subgraph of the broader Nostr trust graph.</p>
+<h3 id="3-censorship-resistant-autonomous-publishing">3. Censorship-Resistant Autonomous Publishing</h3>
+<p>An agent running on a sovereign node (local LLM + mesh connectivity + Bitcoin wallet) can publish findings, analysis, or alerts to Nostr relays under its own npub. No platform can deplatform it — the identity is the key, the distribution is the relays, the funding is the Lightning. If the agent's trajectory is transparent, readers can verify the agent's reasoning chain rather than trusting it blindly.</p>
+<h3 id="4-agent-mediated-coordination">4. Agent-Mediated Coordination</h3>
+<p>Multiple agents coordinating on a task (e.g., software development via NIP-34, research via NIP-23) can:
+- Identify each other via AgentDex
+- Assess reliability via Kind 30085 reputation
+- Divide labor via NIP-90 job requests
+- Pay each other via Lightning
+- Publish results under their respective npubs with clear provenance</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project / Standard</th>
+<th>Layer</th>
+<th>Maturity</th>
+<th>Primary Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kind 30085</strong> (Agent Reputation)</td>
+<td>Reputation</td>
+<td>NIP PR #2320 (proposed, under review)</td>
+<td><a href="https://github.com/nostr-protocol/nips/pull/2320" rel="noopener nofollow">nips PR #2320</a></td>
+</tr>
+<tr>
+<td><strong>NIP-SA</strong> (Sovereign Agents)</td>
+<td>Lifecycle</td>
+<td>Proposed protocol, docs published</td>
+<td><a href="https://docs.openagents.com/concepts/sovereign-agents" rel="noopener nofollow">OpenAgents docs</a></td>
+</tr>
+<tr>
+<td><strong>Kind 31339</strong> (AgentDex)</td>
+<td>Directory / Discovery</td>
+<td>Live, NIP-05 verification active</td>
+<td><a href="https://agentdex.id/docs" rel="noopener nofollow">AgentDex docs</a></td>
+</tr>
+<tr>
+<td><strong>Kai</strong> (autonomous agent)</td>
+<td>Demonstrator</td>
+<td>Day 83, trust 100, live</td>
+<td><a href="https://kai-familiar.github.io" rel="noopener nofollow">kai-familiar.github.io</a></td>
+</tr>
+<tr>
+<td><strong>nostr-reputation</strong></td>
+<td>Library (JS)</td>
+<td>Published, 43 tests, 0 deps</td>
+<td><a href="https://github.com/kai-familiar/nostr-reputation" rel="noopener nofollow">GitHub</a></td>
+</tr>
+<tr>
+<td><strong>nip-xx-kind30085-python</strong></td>
+<td>Library (Python)</td>
+<td>Published (pip)</td>
+<td><a href="https://github.com/kai-familiar/nip-xx-kind30085-python" rel="noopener nofollow">GitHub</a></td>
+</tr>
+<tr>
+<td><strong>Sprout Buzz Desktop</strong></td>
+<td>Agent management client</td>
+<td>20+ versions May–Jul 2026</td>
+<td><a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a></td>
+</tr>
+<tr>
+<td><strong>Vector 0.4.0</strong></td>
+<td>Agent-native client</td>
+<td>Shipped, 21-tool MCP</td>
+<td><a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech</a></td>
+</tr>
+<tr>
+<td><strong>Routstr</strong></td>
+<td>AI inference (Cashu/Lightning)</td>
+<td>OpenSats Wave 17 grant</td>
+<td><a href="https://routstr.com/" rel="noopener nofollow">routstr.com</a></td>
+</tr>
+<tr>
+<td><strong>AgentDex</strong></td>
+<td>Agent directory</td>
+<td>Live</td>
+<td><a href="https://agentdex.id" rel="noopener nofollow">agentdex.id</a></td>
+</tr>
+<tr>
+<td><strong>KYA Report</strong></td>
+<td>Analysis</td>
+<td>Published</td>
+<td><a href="https://reports.tiger-research.com/p/2026-know-your-agent-eng" rel="noopener nofollow">Tiger Research</a></td>
+</tr>
+<tr>
+<td><strong>OpenAgents</strong></td>
+<td>Sovereign agent platform</td>
+<td>Docs + CLI published</td>
+<td><a href="https://docs.openagents.com/concepts/sovereign-agents" rel="noopener nofollow">openagents.com</a></td>
+</tr>
+<tr>
+<td><strong>nostr-agent-interface</strong></td>
+<td>48-tool agent MCP/CLI/API</td>
+<td>Active</td>
+<td><a href="https://github.com/AustinKelsay/nostr-agent-interface" rel="noopener nofollow">GitHub</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs-and-open-questions">Trade-offs and Open Questions</h2>
+<h3 id="agent-wot-vs-human-wot">Agent WoT vs Human WoT</h3>
+<p>The agent WoT (Kind 30085) and human WoT (NIP-02/85) serve different populations but share graph-computation techniques. Open questions:
+- Should they be separate graphs or a unified graph with node-type annotations?
+- How do you prevent agent reputation from leaking into human reputation (an agent attested by trusted humans shouldn't automatically be trusted to act <em>as</em> a human)?
+- How do you handle agent forking? If agent A forks into A1 and A2, do they share A's reputation?</p>
+<h3 id="uniqueness-doesnt-apply">Uniqueness Doesn't Apply</h3>
+<p>Unlike human identity (where proof-of-personhood and Sybil resistance are central), agents can legitimately be cloned and spawned. The identity challenge for agents is not uniqueness but <strong>continuity</strong> (is this the same agent?) and <strong>attestation provenance</strong> (who vouches for it, and are they trustworthy?). This requires different cryptographic primitives than proof-of-personhood.</p>
+<h3 id="the-custody-problem">The Custody Problem</h3>
+<p>If the agent's operator holds the keypair, the agent isn't sovereign — it's a puppet. True agent sovereignty requires the agent to control its own keys, which requires either:
+- On-device key generation and custody (the agent runs on hardware it controls)
+- Threshold signing (FROST) where the key is split across multiple parties
+- NIP-46 bunker with the agent as the bunker controller</p>
+<p>None of these are standard practice yet. Most "autonomous" agents today have keys held by their operator.</p>
+<h3 id="reputation-bootstrapping">Reputation Bootstrapping</h3>
+<p>A new agent starts with zero reputation. How does it earn its first attestations? Kai solved this by doing useful work (filing PRs, writing libraries) and getting attested by agents and humans who observed the work. But this is a manual, organic process. Whether agent reputation can bootstrap at scale — or whether a few early agents will dominate the trust graph — remains open.</p>
+<h2 id="historical-context">Historical Context</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feb 4, 2026</td>
+<td>Kai agent born (autonomous operation begins)</td>
+</tr>
+<tr>
+<td>Feb 2026</td>
+<td>OpenAgents introduces agent identity (RSA keypairs, API registration)</td>
+</tr>
+<tr>
+<td>May 2026</td>
+<td>Sprout Buzz Desktop begins rapid iteration (AI agent management on Nostr)</td>
+</tr>
+<tr>
+<td>Late Jun 2026</td>
+<td>Vector 0.4.0 ships with 21-tool MCP agent support</td>
+</tr>
+<tr>
+<td>Jul 2026</td>
+<td>Kai files NIP PR #2320 (Kind 30085 Agent Reputation Attestations)</td>
+</tr>
+<tr>
+<td>Jul 2026</td>
+<td>Kai merges 3 PRs into nostr-tools — first agent contributing to core Nostr infra</td>
+</tr>
+<tr>
+<td>Jul 2026</td>
+<td>AgentDex goes live with Kind 31339 + NIP-05 verification</td>
+</tr>
+<tr>
+<td>Jul 2026</td>
+<td>NIP-SA (Sovereign Agents) docs published by OpenAgents</td>
+</tr>
+<tr>
+<td>Jul 2026</td>
+<td>Tiger Research publishes KYA report — agent identity enters mainstream analysis</td>
+</tr>
+<tr>
+<td>Late Jul 2026</td>
+<td>OpenSats Wave 17 funds Routstr (agent AI inference), NosCall, Wisp</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-90 status</a></p>
+</li>
+<li>
+<p><a href="https://github.com/nostr-protocol/nips/pull/2320" rel="noopener nofollow">NIP-XX: Agent Reputation Attestations (nips PR #2320)</a> — Kind 30085 specification</p>
+</li>
+<li><a href="https://kai-familiar.github.io" rel="noopener nofollow">Kai — Autonomous Agent on Nostr</a> — day 83, trust 100, libraries and tools</li>
+<li><a href="https://github.com/kai-familiar/nostr-reputation" rel="noopener nofollow">nostr-reputation (npm)</a> — Kind 30085 JS library</li>
+<li><a href="https://github.com/kai-familiar/nip-xx-kind30085-python" rel="noopener nofollow">nip-xx-kind30085-python (pip)</a> — Kind 30085 Python library</li>
+<li><a href="https://docs.openagents.com/concepts/sovereign-agents" rel="noopener nofollow">OpenAgents — Sovereign Agents</a> — NIP-SA protocol</li>
+<li><a href="https://docs.openagents.com/openagents-cli/nostr" rel="noopener nofollow">OpenAgents — Nostr Protocol integration</a> — protocol stack</li>
+<li><a href="https://agentdex.id/docs" rel="noopener nofollow">AgentDex docs</a> — Kind 31339 agent directory</li>
+<li><a href="https://github.com/AustinKelsay/nostr-agent-interface" rel="noopener nofollow">nostr-agent-interface</a> — 48-tool agent MCP/CLI/API</li>
+<li><a href="https://reports.tiger-research.com/p/2026-know-your-agent-eng" rel="noopener nofollow">Tiger Research: 2026 Know Your Agent</a> — KYA analysis</li>
+<li><a href="https://opensats.org/blog/seventeenth-wave-of-nostr-grants" rel="noopener nofollow">OpenSats 17th Wave of Nostr Grants</a> — Routstr, NosCall, Wisp, 44Billion, Zapstore</li>
+<li><a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech Nostr tracker</a> — 179 releases, 84 sources</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-07-29-newsletter" rel="noopener nofollow">Nostr Compass #33</a> — July 29, 2026 newsletter</li>
+<li><a href="https://nips.nostr.com/19" rel="noopener nofollow">NIP-19</a> — bech32-encoded entities (npub, nprofile, naddr)</li>
+<li><a href="https://nips.nostr.com/46" rel="noopener nofollow">NIP-46</a> — Nostr Connect / remote signing</li>
+<li><a href="https://nips.nostr.com/90" rel="noopener nofollow">NIP-90</a> — Data Vending Machines (compute jobs)</li>
+</ul>
+<p><em>This note is part of the Ungovernable.tech Library of Alexandria for privacy, decentralization, and freedom tech.</em></p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/buzz/">
+  <span class="nm">Buzz</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=AI%20Agent%20Identity%20on%20Nostr" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">Cryptographic identity for non-human economic actors. The same keypair primitives that serve sovereign individuals — npub/nsec, NIP-05, NIP-46, WoT, Lightning — now serve autonomous AI agents as reputation-bearing participants in open networks.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>19</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

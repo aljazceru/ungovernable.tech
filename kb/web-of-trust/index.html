@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Webs of Trust — ungovernable.tech</title>
+<meta name="description" content="Webs of trust establish reputation through social and cryptographic graphs instead of central authorities: models, uses on Nostr and PGP, and attacks.">
+<link rel="canonical" href="https://ungovernable.tech/kb/web-of-trust/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Webs of Trust — ungovernable.tech">
+<meta property="og:description" content="Webs of trust establish reputation through social and cryptographic graphs instead of central authorities: models, uses on Nostr and PGP, and attacks.">
+<meta property="og:url" content="https://ungovernable.tech/kb/web-of-trust/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Webs of Trust — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Webs of Trust — ungovernable.tech">
+<meta name="twitter:description" content="Webs of trust establish reputation through social and cryptographic graphs instead of central authorities: models, uses on Nostr and PGP, and attacks.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Webs of Trust", "description": "Webs of trust establish reputation through social and cryptographic graphs instead of central authorities: models, uses on Nostr and PGP, and attacks.", "dateModified": "2026-10-15", "datePublished": "2026-07-09", "url": "https://ungovernable.tech/kb/web-of-trust/", "mainEntityOfPage": "https://ungovernable.tech/kb/web-of-trust/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Webs of Trust", "item": "https://ungovernable.tech/kb/web-of-trust/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Webs of Trust</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Webs of Trust</h1>
+  <p class="aka">Also Web of Trust, WoT, Trust Networks, Nostr WoT, GPG WoT.</p>
+  <p class="dek">A decentralized model for establishing trust and reputation through interconnected social and cryptographic graphs, rather than centralized authorities. In the cypherpunk tradition, WoT empowers individuals to curate their own trust networks for filtering spam, verifying identities, and building resilient reputation systems.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-15</b></span>
+    <span><b>10</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context-and-evolution">Historical Context and Evolution</a><a href="#major-implementations-and-projects">Major Implementations and Projects</a><a href="#how-it-works">How It Works</a><a href="#use-cases-and-trade-offs">Use Cases and Trade-offs</a><a href="#august-6-2026-update-three-tier-nostr-wot-stack-rfc-9980-desktop-wot">August 6, 2026 Update — Three-Tier Nostr WoT Stack, RFC 9980, Desktop WoT</a><a href="#october-15-2026-update-amethyst-desktop-nip-85-production-surface-bunker-100-gnupg-25222524-catch-up">October 15, 2026 Update — Amethyst Desktop NIP-85 Production Surface, Bunker 1.0.0, GnuPG 2.5.22–2.5.24 Catch-up</a><a href="#sources-further-reading">Sources &amp;amp; Further Reading</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Web of Trust (WoT) replaces hierarchical Public Key Infrastructure (PKI) with a peer-to-peer graph where trust flows through personal endorsements. Users sign or follow keys/people they verify, creating paths of transitive trust. Modern implementations on Nostr leverage the social follow graph (NIP-02) for dynamic, queryable trust scores. GPG/PGP remains the foundational cryptographic example with its "strong set" of ~60,000 interconnected keys.</p>
+<p>Key applications in freedom tech:
+- Spam and Sybil resistance on decentralized social protocols (Nostr)
+- Content discovery and reputation scoring
+- Pseudonymous identity verification without central issuers
+- Cross-client trust portability via oracles and extensions</p>
+<h2 id="historical-context-and-evolution">Historical Context and Evolution</h2>
+<h3 id="classic-era-pgpgpg-web-of-trust-1991present">Classic Era: PGP/GPG Web of Trust (1991–present)</h3>
+<ul>
+<li>Introduced by Phil Zimmermann in PGP (1991) as a decentralized alternative to centralized CAs.</li>
+<li>Users exchange signatures at key-signing parties; trust is calculated based on signature chains and user-assigned trust levels (unknown, marginal, full, ultimate).</li>
+<li>"Strong set": The largest strongly connected component of the keyring. Grew to ~62k by 2018, stabilized around 57-60k by 2022.</li>
+<li>Limitations exposed: Usability issues, key revocation problems, vulnerability to social engineering, and failure to scale beyond crypto enthusiasts. Many analyses (e.g., 2014 Cryptography Engineering blog) highlighted why it "failed" for mainstream use.</li>
+</ul>
+<h3 id="nostr-era-social-graph-wot-2022present">Nostr Era: Social Graph WoT (2022–present)</h3>
+<ul>
+<li>Nostr's key-based identities + follow lists enable lightweight, protocol-native WoT.</li>
+<li>Trust propagation via hops in the directed follow graph.</li>
+<li>2024–2026 explosion of tooling: nostr-wot projects, browser extensions, PageRank-based scoring oracles, visual playgrounds.</li>
+<li>Focus on practical spam filtering for the growing Nostr ecosystem (notes, DMs, marketplaces).</li>
+</ul>
+<h3 id="trust-graphs-today">Trust Graphs Today</h3>
+<p>Directed graphs combining:
+- Positive signals: Follows (NIP-02), endorsements
+- Negative signals: Mutes, reports, blocks (NIP-51 lists)
+- Computation: Distance (hops), PageRank, custom scoring</p>
+<h2 id="major-implementations-and-projects">Major Implementations and Projects</h2>
+<h3 id="gpgpgp-foundations">GPG/PGP Foundations</h3>
+<ul>
+<li><strong>GnuPG (GPG)</strong>: Primary implementation. <code>gpg --list-sigs</code>, trust database (<code>trustdb.gpg</code>).</li>
+<li>Strong set analysis tools and keyservers (though keyservers are deprecated in favor of WKD, DANE).</li>
+<li>Documentation: <a href="https://en.wikipedia.org/wiki/Web_of_trust" rel="noopener nofollow">Wikipedia Web of trust</a>, RFC 4880.</li>
+</ul>
+<h3 id="nostr-wot-ecosystem-primary-modern-focus">Nostr WoT Ecosystem (Primary Modern Focus)</h3>
+<ul>
+<li><strong>nostr-wot organization</strong> (<a href="https://github.com/nostr-wot" rel="noopener nofollow">https://github.com/nostr-wot</a>):</li>
+<li>nostr-wot-extension: Browser extension (Chrome/Brave/etc.) for local trust graph computation. Chrome Web Store available.</li>
+<li>nostr-wot: Core toolkit for querying social graph distance.</li>
+<li>nostr-wot-oracle: API service (e.g., wot-oracle.mappingbitcoin.com) for shared trust computation.</li>
+<li>nostr-wot-sdk: TypeScript/npm library.</li>
+<li><strong>nostr-wot.com</strong>: Playground for visualizing trust graphs, guides, docs.</li>
+<li><strong>wot-scoring</strong> (<a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">https://github.com/joelklabo/wot-scoring</a>): PageRank-based scoring. Publishes NIP-85 events (kinds 30382–30385). Live at wot.klabo.world. Crawls follow graph and assigns per-pubkey trust.</li>
+<li><strong>Web of Trust Foundation</strong> (<a href="https://weboftrustfoundation.com/" rel="noopener nofollow">https://weboftrustfoundation.com/</a>): Netherlands-based, Nostr-focused, building open-source protocol software for digital trust.</li>
+<li>Other: Custom client implementations in Damus, Coracle, etc., often using simple hop-distance or follow-graph filters.</li>
+</ul>
+<h3 id="related-tools-visualizations">Related Tools &amp; Visualizations</h3>
+<ul>
+<li>Graph views inspired by Obsidian (colored edges for trust/mute/unknown).</li>
+<li>NIP-85 for standardized WoT event kinds.</li>
+<li>Integration with other Nostr primitives (NIP-51 lists for custom trust sets).</li>
+</ul>
+<h2 id="how-it-works">How It Works</h2>
+<h3 id="trust-propagation-models">Trust Propagation Models</h3>
+<ol>
+<li>
+<p><strong>Hop Distance (Simple)</strong>: 
+   - 0 hops: Self
+   - 1 hop: Direct follows (high trust)
+   - 2 hops: Follows-of-follows (medium)
+   - 3+ hops: Low trust / noise
+   - Example query: <code>WoT.getDistance(pubkey)</code> returns hops, paths, mutual follows.</p>
+</li>
+<li>
+<p><strong>PageRank / EigenTrust variants</strong>: Global or personalized scores accounting for graph structure (used in wot-scoring).</p>
+</li>
+<li>
+<p><strong>Hybrid</strong>: Local graph + oracle cache + negative signals (mutes reduce score).</p>
+</li>
+</ol>
+<h3 id="gpg-model">GPG Model</h3>
+<ul>
+<li>Signature chains + owner trust levels.</li>
+<li><code>gpg --update-trustdb</code> computes validity.</li>
+</ul>
+<h3 id="nostr-specific">Nostr-Specific</h3>
+<ul>
+<li>Seed from your own follow list (or curated seeds).</li>
+<li>Clients/oracles rebuild or query the graph on-demand.</li>
+<li>Portable across clients via extensions/oracles.</li>
+</ul>
+<h2 id="use-cases-and-trade-offs">Use Cases and Trade-offs</h2>
+<h3 id="use-cases">Use Cases</h3>
+<ul>
+<li><strong>Nostr Spam Filtering</strong>: Automatically hide notes from users &gt;2-3 hops away or with low trust scores.</li>
+<li><strong>Reputation Systems</strong>: Aggregate trust for marketplaces, DAOs, or content ranking.</li>
+<li><strong>Pseudonymous Verification</strong>: Confirm "real" humans via social proof without doxxing.</li>
+<li><strong>Cross-Platform Trust</strong>: Browser extension syncs your WoT everywhere.</li>
+<li><strong>Governance</strong>: Sybil-resistant voting or airdrops based on social distance.</li>
+</ul>
+<h3 id="trade-offs-challenges">Trade-offs &amp; Challenges</h3>
+<ul>
+<li><strong>Sybil Attacks</strong>: Easy to create sockpuppets; mitigated by requiring established connections or proof-of-personhood hybrids.</li>
+<li><strong>Graph Centralization</strong>: Popular hubs (influencers) dominate scores; "follow the leader" effect.</li>
+<li><strong>Computation &amp; Privacy</strong>: Full graph crawling is resource-intensive; local computation preferred but limited by client data.</li>
+<li><strong>Revocation &amp; Dynamics</strong>: Follows change; negative signals important but can be gamed.</li>
+<li><strong>GPG Legacy Issues</strong>: Poor UX, key management burden, limited adoption.</li>
+<li><strong>Nostr Advantages</strong>: Lightweight, real-time, integrated with protocol; no separate infrastructure needed.</li>
+<li>Evidence of maturity: Active GitHub orgs, live oracles, published papers on Nostr security (2025), growing extension user base (2026).</li>
+</ul>
+<h3 id="evidence-at-a-glance">Evidence at a Glance</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>GPG/PGP WoT</th>
+<th>Nostr WoT</th>
+<th>Maturity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Mechanism</strong></td>
+<td>Key signatures &amp; trustdb</td>
+<td>Follow graph (NIP-02) + lists</td>
+<td>GPG: Mature<br/>Nostr: Active</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>~60k strong set</td>
+<td>Millions of pubkeys (growing)</td>
+<td>Nostr expanding</td>
+</tr>
+<tr>
+<td><strong>Key Projects</strong></td>
+<td>GnuPG</td>
+<td>nostr-wot/*, wot-scoring, nostr-wot.com</td>
+<td>High activity 2026</td>
+</tr>
+<tr>
+<td><strong>Primary Use</strong></td>
+<td>Email encryption</td>
+<td>Spam filter, reputation on Nostr</td>
+<td>Nostr practical</td>
+</tr>
+<tr>
+<td><strong>Trade-offs</strong></td>
+<td>Usability, revocation</td>
+<td>Sybil, computation</td>
+<td>Both evolving</td>
+</tr>
+<tr>
+<td><strong>Primary Sources</strong></td>
+<td>Wikipedia, RFC 4880</td>
+<td>GitHub nostr-wot, NIP docs</td>
+<td>Well documented</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="august-6-2026-update-three-tier-nostr-wot-stack-rfc-9980-desktop-wot">August 6, 2026 Update — Three-Tier Nostr WoT Stack, RFC 9980, Desktop WoT</h2>
+<p>This update covers the five-week gap since the July 02 weekly. See <a href="/briefings/web-of-trust/2026-08-06/">Web of Trust Thursday — August 06 2026 Weekly Update</a> for the full report. Key themes:</p>
+<h3 id="nostr-wot-production-infrastructure">Nostr WoT: Production Infrastructure</h3>
+<p>The nostr-wot org has completed its three-tier architecture: (1) <strong>Rust oracle</strong> (<a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot-oracle</a>, v1.0.0 Docker, &lt;1ms cached queries, 10K+ QPS, bidirectional BFS), (2) <strong>browser extension</strong> (8 stars, NIP-07 signer + encrypted vault + Lightning wallet + trust badges, 6 languages, updated July 29), (3) <strong>SDK</strong> (npm <code>nostr-wot-sdk</code>, React hooks, extension-first fallback). The extension-first design means the WoT follows the user across clients.</p>
+<p><a href="https://github.com/CodyTseng/nostr-relay-tray" rel="noopener nofollow">nostr-relay-tray</a> (106 stars) is the breakout WoT project: a desktop personal relay with built-in WoT filtering (Block Rules → Allow Rules / WoT / PoW) packaged for non-technical users. Highest-starred personal relay with WoT.</p>
+<p><a href="https://github.com/bitvora/algo-relay" rel="noopener nofollow">AlgoRelay</a> (Bitvora) — social-graph-ranked feeds now adopted by <strong>4 clients</strong> (Jumble, Coracle, Nostur, NoStrudel), validating content discovery via social graph in production.</p>
+<p>OpenSats' <a href="https://opensats.org/blog/advancements-in-nostr-relays" rel="noopener nofollow">relay infrastructure report</a> documents WoT filtering as a production pattern: "zero spam issues since it is a web-of-trust relay."</p>
+<h3 id="openpgp-wot-post-quantum-standard-and-permanent-schism">OpenPGP WoT: Post-Quantum Standard and Permanent Schism</h3>
+<p><a href="https://datatracker.ietf.org/doc/rfc9980" rel="noopener nofollow">RFC 9980 (Post-Quantum Cryptography in OpenPGP)</a> published as IETF Proposed Standard (June 2026). Composite ML-KEM+X25519 for encryption, ML-DSA+Ed25519 for signatures (AND-construction). SLH-DSA standalone permitted. No RSA composite — migration means new key material. v4 carve-out for ML-KEM-768+X25519 is the political compromise for the LibrePGP installed base.</p>
+<p><a href="https://www.gnupg.org" rel="noopener nofollow">GnuPG 2.5.21</a> released July 2, 2026 — same day <strong>GnuPG 2.4 was declared end-of-life</strong>. Distributions must adopt 2.5 (LibrePGP v5, not RFC 9580/9980) or fork. The schism is now structural after 2+ years.</p>
+<p><a href="https://sequoia-pgp.org" rel="noopener nofollow">Sequoia <code>sq</code> v1.4.0</a> (July 6, 2026) — <code>--cert-store</code> for alternate certificate stores, WKD improvements, continued RFC 9580/9980 alignment. Sequoia is the RFC-aligned reference implementation.</p>
+<h2 id="october-15-2026-update-amethyst-desktop-nip-85-production-surface-bunker-100-gnupg-25222524-catch-up">October 15, 2026 Update — Amethyst Desktop NIP-85 Production Surface, Bunker 1.0.0, GnuPG 2.5.22–2.5.24 Catch-up</h2>
+<p>This update covers the eight-week gap since the August 6 reading. See <a href="/briefings/web-of-trust/2026-10-15/">Web of Trust Thursday — October 15 2026 Weekly Update</a> for the full W42 report. Headline developments:</p>
+<h3 id="amethyst-desktop-ships-nip-85-trust-provider-surface-production">Amethyst desktop ships NIP-85 trust provider surface (production)</h3>
+<p><a href="https://github.com/vitorpamplona/amethyst/releases/tag/v1.18.0" rel="noopener nofollow">Amethyst v1.18.0 (Oct 11 19:27 UTC, 328 commits, "Amethyst Desktop, Web of Trust, etc")</a> is the <strong>first desktop build of Amethyst</strong> and the <strong>first major-client production consumer of NIP-85 trusted-assertion provider scores</strong>. The user's own kind:10040 list (NIP-85 trust providers) is locally indexed; scores are used in requests, notifications and badges with user-selected providers and thresholds. <a href="https://github.com/vitorpamplona/amethyst/pull/4437" rel="noopener nofollow">PR #4437 (Oct 12 16:21 UTC, "fix(tor): count the relays in the user's kind 10040 as their own")</a> makes the trust-provider relay set join <code>TrustedRelayListsState</code> so that <code>scores.brainstorm.world</code> and similar providers route clearnet by default, and NIP-42 auto-auth now fires against provider relays. <a href="https://github.com/vitorpamplona/amethyst/releases/tag/v1.19.0" rel="noopener nofollow">Amethyst v1.19.0 (Oct 14 13:16 UTC, 70 commits, "A New Login, Remote Signers on Android, Wayland, and Marketplace Cards")</a> adds native Wayland, NIP-46 remote signing on Android login, per-client rate limiting with NIP-01 backoff (PR #4422), and desktop video compression via FFmpeg. <strong>The W40–W41 oracle work has a consumer in the largest Nostr Android/Desktop client.</strong> This is the production validation of the <a href="/briefings/web-of-trust/2026-08-06/">Aug 6</a> three-tier Nostr-WoT architecture: oracle → SDK → extension → major-client surface.</p>
+<h3 id="nostr-wot-org-hits-stable-on-nip-46-server-side">Nostr-WoT org hits stable on NIP-46 server side</h3>
+<p><a href="https://www.npmjs.com/package/@nostr-wot/bunker" rel="noopener nofollow">@nostr-wot/bunker 1.0.0 stable on npm (Oct 12 22:31:53 UTC)</a> — the <strong>first Nostr-WoT production-ready release</strong> (the org's first server-side package, after 0.2.0 on Oct 5 and a 0.2.1 patch on Oct 8). Direct deps: <code>@noble/hashes</code>, <code>@nostr-wot/relay</code> (new org-owned relay client); peer: <code>nostr-tools &gt;= 2.0.0</code>. The 1.0.0 stamp signals <em>the NIP-46 server-side surface is stable</em> — third-party hosts can now build on it without tracking every patch release. The same minute (22:31:13 UTC) the extension committed <code>808458cd</code> "Adopt GPLv3 licensing and accurate store metadata" — the org is shipping a <em>coordinated</em> stable-on-server + license-consolidation-on-client release.</p>
+<p><a href="https://github.com/greenart7c3/Amber/releases/tag/v6.6.9" rel="noopener nofollow">Amber 6.6.9 (Oct 14 12:42 UTC)</a> ships three GHSA advisories: <a href="https://github.com/greenart7c3/Amber/security/advisories/GHSA-8f7m-9g64-vrjw" rel="noopener nofollow">GHSA-8f7m-9g64-vrjw</a> (cache race on permission revocation + "fully trusted" overriding active reject; reported by @mptfire), <a href="https://github.com/greenart7c3/Amber/security/advisories/GHSA-g62f-m6pm-jv9p" rel="noopener nofollow">GHSA-g62f-m6pm-jv9p</a> (60s clipboard clear for copied secrets), <a href="https://github.com/greenart7c3/Amber/security/advisories/GHSA-wv7c-hq2j-ppc5" rel="noopener nofollow">GHSA-wv7c-hq2j-ppc5</a> ("require unlocked device" preserves old wrapping key until migration completes). The signing key <code>885822EED3A26A6D</code> is <strong>expired</strong>; users verifying the tag should treat the signature as advisory. <strong>The bunker 1.0.0 stable + Amber security fix combo is the trust-stack's "vulnerability-before-stable" closing.</strong></p>
+<h3 id="gnupg-2522-2523-2524-three-release-cluster-the-prior-readings-missed">GnuPG 2.5.22 → 2.5.23 → 2.5.24 — three-release cluster the prior readings missed</h3>
+<p>The W40 + W41 readings both read "GnuPG 2.5.22 unreleased" based on stale master NEWS. The actual timeline:</p>
+<ul>
+<li><strong>2.5.22 (2026-08-31)</strong> — bug-fix release: TOFU trust model fix to check UTK signatures (T8404, security-relevant), trustdb recursive-lock fix (T8317), double-free in import_revoke_cert (T8328), bkuptocard regression fix.</li>
+<li><strong>2.5.23 (2026-09-22) — the RFC 9980 gate</strong>: <code>gpg --allow-9980</code> opt-in flag, ML-KEM (Kyber) with X448/X25519/Brainpool/NIST curves in 9980 mode, ED25519/X25519 under names "ietf27"/"ietf25" per RFC 9580, experimental <code>--compliance=fips</code> GCM bulk-encryption mode. <strong>Security fixes</strong>: exploitable printf bug in <code>gpgsm --debug x509</code> (rGe6d92ff7af), OOB read in DNS CERT record parser (T8464), OOB in faulty-card DO parsing (T8465). Werner Koch political line: <em>"The use of this option is only recommended if external policy requirements demand the use of these governmental approved specification. PGP folks requiring some PQC resistance should keep on using the standard LibrePGP Kyber algorithm introduced 2 years ago."</em></li>
+<li><strong>2.5.24 (2026-09-23)</strong> — one-day hotfix for smartcard detection regression in 2.5.23 (Nitrokey 3 + pcsc-shared, T8331). Gpg4win 5.1.1 released alongside.</li>
+<li><strong>2.5.25 (unreleased) — T8466</strong>.</li>
+</ul>
+<p><strong>The W41 trigger-event model needs correction</strong>: 2.5.22 + 2.5.23 + 2.5.24 all shipped and <strong>no kind:10203 stair-step fired</strong> — the bottleneck is the Nostr client integration (no major client wires GnuPG into a kind:10203 publisher), not the GnuPG release. The Nostr-WoT extension's <code>npm run pqc:keygen</code> (v0.4.0, unchanged since Aug 11) and Obelisk (QuantaKrypto) are still the only kind:10203 publishers. <strong>NIP #2434 (PQ identity keys) now 68 days frozen</strong> (W41: 61; the longest gap in 2026).</p>
+<h3 id="evidence-at-a-glance-updated-october-2026">Evidence at a Glance (Updated October 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>GPG/PGP WoT</th>
+<th>Nostr WoT</th>
+<th>Maturity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Mechanism</strong></td>
+<td>Key signatures &amp; trustdb (TOFU fixed in 2.5.22)</td>
+<td>Follow graph (NIP-02) + NIP-85 trusted assertions (kinds 30382–30385, 10040) + kind:10040 trust-provider relay list</td>
+<td>GPG: Mature + active RFC 9980 integration<br/>Nostr: Production (Amethyst desktop consumer)</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>~60k strong set (GPG); 1.25M+ pubkeys (oracle)</td>
+<td>1.25M+ pubkeys indexed (oracle)</td>
+<td>Nostr expanding</td>
+</tr>
+<tr>
+<td><strong>PQ Standard</strong></td>
+<td>RFC 9980 published June 2026; 2.5.23 ships <code>--allow-9980</code> opt-in</td>
+<td>kind:10203 ML-KEM-1024 + ML-DSA-87 (CNSA 2.0 Cat 5); plateau 26 for 28 days</td>
+<td>RFC 9980 partial impl; 2.5.23 = opt-in only</td>
+</tr>
+<tr>
+<td><strong>Key Projects</strong></td>
+<td>GnuPG 2.5.22 → 2.5.23 → 2.5.24, Sequoia sq 1.4.0 (95 days dormant)</td>
+<td>nostr-wot oracle/extension/SDK/bunker (1.0.0 stable Oct 12), nostr-relay-tray (106★), AlgoRelay (4 clients), <strong>Amethyst 1.18.0 NIP-85 consumer</strong></td>
+<td>High activity W42</td>
+</tr>
+<tr>
+<td><strong>Primary Use</strong></td>
+<td>Email encryption, code signing</td>
+<td>Spam filter (production, <strong>Amethyst desktop with NIP-85</strong>), feeds (4 clients), reputation, secure remote signing (NIP-46 bunker 1.0.0 + Amber 6.6.9 hardened)</td>
+<td>Both production</td>
+</tr>
+<tr>
+<td><strong>Trade-offs</strong></td>
+<td>Usability, LibrePGP schism, PQ migration opt-in only, 2.5.23 kind:10203 = no Nostr-client bridge</td>
+<td>Sybil, computation, kind:30385 collision (PR #2418, 89d open), kind:10203 plateau (28d, no trigger), NIP #2434 68d frozen</td>
+<td>Both evolving</td>
+</tr>
+<tr>
+<td><strong>Primary Sources</strong></td>
+<td>RFC 9580, RFC 9980, gnupg.org, gnupg-announce lists</td>
+<td>GitHub nostr-wot, NIP docs, OpenSats reports, Compass #43 + #44, Amethyst 1.18.0 release notes</td>
+<td>Well documented</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="out-of-scene">Out-of-scene</h3>
+<p><strong>Sequoia <code>sq</code></strong> v1.4.0 (July 6, 2026) is still the most recent release — <strong>95 days dormant</strong>. <strong>OpenPGP.js</strong> 7 commits no PQC. <strong>Idena, Rarimo, World ID 4.0</strong> unchanged at the spec level. <strong>RFC 9980 (Post-Quantum Cryptography in OpenPGP)</strong> unchanged since June 2026, no new errata. <strong>NIP #2434 (PQ identity keys) now 68 days frozen</strong> — the longest gap in 2026. <strong>PR #2418 (NIP-XX Trusted Relay Assertions / kind:30385 collision) now 89 days open</strong> — collision becoming de-facto standard. <strong>Letdown2491's parallel project <code>forgesworn/nostr-attestations</code> (kind 31000 unified attestation, npm package)</strong> is maintenance-mode — the same author as the kind:30385 dispute, with effort split across two parallel attestation surfaces.</p>
+<h3 id="evidence-at-a-glance-updated-august-2026">Evidence at a Glance (Updated August 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>GPG/PGP WoT</th>
+<th>Nostr WoT</th>
+<th>Maturity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Mechanism</strong></td>
+<td>Key signatures &amp; trustdb</td>
+<td>Follow graph (NIP-02) + lists</td>
+<td>GPG: Mature<br/>Nostr: Active/Production</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>~60k strong set</td>
+<td>1.25M+ pubkeys indexed (oracle)</td>
+<td>Nostr expanding</td>
+</tr>
+<tr>
+<td><strong>PQ Standard</strong></td>
+<td>RFC 9980 published June 2026; GnuPG follows LibrePGP</td>
+<td>N/A (Nostr uses secp256k1)</td>
+<td>RFC 9980 defined; implementation bifurcated</td>
+</tr>
+<tr>
+<td><strong>Key Projects</strong></td>
+<td>GnuPG 2.5.21, Sequoia sq 1.4.0</td>
+<td>nostr-wot oracle/extension/SDK, nostr-relay-tray (106★), AlgoRelay (4 clients)</td>
+<td>High activity 2026</td>
+</tr>
+<tr>
+<td><strong>Primary Use</strong></td>
+<td>Email encryption, code signing</td>
+<td>Spam filter (production), feeds (4 clients), reputation</td>
+<td>Both production</td>
+</tr>
+<tr>
+<td><strong>Trade-offs</strong></td>
+<td>Usability, LibrePGP schism, PQ migration</td>
+<td>Sybil, computation, adoption gap</td>
+<td>Both evolving</td>
+</tr>
+<tr>
+<td><strong>Primary Sources</strong></td>
+<td>RFC 9580, RFC 9980, gnupg.org</td>
+<td>GitHub nostr-wot, NIP docs, OpenSats reports</td>
+<td>Well documented</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sources-further-reading">Sources &amp; Further Reading</h2>
+<ul>
+<li>nostr-wot GitHub: <a href="https://github.com/nostr-wot" rel="noopener nofollow">https://github.com/nostr-wot</a></li>
+<li>Nostr WoT site: <a href="https://nostr-wot.com/" rel="noopener nofollow">https://nostr-wot.com/</a></li>
+<li>HackerNoon article on extension (Feb 2026)</li>
+<li>Wikipedia: Web of trust (GPG history)</li>
+<li>wot-scoring repo and live demo</li>
+<li>Web of Trust Foundation</li>
+<li>Academic: Analyses of PGP strong set (various papers 2003–2022)</li>
+<li>Nostr protocol NIPs (especially NIP-02, NIP-51, NIP-85)</li>
+</ul>
+<p><em>This note synthesized from primary GitHub repos, project sites, Wikipedia, and recent 2024–2026 articles. Updated weekly as part of UngovernableTech research rotation.</em></p>
+<p><em>Tags for Obsidian graph: #web-of-trust #nostr #decentralization #cypherpunk</em></p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/age-encryption/">
+  <span class="nm">age: Modern File Encryption</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/concord-protocol/">
+  <span class="nm">Concord Protocol</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/hyphanet-and-freenet/">
+  <span class="nm">Hyphanet and Freenet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-threat-models/">
+  <span class="nm">Map: Threat Models</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-15</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Webs%20of%20Trust" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A decentralized model for establishing trust and reputation through interconnected social and cryptographic graphs, rather than centralized authorities. In the cypherpunk tradition, WoT empowers individuals to curate their own trust networks for filtering spam, verifying identities, and building resilient reputation systems.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-15</dd>
+        <dt>Sources linked</dt><dd>20</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

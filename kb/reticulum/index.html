@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reticulum — ungovernable.tech</title>
+<meta name="description" content="Reticulum, a transport-agnostic, encrypted-by-default networking stack that runs over LoRa, packet radio, Wi-Fi and the internet at once.">
+<link rel="canonical" href="https://ungovernable.tech/kb/reticulum/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Reticulum — ungovernable.tech">
+<meta property="og:description" content="Reticulum, a transport-agnostic, encrypted-by-default networking stack that runs over LoRa, packet radio, Wi-Fi and the internet at once.">
+<meta property="og:url" content="https://ungovernable.tech/kb/reticulum/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Reticulum — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reticulum — ungovernable.tech">
+<meta name="twitter:description" content="Reticulum, a transport-agnostic, encrypted-by-default networking stack that runs over LoRa, packet radio, Wi-Fi and the internet at once.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Reticulum", "description": "Reticulum, a transport-agnostic, encrypted-by-default networking stack that runs over LoRa, packet radio, Wi-Fi and the internet at once.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/reticulum/", "mainEntityOfPage": "https://ungovernable.tech/kb/reticulum/", "image": "https://ungovernable.tech/assets/og/pillar-mesh.png", "about": [{"@type": "Thing", "name": "Off-Grid and Mesh Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Off-Grid and Mesh Networks", "item": "https://ungovernable.tech/pillars/mesh/"}, {"@type": "ListItem", "position": 3, "name": "Reticulum", "item": "https://ungovernable.tech/kb/reticulum/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/mesh/">Off-Grid and Mesh Networks</a><span aria-hidden="true">/</span><span class="here">Reticulum</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ OFF-GRID AND MESH NETWORKS ]</span></p>
+  <h1>Reticulum</h1>
+  <p class="aka">Also Reticulum Stack, RNS, LXMF.</p>
+  <p class="dek">A general-purpose, transport-agnostic, encrypted-by-default mesh networking stack. The link layer is treated as a commodity; identity, routing, and end-to-end secure transports are layered on top, running over LoRa, packet radio, TCP, serial, or anything else that delivers bytes.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#position-in-the-stack">Position in the stack</a><a href="#identity-model">Identity model</a><a href="#cryptography">Cryptography</a><a href="#routing">Routing</a><a href="#lxmf-lightweight-extensible-message-format">LXMF — Lightweight Extensible Message Format</a><a href="#applications">Applications</a><a href="#hardware-profiles">Hardware profiles</a><a href="#trust-and-threat-model">Trust and threat model</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#practical-setups">Practical setups</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="position-in-the-stack">Position in the stack</h2>
+<p>Reticulum (RNS, the Reticulum Network Stack) is not a chat app. It is the substrate. Compared with Meshtastic:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Meshtastic</th>
+<th>Reticulum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Mostly LoRa</td>
+<td>Any transport</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td>Per-channel symmetric (default)</td>
+<td>Per-destination Curve25519 + AES-256, by design</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>Node ID + key</td>
+<td>Cryptographic destinations (named keys)</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td>Managed flood</td>
+<td>Path discovery + announce + transport</td>
+</tr>
+<tr>
+<td>Apps</td>
+<td>Built-in messenger</td>
+<td>Pluggable: LXMF, NomadNet, Sideband, MeshChat</td>
+</tr>
+</tbody>
+</table></div>
+<p>If Meshtastic is a CB radio with a screen, Reticulum is a TCP/IP analogue tuned for adversarial conditions.</p>
+<h2 id="identity-model">Identity model</h2>
+<p>Every endpoint is a <em>destination</em>: a named cryptographic identity.</p>
+<pre><code>RNS.Identity     ─ a Curve25519 keypair + an X25519 keypair + a name
+RNS.Destination  ─ Identity + app namespace + aspect path
+</code></pre>
+<p>Destinations are addressed by 16-byte truncated SHA-256 hashes. Two destinations with the same Identity but different aspects (<code>alice.messenger</code>, <code>alice.files</code>) can be addressed independently while sharing a key.</p>
+<p>This is the same general pattern as Tor v3 hidden services or Nostr npubs: the address is the key.</p>
+<h2 id="cryptography">Cryptography</h2>
+<ul>
+<li>Forward secrecy via per-link X25519 ECDH and ratcheted symmetric keys.</li>
+<li>AES-256 for bulk encryption.</li>
+<li>Ed25519 / Curve25519 for identity and signatures.</li>
+<li>Token-based authentication: a destination can require knowledge of a pre-shared secret without revealing it.</li>
+</ul>
+<p>Encryption is not optional. There is no "plain Reticulum" mode. Every link establishes a key during path setup; bulk traffic uses derived per-link keys.</p>
+<h2 id="routing">Routing</h2>
+<h3 id="path-announce">Path announce</h3>
+<p>When a destination wants to be reachable, it broadcasts an <em>announce</em> packet that propagates outward through the mesh. Intermediate transports cache the path. When a sender wants to reach that destination, it queries the cached path table.</p>
+<h3 id="discovery">Discovery</h3>
+<p>Discovery is on-demand. Paths are not flooded continuously. A destination that hasn't announced recently isn't reachable; this trades cold-contact latency for bandwidth efficiency.</p>
+<h3 id="multi-link-and-bundling">Multi-link and bundling</h3>
+<p>A single Reticulum mesh can mix transports: a node connected to one neighbor over LoRa, another over TCP, and a third over serial all share the same address space. Packets cross transport boundaries transparently, including through intermediate gateway nodes (rnsd).</p>
+<h3 id="resource-transfer">Resource transfer</h3>
+<p>For files larger than a single packet, Reticulum has a <em>Resource</em> primitive: chunked, with sequence and integrity, resumable. Used by NomadNet for file sharing and by LXMF for attachments.</p>
+<h2 id="lxmf-lightweight-extensible-message-format">LXMF — Lightweight Extensible Message Format</h2>
+<p>LXMF is a messaging-format-as-a-protocol layered on RNS:</p>
+<ul>
+<li>Identity = address, like email but without the @ host.</li>
+<li>Store-and-forward: propagating nodes act as mailboxes; the recipient pulls when reachable.</li>
+<li>End-to-end encrypted by the RNS layer.</li>
+<li>Time-stamped, signed message format.</li>
+</ul>
+<p>It is what makes Reticulum usable as messaging without a central server. LXMF runs equally well over LoRa-only meshes, an internet TCP backbone, or hybrid setups.</p>
+<h2 id="applications">Applications</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>App</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NomadNet</strong></td>
+<td>Terminal UI</td>
+<td>Browser for "pages" served over RNS, like an offline-first BBS</td>
+</tr>
+<tr>
+<td><strong>Sideband</strong></td>
+<td>Cross-platform messenger</td>
+<td>LXMF-based; Android, Linux, macOS and Windows</td>
+</tr>
+<tr>
+<td><strong>MeshChat</strong></td>
+<td>Web UI messenger</td>
+<td>Easier UX for non-technical users</td>
+</tr>
+<tr>
+<td><strong>rnsd</strong></td>
+<td>Daemon</td>
+<td>Headless transport node, runs the mesh</td>
+</tr>
+<tr>
+<td><strong>rnstatus / rncheck</strong></td>
+<td>CLI</td>
+<td>Diagnostic tools</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="hardware-profiles">Hardware profiles</h2>
+<p>Because RNS is transport-agnostic, hardware choices are flexible:</p>
+<ul>
+<li>LoRa via RNode: Markqvist's hardware with explicit RNS firmware. ~20-50 km range; ~1 kbit/s.</li>
+<li>HF via packet modem: RNS over AX.25. Continental range; very slow.</li>
+<li>Serial / KISS: wired connections, debugging, mesh seeding.</li>
+<li>TCP / I2P: internet overlay; combine with <code>.i2p</code> for anonymity.</li>
+<li>Bluetooth Classic: short-range smartphone link.</li>
+</ul>
+<p>The same node can speak multiple transports at once and bridge them.</p>
+<h2 id="trust-and-threat-model">Trust and threat model</h2>
+<h3 id="what-rns-does">What RNS does</h3>
+<ul>
+<li>E2E encrypts all destination-to-destination traffic.</li>
+<li>Authenticates announcements via signing.</li>
+<li>Allows resource isolation: a public destination, a friends-only destination, a confidential destination, each with distinct keys.</li>
+</ul>
+<h3 id="what-rns-doesnt-do">What RNS doesn't do</h3>
+<ul>
+<li>Does not hide source/destination addresses from on-path observers (bytes pass through transports).</li>
+<li>Does not provide cover traffic; it is observable that a destination is active.</li>
+<li>Cannot defeat physical direction-finding of LoRa radios.</li>
+</ul>
+<p>For metadata privacy, layer with mixnets (<a href="/kb/mix-networks/">Overview - Mix Networks</a>) or operate in adversarial mode (low duty cycle, mobile, mission-key only).</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Transport-agnostic. One stack, many radios.</li>
+<li>Encrypted by default. No "plaintext mode" footgun.</li>
+<li>Cryptographic identity. Address = key.</li>
+<li>Composable. Apps share the identity layer.</li>
+<li>Permissionless. No registry, no server, no fees.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Smaller user base than Meshtastic. Fewer ecosystems, fewer integrations.</li>
+<li>Path discovery latency. First contact has a setup cost.</li>
+<li>No formal post-quantum migration yet. Curve25519 throughout.</li>
+<li>NomadNet aesthetics. Terminal-first; a barrier for non-technical users.</li>
+<li>Documentation is dense. Markqvist's manual is the primary reference; community tutorials are sparse.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active path interception</td>
+<td>E2E crypto; verifying announces</td>
+</tr>
+<tr>
+<td>Replay</td>
+<td>Per-link nonces</td>
+</tr>
+<tr>
+<td>DoS by announce flooding</td>
+<td>Rate limiting in announce table</td>
+</tr>
+<tr>
+<td>Endpoint key compromise</td>
+<td>Identity rotation; multi-aspect destinations</td>
+</tr>
+<tr>
+<td>Transport-layer DF</td>
+<td>Layer with low-duty-cycle operations</td>
+</tr>
+<tr>
+<td>Compromised gateway node</td>
+<td>E2E means it sees only routing metadata</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="practical-setups">Practical setups</h2>
+<h3 id="single-radio-lora-mesh">Single-radio LoRa mesh</h3>
+<pre><code>[Phone (Sideband)] ── BLE ── [RNode] ── LoRa ── [RNode] ── BLE ── [Phone]
+</code></pre>
+<p>Encrypted hop-to-hop, encrypted end-to-end. Range depends on RNode antenna and terrain.</p>
+<h3 id="internet-bridged-adversarial-friendly-mesh">Internet-bridged adversarial-friendly mesh</h3>
+<pre><code>[Phone] ── BLE ── [RNode] ── LoRa ── [Pi running rnsd + Tor] ── Tor ── [Pi running rnsd] ── ... ── recipient
+</code></pre>
+<p>LoRa for last-mile in a difficult region; Tor for backbone where internet works. The endpoints don't change app.</p>
+<h3 id="off-grid-bbs">Off-grid BBS</h3>
+<p>NomadNet pages served from a rnsd-equipped node. Forum-style content delivered over a LoRa mesh, persistent across power cycles.</p>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>Sideband’s official README lists Android, Linux, macOS and Windows; it does not list an iOS app.</li>
+<li>MeshChat: friendlier web UX, raising the floor for new users.</li>
+<li>rnsd packaging improvements for OpenWrt and embedded.</li>
+<li>Performance: LoRa throughput optimizations under specific channel models.</li>
+<li>Increasing Reticulum-over-TCP-over-Tor deployments.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/markqvist/Sideband" rel="noopener nofollow">Sideband README and supported platforms</a></li>
+<li>
+<p><a href="https://unsigned.io/sideband/" rel="noopener nofollow">Official Sideband site</a></p>
+</li>
+<li>
+<p>Markqvist, <em>Reticulum Network Stack Specification</em>. <a href="https://reticulum.network/manual" rel="noopener nofollow">reticulum.network/manual</a></p>
+</li>
+<li>RNS source — <a href="https://github.com/markqvist/Reticulum" rel="noopener nofollow">github.com/markqvist/Reticulum</a></li>
+<li>LXMF — <a href="https://github.com/markqvist/LXMF" rel="noopener nofollow">github.com/markqvist/LXMF</a></li>
+<li>NomadNet — <a href="https://github.com/markqvist/NomadNet" rel="noopener nofollow">github.com/markqvist/NomadNet</a></li>
+<li>Sideband — <a href="https://github.com/markqvist/Sideband" rel="noopener nofollow">github.com/markqvist/Sideband</a></li>
+</ul>
+<p>The comparison above uses Meshtastic. Its sibling <a href="/kb/meshcore/">MeshCore</a> sits in the same place relative to Reticulum: LoRa-only firmware with fixed repeaters, compared directly with <a href="/kb/meshtastic/">Meshtastic</a> in the MeshCore entry.</p>
+<p>Continue with <a href="/kb/delay-tolerant-networking/">Delay-tolerant networking</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/meshcore/">
+  <span class="nm">MeshCore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/meshtastic/">
+  <span class="nm">Meshtastic</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/delay-tolerant-networking/">
+  <span class="nm">Delay-tolerant networking</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/batman-adv-and-cjdns/">
+  <span class="nm">B.A.T.M.A.N. advanced and cjdns</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/building-a-mesh/">
+  <span class="nm">Building a Local Mesh Network</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/compare-off-grid/">
+  <span class="nm">Off-grid communication compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/hf-data-modes/">
+  <span class="nm">HF Radio Data Modes</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/satellite-iot/">
+  <span class="nm">Satellite IoT and Direct-to-Device Links</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Reticulum" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A general-purpose, transport-agnostic, encrypted-by-default mesh networking stack. The link layer is treated as a commodity; identity, routing, and end-to-end secure transports are layered on top, running over LoRa, packet radio, TCP, serial, or anything else that delivers bytes.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Off-Grid and Mesh Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

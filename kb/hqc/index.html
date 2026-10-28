@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HQC — ungovernable.tech</title>
+<meta name="description" content="HQC, the code-based key encapsulation mechanism NIST selected in 2025 as a backup to ML-KEM: how it works, its sizes and standardisation timeline.">
+<link rel="canonical" href="https://ungovernable.tech/kb/hqc/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="HQC — ungovernable.tech">
+<meta property="og:description" content="HQC, the code-based key encapsulation mechanism NIST selected in 2025 as a backup to ML-KEM: how it works, its sizes and standardisation timeline.">
+<meta property="og:url" content="https://ungovernable.tech/kb/hqc/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HQC — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HQC — ungovernable.tech">
+<meta name="twitter:description" content="HQC, the code-based key encapsulation mechanism NIST selected in 2025 as a backup to ML-KEM: how it works, its sizes and standardisation timeline.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "HQC", "description": "HQC, the code-based key encapsulation mechanism NIST selected in 2025 as a backup to ML-KEM: how it works, its sizes and standardisation timeline.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/hqc/", "mainEntityOfPage": "https://ungovernable.tech/kb/hqc/", "image": "https://ungovernable.tech/assets/og/pillar-pqc.png", "about": [{"@type": "Thing", "name": "Post-Quantum Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Post-Quantum Cryptography", "item": "https://ungovernable.tech/pillars/pqc/"}, {"@type": "ListItem", "position": 3, "name": "HQC", "item": "https://ungovernable.tech/kb/hqc/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/pqc/">Post-Quantum Cryptography</a><span aria-hidden="true">/</span><span class="here">HQC</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ POST-QUANTUM CRYPTOGRAPHY ]</span></p>
+  <h1>HQC</h1>
+  <p class="aka">Also Hamming Quasi-Cyclic.</p>
+  <p class="dek">The code-based KEM selected by NIST in March 2025 for standardization as a second PQ KEM, alongside ML-KEM. Different mathematical assumption (random quasi-cyclic codes), larger ciphertexts, and the assumption-diversity hedge against a hypothetical lattice break.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-it-is">What it is</a><a href="#code-based-cryptography">Code-based cryptography</a><a href="#mathematical-foundation-light">Mathematical foundation (light)</a><a href="#parameter-sets">Parameter sets</a><a href="#performance">Performance</a><a href="#when-to-use-hqc">When to use HQC</a><a href="#comparison-with-ml-kem-and-other-code-based-kems">Comparison with ML-KEM and other code-based KEMs</a><a href="#standardization-status">Standardization status</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#future-hybrid-patterns">Future hybrid patterns</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-it-is">What it is</h2>
+<p>HQC is a key-encapsulation mechanism whose security rests on the hardness of decoding random <strong>quasi-cyclic codes</strong> — a problem in the McEliece / Niederreiter family of code-based cryptography. It was submitted to the NIST PQC competition by Aguilar Melchor, Aragon, Bettaieb, Bidoux, Blazy, Deneuville, Gaborit, Persichetti, Zémor, and Bourges-Sevenier. After being a round-4 alternate alongside BIKE and Classic McEliece, NIST announced in <strong>March 11, 2025</strong> that HQC would be standardized as a second KEM, as an additional code-based KEM.</p>
+<p>Why a second KEM? <strong>Assumption diversity.</strong> <a href="/kb/ml-kem/">ML-KEM</a> (FIPS 203) is the workhorse, but its security depends on Module-LWE, a lattice problem. Lattice-based and code-based cryptography rest on independent mathematical assumptions; if one collapses, the other survives. HQC is the belt-and-suspenders against a future lattice cryptanalysis breakthrough.</p>
+<h2 id="code-based-cryptography">Code-based cryptography</h2>
+<p>Code-based public-key cryptography goes back to <strong>McEliece, 1978</strong>. The basic idea: pick a code with a fast decoding algorithm, scramble it into something that looks like a random code, and use the discrepancy as a trapdoor.</p>
+<p>McEliece used Goppa codes. The large object in Classic McEliece is the public key, not the ciphertext. <strong>Niederreiter</strong> (1986) is a dual variant. <strong>Classic McEliece</strong> is the conservative NIST PQC submission with very large keys and small ciphertexts. <strong>BIKE</strong> uses moderate-density parity-check codes for smaller keys. <strong>HQC</strong> uses quasi-cyclic codes and has a different security reduction:</p>
+<ul>
+<li>HQC reduces to the <strong>Quasi-Cyclic Syndrome Decoding (QCSD)</strong> problem.</li>
+<li>The decoder is built from a concatenation of a Reed-Muller code and a Reed-Solomon code, with decoding tailored to that concatenated code.</li>
+<li>Unlike McEliece-style schemes, HQC has a clean IND-CCA2 security reduction without the structural concerns of hidden Goppa codes.</li>
+</ul>
+<p>This last point — that HQC's underlying code is <strong>random</strong>, not a structured code disguised — is the security argument that won HQC the second-KEM slot.</p>
+<h2 id="mathematical-foundation-light">Mathematical foundation (light)</h2>
+<p>HQC works over <code>F_2[X] / (X^n - 1)</code> for <code>n</code> prime. Operations are polynomial multiplication mod <code>X^n - 1</code>.</p>
+<ul>
+<li><strong>KeyGen</strong>: pick small-weight <code>x, y</code>. Public key is <code>h, s = x + h·y</code> for random <code>h</code>.</li>
+<li><strong>Encaps</strong>: pick small-weight <code>e, r1, r2</code>. Compute <code>u = r1 + h·r2</code> and <code>v = m·G + s·r2 + e</code> where <code>G</code> is a generator matrix of the inner concatenated code. Send <code>(u, v)</code>.</li>
+<li><strong>Decaps</strong>: receiver computes <code>v - u·y = m·G + (e + ...)</code> where the noise has bounded weight, and decodes through the concatenated Reed-Muller / Reed-Solomon code.</li>
+</ul>
+<p>The "small-weight" constraint is what makes the scheme one-way: given <code>s</code>, recovering <code>(x, y)</code> is the QCSD problem.</p>
+<p>The IND-CCA2 transformation is the <strong>Fujisaki-Okamoto</strong> construction, the same as ML-KEM uses.</p>
+<h2 id="parameter-sets">Parameter sets</h2>
+<p>The August 2025 HQC specification names the parameter sets HQC-1, HQC-3 and HQC-5. They target the same NIST security categories as ML-KEM:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Security level</th>
+<th>Public key</th>
+<th>Ciphertext</th>
+<th>Shared secret</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HQC-1</strong></td>
+<td>NIST Cat 1 (~AES-128)</td>
+<td>2,241 B</td>
+<td>4,433 B</td>
+<td>32 B</td>
+</tr>
+<tr>
+<td><strong>HQC-3</strong></td>
+<td>NIST Cat 3 (~AES-192)</td>
+<td>4,514 B</td>
+<td>8,978 B</td>
+<td>32 B</td>
+</tr>
+<tr>
+<td><strong>HQC-5</strong></td>
+<td>NIST Cat 5 (~AES-256)</td>
+<td>7,237 B</td>
+<td>14,421 B</td>
+<td>32 B</td>
+</tr>
+</tbody>
+</table></div>
+<p>Compared to ML-KEM:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Public key</th>
+<th>Ciphertext</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ML-KEM-512</td>
+<td>800 B</td>
+<td>768 B</td>
+</tr>
+<tr>
+<td><strong>HQC-1</strong></td>
+<td><strong>2,241 B</strong></td>
+<td><strong>4,433 B</strong></td>
+</tr>
+<tr>
+<td>ML-KEM-768</td>
+<td>1,184 B</td>
+<td>1,088 B</td>
+</tr>
+<tr>
+<td><strong>HQC-3</strong></td>
+<td><strong>4,514 B</strong></td>
+<td><strong>8,978 B</strong></td>
+</tr>
+<tr>
+<td>ML-KEM-1024</td>
+<td>1,568 B</td>
+<td>1,568 B</td>
+</tr>
+<tr>
+<td><strong>HQC-5</strong></td>
+<td><strong>7,237 B</strong></td>
+<td><strong>14,421 B</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>HQC ciphertexts are roughly <strong>4-9x larger</strong> than ML-KEM at comparable security levels. This is the cost of the assumption-diversity hedge.</p>
+<h2 id="performance">Performance</h2>
+<p>The HQC specification reports implementation-specific benchmarks and identifies its test platform. Compare implementations on the intended hardware; a generic microsecond range is not a portable performance guarantee.</p>
+<h2 id="when-to-use-hqc">When to use HQC</h2>
+<p>The honest answer in early 2026 is: <strong>rarely on its own</strong>. HQC's role is as a hedge.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Triple hybrid</strong></td>
+<td><code>X25519 + ML-KEM-768 + HQC-3</code> for protocols with extreme assumption-diversity needs</td>
+</tr>
+<tr>
+<td><strong>Government / regulated environments</strong></td>
+<td>Where policy mandates code-based plus lattice-based</td>
+</tr>
+<tr>
+<td><strong>Long-term secrecy archives</strong></td>
+<td>Where multi-decade harvest-now-decrypt-later resistance demands two PQ KEMs</td>
+</tr>
+<tr>
+<td><strong>Migration hedge</strong></td>
+<td>Systems already shipped with ML-KEM that want to add HQC support for future flexibility</td>
+</tr>
+</tbody>
+</table></div>
+<p>For most deployments, ML-KEM alone (or hybrid X25519+ML-KEM) is the right call. HQC is the algorithm to keep on the shelf in case lattice cryptanalysis advances.</p>
+<h3 id="triple-hybrid-pattern">Triple-hybrid pattern</h3>
+<pre><code>shared_secret = KDF(
+    X25519_shared,
+    ML-KEM_shared,
+    HQC_shared
+)
+</code></pre>
+<p>If any one of the three is broken (or even all three), the others provide security. Cost is 5-15 KB extra per handshake, depending on parameters.</p>
+<h2 id="comparison-with-ml-kem-and-other-code-based-kems">Comparison with ML-KEM and other code-based KEMs</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>ML-KEM (FIPS 203)</th>
+<th>HQC</th>
+<th>Classic McEliece</th>
+<th>BIKE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Math</strong></td>
+<td>Module-LWE</td>
+<td>QCSD</td>
+<td>Goppa codes</td>
+<td>QC-MDPC codes</td>
+</tr>
+<tr>
+<td><strong>Public key (Cat 1)</strong></td>
+<td>800 B</td>
+<td>2,241 B</td>
+<td>~261 KB</td>
+<td>1,541 B</td>
+</tr>
+<tr>
+<td><strong>Ciphertext (Cat 1)</strong></td>
+<td>768 B</td>
+<td>4,433 B</td>
+<td>~128 B</td>
+<td>1,573 B</td>
+</tr>
+<tr>
+<td><strong>Encaps speed</strong></td>
+<td>Fast</td>
+<td>Medium</td>
+<td>Fast</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>Decaps speed</strong></td>
+<td>Fast</td>
+<td>Medium-slow</td>
+<td>Fast</td>
+<td>Slow</td>
+</tr>
+<tr>
+<td><strong>Standardization status</strong></td>
+<td>FIPS 203 (final 2024)</td>
+<td>NIST selected Mar 2025; FIPS 2026</td>
+<td>NIST round 4, no decision</td>
+<td>NIST round 4 alternate</td>
+</tr>
+<tr>
+<td><strong>Decryption failures</strong></td>
+<td>Negligible</td>
+<td>Non-zero (handled by FO)</td>
+<td>Zero</td>
+<td>Non-zero</td>
+</tr>
+</tbody>
+</table></div>
+<p>Classic McEliece has the smallest ciphertexts but the largest public keys (~261 KB at Cat 1), which is impractical for most protocols. BIKE has decoding-failure issues. HQC sits in a middle ground: moderate keys, moderate ciphertexts, and a clean security reduction.</p>
+<h2 id="standardization-status">Standardization status</h2>
+<ul>
+<li><strong>NIST round 4 selection</strong>: announced March 11, 2025. NIST internal report IR 8528 "Status Report on the Fourth Round of the NIST Post-Quantum Cryptography Standardization Process" identifies HQC as the chosen alternate KEM.</li>
+<li><strong>FIPS document</strong>: in drafting; expected initial public draft late 2026, final standard 2027. Unlike ML-KEM's 2024 release, HQC's FIPS is still being formatted to NIST publication requirements.</li>
+<li><strong>liboqs</strong>: HQC included since v0.9; v0.14.0 (July 2025) fixed a security fix for secret-dependent branching in HQC; v0.16.0 milestone tracks updated HQC reference implementation for NIST FIPS alignment.</li>
+<li><strong>TLS / IETF</strong>: hybrid HQC drafts under discussion in the TLS WG; no production deployment yet.</li>
+<li><strong>Hardware vendors</strong>: limited; awaiting final FIPS document before HSM and accelerator support.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Different mathematical assumption from lattice schemes — the assumption-diversity hedge.</li>
+<li>Long history of code-based cryptography (McEliece, 1978).</li>
+<li>Random-code security argument is cleaner than structured-code (Goppa) constructions.</li>
+<li>IND-CCA2 secure via Fujisaki-Okamoto.</li>
+<li>Constant-time-friendly (no rejection sampling, no Gaussian sampling).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Ciphertexts and public keys are 4-9x larger than ML-KEM.</li>
+<li>Slower than ML-KEM by 5-10x on most operations.</li>
+<li>Non-zero decryption failure rate (handled by FO transform but adds analytical complexity).</li>
+<li>Decoder for the concatenated Reed-Muller / Reed-Solomon code is more complex than ML-KEM's NTT.</li>
+<li>Ecosystem support is behind ML-KEM by 18-24 months.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QCSD breakthrough</td>
+<td>Hybrid with ML-KEM and / or X25519</td>
+</tr>
+<tr>
+<td>Side-channel on decoder</td>
+<td>Constant-time concatenated decoder; reference implementations being hardened</td>
+</tr>
+<tr>
+<td>Decryption failure information leak</td>
+<td>FO transform absorbs single-query failures; multi-query rate-limit</td>
+</tr>
+<tr>
+<td>Implementation bugs in polynomial arithmetic</td>
+<td>Audit; cross-implementation interop testing</td>
+</tr>
+<tr>
+<td>Quantum attack on QCSD</td>
+<td>QCSD is conjectured PQ-secure; standardization rests on this</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="future-hybrid-patterns">Future hybrid patterns</h2>
+<p>HQC fits into hybrid migration strategies in three ways:</p>
+<ol>
+<li><strong>Today</strong>: X25519 + ML-KEM-768 (currently the deployed hybrid).</li>
+<li><strong>Conservative add-on</strong>: X25519 + ML-KEM-768 + HQC-3 (triple hybrid; cost 5-15 KB).</li>
+<li><strong>Post-quantum-only</strong>: ML-KEM + HQC (drop classical, depend on PQ assumption diversity).</li>
+</ol>
+<p>Step 3 becomes interesting when classical cryptanalysis of curve schemes catches up to PQ confidence levels — likely 2030+.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8545.pdf" rel="noopener nofollow">NIST IR 8545: Fourth-round status report</a></li>
+<li><a href="https://pqc-hqc.org/doc/hqc_specifications_2025_08_22.pdf" rel="noopener nofollow">HQC specification</a></li>
+<li><a href="https://eprint.iacr.org/2016/1194" rel="noopener nofollow">Efficient Encryption from Random Quasi-Cyclic Codes</a></li>
+<li><a href="https://ipnpr.jpl.nasa.gov/progress_report2/42-44/44N.PDF" rel="noopener nofollow">McEliece: A Public-Key Cryptosystem Based on Algebraic Coding Theory</a></li>
+<li><a href="https://eprint.iacr.org/2017/604" rel="noopener nofollow">A Modular Analysis of the Fujisaki-Okamoto Transformation</a></li>
+<li><a href="https://github.com/open-quantum-safe/liboqs/tree/main/src/kem/hqc" rel="noopener nofollow">liboqs HQC implementation</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/ml-kem/">
+  <span class="nm">ML-KEM (FIPS 203)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/dihedral-coset-attacks/">
+  <span class="nm">The Dihedral Coset Attack Line</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/pir-implementations/">
+  <span class="nm">PIR Implementations and Libraries</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/post-quantum-cryptography/">
+  <span class="nm">Post-Quantum Cryptography</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/pqc-deployment-tracker/">
+  <span class="nm">PQC Deployment and Libraries Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=HQC" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">The code-based KEM selected by NIST in March 2025 for standardization as a second PQ KEM, alongside ML-KEM. Different mathematical assumption (random quasi-cyclic codes), larger ciphertexts, and the assumption-diversity hedge against a hypothetical lattice break.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Post-Quantum Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

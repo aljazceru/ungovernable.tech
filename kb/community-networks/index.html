@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Community Networks — ungovernable.tech</title>
+<meta name="description" content="Internet access can be built and owned by the people who use it. How community networks like Guifi.net, Freifunk and NYC Mesh work, and how to start one.">
+<link rel="canonical" href="https://ungovernable.tech/kb/community-networks/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Community Networks — ungovernable.tech">
+<meta property="og:description" content="Internet access can be built and owned by the people who use it. How community networks like Guifi.net, Freifunk and NYC Mesh work, and how to start one.">
+<meta property="og:url" content="https://ungovernable.tech/kb/community-networks/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Community Networks — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Community Networks — ungovernable.tech">
+<meta name="twitter:description" content="Internet access can be built and owned by the people who use it. How community networks like Guifi.net, Freifunk and NYC Mesh work, and how to start one.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Community Networks", "description": "Internet access can be built and owned by the people who use it. How community networks like Guifi.net, Freifunk and NYC Mesh work, and how to start one.", "dateModified": "2026-10-18", "datePublished": "2026-10-18", "url": "https://ungovernable.tech/kb/community-networks/", "mainEntityOfPage": "https://ungovernable.tech/kb/community-networks/", "image": "https://ungovernable.tech/assets/og/pillar-mesh.png", "about": [{"@type": "Thing", "name": "Off-Grid and Mesh Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Off-Grid and Mesh Networks", "item": "https://ungovernable.tech/pillars/mesh/"}, {"@type": "ListItem", "position": 3, "name": "Community Networks", "item": "https://ungovernable.tech/kb/community-networks/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/mesh/">Off-Grid and Mesh Networks</a><span aria-hidden="true">/</span><span class="here">Community Networks</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ OFF-GRID AND MESH NETWORKS ]</span></p>
+  <h1>Community Networks</h1>
+  
+  <p class="dek">Connectivity does not have to come from a telco. Community networks are internet infrastructure built, owned and governed by the people who use it.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-18</b></span>
+    <span><b>3</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#how-they-work">How they work</a><a href="#who-is-doing-it">Who is doing it</a><a href="#why-it-matters-for-sovereignty">Why it matters for sovereignty</a><a href="#starting-or-joining-one">Starting or joining one</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>Most people reach the internet through a handful of commercial providers who own the wires, set the prices, keep the logs and can be ordered to cut you off. A <strong>community network</strong> is the alternative: internet infrastructure that the users build, own and govern themselves, as a commons rather than a product. These are not toy meshes — some have been running for two decades and carry tens of thousands of real users — and they are the most mature answer to the question of who controls access at the physical layer.</p>
+<h2 id="how-they-work">How they work</h2>
+<p>Community networks are usually built from ordinary off-the-shelf radios and fibre, assembled bottom-up:</p>
+<ul>
+<li><strong>Rooftop links.</strong> Members mount Wi-Fi or point-to-point radios on rooftops with line of sight to a neighbour, forming a mesh or a tree of high-capacity links across a city or valley.</li>
+<li><strong>Supernodes and backhaul.</strong> A few well-placed, well-connected nodes aggregate traffic and connect the community network to the wider internet, often by sharing one or more donated or jointly-bought uplinks.</li>
+<li><strong>Peering, not customers.</strong> Participants agree to carry each other's traffic under a shared pact. In <a href="https://guifi.net/" rel="noopener nofollow">Guifi.net</a> this is codified as a "network commons licence" that anyone may join as long as they relay others' traffic in turn.</li>
+<li><strong>Open firmware.</strong> Routers typically run community firmware — <a href="https://libremesh.org/" rel="noopener nofollow">LibreMesh</a> or Freifunk's <a href="https://gluon.readthedocs.io/" rel="noopener nofollow">Gluon</a> on top of <a href="https://openwrt.org/" rel="noopener nofollow">OpenWrt</a> — so the whole stack is auditable and the network is not at the mercy of a vendor.</li>
+</ul>
+<p>The result is infrastructure with no single owner to coerce, cut off or surveil wholesale, and whose coverage grows wherever a member is willing to put up an antenna.</p>
+<h2 id="who-is-doing-it">Who is doing it</h2>
+<ul>
+<li><strong><a href="https://guifi.net/" rel="noopener nofollow">Guifi.net</a></strong> (Catalonia, since 2004) is the largest, with tens of thousands of active nodes and its own commons governance and economic model (<a href="https://en.wikipedia.org/wiki/Guifi.net" rel="noopener nofollow">overview</a>).</li>
+<li><strong><a href="https://freifunk.net/" rel="noopener nofollow">Freifunk</a></strong> is a decentralized German movement of hundreds of local community networks sharing the Gluon firmware.</li>
+<li><strong><a href="https://www.nycmesh.net/" rel="noopener nofollow">NYC Mesh</a></strong> is a volunteer-run network bringing cheap, neutral connectivity to New York City via rooftop installs and a few supernodes.</li>
+<li><strong><a href="https://altermundi.net/" rel="noopener nofollow">AlterMundi</a></strong> builds community networks in rural Argentina and co-develops LibreMesh.</li>
+</ul>
+<p>The engineers behind these projects meet and interoperate through gatherings like the <a href="https://www.battlemesh.org/" rel="noopener nofollow">Wireless Battle of the Mesh</a>, and the model is recognized as legitimate infrastructure by bodies such as the <a href="https://www.internetsociety.org/issues/community-networks/" rel="noopener nofollow">Internet Society</a>.</p>
+<h2 id="why-it-matters-for-sovereignty">Why it matters for sovereignty</h2>
+<p>A community network changes who holds the leverage over the physical layer:</p>
+<ul>
+<li><strong>Resilience.</strong> Local traffic stays local and keeps flowing even when upstream links or the national internet are disrupted — a direct complement to <a href="/guides/internet-shutdown-preparedness/">shutdown preparedness</a> and <a href="/kb/off-grid-networks/">off-grid networks</a>.</li>
+<li><strong>No central chokepoint.</strong> There is no single company to serve with a blocking or logging order for the whole network.</li>
+<li><strong>Affordability and reach.</strong> Communities underserved by commercial providers get connectivity at cost.</li>
+<li><strong>Auditable by design.</strong> Open firmware means the people running it can see and change what it does.</li>
+</ul>
+<h2 id="starting-or-joining-one">Starting or joining one</h2>
+<ul>
+<li><strong>Join first.</strong> If a Freifunk, Guifi or similar network already covers your area, putting up a node is the fastest contribution; the hard parts (backhaul, governance, firmware) are already solved.</li>
+<li><strong>Start small.</strong> A single rooftop link between two willing neighbours is a working community network; growth is incremental.</li>
+<li><strong>Use community firmware.</strong> LibreMesh and Gluon are built for exactly this and spare you from reinventing mesh routing and configuration.</li>
+<li><strong>Agree the rules early.</strong> The durable networks all have an explicit peering pact covering who carries whose traffic, how uplinks are funded, and how disputes are handled.</li>
+</ul>
+<p>For the radio and hardware details of building the links themselves, see <a href="/guides/building-a-mesh/">Building a Local Mesh Network</a>; for running the servers and relays a community depends on, see <a href="/guides/resilient-infrastructure/">Resilient and Relocatable Infrastructure</a> and <a href="/guides/running-freedom-infrastructure/">Running Infrastructure for Freedom</a>.</p>
+<p>Continue with <a href="/kb/libremesh/">LibreMesh</a>, <a href="/kb/satellite-broadband/">Satellite broadband and direct-to-cell</a> and <a href="/guides/community-wifi-network/">Build a community Wi-Fi network</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/off-grid-networks/">
+  <span class="nm">Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/guides/building-a-mesh/">
+  <span class="nm">Building a Local Mesh Network</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/resilient-infrastructure/">
+  <span class="nm">Resilient and Relocatable Infrastructure</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/reticulum/">
+  <span class="nm">Reticulum</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/internet-shutdown-preparedness/">
+  <span class="nm">Internet Shutdown Preparedness</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/libremesh/">
+  <span class="nm">LibreMesh</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/satellite-broadband/">
+  <span class="nm">Satellite broadband and direct-to-cell</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/community-wifi-network/">
+  <span class="nm">Build a community Wi-Fi network</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/openwrt/">
+  <span class="nm">OpenWrt</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-18</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Community%20Networks" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Connectivity does not have to come from a telco. Community networks are internet infrastructure built, owned and governed by the people who use it.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Off-Grid and Mesh Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-18</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

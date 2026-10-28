@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verifiable Random Functions (VRFs) — ungovernable.tech</title>
+<meta name="description" content="Verifiable random functions give pseudorandom outputs plus a proof the key holder computed them correctly, used in consensus and key transparency.">
+<link rel="canonical" href="https://ungovernable.tech/kb/verifiable-random-functions/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Verifiable Random Functions (VRFs) — ungovernable.tech">
+<meta property="og:description" content="Verifiable random functions give pseudorandom outputs plus a proof the key holder computed them correctly, used in consensus and key transparency.">
+<meta property="og:url" content="https://ungovernable.tech/kb/verifiable-random-functions/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Verifiable Random Functions (VRFs) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verifiable Random Functions (VRFs) — ungovernable.tech">
+<meta name="twitter:description" content="Verifiable random functions give pseudorandom outputs plus a proof the key holder computed them correctly, used in consensus and key transparency.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Verifiable Random Functions (VRFs)", "description": "Verifiable random functions give pseudorandom outputs plus a proof the key holder computed them correctly, used in consensus and key transparency.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/verifiable-random-functions/", "mainEntityOfPage": "https://ungovernable.tech/kb/verifiable-random-functions/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Verifiable Random Functions (VRFs)", "item": "https://ungovernable.tech/kb/verifiable-random-functions/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Verifiable Random Functions (VRFs)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Verifiable Random Functions (VRFs)</h1>
+  <p class="aka">Also VRF, Verifiable Random Function, ECVRF.</p>
+  <p class="dek">A pseudorandom function whose outputs come with a non-interactive proof that the holder of a secret key produced them correctly. Anyone with the public key can verify the output is the unique value the keyholder committed to.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#definition">Definition</a><a href="#relation-to-nearby-primitives">Relation to nearby primitives</a><a href="#constructions">Constructions</a><a href="#applications">Applications</a><a href="#vrf-vs-commit-reveal-randomness">VRF vs commit-reveal randomness</a><a href="#security-assumptions">Security assumptions</a><a href="#standardization-state">Standardization state</a><a href="#implementation-notes">Implementation notes</a><a href="#trade-offs">Trade-offs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="definition">Definition</h2>
+<p>A VRF is a triple <code>(KeyGen, Prove, Verify)</code>:</p>
+<ul>
+<li><code>KeyGen() → (sk, pk)</code></li>
+<li><code>Prove(sk, α) → (β, π)</code> where <code>α</code> is an input, <code>β</code> the pseudorandom output, <code>π</code> the proof.</li>
+<li><code>Verify(pk, α, β, π) → {accept, reject}</code></li>
+</ul>
+<p>Three properties matter:</p>
+<ol>
+<li><strong>Pseudorandomness.</strong> Without <code>sk</code>, <code>β</code> is indistinguishable from random for an adversary that hasn't queried <code>α</code>.</li>
+<li><strong>Uniqueness.</strong> For each <code>(pk, α)</code> there is exactly one <code>β</code> for which any valid proof exists. The keyholder cannot pick between multiple outputs.</li>
+<li><strong>Collision-resistance</strong> of the input-to-output map under the proof check.</li>
+</ol>
+<p>The combination is the point: a PRF gives pseudorandomness, a signature gives verifiability, but a VRF binds the two so the holder cannot grind multiple "random" outputs and pick the favorable one.</p>
+<p>Originally defined by Micali, Rabin and Vadhan (FOCS 1999).</p>
+<h2 id="relation-to-nearby-primitives">Relation to nearby primitives</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Pseudorandom</th>
+<th>Publicly verifiable</th>
+<th>Unique per <code>(pk, α)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRF</td>
+<td>yes</td>
+<td>no</td>
+<td>yes (secret)</td>
+</tr>
+<tr>
+<td>Hash-then-sign</td>
+<td>depends</td>
+<td>yes</td>
+<td>no (signatures rerandomize)</td>
+</tr>
+<tr>
+<td>Deterministic signature (e.g. RFC 6979 ECDSA)</td>
+<td>yes</td>
+<td>yes</td>
+<td>depends on scheme</td>
+</tr>
+<tr>
+<td><strong>VRF</strong></td>
+<td><strong>yes</strong></td>
+<td><strong>yes</strong></td>
+<td><strong>yes</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>A naive "sign the input, hash the signature" construction fails uniqueness for any signature scheme that admits multiple valid signatures (ECDSA, Schnorr with random nonces). VRFs require a scheme designed for the property.</p>
+<h2 id="constructions">Constructions</h2>
+<h3 id="ecvrf">ECVRF</h3>
+<p>Goldberg, Reyzin, Papadopoulos and Včelák, <em>Verifiable Random Functions</em> — the IRTF/CFRG track that became <strong>RFC 9381</strong> (August 2023). Construction:</p>
+<pre><code>H = hash_to_curve(pk || α)
+Γ = sk · H
+β = hash(Γ)
+π = (Γ, c, s)         where c, s are a Schnorr-style proof
+                      that log_H(Γ) = log_G(pk) = sk
+</code></pre>
+<p>Verification recomputes <code>H</code>, checks the Schnorr equation, then derives <code>β</code> from <code>Γ</code>. Uniqueness comes from the fact that a single point <code>Γ = sk·H</code> exists per <code>(sk, α)</code>.</p>
+<p>RFC 9381 specifies four ECVRF suites (and a separate RSA-FDH-VRF construction):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Curve</th>
+<th>Hash-to-curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ECVRF-P256-SHA256-TAI</code></td>
+<td>NIST P-256</td>
+<td>try-and-increment</td>
+</tr>
+<tr>
+<td><code>ECVRF-P256-SHA256-SSWU</code></td>
+<td>NIST P-256</td>
+<td>Simplified SWU (RFC 9380)</td>
+</tr>
+<tr>
+<td><code>ECVRF-EDWARDS25519-SHA512-TAI</code></td>
+<td>edwards25519</td>
+<td>try-and-increment</td>
+</tr>
+<tr>
+<td><code>ECVRF-EDWARDS25519-SHA512-ELL2</code></td>
+<td>edwards25519</td>
+<td>Elligator2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Try-and-increment leaks timing on <code>α</code> (the number of iterations is input-dependent); SSWU and Elligator2 are constant-time and preferred for new deployments.</p>
+<h3 id="ristretto255-ristretto-vrf">ristretto255 / Ristretto-VRF</h3>
+<p>A non-RFC variant over the ristretto255 prime-order group, used inside Polkadot (sr25519, schnorrkel) and similar systems. Equivalent security argument with a clean group structure.</p>
+<h3 id="bls-based-vrf">BLS-based VRF</h3>
+<p>Pairing-based VRF where <code>β = e(sk·H(α), g)</code>. Shorter outputs but pairing verification is slower than elliptic-curve-only ECVRF. Used in some consensus designs (early DFINITY).</p>
+<h2 id="applications">Applications</h2>
+<h3 id="algorand-consensus-self-selection">Algorand consensus self-selection</h3>
+<p>Each round, a committee is sampled by having every account compute <code>VRF(sk_account, seed_round)</code> and check whether the output falls below a stake-weighted threshold. Self-selection is private until the player publishes its proof, which makes the committee unpredictable to an attacker until the moment members reveal themselves. Chen and Micali, <em>Algorand</em> (2017).</p>
+<h3 id="chainlink-vrf">Chainlink VRF</h3>
+<p>Off-chain oracle holds the VRF secret key, smart contract sends a request, oracle responds with <code>(β, π)</code>. The contract verifies <code>π</code> on-chain. The output is the source for lotteries, NFT minting, gaming randomness. Trust assumption: the oracle (and that the request seed includes a recent block hash so the oracle cannot pre-grind).</p>
+<h3 id="dnssec-nsec5">DNSSEC NSEC5</h3>
+<p>Goldberg and co-authors proposed replacing NSEC3 (which leaks a hash of every name in the zone via dictionary attack) with a VRF-authenticated negative response. The zone signs <code>VRF(α)</code> for every name; a non-existence proof reveals the VRF output for the queried name without enabling offline enumeration. Proposed in <code>draft-vcelak-nsec5</code> (now expired); influenced production thinking but not deployed.</p>
+<h3 id="cloudflare-privacy-pass">Cloudflare Privacy Pass</h3>
+<p>Original Privacy Pass (Davidson, Goldberg, Sullivan, 2018) and the IETF Privacy Pass standardization use a related primitive (verifiable oblivious PRF, VOPRF) which is a two-party VRF where the client provides a blinded input. The same uniqueness logic — a token cannot be redeemed twice for different values — relies on the VRF property.</p>
+<h3 id="nostr-and-federated-systems">Nostr and federated systems</h3>
+<p>Several Nostr relay-selection and committee-rotation proposals use VRF-based sortition. Same logic as Algorand: unpredictable, self-verifiable selection.</p>
+<h2 id="vrf-vs-commit-reveal-randomness">VRF vs commit-reveal randomness</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Commit-reveal</th>
+<th>VRF</th>
+<th>VRF + on-chain seed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Round trips</td>
+<td>2 (commit, reveal)</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Bias by withholding a result</td>
+<td>yes</td>
+<td>possible</td>
+<td>possible</td>
+</tr>
+<tr>
+<td>Bias by choosing input</td>
+<td>n/a</td>
+<td>grind seed before commit</td>
+<td>block-hash seed mitigates</td>
+</tr>
+<tr>
+<td>Public verifiability</td>
+<td>after reveal</td>
+<td>immediate</td>
+<td>immediate</td>
+</tr>
+<tr>
+<td>Operator can withhold</td>
+<td>yes (drops)</td>
+<td>yes (refuse to publish)</td>
+<td>yes (but seed is public)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A VRF fixes the output for a given public key and input, but the keyholder can still withhold an unfavorable result. Fixing the input in advance limits input grinding; a surrounding protocol must also address withholding. See <a href="/kb/verifiable-delay-functions/">VDFs</a> for the complementary problem of the input itself being predictable far in advance.</p>
+<h2 id="security-assumptions">Security assumptions</h2>
+<ul>
+<li>ECVRF on NIST/edwards/secp curves: discrete-log hardness in the corresponding group, plus random-oracle assumptions for the hash-to-curve and challenge derivation.</li>
+<li>Side-channel: <code>sk</code> use must be constant-time. Try-and-increment hash-to-curve leaks timing; SSWU/Elligator2 preferred.</li>
+<li>Quantum: all listed VRFs are broken by Shor. Lattice-based VRFs are research-stage as of 2026 (Esgin et al., constructions are concretely large).</li>
+</ul>
+<h2 id="standardization-state">Standardization state</h2>
+<ul>
+<li><strong>RFC 9381</strong> (Aug 2023): IRTF/CFRG-published VRF specification with four ECVRF cipher suites. Stable; multiple production implementations.</li>
+<li><strong>draft-irtf-cfrg-vrf-15</strong> preceded the RFC; older deployments may pin to specific drafts.</li>
+<li>No NIST profile yet. NIST has not standardized VRFs separately from broader random-beacon work.</li>
+</ul>
+<h2 id="implementation-notes">Implementation notes</h2>
+<ul>
+<li>Reference: <code>c2sp/vrf-r255</code> (Filippo Valsorda) for ristretto255 ECVRF.</li>
+<li>Algorand's <code>go-algorand</code> ships its own audited ECVRF implementation.</li>
+<li>
+<p>Chainlink VRF v2/v2.5 uses a Solidity verifier for <code>ECVRF-secp256k1-SHA256</code>.</p>
+</li>
+<li>
+<p>Constant-time hash-to-curve is non-trivial; pin to RFC 9380 SSWU/Elligator2 implementations rather than rolling your own.</p>
+</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>One round of communication.</li>
+<li>Unbiasable by the keyholder once the input is fixed.</li>
+<li>Compact proofs (~80 bytes for edwards25519 ECVRF).</li>
+<li>Composable with VDFs and beacon protocols.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Single-key trust. The keyholder still chooses <em>when</em> to publish; censorship by withholding is the residual attack.</li>
+<li>Input grinding if <code>α</code> is attacker-chosen.</li>
+<li>Quantum-vulnerable on every standardized curve.</li>
+<li>Pseudorandomness only — not a verifiable delay; for unpredictable-future randomness add a VDF or beacon.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9381.html" rel="noopener nofollow">RFC 9381: Verifiable Random Functions</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9380.html" rel="noopener nofollow">RFC 9380: Hashing to Elliptic Curves</a></li>
+<li><a href="https://arxiv.org/abs/1607.01341" rel="noopener nofollow">Chen and Micali: Algorand</a></li>
+<li><a href="https://eprint.iacr.org/2014/582" rel="noopener nofollow">NSEC5: Provably Preventing DNSSEC Zone Enumeration</a></li>
+<li><a href="https://people.seas.harvard.edu/~salil/research/VRF-abs.html" rel="noopener nofollow">Micali, Rabin and Vadhan: Verifiable Random Functions</a></li>
+<li><a href="https://petsymposium.org/2018/files/papers/issue3/popets-2018-0026.pdf" rel="noopener nofollow">Privacy Pass: Bypassing Internet Challenges Anonymously</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/verifiable-delay-functions/">
+  <span class="nm">Verifiable Delay Functions (VDFs)</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/opaque-and-pake/">
+  <span class="nm">OPAQUE and PAKEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/threshold-signatures/">
+  <span class="nm">Threshold Signatures</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Verifiable%20Random%20Functions%20%28VRFs%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A pseudorandom function whose outputs come with a non-interactive proof that the holder of a secret key produced them correctly. Anyone with the public key can verify the output is the unique value the keyholder committed to.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

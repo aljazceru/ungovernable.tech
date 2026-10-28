@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Authenticated Data Structures — ungovernable.tech</title>
+<meta name="description" content="Merkle trees, accumulators and vector commitments: data structures that let anyone verify membership or non-membership against a short digest.">
+<link rel="canonical" href="https://ungovernable.tech/kb/authenticated-data-structures/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Authenticated Data Structures — ungovernable.tech">
+<meta property="og:description" content="Merkle trees, accumulators and vector commitments: data structures that let anyone verify membership or non-membership against a short digest.">
+<meta property="og:url" content="https://ungovernable.tech/kb/authenticated-data-structures/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Authenticated Data Structures — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Authenticated Data Structures — ungovernable.tech">
+<meta name="twitter:description" content="Merkle trees, accumulators and vector commitments: data structures that let anyone verify membership or non-membership against a short digest.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Authenticated Data Structures", "description": "Merkle trees, accumulators and vector commitments: data structures that let anyone verify membership or non-membership against a short digest.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/authenticated-data-structures/", "mainEntityOfPage": "https://ungovernable.tech/kb/authenticated-data-structures/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "Authenticated Data Structures", "item": "https://ungovernable.tech/kb/authenticated-data-structures/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">Authenticated Data Structures</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Authenticated Data Structures</h1>
+  <p class="aka">Also Cryptographic Accumulators, Commitment Trees, Authenticated Data Structures.</p>
+  <p class="dek">Data structures that commit to a set or map with a short digest, then let a prover demonstrate inclusion (or non-inclusion, or update) without sending the whole set. The trade-offs sit on a four-axis surface: proof size, verifier cost, update cost, and post-quantum status.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-we-want">What we want</a><a href="#the-classical-landscape">The classical landscape</a><a href="#comparison">Comparison</a><a href="#applications">Applications</a><a href="#trade-offs">Trade-offs</a><a href="#pitfalls">Pitfalls</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-we-want">What we want</h2>
+<p>For a set or key-value map <code>D</code>:</p>
+<ul>
+<li>A short <em>commitment</em> <code>c</code> that fixes <code>D</code> (collision-resistant).</li>
+<li>An <em>opening</em> <code>π_x</code> proving <code>x ∈ D</code> (or <code>x ∉ D</code>, or <code>D[x] = v</code>) given only <code>c</code>.</li>
+<li>Cheap verification.</li>
+<li>Reasonable update cost when <code>D</code> changes.</li>
+<li>Ideally, batched openings (one proof for many elements).</li>
+</ul>
+<p>These properties trade against each other. Picking a structure means picking which axis to optimize.</p>
+<h2 id="the-classical-landscape">The classical landscape</h2>
+<h3 id="merkle-tree-merkle-1979">Merkle tree (Merkle, 1979)</h3>
+<p>Binary hash tree. Each leaf is <code>H(x_i)</code>; each internal node is <code>H(left || right)</code>. Commitment is the root.</p>
+<ul>
+<li>Inclusion proof: <code>O(log n)</code> hashes.</li>
+<li>Non-inclusion: requires a sorted Merkle tree (sparse or sorted-leaf) — vanilla Merkle trees do not support efficient non-inclusion.</li>
+<li>Update: <code>O(log n)</code> hashes.</li>
+<li>Post-quantum: yes, security reduces to hash collision resistance.</li>
+</ul>
+<p>Merkle, <em>A Certified Digital Signature</em>, CRYPTO 1989 (the construction predates the paper, RSA Labs internal 1979).</p>
+<h3 id="sparse-merkle-tree-dahlberg-pulls-peeters-2016">Sparse Merkle Tree (Dahlberg, Pulls, Peeters, 2016)</h3>
+<p>Conceptually a Merkle tree over <code>2^k</code> leaves indexed by a hash of the key, where most leaves are empty (default value). With path compression and empty-subtree shortcuts, an SMT supports both inclusion and non-inclusion proofs in <code>O(k)</code>. Used by:</p>
+<ul>
+<li>Ethereum's pre-Verkle state trees (a Merkle Patricia Trie variant with sparse semantics).</li>
+<li>Plasma / rollup commitment schemes.</li>
+<li>Trillian's verifiable map (Google).</li>
+<li>Certificate Transparency v2 maps.</li>
+</ul>
+<p>Reference: Dahlberg, Pulls, Peeters, <em>Efficient Sparse Merkle Trees</em>, NordSec 2016.</p>
+<h3 id="merkle-patricia-trie-mpt">Merkle Patricia Trie (MPT)</h3>
+<p>Ethereum's pre-Verkle state structure. Hybrid of a radix trie and Merkle tree, with extension nodes to compress single-child paths. Quirks: the four-node-type encoding (leaf, extension, branch, NULL) makes proofs larger than necessary, and the trie depth is data-dependent, which has been a sustained source of state-growth pain in Ethereum.</p>
+<h3 id="verkle-tree-kuszmaul-2019">Verkle tree (Kuszmaul, 2019)</h3>
+<p>Vector commitment-based trie. Each internal node commits to its <code>k</code> children using a polynomial commitment (KZG or IPA). Witness for one leaf: one commitment opening per level — a single curve point regardless of branching factor.</p>
+<p>For <code>k = 256</code>, depth at <code>n = 2^32</code> keys is ~4 levels, vs ~32 for a binary Merkle tree. Witness size is <code>O(depth × commitment_size)</code> ≈ a few hundred bytes for a state of millions of entries.</p>
+<p>Ethereum has had Verkle on the roadmap since 2021. As of 2026 the production target is <strong>Verkle migration in a future fork</strong>, with extensive testing in Kaustinen testnet and stateless-client work continuing. The migration is large because every node operator must rebuild state. Date estimates have slipped multiple times; treat as "planned" not "imminent".</p>
+<p>Reference: Kuszmaul, <em>Verkle Trees</em>, MIT 2019; Buterin's Ethereum-specific design notes (2021–2024); EIP-6800 family.</p>
+<h3 id="rsa-accumulator-camacho-hevia-2010">RSA accumulator (Camacho, Hevia, 2010)</h3>
+<p>Membership in a set committed by <code>acc = g^(prod of primes for elements)</code> mod <code>N</code>. Inclusion proof: a witness <code>w</code> such that <code>w^p_x = acc</code>. Non-membership: a Bezout-coefficient pair.</p>
+<ul>
+<li>Constant-size proofs (one group element).</li>
+<li>Constant-size commitment.</li>
+<li>Update cost involves recomputing witnesses for all elements (mitigated by batched protocols like Boneh-Bünz-Fisch 2019).</li>
+<li>Requires trusted setup or class-group setup.</li>
+<li>Quantum: broken (Shor on the underlying RSA group).</li>
+</ul>
+<p>Used in privacy-preserving cryptocurrencies (Zerocoin original construction), some IoT identity systems, and as a primitive inside larger ZK circuits.</p>
+<p>Reference: Camacho, Hevia, <em>On the Impossibility of Batch Update for Cryptographic Accumulators</em>, LATIN 2010 (negative result on batch updates); foundational construction is older (Benaloh, de Mare, EUROCRYPT 1993).</p>
+<h3 id="kzg-based-vector-commitments">KZG-based vector commitments</h3>
+<p>KZG (Kate, Zaverucha, Goldberg, 2010) commits to a polynomial <code>f(X)</code> with a single elliptic-curve point. Opening <code>f(z) = y</code> requires one pairing check.</p>
+<p>For a vector <code>(v_0, …, v_{n-1})</code>, encode as the polynomial <code>f(X) = Σ v_i · L_i(X)</code> where <code>L_i</code> are Lagrange basis polynomials. Then:</p>
+<ul>
+<li>Commitment: 1 elliptic-curve point.</li>
+<li>Single-element opening: 1 EC point.</li>
+<li>Batch opening of <code>k</code> elements: 1 EC point (a witness polynomial commit).</li>
+<li>Updates: <code>O(n)</code> to update the witness for any element after a single change (the <em>KZG amortization</em> problem).</li>
+<li>Trusted setup: yes, the <em>powers of tau</em> ceremony (an MPC). See <a href="/kb/multi-party-computation/">Multi-Party Computation</a>.</li>
+<li>Quantum: broken on standard pairing-friendly curves.</li>
+</ul>
+<p>Used in:</p>
+<ul>
+<li>Ethereum <strong>EIP-4844 / blobs</strong> (production since Mar 2024 Dencun fork). Each blob is a 4096-element KZG commitment over BLS12-381.</li>
+<li>Verkle trees at each internal node.</li>
+<li>PLONK-family proving systems (the polynomial commitment is the workhorse).</li>
+<li>Aztec, Aleo, zkSync proof systems.</li>
+</ul>
+<p>Reference: Kate, Zaverucha, Goldberg, <em>Constant-Size Commitments to Polynomials and Their Applications</em>, ASIACRYPT 2010.</p>
+<h3 id="ipa-inner-product-argument-commitments">IPA (inner product argument) commitments</h3>
+<p>Bulletproofs-style polynomial commitment without trusted setup. Larger proofs (<code>O(log n)</code> field elements) but no MPC ceremony required. Used in Halo2 (Zcash) and earlier Verkle prototypes.</p>
+<h3 id="lattice-based-fri-commitments">Lattice-based / FRI commitments</h3>
+<p>Reed-Solomon + Merkle = FRI (Fast Reed-Solomon IOP of Proximity). Used in <a href="/kb/starks/">STARKs</a>. Hash-based, post-quantum, larger proofs (~50 KB for typical applications).</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Structure</th>
+<th>Commitment</th>
+<th>Inclusion proof</th>
+<th>Non-inclusion</th>
+<th>Update</th>
+<th>PQ-safe</th>
+<th>Setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merkle tree</td>
+<td>32 B</td>
+<td><code>O(log n)</code> × 32 B</td>
+<td>needs sorting</td>
+<td><code>O(log n)</code> hashes</td>
+<td>yes</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Sparse Merkle</td>
+<td>32 B</td>
+<td><code>O(k)</code> × 32 B</td>
+<td>yes</td>
+<td><code>O(k)</code> hashes</td>
+<td>yes</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Patricia trie</td>
+<td>32 B</td>
+<td><code>O(log n)</code> × few hundred B</td>
+<td>depends</td>
+<td><code>O(log n)</code></td>
+<td>yes</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Verkle (KZG)</td>
+<td>48 B</td>
+<td>~200–500 B</td>
+<td>yes</td>
+<td><code>O(n)</code> witness reseed</td>
+<td>no</td>
+<td>trusted setup</td>
+</tr>
+<tr>
+<td>Verkle (IPA)</td>
+<td>32 B</td>
+<td><code>O(log n) × 32 B</code></td>
+<td>yes</td>
+<td>similar</td>
+<td>no</td>
+<td>none</td>
+</tr>
+<tr>
+<td>RSA accumulator</td>
+<td>~256 B</td>
+<td>1 group element</td>
+<td>yes</td>
+<td>hard to batch</td>
+<td>no</td>
+<td>trusted or class group</td>
+</tr>
+<tr>
+<td>KZG vector</td>
+<td>48 B</td>
+<td>48 B</td>
+<td>requires extra</td>
+<td><code>O(n)</code> for any element</td>
+<td>no</td>
+<td>trusted setup</td>
+</tr>
+<tr>
+<td>FRI / STARK commit</td>
+<td>32 B</td>
+<td>tens of KB</td>
+<td>yes</td>
+<td>rebuild</td>
+<td>yes</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<p>Numbers are rough; exact sizes depend on curve and parameter choices.</p>
+<h2 id="applications">Applications</h2>
+<h3 id="blockchain-state-roots">Blockchain state roots</h3>
+<ul>
+<li><strong>Bitcoin</strong> uses a Merkle tree for the transaction set in each block (<code>txroot</code>).</li>
+<li><strong>Ethereum pre-Verkle</strong> uses a Merkle Patricia Trie for <code>stateRoot</code>, <code>transactionsRoot</code>, and <code>receiptsRoot</code>. Witness size for stateless clients is the pain point driving Verkle.</li>
+<li><strong>Cosmos SDK / Tendermint</strong> uses an IAVL+ tree (an AVL-Merkle hybrid).</li>
+<li><strong>Diem / Aptos / Sui</strong> use Jellyfish Merkle Trees (a sparse Merkle variant).</li>
+</ul>
+<h3 id="transparency-logs">Transparency logs</h3>
+<ul>
+<li><strong>Certificate Transparency</strong> (RFC 9162, Dec 2021) uses a Merkle tree to commit to the log of issued TLS certificates. Auditors verify inclusion and consistency proofs.</li>
+<li><strong>Sigstore Rekor</strong> uses a Trillian-backed Merkle log for code-signing transparency.</li>
+<li><strong>Go module checksum database</strong> uses the same primitive.</li>
+<li><strong>Binary transparency</strong> efforts (Mozilla, Debian rebuilds) follow the same model.</li>
+</ul>
+<p>The Merkle tree is the right tool here because logs are append-only — the update pattern is friendly to hash trees, and post-quantum safety is desired.</p>
+<h3 id="verifiable-maps-and-key-transparency">Verifiable maps and key transparency</h3>
+<ul>
+<li><strong>WhatsApp Auditable Key Directory</strong> and <strong>Apple Contact Key Verification</strong> (2023) use a verifiable map (sparse Merkle tree variant) so users can audit that the server reports the same public key for an account to everyone.</li>
+<li><strong>Keybase merkle tree</strong> (predecessor of the above patterns).</li>
+</ul>
+<h3 id="zk-proof-systems">ZK proof systems</h3>
+<p>KZG is the polynomial commitment inside PLONK, Halo2 (with IPA option), Marlin, and most production SNARKs. STARKs use FRI. The choice of authenticated data structure deeply affects proof size and prover/verifier cost. See <a href="/kb/snarks/">SNARKs</a> and <a href="/kb/starks/">STARKs</a>.</p>
+<h3 id="privacy-preserving-credentials">Privacy-preserving credentials</h3>
+<p>RSA accumulators historically appear in Zerocoin, Idemix, and some VC schemes for revocation lists. Modern designs typically use cryptographic accumulators or sorted Merkle trees with ZK proofs of (non-)membership.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="pick-merkle-when">Pick Merkle when</h3>
+<ul>
+<li>Append-only.</li>
+<li>Post-quantum required.</li>
+<li>No need for compact proofs.</li>
+<li>No setup ceremony tolerated.</li>
+</ul>
+<h3 id="pick-verkle-kzg-vector-commit-when">Pick Verkle / KZG vector commit when</h3>
+<ul>
+<li>Witness size dominates verifier cost (stateless clients).</li>
+<li>Trusted setup is acceptable (and a ceremony exists).</li>
+<li>PQ migration is planned but not blocking.</li>
+</ul>
+<h3 id="pick-rsa-accumulator-when">Pick RSA accumulator when</h3>
+<ul>
+<li>Fixed-size proofs matter and class-group setup is acceptable.</li>
+<li>Update churn is low (or batched protocols available).</li>
+</ul>
+<h3 id="pick-fri-when">Pick FRI when</h3>
+<ul>
+<li>PQ safety required <em>and</em> compact proofs not strictly necessary.</li>
+<li>Verifier hardware is constrained (hashing only).</li>
+</ul>
+<h2 id="pitfalls">Pitfalls</h2>
+<ul>
+<li><strong>Second-preimage vs collision resistance.</strong> Merkle proofs need second-preimage resistance for the <em>combiner</em> and collision resistance for the leaves; a hash that's collision-resistant for short inputs may be weak under length extension if used naively.</li>
+<li><strong>Domain separation.</strong> Hash leaf and internal nodes with different prefixes (<code>0x00 || leaf</code> vs <code>0x01 || left || right</code>) — a longstanding Merkle pitfall (RFC 6962 mandates this for CT).</li>
+<li><strong>Non-inclusion requires sortedness or sparseness.</strong> Vanilla unsorted Merkle trees cannot prove non-membership efficiently.</li>
+<li><strong>KZG witness updates are not free.</strong> Touching one entry invalidates all witnesses; batched precomputation and amortized-update protocols mitigate but don't eliminate.</li>
+<li><strong>Trusted setup in KZG.</strong> A compromised Powers of Tau ceremony breaks soundness. The Ethereum KZG ceremony (2023, ~140k contributors) sets the bar.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Merkle, <em>A Certified Digital Signature</em>, CRYPTO 1989.</li>
+<li>Benaloh, de Mare, <em>One-Way Accumulators: A Decentralized Alternative to Digital Signatures</em>, EUROCRYPT 1993.</li>
+<li>Kate, Zaverucha, Goldberg, <em>Constant-Size Commitments to Polynomials and Their Applications</em>, ASIACRYPT 2010.</li>
+<li>Dahlberg, Pulls, Peeters, <em>Efficient Sparse Merkle Trees</em>, NordSec 2016.</li>
+<li>Kuszmaul, <em>Verkle Trees</em>, MIT 2019.</li>
+<li>Boneh, Bünz, Fisch, <em>Batching Techniques for Accumulators with Applications to IOPs and Stateless Blockchains</em>, CRYPTO 2019.</li>
+<li>Laurie, Messeri, Stradling, <em>Certificate Transparency Version 2.0</em>, RFC 9162 (Dec 2021).</li>
+<li>Ethereum Verkle EIPs: EIP-6800 family.</li>
+<li>Ethereum KZG ceremony: <a href="https://ceremony.ethereum.org" rel="noopener nofollow">ceremony.ethereum.org</a>.</li>
+<li>Trillian: <a href="https://github.com/google/trillian" rel="noopener nofollow">github.com/google/trillian</a>.</li>
+<li>Sigstore Rekor: <a href="https://github.com/sigstore/rekor" rel="noopener nofollow">github.com/sigstore/rekor</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/multi-party-computation/">
+  <span class="nm">Multi-Party Computation</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/starks/">
+  <span class="nm">STARKs</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/snarks/">
+  <span class="nm">SNARKs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bbs-signatures/">
+  <span class="nm">BBS+ Signatures</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/oblivious-ram/">
+  <span class="nm">Oblivious RAM</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Authenticated%20Data%20Structures" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Data structures that commit to a set or map with a short digest, then let a prover demonstrate inclusion (or non-inclusion, or update) without sending the whole set. The trade-offs sit on a four-axis surface: proof size, verifier cost, update cost, and post-quantum status.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

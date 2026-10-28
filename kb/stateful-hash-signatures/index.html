@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stateful Hash-Based Signatures (XMSS, LMS) — ungovernable.tech</title>
+<meta name="description" content="XMSS and LMS, stateful hash-based signatures: small, conservative post-quantum signatures that are safe only if the signer never reuses state.">
+<link rel="canonical" href="https://ungovernable.tech/kb/stateful-hash-signatures/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Stateful Hash-Based Signatures (XMSS, LMS) — ungovernable.tech">
+<meta property="og:description" content="XMSS and LMS, stateful hash-based signatures: small, conservative post-quantum signatures that are safe only if the signer never reuses state.">
+<meta property="og:url" content="https://ungovernable.tech/kb/stateful-hash-signatures/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Stateful Hash-Based Signatures (XMSS, LMS) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stateful Hash-Based Signatures (XMSS, LMS) — ungovernable.tech">
+<meta name="twitter:description" content="XMSS and LMS, stateful hash-based signatures: small, conservative post-quantum signatures that are safe only if the signer never reuses state.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-pqc.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Stateful Hash-Based Signatures (XMSS, LMS)", "description": "XMSS and LMS, stateful hash-based signatures: small, conservative post-quantum signatures that are safe only if the signer never reuses state.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/stateful-hash-signatures/", "mainEntityOfPage": "https://ungovernable.tech/kb/stateful-hash-signatures/", "image": "https://ungovernable.tech/assets/og/pillar-pqc.png", "about": [{"@type": "Thing", "name": "Post-Quantum Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Post-Quantum Cryptography", "item": "https://ungovernable.tech/pillars/pqc/"}, {"@type": "ListItem", "position": 3, "name": "Stateful Hash-Based Signatures (XMSS, LMS)", "item": "https://ungovernable.tech/kb/stateful-hash-signatures/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/pqc/">Post-Quantum Cryptography</a><span aria-hidden="true">/</span><span class="here">Stateful Hash-Based Signatures (XMSS, LMS)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ POST-QUANTUM CRYPTOGRAPHY ]</span></p>
+  <h1>Stateful Hash-Based Signatures (XMSS, LMS)</h1>
+  <p class="aka">Also XMSS, LMS, Stateful Hash-Based Signatures.</p>
+  <p class="dek">The narrow-but-bulletproof PQ signature option: smaller than SLH-DSA, hash-only assumption, but you must track the signed-index. Reusing an index breaks the scheme. NIST SP 800-208 (October 2020) requires tightly controlled state management and hardware cryptographic modules.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-stateful-means">What stateful means</a><a href="#xmss-extended-merkle-signature-scheme">XMSS — eXtended Merkle Signature Scheme</a><a href="#lms-leighton-micali-signatures">LMS — Leighton-Micali Signatures</a><a href="#nist-sp-800-208-what-it-requires">NIST SP 800-208 — what it requires</a><a href="#the-state-management-problem-in-detail">The state-management problem in detail</a><a href="#real-world-deployments">Real-world deployments</a><a href="#comparison-with-stateless-slh-dsa">Comparison with stateless SLH-DSA</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#when-to-pick-xmss-or-lms">When to pick XMSS or LMS</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-stateful-means">What stateful means</h2>
+<p>A stateful hash-based signature scheme uses a tree of one-time signature keys. Each leaf can sign exactly once. The signer must:</p>
+<ol>
+<li>Track which leaves have been used.</li>
+<li>Persist that state durably across reboots, backups, restores.</li>
+<li>Never sign with the same leaf twice — the security proof collapses if it does.</li>
+</ol>
+<p>Stateless schemes like <a href="/kb/slh-dsa/">SLH-DSA</a> avoid this by selecting leaves pseudo-randomly and using larger trees with FORS few-time signatures at the bottom. The cost of statelessness is signature size (7-50 KB). Stateful schemes are 2-3 KB at comparable security, but require operational state-machine discipline.</p>
+<h2 id="xmss-extended-merkle-signature-scheme">XMSS — eXtended Merkle Signature Scheme</h2>
+<h3 id="standardization">Standardization</h3>
+<p><strong>RFC 8391</strong>, "XMSS: eXtended Merkle Signature Scheme," published May 2018 by Hülsing, Butin, Gazdag, Rijneveld, Mohaisen. NIST SP 800-208 (October 2020) approved XMSS for federal use in narrow scenarios.</p>
+<h3 id="construction">Construction</h3>
+<p>XMSS is a Merkle tree of WOTS+ (Winternitz One-Time Signature) keys. The public key is the Merkle tree root. To sign:</p>
+<ol>
+<li>Pick the next unused leaf (state-tracked counter).</li>
+<li>Generate the WOTS+ keypair for that leaf deterministically from a master seed.</li>
+<li>Sign the message hash with WOTS+.</li>
+<li>The signature is the WOTS+ signature plus the Merkle authentication path to the root.</li>
+</ol>
+<p>A single XMSS tree of height <code>h</code> supports <code>2^h</code> signatures total. After that, the key is exhausted.</p>
+<h3 id="xmss-mt-multi-tree">XMSS-MT (multi-tree)</h3>
+<p>XMSS-MT is a hyper-tree of XMSS trees: a top-level tree whose leaves sign the roots of mid-level trees, whose leaves sign the roots of bottom-level trees. This allows much larger signing capacity (<code>2^60</code> or more) without huge keygen cost.</p>
+<h3 id="parameter-sets-rfc-8391">Parameter sets (RFC 8391)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Tree height</th>
+<th>Signatures</th>
+<th>Signature size</th>
+<th>Hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XMSS-SHA2_10_256</td>
+<td>10</td>
+<td>1,024</td>
+<td>~2.5 KB</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>XMSS-SHA2_16_256</td>
+<td>16</td>
+<td>65,536</td>
+<td>~2.7 KB</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>XMSS-SHA2_20_256</td>
+<td>20</td>
+<td>1,048,576</td>
+<td>~2.8 KB</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>XMSSMT-SHA2_20/2_256</td>
+<td>20 (2 layers)</td>
+<td>1,048,576</td>
+<td>~5 KB</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>XMSSMT-SHA2_60/3_256</td>
+<td>60 (3 layers)</td>
+<td>2^60</td>
+<td>~8 KB</td>
+<td>SHA-256</td>
+</tr>
+</tbody>
+</table></div>
+<p>Public keys are 64 bytes. Signatures grow linearly with tree height because of the longer authentication path.</p>
+<h2 id="lms-leighton-micali-signatures">LMS — Leighton-Micali Signatures</h2>
+<h3 id="standardization_1">Standardization</h3>
+<p><strong>RFC 8554</strong>, "Leighton-Micali Hash-Based Signatures," published April 2019 by McGrew, Curcio, Fluhrer. NIST SP 800-208 (October 2020) approved LMS alongside XMSS.</p>
+<h3 id="construction_1">Construction</h3>
+<p>LMS is conceptually similar to XMSS — a Merkle tree of LM-OTS one-time signatures — but with simpler structure:</p>
+<ul>
+<li>LM-OTS: a Winternitz-like one-time signature.</li>
+<li>LMS: a Merkle tree of LM-OTS keys.</li>
+<li>HSS (Hierarchical Signature System): the LMS counterpart to XMSS-MT, layering LMS trees.</li>
+</ul>
+<p>LMS prioritizes implementation simplicity and verification speed. It is slightly faster than XMSS in software and was the choice for several industry standards.</p>
+<h3 id="parameter-sets-rfc-8554">Parameter sets (RFC 8554)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Tree height</th>
+<th>Signatures</th>
+<th>Signature size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LMS_SHA256_M32_H10</td>
+<td>10</td>
+<td>1,024</td>
+<td>~1.6 KB</td>
+</tr>
+<tr>
+<td>LMS_SHA256_M32_H15</td>
+<td>15</td>
+<td>32,768</td>
+<td>~1.8 KB</td>
+</tr>
+<tr>
+<td>LMS_SHA256_M32_H20</td>
+<td>20</td>
+<td>1,048,576</td>
+<td>~2.0 KB</td>
+</tr>
+<tr>
+<td>LMS_SHA256_M32_H25</td>
+<td>25</td>
+<td>33,554,432</td>
+<td>~2.2 KB</td>
+</tr>
+</tbody>
+</table></div>
+<p>LMS signatures are slightly smaller than XMSS at comparable parameters because of differences in the WOTS variant (LM-OTS vs WOTS+).</p>
+<h2 id="nist-sp-800-208-what-it-requires">NIST SP 800-208 — what it requires</h2>
+<p>NIST SP 800-208 approves specified LMS/HSS and XMSS/XMSS-MT parameter sets. It requires key generation and signing in hardware cryptographic modules that do not export secret keying material. State must be maintained so that no one-time key signs two different messages.</p>
+<p>Firmware and software signing are important applications. Suitability for another application depends on meeting the recommendation’s state-management and hardware requirements.</p>
+<h2 id="the-state-management-problem-in-detail">The state-management problem in detail</h2>
+<p>Reusing an index in XMSS or LMS is <strong>catastrophic</strong>. With two signatures on different messages from the same WOTS+ key, an attacker can usually forge signatures on a third message. The relevant attack:</p>
+<pre><code>Sign(m1, idx=k) → reveals certain hash chain values
+Sign(m2, idx=k) → reveals different hash chain values
+Combine: enough chain values exposed to forge sign(m3) where H(m3) is a coordinate-wise weak point
+</code></pre>
+<p>State is lost in many ways:</p>
+<ul>
+<li>Backup-and-restore. The signer ships its state to backup storage; later a restore brings back an earlier state, and the signer reuses leaves.</li>
+<li>VM snapshot. Cloning a VM gives two systems with identical signing state.</li>
+<li>Crash before persisting. The signer increments its in-memory counter, signs, then crashes before flushing to disk. On reboot it signs with the same counter again.</li>
+<li>Concurrent signers. Two threads or two replicas signing from the same key file.</li>
+</ul>
+<h3 id="defenses">Defenses</h3>
+<ol>
+<li><strong>Hardware security module with non-cloneable state</strong>. The HSM enforces that the counter only ever increases, with anti-rollback hardware.</li>
+<li><strong>Counter persistence with fsync barriers</strong>. Increment counter, fsync, sign, fsync. Slow but robust.</li>
+<li><strong>Reserve-then-sign</strong>. Allocate a batch of leaves to a signer (idx 1000-1100), and the signer never touches anything outside that range.</li>
+<li><strong>Multi-tree with batch reservation</strong>. In XMSS-MT, allocate sub-trees to specific signers.</li>
+<li><strong>Don't use stateful</strong>. Use SLH-DSA if the operational discipline isn't available.</li>
+</ol>
+<h2 id="real-world-deployments">Real-world deployments</h2>
+<h3 id="linux-kernel-module-signing">Linux kernel module signing</h3>
+<p>The Linux kernel community experimented with XMSS and LMS for module signing as an alternative to RSA-PSS, motivated by PQ migration. Discussion on linux-crypto and lkml has continued since 2020. Production adoption depends on state-management tooling.</p>
+<h3 id="firmware-signing">Firmware signing</h3>
+<ul>
+<li><strong>Quantum-resistant firmware signing</strong>: Cisco, HPE, and others have piloted LMS for signed firmware. The signing infrastructure is one batch process per release; state can be tracked.</li>
+<li><strong>AWS</strong>: published guidance on using LMS for AWS Nitro and Graviton firmware paths.</li>
+</ul>
+<h3 id="code-signing">Code signing</h3>
+<ul>
+<li><strong>Microsoft Authenticode</strong>: PQ extensions under discussion include LMS as an option.</li>
+<li><strong>Sigstore</strong>: SLH-DSA more likely than LMS because of the stateless property.</li>
+</ul>
+<h3 id="government">Government</h3>
+<ul>
+<li><strong>Germany / BSI</strong>: lists XMSS and LMS in its TR-02102-1 catalog for narrow applications.</li>
+</ul>
+<h2 id="comparison-with-stateless-slh-dsa">Comparison with stateless SLH-DSA</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>XMSS / LMS (stateful)</th>
+<th>SLH-DSA (stateless)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signature size (Cat 1)</td>
+<td>~2 KB</td>
+<td>~7.8 KB</td>
+</tr>
+<tr>
+<td>Public key</td>
+<td>32-64 B</td>
+<td>32 B</td>
+</tr>
+<tr>
+<td>Signing capacity</td>
+<td>Fixed by tree height</td>
+<td>Effectively unbounded</td>
+</tr>
+<tr>
+<td>Signing operational risk</td>
+<td>High (state corruption)</td>
+<td>None (stateless)</td>
+</tr>
+<tr>
+<td>Sign speed</td>
+<td>Fast (single hash chain)</td>
+<td>Slow-medium</td>
+</tr>
+<tr>
+<td>Verify speed</td>
+<td>Fast</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>NIST status</td>
+<td>SP 800-208 (narrow scope)</td>
+<td>FIPS 205 (general)</td>
+</tr>
+<tr>
+<td>Cryptographic assumption</td>
+<td>Hash one-wayness</td>
+<td>Hash one-wayness</td>
+</tr>
+</tbody>
+</table></div>
+<p>The cryptographic assumption is the same. The difference is purely operational. If the signing environment is locked down, XMSS / LMS give you 4x smaller signatures. If not, use SLH-DSA.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Hash-only assumption (same conservative footing as SLH-DSA).</li>
+<li>Signatures 4-5x smaller than SLH-DSA.</li>
+<li>Fast signing and verification.</li>
+<li>Standardized via stable RFCs (8391, 8554) and NIST SP 800-208.</li>
+<li>Well-suited to controlled signing pipelines.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Stateful. State corruption is catastrophic.</li>
+<li>Capacity is bounded by tree height.</li>
+<li>Operational complexity (counter persistence, backup discipline).</li>
+<li>NIST-approved use requires the hardware and state-management controls in SP 800-208.</li>
+<li>Not suitable for end-user signing (phones, laptops, browsers).</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State rollback (reuse leaf)</td>
+<td>HSM with anti-rollback hardware; fsync discipline</td>
+</tr>
+<tr>
+<td>Two signers sharing state</td>
+<td>Disjoint sub-tree allocation</td>
+</tr>
+<tr>
+<td>Backup/restore brings back used state</td>
+<td>"Don't restore signing state from backup; regenerate keys" policy</td>
+</tr>
+<tr>
+<td>Hash function break</td>
+<td>Migrate hash family (parameter sets allow SHA-256, SHA-512, SHAKE)</td>
+</tr>
+<tr>
+<td>Fault injection during traversal</td>
+<td>Recompute-and-compare</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="when-to-pick-xmss-or-lms">When to pick XMSS or LMS</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>You have</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Locked-down release pipeline, want smallest signatures</td>
+<td>LMS or XMSS</td>
+</tr>
+<tr>
+<td>HSM with anti-rollback, signing rare events</td>
+<td>LMS or XMSS</td>
+</tr>
+<tr>
+<td>Distributed signing environment, can't centralize state</td>
+<td>SLH-DSA</td>
+</tr>
+<tr>
+<td>End-user devices signing</td>
+<td>SLH-DSA or ML-DSA</td>
+</tr>
+<tr>
+<td>Already using XMSS in standards (e.g., ETSI quantum-safe certificate profiles)</td>
+<td>XMSS</td>
+</tr>
+<tr>
+<td>Existing deployment requires LMS</td>
+<td>LMS</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8391.html" rel="noopener nofollow">RFC 8391: XMSS</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8554.html" rel="noopener nofollow">RFC 8554: Leighton-Micali Hash-Based Signatures</a></li>
+<li><a href="https://csrc.nist.gov/pubs/sp/800/208/final" rel="noopener nofollow">NIST SP 800-208: Stateful Hash-Based Signature Schemes</a></li>
+<li><a href="https://eprint.iacr.org/2011/484" rel="noopener nofollow">XMSS - A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions</a></li>
+<li><a href="https://patents.google.com/patent/US5432852A/en" rel="noopener nofollow">Leighton and Micali: hash-based signature patent</a></li>
+<li><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-208.pdf" rel="noopener nofollow">NIST SP 800-208: full recommendation</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/slh-dsa/">
+  <span class="nm">SLH-DSA (FIPS 205)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Stateful%20Hash-Based%20Signatures%20%28XMSS%2C%20LMS%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The narrow-but-bulletproof PQ signature option: smaller than SLH-DSA, hash-only assumption, but you must track the signed-index. Reusing an index breaks the scheme. NIST SP 800-208 (October 2020) requires tightly controlled state management and hardware cryptographic modules.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Post-Quantum Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

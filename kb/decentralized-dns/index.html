@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized DNS and Sovereign Naming — ungovernable.tech</title>
+<meta name="description" content="Naming without ICANN, registrars or certificate authorities: blockchain registries, key-rooted names and overlay names compared by how sovereign they are.">
+<link rel="canonical" href="https://ungovernable.tech/kb/decentralized-dns/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized DNS and Sovereign Naming — ungovernable.tech">
+<meta property="og:description" content="Naming without ICANN, registrars or certificate authorities: blockchain registries, key-rooted names and overlay names compared by how sovereign they are.">
+<meta property="og:url" content="https://ungovernable.tech/kb/decentralized-dns/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized DNS and Sovereign Naming — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized DNS and Sovereign Naming — ungovernable.tech">
+<meta name="twitter:description" content="Naming without ICANN, registrars or certificate authorities: blockchain registries, key-rooted names and overlay names compared by how sovereign they are.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Decentralized DNS and Sovereign Naming", "description": "Naming without ICANN, registrars or certificate authorities: blockchain registries, key-rooted names and overlay names compared by how sovereign they are.", "dateModified": "2026-10-25", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/decentralized-dns/", "mainEntityOfPage": "https://ungovernable.tech/kb/decentralized-dns/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized DNS and Sovereign Naming", "item": "https://ungovernable.tech/kb/decentralized-dns/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Decentralized DNS and Sovereign Naming</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Decentralized DNS and Sovereign Naming</h1>
+  <p class="aka">Also dDNS, Alternative DNS.</p>
+  <p class="dek">Naming systems that don&#39;t depend on ICANN, a TLD registrar, or a CA. Seizure, sanctions, and content-based takedowns flow through exactly those three places.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>15</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-it-matters">Why it matters</a><a href="#historical-context">Historical context</a><a href="#approaches">Approaches</a><a href="#how-this-composes-with-confidential-inference">How this composes with confidential inference</a><a href="#mesh-and-off-grid-naming">Mesh and off-grid naming</a><a href="#cautionary-case-study-unstoppable-domains">Cautionary case study — Unstoppable Domains</a><a href="#summary">Summary</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-it-matters">Why it matters</h2>
+<p>The DNS + X.509 stack has five choke points: root zone operators, TLD registries, registrars, recursive resolvers, and CAs. Any of them can be compelled or compromised to remove, redirect, or observe traffic on a domain. Encrypted transports like DoH and DoT change who can snoop but don't change who controls the names.</p>
+<h3 id="seizures-and-takedowns">Seizures and takedowns</h3>
+<p>Some recent examples:</p>
+<ul>
+<li>2023: ICANN's handling of the .ONION renewal disrupted privacy tooling.</li>
+<li>2022-2024: Russian authorities seized .RU domains in bulk.</li>
+<li>2024: sanctions-driven seizures hit several crypto projects.</li>
+<li>Ongoing: content-based takedowns through UDRP, URS, and court orders.</li>
+</ul>
+<p>The structural issue is that legacy DNS ties a name to a registrar's database row, and that row can be modified, deleted, or transferred without the holder's consent.</p>
+<h2 id="historical-context">Historical context</h2>
+<h3 id="early-work-1990s-2010">Early work (1990s-2010)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Development</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1991</td>
+<td>PGP web of trust</td>
+<td>First decentralized identity (keys, not names)</td>
+</tr>
+<tr>
+<td>1997</td>
+<td>DNSSEC (RFC 2065)</td>
+<td>Authenticated DNS records — didn't solve governance</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>OpenPGP (RFC 2440)</td>
+<td>Formalized key signing</td>
+</tr>
+<tr>
+<td>2011</td>
+<td>Namecoin</td>
+<td>First functional blockchain DNS, merged-mined with Bitcoin</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>ENS launched</td>
+<td>Ethereum-based naming</td>
+</tr>
+<tr>
+<td>2018</td>
+<td>Handshake (HNS)</td>
+<td>Public testnet — proposes replacing the root zone</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="recent-activity-2020-2026">Recent activity (2020-2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Development</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020</td>
+<td>ENS v2 planning</td>
+<td>Layer 2 plans, gas optimization</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>PKARR / Pubky</td>
+<td>DHT-based naming on existing P2P infrastructure</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>GNS RFC 9498</td>
+<td>GNS standardized</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>ENS gas reductions</td>
+<td>Lower registration cost after L1 throughput improvements</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>GNUnet 0.26.0</td>
+<td>GNS implementation; GNUnet remains early alpha</td>
+</tr>
+<tr>
+<td>Aug 2025</td>
+<td>Handshake soft fork</td>
+<td>Airdrop claims ended; HNS supply cut ~56% (2.04B → 889M); bullish for miners and investors</td>
+</tr>
+<tr>
+<td>Feb 2026</td>
+<td>ENS stays on L1</td>
+<td>Nick Johnson abandons Namechain L2, focuses on L1 scaling</td>
+</tr>
+<tr>
+<td>Mar 2026</td>
+<td>GNUnet 0.27.0</td>
+<td>GNS improved; new major release</td>
+</tr>
+<tr>
+<td>May 11 2026</td>
+<td>ENSv2 App + Explorer Alpha</td>
+<td>ENS App and ENS Explorer deployed on Sepolia testnet for community testing</td>
+</tr>
+<tr>
+<td>May 19 2026</td>
+<td>ENSv2 Role-Based Permissions</td>
+<td>Launched — granular per-role access control for .eth names, replacing single-owner model for team/corp deployments; supports separate wallets for record updates, resolver management, and administrative settings</td>
+</tr>
+<tr>
+<td>May 2026</td>
+<td>ENS contracts update</td>
+<td><code>ICompositeResolver.requiresOffchain()</code> removal (#541) and <code>_toResponseArray()</code> multicall safety (#543) merged May 19</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>pkdns matures</td>
+<td>Production DNS server for PKARR resolution</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>Pubky Core active</td>
+<td>SDKs (Rust/JS/Swift/Kotlin), semantic social graph, homeserver discovery; pubky-core update to pkarr 6.0.1; JS SDK grant auth feature landed May 29; pubky-nexus API input validation landed May 28</td>
+</tr>
+<tr>
+<td>Jan 2026</td>
+<td>Iroh + PKARR integration</td>
+<td>FOSDEM 2026 presentation; Iroh uses PKARR as one endpoint-ID discovery mechanism alongside DNS, mDNS, and Mainline DHT; establishes peer connections via QUIC with address-agnostic endpoint IDs</td>
+</tr>
+<tr>
+<td>Mar–Apr 2026</td>
+<td>DNNS announced</td>
+<td>Lithosphere introduced DNNS (Decentralized Naming System), an on-chain programmable identity/routing layer for Web4; on-chain routing announced April 2026</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>ENS ICANN engagement</td>
+<td>D3 Protocol partnership, .brand gTLD application under consideration (ICANN 84)</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>Nomen tracked as experimental</td>
+<td>Bitcoin + Nostr naming model documented; low current activity</td>
+</tr>
+<tr>
+<td>May 2026</td>
+<td>cdnsd updated</td>
+<td>blinklabs-io/cdnsd Docker dependency updates landed May 31</td>
+</tr>
+<tr>
+<td>Jun 1 2026</td>
+<td>ViaBTC HNS pool closes</td>
+<td>ViaBTC discontinued HNS mining pool — pool represented ~half of network hashrate; price impact immediate; community views as opportunity for decentralization</td>
+</tr>
+<tr>
+<td>Jun 2 2026</td>
+<td>Namebase fully winds down</td>
+<td>Namebase fully shut down operations; user coins and names returned; formerly the dominant Handshake registrar/marketplace</td>
+</tr>
+<tr>
+<td>Jun 2026</td>
+<td>Handshake 2nd halving approaching</td>
+<td>Estimated ~July 22 2026 (block 340,000); block reward drops from 2000 HNS → 1000 HNS</td>
+</tr>
+<tr>
+<td>Jun 2026</td>
+<td>ENS Turkey adoption</td>
+<td>Republic of Türkiye Directorate of Communications registered cbiletisim.eth as official decentralized identity for AI/blockchain initiative</td>
+</tr>
+<tr>
+<td>Jun 2026</td>
+<td>Nostr WoT matures</td>
+<td>Browser extension (Chrome Web Store), JS SDK (npm), WoT Oracle (Rust indexer), NIP-85 Trusted Assertions support; Dandelion Labs + MappingBitcoin backing</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="approaches">Approaches</h2>
+<h3 id="1-blockchain-anchored-names">1. Blockchain-anchored names</h3>
+<p>These systems store ownership records on a chain and use the chain as the source of truth.</p>
+<h4 id="ens-ethereum-name-service">ENS (Ethereum Name Service)</h4>
+<p><code>.eth</code> names registered on Ethereum, used as wallet addresses, IPFS content hashes, and DIDs.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry</td>
+<td>Ethereum smart contract</td>
+</tr>
+<tr>
+<td>TLD</td>
+<td>.eth only</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>~$5-50/year (gas fluctuates)</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>ENS contracts → resolver → records</td>
+</tr>
+<tr>
+<td>Resolver</td>
+<td>PublicResolver, CCIP-read for off-chain</td>
+</tr>
+<tr>
+<td>Governance</td>
+<td>DAO + multi-sig</td>
+</tr>
+</tbody>
+</table></div>
+<p>2025-2026 changes:</p>
+<ul>
+<li>Gas costs dropped after Ethereum throughput improvements; ENS registrations got materially cheaper.</li>
+<li>ENSv2 (Feb 2026): Nick Johnson announced ENS would stay on L1 instead of launching the planned Namechain L2.</li>
+<li>CCIP-read (EIP-3668) is the standard pattern for cheap off-chain subname issuance.</li>
+</ul>
+<p>Resources:</p>
+<ul>
+<li><a href="https://docs.ens.domains" rel="noopener nofollow">docs.ens.domains</a></li>
+<li><a href="https://ens.domains" rel="noopener nofollow">ens.domains</a></li>
+</ul>
+<h4 id="handshake-hns">Handshake (HNS)</h4>
+<p>Replaces the DNS root zone with a blockchain. You can own your own TLD.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry</td>
+<td>Handshake blockchain</td>
+</tr>
+<tr>
+<td>TLD</td>
+<td>Any (you own your own root)</td>
+</tr>
+<tr>
+<td>Registration and renewal</td>
+<td>Auction followed by periodic renewal transactions; names expire without renewal</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>Handshake resolvers</td>
+</tr>
+<tr>
+<td>Mining</td>
+<td>PoW-style mining</td>
+</tr>
+<tr>
+<td>Governance</td>
+<td>Permissionless</td>
+</tr>
+</tbody>
+</table></div>
+<p>Status (2026):</p>
+<ul>
+<li>Active but small.</li>
+<li>Second halving expected mid-2026 (block 340,000; tracker estimates range late April to late July depending on hashrate).</li>
+<li>Resolver work continues (HSD, hnsd).</li>
+<li>Mainstream adoption is minimal.</li>
+</ul>
+<p>Resources:</p>
+<ul>
+<li><a href="https://handshake.org" rel="noopener nofollow">handshake.org</a></li>
+<li><a href="https://github.com/handshake-org/hnsd" rel="noopener nofollow">HNSd resolver</a></li>
+</ul>
+<h4 id="namecoin">Namecoin</h4>
+<p>The original blockchain DNS (2011). Still running, with a small user base.</p>
+<ul>
+<li>Oldest blockchain naming system.</li>
+<li>.bit TLD.</li>
+<li>Merged-mined with Bitcoin.</li>
+<li>Tiny ecosystem, longest track record.</li>
+</ul>
+<h4 id="unstoppable-domains">Unstoppable Domains</h4>
+<p>A centralized company that sells blockchain names. Lock-in concerns apply.</p>
+<ul>
+<li>Sells .crypto, .wallet, etc.</li>
+<li>The company can freeze or transfer names.</li>
+<li>Not actually decentralized despite the marketing.</li>
+</ul>
+<h4 id="nomen">Nomen</h4>
+<p><a href="/kb/nomen/">Nomen</a> is an experimental Bitcoin + Nostr naming protocol. Bitcoin supplies global ordering for first-claim-wins human-readable names; Nostr transports signed record updates from the owner key.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry</td>
+<td>Bitcoin transaction ordering</td>
+</tr>
+<tr>
+<td>Records</td>
+<td>Nostr kind <code>38300</code> events</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Bitcoin tx fee for claim; Nostr updates cheap</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>Indexer / name server materializes Bitcoin + Nostr state</td>
+</tr>
+<tr>
+<td>Governance</td>
+<td>Protocol rules, no new chain</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Experimental; low GitHub activity since 2023</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nomen's design is valuable because it composes existing censorship-resistant systems instead of launching another chain. Its weakness is distribution: no mainstream client support, tiny repo footprint, and reliance on indexers. See <a href="/kb/nomen/">Nomen</a>.</p>
+<h4 id="cardano-dns">Cardano DNS</h4>
+<p><a href="/kb/cardano-dns/">Cardano DNS</a> is a Blink Labs / Gimbalabs effort to build a Handshake + Cardano DNS marketplace. Handshake anchors top-level-domain authority; Cardano native assets and smart contracts represent second-level domains and DNS record updates; <code>cdnsd</code> indexes chain state and serves DNS answers.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLD authority</td>
+<td>Handshake</td>
+</tr>
+<tr>
+<td>SLD / marketplace layer</td>
+<td>Cardano native assets + Plutus contracts</td>
+</tr>
+<tr>
+<td>Resolver</td>
+<td><code>blinklabs-io/cdnsd</code> Go DNS daemon</td>
+</tr>
+<tr>
+<td>Profiles</td>
+<td><code>cardano</code>, <code>ada</code>, <code>hydra</code>, auto-discovery preprod profiles</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Experimental but active; <code>cdnsd</code> pushed May 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cardano DNS is more complex than <a href="/kb/ens/">ENS</a> or <a href="/kb/pkarr/">PKARR</a>, but useful where the product is a sovereign second-level-domain marketplace rather than merely service discovery. See <a href="/kb/cardano-dns/">Cardano DNS</a>.</p>
+<h3 id="2-public-key-addressed-names">2. Public-key-addressed names</h3>
+<p>The name <em>is</em> a public key. No blockchain, no registrar, just cryptographic identity.</p>
+<h4 id="pkarr-public-key-addressable-resource-records">PKARR (Public-Key-Addressable Resource Records)</h4>
+<p>Names are Ed25519 public keys. Signed DNS records are published to the BitTorrent Mainline DHT (around 10M nodes) under each key's hash. No blockchain, no registrar, no fees. The primary production stack is <a href="/kb/pubky/">Pubky</a>, which extends PKARR with homeservers, SDKs (Rust, JavaScript, Swift, Kotlin), semantic social graph, and RESTful HTTP APIs. See <a href="/kb/pkarr/">PKARR</a> for the deep dive and <a href="/kb/pubky/">Pubky</a> for the full system.</p>
+<p><strong>Iroh integration (FOSDEM 2026):</strong> Iroh, a library for direct QUIC connections between peers, uses PKARR as one of its endpoint-ID discovery mechanisms alongside DNS, mDNS, and Mainline DHT. This means PKARR-based identities can serve as Iroh endpoint identifiers for peer-to-peer connections — the key's hash resolves to a relay URL and IP address, enabling NAT穿透 and direct connection establishment without address-based identities. See the <a href="https://fosdem.org/2026/schedule/event/T9ACNE-iroh_p2p_connections/" rel="noopener nofollow">FOSDEM 2026 Iroh presentation</a> and <a href="https://www.youtube.com/watch?v=ZL-MxJtTIks" rel="noopener nofollow">Pubky Dev Call #2</a> for the integration details.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry</td>
+<td>Mainline DHT (~10M nodes)</td>
+</tr>
+<tr>
+<td>TLD</td>
+<td>None (key is the name); pkdns bridges via configurable TLD</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Free (DHT storage)</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>pkdns, native PKARR resolvers</td>
+</tr>
+<tr>
+<td>Crypto</td>
+<td>Ed25519 signing</td>
+</tr>
+<tr>
+<td>Governance</td>
+<td>None (protocol only)</td>
+</tr>
+<tr>
+<td>Production stack</td>
+<td><a href="/kb/pubky/">Pubky</a> Core — SDKs, semantic social graph, Pubky.app social, Pubky Ring mobile key manager, Pubky Nexus indexing</td>
+</tr>
+</tbody>
+</table></div>
+<p>Strengths: self-authenticating, free, no chain, no seizure path. Trade-offs: no human-readable names without a layer on top, DHT churn requires periodic republication, lookup observability is low. See <a href="/kb/pkarr/">PKARR</a> for the full threat model and composition patterns.</p>
+<h4 id="nostr-nip-05">Nostr NIP-05</h4>
+<p>Human-readable aliases resolved over HTTPS to a pubkey. Not censorship-resistant alone, but composable.</p>
+<ul>
+<li><code>user@domain.com</code> maps to an npub.</li>
+<li>Uses DNS / HTTPS for resolution.</li>
+<li>Can be served over PKARR for full self-sovereignty.</li>
+</ul>
+<h3 id="3-overlay-and-hidden-naming">3. Overlay and hidden naming</h3>
+<p>Censorship-resistant naming inside separate networks.</p>
+<h4 id="tor-onion">Tor .onion</h4>
+<p>Self-authenticating addresses where the name is the public key. Fully decentralized, with the strongest operator confidentiality.</p>
+<ul>
+<li>v3 names: base32(Ed25519 pubkey ‖ checksum ‖ version), 56 characters.</li>
+<li>v2 (deprecated 2021) used truncated SHA-1 of an RSA-1024 key, 16 characters.</li>
+<li>No registry, no CA. The name verifies the key directly.</li>
+<li>The only seizure path is compromising the private key.</li>
+</ul>
+<p>Trade-off: hidden services only, not general DNS.</p>
+<h4 id="i2p-b32i2p">I2P .b32.i2p</h4>
+<p>Analogous to onion addresses. I2P's naming.</p>
+<ul>
+<li>Base32-encoded destination keys.</li>
+<li>End-to-end encryption is mandatory.</li>
+<li>Less widely deployed than Tor.</li>
+</ul>
+<h4 id="gnunet-gns-gnu-name-system">GNUNet GNS (GNU Name System)</h4>
+<p>Petname-based hierarchical lookup with cryptographic roots.</p>
+<ul>
+<li>RFC 9498 (published 2023).</li>
+<li>Hierarchical like DNS, but with cryptographic delegation.</li>
+<li>Privacy-preserving (minimal metadata).</li>
+<li>Integrated into GNUnet 0.26.0 (Nov 2025).</li>
+</ul>
+<p>Features:</p>
+<ul>
+<li>Petnames: local nicknames for keys.</li>
+<li>Delegation: zone-to-zone control delegation.</li>
+<li>Privacy from the ground up.</li>
+<li>No blockchain. Uses GNUnet's DHT.</li>
+</ul>
+<p>Resources:</p>
+<ul>
+<li><a href="https://www.gnunet.org/en/gns.html" rel="noopener nofollow">GNUnet</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9498" rel="noopener nofollow">RFC 9498</a></li>
+<li><a href="https://nlnet.nl/project/GNS/" rel="noopener nofollow">NLnet GNS project</a></li>
+</ul>
+<h2 id="how-this-composes-with-confidential-inference">How this composes with confidential inference</h2>
+<p>A confidential LLM endpoint whose domain can be seized isn't actually uncensorable. Pair attested TLS (key pinned inside the enclave) with a decentralized name — <code>.eth</code>, <code>.onion</code>, or PKARR — and the only way to take the service down is to shut down the underlying TEE nodes. Attestation public key plus a pubkey-addressed name yields a self-authenticating endpoint with no CA, no registry, and no DNS to seize.</p>
+<h3 id="stack-comparison">Stack comparison</h3>
+<p>|| Component | Traditional | Decentralized |
+|-----------|-------------|---------------|
+|| Domain | registrar.com | .eth / .onion / pkarr |
+|| TLS cert | Let's Encrypt / DigiCert | Attested TEE (inside enclave) |
+|| Resolution | ICANN → registrar → DNS | Blockchain / DHT / Tor |
+|| Seizure path | Court order to registrar | None (self-hosted key) |</p>
+<h2 id="mesh-and-off-grid-naming">Mesh and off-grid naming</h2>
+<p>When the global internet is not reachable, the naming model has to change. Two production systems address this directly:</p>
+<ul>
+<li><strong>Yggdrasil</strong> — encrypted IPv6 overlay where every node has a stable, key-derived address in <code>200::/8</code> or <code>300::/8</code>. The address is the key. No DNS, no registrar, no chain. v0.5.12 (Dec 2024) is the current reference.</li>
+<li><strong>cjdns</strong> — the older cousin, with addresses in <code>fc00::/8</code>, routed by Kademlia DHT, with the CryptoAuth header that prevents IP spoofing. Maintenance-mode but still powers Hyperboria.</li>
+</ul>
+<p>At the application layer, <strong>Briar</strong> shows the most extreme case: there is no global namespace at all. The "address book" is built from out-of-band contact exchange (QR codes, Bluetooth, Wi-Fi), and each contact's display name is local. Transports fall back through Tor, then pluggable transports, then Bluetooth and Wi-Fi.</p>
+<p>The architectural pattern is the same one <a href="/kb/pkarr/">PKARR</a> and <a href="/kb/onion-and-i2p-naming/">Overlay Naming - Tor .onion and I2P</a> use: name = key = address. What mesh adds is <strong>transport independence</strong>: the addressing layer doesn't care whether the underlying network is fiber, mesh radio, Bluetooth, or nothing. See <a href="/kb/mesh-naming/">Mesh &amp; Off-Grid Naming</a> for the full deep-dive.</p>
+<h2 id="cautionary-case-study-unstoppable-domains">Cautionary case study — Unstoppable Domains</h2>
+<p>The taxonomy of decentralized naming is incomplete without naming what <em>isn't</em> decentralized. <strong>Unstoppable Domains</strong> (UD) sells blockchain-anchored names (<code>.crypto</code>, <code>.wallet</code>, <code>.nft</code>, <code>.x</code>, <code>.bitcoin</code>, …) on Polygon and other chains. ~4.6M+ names are registered. The names are tokens in a wallet, which feels decentralized. But UD is a company with a website, a resolver, and an ICANN accreditation.</p>
+<p>In <strong>September 2025</strong>, a patent application filed by UD in February 2024 was published: "Deactivation of decentralized domains." The patent describes a wallet-vote-based takedown mechanism, with anti-abuse design (wallet age, reliability scores, time windows) but explicit takedown path that exists outside the chain.</p>
+<p>UD is also ICANN-accredited — the only Web3 naming company with both a Web3 chain-anchored product <em>and</em> the traditional registrar credential. This means UD is bound by UDRP, court orders, and ICANN contractual obligations, like any other accredited registrar.</p>
+<p>The lesson for an Ungovernable.tech stack: <strong>blockchain-anchored ownership is not the same as decentralized governance.</strong> True decentralized naming has no off-chain operator that can take the name down. ENS, Handshake, Namecoin, GNS, PKARR, Nomen, Tor, I2P, and Yggdrasil all satisfy this. UD does not. See <a href="/kb/unstoppable-domains/">Unstoppable Domains</a> for the full case study.</p>
+<h2 id="summary">Summary</h2>
+<p>|| System | Type | TLD | Governance | Maturity | Status |
+|--------|------|-----|------------|----------|--------|
+|| <a href="/kb/ens/">ENS</a> | Blockchain | .eth | DAO | Mature | Active, ENSv2 in progress (Role-Based Permissions live May 19 2026, Sepolia alpha testing) |
+|| <a href="/kb/handshake/">Handshake</a> | Blockchain | Any | Permissionless | Niche | Active but strained; ViaBTC HNS pool closed Jun 1 (was ~50% hashrate); Namebase wound down Jun 2; 2nd halving ~Jul 22 2026 (2000→1000 HNS); resolver work continues; ecosystem shifting to smaller pools + self-hosted tools (BobWallet, ShakeDex) |
+|| <a href="/kb/namecoin/">Namecoin</a> | Blockchain | .bit | Permissionless | Legacy-active | Namecoin Core nc31.1 (Jul 2026, tracks Bitcoin Core 31.x); ncp11 + ncdns + ncgencert end-to-end stack; FOSDEM 2026 + 39C3 talks |
+|| <a href="/kb/pkarr/">PKARR</a> / <a href="/kb/pubky/">Pubky</a> | DHT | Custom | None | Emerging | Active dev, Pubky Core suite (2025-26), Pubky Nexus pushed 2026-05-31 |
+|| Tor v3 <code>.onion</code> | Overlay | .onion | None | Mature | Stable; v2 fully retired 2021-12-15 |
+|| I2P <code>.b32.i2p</code> | Overlay | .b32.i2p | None | Mature | Stable; PQ migration in progress (Proposal 169) |
+|| <a href="/kb/gnu-name-system/">GNS</a> | DHT | Custom | None | Experimental | RFC 9498, GNUnet 0.27.0 (Mar 2026) |
+|| <a href="/kb/nomen/">Nomen</a> | Bitcoin + Nostr | Custom | Protocol only | Experimental | Low activity, useful design pattern |
+|| <a href="/kb/cardano-dns/">Cardano DNS</a> | Handshake + Cardano | HNS-backed TLDs | Contract / marketplace rules | Experimental | Active <code>cdnsd</code>, Catalyst funded |
+|| <a href="/kb/dnns/">DNNS</a> | Lithosphere L1 | Programmable | On-chain governance | Announced | No public repo yet |
+|| <a href="/kb/slashtags/">Slashtags</a> | Hyperswarm DHT | Custom | None | Historical | Superseded by Pubky Core; design pattern lives on |
+|| <a href="/kb/mesh-naming/">Mesh &amp; Off-Grid Naming</a> (Yggdrasil) | Encrypted IPv6 overlay | 200::/8 / 300::/8 (IPv6) | None | Experimental | v0.5.12 Dec 2024; embedded Go library |
+|| <a href="/kb/mesh-naming/">Mesh &amp; Off-Grid Naming</a> (cjdns) | DHT-routed IPv6 overlay | fc00::/8 (IPv6) | None | Maintenance-mode | Hyperboria community; cryptoAuth |
+|| <a href="/kb/mesh-naming/">Mesh &amp; Off-Grid Naming</a> (Briar) | Local petname + transport fallback | Local petname | None | Mature | Briar 1.5.17 Mar 2026; Desktop 0.6.0-beta 2026 |
+|| <a href="/kb/unstoppable-domains/">Unstoppable Domains</a> | Blockchain + company | .crypto, .wallet, .x, .bitcoin, … | Company + ICANN | Cautionary | 4.6M+ names; takedown patent filed 2024, published 2025 |</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>Evidence item</th>
+<th>Source</th>
+<th>What it supports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pubky/pkarr</code> — 412 stars, Rust, pushed 2026-05-29; 1 commit post-May 25</td>
+<td>GitHub API, 2026-06-01</td>
+<td>PKARR remains actively maintained; pkarr 6.0.1 integrated into pubky-core</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pkdns</code> — 191 stars, 25 releases, pushed 2026-03-23</td>
+<td>GitHub API</td>
+<td>DNS bridge for PKARR is production-shaped, not only a library</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pubky-core</code> — 77 stars, pushed 2026-05-29; JS SDK grant auth landed</td>
+<td>GitHub API, 2026-06-01</td>
+<td>Pubky Core production launch; Rust/JS/Swift/Kotlin SDKs; semantic social graph; pubky.app social</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pubky-ring</code> — 10 stars, pushed 2026-05-29; Android/iOS fixes</td>
+<td>GitHub API, 2026-06-01</td>
+<td>iOS/Android key management for Pubky identity</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pubky-nexus</code> — 19 stars, pushed 2026-05-31; API input validation landed</td>
+<td>GitHub API, 2026-06-01</td>
+<td>Social graph indexing for Pubky apps; staging + production APIs</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pubky-app</code> — 22 stars, pushed 2026-05-31</td>
+<td>GitHub API, 2026-06-01</td>
+<td>Pubky.app social PWA</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pubky/pkarr</code> relay split — HTTP and DHT rate limiting merged May 29</td>
+<td>GitHub commit <code>c25227d6</code></td>
+<td>New relay architecture separating HTTP and DHT transport; better DoS resistance</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ensdomains/ens-contracts</code> — 721 stars, pushed 2026-05-19; #541 and #543 merged May 19</td>
+<td>GitHub API, 2026-06-01</td>
+<td>ENS core contracts actively maintained; ENSv2 development progressing</td>
+<td></td>
+</tr>
+<tr>
+<td><code>handshake-org/hnsd</code> — 307 stars, pushed 2026-03-21</td>
+<td>GitHub API</td>
+<td>Handshake SPV resolver remains active despite niche adoption</td>
+<td></td>
+</tr>
+<tr>
+<td><code>blinklabs-io/cdnsd</code> — 11 stars, pushed 2026-05-31; Docker action updates</td>
+<td>GitHub API, 2026-06-01</td>
+<td>Cardano DNS resolver is early but actively maintained</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ursuscamp/nomen</code> — 18 stars, last pushed 2023-11-26</td>
+<td>GitHub API</td>
+<td>Nomen is experimental and currently low-activity</td>
+<td></td>
+</tr>
+<tr>
+<td>ENSv2 Role-Based Permissions launched May 19 2026</td>
+<td>ENS blog, 2026-05-19</td>
+<td>Per-role access control replacing single-owner model for organizational use</td>
+<td></td>
+</tr>
+<tr>
+<td>ENS App + Explorer Alpha on Sepolia</td>
+<td>ENS blog, 2026-05-11</td>
+<td>ENSv2 protocol rewrite in community testing phase</td>
+<td></td>
+</tr>
+<tr>
+<td>DNNS announced March–April 2026</td>
+<td>Globe and Mail / Newsfile Corp press releases</td>
+<td>On-chain programmable naming for Web4; no public repo confirmed</td>
+<td></td>
+</tr>
+<tr>
+<td>RFC 9498 published Nov 2023</td>
+<td>RFC Editor</td>
+<td>GNS has a formal protocol specification, though informational / non-IETF-consensus</td>
+<td></td>
+</tr>
+<tr>
+<td>ViaBTC HNS pool closed Jun 1 2026</td>
+<td>ViaBTC support article, SkyInclude Jun 2026 report</td>
+<td>ViaBTC discontinuation removed ~50% of HNS hashrate; price impact confirmed; indicates centralization risk in niche chains</td>
+<td></td>
+</tr>
+<tr>
+<td>Namebase fully wound down Jun 2 2026</td>
+<td>Namebase / X announcement @NamebaseHQ</td>
+<td>Dominant Handshake registrar/marketplace closed; coins + names returned to users; community migrating to BobWallet, ShakeDex</td>
+<td></td>
+</tr>
+<tr>
+<td>Handshake 2nd halving ~Jul 22 2026</td>
+<td>altcoinsbox.com halving countdown, NiceHash</td>
+<td>Block 340,000; reward 2000→1000 HNS; in-flight ecosystem stress due to Jun 2026 service disruptions</td>
+<td></td>
+</tr>
+<tr>
+<td>ENS Turkey cbiletisim.eth adoption Jun 2026</td>
+<td>ENS X @ensdomains</td>
+<td>Republic of Türkiye Directorate of Communications uses ENS for official decentralized identity; institutional adoption signal</td>
+<td></td>
+</tr>
+<tr>
+<td>Nostr WoT extension 2026</td>
+<td>Chrome Web Store, GitHub nostr-wot</td>
+<td>Browser extension, JS SDK (npm), Rust Oracle; NIP-85 Trusted Assertions; Dandelion Labs + MappingBitcoin backing</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/kb/namecoin/">Namecoin</a> Core 28.0 released Dec 15 2024; <strong>nc31.1 Jul 13 2026</strong> (Bitcoin Core 31.1 base)</td>
+<td>namecoin.org, GitHub</td>
+<td>2024-12-15 / 2026-07-13</td>
+<td>Continuous upstream rebases; codebase current through Bitcoin Core 31.x</td>
+</tr>
+<tr>
+<td><a href="/kb/namecoin/">Namecoin</a> FOSDEM 2026 + 39C3 Dec 2025</td>
+<td>namecoin.org front page 2026-01-26</td>
+<td>Active community presence at major conferences; 15 years of operation</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ncp11</code> PKCS#11 module code-quality improvements May 2025</td>
+<td>namecoin.org blog 2025-05-13</td>
+<td>The path that makes <code>.bit</code> HTTPS work in stock Firefox/Chrome is actively maintained</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ncgencert</code> rename Sep 20 2025</td>
+<td>namecoin.org blog 2025-09-20</td>
+<td>Renamed from <code>generate_nmc_cert</code>; current tool for <code>.bit</code> TLS server setup</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Encasha</code> off-chain SSHFP records Sep 27 2025</td>
+<td>namecoin.org blog 2025-09-27</td>
+<td>Extends Encaya (server-side name lookup) with off-chain SSHFP</td>
+<td></td>
+</tr>
+<tr>
+<td>Windows 11 CryptoAPI AIA URL limit investigation Sep 7 2025</td>
+<td>namecoin.org blog 2025-09-07</td>
+<td>Investigates edge case in the AIA+PKCS#11 path that lets <code>.bit</code> work in stock browsers</td>
+<td></td>
+</tr>
+<tr>
+<td>"<a href="/kb/unstoppable-domains/">Unstoppable Domains</a> 'Deactivation of decentralized domains' patent filed Feb 2024, published Aug 2025</td>
+<td>Domain Name Wire, Sept 2 2025</td>
+<td>Major Web3 domain company files patent for takedown mechanism; explicit contradiction of "unstoppable" branding</td>
+<td></td>
+</tr>
+<tr>
+<td>Oxford Info Labs + AFNIC blockchain domains study</td>
+<td>oxil.uk 2025 mapping report</td>
+<td>31 blockchain domain providers studied; only Freename and Unstoppable Domains are ICANN-accredited; blockchain domains = 0.5% of total DNS in Q4 2023</td>
+<td></td>
+</tr>
+<tr>
+<td>Yggdrasil <code>yggdrasil-go</code> v0.5.12 (Dec 18 2024)</td>
+<td>pkg.go.dev deps.dev 2025-11-30</td>
+<td>Reference Go implementation current; embedded Go library released 2024</td>
+<td></td>
+</tr>
+<tr>
+<td>Briar 1.5.17 (Mar 12 2026), Briar Desktop 0.6.0-beta (2026)</td>
+<td>briarproject.org front page</td>
+<td>Active Briar development; Bluetooth/Wi-Fi/Tor transport stack</td>
+<td></td>
+</tr>
+<tr>
+<td>Slashtags → Pubky Core transition</td>
+<td>slashtags.to redirects to Pubky Core; UD synonyms</td>
+<td>Slashtags is formally superseded; PKARR is the modern primitive</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="whats-good">What's good</h3>
+<ul>
+<li>No seizure risk: the name is the key, not a database row.</li>
+<li>No renewal fees on PKARR, Tor, or I2P. One-time key generation.</li>
+<li>Self-authenticating: the name proves ownership cryptographically.</li>
+<li>Censorship-resistant: no central record to remove.</li>
+<li>Composable with TEEs, FHE, and MPC.</li>
+</ul>
+<h3 id="whats-hard">What's hard</h3>
+<ul>
+<li>Usability. Users need resolvers, extensions, or bridges.</li>
+<li>Search isolation. Search indexes don't cover these spaces.</li>
+<li>Phishing. Homoglyph and typo attacks are easier in new namespaces.</li>
+<li>Blockchain costs. ENS needs ETH, HNS needs HNS, gas varies.</li>
+<li>Root governance varies. Handshake is permissionless; ENS root has multi-sig governance.</li>
+<li>Key management. Lose the key, lose the name (especially with PKARR).</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Affected systems</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key compromise</td>
+<td>PKARR, Tor, I2P</td>
+<td>Key splitting, threshold sigs</td>
+</tr>
+<tr>
+<td>Registrar coercion</td>
+<td>ENS (partial)</td>
+<td>Smart contract upgrades</td>
+</tr>
+<tr>
+<td>51% attack</td>
+<td>ENS, Handshake</td>
+<td>PoS/PoW security</td>
+</tr>
+<tr>
+<td>DHT poisoning</td>
+<td>PKARR</td>
+<td>Signed records, multiple sources</td>
+</tr>
+<tr>
+<td>Front-running</td>
+<td>ENS auctions</td>
+<td>Commit-reveal schemes</td>
+</tr>
+<tr>
+<td>DNS hijacking</td>
+<td>Traditional resolvers</td>
+<td>DNSSEC, DANE</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js" rel="noopener nofollow">hsd mainnet renewal window</a></li>
+<li>
+<p><a href="https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js" rel="noopener nofollow">hsd name-expiry rule</a></p>
+</li>
+<li>
+<p><a href="https://www.gnunet.org/en/about.html" rel="noopener nofollow">GNUnet software status</a></p>
+</li>
+<li>
+<p><a href="https://yggdrasil-network.github.io/" rel="noopener nofollow">Yggdrasil project status</a></p>
+</li>
+</ul>
+<h3 id="documentation-and-specs">Documentation and specs</h3>
+<ul>
+<li>ENS docs — <code>docs.ens.domains</code></li>
+<li>Handshake — <code>handshake.org</code></li>
+<li>PKARR — <code>github.com/pubky/pkarr</code></li>
+<li>pkdns — <code>github.com/pubky/pkdns</code></li>
+<li>GNS RFC 9498 — <code>rfceditor.org/rfc/rfc9498</code></li>
+<li>Tor Rendezvous Specification v3 — <code>spec.torproject.org</code></li>
+</ul>
+<h3 id="repositories">Repositories</h3>
+<ul>
+<li><a href="https://github.com/pubky/pkarr" rel="noopener nofollow">pubky/pkarr</a></li>
+<li><a href="https://github.com/pubky/pkdns" rel="noopener nofollow">pubky/pkdns</a></li>
+<li><a href="https://github.com/pubky/pubky-core" rel="noopener nofollow">pubky/pubky-core</a> — SDKs, homeserver, semantic social graph</li>
+<li><a href="https://github.com/pubky/pubky-ring" rel="noopener nofollow">pubky/pubky-ring</a> — mobile key manager</li>
+<li><a href="https://github.com/pubky/pubky-nexus" rel="noopener nofollow">pubky/pubky-nexus</a> — social graph indexing</li>
+<li><a href="https://github.com/pubky/pubky-app" rel="noopener nofollow">pubky/pubky-app</a> — Pubky.app social PWA</li>
+<li><a href="https://github.com/handshake-org/hnsd" rel="noopener nofollow">handshake-org/hnsd</a></li>
+<li><a href="https://github.com/namecoin/namecoin" rel="noopener nofollow">namecoin/namecoin</a></li>
+<li><a href="https://github.com/ursuscamp/nomen" rel="noopener nofollow">ursuscamp/nomen</a></li>
+<li><a href="https://github.com/ursuscamp/noms" rel="noopener nofollow">ursuscamp/noms</a></li>
+<li><a href="https://github.com/blinklabs-io/cardano-dns" rel="noopener nofollow">blinklabs-io/cardano-dns</a></li>
+<li><a href="https://github.com/blinklabs-io/cdnsd" rel="noopener nofollow">blinklabs-io/cdnsd</a></li>
+</ul>
+<h3 id="research">Research</h3>
+<ul>
+<li>Chor et al., <em>Private Information Retrieval</em>, JACM 1998.</li>
+<li>GNUnet, <em>The GNU Name System</em> (RFC 9498, 2023).</li>
+</ul>
+<p>For renewal, resolution and key-recovery decisions, see <a href="/kb/compare-naming-systems/">naming systems compared</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cardano-dns/">
+  <span class="nm">Cardano DNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/ens/">
+  <span class="nm">Ethereum Name Service (ENS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/onion-and-i2p-naming/">
+  <span class="nm">Overlay Naming: Tor .onion and I2P</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/mesh-naming/">
+  <span class="nm">Naming on Mesh and Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/unstoppable-domains/">
+  <span class="nm">Unstoppable Domains</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a><a class="row" href="/kb/handshake/">
+  <span class="nm">Handshake</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/namecoin/">
+  <span class="nm">Namecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/gnu-name-system/">
+  <span class="nm">GNU Name System (GNS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/dnns/">
+  <span class="nm">DNNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Decentralized%20DNS%20and%20Sovereign%20Naming" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Naming systems that don&#39;t depend on ICANN, a TLD registrar, or a CA. Seizure, sanctions, and content-based takedowns flow through exactly those three places.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>24</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

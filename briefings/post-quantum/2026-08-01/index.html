@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — August 01 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-01: ML-DSA in TLS crosses the standards threshold.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-08-01/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — August 01 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-01: ML-DSA in TLS crosses the standards threshold.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-08-01/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — August 01 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — August 01 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-01: ML-DSA in TLS crosses the standards threshold.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — August 01 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-01: ML-DSA in TLS crosses the standards threshold.", "datePublished": "2026-08-01", "dateModified": "2026-08-01", "url": "https://ungovernable.tech/briefings/post-quantum/2026-08-01/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-08-01/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-01", "item": "https://ungovernable.tech/briefings/post-quantum/2026-08-01/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-08-01</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — August 01 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-01</b></span>
+    <span><b>12</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-01 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-01. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ol>
+<li><strong>ML-DSA in TLS crosses the standards threshold.</strong> At IETF 126 (Vienna, July 20–24, 2026), the TLS WG confirmed that <code>draft-ietf-tls-mlkem</code> (ML-KEM key exchange for TLS 1.3) is in <strong>IESG processing</strong> — the final editorial/approval stage before RFC publication. The companion <code>draft-ietf-tls-mldsa</code> (ML-DSA authentication for TLS) is an <strong>active WG draft</strong>. A hybrid ML-DSA certificate standard (composite signatures, LAMPS WG) reached <strong>WG Last Call in March 2026</strong>, targeting RFC Q4 2026. Cloudflare's timeline says: first ML-DSA certificates in WebPKI by <strong>early 2027</strong>. The era of pure-PQ TLS authentication is approaching.</li>
+<li><strong>Merkle Tree Certificates (MTCs) emerge as the Web PKI answer.</strong> Let's Encrypt (June 2026) committed to MTCs as its path to post-quantum web authentication — staging late 2026, production 2027. Chrome identified MTCs as its preferred approach. The IETF PLANTS WG has the draft in WG Last Call. This sidesteps the 5–100× signature-size explosion of putting ML-DSA directly into X.509. See the new deep-dive: <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</li>
+<li><strong>CISA publishes PQC Product Categories (July 23, 2026).</strong> CISA released its categorization of technologies by PQC readiness: "widely available" (cloud, browsers, chat — procure PQC-only now) vs. "transitioning" (networking hardware, HSMs, IdPs, email, databases — migrating). This operationalizes EO 14412's procurement requirements and creates a de facto vendor checklist.</li>
+<li><strong>Cloudflare's "ML-DSA will have to do" manifesto.</strong> Cloudflare published a detailed argument that despite ML-DSA's downsides (2.4–4.6 KB signatures vs. 64 bytes for Ed25519), better PQ signature algorithms won't be ready in time. ML-DSA is the only game in town for the first migration. The post includes a comprehensive comparison table of all NIST signature candidates with exact sizes and performance.</li>
+<li><strong>GRI Quantum Threat Timeline 2025 published.</strong> The Global Risk Institute / evolutionQ annual expert survey puts the probability of a CRQC within 10 years at <strong>28–49%</strong> (highest in the survey's history) and within 15 years at <strong>51–70%</strong>. This is the survey cited in EO 14412's rationale.</li>
+</ol>
+<p><em>Freedom-tech implication: the standards train has left the station. ML-KEM key exchange in TLS is essentially done (IESG processing). The authentication migration (ML-DSA certificates, MTCs) is the 2026–2028 frontier. Decentralized identity systems (Nostr, ENS, DIDs) should be planning their PQ signature migration now — the tooling (OpenSSL 3.5+, Go 1.27 <code>crypto/mlkem</code>, liboqs 0.16.0) is production-ready.</em></p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-ietf-126-vienna-july-2024-2026-pqc-tls-standardization-status">1. IETF 126 (Vienna, July 20–24, 2026) — PQC TLS Standardization Status</h3>
+<p>The IETF 126 meeting in Vienna featured multiple PQC-related sessions across TLS, LAMPS, PLANTS, and MAPRG working groups. The standardization status as of July 2026:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Draft</th>
+<th>WG</th>
+<th>Status (July 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ML-KEM key establishment for TLS 1.3</td>
+<td><code>draft-ietf-tls-mlkem</code></td>
+<td>TLS</td>
+<td><strong>IESG Processing</strong> (final stage before RFC)</td>
+</tr>
+<tr>
+<td>ML-DSA authentication for TLS</td>
+<td><code>draft-ietf-tls-mldsa</code></td>
+<td>TLS</td>
+<td>Active WG Draft</td>
+</tr>
+<tr>
+<td>Composite ML-DSA signatures (X.509)</td>
+<td><code>draft-ietf-lamps-pq-composite-sigs</code></td>
+<td>LAMPS</td>
+<td><strong>WG Last Call</strong> (March 2026; RFC target Q4 2026)</td>
+</tr>
+<tr>
+<td>PQ/T Hybrid Dual Certificates</td>
+<td><code>draft-yusef-tls-pqt-dual-certs</code></td>
+<td>TLS (individual)</td>
+<td>Active I-D (updated July 3, 2026)</td>
+</tr>
+<tr>
+<td>Merkle Tree Certificates</td>
+<td><code>draft-ietf-plants-merkle-tree-certs</code></td>
+<td>PLANTS</td>
+<td><strong>WG Last Call</strong></td>
+</tr>
+<tr>
+<td>PQC Recommendations for TLS Apps</td>
+<td><code>draft-ietf-uta-pqc-app</code></td>
+<td>UTA</td>
+<td>Active I-D (expires Aug 2026)</td>
+</tr>
+<tr>
+<td>PQC for Engineers</td>
+<td>RFC 9958 (June 2026)</td>
+<td>PQUIP</td>
+<td><strong>Published RFC</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key takeaway</strong>: ML-KEM in TLS 1.3 (<code>draft-ietf-tls-mlkem</code>) is essentially done — IESG processing is the final editorial and approval step before it becomes an RFC. This means the hybrid X25519MLKEM768 key exchange already deployed by Chrome, Cloudflare, AWS, and Apple will have a formal RFC behind it imminently. The harder problem — ML-DSA authentication — is in active WG draft stage, with RFC expected August 2026 per Cloudflare's timeline.</p>
+<p><strong>The composite signatures approach</strong> (<code>draft-ietf-lamps-pq-composite-sigs</code>, Ounsworth et al., Entrust) defines how to combine a classical signature (ECDSA P-256) with an ML-DSA signature into a single X.509 certificate. A composite ML-DSA-65 + ECDSA-P256-SHA512 signature is ~3,380 bytes. LAMPS reached WG Last Call in March 2026, targeting RFC Q4 2026. This is the standardization path for hybrid PQ/T certificates in enterprise PKI.</p>
+<p><strong>Sources</strong>: IETF 126 Datatracker, <code>datatracker.ietf.org/meeting/126/</code>; LAMPS composite sigs draft, <code>lamps-wg.github.io/draft-composite-sigs/</code>; TLS ML-DSA draft status, Cloudflare blog.</p>
+<h3 id="2-merkle-tree-certificates-the-web-pki-pq-authentication-breakthrough">2. Merkle Tree Certificates — The Web PKI PQ Authentication Breakthrough</h3>
+<p><strong>This is the most significant new development in PQ web authentication since the NIST standards were finalized.</strong> See the dedicated deep dive: <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>.</p>
+<p><strong>The problem</strong>: Putting ML-DSA directly into X.509 certificates creates a size explosion. An ML-DSA-65 signature is 3,309 bytes vs. ~72 bytes for ECDSA P-256. A full certificate chain (root → intermediate → leaf) with ML-DSA signatures adds ~10 KB to every TLS handshake. On constrained or high-latency links, this is problematic.</p>
+<p><strong>The MTC solution</strong>: Instead of signing each certificate individually, a CA batches many certificates into a Merkle tree and signs only the root. A client proves its certificate belongs to the signed tree using a short inclusion proof (logarithmic in batch size). This dramatically reduces the per-certificate signature overhead while maintaining post-quantum security (the root signature uses ML-DSA, but there's only one per batch of thousands).</p>
+<p><strong>Milestones</strong>:
+- <strong>Let's Encrypt</strong> (June 3, 2026): Committed to MTCs as its PQ Web PKI path. Staging late 2026, production 2027. Free, automated, available via ACME — no change to the user experience.
+- <strong>Chrome</strong> identified MTCs as its preferred approach for PQ certificates on the public web.
+- <strong>Cloudflare</strong> and Chrome are testing MTCs on live internet traffic.
+- <strong>IETF PLANTS WG</strong> has <code>draft-ietf-plants-merkle-tree-certs</code> in WG Last Call.</p>
+<p><strong>Enterprise concern</strong> (raised at IETF 126 MAPRG): Can relying parties still access Subject DN, SAN, EKU, Certificate Policies, Name Constraints, and enterprise-specific extensions? What happens with CDNs and proxies when browsers do MTC but enterprise servers use plain certs? These are open questions the PLANTS WG must resolve.</p>
+<p><strong>Relevance to ungovernable systems</strong>: MTCs represent a fundamental rethink of how web authentication works — moving from individual signatures to batch-verified inclusion proofs. This is architecturally aligned with decentralized identity thinking: a Merkle root is a compact commitment to a set of identities, verifiable without trusting each individual assertion. The technology could apply beyond Web PKI to any system that needs to prove membership in a trusted set (Nostr relay allow-lists, ENS subdomain batches, mesh network node registries).</p>
+<h3 id="3-cisa-pqc-product-categories-july-23-2026">3. CISA PQC Product Categories (July 23, 2026)</h3>
+<p>CISA published its <strong>Product Categories for Technologies That Use Post-Quantum Cryptography Standards</strong> on July 23, 2026 — the operational companion to Executive Order 14412. This is the document vendors and procurement officers will use to determine what "PQC-ready" means for different product classes.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>"Widely Available" PQC (Procure PQC-only)</th>
+<th>"Transitioning" PQC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud platforms (IaaS, PaaS)</td>
+<td>Networking hardware (routers, firewalls, switches)</td>
+</tr>
+<tr>
+<td>Web browsers and servers</td>
+<td>Identity/access management (HSMs, CAs, IdPs)</td>
+</tr>
+<tr>
+<td>Chat and messaging software</td>
+<td>Email servers and clients</td>
+</tr>
+<tr>
+<td>Endpoint security (full disk encryption)</td>
+<td>Database systems</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The implication</strong>: CISA classifies cloud platforms, browsers, and messaging as categories where PQC is "widely available" — meaning federal procurement should demand PQC-only products now. Networking hardware, HSMs, and email are "transitioning" — PQC support exists but isn't ubiquitous. This creates direct vendor pressure: if you sell to the US government (directly or through the supply chain), your product category determines your PQC timeline.</p>
+<p><strong>Freedom-tech relevance</strong>: Decentralized messaging (Nostr, Signal, SimpleX) and cloud-adjacent services are in the "widely available" category. Mesh networking hardware falls under "transitioning." Open-source projects that want government-adjacent adoption should track these categories.</p>
+<h3 id="4-cloudflare-ml-dsa-will-have-to-do-july-2026">4. Cloudflare: "ML-DSA Will Have to Do" (July 2026)</h3>
+<p>Cloudflare published a detailed analysis by Bas Westerbaan and Christopher Patton arguing that despite ML-DSA's downsides, the first PQ migration must use it — better algorithms won't be ready in time.</p>
+<p><strong>The argument</strong>:
+- ML-DSA-44 signature: 2,420 bytes (vs. 64 bytes for Ed25519 — 38× larger)
+- ML-DSA-65 signature: 3,309 bytes
+- ML-DSA-87 signature: 4,627 bytes
+- SLH-DSA-128s: 7,856 bytes (123× Ed25519); SLH-DSA-128f: 17,088 bytes</p>
+<p><strong>Why alternatives aren't ready</strong>:
+- <strong>FN-DSA (Falcon)</strong>: 666-byte signatures, but hard to implement side-channel secure; FIPS 206 still in IPD.
+- <strong>SQIsign</strong>: 148-byte signatures (beats RSA-2048!), but extremely slow signing and complex; Round 3 candidate, years from standardization.
+- <strong>UOV</strong>: 96-byte signatures, but 66 KB public keys; niche use only.
+- <strong>HAWK</strong>: 555-byte signatures, promising, but Round 3 candidate.
+- <strong>MAYO, SNOVA, FAEST, SDitH, MQOM</strong>: All Round 3 candidates; none production-ready.</p>
+<p><strong>Cloudflare's ML-DSA deployment timeline</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>October 2025</td>
+<td>ML-DSA certificate standard (RFC 9881)</td>
+</tr>
+<tr>
+<td>April 2025</td>
+<td>OpenSSL 3.5.0 adds ML-DSA support</td>
+</tr>
+<tr>
+<td>August 2025</td>
+<td>Debian Trixie ships OpenSSL 3.5.0</td>
+</tr>
+<tr>
+<td>December 2025</td>
+<td>TLS IANA codepoint for ML-DSA registered</td>
+</tr>
+<tr>
+<td>March 2026</td>
+<td>First CMVP certificates for ML-DSA module</td>
+</tr>
+<tr>
+<td><strong>July 2026 (expected)</strong></td>
+<td><strong>Hybrid ML-DSA certificate standard</strong></td>
+</tr>
+<tr>
+<td><strong>August 2026 (expected)</strong></td>
+<td><strong>RFC for use of ML-DSA in TLS</strong></td>
+</tr>
+<tr>
+<td>Early 2027 (expected)</td>
+<td>First ML-DSA certificates in WebPKI</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The core thesis</strong>: "ML-DSA is available today, and it will have to do for the first migration." Waiting for better signature schemes (SQIsign, HAWK, etc.) means ceding years of harvest-now-decrypt-later exposure. The pragmatic path is: deploy ML-DSA now, plan for algorithm agility, and migrate to better schemes when they're standardized (~2028–2030).</p>
+<h3 id="5-global-risk-institute-quantum-threat-timeline-2025">5. Global Risk Institute Quantum Threat Timeline 2025</h3>
+<p>The seventh annual Quantum Threat Timeline Report (GRI / evolutionQ, published April 2026, survey dated March 9, 2026) surveyed 26 international experts. Key findings:</p>
+<ul>
+<li><strong>CRQC within 10 years</strong>: 28–49% probability (highest in the survey's history, up from prior years)</li>
+<li><strong>CRQC within 15 years</strong>: 51–70% probability</li>
+<li><strong>CRQC within 5 years</strong>: low but non-negligible</li>
+</ul>
+<p>Google’s 25 March 2026 announcement sets a 2029 migration target; it does not date Q-Day or cite this survey. The report's authors are Dr. Michele Mosca (evolutionQ CEO, University of Waterloo) and Dr. Marco Piani.</p>
+<p><strong>Context</strong>: The 28–49% range reflects genuine expert uncertainty — the lower bound assumes significant engineering obstacles remain; the upper bound assumes current progress rates continue. Either way, the probability is high enough that the "harvest now, decrypt later" threat is operationally real for any data with a secrecy horizon beyond ~2030.</p>
+<h3 id="6-policy-timeline-eo-14412-milestones-hitting-now">6. Policy Timeline: EO 14412 Milestones Hitting Now</h3>
+<p>Executive Order 14412 (June 22, 2026) sets in motion a cascade of deadlines. The <strong>July 2026 milestone has already passed</strong> — each federal agency head was required to identify a PQC migration lead and report their name to OMB and the National Cyber Director.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~~July 2026~~</td>
+<td>✅ Each federal agency identifies a PQC migration lead</td>
+</tr>
+<tr>
+<td><strong>September 2026</strong></td>
+<td>OMB issues guidance: agencies must review HVA inventory, plan PQC migration, submit plan</td>
+</tr>
+<tr>
+<td>September 21, 2026</td>
+<td>FIPS 140-2 certificates move to Historical status — only FIPS 140-3 modules for new procurement</td>
+</tr>
+<tr>
+<td>December 31, 2027</td>
+<td>NIST PQC migration pilot project completed</td>
+</tr>
+<tr>
+<td>December 31, 2030</td>
+<td>HVAs transitioned to PQC for <strong>key establishment</strong>; federal contractors must comply with FIPS PQC</td>
+</tr>
+<tr>
+<td>December 31, 2031</td>
+<td>HVAs transitioned to PQC for <strong>digital signatures (authentication)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>The <strong>September 2026 OMB guidance</strong> is the next critical milestone — it will define what "transition" means, potentially requiring that quantum-vulnerable algorithms be fully disabled (not just that PQ is "supported"). Cloudflare specifically warned about the <strong>downgrade attack</strong> risk: a system that supports ML-KEM but still allows classical-only TLS is vulnerable if an attacker can force a downgrade.</p>
+<p><strong>The FIPS 140-2 sunset</strong> (September 21, 2026) is a separate but related pressure point. After this date, only FIPS 140-3 validated modules may be used for new federal procurement. Since PQ algorithm implementations must be FIPS 140-3 validated for federal use, this constrains the migration timeline: vendors without FIPS 140-3 modules are locked out.</p>
+<h3 id="7-g7-cyber-expert-group-pqc-coordination-january-2026">7. G7 Cyber Expert Group PQC Coordination (January 2026)</h3>
+<p>On January 13, 2026, the G7 Cyber Expert Group issued a statement on advancing a coordinated roadmap for the transition to post-quantum cryptography. This establishes PQC migration as a coordinated multilateral priority among G7 nations, complementing:</p>
+<ul>
+<li><strong>US</strong>: EO 14412 (2030 key establishment / 2031 signatures)</li>
+<li><strong>EU</strong>: Coordinated PQC Transition Roadmap (critical infrastructure by end 2030)</li>
+<li><strong>France (ANSSI)</strong>: Certification mandate from 2027; quantum-safe products only by 2030</li>
+<li><strong>Canada</strong>: Federal PQC roadmap — every department must have a migration plan by April 2026, high-priority transitions by end 2031</li>
+<li><strong>Germany (BSI)</strong>: Full migration by 2030; hybrid deployment during transition</li>
+<li><strong>UK (NCSC)</strong>: "Start planning now" for long-lived data protection systems</li>
+</ul>
+<h3 id="8-implementation-ecosystem-update">8. Implementation Ecosystem Update</h3>
+<ul>
+<li><strong>Go 1.27</strong>: Adds ML-DSA to the standard library (<code>crypto/mldsa</code>), following Go 1.24's <code>crypto/mlkem</code>. This is significant — Go's standard library is the backbone of cloud-native infrastructure (Kubernetes, Terraform, Docker, Consul). ML-DSA in stdlib means Go-based systems can generate and verify PQ signatures without external dependencies.</li>
+<li><strong>liboqs 0.16.0</strong> (July 9, 2026): Remains the canonical C reference library. Full FIPS-aligned ML-KEM, ML-DSA, SLH-DSA. SPHINCS+ (the pre-standardization name) removed in favor of SLH-DSA (FIPS 205). No new release since July 9; ecosystem bindings (oqs-provider for OpenSSL, Rust/Go/Python) continue maturing.</li>
+<li><strong>OpenSSL 3.5+ / 4.0</strong>: Native ML-KEM, ML-DSA, SLH-DSA support. OpenSSL 4.0.0 (April 14, 2026) added FIPS 140-3 module and <code>curveSM2MLKEM768</code> hybrid. The reference platform for self-hosted PQ infrastructure.</li>
+<li><strong>pyca/cryptography</strong>: Tracking PQC support (issue #14690, April 2026). OpenSSL 3.5 shipped PQ support in March 2026; pyca is working on exposing it through the Python API.</li>
+</ul>
+<h3 id="9-signature-placement-in-pq-tls-eprint-2026666">9. Signature Placement in PQ TLS (ePrint 2026/666)</h3>
+<p>José Luis Delgado's paper <em>Signature Placement in Post-Quantum TLS Certificate Hierarchies</em> (ePrint 2026/666, April 2026, revised May 2026) provides the first systematic experimental study of where to place ML-DSA and SLH-DSA signatures in a TLS 1.3 certificate chain.</p>
+<p><strong>Key finding</strong>: Signature placement in the hierarchy (root vs. intermediate vs. leaf) dramatically affects handshake size and latency. A leaf-only ML-DSA deployment (classical root/intermediate, PQ leaf) minimizes disruption but leaves the chain partially quantum-vulnerable. A full-chain PQ deployment (ML-DSA at all levels) adds ~10 KB to the handshake. The paper provides concrete measurements for deployment planning.</p>
+<h3 id="10-research-community-upcoming-conferences-august-2026">10. Research Community: Upcoming Conferences (August 2026)</h3>
+<ul>
+<li><strong>Workshop on Algebraic Methods in Post-Quantum Cryptography (AM-PQC 2026)</strong>: Ohrid, Macedonia, August 10–14, 2026. Focus on algebraic structure in lattice-based and code-based cryptosystems — directly relevant to the security of ML-KEM and ML-DSA.</li>
+<li><strong>Crypto 2026</strong>: Santa Barbara, August 15–19, 2026. The flagship IACR cryptology conference. Expect new cryptanalysis results that could affect PQ parameter choices.</li>
+<li><strong>Mathematics of Post-Quantum Cryptography</strong>: Raitenhaslach, Germany, September 7–11, 2026.</li>
+</ul>
+<p>These conferences are where the next wave of lattice cryptanalysis results will surface — potentially tightening or loosening the security estimates for ML-KEM and ML-DSA parameters.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Status (Aug 2026)</th>
+<th>Key Driver</th>
+<th>Freedom-Tech Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM in TLS</strong></td>
+<td>RFC imminent (IESG processing)</td>
+<td>IETF TLS WG</td>
+<td>✅ Deploy now (hybrid X25519MLKEM768)</td>
+</tr>
+<tr>
+<td><strong>ML-DSA in TLS</strong></td>
+<td>Active WG draft; RFC expected Aug 2026</td>
+<td>IETF TLS WG + Cloudflare</td>
+<td>Plan for PQ cert migration</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA certs</strong></td>
+<td>WG Last Call (LAMPS); RFC Q4 2026</td>
+<td>Entrust, LAMPS WG</td>
+<td>Enterprise PKI migration path</td>
+</tr>
+<tr>
+<td><strong>Merkle Tree Certificates</strong></td>
+<td>WG Last Call (PLANTS); Let's Encrypt staging late 2026</td>
+<td>Let's Encrypt, Chrome, Cloudflare</td>
+<td>Watch closely — PQ Web PKI revolution</td>
+</tr>
+<tr>
+<td><strong>CISA Product Categories</strong></td>
+<td>Published July 23, 2026</td>
+<td>EO 14412 procurement mandate</td>
+<td>Vendor readiness checklist</td>
+</tr>
+<tr>
+<td><strong>GRI Threat Survey</strong></td>
+<td>28–49% CRQC in 10 years (record high)</td>
+<td>Expert consensus</td>
+<td>Forcing function for all PQ work</td>
+</tr>
+<tr>
+<td><strong>EO 14412 milestones</strong></td>
+<td>July 2026 lead identification ✅; Sept 2026 OMB guidance next</td>
+<td>White House</td>
+<td>Regulatory pressure cascading to supply chain</td>
+</tr>
+<tr>
+<td><strong>G7 coordination</strong></td>
+<td>Statement January 2026</td>
+<td>G7 Cyber Expert Group</td>
+<td>Global alignment on 2030 deadlines</td>
+</tr>
+<tr>
+<td><strong>liboqs 0.16.0</strong></td>
+<td>Stable since July 9</td>
+<td>PQCA / Linux Foundation</td>
+<td>Core dependency — use for all new integrations</td>
+</tr>
+<tr>
+<td><strong>Go 1.27</strong></td>
+<td>ML-DSA in stdlib</td>
+<td>Google</td>
+<td>Cloud-native PQ signatures without external deps</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="pq-signature-size-reference-from-cloudflares-july-2026-analysis">PQ Signature Size Reference (from Cloudflare's July 2026 Analysis)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>PK (bytes)</th>
+<th>Sig (bytes)</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ed25519</td>
+<td>32</td>
+<td>64</td>
+<td>❌ Classical</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>RSA-2048</td>
+<td>272</td>
+<td>256</td>
+<td>❌ Classical</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>ML-DSA 44</strong></td>
+<td>1,312</td>
+<td>2,420</td>
+<td>✅ FIPS 204</td>
+<td>Primary migration target</td>
+</tr>
+<tr>
+<td><strong>ML-DSA 65</strong></td>
+<td>1,952</td>
+<td>3,309</td>
+<td>✅ FIPS 204</td>
+<td>General-purpose balance</td>
+</tr>
+<tr>
+<td><strong>ML-DSA 87</strong></td>
+<td>2,592</td>
+<td>4,627</td>
+<td>✅ FIPS 204</td>
+<td>Highest security</td>
+</tr>
+<tr>
+<td>SLH-DSA 128s</td>
+<td>32</td>
+<td>7,856</td>
+<td>✅ FIPS 205</td>
+<td>Conservative; slow signing</td>
+</tr>
+<tr>
+<td>SLH-DSA 128f</td>
+<td>32</td>
+<td>17,088</td>
+<td>✅ FIPS 205</td>
+<td>Faster signing; huge sigs</td>
+</tr>
+<tr>
+<td>FN-DSA 512</td>
+<td>897</td>
+<td>666</td>
+<td>📝 FIPS 206 IPD</td>
+<td>Small sigs; side-channel hard</td>
+</tr>
+<tr>
+<td>HAWK 512</td>
+<td>1,024</td>
+<td>555</td>
+<td>🤔 Round 3</td>
+<td>Promising lattice alt</td>
+</tr>
+<tr>
+<td>SQIsign I</td>
+<td>65</td>
+<td>148</td>
+<td>🤔 Round 3</td>
+<td>Smallest PQ sig; very slow</td>
+</tr>
+<tr>
+<td>UOV Is-pkc</td>
+<td>66,576</td>
+<td>96</td>
+<td>🤔 Round 3</td>
+<td>Tiny sigs; huge keys</td>
+</tr>
+<tr>
+<td>MAYO one</td>
+<td>1,420</td>
+<td>454</td>
+<td>🤔 Round 3</td>
+<td>Multivariate; competitive</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://blog.google/innovation-and-ai/technology/safety-security/cryptography-migration-timeline/" rel="noopener nofollow">Google’s 2029 PQC migration target</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/post-quantum/2026-07-25/"><span class="label">Previous</span><span class="pn-t">Post-Quantum Saturday — July 25 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <a href="/briefings/post-quantum/2026-08-08/"><span class="label">Next</span><span class="pn-t">Post-Quantum Saturday — August 08 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

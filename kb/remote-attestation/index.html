@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Remote Attestation Architecture — ungovernable.tech</title>
+<meta name="description" content="Remote attestation lets you verify which code is running on which hardware before trusting it with secrets. The architecture, standards and pitfalls.">
+<link rel="canonical" href="https://ungovernable.tech/kb/remote-attestation/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Remote Attestation Architecture — ungovernable.tech">
+<meta property="og:description" content="Remote attestation lets you verify which code is running on which hardware before trusting it with secrets. The architecture, standards and pitfalls.">
+<meta property="og:url" content="https://ungovernable.tech/kb/remote-attestation/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Remote Attestation Architecture — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Remote Attestation Architecture — ungovernable.tech">
+<meta name="twitter:description" content="Remote attestation lets you verify which code is running on which hardware before trusting it with secrets. The architecture, standards and pitfalls.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Remote Attestation Architecture", "description": "Remote attestation lets you verify which code is running on which hardware before trusting it with secrets. The architecture, standards and pitfalls.", "dateModified": "2026-10-25", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/remote-attestation/", "mainEntityOfPage": "https://ungovernable.tech/kb/remote-attestation/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "Remote Attestation Architecture", "item": "https://ungovernable.tech/kb/remote-attestation/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">Remote Attestation Architecture</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>Remote Attestation Architecture</h1>
+  <p class="aka">Also Remote Attestation, TEE Attestation, RATS.</p>
+  <p class="dek">Without attestation, a TEE is just a more expensive way to run the same trusted-operator model. Attestation is what makes &#34;encrypted memory&#34; useful to a remote party.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-attestation-actually-proves">What attestation actually proves</a><a href="#the-rats-model-ietf-rfc-9334">The RATS model (IETF RFC 9334)</a><a href="#per-platform-mechanisms">Per-platform mechanisms</a><a href="#collateral-and-freshness">Collateral and freshness</a><a href="#verifier-services">Verifier services</a><a href="#patterns-for-relying-parties">Patterns for relying parties</a><a href="#common-mistakes">Common mistakes</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-attestation-actually-proves">What attestation actually proves</h2>
+<p>A valid attestation quote proves, to a remote party, all of the following — and nothing more:</p>
+<ol>
+<li>Evidence provenance. Verify the signing and endorsement chain required by the platform; attestation signing keys are not universally per-device secrets burned in at manufacture.</li>
+<li>TCB version. The microcode, firmware, and security-version-number (SVN) at the moment the quote was generated.</li>
+<li>Measurement. A hash over the exact code and initial memory state running inside the TEE (MRENCLAVE for SGX, MRTD + RTMR for TDX, measurement for SEV-SNP, GSP firmware hash for NVIDIA).</li>
+<li>Runtime data. A platform-specific field can bind evidence to a nonce or session public key. Its size and meaning depend on the attestation format.</li>
+</ol>
+<p>It does not prove that the code is bug-free, that the operator is honest, that the TCB is unexploited, that the code hash corresponds to readable source, that data stays confidential later, or that the quote was generated recently (without a nonce).</p>
+<h2 id="the-rats-model-ietf-rfc-9334">The RATS model (IETF RFC 9334)</h2>
+<p>The IETF's Remote ATtestation procedureS architecture provides the vocabulary:</p>
+<pre><code> ┌────────────┐  evidence   ┌──────────────┐
+ │  Attester  │────────────▶│   Verifier   │
+ │  (TEE)     │             │ (trusts CA)  │
+ └────────────┘             └──────┬───────┘
+                                   │ attestation result
+                                   ▼
+                            ┌──────────────┐
+                            │ Relying Party│
+                            └──────────────┘
+</code></pre>
+<ul>
+<li>Attester: the TEE producing the quote (the thing being trusted).</li>
+<li>Evidence: the raw signed quote plus collateral.</li>
+<li>Verifier: the service that knows CA chains, CRLs, reference values, and decides pass or fail. It returns an attestation result, typically a JWT or EAT.</li>
+<li>Relying party: the client deciding "do I trust this endpoint with my prompt?" It trusts the verifier, not the attester directly.</li>
+</ul>
+<p>The split matters because relying parties such as browsers and mobile apps cannot reasonably ship Intel, AMD, and NVIDIA root certificates and revocation logic. They delegate that to a verifier they trust.</p>
+<p>Deployment styles:
+- Passport model: attester sends evidence to the verifier, gets back an attestation result (token), and forwards it to the relying party on every session.
+- Background-check model: relying party takes the evidence and queries the verifier itself.
+- Direct: relying party is the verifier (high assurance, uncommon in consumer apps).</p>
+<h2 id="per-platform-mechanisms">Per-platform mechanisms</h2>
+<h3 id="intel-sgx-dcap-ecdsa">Intel SGX (DCAP / ECDSA)</h3>
+<ul>
+<li>Enclave produces an EREPORT (local, unsigned).</li>
+<li>Quoting Enclave produces a QUOTE: an ECDSA P-256 signature over the REPORT plus platform TCB, signed with a PCK (Platform Certification Key) whose cert chain is rooted at Intel.</li>
+<li>Verifier fetches PCK certs and TCB info from Intel's Provisioning Certification Service (PCS).</li>
+<li>DCAP (Data Center Attestation Primitives) replaces the older EPID-based model and is offline-verifiable against cached collateral.</li>
+</ul>
+<p>Legacy EPID is deprecated for data centers; it is still relevant for client-SGX but mostly irrelevant to confidential inference.</p>
+<h3 id="intel-tdx-quote-generation-service">Intel TDX (Quote Generation Service)</h3>
+<ul>
+<li>A TD quote is the hash of the TD's MRTD (build-time measurement of the initial guest image) plus RTMRs (four runtime-extended measurement registers) plus TCB info, signed by a TD Quoting Enclave using an ECDSA key chained to Intel.</li>
+<li>Verification uses DCAP collateral from Intel PCS, the same trust root as SGX.</li>
+<li>RTMRs let a guest bootloader extend measurements of kernel, initrd, and workload after launch. This is how you measure a running container image rather than only the VM's initial ROM.</li>
+</ul>
+<h3 id="amd-sev-snp-vlek-vcek-id-block">AMD SEV-SNP (VLEK / VCEK + ID-Block)</h3>
+<ul>
+<li>The guest requests an attestation report from the PSP (Platform Security Processor) via <code>MSG_REPORT</code>.</li>
+<li>The report contains the launch digest, image ID, family/model/stepping, TCB version, guest-supplied <code>REPORT_DATA</code>, and a signature from the VCEK (Versioned Chip Endorsement Key) or VLEK (Versioned Loaded Endorsement Key).</li>
+<li>VCEK is rooted in AMD's KDS (Key Distribution Service); VLEK is cloud-issued (AWS, Azure) for operational reasons. Different trust story.</li>
+<li>The ID-Block / ID-Auth-Block lets the guest owner pre-commit to expected policy (debug off, SMT state, minimum ABI version) and bind that to the report.</li>
+</ul>
+<h3 id="nvidia-h100-blackwell-gsp-nras">NVIDIA H100 / Blackwell (GSP + NRAS)</h3>
+<p>See <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a>. The quote is signed by the per-device GSP key, rooted at NVIDIA's factory CA. Verification goes through NVIDIA Remote Attestation Service (NRAS) or a local verifier with pinned collateral.</p>
+<h3 id="apple-private-cloud-compute">Apple Private Cloud Compute</h3>
+<p>Proprietary. Each PCC node's boot measurement is signed and published to a transparency log. The client refuses to connect unless the node's measurement is in the log. Effectively custom RATS with Apple as attester, verifier, and CA. The transparency log plus public build reproducibility make collusion detectable.</p>
+<h3 id="aws-nitro-enclaves">AWS Nitro Enclaves</h3>
+<p>The Nitro Security Module signs an attestation document (COSE_Sign1) containing PCRs (typically 0, 1, 2, 8 = image, kernel, app, signing key). It's verified against AWS's Nitro root cert. Not a TEE in the SGX/SEV sense (no encrypted DRAM); it's a hardware-isolated mini-VM with attested measurement. Threat model: trust AWS silicon plus the Nitro hypervisor.</p>
+<h3 id="arm-cca-rme-rmm">ARM CCA (RME + RMM)</h3>
+<p>The Armv9 Realm Management Extension issues realm attestation tokens (EAT/CBOR, RFC 9711 claims) signed by a realm attestation key rooted in the platform's initial attestation key. Still early; production availability lags Intel and AMD.</p>
+<h2 id="collateral-and-freshness">Collateral and freshness</h2>
+<p>A verifier needs:</p>
+<ol>
+<li>CA / root certificates for each vendor (Intel, AMD, NVIDIA, Apple, AWS, etc.). Pin them.</li>
+<li>TCB info (current security versions). Intel publishes <code>tcbinfo.json</code>, AMD publishes KDS responses. Refresh at least daily.</li>
+<li>CRLs: revocation lists for compromised devices.</li>
+<li>Reference values: the set of acceptable measurements (image hashes). Pipe these from your build system; do not accept "whatever was running."</li>
+<li>Nonce / freshness binding: the quote must commit to a value the relying party generated this session. Without it, replay is trivial.</li>
+</ol>
+<p>Practical rule: treat verifier collateral like a CA bundle. Stale collateral means false positives (accepting vulnerable TCBs) or false negatives (rejecting healthy ones).</p>
+<h2 id="verifier-services">Verifier services</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Scope</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Intel PCS / Tiber Trust Authority</strong></td>
+<td>SGX + TDX</td>
+<td>Intel's own verifier-as-a-service</td>
+</tr>
+<tr>
+<td><strong>AMD KDS</strong></td>
+<td>SEV-SNP</td>
+<td>Raw VCEK / VLEK cert service; you still need a verifier library</td>
+</tr>
+<tr>
+<td><strong>NVIDIA NRAS</strong></td>
+<td>H100 / H200 / Blackwell</td>
+<td>Returns EAT JWT</td>
+</tr>
+<tr>
+<td><strong>Azure Attestation (MAA)</strong></td>
+<td>Multi-platform</td>
+<td>Azure-hosted verifier; returns JWT</td>
+</tr>
+<tr>
+<td><strong>AWS KMS + Nitro attestation</strong></td>
+<td>Nitro Enclaves</td>
+<td>KMS policy can require specific PCR values for key release</td>
+</tr>
+<tr>
+<td><strong>Project Veraison (CCC)</strong></td>
+<td>Multi-platform, open-source</td>
+<td>An open verifier with pluggable platform support.</td>
+</tr>
+<tr>
+<td><strong>Confidential Containers Trustee / KBS</strong></td>
+<td>CoCo</td>
+<td>Attestation-gated secret release for CoCo pods</td>
+</tr>
+<tr>
+<td><strong>Automata, Phala, Oasis on-chain</strong></td>
+<td>Decentralized</td>
+<td>On-chain quote verification; smart contracts enforce TCB minimums</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="patterns-for-relying-parties">Patterns for relying parties</h2>
+<h3 id="key-release-gating-the-common-case">Key release gating (the common case)</h3>
+<p>Client uploads an encrypted model or secret to a KMS. Policy: only release the decryption key to a TEE whose measurement equals X and TCB is at least Y. The enclave requests the key, presents its quote, the KMS verifies, and the key is released. No human operator ever touches the key.</p>
+<p>Implementations: AWS KMS + Nitro attestation conditions, Azure Key Vault Secure Key Release (SKR), GCP Confidential Space key release, CoCo Trustee, HashiCorp Vault plugin for SGX.</p>
+<h3 id="attested-tls">Attested TLS</h3>
+<p>The TEE generates a TLS keypair inside the enclave; the public key's hash goes in <code>REPORT_DATA</code>. The client verifies the quote and pins the public key for the session. Every byte of the TLS session is bound to the attested enclave, so no intermediary can MITM.</p>
+<p>Libraries: RA-TLS (original MSR paper plus Graphene/Gramine implementation), Occlum RA-TLS, Enarx attested TLS, Edgeless MarbleRun.</p>
+<h3 id="attested-transparency-apple-pcc-pattern">Attested transparency (Apple PCC pattern)</h3>
+<p>The builder publishes the exact image and measurement to a signed transparency log (Sigstore / Rekor, Apple's internal log, or on-chain). The client refuses to send data unless the quote's measurement appears in the log within the last N days. This is the strongest model for public services: users do not need to inspect every image, but the image is globally auditable.</p>
+<h3 id="multi-party-quorum">Multi-party quorum</h3>
+<p>Two or more independent TEEs (different vendors, e.g. TDX + SEV-SNP) must both attest before a decision is accepted. Survives a single-vendor CVE. Used in some high-assurance oracle and MPC designs.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li>No nonce. Quote replay turns attestation into theater.</li>
+<li>Accepting any TCB. You must reject below your minimum SVN. Quotes are happily produced by vulnerable silicon.</li>
+<li>Verifying only the CPU quote in a GPU inference stack. The GPU can be swapped or downgraded; see <a href="/kb/nvidia-gpu-tee/">NVIDIA-GPU-TEE</a>.</li>
+<li>Hard-coding a single measurement. Any image update invalidates all clients. Use a signed allowlist or transparency log.</li>
+<li>Trusting the attester to time-stamp freshness. The TEE clock is not trusted; use the client nonce.</li>
+<li>Skipping collateral refresh. Yesterday's TCB info will not flag today's CVE.</li>
+<li>Logging the quote. Quotes contain <code>report_data</code>; if that includes a session key, do not log it.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9334.html" rel="noopener nofollow">RFC 9334: Remote ATtestation procedureS Architecture</a></li>
+<li><a href="https://github.com/intel/SGXDataCenterAttestationPrimitives" rel="noopener nofollow">Intel DCAP reference implementation</a></li>
+<li><a href="https://docs.trustauthority.intel.com/main/articles/articles/ita/concept-tdx-attestation.html" rel="noopener nofollow">Intel TDX attestation</a></li>
+<li><a href="https://github.com/veraison/services" rel="noopener nofollow">Project Veraison verifier</a></li>
+<li><a href="https://confidentialcomputing.io/wp-content/uploads/sites/10/2023/03/Common-Terminology-for-Confidential-Computing.pdf" rel="noopener nofollow">CCC: Common Terminology for Confidential Computing</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/developer/56860.pdf" rel="noopener nofollow">AMD SEV-SNP Firmware ABI Specification</a></li>
+</ul>
+<p>For a concrete SGX verification workflow, see <a href="/guides/verifying-a-confidential-workload/">verifying a confidential workload</a>.</p>
+<p>Continue with <a href="/kb/tee-state-and-revocation/">TEE state, recovery and revocation</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nvidia-gpu-tee/">
+  <span class="nm">NVIDIA GPU TEEs</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/verifying-a-confidential-workload/">
+  <span class="nm">Verifying a confidential workload</span>
+  <span class="ty">Guide</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/tee-state-and-revocation/">
+  <span class="nm">TEE state, recovery and revocation</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/arm-cca/">
+  <span class="nm">Arm Confidential Compute Architecture (CCA)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/bacalhau/">
+  <span class="nm">Bacalhau and Compute-over-Data</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cashu-ecash/">
+  <span class="nm">Cashu and Chaumian Ecash</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-decentralized-compute/">
+  <span class="nm">Compare decentralized compute platforms</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-ai-inference/">
+  <span class="nm">Confidential AI Inference</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-dvm/">
+  <span class="nm">Confidential Data Vending Machines</span>
+  <span class="ty">Research note</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/hardware-supply-chain-trust/">
+  <span class="nm">Hardware and Firmware Supply-Chain Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/map-threat-models/">
+  <span class="nm">Map: Threat Models</span>
+  <span class="ty">Map</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Remote%20Attestation%20Architecture" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Without attestation, a TEE is just a more expensive way to run the same trusted-operator model. Attestation is what makes &#34;encrypted memory&#34; useful to a remote party.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

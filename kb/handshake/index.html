@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Handshake — ungovernable.tech</title>
+<meta name="description" content="Handshake replaces the DNS root zone with a permissionless blockchain auction of top-level domains: how it works, how to resolve names, and its adoption.">
+<link rel="canonical" href="https://ungovernable.tech/kb/handshake/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Handshake — ungovernable.tech">
+<meta property="og:description" content="Handshake replaces the DNS root zone with a permissionless blockchain auction of top-level domains: how it works, how to resolve names, and its adoption.">
+<meta property="og:url" content="https://ungovernable.tech/kb/handshake/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Handshake — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Handshake — ungovernable.tech">
+<meta name="twitter:description" content="Handshake replaces the DNS root zone with a permissionless blockchain auction of top-level domains: how it works, how to resolve names, and its adoption.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Handshake", "description": "Handshake replaces the DNS root zone with a permissionless blockchain auction of top-level domains: how it works, how to resolve names, and its adoption.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/handshake/", "mainEntityOfPage": "https://ungovernable.tech/kb/handshake/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Handshake", "item": "https://ungovernable.tech/kb/handshake/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Handshake</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Handshake</h1>
+  <p class="aka">Also HNS, Handshake Network.</p>
+  <p class="dek">The most ambitious decentralized naming project: replace the DNS root zone itself with a permissionless blockchain. Niche in adoption, distinctive in design, and architecturally relevant beyond its market footprint. As of August 2026: post-halving landscape (block reward halved Jul 22, 1000 HNS/block), Namecheap exited all HNS TLD support (Jun 10), token down 99.8% from ATH ($0.85 → ~$0.002), 62% weekly bounce from ATL on low volume. Community views the halving + infrastructure exits as opportunity for decentralization, but the browser integration gap remains the fundamental barrier.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-position">The position</a><a href="#how-it-works">How it works</a><a href="#mining-and-consensus">Mining and consensus</a><a href="#halving-schedule">Halving schedule</a><a href="#use-cases">Use cases</a><a href="#the-cert-story">The cert story</a><a href="#resolution-and-browser-support">Resolution and browser support</a><a href="#comparison">Comparison</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#operational-patterns">Operational patterns</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-position">The position</h2>
+<p>ENS replaces <em>one TLD</em> (<code>.eth</code>). Handshake replaces <em>the entire root zone</em> — the small set of authoritative servers run by ICANN's root operators that decide which TLDs exist. Anyone can register their own TLD on Handshake; the chain decides which name is canonical.</p>
+<p>This is a structural rather than incremental claim against legacy DNS:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>DNS today</th>
+<th>Handshake</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Root zone</td>
+<td>ICANN's 13 root servers</td>
+<td>Handshake blockchain</td>
+</tr>
+<tr>
+<td>TLD operators</td>
+<td>~1,500 ICANN-approved registries</td>
+<td>Anyone (auction-based)</td>
+</tr>
+<tr>
+<td>TLD list</td>
+<td>gTLDs + ccTLDs as ratified</td>
+<td>Top names by stake/auction</td>
+</tr>
+<tr>
+<td>Censorship vector</td>
+<td>ICANN policy + CA chain</td>
+<td>Handshake consensus</td>
+</tr>
+</tbody>
+</table></div>
+<p>If you accept the premise that ICANN's root and the X.509 CA system are too tightly coupled to government and corporate interests, Handshake is the cleanest architectural answer.</p>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="auction-based-name-acquisition">Auction-based name acquisition</h3>
+<p>To register a TLD, you bid in a Vickrey-style sealed-bid auction:</p>
+<ol>
+<li>Open the auction by sending a small bid (commitment).</li>
+<li>Other participants bid (committed values, hidden).</li>
+<li>Reveal phase: all bids revealed.</li>
+<li>Highest bidder wins; pays the second-highest price.</li>
+<li>The HNS spent is burned, not paid to anyone.</li>
+</ol>
+<p>Effects:</p>
+<ul>
+<li>Truthful bidding is the dominant strategy (Vickrey property).</li>
+<li>Prices reflect demand without enriching a registrar.</li>
+<li>Burn-based monetary supply makes each registration mildly deflationary.</li>
+</ul>
+<h3 id="names">Names</h3>
+<p>Names require renewal. hsd accepts a <code>RENEW</code> covenant and expires a name when the chain height reaches its last renewal height plus the mainnet renewal window: <code>(2 × 365) × blocksPerDay</code>, approximately two years. Ownership is not a permanent registration without renewal.</p>
+<h3 id="resolution">Resolution</h3>
+<p>Handshake doesn't replace recursive DNS resolvers. It replaces the root zone. A Handshake-aware resolver:</p>
+<ol>
+<li>Synchronizes (or queries) the Handshake chain to get current TLD ownership.</li>
+<li>For a query like <code>something.alice/</code>, asks Handshake for <code>alice</code>'s current authoritative nameservers.</li>
+<li>Forwards the query to those nameservers, which return records using normal DNS semantics.</li>
+</ol>
+<p>Resolution implementations:</p>
+<ul>
+<li>hsd (full node) — the reference Handshake daemon.</li>
+<li>hnsd (light client) — SPV-style, queries chain headers.</li>
+<li>HSResolver — recursive DNS server frontend integrating with hnsd.</li>
+</ul>
+<p>A user runs a local Handshake-aware resolver, configures their OS to use it, and Handshake names work alongside legacy ICANN names.</p>
+<h2 id="mining-and-consensus">Mining and consensus</h2>
+<ul>
+<li>Proof of work combines BLAKE2b and SHA3 in hsd’s block-header hash.</li>
+<li>Block time ~10 minutes.</li>
+<li>Halving every 170,000 blocks (~3.25 years at 10-minute blocks).</li>
+<li>Total supply 2.04B HNS, mostly distributed via auction-name burns.</li>
+</ul>
+<p>The chain is small (low transaction throughput, mostly naming operations). Block size and chain growth are bounded.</p>
+<h2 id="halving-schedule">Halving schedule</h2>
+<ul>
+<li>First halving: ~April 2024 (block 170,000).</li>
+<li>Second halving: mid-2026 (block 340,000); tracker estimates range late April to late July depending on hashrate.</li>
+<li>Subsequent halvings: ~3.25 years apart.</li>
+</ul>
+<p>Halvings cut the miner subsidy; auction burns continue to drive deflation.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="self-sovereign-tld-ownership">Self-sovereign TLD ownership</h3>
+<p>If you own <code>.alice</code> on Handshake, no registrar can take it. ICANN doesn't recognize it (which is the point), but every Handshake-aware resolver does.</p>
+<h3 id="brand-or-community-tlds">Brand or community TLDs</h3>
+<p>Companies experimentally own their brand as a TLD (for example <code>.shopify</code>, <code>.nostr</code>) and serve services there.</p>
+<h3 id="decentralized-website-hosting">Decentralized website hosting</h3>
+<p><code>yoursite.alice</code> resolves to your IP via Handshake, served over HTTPS using certificates you control. Combined with self-signed or DANE-style cert binding, you get a full DNS+CA replacement.</p>
+<h2 id="the-cert-story">The cert story</h2>
+<p>The hard problem: browsers don't trust Handshake names by default. Solutions:</p>
+<ul>
+<li>DANE (DNS-Based Authentication of Named Entities) binds certs to DNS records, validated via DNSSEC. Handshake records support DANE; some Handshake-aware browsers (Beacon, Fingertip) honor it.</li>
+<li>Self-signed plus manual trust. Install your TLD's self-signed cert in the browser trust store. Friction for the user.</li>
+<li>A CA on Handshake names. None of the major CAs sign certs for non-ICANN TLDs. Niche CAs like Let's Authenticate and experimental ACME-Handshake exist but aren't widely adopted.</li>
+<li>Resolver-injected proxy. Handshake-aware resolvers can transparently proxy HTTPS with locally generated certs, bridging to DANE underneath.</li>
+</ul>
+<p>The cert problem is the single biggest barrier to mainstream Handshake adoption.</p>
+<h2 id="resolution-and-browser-support">Resolution and browser support</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>UX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HNS-aware browser (Beacon, Fingertip)</td>
+<td>Native — type <code>.alice</code> and it resolves</td>
+</tr>
+<tr>
+<td>Local hsd / hnsd + system DNS</td>
+<td>Works for all apps; cert UX still rough</td>
+</tr>
+<tr>
+<td>HSD.is, h.tube, etc. gateways</td>
+<td>Centralized HTTPS proxy — defeats the point</td>
+</tr>
+<tr>
+<td>NextDNS, Brave with HNS</td>
+<td>Convenient; trust shifts to that resolver</td>
+</tr>
+</tbody>
+</table></div>
+<p>Adoption is small but committed. Cloudflare experimentally resolved Handshake; that ended in 2022.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th><a href="/kb/ens/">ENS</a></th>
+<th>Handshake</th>
+<th><a href="/kb/gnu-name-system/">GNS</a></th>
+<th>Tor v3 .onion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>One TLD (<code>.eth</code>)</td>
+<td>Whole root zone</td>
+<td>Hierarchical petnames</td>
+<td>Self-auth onion</td>
+</tr>
+<tr>
+<td>Ownership</td>
+<td>NFT on Ethereum</td>
+<td>HNS auction</td>
+<td>Local petname → key</td>
+<td>None — key is name</td>
+</tr>
+<tr>
+<td>Censorship vector</td>
+<td>Ethereum L1</td>
+<td>Handshake consensus</td>
+<td>None</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Cert story</td>
+<td>Existing CAs work for Web3 use</td>
+<td>Hard</td>
+<td>Privacy-first GNS protocol</td>
+<td>Built into Tor</td>
+</tr>
+<tr>
+<td>Adoption</td>
+<td>High</td>
+<td>Niche/strained</td>
+<td>Niche</td>
+<td>Wide (in Tor users)</td>
+</tr>
+<tr>
+<td>Ecosystem health (Jun 2026)</td>
+<td>Strong (institutional adoption)</td>
+<td>Stressed (ViaBTC + Namebase closures)</td>
+<td>Stable</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Permissionless TLDs. Anyone can own one.</li>
+<li>No registrar, so no coercion vector at the naming layer.</li>
+<li>The auction model distributes premium names by willingness-to-pay rather than gatekeeping.</li>
+<li>Vickrey + burn is theoretically clean: incentive-compatible bidding, deflationary supply.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>The cert problem is unsolved at browser level. Without HTTPS, the modern web won't accept it.</li>
+<li>Adoption is small; few resolvers, few apps.</li>
+<li>Mainstream resolvers (Cloudflare, Google) don't natively resolve Handshake. Users have to run their own.</li>
+<li>Auctions favor early adopters who acquired good TLDs cheaply; the resale market is shallow.</li>
+<li>Phishing risk. <code>.alice</code> looks like a TLD and may confuse users about whether they're on a legitimate-looking site.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>51% attack on Handshake chain</td>
+<td>BLAKE2b + SHA3 proof of work; mining remains a trust boundary</td>
+</tr>
+<tr>
+<td>Front-running auction reveals</td>
+<td>Sealed bids; commit-reveal scheme</td>
+</tr>
+<tr>
+<td>Compromised resolver</td>
+<td>Run your own</td>
+</tr>
+<tr>
+<td>Phishing via homoglyph TLD</td>
+<td>Petname systems; resolver-side warnings</td>
+</tr>
+<tr>
+<td>Cert MITM</td>
+<td>DANE; pinned certs</td>
+</tr>
+<tr>
+<td>Resolver service shutdown</td>
+<td>Distributed resolver software</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="self-hosted-handshake-resolver">Self-hosted Handshake resolver</h3>
+<pre><code>[App] → systemd-resolved → hsd (port 53) → upstream legacy DNS for ICANN names
+                                          → local Handshake chain for HNS names
+</code></pre>
+<p>DNSSEC plus DANE for cert validation in supporting clients.</p>
+<h3 id="brand-or-community-tld">Brand or community TLD</h3>
+<p>Acquire <code>.yourthing</code> at auction. Run authoritative DNS for it. Issue subdomains via standard DNS tools. Users with HNS-aware resolvers reach you; others see DNS NXDOMAIN.</p>
+<h3 id="bridge-to-icann">Bridge to ICANN</h3>
+<p>Some Handshake names alias to ICANN names via DNS records. A user resolves <code>mybrand</code> on Handshake, gets a CNAME to <code>mybrand.com</code>, follows that to legacy DNS. Useful for migration and dual-presence.</p>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>First halving (April 2024) cut supply.</li>
+<li>hsd implements BLAKE2b + SHA3 proof of work.</li>
+<li>HNS-aware browsers (Beacon, Fingertip) are maintained but niche.</li>
+<li>Cloudflare's HNS resolver retired; the community runs alternatives.</li>
+<li>Handshake-as-identity experiments tying Handshake names to PGP and DID workflows; small-scale.</li>
+<li><strong>August 2025 soft fork:</strong> A significant supply reduction event cut HNS supply ~56% (from 2.04B to ~889M); viewed as bullish for miners and long-term investors.</li>
+<li><strong>ViaBTC HNS pool closes (June 1, 2026):</strong> ViaBTC — representing ~50% of HNS hashrate — discontinued its HNS mining pool. Immediate price impact. Community views this as an opportunity for decentralization via smaller pools (e.g., Cedric's pool). ViaBTC was not open to negotiation.</li>
+<li><strong>Namebase fully winds down (June 2, 2026):</strong> The dominant Handshake registrar/marketplace completed its shutdown. User coins and names were returned. The community is migrating to self-hosted tools: <a href="https://github.com/kyokan/bob-wallet" rel="noopener nofollow">BobWallet</a> (self-hosted wallet), ShakeDex (decentralized exchange), Chrome extension (DNS records + ShakeDex integration), and host.limo (Handshake hosting).</li>
+<li><strong>Second halving (~July 22, 2026, block 340,000):</strong> Block reward drops from 2000 HNS → 1000 HNS. The halving arrives mid-ecosystem stress following the ViaBTC/Namebase disruptions.</li>
+<li><strong>DNS records PR (June 2026):</strong> Active community discussion on adding more DNS records for security, including TLSA records for HTTPS support.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/handshake-org/hsd/blob/master/lib/primitives/abstractblock.js" rel="noopener nofollow">hsd block-header proof-of-work hash</a></li>
+<li><a href="https://github.com/handshake-org/hsd/blob/master/lib/protocol/networks.js" rel="noopener nofollow">hsd mainnet name-renewal window</a></li>
+<li><a href="https://github.com/handshake-org/hsd/blob/master/lib/covenants/namestate.js" rel="noopener nofollow">hsd name-expiry rule</a></li>
+<li><a href="https://github.com/handshake-org/hsd/blob/master/lib/blockchain/chain.js" rel="noopener nofollow">hsd RENEW covenant validation</a></li>
+</ul>
+<p>Continue with <a href="/kb/sovereign-name-lifecycle/">Sovereign name lifecycle</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/ens/">
+  <span class="nm">Ethereum Name Service (ENS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/gnu-name-system/">
+  <span class="nm">GNU Name System (GNS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/sovereign-name-lifecycle/">
+  <span class="nm">Sovereign name lifecycle</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cardano-dns/">
+  <span class="nm">Cardano DNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-naming-systems/">
+  <span class="nm">Naming systems compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/dnns/">
+  <span class="nm">DNNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/mesh-naming/">
+  <span class="nm">Naming on Mesh and Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/namecoin/">
+  <span class="nm">Namecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/uncensorable-website/">
+  <span class="nm">Publishing an Uncensorable Website</span>
+  <span class="ty">Guide</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Handshake" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The most ambitious decentralized naming project: replace the DNS root zone itself with a permissionless blockchain. Niche in adoption, distinctive in design, and architecturally relevant beyond its market footprint. As of August 2026: post-halving landscape (block reward halved Jul 22, 1000 HNS/block), Namecheap exited all HNS TLD support (Jun 10), token down 99.8% from ATH ($0.85 → ~$0.002), 62% weekly bounce from ATL on low volume. Community views the halving + infrastructure exits as opportunity for decentralization, but the browser integration gap remains the fundamental barrier.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

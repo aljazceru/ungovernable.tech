@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Web of Trust Thursday — August 13 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-13: nostr-wot extension v0.4.0 (August 11, 2026) — Post-quantum keys from the seed you already have.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/web-of-trust/2026-08-13/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Web of Trust Thursday — August 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-13: nostr-wot extension v0.4.0 (August 11, 2026) — Post-quantum keys from the seed you already have.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/web-of-trust/2026-08-13/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Web of Trust Thursday — August 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web of Trust Thursday — August 13 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-13: nostr-wot extension v0.4.0 (August 11, 2026) — Post-quantum keys from the seed you already have.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Web of Trust Thursday — August 13 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-13: nostr-wot extension v0.4.0 (August 11, 2026) — Post-quantum keys from the seed you already have.", "datePublished": "2026-08-13", "dateModified": "2026-08-13", "url": "https://ungovernable.tech/briefings/web-of-trust/2026-08-13/", "mainEntityOfPage": "https://ungovernable.tech/briefings/web-of-trust/2026-08-13/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Web of Trust Thursday", "item": "https://ungovernable.tech/briefings/web-of-trust/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-13", "item": "https://ungovernable.tech/briefings/web-of-trust/2026-08-13/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/web-of-trust/">Web of Trust Thursday</a><span aria-hidden="true">/</span><span class="here">2026-08-13</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Web of Trust Thursday</p>
+  <h1>Web of Trust Thursday — August 13 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-13</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-13 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-13. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>nostr-wot extension v0.4.0 (August 11, 2026)</strong> — Post-quantum keys from the seed you already have. Derives ML-KEM-1024 (encryption) and ML-DSA-87 (signing) from the BIP-39 seed as <em>siblings</em> of the secp256k1 key, not children. Publishes <code>kind:10203</code> attestation events. Post-quantum NIP-44/NIP-59 gift-wrapped DMs with ~3 KB constant overhead. CLI tool <code>npm run pqc:keygen</code> for offline key derivation. Chrome Web Store + Firefox AMO listed.</li>
+<li><strong>WoT trust-graph layer formally removed from the extension.</strong> The README now states: "Earlier versions shipped an experimental Web-of-Trust trust-graph layer (oracles, follow-graph sync, trust scoring, a page-injected <code>window.nostr.wot</code> API, and trust badges). That subsystem has been removed." The extension is now a pure identity provider — NIP-07 signer, encrypted vault, WebLN wallet, profile/mute/relay management.</li>
+<li><strong><code>@nostr-wot/pq</code> v0.2.0 published on npm (August 10, 2026).</strong> Reference implementation for the PQ wire format: version byte, ML-KEM-1024 ciphertext (1,568 B), XChaCha20-Poly1305 AEAD, NIP-44 padding. Hybrid construction — combines KEM secret with NIP-44 conversation key via HKDF so it's never weaker than either input.</li>
+<li><strong>GnuPG TOFU trust-model bug fixed (August 10, 2026, commit <code>08611f5</code>).</strong> The <code>signed_by_utk</code> function in <code>g10/tofu.c</code> never actually checked UTK (Ultimately Trusted Key) signatures since TOFU was introduced. The commit message is striking: "This bug sits here since the introduction of the TOFU models. It is just another nail into the coffin of <em>this</em> TOFU implementation. What we do in gpg is way too complicated and maybe even more complicated than the WoT it tried to simplify."</li>
+<li><strong>GnuPG partial-file guard regression fixed (August 12, 2026).</strong> Commits <code>95ad7f7</code> and <code>1b8debd</code> address a regression where the partial file guard was enabled twice, corrupting output. GnuPG-bug-id: 8399.</li>
+<li><strong>nostr-wot org repos updated:</strong> extension (8 stars, pushed Aug 11), main toolkit repo (6 stars, pushed Aug 11), SDK (5 stars, pushed Aug 10), oracle (5 stars, last push June 4 — dormant). Two new repos visible: <code>nostr-widgets</code> (SVG profile widgets) and <code>nostr-analytics</code> (relay performance tracking).</li>
+<li><strong>NIPs repo at 3,067 stars.</strong> NIP-29 revision (August 8): added "previous" tag example for relay-based group moderation.</li>
+<li><strong>Amber 6.4.0 (August 7)</strong> — Android NIP-07 signer redesigns multi-request approval screen with per-request toggles; adds localized labels for 113 event kinds. Relevant to WoT: Amber is the dominant Android signer, and its approval UX shapes how users interact with NIP-85 WoT queries.</li>
+<li><strong>Sequoia PGP PQ implementation funded by NLnet</strong> under the NGI0 Commons Fund (started June 2025, ongoing). Implements draft-ietf-openpgp-pqc (RFC 9980) in Sequoia using Botan, RustCrypto, and Windows CNG backends.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: The nostr-wot project's pivot from WoT infrastructure to post-quantum identity is the most consequential strategic shift this week. The extension that was supposed to be the portable trust layer for Nostr has become a post-quantum identity wallet instead. This leaves NIP-85 oracle providers (wot.klabo.world and similar) and AlgoRelay as the primary WoT-filtering infrastructure — they are now load-bearing without a funded maintainer on the extension side. Meanwhile, GnuPG's own maintainers are publicly acknowledging that their TOFU implementation is broken and overcomplicated, which strengthens the case for alternatives (Sequoia, Sigstore) but leaves the existing OpenPGP WoT in a worse state than previously understood.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-nostr-wot-extension-v040-post-quantum-identity-keys">1. nostr-wot Extension v0.4.0 — Post-Quantum Identity Keys</h3>
+<p>The single most significant WoT-adjacent release this week: <a href="https://github.com/nostr-wot/nostr-wot-extension/releases/tag/v0.4.0" rel="noopener nofollow">nostr-wot-extension v0.4.0</a> (August 11, 2026, commit <code>750bcfa</code> by @leonacostaok).</p>
+<p><strong>What it ships</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM-1024 encryption key</strong></td>
+<td>FIPS 203, CNSA 2.0 parameter set. Derived from BIP-39 seed via <code>HKDF-SHA256(seed, info="nip-pqc/v1/ml-kem-1024/&lt;account&gt;", 64)</code></td>
+</tr>
+<tr>
+<td><strong>ML-DSA-87 signing key</strong></td>
+<td>FIPS 204, CNSA 2.0 parameter set. Derived via <code>HKDF-SHA256(seed, info="nip-pqc/v1/ml-dsa-87/&lt;account&gt;", 32)</code></td>
+</tr>
+<tr>
+<td><strong>Key derivation</strong></td>
+<td>Both PQ keys are <em>siblings</em> of the secp256k1 key — all three derived independently from the same 64-byte seed. Recovering the Nostr private key reveals nothing about the seed, so PQ-encrypted messages stay confidential permanently even if secp256k1 falls.</td>
+</tr>
+<tr>
+<td><strong><code>kind:10203</code> attestation</strong></td>
+<td>Replaceable event carrying both PQ public keys. Counter-signed by the ML-DSA key over a message binding the npub to both keys (proof of possession, since ML-KEM cannot sign).</td>
+</tr>
+<tr>
+<td><strong>Post-quantum DMs</strong></td>
+<td>NIP-44 + NIP-59 gift-wrapped. The PQ shared secret is combined with the existing NIP-44 conversation key through HKDF — hybrid construction, never weaker than either component. Self-describing payload: version byte + algorithm byte + ML-KEM ciphertext + XChaCha20-Poly1305 AEAD.</td>
+</tr>
+<tr>
+<td><strong>Entropy floor</strong></td>
+<td>New identities now default to 24-word mnemonics (256-bit entropy). 12-word mnemonics (128-bit) would make the seed, not the lattice, the weakest link. The CLI tool refuses 12-word seeds.</td>
+</tr>
+<tr>
+<td><strong>CLI</strong></td>
+<td><code>npm run pqc:keygen</code> — offline key derivation and attestation generation without a browser.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Message size overhead</strong> (measured on complete <code>kind:1059</code> gift-wrapped events):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Classic NIP-17</th>
+<th>Post-quantum</th>
+<th>Overhead</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"hi" (2 chars)</td>
+<td>1,533 B</td>
+<td>4,605 B</td>
+<td>+3,072 B</td>
+<td>3.0×</td>
+</tr>
+<tr>
+<td>Chat line (32 chars)</td>
+<td>1,701 B</td>
+<td>4,605 B</td>
+<td>+2,904 B</td>
+<td>2.7×</td>
+</tr>
+<tr>
+<td>Tweet (280 chars)</td>
+<td>2,213 B</td>
+<td>5,285 B</td>
+<td>+3,072 B</td>
+<td>2.4×</td>
+</tr>
+<tr>
+<td>Paragraph (1 KB)</td>
+<td>3,921 B</td>
+<td>7,333 B</td>
+<td>+3,412 B</td>
+<td>1.9×</td>
+</tr>
+<tr>
+<td>Long note (4 KB)</td>
+<td>11,429 B</td>
+<td>14,161 B</td>
+<td>+2,732 B</td>
+<td>1.2×</td>
+</tr>
+<tr>
+<td>Document (16 KB)</td>
+<td>38,737 B</td>
+<td>44,197 B</td>
+<td>+5,460 B</td>
+<td>1.1×</td>
+</tr>
+</tbody>
+</table></div>
+<p>~3 KB constant overhead per message, almost entirely the 1,568-byte ML-KEM ciphertext. At 100 messages/day: +300 KB/day or +107 MB/year per conversation — the number relay operators will care about.</p>
+<p><strong>Critical design decisions</strong>:</p>
+<ol>
+<li>
+<p><strong>Siblings, not children</strong>: The obvious design — deriving PQ keys <em>from</em> the Nostr private key — is circular. An adversary who recovers <code>nsec</code> from <code>npub</code> via Shor's algorithm runs the same derivation and gets the PQ keys too. Deriving from the seed independently breaks this chain.</p>
+</li>
+<li>
+<p><strong>Seal-layer envelope</strong>: The PQ envelope is placed at the NIP-59 <em>seal</em> layer, not inside the rumor. This saves 16–28% compared to putting it in the rumor, because NIP-59 base64-encodes at every layer (three expansions of 4/3 for the rumor content).</p>
+</li>
+<li>
+<p><strong>Hybrid, never bare</strong>: The KEM secret is combined with the NIP-44 conversation key through HKDF. Two tests assert binding: a wrong conversation key fails, and a wrong ML-KEM key fails. If either passed, the construction would not be hybrid.</p>
+</li>
+<li>
+<p><strong>Explicit opt-in for encryption</strong>: A message can never be silently downgraded to PQ. Decryption routes automatically (self-describing payload), but encryption requires explicit opt-in.</p>
+</li>
+<li>
+<p><strong>No relay changes needed</strong>: The PQ payload travels inside existing gift-wrap layers. Relays and clients that haven't implemented any of this are unaffected.</p>
+</li>
+</ol>
+<p><strong>What this does NOT do</strong>: It does not stop a quantum adversary from forging events in your name. Events are still signed with secp256k1. Migrating signatures would add ~6.2 KB (ML-DSA-87 signature) to every event and requires relay operators at the table — not something a client can ship unilaterally. Publishing the ML-DSA verification key <em>now</em> via <code>kind:10203</code> is what keeps that door open for the future.</p>
+<p><strong>Primary sources</strong>: <a href="https://github.com/nostr-wot/nostr-wot-extension/releases/tag/v0.4.0" rel="noopener nofollow">Extension v0.4.0 release</a>, <a href="https://github.com/nostr-wot/nostr-wot-extension/blob/main/CHANGELOG.md" rel="noopener nofollow">CHANGELOG.md</a>, <a href="https://nostr-wot.com/pqc/chat" rel="noopener nofollow">interactive demo at nostr-wot.com/pqc/chat</a>, <a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow">@nostr-wot/pq on npm</a>.</p>
+<h3 id="2-wot-trust-graph-layer-removed-from-extension">2. WoT Trust-Graph Layer Removed from Extension</h3>
+<p>The most important <em>strategic</em> signal this week is buried in a note on the extension's README:</p>
+<blockquote>
+<p><strong>Note:</strong> Earlier versions shipped an experimental Web-of-Trust trust-graph layer (oracles, follow-graph sync, trust scoring, a page-injected <code>window.nostr.wot</code> API, and trust badges). That subsystem has been removed. The extension now injects only the standard NIP-07 <code>window.nostr</code> and WebLN <code>window.webln</code> providers; relay data is read via <code>window.nostr.getRelays()</code>.</p>
+</blockquote>
+<p>This is a formal declaration that the nostr-wot extension is no longer a WoT extension. The project has pivoted to:</p>
+<ol>
+<li><strong>Identity management</strong> — NIP-07 signer, encrypted vault (AES-256-GCM, PBKDF2 210K iterations), multi-account HD derivation</li>
+<li><strong>Lightning wallet</strong> — NWC, LNbits, WebLN provider, auto-provisioning via zaps.nostr-wot.com</li>
+<li><strong>Profile/mute/relay management</strong> — kind:0, NIP-51 mute lists, NIP-65 relay lists</li>
+<li><strong>Post-quantum identity</strong> — the new v0.4.0 feature set</li>
+</ol>
+<p>The WoT functionality that was removed:
+- Trust-score queries via <code>window.nostr.wot</code> API
+- Follow-graph synchronization
+- Trust badges on profiles
+- Oracle-based distance scoring
+- Page-injected trust indicators</p>
+<p><strong>Implications for the WoT ecosystem</strong>:</p>
+<p>The nostr-wot extension was supposed to be the <em>portable</em> trust layer — following your graph across clients. Its removal means:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>WoT Component</th>
+<th>Previous Provider</th>
+<th>Current State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client-side trust scoring</td>
+<td>nostr-wot extension</td>
+<td><strong>Removed</strong> — no replacement</td>
+</tr>
+<tr>
+<td>Portable trust graph</td>
+<td>nostr-wot extension</td>
+<td><strong>Removed</strong> — no replacement</td>
+</tr>
+<tr>
+<td><code>window.nostr.wot</code> API</td>
+<td>nostr-wot extension</td>
+<td><strong>Removed</strong> — no standard replacement</td>
+</tr>
+<tr>
+<td>Server-side oracle queries</td>
+<td>nostr-wot-oracle</td>
+<td>Dormant since June 4, 2026</td>
+</tr>
+<tr>
+<td>NIP-85 trusted assertions</td>
+<td>wot.klabo.world, independent providers</td>
+<td><strong>Active</strong> — the remaining WoT infrastructure</td>
+</tr>
+<tr>
+<td>Algorithmic feed ranking</td>
+<td>AlgoRelay (Bitvora/utxo)</td>
+<td><strong>Active</strong> — adopted by 4+ clients</td>
+</tr>
+<tr>
+<td>Relay-level WoT filtering</td>
+<td>nostr-relay-tray (CodyTseng)</td>
+<td>Stable but last commit Feb 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>The burden of Nostr WoT now falls entirely on NIP-85 providers and AlgoRelay, neither of which has the nostr-wot project's funding or development velocity. This is a net loss for portable, user-controlled trust.</p>
+<p><strong>What may replace it</strong>: The nostr-wot-oracle (Rust, 5 stars, last push June 4) is still available for self-hosting but appears dormant. The <code>@nostr-wot/sdk</code> (5 stars, npm v0.9.1 published May 2026) still provides JavaScript APIs for distance queries and trust scoring — it could be adopted by clients directly. But without the extension's distribution channel, adoption is uncertain.</p>
+<h3 id="3-nostr-wotpq-reference-post-quantum-wire-format-library">3. <code>@nostr-wot/pq</code> — Reference Post-Quantum Wire Format Library</h3>
+<p>Published August 10, 2026 as npm package <a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow"><code>@nostr-wot/pq</code></a> v0.2.0.</p>
+<p><strong>Description</strong>: "Post-quantum identity keys for Nostr: derive ML-KEM-1024 and ML-DSA-87 keys from a NIP-06 seed, and build, parse and verify the <code>kind:10203</code> attestation."</p>
+<p><strong>Wire format specification</strong>:</p>
+<pre><code>version   1 byte    0x01
+alg       1 byte    0x01 = ML-KEM-1024 + NIP-44 conversation key, XChaCha20-Poly1305
+kem_ct    1568      ML-KEM-1024 ciphertext
+nonce     24        XChaCha20-Poly1305 nonce
+sealed    variable  AEAD(padded plaintext), includes the 16-byte tag
+</code></pre>
+<p>base64-encoded for transport.</p>
+<p><strong>Design rationale (from the README)</strong>:</p>
+<ul>
+<li><strong>Own version byte, not NIP-44's</strong>: Overloading NIP-44's version registry would squat a number its authors own. This envelope is self-describing.</li>
+<li><strong>Hybrid, never bare</strong>: KEM secret combined with NIP-44 conversation key through HKDF. Result is no weaker than either input.</li>
+<li><strong>Authenticated framing</strong>: Version, algorithm, and both pubkeys go into the AEAD's associated data. A ciphertext cannot be replayed into another conversation, have its direction swapped, or have its algorithm byte downgraded.</li>
+<li><strong>Length-padded</strong>: Uses NIP-44's padding scheme so ciphertext size does not leak message size on a public relay.</li>
+<li><strong>One generic error</strong>: Every decryption failure throws the same message. Distinguishing bad padding from a bad tag from a wrong key hands an attacker an oracle.</li>
+</ul>
+<p>This is one of the first production post-quantum messaging implementations in the freedom-tech space. It bridges the gap between NIST standardization (FIPS 203/204 finalized August 2024) and user-deployable code.</p>
+<p><strong>Relation to <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a></strong>: The <code>kind:10203</code> attestation format is a Nostr-native equivalent of OpenPGP's <code>kind:10203</code> — both publish PQ public keys in a signed, discoverable format. The difference: Nostr's version is designed for real-time messaging (NIP-44/NIP-59), while OpenPGP's (RFC 9980) targets email and file encryption.</p>
+<h3 id="4-gnupg-tofu-bug-maintainer-calls-implementation-too-complicated">4. GnuPG TOFU Bug — Maintainer Calls Implementation "Too Complicated"</h3>
+<p>On August 10, 2026, commit <code>08611f5</code> fixed a fundamental bug in GnuPG's TOFU (Trust On First Use) trust model:</p>
+<p><strong>The bug</strong>: The <code>signed_by_utk()</code> function in <code>g10/tofu.c</code> was supposed to check whether a signature was made by an Ultimately Trusted Key before counting it in TOFU statistics. It never actually performed this check. The function returned <code>true</code> without verifying the signature, meaning TOFU statistics were computed incorrectly since the feature's introduction.</p>
+<p><strong>The commit message</strong> (by NIIBE Yutaka, GnuPG maintainer):</p>
+<blockquote>
+<p>This bug sits here since the introduction of the TOFU models. It is just another nail into the coffin of <em>this</em> TOFU implementation. What we do in gpg is way too complicated and maybe even more complicated than the WoT it tried to simplify. One major problem with our implementation with all its heuristics, is that one may only check a file once to not mess up the statistics. This is highly impractical in real life. Tofu checking belongs to the caller, for example the address book of the mail client.</p>
+</blockquote>
+<p><strong>GnuPG-bug-id</strong>: 8404. Reported by arthur.chan@adalogics.com.</p>
+<p><strong>Why this matters for the WoT landscape</strong>:</p>
+<ol>
+<li>
+<p><strong>TOFU was supposed to be the simpler alternative to the classic WoT.</strong> The classic PGP WoT requires deliberate key-signing parties and ownertrust decisions. TOFU was introduced to make trust automatic: the first time you see a key, trust it; if you see it used by a different identity later, flag it. But GnuPG's implementation was buggy from day one.</p>
+</li>
+<li>
+<p><strong>The maintainer is publicly acknowledging failure.</strong> When the person fixing the bug calls the implementation "another nail in the coffin" and "way too complicated," it signals that the feature may be deprecated or rewritten. This is not a confidence-building message for the ~965-star GnuPG project.</p>
+</li>
+<li>
+<p><strong>This strengthens the case for alternatives.</strong> Sequoia PGP's <code>sq</code> tool implements a different trust model (certification-based, with <code>sq pki</code> commands). Sigstore offers ephemeral-certificate signing with transparency logs. Both avoid TOFU's heuristic complexity.</p>
+</li>
+</ol>
+<p><strong>Related GnuPG commits this week</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Commit</th>
+<th>Date</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1b8debd</code></td>
+<td>Aug 12, 2026</td>
+<td>Fix regression introduced by partial file guards. Splits <code>gnupg_process_partial_file</code> into separate commit/rollback functions.</td>
+</tr>
+<tr>
+<td><code>95ad7f7</code></td>
+<td>Aug 12, 2026</td>
+<td>Don't enable partial file guard if already done. GnuPG-bug-id: 8399.</td>
+</tr>
+<tr>
+<td><code>08611f5</code></td>
+<td>Aug 10, 2026</td>
+<td>Fix TOFU trust models to actually check UTK signatures. GnuPG-bug-id: 8404.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Primary source</strong>: <a href="https://github.com/gpg/gnupg/commit/08611f5" rel="noopener nofollow">GnuPG commit 08611f5</a>, <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">GnuPG repo</a> (965 stars, pushed Aug 12, 2026).</p>
+<h3 id="5-nips-repo-activity-and-wot-adjacent-protocol-updates">5. NIPs Repo Activity and WoT-Adjacent Protocol Updates</h3>
+<p>The <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a> repository is at <strong>3,067 stars</strong> (up from 3,100 reported last week — likely fluctuation or a counting difference), last pushed August 12, 2026.</p>
+<p><strong>Commits this window</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Commit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 8, 2026</td>
+<td>NIP-29</td>
+<td>Add "previous" tag example for relay-based group moderation</td>
+</tr>
+<tr>
+<td>Aug 1, 2026</td>
+<td>NIP-47</td>
+<td>Simplify core spec and introduce extensions (#2419)</td>
+</tr>
+<tr>
+<td>Jul 31, 2026</td>
+<td>—</td>
+<td>Fix misapplied suggestion (#2427)</td>
+</tr>
+<tr>
+<td>Jul 31, 2026</td>
+<td>NIP-B0</td>
+<td>Fix URI scheme ambiguity (#2425)</td>
+</tr>
+<tr>
+<td>Jul 26, 2026</td>
+<td>NIP-34</td>
+<td>Drop GRASP hosting instructions from pull request descriptions</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>NIP-85 (Trusted Assertions) status</strong>: Still at <code>draft</code> / <code>optional</code>. No changes this week. The spec defines event kinds 30382–30385 for user, event, addressable event, and NIP-73 identifier assertions respectively. Live providers (wot.klabo.world, Nostr.Band) continue operating independently of the spec revision cycle.</p>
+<p><strong>NIP-29 relevance to WoT</strong>: NIP-29 (Relay-based Groups) added a "previous" tag example, which is relevant to group-level moderation — a WoT-adjacent use case where group membership can be gated by trust scores rather than invite codes.</p>
+<h3 id="6-ecosystem-context-nostr-client-and-tool-releases-aug-613">6. Ecosystem Context — Nostr Client and Tool Releases (Aug 6–13)</h3>
+<p>From <a href="https://freedom.tech/nostr" rel="noopener nofollow">freedom.tech/nostr</a> (198 releases tracked, 84 sources):</p>
+<p><strong>WoT-relevant releases this week</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Version</th>
+<th>Date</th>
+<th>WoT Relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amber</strong></td>
+<td>6.4.0</td>
+<td>Aug 7</td>
+<td>Android NIP-07 signer — redesigns multi-request approval with per-request toggles. Shapes how users approve NIP-85 WoT queries. 338 GitHub stars.</td>
+</tr>
+<tr>
+<td><strong>Sidecar</strong></td>
+<td>1.7.0</td>
+<td>Aug 30 → 1.6.0 Aug 28</td>
+<td>Browser extension — Lightning wallet quick-start, "honest backup language", trust dialogs for app permissions.</td>
+</tr>
+<tr>
+<td><strong>Zap Store</strong></td>
+<td>1.1.1</td>
+<td>Jul 25</td>
+<td>Improves "trust dialogs for publishers lacking profiles" — directly relevant to WoT-based app verification.</td>
+</tr>
+<tr>
+<td><strong>strfry</strong></td>
+<td>1.1.1</td>
+<td>Jul 21</td>
+<td>C++ relay implementation — foundational infrastructure for WoT-filtered relays.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observation</strong>: No client shipped new WoT features this week. The WoT adoption curve appears to have plateaued at the client level — Amethyst, Primal, Nostur, and Jumble all have WoT filtering from earlier releases, but no new clients adopted it. The nostr-wot extension's pivot away from WoT may signal that client-side WoT computation is harder to maintain than anticipated.</p>
+<h3 id="7-sigstore-and-supply-chain-trust-the-wot-alternative-track">7. Sigstore and Supply-Chain Trust — The WoT Alternative Track</h3>
+<p>While the PGP/Nostr WoT ecosystems deal with their respective challenges, <a href="https://github.com/sigstore/sigstore" rel="noopener nofollow">Sigstore</a> (535 stars, pushed Aug 10, 2026) continues maturing as the supply-chain trust alternative:</p>
+<p><strong>How Sigstore replaces the WoT for software signing</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>WoT Concept</th>
+<th>PGP Equivalent</th>
+<th>Sigstore Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity binding</td>
+<td>Key fingerprint + key-signing parties</td>
+<td>OIDC identity (GitHub, Google) → short-lived Fulcio certificate</td>
+</tr>
+<tr>
+<td>Trust attestation</td>
+<td>OpenPGP certification signature</td>
+<td>Rekor transparency log entry</td>
+</tr>
+<tr>
+<td>Trust verification</td>
+<td>Walk certification paths</td>
+<td>Check inclusion proof in Merkle tree</td>
+</tr>
+<tr>
+<td>Key management</td>
+<td>Long-lived private keys</td>
+<td>Ephemeral keys (discarded after signing)</td>
+</tr>
+<tr>
+<td>Revocation</td>
+<td>Key revocation certificates</td>
+<td>Certificate expiry (minutes)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Advantages over PGP WoT</strong>: No key-signing parties, no long-lived private keys, no ownertrust decisions, automatic transparency. The trade-off: depends on OIDC providers (GitHub, Google) for identity, which reintroduces a form of centralized trust — albeit in the identity-verification layer rather than the cryptographic layer.</p>
+<p><strong>NLnet-funded Sequoia PGP PQ work</strong>: <a href="https://nlnet.nl/project/Sequoia-PQC" rel="noopener nofollow">NLnet project page</a> confirms ongoing funding under the NGI0 Commons Fund (started June 2025) to implement draft-ietf-openpgp-pqc (RFC 9980) in Sequoia PGP using Botan, RustCrypto, and Windows CNG backends. This is the implementation most likely to produce a working, RFC-9980-compliant OpenPGP PQ tool — in contrast to GnuPG's deliberately incompatible LibrePGP approach.</p>
+<h3 id="8-nostr-wot-organization-repo-landscape-current-state">8. nostr-wot Organization Repo Landscape (Current State)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Stars</th>
+<th>Forks</th>
+<th>Last Push</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot</a></td>
+<td>6</td>
+<td>2</td>
+<td>Aug 11, 2026</td>
+<td>Active — blog + web app, post-quantum content</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot-extension</a></td>
+<td>8</td>
+<td>3</td>
+<td>Aug 11, 2026</td>
+<td>Active — v0.4.0 (PQ keys), WoT layer removed</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot-sdk</a></td>
+<td>5</td>
+<td>1</td>
+<td>Aug 10, 2026</td>
+<td>Active — <code>@nostr-wot/pq</code> v0.2.0 published; main SDK at v0.9.1</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot-oracle</a></td>
+<td>5</td>
+<td>2</td>
+<td>Jun 4, 2026</td>
+<td><strong>Dormant</strong> — last commit 2+ months ago</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-widgets" rel="noopener nofollow">nostr-widgets</a></td>
+<td>0</td>
+<td>0</td>
+<td>Jun 2, 2026</td>
+<td>New — server-rendered SVG widgets for Nostr profiles</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-analytics" rel="noopener nofollow">nostr-analytics</a></td>
+<td>0</td>
+<td>0</td>
+<td>Apr 15, 2026</td>
+<td>New — relay performance and npub event tracking</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/LNbits-proxy" rel="noopener nofollow">LNbits-proxy</a></td>
+<td>0</td>
+<td>0</td>
+<td>Apr 15, 2026</td>
+<td>Lightning wallet proxy</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Assessment</strong>: The organization is healthy in terms of commit activity (extension and SDK pushed within the last 3 days), but the <em>WoT-specific</em> components (oracle, trust-graph APIs) are either dormant or removed. The active development has shifted to post-quantum identity and Lightning wallet infrastructure. The "Web of Trust" name persists in the org and extension branding, but the actual WoT functionality has been deprioritized.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project / Component</th>
+<th>Maturity</th>
+<th>Active Dev</th>
+<th>Key Links</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nostr-wot-extension v0.4.0</td>
+<td>Production</td>
+<td>High</td>
+<td><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">GitHub</a>, <a href="https://chromewebstore.google.com/detail/nostr-wot-extension/gfmefgdkmjpjinecjchlangpamhclhdo" rel="noopener nofollow">Chrome Store</a></td>
+<td>PQ keys from seed; WoT layer removed; 8★</td>
+</tr>
+<tr>
+<td><code>@nostr-wot/pq</code></td>
+<td>Beta</td>
+<td>High</td>
+<td><a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow">npm</a></td>
+<td>PQ wire format reference; v0.2.0; ML-KEM-1024+ML-DSA-87</td>
+</tr>
+<tr>
+<td><code>@nostr-wot/sdk</code></td>
+<td>Stable</td>
+<td>Moderate</td>
+<td><a href="https://www.npmjs.com/package/nostr-wot-sdk" rel="noopener nofollow">npm</a></td>
+<td>v0.9.1; WoT distance queries still available; 5★</td>
+</tr>
+<tr>
+<td>nostr-wot-oracle</td>
+<td>Beta</td>
+<td><strong>Dormant</strong></td>
+<td><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">GitHub</a></td>
+<td>Rust oracle; last push Jun 4; 5★</td>
+</tr>
+<tr>
+<td>NIP-85 Providers (wot.klabo.world)</td>
+<td>Beta/Production</td>
+<td>Active</td>
+<td><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85</a></td>
+<td>PageRank scoring; 6h crawls; kinds 30382–30385</td>
+</tr>
+<tr>
+<td>AlgoRelay (Bitvora)</td>
+<td>Production</td>
+<td>Active</td>
+<td>freedom.tech tracking</td>
+<td>Social-graph feeds; adopted by 4+ clients</td>
+</tr>
+<tr>
+<td>GnuPG</td>
+<td>Mature</td>
+<td>Active (maintenance)</td>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">GitHub</a></td>
+<td>965★; TOFU bug fixed; maintainer calls TOFU "too complicated"</td>
+</tr>
+<tr>
+<td>Sequoia PGP</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://nlnet.nl/project/Sequoia-PQC" rel="noopener nofollow">NLnet PQC project</a></td>
+<td>RFC 9980 PQ implementation funded; ongoing</td>
+</tr>
+<tr>
+<td>Sigstore</td>
+<td>Production</td>
+<td>High</td>
+<td><a href="https://github.com/sigstore/sigstore" rel="noopener nofollow">GitHub</a></td>
+<td>535★; transparency-log-based trust; supply-chain focus</td>
+</tr>
+<tr>
+<td>Amber (Android signer)</td>
+<td>Production</td>
+<td>High</td>
+<td><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">GitHub</a></td>
+<td>338★; v6.4.0; per-request approval UX</td>
+</tr>
+<tr>
+<td>NIPs repo</td>
+<td>Mature</td>
+<td>Active</td>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">GitHub</a></td>
+<td>3,067★; NIP-29 revised; NIP-85 still draft</td>
+</tr>
+<tr>
+<td>OpenPGP.js</td>
+<td>Mature</td>
+<td>Moderate</td>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">GitHub</a></td>
+<td>5,964★; v6.3.1; last commit Jun 4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="strategic-analysis-the-wot-bifurcation">Strategic Analysis — The WoT Bifurcation</h2>
+<p>This week crystallizes a trend that has been building for months: <strong>the Nostr WoT ecosystem is bifurcating into two tracks with different goals</strong>.</p>
+<h3 id="track-1-trust-filtering-nip-85-algorelay">Track 1: Trust Filtering (NIP-85 + AlgoRelay)</h3>
+<ul>
+<li><strong>Goal</strong>: Spam resistance, content ranking, discovery</li>
+<li><strong>Mechanism</strong>: Offload graph computation to oracle providers; consume signed assertions</li>
+<li><strong>Providers</strong>: wot.klabo.world, Nostr.Band, AlgoRelay</li>
+<li><strong>Status</strong>: Production-deployed, but dependent on volunteer-maintained infrastructure</li>
+<li><strong>Risk</strong>: Oracle centralization — if wot.klabo.world goes down, clients that depend on it lose WoT filtering</li>
+</ul>
+<h3 id="track-2-identity-and-key-management-nostr-wot-extension">Track 2: Identity and Key Management (nostr-wot extension)</h3>
+<ul>
+<li><strong>Goal</strong>: Portable identity, key custody, post-quantum readiness</li>
+<li><strong>Mechanism</strong>: NIP-07 signer, encrypted vault, Lightning wallet, PQ keys</li>
+<li><strong>Provider</strong>: nostr-wot organization (extension + SDK)</li>
+<li><strong>Status</strong>: Actively developed, but WoT functionality removed</li>
+<li><strong>Risk</strong>: The extension named "Web of Trust" no longer does Web of Trust</li>
+</ul>
+<p>The gap between these tracks is where portable, user-controlled trust scoring was supposed to live. With the nostr-wot extension's WoT layer removed, there is no production client-side tool that lets users carry their trust graph across Nostr applications. The <code>@nostr-wot/sdk</code> still provides the APIs, but without the extension's distribution channel, adoption requires individual client integration.</p>
+<p><strong>For freedom-tech operators</strong>: If you are building a Nostr application and want WoT filtering, your options are (1) consume NIP-85 events from an existing provider, (2) implement local graph computation using <code>@nostr-wot/sdk</code>, or (3) use AlgoRelay's social-graph-ranked feeds. The extension-based approach is no longer viable.</p>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/web-of-trust/2026-08-06/"><span class="label">Previous</span><span class="pn-t">Web of Trust Thursday — August 06 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/web-of-trust/"><span class="label">Series</span><span class="pn-t">All Web of Trust Thursday briefings</span></a>
+      <a href="/briefings/web-of-trust/2026-08-20/"><span class="label">Next</span><span class="pn-t">Web of Trust Thursday — August 20 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

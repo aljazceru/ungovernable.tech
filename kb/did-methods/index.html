@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized Identifier (DID) Methods — ungovernable.tech</title>
+<meta name="description" content="A practical look at the decentralized identifier methods worth taking seriously, from did:key and did:web to did:plc, and what each one trades off.">
+<link rel="canonical" href="https://ungovernable.tech/kb/did-methods/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized Identifier (DID) Methods — ungovernable.tech">
+<meta property="og:description" content="A practical look at the decentralized identifier methods worth taking seriously, from did:key and did:web to did:plc, and what each one trades off.">
+<meta property="og:url" content="https://ungovernable.tech/kb/did-methods/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized Identifier (DID) Methods — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized Identifier (DID) Methods — ungovernable.tech">
+<meta name="twitter:description" content="A practical look at the decentralized identifier methods worth taking seriously, from did:key and did:web to did:plc, and what each one trades off.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Decentralized Identifier (DID) Methods", "description": "A practical look at the decentralized identifier methods worth taking seriously, from did:key and did:web to did:plc, and what each one trades off.", "dateModified": "2026-04-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/did-methods/", "mainEntityOfPage": "https://ungovernable.tech/kb/did-methods/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized Identifier (DID) Methods", "item": "https://ungovernable.tech/kb/did-methods/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Decentralized Identifier (DID) Methods</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Decentralized Identifier (DID) Methods</h1>
+  <p class="aka">Also did:key, did:web, did:plc, did:ion, did:peer.</p>
+  <p class="dek">A concrete look at the DID methods worth taking seriously in 2026: what each one trades off, who uses it in production, and which to pick for which threat model.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-04-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-method-resolver-architecture">The method-resolver architecture</a><a href="#didkey-self-contained">did:key — self-contained</a><a href="#didweb-the-pragmatic-option">did:web — the pragmatic option</a><a href="#didplc-blueskys-choice">did:plc — Bluesky&#39;s choice</a><a href="#didion-bitcoin-anchored">did:ion — Bitcoin-anchored</a><a href="#didpeer-pairwise-private-dids">did:peer — pairwise private DIDs</a><a href="#didens-ethereum-anchored">did:ens — Ethereum-anchored</a><a href="#didbtc-didcosmos-others">did:btc, did:cosmos, others</a><a href="#comparison">Comparison</a><a href="#method-selection-by-threat-model">Method selection by threat model</a><a href="#multi-did-identity">Multi-DID identity</a><a href="#dids-vs-pure-key-identity">DIDs vs pure-key identity</a><a href="#trade-offs">Trade-offs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-method-resolver-architecture">The method-resolver architecture</h2>
+<p>A DID looks like <code>did:method:identifier</code>. The W3C DID Core spec leaves the <strong>method</strong> open. A method is a small protocol that defines:</p>
+<ul>
+<li>How a DID gets created.</li>
+<li>How the DID Document (containing public keys, service endpoints, etc.) is <strong>resolved</strong> from the identifier.</li>
+<li>How the DID can be updated, deactivated, or rotated.</li>
+</ul>
+<p>There are dozens of registered methods. Most are dead, demonstrative, or vendor lock-ins. The handful below are the ones worth knowing.</p>
+<h2 id="didkey-self-contained">did:key — self-contained</h2>
+<p><strong>Mechanics</strong>: the identifier <em>is</em> the public key (multibase-encoded). Resolution is a local operation, with no registry and no network call:</p>
+<pre><code>did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSrUEZD4kV9NjYRjjEpW
+                ↑
+                Ed25519 pubkey (multibase z6Mk prefix)
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>No registry. Pure cryptography.</li>
+<li>No update path. A <code>did:key</code> is permanent. You cannot rotate the key. Lose it, identity gone.</li>
+<li>Trivial resolution. Library function, no network.</li>
+<li>Universal. Anyone can mint one.</li>
+</ul>
+<p><strong>Use cases</strong>: ephemeral identifiers, single-purpose authentication, verifier-side recipient public keys for issuing credentials. Not for long-term primary identity.</p>
+<h2 id="didweb-the-pragmatic-option">did:web — the pragmatic option</h2>
+<p><strong>Mechanics</strong>: the identifier resolves to an HTTPS URL. The DID Document is served from that URL.</p>
+<pre><code>did:web:example.com         → https://example.com/.well-known/did.json
+did:web:example.com:user:alice → https://example.com/user/alice/did.json
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Resolution requires DNS plus HTTPS, with the same trust as the legacy web.</li>
+<li>Updating is just editing a file.</li>
+<li>Recovery means owning the domain.</li>
+<li>Centralized in the DNS / CA chain.</li>
+</ul>
+<p><strong>Use cases</strong>: enterprise or government identity where DNS ownership is the authoritative anchor. Microsoft's <strong>Entra Verified ID</strong> has effectively shifted production to did:web. Government-issued credentials (health, education) where the issuer's DNS identity is the right trust anchor.</p>
+<p><strong>Limitations</strong>: DNS-bound. The name disappears if the domain does. For sovereignty users this is a non-starter; for most enterprise and government use, it is the right pragma.</p>
+<h2 id="didplc-blueskys-choice">did:plc — Bluesky's choice</h2>
+<p><strong>Mechanics</strong>: a public, append-only log of DID operations, hosted by a small set of operators. Each DID has a chain of signed operations forming its history; the latest valid state is the current DID Document.</p>
+<pre><code>did:plc:ewvi7nxzyoun6zhxrhs64oiz
+        ↑
+        Random identifier (24 chars, base32)
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Centralized log. Bluesky operates the canonical PLC log.</li>
+<li>Portable. DIDs migrate between hosting providers via signed operations.</li>
+<li>Auditable. Full operation history is public.</li>
+<li>Recoverable. Recovery keys can override compromised primary keys.</li>
+</ul>
+<p><strong>Use cases</strong>: Bluesky and ATProto identity at scale. In production with millions of users. The pragmatic compromise: more decentralized than did:web (data is portable, the log is auditable), less so than blockchain methods (one operator runs the log).</p>
+<p><strong>Caveat</strong>: did:plc is run by one entity (Bluesky). The data model lets you migrate to a different log operator, but as of 2026 there is only one operator.</p>
+<h2 id="didion-bitcoin-anchored">did:ion — Bitcoin-anchored</h2>
+<p><strong>Mechanics</strong>: DIDs anchored on Bitcoin via the <strong>Sidetree</strong> protocol. Operations batch into trees; tree roots are anchored as Bitcoin transactions.</p>
+<pre><code>did:ion:EiClkZMDxPKqC9c-umQfTkR8IyVbn3v0gd2nHSjE0WrM3w
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Bitcoin finality for the operation log.</li>
+<li>Self-managed. You run a Sidetree node or use a public one.</li>
+<li>Permissionless. Anyone can issue a DID.</li>
+<li>Stewardship: DIF (Decentralized Identity Foundation) maintains the protocol; original Microsoft sponsorship has receded as Microsoft shifted to did:web for production.</li>
+</ul>
+<p><strong>Use cases</strong>: high-stakes identity where Bitcoin's finality is the goal. Niche compared with did:web operationally and did:plc on UX.</p>
+<h2 id="didpeer-pairwise-private-dids">did:peer — pairwise private DIDs</h2>
+<p><strong>Mechanics</strong>: an ephemeral DID created for a single relationship. Both parties exchange <code>did:peer</code> identifiers and DID Documents directly, with no resolver and no registry. Used in DIDComm-style messaging.</p>
+<pre><code>did:peer:0z6MkkGDx38SHMNJEdKcMxSBoLGMvjBLmKDpQUHycqpRkbDXJ
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Pairwise. A distinct DID per relationship.</li>
+<li>No global resolution. Only the parties involved can resolve.</li>
+<li>Privacy. Different relationships cannot be correlated by DID.</li>
+<li>Throwaway. Deactivate by deleting the local state.</li>
+</ul>
+<p><strong>Use cases</strong>: privacy-preserving messaging (DIDComm, Hyperledger Aries). Not for public identity.</p>
+<h2 id="didens-ethereum-anchored">did:ens — Ethereum-anchored</h2>
+<p><strong>Mechanics</strong>: DIDs whose underlying name is registered on <strong>ENS</strong>. Resolution goes through ENS records.</p>
+<pre><code>did:ens:vitalik.eth
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li>Tied to Ethereum L1 finality.</li>
+<li>Same threat model as ENS, where the registry is Ethereum smart contracts.</li>
+<li>CCIP-Read allows off-chain backing for many subnames.</li>
+<li>Composable with the rest of the EVM ecosystem.</li>
+</ul>
+<p><strong>Use cases</strong>: crypto-native identity. Lightning Address records on the same name. SIWE login flows.</p>
+<h2 id="didbtc-didcosmos-others">did:btc, did:cosmos, others</h2>
+<p>A long tail of method registrations. Most are demonstrations or vendor-specific. The five above are what production systems converge on.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Decentralization</th>
+<th>Update path</th>
+<th>Privacy</th>
+<th>Maturity</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>did:key</strong></td>
+<td>Pure crypto</td>
+<td>None (key is permanent)</td>
+<td>Public</td>
+<td>Mature</td>
+<td>Ephemeral, verifier keys</td>
+</tr>
+<tr>
+<td><strong>did:web</strong></td>
+<td>DNS-trusted</td>
+<td>File edit</td>
+<td>Public</td>
+<td>Mature</td>
+<td>Enterprise, government</td>
+</tr>
+<tr>
+<td><strong>did:plc</strong></td>
+<td>One log operator (BSky)</td>
+<td>Signed log entry</td>
+<td>Public</td>
+<td>Production</td>
+<td>Social / ATProto</td>
+</tr>
+<tr>
+<td><strong>did:ion</strong></td>
+<td>Bitcoin + DIF</td>
+<td>Sidetree operation</td>
+<td>Public</td>
+<td>Stable, niche</td>
+<td>High-stakes Bitcoin-anchored</td>
+</tr>
+<tr>
+<td><strong>did:peer</strong></td>
+<td>Pairwise</td>
+<td>Pairwise rotation</td>
+<td><strong>Private</strong></td>
+<td>Mature</td>
+<td>Encrypted messaging</td>
+</tr>
+<tr>
+<td><strong>did:ens</strong></td>
+<td>Ethereum L1</td>
+<td>ENS-managed</td>
+<td>Public</td>
+<td>Production</td>
+<td>Crypto-native, identity-as-name</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="method-selection-by-threat-model">Method selection by threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Issuer / verifier loss of trust</td>
+<td>did:web (issuer's DNS proves identity)</td>
+</tr>
+<tr>
+<td>Decentralization required</td>
+<td>did:ion or did:ens</td>
+</tr>
+<tr>
+<td>User wants portable social identity</td>
+<td>did:plc</td>
+</tr>
+<tr>
+<td>Per-relationship unlinkability</td>
+<td>did:peer</td>
+</tr>
+<tr>
+<td>Single-use / ephemeral</td>
+<td>did:key</td>
+</tr>
+<tr>
+<td>Government / regulated credential</td>
+<td>did:web (most likely) or did:ion</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="multi-did-identity">Multi-DID identity</h2>
+<p>A user often has several DIDs:</p>
+<ul>
+<li>A <strong>stable identity</strong> DID (did:ens or did:plc) for long-term reputation.</li>
+<li><strong>Per-relationship pairwise</strong> DIDs (did:peer) for messaging.</li>
+<li><strong>Verifier keys</strong> as did:key for credential presentation.</li>
+<li><strong>Service-specific</strong> DIDs (did:web hosted on a service domain).</li>
+</ul>
+<p>The W3C DID model accommodates this naturally. Wallet implementations (Spruce ID's Kepler, Indicio, MATTR, Microsoft Authenticator, Apple Wallet) manage multiple DIDs and present the right one for the right context.</p>
+<h2 id="dids-vs-pure-key-identity">DIDs vs pure-key identity</h2>
+<p><a href="/kb/nostr-identity/">Nostr</a> and <a href="/kb/pubky/">Pubky</a> argue for pure-key identity and skip the DID layer entirely. Their argument is "DID Documents are over-engineered; the public key is enough." For many use cases that is true.</p>
+<p>DIDs add value when:</p>
+<ul>
+<li>You need <strong>rotation</strong> (did:key explicitly does not, but most others do).</li>
+<li>You need <strong>service endpoint discovery</strong> via DID Doc service endpoints.</li>
+<li>You need to <strong>bind multiple key types</strong> (signing, encryption, capability) to one identifier.</li>
+<li>You are integrating with W3C VC issuers and verifiers.</li>
+</ul>
+<p>Otherwise, plain pubkey-as-identity (Nostr, Tor v3, PKARR) is simpler.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Standardized: W3C DID Core 1.0 (2022).</li>
+<li>Method-pluggable: choose the trust anchor that fits.</li>
+<li>Composable with VCs, OIDC4VP, SIWE, etc.</li>
+<li>Production deployments (Bluesky's millions, Microsoft Entra, EU Digital Wallet).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Method proliferation, confusing for newcomers.</li>
+<li>Resolver complexity. Every method needs its own resolver code path.</li>
+<li>Centralization risks vary by method, so each use case needs auditing.</li>
+<li>Wallet UX has caught up but is not on par with consumer messengers.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>W3C, <em>DID Core 1.0</em>, recommendation 2022. <a href="https://www.w3.org/TR/did-core" rel="noopener nofollow">w3.org/TR/did-core</a>.</li>
+<li>DIF, <em>Sidetree Protocol</em>. <a href="https://github.com/decentralized-identity/sidetree" rel="noopener nofollow">github.com/decentralized-identity/sidetree</a>.</li>
+<li>Bluesky / ATProto, <em>did:plc method spec</em>. <a href="https://github.com/did-method-plc/did-method-plc" rel="noopener nofollow">github.com/did-method-plc/did-method-plc</a>.</li>
+<li>DID method registry — <a href="https://w3c.github.io/did-spec-registries/" rel="noopener nofollow">w3c.github.io/did-spec-registries/</a>.</li>
+<li>DIDComm Messaging — <a href="https://identity.foundation/didcomm-messaging" rel="noopener nofollow">identity.foundation/didcomm-messaging</a>.</li>
+<li>Microsoft Entra Verified ID — <a href="https://learn.microsoft.com/en-us/entra/verified-id" rel="noopener nofollow">learn.microsoft.com/en-us/entra/verified-id</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Decentralized%20Identifier%20%28DID%29%20Methods" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A concrete look at the DID methods worth taking seriously in 2026: what each one trades off, who uses it in production, and which to pick for which threat model.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

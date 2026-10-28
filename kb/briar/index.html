@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Briar — ungovernable.tech</title>
+<meta name="description" content="Briar is a peer-to-peer messenger built for shutdowns and hostile networks: it syncs over Tor, Bluetooth and Wi-Fi, with no servers holding your messages.">
+<link rel="canonical" href="https://ungovernable.tech/kb/briar/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Briar — ungovernable.tech">
+<meta property="og:description" content="Briar is a peer-to-peer messenger built for shutdowns and hostile networks: it syncs over Tor, Bluetooth and Wi-Fi, with no servers holding your messages.">
+<meta property="og:url" content="https://ungovernable.tech/kb/briar/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Briar — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Briar — ungovernable.tech">
+<meta name="twitter:description" content="Briar is a peer-to-peer messenger built for shutdowns and hostile networks: it syncs over Tor, Bluetooth and Wi-Fi, with no servers holding your messages.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Briar", "description": "Briar is a peer-to-peer messenger built for shutdowns and hostile networks: it syncs over Tor, Bluetooth and Wi-Fi, with no servers holding your messages.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/briar/", "mainEntityOfPage": "https://ungovernable.tech/kb/briar/", "image": "https://ungovernable.tech/assets/og/pillar-mesh.png", "about": [{"@type": "Thing", "name": "Off-Grid and Mesh Networks"}, {"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Off-Grid and Mesh Networks", "item": "https://ungovernable.tech/pillars/mesh/"}, {"@type": "ListItem", "position": 3, "name": "Briar", "item": "https://ungovernable.tech/kb/briar/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/mesh/">Off-Grid and Mesh Networks</a><span aria-hidden="true">/</span><span class="here">Briar</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ OFF-GRID AND MESH NETWORKS ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>Briar</h1>
+  <p class="aka">Also Briar Project.</p>
+  <p class="dek">Peer-to-peer messaging built for the worst conditions: internet shutdowns, hostile networks, disrupted mesh. The same client switches between Tor, Bluetooth, and Wi-Fi-direct transparently.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#design-goals">Design goals</a><a href="#identity-and-contact-establishment">Identity and contact establishment</a><a href="#transports">Transports</a><a href="#briar-mailbox">Briar Mailbox</a><a href="#forums-and-blogs">Forums and blogs</a><a href="#cryptography">Cryptography</a><a href="#what-briar-doesnt-do">What Briar doesn&#39;t do</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#operational-patterns">Operational patterns</a><a href="#readiness">Readiness</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="design-goals">Design goals</h2>
+<p>Briar inverts the standard messenger architecture. Instead of "chat with reachable contacts via a central server", it asks "what comms remain possible when every layer is hostile?". The answers shaped the design:</p>
+<ul>
+<li>No accounts. Identity is local. There is no server-stored profile to subpoena.</li>
+<li>No phone number, no email. Contacts are added by exchanging QR codes or by mediated introductions.</li>
+<li>Four sync transports: Tor (when internet works), Bluetooth, Wi-Fi (LAN or mobile hotspot), and removable media (USB, SD). Same client, transparent switching.</li>
+<li>No metadata at the server. Direct peer-to-peer; nothing to log.</li>
+<li>Forums and blogs work offline. Briar's group features replicate via gossip rather than centralized publishing.</li>
+</ul>
+<p>The reference users are journalists, activists, and crisis responders in hostile environments. The threat model is a state-level adversary actively interrupting the network.</p>
+<h2 id="identity-and-contact-establishment">Identity and contact establishment</h2>
+<p>Each Briar account generates a long-term Ed25519 keypair locally. The public key is the contact-list entry.</p>
+<p>Adding a contact requires out-of-band key exchange, typically scanning a QR code in person. There is no Signal-style server-mediated discovery. The trade-off: phishing-proof contact, friction for the first introduction.</p>
+<p>Once added, contacts are reachable over whichever transport currently works.</p>
+<h2 id="transports">Transports</h2>
+<h3 id="tor-default-when-internet-works">Tor (default when internet works)</h3>
+<p>Each Briar instance hosts a Tor v3 hidden service. Contacts connect to one another via these hidden services. Properties:</p>
+<ul>
+<li>IP not visible to either side.</li>
+<li>Connection works through any NAT or firewall that allows Tor.</li>
+<li>Both peers must be online concurrently for direct delivery (or via Briar Mailbox; see below).</li>
+<li>Tor is sufficient on its own for basic operation.</li>
+</ul>
+<h3 id="bluetooth">Bluetooth</h3>
+<p>When in physical proximity, Briar can sync directly over Bluetooth. No internet required. Two nearby phones can synchronize messages and forum posts.</p>
+<h3 id="wi-fi-lan-mobile-hotspot">Wi-Fi (LAN / mobile hotspot)</h3>
+<p>Higher bandwidth than Bluetooth. Briar accepts connections over a shared LAN or via one device acting as a Wi-Fi hotspot for the other.</p>
+<h3 id="removable-media-usb-sd">Removable media (USB / SD)</h3>
+<p>Sneakernet sync. Briar can write its outbox to removable media for hand-carried delivery. Useful when no other transport works (deep adversarial conditions, air-gapped recipients).</p>
+<p>The client probes all available transports; messages get through whichever first succeeds. A user moving from a city (Tor) into a building with no internet (Bluetooth or Wi-Fi LAN) experiences continuous service.</p>
+<h2 id="briar-mailbox">Briar Mailbox</h2>
+<p>The async-delivery problem: if both peers are not online at the same time, direct delivery fails. Briar Mailbox is a separate, single-purpose Android app that runs on a spare device (an old phone left at home, ideally on a UPS).</p>
+<ul>
+<li>Peers deliver messages to your mailbox over Tor.</li>
+<li>You sync from the mailbox when you next connect.</li>
+<li>The mailbox sees only opaque ciphertext, encrypted under your contact's keys, not the mailbox's.</li>
+<li>The mailbox doesn't learn the message, the sender, or the recipient pair (it only knows it's holding stuff for "you").</li>
+</ul>
+<p>This recovers Signal-like asynchronous semantics without a server fleet.</p>
+<h2 id="forums-and-blogs">Forums and blogs</h2>
+<p>Briar groups synchronize via gossip: when you connect to any contact who is also a member, the latest forum state replicates between you. No central server holds the forum.</p>
+<p>Effects:</p>
+<ul>
+<li>Eventually consistent; recent messages may not be immediate everywhere.</li>
+<li>Member set determines reach; a forum with one member is invisible to non-members.</li>
+<li>Survives total internet outage; Bluetooth-only sync between members keeps the forum alive.</li>
+</ul>
+<p>Blogs work the same way: each user has their own append-only blog, replicated to subscribers via gossip.</p>
+<h2 id="cryptography">Cryptography</h2>
+<ul>
+<li>Ed25519 for identity and authentication.</li>
+<li>Curve25519 ECDH for session keys.</li>
+<li>AES-256-GCM for bulk encryption.</li>
+<li>BQP key agreement (Bramble's contact-protocol) for the contact-establishment ceremony.</li>
+<li>Forward secrecy via per-session ephemeral keys.</li>
+<li>Recent (post-2023) work on post-quantum hybrid handshakes (research-stage in 2026).</li>
+</ul>
+<p>Storage is encrypted with a passphrase-derived key. The passphrase is the only way back into a Briar account; there is no recovery.</p>
+<h2 id="what-briar-doesnt-do">What Briar doesn't do</h2>
+<ul>
+<li>Voice / video. Messaging only; account backup and file attachments remain missing features in the maintenance announcement. The threat model and constraints don't favor real-time media.</li>
+<li>Multi-device. A single account is bound to a single device. Account backup and export/import recovery are not available.</li>
+<li>Discovery. No directory; no search. Contacts are added intentionally.</li>
+<li>Federation. Pure P2P; not a server-based protocol.</li>
+</ul>
+<h2 id="threat-model">Threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Defended?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISP / state-level network adversary</td>
+<td>Yes; Tor for backbone, Bluetooth/Wi-Fi for radio fallback</td>
+</tr>
+<tr>
+<td>Server compromise</td>
+<td>N/A; no server</td>
+</tr>
+<tr>
+<td>Phone seizure (without passphrase)</td>
+<td>Yes; passphrase-encrypted storage</td>
+</tr>
+<tr>
+<td>Phone seizure (with passphrase coercion)</td>
+<td>Limited; duress wallet patterns not built in</td>
+</tr>
+<tr>
+<td>Network shutdown</td>
+<td>Yes; Bluetooth and Wi-Fi-direct</td>
+</tr>
+<tr>
+<td>Side-channel on radio</td>
+<td>Partial; short-range only, harder DF than LoRa beacons</td>
+</tr>
+<tr>
+<td>Endpoint malware</td>
+<td>No; same as everywhere</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Three transports plus transparent switching. Survives internet shutdowns.</li>
+<li>No metadata server. Nothing to subpoena.</li>
+<li>Identity stays on the device. Uninstalling Briar or losing the password leaves no account-recovery path.</li>
+<li>Forums work offline via gossip.</li>
+<li>Open source, Free Software. Auditable.</li>
+<li>Designed for hostile environments, not retrofitted.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Mobile-first, Android-primary. A desktop client (briar headless / desktop) exists; iOS is unsupported (Apple's restrictions on Tor and background networking).</li>
+<li>Manual contact establishment. No discovery means deliberate introduction every time.</li>
+<li>Smaller user base than mainstream messengers. Network effects favor Signal/Telegram/etc.</li>
+<li>Battery cost of always-on Tor.</li>
+<li>Single-device binding. No history sync across phones.</li>
+<li>No voice or video.</li>
+</ul>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="activist-comms">Activist comms</h3>
+<pre><code>Phone with Briar → Tor (when internet works)
+                 → Bluetooth (when internet shut down)
+                 → Wi-Fi-direct (in groups, room-scale)
+</code></pre>
+<p>Pre-arranged: distribute QR codes in person. Set up a Briar Mailbox on a spare phone at a safe location. Use forums for group coordination.</p>
+<h3 id="journalism-source-contact">Journalism / source contact</h3>
+<p>The source uses a fresh Briar identity on a clean phone. The journalist receives via Briar Mailbox. No server logs the contact.</p>
+<p>For higher-stakes scenarios (whistleblower, classified material): pair Briar with SecureDrop for asynchronous large-document submission, and Briar for ongoing communication.</p>
+<h3 id="disaster-comms">Disaster comms</h3>
+<p>In a regional internet outage, two Briar phones in the same building sync over Bluetooth. As mesh density grows, gossip carries forum updates across users.</p>
+<h2 id="readiness">Readiness</h2>
+<p>Briar announced maintenance mode on 9 July 2026. The project continues, with essential security updates and bug fixes. Its announcement identifies account backup, file attachments, battery usage and reliable background operation as unresolved issues.</p>
+<p>Briar Desktop is available as a beta; the project’s desktop release announcement calls it <code>0.6.0-beta</code>. Do not treat it as a stable desktop release.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://briarproject.org/news/2026-maintenance-mode/" rel="noopener nofollow">Briar maintenance-mode announcement, 9 July 2026</a></li>
+<li><a href="https://briarproject.org/manual/" rel="noopener nofollow">Briar manual: account storage and recovery</a></li>
+<li><a href="https://briarproject.org/news/2023-briar-desktop-0.6.0-released/" rel="noopener nofollow">Briar Desktop beta release announcement</a></li>
+</ul>
+<p>For a phone-only Bluetooth mesh with multi-hop relaying, store-and-forward couriers and a Nostr fallback, compare <a href="/kb/bitchat/">Bitchat</a>. For the wider field, see <a href="/kb/compare-messengers/">Choosing a private messenger</a>.</p>
+<p>Continue with <a href="/kb/delay-tolerant-networking/">Delay-tolerant networking</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/bitchat/">
+  <span class="nm">Bitchat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/delay-tolerant-networking/">
+  <span class="nm">Delay-tolerant networking</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/batman-adv-and-cjdns/">
+  <span class="nm">B.A.T.M.A.N. advanced and cjdns</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/building-a-mesh/">
+  <span class="nm">Building a Local Mesh Network</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/compare-off-grid/">
+  <span class="nm">Off-grid communication compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/guides/internet-shutdown-preparedness/">
+  <span class="nm">Internet Shutdown Preparedness</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/messaging/">Secure Messaging</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Briar" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">Peer-to-peer messaging built for the worst conditions: internet shutdowns, hostile networks, disrupted mesh. The same client switches between Tor, Bluetooth, and Wi-Fi-direct transparently.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Off-Grid and Mesh Networks, Secure Messaging</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

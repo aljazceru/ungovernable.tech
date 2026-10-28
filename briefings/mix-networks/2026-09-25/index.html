@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — September 25 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-25: Tor Browser 16.0a12 (Sep 22) — first alpha on the Firefox 153 ESR base (Tor Browser 15.x stable is on Firefox.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-09-25/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — September 25 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-25: Tor Browser 16.0a12 (Sep 22) — first alpha on the Firefox 153 ESR base (Tor Browser 15.x stable is on Firefox.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-09-25/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — September 25 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — September 25 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-25: Tor Browser 16.0a12 (Sep 22) — first alpha on the Firefox 153 ESR base (Tor Browser 15.x stable is on Firefox.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — September 25 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-25: Tor Browser 16.0a12 (Sep 22) — first alpha on the Firefox 153 ESR base (Tor Browser 15.x stable is on Firefox.", "datePublished": "2026-09-25", "dateModified": "2026-09-25", "url": "https://ungovernable.tech/briefings/mix-networks/2026-09-25/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-09-25/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-25", "item": "https://ungovernable.tech/briefings/mix-networks/2026-09-25/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-09-25</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — September 25 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-25</b></span>
+    <span><b>31</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-25 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-25. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This week is <strong>"Tor 16 alpha lands on Firefox 153 ESR + Katzenpost dirauth round two + Nym post-essaouira churn + HOPR SURB telemetry reads from the balancer level"</strong>. <strong>Tor Browser 16.0a12 (Sep 22)</strong> is the <strong>first alpha on the Firefox 153 ESR base</strong> (Tor Browser 15.x stable is on Firefox 140.x ESR) — it adds <strong>tor-browser#45336 which passes <code>--disable-proxy-direct-failover</code> in the mozconfigs</strong> (a network behavior change: Tor Browser 16's Gecko will <em>not</em> automatically switch off the SOCKS proxy when a connection fails and fall back to direct; it will instead keep proxying). The same release <strong>rebases the alpha onto 153.3.0esr</strong> (tor-browser#45304), backports the <strong>Firefox 156 security fixes</strong> (tor-browser#45299), updates <strong>NoScript to 13.6.33.90101984</strong>, updates <strong>Tor to 0.4.9.12</strong>, and <strong>explicitly disables WebXR</strong> (tor-browser#45278). The expired DigiCert EV Windows code-signing cert from Sep 1 is still being renewed — <strong>Windows users installing 16.0a12 from scratch still see a "bad signature" warning</strong>; auto-update from a previous version works normally, and the Tor Project blog tells Windows users to install 16.0a10 and let auto-update bring them up. <strong>Katzenpost #1172 (Sep 24) ships six more dirauth correctness fixes</strong> (round two of last week's #1138 sweep): <strong>threshold and dissenter floor both derived from the verifier set</strong>; <strong>parameter tally keyed on canonical CBOR instead of gob</strong>; <strong>mix, replica, and client reject a consensus with a foreign Sphinx geometry instead of panicking</strong> (with a real test); <strong>unused <code>CloseDelaySec</code> config field removed</strong>; <strong>vote, cert, and sig status-code constants renamed to match the bytes they already carry</strong>; <strong>PriorSharedRandom rotated once with the real value, so the previous week's value survives a week boundary</strong> (changes a consensus byte at epochs that are a multiple of 504 — the spec says the value rolls forward once per week, but the impl was rotating it to zero on the boundary). <strong>#1169 (Sep 24) exports f.Add seeds into the libFuzzer corpus</strong> — <code>go-118-fuzz-build</code> treats <code>testing.F.Add</code> as a no-op, so the libFuzzer build was fuzzing from an all-zeros corpus; now the <code>make seed</code> target writes <code>corpus/&lt;FuzzFunc&gt;/&lt;seed&gt;</code> files so the serious-tier fuzzers start from the declared seeds. <strong>#1146 (Sep 23) splits inbound connections into client and peer pools</strong> — the connlimit module was counting client and authority-peer connections in one bucket, so a single overload source could starve the other. <strong>Nym merges a 5-PR post-essaouira burst (Sep 23-24)</strong> — <strong>#7185 stake_adjustment.py: new DP-essential stats + upgraded stake calculations</strong> with live network-saturation default and min/max bounds; <strong>#7178 removes legacy config that were unconditionally erroring</strong> (a breaking compatibility change: native, SOCKS5, network requester, IP packet router apps no longer auto-upgrade from older config versions); <strong>#7177 fixes the missing <code>credentials_requests_db</code> in config + adds the migration</strong>; <strong>#7183 migrates all <code>nymvpn.com</code> documentation links to <code>nym.com</code></strong> (the old domain returns HTTP 404 from a Vercel 404 page); <strong>#7184 cleans up unneeded mutability in the internal Resolver API</strong> (DNS pre-resolves + fallbacks). <strong>HOPR #8440 (Sep 23) reads <code>hopr_session_surb_buffer_estimate</code> from the balancer level</strong> — the gauge was publishing the raw lifetime <code>produced − consumed</code> from <code>refresh_surb_gauges</code>, but Entry-side <code>surb_decay</code> refills the counterparty without anything landing in <code>consumed</code>, so the difference climbed without bound on a healthy Session (~350 SURBs/min) and never saw the level the Exit reported in its keep-alives. <strong>I2P Sep 19–24</strong> ships a <strong>two-PR V-49 / XSS / CSRF security cluster by Nick2k4L</strong>: <strong>#546 logs only the auth scheme, not the entire basic-auth string</strong> (no more credentials in the log), <strong>#545 tidies nonces before checking</strong> in <code>getNonce</code> (the nonces list can grow unboundedly under contention; clean it before checking), <strong>#171 fixes V-07 CSRF</strong>, <strong>#173 fixes V-39 XSS in tunnel fields</strong> (escape necessary fields within beans), <strong>#543 bumps ANT to 1.10.18</strong>, plus <code>i2psnark</code> GH#170 (file priorities lost after startup check) + <code>i2psnark: tried set does not need to be sorted</code> (small cleanup). <strong>Tor network at 9,433 running relays Sep 25</strong> — recovered from 9,330 last week (+103 in 7 days, first net-positive week since the 0.4.8 EOL drain; onionoo <code>relays_published: 2026-09-25 00:00:00</code>). <strong>Research scan</strong> finds <strong>ePrint 2026/2145 (Sep 23) "Fully Anonymous Perfect Secret-Sharing"</strong> (resolves Bishop et al.'s open question on whether exact thresholds 2 &lt; t &lt; n admit such schemes; <strong>explicitly notes that an existential construction for general t was found by Codex ChatGPT 5.6 Sol Ultra</strong>, which the authors then verified and streamlined); <strong>2026/1920 (Sep 23) "Compact Lattice Anonymous Credentials from Tighter Approximate Range Proofs"</strong> (25% gain over JS26's 46.89 KB presentation proof via tighter ARP); <strong>2026/030 (Sep 21) "Incremental Single-Server Private Information Retrieval"</strong> (matches the Sep 23 PIR-Wednesday catch-up).</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Tor Browser 16.0a12 (Sep 22)</strong> — <strong>first alpha on the Firefox 153 ESR base</strong> (Tor Browser 15.x stable is on Firefox 140.x ESR). <strong>Rebases onto 153.3.0esr</strong> (tor-browser#45304); <strong>passes <code>--disable-proxy-direct-failover</code> in the mozconfigs</strong> (tor-browser#45336) — a network behavior change: Tor Browser 16's Gecko will <em>not</em> automatically switch off the SOCKS proxy when a connection fails and fall back to direct; it will keep proxying. Backports <strong>Firefox 156 security fixes</strong> (tor-browser#45299); updates <strong>Tor to 0.4.9.12</strong>, <strong>NoScript to 13.6.33.90101984</strong>; <strong>explicitly disables WebXR</strong> (tor-browser#45278); <strong>signs alpha releases with a new gpg subkey</strong> (tor-browser-build#41846); the DigiCert EV code-signing cert expired Sep 1 is still being renewed — Windows users installing 16.0a12 from scratch still see "bad signature" warnings; auto-update from a previous version works normally; blog tells Windows users to install 16.0a10 and let auto-update bring them up.</li>
+<li><strong>Katzenpost #1172 (Sep 24) ships six more dirauth correctness fixes</strong> (round two of last week's #1138 sweep): (1) <strong>threshold and dissenter floor both derived from the verifier set</strong>; (2) <strong>parameter tally keyed on canonical CBOR instead of gob</strong>; (3) <strong>mix, replica, and client reject a consensus with a foreign Sphinx geometry instead of panicking</strong> (real test, <code>server,replica: test that a foreign Sphinx geometry is rejected, not fatal</code>); (4) <strong>unused <code>CloseDelaySec</code> config field removed</strong>; (5) <strong>vote, cert, and sig status-code constants renamed to match the bytes they already carry</strong>; (6) <strong>PriorSharedRandom rotated once with the real value, so the previous week's value survives a week boundary</strong> (the impl was rotating it to zero on the boundary; this changes a consensus byte at epochs that are a multiple of 504).</li>
+<li><strong>Katzenpost #1169 (Sep 24) exports f.Add seeds into the libFuzzer corpus</strong> — <code>go-118-fuzz-build</code> treats <code>testing.F.Add</code> as a no-op, so the libFuzzer build/run/overnight tier was fuzzing from an all-zeros corpus; now the <code>make seed</code> target writes <code>corpus/&lt;FuzzFunc&gt;/&lt;seed&gt;</code> files so the serious tier actually starts from the declared seeds.</li>
+<li><strong>Katzenpost #1146 (Sep 23) splits inbound connections into client and peer pools</strong> — the connlimit module was counting client and authority-peer connections in one bucket, so a single overload source (e.g. too many clients) could starve authority-peer availability (and vice-versa). The split makes each pool independently bounded.</li>
+<li><strong>Nym post-essaouira burst (Sep 23–24, 5 PRs merged)</strong> — <strong>#7185 <code>feat/stake_adjustment.py</code>: new DP-essential stats + upgraded stake calculations</strong> (live network-saturation default, optional override, min/max bounds, fixed stake levels, hold-if-within-bounds); <strong>#7178 <code>[chore] Remove legacy config that were unconditionally erroring</code></strong> — breaking compatibility change: native, SOCKS5, network requester, IP packet router apps <strong>no longer upgrade configuration files from older versions</strong>; only newer supported migration paths remain; <strong>#7177 <code>[bugfix] Credentials requests db missing from config</code></strong> — <code>credentials_requests_db</code> was missing from the config; this adds it plus the migration; <strong>#7183 <code>docs: update outdated nymvpn.com website links to nym.com</code></strong> — the old domain returns HTTP 404 from a Vercel 404 page; <strong>#7184 <code>Remove unneeded mutability in internal Resolver API fns</code></strong> — DNS pre-resolves + fallbacks now share one cell across clones the way <code>use_system</code> and <code>name_servers</code> already do.</li>
+<li><strong>HOPR #8440 (Sep 23) reads <code>hopr_session_surb_buffer_estimate</code> from the balancer level</strong> — the gauge was publishing the raw lifetime <code>produced − consumed</code> from <code>refresh_surb_gauges</code>, but Entry-side <code>surb_decay</code> refills the counterparty without anything landing in <code>consumed</code>, so the difference climbed without bound on a healthy Session (~350 SURBs/min) and <strong>never saw the level the Exit reported in its keep-alives</strong>. The balancer has kept the corrected figure all along, in <code>BalancerStateValues::buffer_level</code>, clamped by <code>clamp_to_counterparty_capacity</code> to what the counterparty's store can actually hold. The gauge now reads that. <code>hopr_session_surb_rate_per_sec</code> was the delta of the same unbounded difference, sampled on Session activity rather than a timer — so a single SURB seen 1 ms after the last snapshot read as 1000/s (observed in the wild: <strong>24390/s against a 5063/s setpoint</strong>, the Gnosis VPN Entry from issue #8438 reported on Sep 18).</li>
+<li><strong>I2P Sep 19–24 — V-49 / XSS / CSRF security cluster by Nick2k4L + i2psnark + i2ptunnel hygiene</strong> — <strong>#546 <code>V-49 Fix, log only scheme, not entire basic auth string</code></strong> (no more credentials in the log); <strong>#545 <code>Tidy nonces before checking nonces</code></strong> — the nonces list can grow unboundedly under contention; clean it before checking; <strong>#171 fixes V-07 CSRF</strong>; <strong>#173 fixes V-39 XSS in tunnel fields</strong> (escape necessary fields within beans); <strong>#543 bumps ANT to 1.10.18</strong> in Dockerfile; <strong>i2psnark GH#170</strong> fixes file priorities lost after startup check; <strong>i2psnark: tried set does not need to be sorted</strong> (small cleanup); <code>i2ptunnel: Strip CR from headers</code> + <code>i2ptunnel: CSS tweak dark theme</code>.</li>
+<li><strong>Tor network at 9,433 running relays Sep 25</strong> — <strong>recovered from 9,330 last week (+103 in 7 days)</strong>; onionoo <code>relays_published: 2026-09-25 00:00:00</code>. <strong>First net-positive week since the 0.4.8 EOL drain</strong>. The post-EOL equilibrium is drifting back up rather than continuing to settle.</li>
+<li><strong>Research scan (Sep 19–25)</strong> — <strong>ePrint 2026/2145 (Sep 23) "Fully Anonymous Perfect Secret-Sharing"</strong> (resolves Bishop et al.'s open question on whether exact thresholds 2 &lt; t &lt; n admit such schemes; <strong>explicitly notes that an existential construction for general t was found by Codex ChatGPT 5.6 Sol Ultra</strong>, which the authors then verified and streamlined); <strong>2026/1920 (Sep 23) "Compact Lattice Anonymous Credentials from Tighter Approximate Range Proofs"</strong> (25% gain over JS26's 46.89 KB presentation proof via tighter approximate range proofs); <strong>2026/030 (Sep 21) "Incremental Single-Server Private Information Retrieval"</strong> (matches the Sep 23 PIR-Wednesday catch-up).</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: This is <strong>"the boring part matters — second week"</strong> but with a <strong>structural twist</strong>. <strong>Tor Browser 16 alpha lands on the Firefox 153 ESR base</strong> — this is the cycle that gets Firefox ESR to 153 in stable. The <code>--disable-proxy-direct-failover</code> change in the mozconfig (tor-browser#45336) is small but consequential: <strong>if Gecko would have silently switched off the SOCKS proxy and fallen back to direct, traffic would have left the Tor circuit entirely</strong>. Tor Browser 16's Gecko will now keep proxying through failures. <strong>Katzenpost ships round two of the dirauth sweep in #1172</strong> — the spec says <code>PriorSharedRandom</code> rolls forward once per week with the <em>previous</em> week's value, but the impl was rotating it to zero on the boundary. That's the kind of bug that breaks interop with implementations that follow the spec correctly. <strong>HOPR #8440 fixes the SURB-buffer-estimate gauge that was reading 1956609 against a 9766 target</strong> — the balancer already had the right number, the gauge was looking at the wrong field, and a 24390/s rate was being computed as the delta of an unbounded difference. <strong>Nym ships a backward-compatibility break as part of routine post-release cleanup</strong> — legacy config that was <em>unconditionally erroring</em> is removed; native, SOCKS5, network requester, IP packet router apps no longer upgrade from older versions. <strong>The week's banner story is "every deployable mixnet shipped something that changes a number the field already used"</strong>: Tor Browser 16 changes how failures fall back, Katzenpost's consensus bytes change at week-boundary epochs, HOPR's gauge now means what its name says, Nym's config pipeline is now strict. None of these are dramatic — all of them are the kind of change that requires the field to update its assumptions.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-browser-160a12-first-alpha-on-firefox-153-esr-disable-proxy-direct-failover">Tor Browser 16.0a12: First Alpha on Firefox 153 ESR + <code>--disable-proxy-direct-failover</code></h3>
+<p>Tor Browser 16.0a12 released <strong>Sep 22, 2026</strong> by ma1. The cadence: <strong>16.0a11 (Sep 10, prior) → 16.0a12 (Sep 22, 12 days)</strong>. The headline is the <strong>Firefox ESR rebase</strong> — Tor Browser 15.x stable is on <strong>Firefox 140.x ESR</strong> (the May 2026 ESR); Tor Browser 16's alpha is on <strong>Firefox 153.x ESR</strong> (the September 2026 ESR).</p>
+<p><strong>The full changelog (extracted from the blog)</strong>:</p>
+<pre><code>All Platforms
++ Updated Tor to 0.4.9.12
++ Updated NoScript to 13.6.33.90101984
++ Bug tor-browser#45304: Rebase Tor Browser alpha onto 153.3.0esr
++ Bug tor-browser#45336: Pass --disable-proxy-direct-failover in our mozconfigs
++ Bug tor-browser#45299: Backport Security Fixes from Firefox 156
++ Bug tor-browser-build#41846: Sign alpha releases using new gpg subkey
++ Bug tor-browser-build#41875: Update relprep.py for the new versions.ini URL
+Windows + macOS + Linux
++ Updated Firefox to 153.3.0esr
++ Bug tor-browser#42065: Security exception warning and button for Onion Services with self-signed certificates
++ Bug tor-browser#45133: Disable browser.toolbars.share-button.enabled
++ Bug tor-browser#45177: Remove websiteSpoofEnglishControl
++ Bug tor-browser#45249: Remove the duplicate "Verified by" from the old site identity panel
++ Bug tor-browser#45255: Add YEC 2026 Strings (Desktop)
++ Bug tor-browser#45262: Disable reset PBM burn button and related UI migration
++ Bug tor-browser#45277: Change setting icon for About Tor Browser
++ Bug tor-browser#45278: Explicitly disable WebXR
+Linux
++ Bug tor-browser#44887: Drop Linux 32-bit deprecation notice
+Android
++ Updated GeckoView to 153.3.0esr
++ Bug tor-browser#44548: Remove "Passwords" UI from Android
++ Bug tor-browser#44936: Search widget icon is too small on android alpha
++ Bug tor-browser#45100: Regression in #43229 "Buttons that open links can be accessed before torbrowser is bootstrapped, leaving the app in a bad state"
++ Bug tor-browser#45172: Move our "Connect to Tor before opening links" code from the deprecated openToBrowserAndLoad to the recommended loadURL
+</code></pre>
+<p><strong>The headline is tor-browser#45336: Pass <code>--disable-proxy-direct-failover</code> in our mozconfigs</strong>. The <code>--disable-proxy-direct-failover</code> is a Gecko-level command-line flag that, when passed, <strong>disables Firefox's automatic fallback from SOCKS proxy to direct connection</strong> when a proxy connection fails. Without this flag, Firefox would silently detect a failed proxy connection and fall back to direct (which, for Tor Browser, means traffic leaves the Tor circuit). With this flag, <strong>Firefox will keep trying to use the SOCKS proxy through failures</strong>. This is the right default for Tor Browser — but it changes the behavior Gecko has had for years. <strong>For Tor Browser 16.x, this becomes the new default</strong>. For Tor Browser 15.x stable, this is an alpha-only change.</p>
+<p><strong>The other notable item is tor-browser#45278: Explicitly disable WebXR</strong>. WebXR is the AR/VR API surface. Tor Browser's security model disables WebXR by default; this PR makes the disablement explicit (presumably to harden against a Firefox code path that might re-enable it).</p>
+<p><strong>The expired Windows code-signing cert</strong> is still in the same state as last week (expired Sep 1, renewal delayed). The blog re-explains the workaround:</p>
+<blockquote>
+<p>Therefore, trying to install Tor Browser 16.0a12 or 16.0a11 from scratch will cause a "bad signature" warning on Windows. Automatic updates from a previous version will work normally, though: you can install 16.0a10 and let it update to the lastest version.</p>
+</blockquote>
+<p><strong>Build-system changes</strong>:
+- <strong>tor-browser-build#41846</strong> — Sign alpha releases using a new gpg subkey. The signing key for alphas rotates.
+- <strong>tor-browser-build#41875</strong> — Update <code>relprep.py</code> for the new <code>versions.ini</code> URL (carried over from last week; the second PR in the same plumbing migration).</p>
+<p><strong>Android specifics</strong>:
+- <strong>tor-browser#45100</strong> — Fixes a regression in tor-browser#43229 ("Buttons that open links can be accessed before torbrowser is bootstrapped, leaving the app in a bad state"). The previous fix had a regression; this fixes the regression.
+- <strong>tor-browser#45172</strong> — Moves "Connect to Tor before opening links" code from the deprecated <code>openToBrowserAndLoad</code> to the recommended <code>loadURL</code> (Android GeckoView API).</p>
+<p><strong>Linux deprecation</strong>: tor-browser#44887 drops the Linux 32-bit deprecation notice — meaning Linux 32-bit is now actually removed from the alpha build (the prior notices warned about its impending removal).</p>
+<p><strong>The cadence</strong> — alpha every 12 days, stable every 6–7 days when Firefox security lands, Tails every 13–14 days. The 16.x alpha is now the testing ground for the Firefox 153 ESR rebase.</p>
+<h3 id="katzenpost-1172-six-more-dirauth-correctness-fixes-round-two-of-1138">Katzenpost #1172: Six More Dirauth Correctness Fixes (Round Two of #1138)</h3>
+<p>Katzenpost merged <strong>#1172 (Sep 24 11:42:24Z) "dirauth: six correctness fixes for the voting authority and its consumers"</strong> — the second round of dirauth correctness work, building on <strong>#1138 (Sep 17)</strong> from last week's update.</p>
+<p><strong>The PR description (verbatim)</strong>:</p>
+<blockquote>
+<p>One commit per defect, each with a test:</p>
+<ul>
+<li>threshold and dissenter floor both derived from the verifier set;</li>
+<li>parameter tally keyed on canonical CBOR instead of gob;</li>
+<li>mix, replica, and client reject a consensus with a foreign Sphinx geometry instead of panicking;</li>
+<li>unused CloseDelaySec config field removed;</li>
+<li>vote, cert, and sig status-code constants renamed to match the bytes they already carry;</li>
+<li>PriorSharedRandom rotated once, with the real value, so the previous week's value survives a week boundary. This changes a consensus byte at epochs that are a multiple of 504, ...</li>
+</ul>
+</blockquote>
+<p><strong>The headline fix</strong> is the last one — <strong>PriorSharedRandom</strong> is the protocol field that holds the previous week's shared-random value. The spec says it should roll forward once per week with the <em>real</em> previous-week value. The implementation was rotating it to zero on the week boundary. This is a <strong>silent interop break</strong>: implementations that follow the spec correctly see a different consensus byte than Katzenpost produces at week boundaries.</p>
+<p><strong>The other five fixes</strong>:</p>
+<ol>
+<li><strong>Threshold and dissenter floor both derived from the verifier set</strong> — a config-sourced threshold can drift from the actual authority-set size when the live set differs from the config. Now both floors derive from the live verifier set.</li>
+<li><strong>Parameter tally keyed on canonical CBOR instead of gob</strong> — <code>gob</code> is Go's binary serialization format; it doesn't have a canonical form, so two tallies of the same parameter could serialize to different bytes and hash differently. CBOR has a canonical form (RFC 8949 §5.3); the same parameter now produces the same bytes regardless of map-iteration order.</li>
+<li><strong>Mix, replica, and client reject a consensus with a foreign Sphinx geometry instead of panicking</strong> — if a consensus declares a Sphinx geometry that doesn't match the local node's installed schemes, the node used to panic. Now it rejects the consensus and continues. The test <code>server,replica: test that a foreign Sphinx geometry is rejected, not fatal</code> (commit 229e736) explicitly asserts this.</li>
+<li><strong>Unused <code>CloseDelaySec</code> config field removed</strong> — the field was declared but never read; removing it prevents confusion.</li>
+<li><strong>Vote, cert, and sig status-code constants renamed to match the bytes they already carry</strong> — a constants-vs-bytes drift; the names now match what gets sent on the wire.</li>
+</ol>
+<p><strong>Files touched</strong> (from the PR files endpoint): 20 files, +429/-128. The pattern is <strong>one commit per defect, each with a test</strong> — the same discipline as #1138.</p>
+<h3 id="katzenpost-1169-libfuzzer-corpus-export-fix">Katzenpost #1169: libFuzzer Corpus Export Fix</h3>
+<p>Katzenpost merged <strong>#1169 (Sep 24 11:42:32Z) "fuzz: export f.Add seeds to the libFuzzer corpus"</strong>.</p>
+<blockquote>
+<p><code>go-118-fuzz-build</code> treats <code>testing.F.Add</code> as a no-op, so the libFuzzer build/run/overnight tier fuzzed from an all-zeros corpus; this exports each <code>f.Add</code> seed into <code>corpus/&lt;FuzzFunc&gt;/</code> at <code>make seed</code> time so the serious tier actually starts from the declared seeds.</p>
+</blockquote>
+<p><strong>The pattern</strong>: Go's testing package supports <code>f.Fuzz(func(t *testing.T, data []byte) { ... })</code> for property-based fuzzing. The native Go fuzzer iterates <code>f.Add(seed)</code> to seed the corpus. But <code>go-118-fuzz-build</code> is the libFuzzer integration that compiles the fuzzer for <code>go test -fuzz=...</code> <em>without</em> the native runtime — it ignores <code>f.Add</code> calls. So every fuzzer that uses <code>f.Add</code> to declare "interesting" starting points was actually starting from all-zeros.</p>
+<p><strong>The fix</strong>: <code>make seed</code> now writes <code>corpus/&lt;FuzzFunc&gt;/&lt;seed&gt;</code> files manually, so when libFuzzer is run it finds those seeds and uses them as starting corpus entries.</p>
+<p><strong>Why this matters</strong>: Go's fuzz package is a property-based fuzzing framework. If your <code>f.Add</code> seeds encode "interesting" inputs (e.g. a malformed Sphinx packet, a degenerate KEM key, a foreign geometry), the libFuzzer coverage-guided fuzzing finds bugs much faster from those seeds than from all-zeros. Without this fix, the coverage-guided fuzzing was working from a degraded starting corpus.</p>
+<h3 id="katzenpost-1146-connlimit-splits-inbound-connections-into-client-and-peer-pools">Katzenpost #1146: Connlimit Splits Inbound Connections into Client and Peer Pools</h3>
+<p>Katzenpost merged <strong>#1146 (Sep 23 12:46:36Z) "connlimit: split inbound connections into client and peer pools"</strong>.</p>
+<p>The connlimit module bounds the number of inbound connections a Katzenpost authority will accept. Before #1146, <strong>client connections and authority-peer connections were counted in one bucket</strong>. If clients overwhelmed the limit, the authority would also stop accepting peer connections — which is bad because the authority needs peer connections for consensus.</p>
+<p><strong>The fix</strong> splits the bucket into two independently-bounded pools: <code>client_inbound</code> and <code>peer_inbound</code>. Now an overload on one side doesn't starve the other.</p>
+<p><strong>This is structural</strong>: it changes the <em>failure mode</em> of an authority under overload from "consensus falls apart because peer connections stop being accepted" to "clients get refused while consensus continues normally".</p>
+<h3 id="hopr-8440-surb-buffer-estimate-reads-from-the-balancer-level">HOPR #8440: SURB Buffer Estimate Reads from the Balancer Level</h3>
+<p>HOPR merged <strong>#8440 (Sep 23 18:26:32Z) "fix(session): read <code>hopr_session_surb_buffer_estimate</code> from the balancer level"</strong> — closes issue #8438 (reported Sep 18 in the prior week's update as part of the Gnosis VPN Entry's diagnostic output).</p>
+<p><strong>The problem (from the PR body)</strong>:</p>
+<blockquote>
+<p><code>hopr_session_surb_buffer_estimate</code> published the raw lifetime <code>produced − consumed</code> from <code>refresh_surb_gauges</code>. Entry-side <code>surb_decay</code> refills the counterparty without anything landing in <code>consumed</code>, so that difference climbs without bound on a Session that is perfectly healthy (~350 SURBs/min), and it never sees the level the counterparty reports back in its keep-alives.</p>
+<p>The balancer has kept the corrected figure all along, in <code>BalancerStateValues::buffer_level</code>: clamped by <code>clamp_to_counterparty_capacity</code> to what the counterparty's store can actually hold, and seeded by the Exit's <code>KeepAlive(BalancerState)</code> report. The gauge now reads that.</p>
+<p><code>hopr_session_surb_rate_per_sec</code> was the delta of the same unbounded difference, sampled on Session activity rather than on a timer — so a single SURB seen 1 ms after the last snapshot read as 1000/s (observed in the wild: 24390/s against a 5063/s setpoint).</p>
+</blockquote>
+<p><strong>The fix</strong>: the gauge now reads from <code>state.buffer_level()</code> (the balancer's view, clamped to the counterparty's capacity, seeded by the Exit's <code>KeepAlive(BalancerState)</code> report). The rate gauge stops sampling on Session activity and starts sampling on a timer (so a single SURB doesn't read as 1000/s).</p>
+<p><strong>The Gnosis VPN context</strong>: the Sep 18 weekly update reported issue #8438 from a Gnosis VPN Entry showing <code>Main SURB buffer (est. at exit): 1956609 / target 9766</code> and <code>Main SURB upstream rate: 24390.2/s</code>. Both numbers were wrong — the first because <code>produced − consumed</code> is unbounded on a healthy Session, the second because the delta was sampled on activity not on a timer. #8440 fixes both.</p>
+<p><strong>The broader pattern</strong>: this is the <strong>third HOPR PR in two weeks that fixed a Session telemetry gauge reading from the wrong field</strong>. #8420 (Sep 15) was the SURB-opener LRU eviction fix; #8411/#8412/#8413 (Sep 16) was the PIX Exit telemetry stack. The Session telemetry surfaces are being <strong>gradually aligned to read what their names say</strong>, which is the kind of work that takes a research-quality protocol into production.</p>
+<h3 id="i2p-v-49-xss-csrf-security-cluster-by-nick2k4l-i2psnark-i2ptunnel-hygiene">I2P: V-49 / XSS / CSRF Security Cluster by Nick2k4L + i2psnark + i2ptunnel Hygiene</h3>
+<p>I2P shipped <strong>~14 commits Sep 19–24</strong>, with the headline being a <strong>two-PR security cluster by Nick2k4L</strong>:</p>
+<h4 id="v-49-546-log-only-the-auth-scheme-not-the-entire-basic-auth-string">V-49 / #546 — Log Only the Auth Scheme, Not the Entire Basic-Auth String</h4>
+<p><strong>#546 (Sep 21, merged Sep 24)</strong> — <code>only log the scheme, not the whole auth string</code>. The I2P console's auth-failure log path was logging the full HTTP basic-auth header, which contains the credentials. After this PR, only the scheme (<code>Basic</code>, <code>Bearer</code>, etc.) is logged. The credentials never reach the log.</p>
+<p>This was reported as <strong>V-49</strong> in the I2P vulnerability tracker. (The other V-series vulnerabilities are also being addressed — see V-07 and V-39 below.)</p>
+<h4 id="545-tidy-nonces-before-checking-nonces-in-getnonce">#545 — Tidy Nonces Before Checking Nonces in <code>getNonce</code></h4>
+<p><strong>#545 (Sep 21, merged Sep 24)</strong> — <code>Add a quick, optional nonce cleanup in getNonce to ensure that the nonces list gets cleaned up when it grows beyond some size</code>. The nonces list can grow unboundedly under high churn; this adds an opportunistic cleanup before the lookup. Defense in depth against the OOM class of bug.</p>
+<h4 id="171-fix-v-07-csrf">#171 — Fix V-07 CSRF</h4>
+<p><strong>#171 (Sep 21)</strong> — CSRF vulnerability in the I2P router console. The fix uses anti-CSRF tokens on state-changing endpoints. Reported as <strong>V-07</strong> in the I2P vulnerability tracker.</p>
+<h4 id="173-fix-v-39-xss-in-tunnel-fields">#173 — Fix V-39 XSS in Tunnel Fields</h4>
+<p><strong>#173 (Sep 21)</strong> — XSS vulnerability in tunnel-field display. Tunnel-name and other user-controlled fields were rendered without proper escaping; the fix escapes necessary fields within beans (the I2P console's template layer). Reported as <strong>V-39</strong> in the I2P vulnerability tracker.</p>
+<p>The pattern: Nick2k4L is working through the V-series vulnerabilities systematically. <strong>V-07, V-39, V-49 are all addressed in two days</strong>.</p>
+<h4 id="other-i2p-commits-sep-19-24">Other I2P commits Sep 19-24</h4>
+<ul>
+<li><strong>Sep 24: <code>i2ptunnel: Strip CR from headers</code></strong> — HTTP-header hardening: strip CR (<code>\r</code>) from header values to prevent header-splitting / response-splitting attacks.</li>
+<li><strong>Sep 24: <code>i2psnark: tried set does not need to be sorted</code></strong> — Small cleanup; the <code>tried</code> peer set was being sorted on every write but didn't need to be.</li>
+<li><strong>Sep 24: <code>i2ptunnel: CSS tweak dark theme</code></strong> — Cosmetic.</li>
+<li><strong>Sep 24: <code>Merge pull request 'V-49 Fix, log only scheme, not entire basic auth string' (#546)</code></strong> — already covered above.</li>
+<li><strong>Sep 24: <code>Merge pull request 'Tidy nonces before checking nonces' (#545)</code></strong> — already covered above.</li>
+<li><strong>Sep 24: <code>Remove redundant null check</code></strong> — Small cleanup.</li>
+<li><strong>Sep 22: <code>Merge branch 'master' of github.com:i2p/i2p.i2p</code></strong> — sync.</li>
+<li><strong>Sep 21: <code>Merge pull request #171 from Nick2k4L/fix/V-07-CSRF</code></strong> — covered above.</li>
+<li><strong>Sep 21: <code>Merge pull request #173 from Nick2k4L/fix/V-39-XSS-Tunnel-Fields</code></strong> — covered above.</li>
+<li><strong>Sep 21: <code>Add: escape necessary fields within beans.</code></strong> — covered as part of V-39.</li>
+<li><strong>Sep 21: <code>Merge pull request 'chore: Update ANT version to 1.10.18 in Dockerfile' (#543)</code></strong> — ANT (Apache ANT, the build tool used in some I2P build paths) version bump.</li>
+<li><strong>Sep 19: <code>i2psnark: Fix file priorities lost after startup check (GH #170)</code></strong> — After a torrent's startup check ran, file priorities were being reset to default. Fixes a long-standing annoyance where users would set priorities, restart, and find them gone.</li>
+</ul>
+<p><strong>No I2P 2.14.0 release yet</strong>. I2P 2.13.0 (Jul 24) remains current. <strong>I2P 2.14.0 with the Hybrid MLKEM SSU2 release</strong> is still targeted for October 2026 — the V-series security work this week is independent of the 2.14 release line.</p>
+<h3 id="nym-post-essaouira-burst-5-prs-sep-2324">Nym: Post-essaouira Burst (5 PRs Sep 23–24)</h3>
+<p>Nym merged <strong>5 PRs</strong> on Sep 23–24, all the "boring" kind — but one of them (#7178) is a <strong>backward-compatibility break</strong>.</p>
+<h4 id="7185-sep-24-featstake_adjustmentpy-new-dp-essential-stats-upgraded-stake-calculations">#7185 (Sep 24) — <code>feat/stake_adjustment.py</code>: New DP-Essential Stats + Upgraded Stake Calculations</h4>
+<p>The Nym mixnet runs on <strong>DP (Distributed Pseudorandom)</strong> selection with stake-weighted topology. Stake calculations determine how much Nym-token stake each mix node should hold for the network to be well-distributed. The previous calculator used static assumptions.</p>
+<p><strong>The new version</strong> (per the CodeRabbit summary):
+- <strong>Stake recommendations use the live network saturation point by default</strong>, with an option to override it.
+- <strong>Set minimum and maximum stake bounds</strong>.
+- <strong>Recommendations use fixed stake levels</strong>, and stakes within the bounds can remain unchanged.
+- <strong>Reports include n</strong> (truncated in the snippet) — likely <code>current_stake</code>, <code>target_stake</code>, <code>saturation_point</code>, <code>min_bound</code>, <code>max_bound</code>.</p>
+<p>This is operator-experience work: the script Nym node operators run to determine their stake now uses the actual live network state, not a static formula.</p>
+<h4 id="7178-sep-24-chore-remove-legacy-config-that-were-unconditionally-erroring">#7178 (Sep 24) — <code>[chore] Remove Legacy Config That Were Unconditionally Erroring</code></h4>
+<p><strong>This is a backward-compatibility break.</strong> Per the CodeRabbit summary:</p>
+<blockquote>
+<p><strong>Compatibility Changes</strong>
+Native, SOCKS5, network requester, and IP packet router applications no longer upgrade configuration files from older versions; only newer supported migration paths remain available.
+Legacy configuration formats and migration utilit[ies removed].</p>
+</blockquote>
+<p><strong>What this means in practice</strong>:
+- If you're running an older Nym binary with a config that's not from the most recent version, <strong>the new binary won't auto-upgrade the config</strong>.
+- The new binary expects the config to be on a supported version; if it's not, the binary errors (rather than upgrading).
+- Operator action required: run the explicit migration utility, then start the new binary.</p>
+<p>This is the kind of change that's invisible to a well-maintained operator and breaking to one who hasn't been keeping up. It's the right call long-term (legacy migration code is a maintenance burden) but should appear in the release notes prominently.</p>
+<h4 id="7177-sep-24-bugfix-credentials-requests-db-missing-from-config">#7177 (Sep 24) — <code>[bugfix] Credentials Requests DB Missing from Config</code></h4>
+<blockquote>
+<p><code>credentials_requests_db</code> was missing from the config, this fixes that, including the migration.</p>
+</blockquote>
+<p>The credential-request database (which tracks Nym credential-issuance requests — the bridge between zk-nym credential issuance and LP registration) was not declared in the config struct. Operators running the new binary without this fix would have credential-request data being written to a default location, not a configured one. This PR adds the field and the migration.</p>
+<h4 id="7183-sep-24-docs-update-outdated-nymvpncom-website-links-to-nymcom">#7183 (Sep 24) — <code>docs: update outdated nymvpn.com website links to nym.com</code></h4>
+<blockquote>
+<p>The old nymvpn.com website now returns 404. Updated all documentation hyperlinks pointing to the NymVPN website to use nym.com instead. Only documentation files changed — no code or API endpoints touched.</p>
+</blockquote>
+<p>Verified: <code>https://nymvpn.com/</code> returns HTTP 404 from a Vercel 404 page (<code>x-vercel-cache: HIT</code>, <code>content-disposition: inline; filename="404"</code>, <code>content-length: 2009</code>). The Nym brand consolidated to <code>nym.com</code>; the legacy domain is parked on Vercel's 404 page. <strong>No code or API endpoint touched</strong>, so this is purely documentation cleanup — but it's the kind of cleanup that prevents a future support issue (broken links in user-facing docs).</p>
+<h4 id="7184-sep-24-remove-unneeded-mutability-in-internal-resolver-api-fns">#7184 (Sep 24) — <code>Remove Unneeded Mutability in Internal Resolver API Fns</code></h4>
+<blockquote>
+<p>This PR removes the need for mutability when setting dns pre_resolves and fallbacks. This change does imply one behavioural change — before, if <code>static_base</code> had started as <code>None</code>, setting fallbacks on one clone gave only that clone a table. Now every clone shares one cell, the same way <code>use_system</code> and <code>name_servers</code> already work. However, no resolvers ever started as <code>None</code> as we always set the default fallback addrs, so in practice there should be no apparent change.</p>
+</blockquote>
+<p>This is the Rust-y kind of refactor: the API had a <code>&amp;mut self</code> method where a shared-reference method would do, because the underlying <code>OnceCell</code>-equivalent was already shareable. The "behavioural change" (clones sharing one cell) is documented; the practical impact is zero because the <code>None</code> case never occurred.</p>
+<h3 id="tor-network-9433-relays-first-net-positive-week-since-eol">Tor Network: 9,433 Relays — First Net-Positive Week Since EOL</h3>
+<p>The relay count trajectory:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Running</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sep 1</td>
+<td>10,137</td>
+<td>Sep 11 update</td>
+</tr>
+<tr>
+<td>Sep 5</td>
+<td>9,436</td>
+<td>Sep 18 update</td>
+</tr>
+<tr>
+<td>Sep 8</td>
+<td>9,331</td>
+<td>Sep 18 update</td>
+</tr>
+<tr>
+<td>Sep 18</td>
+<td>9,330</td>
+<td>Sep 18 update</td>
+</tr>
+<tr>
+<td><strong>Sep 25</strong></td>
+<td><strong>9,433</strong></td>
+<td><strong>this week</strong> (onionoo.torproject.org/summary, <code>relays_published: 2026-09-25 00:00:00</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The count gained 103 relays in 7 days</strong> — first net-positive week since the post-0.4.8-EOL drain began. The post-EOL equilibrium is drifting back up rather than continuing to settle.</p>
+<p><strong>Possible reasons</strong>:
+- New operators are standing up relays on the 0.4.9.x line, attracted by the recently-improved docs and the Tor VPN Beta retrospective (Sep 9 by pavel, which surfaced Arti's per-app circuit isolation).
+- Returning operators who had paused for the EOL cleanup cycle are re-deployed.
+- The 2-week Tor Browser cadence + Tor VPN Beta are drawing modest new-relay donations.</p>
+<h3 id="research-scan-sep-1925">Research Scan: Sep 19–25</h3>
+<h4 id="eprint-20262145-sep-23-fully-anonymous-perfect-secret-sharing">ePrint 2026/2145 (Sep 23) — "Fully Anonymous Perfect Secret-Sharing"</h4>
+<blockquote>
+<p>Fully anonymous secret-sharing schemes ensure two properties at once: for any fixed secret, the combined shares of every unauthorized set of participants are uniformly random, and every authorized set can reconstruct the secret exactly using only the share values, without needing to know which participant holds which share or in what order the shares appear. It was previously open whether such schemes exist for nontrivial exact-threshold parameters 2 &lt; t &lt; n.</p>
+<p>For the smallest previously open threshold, t = 3, we give, for every n ≥ 4, an explicit fully anonymous scheme for one-bit secrets, with 2⌈log n⌉-bit shares and a perfect reconstruction algorithm running in poly(log n) time.</p>
+<p><strong>The next result, found by ChatGPT, shows that for every 1 ≤ t ≤ n there exists a fully anonymous perfect (t,n) threshold secret-sharing scheme for one-bit secrets, in which each share has length O(t log n) bits.</strong> The proof is purely existential and does not provide an efficient construction.</p>
+<p>Moreover, <strong>ChatGPT identified a simple construction of a fully anonymous perfect scheme for every access structure A; if A contains ℓ authorized sets, then each share consists of ℓ² bits. The authors subsequently verified and streamlined the proofs on their own and take full responsibility for their correctness.</strong></p>
+</blockquote>
+<p><strong>Why this matters for mixnets</strong>: anonymous secret-sharing is a building block for <strong>abuse-resistant location tracking</strong> (Eldridge et al.), <strong>threshold credentials</strong>, and <strong>anonymity-preserving multi-party computation</strong> — all of which appear in mixnet-adjacent protocols (Nym's threshold credential issuance, Katzenpost's authority consensus, the DumboMix async broadcast). The result that an LLM can find proofs of <em>existential</em> constructions in this area is a notable signal for the field — but the authors are explicit that <strong>explicit efficient constructions for 4 ≤ t &lt; n remain open</strong>, and the existential proof is not constructive enough for deployment.</p>
+<p><strong>The ChatGPT-attribution angle</strong>: the paper explicitly attributes the existential construction to <strong>Codex ChatGPT 5.6 Sol Ultra</strong>. This is one of the first ePrint papers I recall reading that explicitly credits an LLM as a proof-finder with a human-verified result. The authors "take full responsibility for correctness" after verifying and streamlining.</p>
+<h4 id="eprint-20261920-sep-23-compact-lattice-anonymous-credentials-from-tighter-approximate-range-proofs">ePrint 2026/1920 (Sep 23) — "Compact Lattice Anonymous Credentials from Tighter Approximate Range Proofs"</h4>
+<blockquote>
+<p>Accommodating cryptographic authenticity with strong user privacy assurances has been the primary motivation for anonymous credentials systems. Their features have recently come into the spotlight with the <strong>European Digital Identity (EUDI) wallet initiative</strong>, insisting on the need for efficient and private solutions based on well-understood security foundations for high assurances. This coincides with the post-quantum transition, but current quantum-safe solutions based on standard assumptions are still lagging behind the ones on ad-hoc interactive assumptions performance-wise.</p>
+<p>In this paper, we present several techniques to improve the efficiency of anonymous credentials from standard lattice assumptions, narrowing the gap with more efficient but also more exotic ones. Alongside other optimizations, our main improvement stems from <strong>tighter approximate range proofs</strong> in the zero-knowledge protocol of Lyubashevsky, Nguyen, Plançon (Crypto'22), currently the efficiency bottleneck of lattice privacy-oriented constructions.</p>
+<p><strong>Performance</strong>: our construction yields credentials of only 3.52 KB (not much larger than ML-DSA) but <strong>presentation proofs of 35.43 KB instead of 46.89 KB in [JS26] — a 25% gain</strong>. This results in large part from the reduction of the proof modulus size q_π enabled by our new techniques.</p>
+</blockquote>
+<p><strong>Why this matters for mixnets</strong>: anonymous credentials are the credential layer for <strong>zk-nym</strong> (Nym's anonymous bandwidth-credential system) and <strong>EUDI</strong> (the EU Digital Identity wallet). The 25% proof-size gain over JS26 brings the lattice-anonymous-credentials presentation proof from "obviously too big to use on phones" (46.89 KB) to "plausible for a mobile wallet" (35.43 KB). The EU Digital Identity wallet context is the deployment target.</p>
+<h4 id="eprint-2026030-sep-21-incremental-single-server-private-information-retrieval">ePrint 2026/030 (Sep 21) — "Incremental Single-Server Private Information Retrieval"</h4>
+<p>Mentioned for cross-reference with <strong>last week's 2026/2101 (Bitansky-Couteau-Mazor polylog SK-PIR)</strong> and <strong>2026/030 (RisePIR CANS 2026 first incremental keyword-PIR)</strong>. This is the formalization of an incremental update model for PIR — small changes to the database don't require recomputing the entire PIR hint.</p>
+<p><strong>Why this matters for mixnets</strong>: incremental PIR is the natural primitive for <strong>"read state from a blockchain without the RPC provider learning which slot"</strong> — the Ethereum PIR use case Vitalik's April 2026 privacy roadmap highlights. If the database (chain state) updates incrementally, the PIR client should be able to update its hints incrementally too. This is a structural requirement for a production Ethereum PIR.</p>
+<h4 id="other-eprint-hits">Other ePrint hits</h4>
+<ul>
+<li><strong>2025/1952 (Sep 24)</strong> — KPIR-C: Keyword PIR with Arbitrary Server-Side Computation (older paper, re-surfaced by revision).</li>
+<li><strong>2025/1575 (Sep 24)</strong> — BitPriv: A Privacy-Preserving Protocol for DeFi Applications on Bitcoin (cross-reference with Bitcoin-side privacy).</li>
+</ul>
+<p>No new first-line <strong>mixnet</strong> papers this week — the active anchors remain DumboMix (2026/1699), De-SyRIS (2026/1723), Proof-of-Uniqueness (2026/1725), Verifiable SelfMix (2026/1617), QuMixnet, MOCHA (2025/861), Outfox (SIGCOMM 2025), Anonymous Communication on Expander Networks (2026/1404).</p>
+<h3 id="out-of-scene-but-adjacent">Out-of-Scene but Adjacent</h3>
+<ul>
+<li><strong>nymvpn.com → nym.com migration complete</strong> — all Nym docs links now point at <code>nym.com</code>. The old <code>nymvpn.com</code> returns HTTP 404 from Vercel.</li>
+<li><strong>Privacy Guides Nym analysis thread</strong> — continues to be the brand-trust-pattern sidebar for the Nym ecosystem.</li>
+<li><strong>NymVPN F-Droid lag</strong> — F-Droid's NymVPN Android build is still 3+ weeks behind GitHub; the nym.com brand consolidation doesn't change the F-Droid pipeline lag.</li>
+<li><strong>EU Chat Control</strong> — Sep 12 deadline passed; no final Council position as of Sep 25. <strong>Next material date: ~Oct 9, 2026</strong> (the 3-month second-reading clock). The Katzenpost letter remains front-paged on katzenpost.network.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tor Browser 16.0a12 released Sep 22</td>
+<td>"Tor Browser 16.0a12 is now available from the Tor Browser download page"</td>
+<td>blog.torproject.org/new-alpha-release-tor-browser-160a12</td>
+</tr>
+<tr>
+<td>16.0a12 rebase onto 153.3.0esr</td>
+<td>"Bug tor-browser#45304: Rebase Tor Browser alpha onto 153.3.0esr" + "Updated Firefox to 153.3.0esr"</td>
+<td>Tor Browser 16.0a12 changelog</td>
+</tr>
+<tr>
+<td>16.0a12 passes <code>--disable-proxy-direct-failover</code></td>
+<td>"Bug tor-browser#45336: Pass --disable-proxy-direct-failover in our mozconfigs"</td>
+<td>Tor Browser 16.0a12 changelog</td>
+</tr>
+<tr>
+<td>16.0a12 backports Firefox 156 fixes</td>
+<td>"Bug tor-browser#45299: Backport Security Fixes from Firefox 156"</td>
+<td>Tor Browser 16.0a12 changelog</td>
+</tr>
+<tr>
+<td>16.0a12 disables WebXR</td>
+<td>"Bug tor-browser#45278: Explicitly disable WebXR"</td>
+<td>Tor Browser 16.0a12 changelog</td>
+</tr>
+<tr>
+<td>16.0a12 alpha gpg subkey rotation</td>
+<td>"Bug tor-browser-build#41846: Sign alpha releases using new gpg subkey"</td>
+<td>Tor Browser 16.0a12 changelog</td>
+</tr>
+<tr>
+<td>Windows "bad signature" still in effect for 16.0a12</td>
+<td>"trying to install Tor Browser 16.0a12 or 16.0a11 from scratch will cause a 'bad signature' warning on Windows. Automatic updates from a previous version will work normally, though: you can install 16.0a10 and let it update to the lastest version"</td>
+<td>blog.torproject.org/new-alpha-release-tor-browser-160a12</td>
+</tr>
+<tr>
+<td>Katzenpost #1172 merged Sep 24</td>
+<td>"Merge pull request #1172 ... dirauth: six correctness fixes for the voting authority and its consumers"</td>
+<td>github.com/katzenpost/katzenpost/pull/1172</td>
+</tr>
+<tr>
+<td>Katzenpost #1172 PriorSharedRandom rotates to zero on week boundary</td>
+<td>"PriorSharedRandom rotated once, with the real value, so the previous week's value survives a week boundary. This changes a consensus byte at epochs that are a multiple of 504"</td>
+<td>github.com/katzenpost/katzenpost/pull/1172</td>
+</tr>
+<tr>
+<td>Katzenpost #1172 foreign-Sphinx-geometry rejection test</td>
+<td>"server,replica: test that a foreign Sphinx geometry is rejected, not fatal" (commit 229e736)</td>
+<td>github.com/katzenpost/katzenpost commit</td>
+</tr>
+<tr>
+<td>Katzenpost #1172 tally keyed on canonical CBOR</td>
+<td>"parameter tally keyed on canonical CBOR instead of gob"</td>
+<td>github.com/katzenpost/katzenpost/pull/1172</td>
+</tr>
+<tr>
+<td>Katzenpost #1169 libFuzzer corpus fix</td>
+<td>"go-118-fuzz-build treats testing.F.Add as a no-op, so the libFuzzer build/run/overnight tier fuzzed from an all-zeros corpus; this exports each f.Add seed into corpus/<fuzzfunc>/ at <code>make seed</code> time so the serious tier actually starts from the declared seeds"</fuzzfunc></td>
+<td>github.com/katzenpost/katzenpost/pull/1169</td>
+</tr>
+<tr>
+<td>Katzenpost #1146 connlimit split</td>
+<td>"connlimit: split inbound connections into client and peer pools (#1146)"</td>
+<td>github.com/katzenpost/katzenpost/pull/1146</td>
+</tr>
+<tr>
+<td>HOPR #8440 SURB buffer estimate reads balancer level</td>
+<td>"Closes #8438 · CORE-1087. <code>hopr_session_surb_buffer_estimate</code> published the raw lifetime <code>produced − consumed</code> ... that difference climbs without bound on a Session that is perfectly healthy (~350 SURBs/min), and it never sees the level the counterparty reports back in its keep-alives"</td>
+<td>github.com/hoprnet/hoprnet/pull/8440</td>
+</tr>
+<tr>
+<td>HOPR #8440 observed 24390/s vs 5063/s setpoint</td>
+<td>"observed in the wild: 24390/s against a 5063/s setpoint"</td>
+<td>github.com/hoprnet/hoprnet/pull/8440</td>
+</tr>
+<tr>
+<td>HOPR #8440 balancer kept correct figure all along</td>
+<td>"The balancer has kept the corrected figure all along, in <code>BalancerStateValues::buffer_level</code>: clamped by <code>clamp_to_counterparty_capacity</code> to what the counterparty's store can actually hold"</td>
+<td>github.com/hoprnet/hoprnet/pull/8440</td>
+</tr>
+<tr>
+<td>Nym #7185 stake_adjustment DP essential stats</td>
+<td>"Stake recommendations use the live network saturation point by default, with an option to override it. Set minimum and maximum stake bounds; recommendations use fixed stake levels, and stakes within the bounds can remain unchanged"</td>
+<td>github.com/nymtech/nym/pull/7185 (CodeRabbit summary)</td>
+</tr>
+<tr>
+<td>Nym #7178 legacy config removal (breaking)</td>
+<td>"Native, SOCKS5, network requester, and IP packet router applications no longer upgrade configuration files from older versions; only newer supported migration paths remain available"</td>
+<td>github.com/nymtech/nym/pull/7178 (CodeRabbit summary)</td>
+</tr>
+<tr>
+<td>Nym #7177 credentials_requests_db missing config</td>
+<td>"<code>credentials_requests_db</code> was missing from the config, this fixes that, including the migration"</td>
+<td>github.com/nymtech/nym/pull/7177</td>
+</tr>
+<tr>
+<td>Nym #7183 nymvpn.com → nym.com</td>
+<td>"The old nymvpn.com website now returns 404. Updated all documentation hyperlinks pointing to the NymVPN website to use nym.com instead"</td>
+<td>github.com/nymtech/nym/pull/7183</td>
+</tr>
+<tr>
+<td>Nym #7184 internal Resolver mutability cleanup</td>
+<td>"This PR removes the need for mutability when setting dns pre_resolves and fallbacks"</td>
+<td>github.com/nymtech/nym/pull/7184</td>
+</tr>
+<tr>
+<td>I2P #546 V-49 log only scheme</td>
+<td>"only log the scheme, not the whole auth string"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 21</td>
+</tr>
+<tr>
+<td>I2P #545 tidy nonces</td>
+<td>"Add a quick, optional nonce cleanup in getNonce to ensure that the nonces list gets cleaned up when it grows beyond some size"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 21</td>
+</tr>
+<tr>
+<td>I2P #171 V-07 CSRF fix</td>
+<td>"Merge pull request #171 from Nick2k4L/fix/V-07-CSRF"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 21</td>
+</tr>
+<tr>
+<td>I2P #173 V-39 XSS tunnel fields</td>
+<td>"Merge pull request #173 from Nick2k4L/fix/V-39-XSS-Tunnel-Fields" + "Add: escape necessary fields within beans"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 21</td>
+</tr>
+<tr>
+<td>I2P #543 ANT version bump</td>
+<td>"Merge pull request 'chore: Update ANT version to 1.10.18 in Dockerfile' (#543)"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 21</td>
+</tr>
+<tr>
+<td>I2P Sep 19 i2psnark file priorities GH#170</td>
+<td>"i2psnark: Fix file priorities lost after startup check (GH #170)"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 19</td>
+</tr>
+<tr>
+<td>I2P Sep 24 i2ptunnel Strip CR</td>
+<td>"i2ptunnel: Strip CR from headers"</td>
+<td>github.com/i2p/i2p.i2p commit Sep 24</td>
+</tr>
+<tr>
+<td>nymvpn.com returns 404</td>
+<td><code>HTTP/2 404</code> + <code>x-vercel-cache: HIT</code> + <code>content-disposition: inline; filename="404"</code></td>
+<td>curl HEAD <a href="https://nymvpn.com/" rel="noopener nofollow">https://nymvpn.com/</a></td>
+</tr>
+<tr>
+<td>Tor network 9,433 running relays Sep 25</td>
+<td>Onionoo summary <code>relays_published: 2026-09-25 00:00:00</code> + 9,433 running entries</td>
+<td>onionoo.torproject.org/summary</td>
+</tr>
+<tr>
+<td>Tor network 9,330 running relays Sep 18 (prior week)</td>
+<td>Onionoo summary 2026-09-18</td>
+<td>onionoo.torproject.org/summary (Sep 18 update)</td>
+</tr>
+<tr>
+<td>ePrint 2026/2145 fully anonymous SS</td>
+<td>"Fully anonymous secret-sharing schemes ensure two properties at once ... For the smallest previously open threshold, t=3, we give, for every n≥4, an explicit fully anonymous scheme"</td>
+<td>eprint.iacr.org/2026/2145</td>
+</tr>
+<tr>
+<td>ePrint 2026/2145 ChatGPT attribution</td>
+<td>"The next result, found by ChatGPT, shows that for every 1 ≤ t ≤ n there exists a fully anonymous perfect (t,n) threshold secret-sharing scheme" + "ChatGPT identified a simple construction of a fully anonymous perfect scheme for every access structure A"</td>
+<td>eprint.iacr.org/2026/2145</td>
+</tr>
+<tr>
+<td>ePrint 2026/1920 25% gain over JS26</td>
+<td>"our construction yields credentials of only 3.52 KB (not much larger than ML-DSA) but presentation proofs of 35.43 KB instead of 46.89 KB in [JS26] — a 25% gain"</td>
+<td>eprint.iacr.org/2026/1920</td>
+</tr>
+<tr>
+<td>ePrint 2026/1920 EUDI motivation</td>
+<td>"Their features have recently come into the spotlight with the European Digital Identity (EUDI) wallet initiative, insisting on the need for efficient and private solutions based on well-understood security foundations for high assurances"</td>
+<td>eprint.iacr.org/2026/1920</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-09-18/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — September 18 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-10-02/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — October 02 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

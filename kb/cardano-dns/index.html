@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cardano DNS — ungovernable.tech</title>
+<meta name="description" content="Cardano DNS from Blink Labs combines Handshake top-level domains with Cardano native assets: an experimental approach to blockchain-owned names.">
+<link rel="canonical" href="https://ungovernable.tech/kb/cardano-dns/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Cardano DNS — ungovernable.tech">
+<meta property="og:description" content="Cardano DNS from Blink Labs combines Handshake top-level domains with Cardano native assets: an experimental approach to blockchain-owned names.">
+<meta property="og:url" content="https://ungovernable.tech/kb/cardano-dns/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cardano DNS — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cardano DNS — ungovernable.tech">
+<meta name="twitter:description" content="Cardano DNS from Blink Labs combines Handshake top-level domains with Cardano native assets: an experimental approach to blockchain-owned names.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cardano DNS", "description": "Cardano DNS from Blink Labs combines Handshake top-level domains with Cardano native assets: an experimental approach to blockchain-owned names.", "dateModified": "2026-10-25", "datePublished": "2026-05-04", "url": "https://ungovernable.tech/kb/cardano-dns/", "mainEntityOfPage": "https://ungovernable.tech/kb/cardano-dns/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Cardano DNS", "item": "https://ungovernable.tech/kb/cardano-dns/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Cardano DNS</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Cardano DNS</h1>
+  <p class="aka">Also Cardano dDNS, cDNS, cdnsd.</p>
+  <p class="dek">A young decentralized DNS effort from Blink Labs / Gimbalabs that combines Handshake top-level-domain ownership with Cardano native assets and smart contracts for second-level domains. The most concrete implementation is `cdnsd`, a DNS daemon that indexes Cardano data and serves records for configured TLD profiles.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#historical-context">Historical context</a><a href="#architecture">Architecture</a><a href="#main-components">Main components</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#maturity-and-active-development">Maturity and active development</a><a href="#how-resolution-works">How resolution works</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#comparison">Comparison</a><a href="#operational-notes">Operational notes</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>Cardano DNS is not a universal replacement for DNS and not yet a broadly deployed public namespace. It is a set of open-source components for building a decentralized DNS market where:</p>
+<ul>
+<li>Top-level-domain authority can come from <a href="/kb/handshake/">Handshake</a>.</li>
+<li>Second-level names can be represented as Cardano native assets.</li>
+<li>DNS records can be written as on-chain datum data.</li>
+<li>A resolver/indexer (<code>cdnsd</code>) follows Cardano and Handshake state and serves DNS responses.</li>
+</ul>
+<p>The project is important because it points to a compositional model: use the chain that already owns root-zone-like names (Handshake) and the chain with rich native assets / contracts (Cardano) for second-level marketplaces. That is different from <a href="/kb/ens/">ENS</a>, where the name and contract logic live in one EVM environment, and different from <a href="/kb/pkarr/">PKARR</a>, where there is no scarce human-readable name at all.</p>
+<p>As of 2026-05-04, the project is active but early. GitHub API metadata showed:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repository</th>
+<th class="ta-r">Stars</th>
+<th class="ta-r">Forks</th>
+<th>Language</th>
+<th>Last pushed</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/blinklabs-io/cardano-dns" rel="noopener nofollow">blinklabs-io/cardano-dns</a></td>
+<td class="ta-r">7</td>
+<td class="ta-r">0</td>
+<td>Python</td>
+<td>2026-03-13</td>
+<td>Spec / shared design repo; small but current</td>
+</tr>
+<tr>
+<td><a href="https://github.com/blinklabs-io/cdnsd" rel="noopener nofollow">blinklabs-io/cdnsd</a></td>
+<td class="ta-r">11</td>
+<td class="ta-r">2</td>
+<td>Go</td>
+<td>2026-05-03</td>
+<td>Active resolver daemon implementation</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="historical-context">Historical context</h2>
+<p>Most decentralized DNS projects choose one chain as the registry:</p>
+<ul>
+<li>Namecoin used a Bitcoin-derived chain for <code>.bit</code>.</li>
+<li><a href="/kb/handshake/">Handshake</a> created a PoW chain for top-level-domain ownership.</li>
+<li><a href="/kb/ens/">ENS</a> uses Ethereum contracts for <code>.eth</code> and resolver records.</li>
+<li>Unstoppable Domains uses blockchain records but a company-controlled product layer.</li>
+</ul>
+<p>Cardano DNS instead splits the problem:</p>
+<ol>
+<li><strong>Who controls a TLD?</strong> Handshake is already designed for that.</li>
+<li><strong>How do second-level names become programmable assets?</strong> Cardano native assets and Plutus contracts can represent and transfer them.</li>
+<li><strong>How do ordinary applications resolve records?</strong> A DNS daemon indexes the chain state and answers normal DNS queries.</li>
+</ol>
+<p>This design surfaced through Blink Labs' <code>cardano-dns</code> repo and a Project Catalyst Fund13 proposal for a decentralized DNS marketplace powered by Cardano and Handshake. The proposal describes a cross-chain, self-service DNS marketplace where Handshake TLD owners create second-level-domain marketplaces on Cardano.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code class="language-text">Handshake chain
+  └─ proves/anchors TLD ownership
+
+Cardano chain
+  ├─ native asset represents domain / control token
+  ├─ Plutus contracts validate updates and marketplace rules
+  └─ inline datum stores DNSReferenceDatum / record data
+
+cdnsd resolver
+  ├─ follows Cardano chain via node / indexer configuration
+  ├─ uses profiles for TLDs such as cardano, ada, hydra
+  ├─ optionally follows Handshake data
+  └─ serves DNS, DNS-over-TLS, metrics, and recursion fallback
+</code></pre>
+<p>The shape is closer to an indexer-backed DNS server than to a global recursive resolver. Users or infrastructure operators run <code>cdnsd</code>, configure a profile, and point clients or upstream resolvers at it.</p>
+<h2 id="main-components">Main components</h2>
+<h3 id="cardano-dns-design-repository"><code>cardano-dns</code> design repository</h3>
+<p>The <a href="https://github.com/blinklabs-io/cardano-dns" rel="noopener nofollow">blinklabs-io/cardano-dns</a> repository is the shared design space for decentralized DNS on Cardano. It includes:</p>
+<ul>
+<li>Documentation for DNS record datum examples.</li>
+<li>Python proof-of-concept scripts (<code>dns.py</code>, <code>dns-kupo.py</code>) for parsing data and producing a zone file.</li>
+<li>Docker / BIND examples.</li>
+<li>Metadata and demo domain data.</li>
+<li>References to Plutus contract logic and token/datum concepts.</li>
+</ul>
+<p>Key concepts in the repo include:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DNSReferenceDatum</code></td>
+<td>On-chain inline datum holding DNS record data</td>
+</tr>
+<tr>
+<td>HNS token</td>
+<td>Represents Handshake-related ownership / authority</td>
+</tr>
+<tr>
+<td>DRAT / MHABAT</td>
+<td>Token-policy-related primitives referenced by the design</td>
+</tr>
+<tr>
+<td><code>.cardano</code> examples</td>
+<td>Preprod test records such as <code>village.cardano</code>, <code>town.cardano</code>, <code>city.cardano</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The examples are explicitly pre-production test vectors. The repo's <code>write-datums-examples.md</code> distinguishes correct and incorrect datum examples, useful for implementers building validation logic.</p>
+<h3 id="cdnsd-resolver-daemon"><code>cdnsd</code> resolver daemon</h3>
+<p><a href="https://github.com/blinklabs-io/cdnsd" rel="noopener nofollow">blinklabs-io/cdnsd</a> is the production-shaped component: a Go DNS server that implements Cardano DNS resolution.</p>
+<p>Its README describes it as:</p>
+<blockquote>
+<p>Resolver for Cardano-based second-level domains on Handshake top-level domains.</p>
+</blockquote>
+<p>Important properties from the repository and docs:</p>
+<ul>
+<li>Configurable with YAML and environment variables.</li>
+<li>DNS listener defaults to UDP/TCP port <code>8053</code> rather than privileged port <code>53</code>.</li>
+<li>Optional DNS-over-TLS listener defaults to <code>8853</code>.</li>
+<li>Prometheus metrics support.</li>
+<li>Recursive DNS fallback can be enabled.</li>
+<li>Profiles define network, TLD, policy ID, script address, and chain intercept point.</li>
+<li>Profiles visible in <code>internal/config/profile.go</code> include <code>cardano-preprod-testing</code>, <code>ada-preprod</code>, <code>hydra-preprod</code>, and <code>auto-preprod</code>.</li>
+</ul>
+<p>This makes <code>cdnsd</code> the practical entry point for experimentation.</p>
+<h3 id="project-catalyst-fund13-marketplace">Project Catalyst Fund13 marketplace</h3>
+<p>The Project Catalyst proposal "Decentralized Domain Name System (DNS) Marketplace powered by Cardano and Handshake blockchains" frames the broader product:</p>
+<ul>
+<li>Open-source, self-service DNS marketplace.</li>
+<li>Handshake TLD owners can create marketplaces for second-level domains.</li>
+<li>Cardano smart contracts handle second-level-domain minting and updates.</li>
+<li>Domain records are represented with Cardano-native assets and on-chain data.</li>
+<li>Funding status observed: in progress, 3 of 5 milestones completed, 164,000 ADA distributed of 200,000 ADA requested.</li>
+</ul>
+<p>Milestones reported by the project included Handshake signature validation in Cardano contracts, controller contracts, an example marketplace site, and domain contracts for minting/updating assets.</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cardano-dns</code> is a shared design repo for decentralized DNS on Cardano</td>
+<td>Repository README: "Shared space for information about decentralized DNS on Cardano"</td>
+<td>High</td>
+</tr>
+<tr>
+<td>The goal is a Cardano-backed dDNS standard</td>
+<td>README states goal of a standard for dDNS services on Cardano backed by blockchain data</td>
+<td>High</td>
+</tr>
+<tr>
+<td><code>cdnsd</code> is the active resolver implementation</td>
+<td>Repository description and README: Cardano DNS daemon implementing <code>cardano-dns</code>; last pushed 2026-05-03</td>
+<td>High</td>
+</tr>
+<tr>
+<td>The system composes Cardano and Handshake</td>
+<td><code>cdnsd</code> README says Cardano-based second-level domains on Handshake TLDs; Catalyst proposal confirms cross-chain marketplace</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Current deployment is preprod / experimental</td>
+<td>Profiles and examples reference Cardano preprod; small repos; marketplace milestones still in progress</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Mainstream adoption is low</td>
+<td>No browser/OS native support and small GitHub footprint</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="maturity-and-active-development">Maturity and active development</h2>
+<p>Cardano DNS is best classified as <strong>experimental but actively built</strong>.</p>
+<h3 id="positive-signs">Positive signs</h3>
+<ul>
+<li><code>cdnsd</code> had a very recent push (2026-05-03) when checked.</li>
+<li>The resolver has serious operational features: configuration, metrics, DNS-over-TLS, profiles, chain intercept configuration.</li>
+<li>Project Catalyst milestones indicate funded work rather than a weekend-only prototype.</li>
+<li>The design is open-source under MIT-style licensing.</li>
+</ul>
+<h3 id="caution-signs">Caution signs</h3>
+<ul>
+<li>GitHub stars and forks are tiny.</li>
+<li>Examples are mostly preprod/testnet oriented.</li>
+<li>The system requires users to run custom resolvers.</li>
+<li>Cross-chain proof of Handshake authority in Cardano contracts is complex.</li>
+<li>There is no mainstream client distribution, browser support, or public resolver ecosystem comparable to ENS gateways.</li>
+</ul>
+<h2 id="how-resolution-works">How resolution works</h2>
+<p>A simplified Cardano DNS resolution path:</p>
+<pre><code class="language-text">query: village.cardano A
+
+1. Client asks cdnsd.
+2. cdnsd determines matching profile: TLD = cardano, network = preprod/mainnet profile.
+3. cdnsd uses its local indexed state from Cardano chain data.
+4. cdnsd validates whether the relevant token / policy / datum combination represents a valid record.
+5. cdnsd emits a DNS answer or NXDOMAIN / validation failure.
+</code></pre>
+<p>For production Handshake-linked namespaces, an additional proof path exists: the TLD owner needs to demonstrate Handshake authority, and Cardano contracts use that authority to govern second-level domain issuance.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="1-handshake-tld-marketplace-on-cardano">1. Handshake TLD marketplace on Cardano</h3>
+<p>A Handshake TLD holder wants to sell or distribute second-level domains without running a centralized registrar. Cardano DNS gives them:</p>
+<ul>
+<li>Cardano native assets for second-level names.</li>
+<li>Smart-contract rules for minting, transfer, and update rights.</li>
+<li>A DNS daemon that can serve records from chain data.</li>
+</ul>
+<p>This is the headline use case from the Catalyst proposal.</p>
+<h3 id="2-cardano-dapp-naming">2. Cardano dApp naming</h3>
+<p>Cardano applications could use <code>.ada</code>, <code>.hydra</code>, or other configured TLD profiles for dApp endpoints, metadata, or service discovery. The name can resolve to conventional IP addresses while ownership remains chain-backed.</p>
+<h3 id="3-sovereign-community-namespace">3. Sovereign community namespace</h3>
+<p>A community can own or coordinate around a TLD and run several <code>cdnsd</code> resolvers. Members point their devices to those resolvers to resolve community names. This looks more like community infrastructure than global public DNS.</p>
+<h3 id="4-disaster-resistant-domain-records">4. Disaster-resistant domain records</h3>
+<p>Because DNS data is derived from chain state, an adversary cannot simply coerce a registrar database row. They would need to compromise the chain keys, contract logic, resolver operators, or the underlying Handshake/Cardano security assumptions.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li><strong>Cross-chain composition.</strong> Uses <a href="/kb/handshake/">Handshake</a> for TLD ownership and Cardano for programmable second-level assets.</li>
+<li><strong>Native assets.</strong> Domain ownership can be represented as Cardano assets rather than off-chain database rows.</li>
+<li><strong>Open resolver.</strong> <code>cdnsd</code> can be self-hosted and audited.</li>
+<li><strong>Operational tooling.</strong> Metrics, configuration profiles, and DNS-over-TLS make it more deployable than many dDNS demos.</li>
+<li><strong>Marketplace path.</strong> Project Catalyst funding pushes beyond pure protocol theory.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Early ecosystem.</strong> Tiny repo adoption and mostly preprod examples.</li>
+<li><strong>Resolver dependency.</strong> Users must configure <code>cdnsd</code> or trust someone else's resolver.</li>
+<li><strong>Complex trust stack.</strong> Cardano + Handshake + resolver indexing is more complex than single-chain ENS.</li>
+<li><strong>Lookup privacy.</strong> DNS queries to <code>cdnsd</code> are visible to the resolver unless wrapped in DoT/DoH/Tor/mixnet infrastructure.</li>
+<li><strong>Indexing correctness.</strong> Resolver bugs can produce incorrect DNS answers even when chain state is correct.</li>
+<li><strong>Governance questions.</strong> TLD owners, contract upgrades, and marketplace rules need explicit social and technical governance.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Where it lands</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compromised Cardano domain key</td>
+<td>Second-level domain ownership / record updates</td>
+<td>Hardware wallet, multisig, explicit key rotation patterns</td>
+</tr>
+<tr>
+<td>Bad Plutus contract logic</td>
+<td>Marketplace / update validation</td>
+<td>Audits, small contract surface, staged rollout</td>
+</tr>
+<tr>
+<td>Handshake proof failure</td>
+<td>TLD authority bridge</td>
+<td>Test vectors, independent verification, conservative acceptance rules</td>
+</tr>
+<tr>
+<td>Resolver equivocation</td>
+<td><code>cdnsd</code> operator returns false records</td>
+<td>Run local resolver; compare several resolvers; verify chain state directly</td>
+</tr>
+<tr>
+<td>DNS query surveillance</td>
+<td>Resolver observes names</td>
+<td>Local resolver, DNS-over-TLS, Tor/I2P, future <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a> patterns</td>
+</tr>
+<tr>
+<td>Chain reorg / indexer lag</td>
+<td>Stale or inconsistent answers</td>
+<td>Confirmation thresholds, intercept points, monitoring</td>
+</tr>
+<tr>
+<td>Centralized public resolver capture</td>
+<td>Users depend on one gateway</td>
+<td>Community-run resolvers and client-side verification</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>TLD authority</th>
+<th>Record/asset layer</th>
+<th>Resolver path</th>
+<th>Maturity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/ens/">ENS</a></td>
+<td><code>.eth</code> on Ethereum</td>
+<td>EVM registry + resolver contracts</td>
+<td>Wallet/dApp libraries, gateways</td>
+<td>High</td>
+</tr>
+<tr>
+<td><a href="/kb/handshake/">Handshake</a></td>
+<td>Handshake chain</td>
+<td>HNS records</td>
+<td>hnsd / custom resolvers</td>
+<td>Niche but live</td>
+</tr>
+<tr>
+<td>Cardano DNS</td>
+<td>Handshake TLD + Cardano contracts</td>
+<td>Cardano native assets + inline datums</td>
+<td><code>cdnsd</code></td>
+<td>Experimental, active</td>
+</tr>
+<tr>
+<td><a href="/kb/pkarr/">PKARR</a></td>
+<td>Public key itself</td>
+<td>BEP44 mutable item on Mainline DHT</td>
+<td>pkdns/native clients</td>
+<td>Emerging</td>
+</tr>
+<tr>
+<td><a href="/kb/gnu-name-system/">GNS</a></td>
+<td>Zone keys + petnames</td>
+<td>GNUnet encrypted DHT records</td>
+<td>GNUnet resolver/NSS</td>
+<td>Experimental</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cardano DNS is strongest where the desired product is not merely a name, but a marketplace or ownership system around names. For a single service endpoint, <a href="/kb/pkarr/">PKARR</a> is simpler; for broad wallet identity, <a href="/kb/ens/">ENS</a> has much more distribution.</p>
+<h2 id="operational-notes">Operational notes</h2>
+<p>If testing Cardano DNS:</p>
+<ol>
+<li>Start with <code>cdnsd</code> rather than hand-parsing datums.</li>
+<li>Use preprod profiles (<code>cardano-preprod-testing</code>, <code>ada-preprod</code>, <code>hydra-preprod</code>) until the contract and marketplace flow are stable.</li>
+<li>Run with query logging disabled if resolver privacy matters.</li>
+<li>Put <code>cdnsd</code> behind local-only access or a trusted network first; public recursive DNS is an abuse surface.</li>
+<li>Monitor Prometheus metrics and chain sync lag.</li>
+<li>Keep conventional DNS, <a href="/kb/handshake/">Handshake</a>, or <a href="/kb/pkarr/">PKARR</a> mirrors until user resolvers are common.</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://www.gnunet.org/en/about.html" rel="noopener nofollow">GNUnet software status</a></p>
+</li>
+<li>
+<p><code>cardano-dns</code> design repository — <a href="https://github.com/blinklabs-io/cardano-dns" rel="noopener nofollow">github.com/blinklabs-io/cardano-dns</a>.</p>
+</li>
+<li><code>cdnsd</code> resolver daemon — <a href="https://github.com/blinklabs-io/cdnsd" rel="noopener nofollow">github.com/blinklabs-io/cdnsd</a>.</li>
+<li>Cardano DNS datum examples — <a href="https://github.com/blinklabs-io/cardano-dns/blob/main/docs/write-datums-examples.md" rel="noopener nofollow">docs/write-datums-examples.md</a>.</li>
+<li><code>cdnsd</code> profiles — <a href="https://github.com/blinklabs-io/cdnsd/blob/main/internal/config/profile.go" rel="noopener nofollow">internal/config/profile.go</a>.</li>
+<li>Project Catalyst Fund13 proposal — <a href="https://projectcatalyst.io/funds/13/cardano-open-developers/decentralized-domain-name-system-dns-marketplace-powered-by-cardano-and-handshake-blockchains" rel="noopener nofollow">Decentralized DNS Marketplace powered by Cardano and Handshake</a>.</li>
+<li>Handshake protocol — <a href="https://handshake.org" rel="noopener nofollow">handshake.org</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/handshake/">
+  <span class="nm">Handshake</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/ens/">
+  <span class="nm">Ethereum Name Service (ENS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/gnu-name-system/">
+  <span class="nm">GNU Name System (GNS)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/namecoin/">
+  <span class="nm">Namecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Cardano%20DNS" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A young decentralized DNS effort from Blink Labs / Gimbalabs that combines Handshake top-level-domain ownership with Cardano native assets and smart contracts for second-level domains. The most concrete implementation is `cdnsd`, a DNS daemon that indexes Cardano data and serves records for configured TLD profiles.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

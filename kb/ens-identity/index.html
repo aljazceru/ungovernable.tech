@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ENS as Identity — ungovernable.tech</title>
+<meta name="description" content="Using the Ethereum Name Service as an identity layer: names as accounts, records for keys and profiles, and the dependencies that come with it.">
+<link rel="canonical" href="https://ungovernable.tech/kb/ens-identity/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="ENS as Identity — ungovernable.tech">
+<meta property="og:description" content="Using the Ethereum Name Service as an identity layer: names as accounts, records for keys and profiles, and the dependencies that come with it.">
+<meta property="og:url" content="https://ungovernable.tech/kb/ens-identity/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ENS as Identity — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ENS as Identity — ungovernable.tech">
+<meta name="twitter:description" content="Using the Ethereum Name Service as an identity layer: names as accounts, records for keys and profiles, and the dependencies that come with it.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "ENS as Identity", "description": "Using the Ethereum Name Service as an identity layer: names as accounts, records for keys and profiles, and the dependencies that come with it.", "dateModified": "2026-04-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/ens-identity/", "mainEntityOfPage": "https://ungovernable.tech/kb/ens-identity/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}, {"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "ENS as Identity", "item": "https://ungovernable.tech/kb/ens-identity/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">ENS as Identity</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>ENS as Identity</h1>
+  <p class="aka">Also ENS Identity, did:ens.</p>
+  <p class="dek">The Ethereum Name Service is the largest deployed crypto-native identity primitive. This file looks at ENS through the identity lens: what is bound to a name, how it is used for login and reputation, and how it composes with the rest of this library&#39;s identity story.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-04-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-an-ens-name-holds">What an ENS name holds</a><a href="#sign-in-with-ethereum-eip-4361-siwe">Sign-In with Ethereum (EIP-4361 / SIWE)</a><a href="#didens-the-did-method">did:ens — the DID method</a><a href="#reputation-signals">Reputation signals</a><a href="#lightning-address-records">Lightning Address records</a><a href="#nip-05-over-ens">NIP-05 over ENS</a><a href="#privacy-trade-off">Privacy trade-off</a><a href="#comparison-with-pubky-nostr-did">Comparison with Pubky / Nostr / DID</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#operational-patterns">Operational patterns</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-an-ens-name-holds">What an ENS name holds</h2>
+<p>A <code>.eth</code> name's records cover most of an online presence:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Record type</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addr</code> (multi-coin)</td>
+<td>Wallet addresses across chains</td>
+</tr>
+<tr>
+<td><code>contenthash</code></td>
+<td>IPFS / Arweave / Swarm content for the website</td>
+</tr>
+<tr>
+<td><code>text "url"</code></td>
+<td>Personal website URL</td>
+</tr>
+<tr>
+<td><code>text "avatar"</code></td>
+<td>Avatar (often IPFS or NFT URI)</td>
+</tr>
+<tr>
+<td><code>text "description"</code></td>
+<td>Short bio</td>
+</tr>
+<tr>
+<td><code>text "com.github"</code></td>
+<td>GitHub username (cross-platform identity)</td>
+</tr>
+<tr>
+<td><code>text "com.twitter"</code></td>
+<td>X / Twitter handle</td>
+</tr>
+<tr>
+<td><code>text "social.nostr.npub"</code></td>
+<td>Nostr public key</td>
+</tr>
+<tr>
+<td><code>text "lud16"</code> / <code>text "lud06"</code></td>
+<td>Lightning Address</td>
+</tr>
+<tr>
+<td><code>text "email"</code></td>
+<td>Email</td>
+</tr>
+<tr>
+<td><code>text "org"</code></td>
+<td>Organization affiliation</td>
+</tr>
+<tr>
+<td><code>did</code> records</td>
+<td>DID methods bound to the name</td>
+</tr>
+</tbody>
+</table></div>
+<p>The aggregate is a portable profile: one ENS name carries identity, money, social presence, and content into every dApp or wallet that integrates ENS resolution.</p>
+<h2 id="sign-in-with-ethereum-eip-4361-siwe">Sign-In with Ethereum (EIP-4361 / SIWE)</h2>
+<p>The login flow that made ENS practical for non-crypto sites:</p>
+<pre><code>Site:   "Sign this message: 'Login to example.com at 2026-04-25T13:30:00Z, nonce ABC'"
+User:   signs with wallet private key
+Site:   verifies signature against the user's address
+        looks up address → ENS reverse record → "alice.eth"
+        starts session as alice.eth
+</code></pre>
+<p>What the site gets:
+- Cryptographic proof of address ownership.
+- An ENS-resolved alias for UX.
+- No password, no OAuth provider, no email.</p>
+<p>What the user gets:
+- One-click auth across any SIWE-supporting site.
+- No site-specific account creation.
+- A portable wallet, and therefore portable identity.</p>
+<p>SIWE is in production at Snapshot voting, OpenSea, ENS Manager, many DeFi UIs, and a growing set of non-crypto sites that want decentralized auth.</p>
+<h2 id="didens-the-did-method">did:ens — the DID method</h2>
+<p>ENS names can also be expressed as DIDs:</p>
+<pre><code>did:ens:alice.eth
+</code></pre>
+<p>Resolution dereferences ENS records into a DID Document. Public keys, service endpoints, and other DID-Doc-shaped data come from ENS text records.</p>
+<p>Position vs other DID methods:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Anchor</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>did:ens</code></td>
+<td>Ethereum L1</td>
+<td>Crypto-native identity</td>
+</tr>
+<tr>
+<td><code>did:web</code></td>
+<td>DNS</td>
+<td>Enterprise / government</td>
+</tr>
+<tr>
+<td><code>did:plc</code></td>
+<td>Bluesky log</td>
+<td>Social ATProto</td>
+</tr>
+<tr>
+<td><code>did:ion</code></td>
+<td>Bitcoin / Sidetree</td>
+<td>High-stakes Bitcoin-anchored</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>did:ens</code> slots in cleanly: when ENS is already the de facto wallet identity, formalizing it as <code>did:ens</code> for VC interop is a small step.</p>
+<h2 id="reputation-signals">Reputation signals</h2>
+<p>An ENS name accumulates verifiable reputation over time:</p>
+<ul>
+<li>Token holdings at the address.</li>
+<li>NFT ownership (POAPs, badges, certifications).</li>
+<li>DeFi history (positions, governance votes).</li>
+<li>Social-graph followers (Lens, Farcaster).</li>
+<li>Linked credentials via off-chain VCs whose subject is the ENS name.</li>
+</ul>
+<p>This is real reputation in a sense traditional identity systems struggle with: publicly verifiable, cryptographically signed, and accumulated through behavior. The trade-off is that it is publicly visible, which is bad for privacy.</p>
+<p>For pseudonymous use, separate ENS names per context. For sovereign identity, one name with deliberate reputation building.</p>
+<h2 id="lightning-address-records">Lightning Address records</h2>
+<p>Bind a Lightning Address to an ENS name:</p>
+<pre><code>ENS records:
+  text "lud16" = "alice@yourln.example"
+  text "lud06" = "lnurl...."
+</code></pre>
+<p>Effect: anyone who can resolve <code>alice.eth</code> can pay you over Lightning. No Lightning-network-specific account, no Twitter <code>@</code>-handle dependency. The identity layer (ENS) and payment layer (Lightning) couple via the records.</p>
+<p>This is the cleanest "send me money to my name" UX in 2026.</p>
+<h2 id="nip-05-over-ens">NIP-05 over ENS</h2>
+<p>Nostr's NIP-05 verifies a <code>user@domain.com</code> handle by fetching a JSON file from <code>domain.com/.well-known/nostr.json</code> mapping usernames to npubs.</p>
+<p>Bridge with ENS: serve the <code>nostr.json</code> from a CCIP-Read endpoint pinned to an ENS name's contenthash. Effect: NIP-05 verification of <code>alice.alice.eth</code> is resolvable through pure ENS without DNS.</p>
+<pre><code>NIP-05 client looks up alice@alice.eth
+  ↓ ENS resolver
+  ↓ contenthash → IPFS hash
+  ↓ /.well-known/nostr.json
+  ↓ verify npub
+</code></pre>
+<p>This couples Nostr identity to Ethereum-anchored naming. Useful for users who want non-DNS NIP-05.</p>
+<h2 id="privacy-trade-off">Privacy trade-off</h2>
+<p>A single ENS name as your "online presence" is convenient but anti-private:</p>
+<ul>
+<li>Cross-context linkability: every site using SIWE knows your other tokens, history, and NFTs.</li>
+<li>Public history: Etherscan exposes everything.</li>
+<li>Doxxing risk: if an <code>.eth</code> ever leaks to a real-world identity, the chain is fully searchable.</li>
+</ul>
+<p>Mitigations:</p>
+<ul>
+<li>Pseudonymous ENS: register a name not tied to your real identity and use it consistently in pseudonymous contexts.</li>
+<li>Multiple ENS names for different contexts (work, public, private).</li>
+<li>Privacy-respecting wallets (Aztec, Railgun, privacy pools for shielded transactions).</li>
+<li>Rotate per context: don't reuse the wallet that holds your salary as your <code>alice.eth</code> login wallet.</li>
+</ul>
+<p>The point: ENS-as-identity is a deliberate publicness choice. Use it where public identity helps you (reputation, social, payments). Don't use it where pseudonymity matters.</p>
+<h2 id="comparison-with-pubky-nostr-did">Comparison with Pubky / Nostr / DID</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>ENS</th>
+<th>Nostr</th>
+<th>Pubky</th>
+<th>did:web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Substrate</td>
+<td>Ethereum L1</td>
+<td>Pubkey + relays</td>
+<td>Ed25519 + Mainline DHT</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Annual rent</td>
+<td>Free</td>
+<td>Free</td>
+<td>DNS registrar fee</td>
+</tr>
+<tr>
+<td>Censorship</td>
+<td>Eth L1 finality</td>
+<td>Per-relay</td>
+<td>Per-DHT</td>
+<td>Registrar / CA</td>
+</tr>
+<tr>
+<td>Reputation</td>
+<td>On-chain history</td>
+<td>Social graph</td>
+<td>Pubky homeserver content</td>
+<td>Issuer chain</td>
+</tr>
+<tr>
+<td>Login</td>
+<td>SIWE</td>
+<td>NIP-42 / SignNostr</td>
+<td>Pubky auth</td>
+<td>OIDC + DID</td>
+</tr>
+<tr>
+<td>Lightning binding</td>
+<td>text records</td>
+<td>Zaps + LNURL</td>
+<td>Records</td>
+<td>Records</td>
+</tr>
+<tr>
+<td>Privacy default</td>
+<td>Low (chain-public)</td>
+<td>Medium (relays see metadata)</td>
+<td>Medium</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table></div>
+<p>For sovereignty users who want public reputation: ENS. For pseudonymous social: Nostr. For DNS-free naming: Pubky.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="one-name-identity-stack">One-name identity stack</h3>
+<pre><code>alice.eth
+├─ wallet address (Ethereum, Bitcoin, Solana via multi-coin records)
+├─ contenthash → IPFS site
+├─ avatar → IPFS image
+├─ Lightning Address → receive sats
+├─ Nostr npub → social
+├─ GitHub username → code
+└─ links: Twitter, Bluesky, blog
+</code></pre>
+<p>A single name as the root of online presence.</p>
+<h3 id="pseudonymous-reputation-building">Pseudonymous reputation building</h3>
+<p>A pseudonym registers <code>pseudo.eth</code> and builds reputation through participation (DAO voting, contributions, content). The reputation is verifiable by anyone; the link to a real identity stays private as long as the pseudonym maintains opsec.</p>
+<h3 id="app-siwe-login">App SIWE login</h3>
+<p>A new dApp uses SIWE; users sign in with their existing ENS-bearing wallet. Onboarding is one click. Compare with email-and-password registration.</p>
+<h3 id="did-vc-issuance-to-ens">DID-VC issuance to ENS</h3>
+<p>A credential issuer (DMV, university) issues a VC whose subject DID is <code>did:ens:alice.eth</code>. The credential can be presented anywhere, and the subject identity is portable across web, mobile, and crypto contexts.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Massive ecosystem. Works across most major wallets, dApps, and DeFi.</li>
+<li>Real-world adoption: millions of names, daily active use.</li>
+<li>Composable with DIDs, VCs, Lightning, Nostr, NIP-05.</li>
+<li>Rich record model, far richer than DNS or <code>did:key</code>.</li>
+<li>L1-anchored, with strong finality and censorship resistance.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Cost: annual rent, and vanity names are expensive.</li>
+<li>Public-by-default. Privacy requires deliberate compartmentalization.</li>
+<li>Ethereum dependency. Outages or extreme gas spikes affect resolution UX.</li>
+<li>No native rotation. Name ownership rotates only via NFT transfer.</li>
+<li>Reverse-resolution gaps. Many wallets don't set the reverse record, breaking SIWE UX.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallet key theft</td>
+<td>Hardware wallet; multisig ownership; account abstraction</td>
+</tr>
+<tr>
+<td>Phishing via homoglyph (<code>vita1ik.eth</code>)</td>
+<td>Petname systems; UI warnings</td>
+</tr>
+<tr>
+<td>ENS contract bugs</td>
+<td>DAO has timelocked governance; audits</td>
+</tr>
+<tr>
+<td>Reverse-record manipulation</td>
+<td>UI displays both forward and reverse for verification</td>
+</tr>
+<tr>
+<td>Compromised CCIP-Read backing server</td>
+<td>Periodic key rotation; on-chain fallback</td>
+</tr>
+<tr>
+<td>Forgotten resolver upgrade</td>
+<td>Default to PublicResolver; UX nudges</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="personal-stack">Personal stack</h3>
+<pre><code>Hardware-wallet-controlled .eth
+├─ records as above
+└─ optional: 2-of-3 multisig ownership for high-value names
+</code></pre>
+<h3 id="app-org-stack">App / org stack</h3>
+<pre><code>Org owns parent.eth
+├─ CCIP-Read serves &lt;user&gt;.parent.eth subnames at scale
+└─ users get their app-bound subname for free
+</code></pre>
+<h3 id="multi-context-separation">Multi-context separation</h3>
+<pre><code>public.eth        ─ public reputation, social
+work.eth          ─ professional presence
+treasury.eth      ─ multisig for funds
+ephemeral-N.eth   ─ short-term, deactivated after use
+</code></pre>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>CCIP-Read in mainstream use; millions of subnames issued cheaply.</li>
+<li>ENS stays on L1 (Feb 2026) — Namechain L2 abandoned.</li>
+<li>ENS DAO governance maturing; treasury well-managed.</li>
+<li>DNSSEC integration to bridge legacy DNS holdings.</li>
+<li>SIWE adoption beyond crypto-native sites.</li>
+<li>Lightning Address records standardized as an ENS text key.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>ENS docs — <a href="https://docs.ens.domains" rel="noopener nofollow">docs.ens.domains</a>.</li>
+<li>EIP-4361 (Sign-In with Ethereum) — <a href="https://eips.ethereum.org/EIPS/eip-4361" rel="noopener nofollow">eips.ethereum.org/EIPS/eip-4361</a>.</li>
+<li>EIP-3668 (CCIP-Read) — <a href="https://eips.ethereum.org/EIPS/eip-3668" rel="noopener nofollow">eips.ethereum.org/EIPS/eip-3668</a>.</li>
+<li>did:ens method spec — DIF.</li>
+<li>ENS DAO governance forum — <a href="https://discuss.ens.domains" rel="noopener nofollow">discuss.ens.domains</a>.</li>
+<li>LNURL / Lightning Address — <a href="https://github.com/lnurl/luds" rel="noopener nofollow">github.com/lnurl/luds</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/naming/">Sovereign Naming</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=ENS%20as%20Identity" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The Ethereum Name Service is the largest deployed crypto-native identity primitive. This file looks at ENS through the identity lens: what is bound to a name, how it is used for login and reputation, and how it composes with the rest of this library&#39;s identity story.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust, Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-25</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

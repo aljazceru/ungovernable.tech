@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Webs of Trust: The Long Survey — ungovernable.tech</title>
+<meta name="description" content="A long survey of webs of trust: how decentralized systems decide which keys and people to trust, from PGP to Nostr, with algorithms and attacks.">
+<link rel="canonical" href="https://ungovernable.tech/kb/web-of-trust-survey/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Webs of Trust: The Long Survey — ungovernable.tech">
+<meta property="og:description" content="A long survey of webs of trust: how decentralized systems decide which keys and people to trust, from PGP to Nostr, with algorithms and attacks.">
+<meta property="og:url" content="https://ungovernable.tech/kb/web-of-trust-survey/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Webs of Trust: The Long Survey — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Webs of Trust: The Long Survey — ungovernable.tech">
+<meta name="twitter:description" content="A long survey of webs of trust: how decentralized systems decide which keys and people to trust, from PGP to Nostr, with algorithms and attacks.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Webs of Trust: The Long Survey", "description": "A long survey of webs of trust: how decentralized systems decide which keys and people to trust, from PGP to Nostr, with algorithms and attacks.", "dateModified": "2026-10-25", "datePublished": "2026-04-16", "url": "https://ungovernable.tech/kb/web-of-trust-survey/", "mainEntityOfPage": "https://ungovernable.tech/kb/web-of-trust-survey/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "Webs of Trust: The Long Survey", "item": "https://ungovernable.tech/kb/web-of-trust-survey/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">Webs of Trust: The Long Survey</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ REFERENCE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Webs of Trust: The Long Survey</h1>
+  <p class="aka">Also WoT, Trust Graph, Reputation Network, Social Graph Trust.</p>
+  <p class="dek">A Web of Trust (WoT) is a decentralized answer to the question: &#34;which public keys, accounts, relays, merchants, or claims should I treat as credible?&#34; Instead of a certificate authority, government registry, platform moderation team, or KYC provider deciding for everyone, each participant starts with local trust anchors and extends outward through signed attestations, follow relationships, endorsements, mutes, reports, zaps, or other graph edges.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>45</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#mental-model">Mental model</a><a href="#historical-context">Historical context</a><a href="#major-implementations-and-active-projects">Major implementations and active projects</a><a href="#how-trust-is-computed">How trust is computed</a><a href="#use-cases">Use cases</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#trade-offs">Trade-offs</a><a href="#design-rules-for-freedom-tech-wot">Design rules for freedom-tech WoT</a><a href="#june-11-2026-update-openpgp-schism-and-gnupg-2520">June 11, 2026 Update — OpenPGP Schism and GnuPG 2.5.20</a><a href="#late-may-2026-developments">Late-May 2026 Developments</a><a href="#open-questions">Open questions</a><a href="#june-18-2026-update-contextvm-wot-stack-openpgp-pqc-rfc-fourteenth-wave-grants">June 18, 2026 Update — ContextVM WoT Stack, OpenPGP PQC RFC, Fourteenth Wave Grants</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>A Web of Trust (WoT) is a decentralized answer to the question: <strong>"which public keys, accounts, relays, merchants, or claims should I treat as credible?"</strong> Instead of a certificate authority, government registry, platform moderation team, or KYC provider deciding for everyone, each participant starts with local trust anchors and extends outward through signed attestations, follow relationships, endorsements, mutes, reports, zaps, or other graph edges.</p>
+<p>The model appears in two important freedom-tech lineages:</p>
+<ol>
+<li><strong>OpenPGP / GPG WoT</strong> — key certification: people sign each other's OpenPGP certificates after verifying identity. GnuPG can decide whether a key is valid by walking paths through locally trusted introducers.</li>
+<li><strong>Nostr WoT</strong> — social-graph trust: clients, relays, and oracle services use follows, mute lists, trusted assertions, and graph distance to rank or filter pubkeys and events without a platform-wide moderation authority.</li>
+</ol>
+<p>The practical point is not "trust everyone your friends trust." The practical point is <strong>user-chosen trust computation</strong>: a client can ask, "is this pubkey within 2 hops of my graph?", "did a provider I chose publish a NIP-85 rank for this event?", or "does this OpenPGP certificate have a path to one of my own trusted keys?" That makes WoT a composable primitive for <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, decentralized social spam filtering, marketplace reputation, software maintainer verification, and community moderation.</p>
+<h2 id="mental-model">Mental model</h2>
+<pre><code class="language-text">Local trust anchor(s)      Edges / attestations           Target
+┌───────────────┐          ┌───────────────┐          ┌───────────────┐
+│ my key / seed │ ───────► │ trusted peer  │ ───────► │ unknown pubkey│
+└───────────────┘          └───────────────┘          └───────────────┘
+       │                          │                           │
+       │                          ├─ signed OpenPGP cert       │
+       │                          ├─ follows / mute lists      │
+       │                          ├─ NIP-85 assertion          │
+       │                          └─ zap / report / review     │
+       ▼
+Policy: path length, edge type, score threshold, freshness, context
+</code></pre>
+<p>A WoT system needs four layers:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Question</th>
+<th>OpenPGP example</th>
+<th>Nostr example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity object</td>
+<td>What is the node?</td>
+<td>OpenPGP certificate / fingerprint</td>
+<td>secp256k1 public key / npub</td>
+</tr>
+<tr>
+<td>Trust edge</td>
+<td>What does an edge mean?</td>
+<td>Certification signature; ownertrust</td>
+<td>Follow list, mute list, report, NIP-85 rank</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>Where do I get graph data?</td>
+<td>WKD, keys.openpgp.org, key files</td>
+<td>Relays, indexers, graph crawlers, WoT oracle</td>
+</tr>
+<tr>
+<td>Policy</td>
+<td>How do I decide?</td>
+<td>Full vs marginal introducers</td>
+<td>hop distance, PageRank, community-specific algorithm</td>
+</tr>
+</tbody>
+</table></div>
+<p>A good WoT design keeps these layers separate. A follow is not always a strong endorsement. A key signature may prove identity but not moral trust. A global score is convenient but drifts toward centralization. A per-user graph preserves autonomy but costs more to compute.</p>
+<h2 id="historical-context">Historical context</h2>
+<h3 id="pgp-and-the-original-web-of-trust-19911998">PGP and the original Web of Trust (1991–1998)</h3>
+<p>Phil Zimmermann released PGP in 1991 with a trust model deliberately unlike X.509 certificate authorities. In X.509, a small set of root CAs can vouch for names. In PGP, users exchange fingerprints, sign each other's keys, and choose their own trusted introducers.</p>
+<p>OpenPGP standardized the message and certificate formats. The modern standard is <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a>, published in July 2024, which obsoletes RFC 4880 / RFC 5581 / RFC 6637 and updates OpenPGP with v6 keys, mandatory Ed25519/X25519 support, AEAD containers, Argon2 S2K, and stronger algorithm guidance. RFC 9580 is mostly a wire-format and interoperability document; the local trust policy remains an implementation and user-experience problem.</p>
+<p>The classic PGP WoT grew through:</p>
+<ul>
+<li><strong>Key-signing parties</strong> — people verified passports / fingerprints and signed keys.</li>
+<li><strong>Keyservers</strong> — public distribution of certificates and third-party signatures.</li>
+<li><strong>Local ownertrust</strong> — the user's own decision that a key is a full, marginal, or untrusted introducer.</li>
+<li><strong>Certification paths</strong> — validity derived from enough trusted signatures.</li>
+</ul>
+<h3 id="keyserver-collapse-and-abuse-resistance-2010s">Keyserver collapse and abuse resistance (2010s)</h3>
+<p>The old SKS keyserver pool was append-only and aggressively synchronized. That made distribution robust, but it also made abuse permanent: anyone could attach huge numbers of third-party signatures or offensive identity packets to someone else's certificate. The poisoning attacks against prominent OpenPGP certificates turned the historical WoT/keyserver model into a warning: decentralized append-only data structures need consent and garbage-collection mechanisms.</p>
+<p>Modern key discovery shifted toward:</p>
+<ul>
+<li><strong>Web Key Directory (WKD)</strong> — fetch a key from the domain associated with an email address.</li>
+<li><strong>keys.openpgp.org</strong> — a centralized but abuse-resistant keyserver that verifies email addresses and does <strong>not</strong> distribute third-party certifications by default.</li>
+<li><strong>First-party attested third-party certifications</strong> — a compromise where third-party certifications can be distributed only when the certificate holder explicitly attests to them.</li>
+<li><strong>Keyoxide / Ariadne proofs</strong> — self-published proofs linking an OpenPGP key or profile to accounts across services.</li>
+</ul>
+<p>The lesson for newer WoT systems is clear: let people publish graph edges, but do not let arbitrary third parties permanently mutate someone else's identity object.</p>
+<h3 id="nostr-and-graph-native-trust-2020s">Nostr and graph-native trust (2020s)</h3>
+<p>Nostr made public keys first-class identities. A Nostr user is a secp256k1 keypair; relays are dumb event stores; clients choose how to interpret events. That creates both the problem and the opportunity for WoT:</p>
+<ul>
+<li>Problem: there is no platform-wide account verification, spam filter, moderation team, or account recovery desk.</li>
+<li>Opportunity: the protocol already produces machine-readable trust signals — follow lists, mute lists, relay lists, reports, communities, zaps, and app-specific reputation events.</li>
+</ul>
+<p>Nostr WoT is therefore less about signing identity documents and more about <strong>local graph computation</strong>. If a pubkey is followed by people you follow, appears on curated lists you trust, receives useful zaps from your graph, and is not widely muted or reported by your community, a client can rank it higher. If an account is far outside your graph and posts low-cost spam, a relay or client can downrank or reject it.</p>
+<h3 id="trusted-assertions-nip-85">Trusted assertions (NIP-85)</h3>
+<p>A recent Nostr development is <a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85 Trusted Assertions</a>, a draft optional standard for publishing computed metrics as signed replaceable events. It exists because many WoT calculations require large event histories or expensive graph processing that mobile clients cannot do locally.</p>
+<p>NIP-85 defines assertion kinds:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Subject</th>
+<th class="ta-r">Event kind</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User / pubkey</td>
+<td class="ta-r"><code>30382</code></td>
+<td>rank, followers, post count, reports, zap amount</td>
+</tr>
+<tr>
+<td>Regular event</td>
+<td class="ta-r"><code>30383</code></td>
+<td>event rank, reactions, zaps, quote count</td>
+</tr>
+<tr>
+<td>Addressable event</td>
+<td class="ta-r"><code>30384</code></td>
+<td>rank and engagement for replaceable events</td>
+</tr>
+<tr>
+<td>External identifier</td>
+<td class="ta-r"><code>30385</code></td>
+<td>rank for NIP-73 books, locations, websites, hashtags</td>
+</tr>
+</tbody>
+</table></div>
+<p>Users declare trusted service providers with kind <code>10040</code>. That is an important decentralization point: a NIP-85 score is not universally authoritative; it is a signed output from a provider whose methodology and key the user chooses to trust.</p>
+<h2 id="major-implementations-and-active-projects">Major implementations and active projects</h2>
+<h3 id="nostr-web-of-trust-toolkit">Nostr Web of Trust toolkit</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">github.com/nostr-wot/nostr-wot</a></li>
+<li><strong>Type:</strong> Nostr graph toolkit, SDK, extension, oracle API</li>
+<li><strong>Status:</strong> experimental / active; MIT licensed; GitHub API on 2026-04-30 showed 6 stars, 2 forks, not archived, last pushed 2026-04-29.</li>
+</ul>
+<p>The Nostr WoT project frames the problem directly: Nostr has no central authority for spam filtering or identity verification, so applications need open infrastructure for trust-based filtering. Its components include:</p>
+<ul>
+<li>A browser extension exposing a <code>window.nostr.wot</code> API.</li>
+<li>A JavaScript / TypeScript SDK for app integration.</li>
+<li>A Rust-backed oracle that maintains a Nostr follow graph and answers distance / trust queries over a REST API.</li>
+<li>A self-hosting model: run your own oracle, fork the extension, or build a community-specific scoring stack.</li>
+</ul>
+<p>The canonical use case is simple: a client wants to know how close another pubkey is to the user's graph. First-degree follows are near; friends-of-friends are still plausible; accounts several hops away are lower priority unless other signals compensate.</p>
+<h3 id="cross-client-wot-adoption-q1-2026">Cross-client WoT adoption (Q1 2026)</h3>
+<p>A notable development from early 2026: multiple independent Nostr clients have begun implementing and displaying trust scores. According to Q1 2026 ecosystem reports, Amethyst, Primal, and Coracle are all showing WoT-based trust scores in their UI. This is the cross-client convergence that the nostr-wot extension approach was designed to enable — the WoT infrastructure layer is becoming visible to ordinary users without requiring a specific client.</p>
+<p>The practical implication: WoT is transitioning from a developer-facing library feature to a user-visible product feature. This creates both better spam filtering for users and new design questions about how to present trust without making it feel like a surveillance score.</p>
+<h3 id="nostr-wot-browser-extension">Nostr WoT browser extension</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">github.com/nostr-wot/nostr-wot-extension</a>, <a href="https://nostr-wot.com/" rel="noopener nofollow">nostr-wot.com</a></li>
+<li><strong>Type:</strong> browser extension combining NIP-07 signing, Lightning wallet / zaps, and trust scoring</li>
+<li><strong>Status:</strong> experimental / active; MIT licensed; GitHub API on 2026-04-30 showed 6 stars, 2 forks, not archived, last pushed 2026-04-26.</li>
+</ul>
+<p>The extension approach is strategically interesting because it avoids waiting for every Nostr client to implement its own graph engine. The extension can act as an identity provider and a trust oracle at the browser boundary. Any web client that can call the extension can ask trust questions.</p>
+<p>Trade-off: browser extensions are a high-value key custody surface. Combining identity signing, Lightning wallet functions, and reputation in one extension is convenient, but it concentrates risk. For serious identity, pair this with <a href="/kb/remote-signing/">Remote Signing</a> / NIP-46-style signing or hardware-backed key handling where possible.</p>
+<h3 id="wot-relay">wot-relay</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">github.com/barrydeen/wot-relay</a> (also surfaced as bitvora/wot-relay in search due to repository ownership naming)</li>
+<li><strong>Type:</strong> Nostr relay that archives notes from a user's web of trust</li>
+<li><strong>Status:</strong> active; GitHub API on 2026-04-30 showed 83 stars, 27 forks, not archived, last pushed 2026-04-22.</li>
+</ul>
+<p>A WoT relay moves trust filtering from the client into relay policy. Instead of archiving the entire global firehose, it stores content produced by people in the configured graph — for example, accounts followed by the user and accounts followed by those accounts. This reduces spam and storage pressure but makes the relay's graph policy critical infrastructure.</p>
+<h3 id="chronicle-personal-relay">Chronicle personal relay</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">github.com/dtonon/chronicle</a></li>
+<li><strong>Type:</strong> Nostr personal relay with Outbox-model support, Blossom media handling, and WoT spam protection</li>
+<li><strong>Status:</strong> active; Chronicle v0.5.0 released with quick summary: Chronicle is a personal relay Nostr, built on the Khatru framework, that stores complete conversations where the owner participated. Events from others are accepted only when the conversation is relevant to the owner and the author is within the owner's graph up to the second degree, unless proof-of-work fallback is enabled. GitHub API on 2026-05-07 showed 30 stars, 4 forks, not archived, last pushed 2026-04-30.</li>
+</ul>
+<p>Chronicle v0.5.0 released in May 2026 — a significant update to the personal relay that implements WoT as an operational relay policy rather than only a client-ranking algorithm. It stores conversations in which the owner participated, accepts external events only when relevant to those conversations and the author is within the owner's graph (second degree), with optional PoW fallback. Includes built-in Blossom media server and optional backup for other authors' blobs. See <a href="/kb/nostr-web-of-trust/">Nostr Web of Trust</a> for the deeper Nostr-specific treatment.</p>
+<h3 id="brainstorm-wot-relay-pretty-good-freedom-tech">Brainstorm WoT relay (Pretty-Good-Freedom-Tech)</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/Pretty-Good-Freedom-Tech/brainstorm" rel="noopener nofollow">github.com/Pretty-Good-Freedom-Tech/brainstorm</a></li>
+<li><strong>Type:</strong> Personalized WoT relay that generates its own nsec, signs NIP-85 kind 30382 events, and filters content through the user's social graph</li>
+<li><strong>Status:</strong> active; MIT license; notable as a freedom-tech-specific project in the Nostr WoT space</li>
+</ul>
+<p>Brainstorm is a newer entry in the self-hostable WoT relay pattern. At installation it generates a new nsec for the relay (stored in config), uses that to sign NIP-85 kind 30382 events, and publishes kind 10040 to declare the relay pubkey to clients. The relay filters spam by social graph and auto-publishes kind 30382 events every N hours. Notable because it comes from the Pretty-Good-Freedom-Tech organization, explicitly oriented toward freedom-tech values. The project demonstrates the growing pattern of WoT-as-relay-policy: the relay enforces trust filtering at storage time rather than relying on clients to do it.</p>
+<h3 id="wot-scoring">wot-scoring</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">github.com/joelklabo/wot-scoring</a></li>
+<li><strong>Type:</strong> PageRank-based Nostr trust scoring; publishes NIP-85 kinds <code>30382</code>–<code>30385</code></li>
+<li><strong>Status:</strong> experimental / active; MIT licensed; GitHub API on 2026-04-30 showed 1 star, not archived, last pushed 2026-02-11.</li>
+</ul>
+<p>This project matters less because of adoption and more because it demonstrates the direction of travel: graph crawlers compute trust / rank, then publish signed NIP-85 assertions that clients can choose to consume. The architecture separates computation from UI while retaining signed provenance for the score.</p>
+<h3 id="nostr-relay-plugin-wot-guard">nostr-relay-plugin WoT Guard</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/CodyTseng/nostr-relay-plugin" rel="noopener nofollow">github.com/CodyTseng/nostr-relay-plugin</a></li>
+<li><strong>Type:</strong> plugin monorepo for <code>nostr-relay</code>; includes WoT Guard and PoW Guard concepts</li>
+<li><strong>Status:</strong> small but active; MIT licensed; not archived; last pushed 2026-04-15.</li>
+</ul>
+<p>Relay-side guards are the Nostr equivalent of email MTA policy: they can reject or downrank messages before clients ever see them. The risk is policy opacity. A good WoT relay should publish its criteria, permit user override, and avoid becoming an unaccountable blocklist provider.</p>
+<h3 id="nostr-wot-oracle-global-follow-graph-indexer">nostr-wot oracle (global follow-graph indexer)</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">github.com/nostr-wot/nostr-wot-oracle</a></li>
+<li><strong>Type:</strong> global follow-graph indexer that answers pairwise distance queries</li>
+<li><strong>Status:</strong> active; part of the nostr-wot GitHub org</li>
+</ul>
+<p>The nostr-wot oracle is the computation backend for the nostr-wot toolkit. It maintains a global Nostr follow graph and answers distance queries — given two npubs, it returns hop count, path count, and bridging nodes between them. This is the core primitive for the oracle pattern: instead of every client crawling and computing the graph, clients query a shared indexer that has already done the work. The oracle publishes signed results, and users can self-host or choose between oracle providers, preserving the "choose your trust anchor" property.</p>
+<h3 id="pgpainless-wot-implementation-nlnet-funded">PGPainless WoT implementation (NLnet-funded)</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">github.com/pgpainless/pgpainless-wot</a>, <a href="https://nlnet.nl/project/PGPainless/" rel="noopener nofollow">NLnet project page</a></li>
+<li><strong>Type:</strong> OpenPGP WoT implementation in Kotlin/Java</li>
+<li><strong>Status:</strong> active; funded by NGI Assure through NLnet; based on Sequoia-PGP's WoT specification</li>
+</ul>
+<p>PGPainless is adding WoT support based on Sequoia-PGP's published WoT specification. The NLnet project description states the goal: "make the Web of Trust more interoperable and accessible to client applications, overall increasing the usability and ergonomics of OpenPGP for the end-user." This matters because Java/Kotlin is the primary implementation stack for Android applications and server-side email tools, and most Java OpenPGP libraries have historically omitted WoT path computation. The project builds on Sequoia's formal specification, which provides test vectors via <a href="https://github.com/pgpainless/pgpainless-wot/tree/main/wot-test-suite" rel="noopener nofollow">wot-test-suite</a>.</p>
+<h3 id="gnupg-openpgp-wot">GnuPG / OpenPGP WoT</h3>
+<ul>
+<li><strong>Primary sources:</strong> <a href="https://www.gnupg.org/" rel="noopener nofollow">gnupg.org</a>, <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">github.com/gpg/gnupg</a>, <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a></li>
+<li><strong>Type:</strong> mature OpenPGP implementation with local trust database</li>
+<li><strong>Status:</strong> mature / active; GitHub mirror API on 2026-04-30 showed 917 stars, 195 forks, not archived, last pushed 2026-04-28. Maintainers do not use GitHub PRs/issues as the canonical workflow.</li>
+</ul>
+<p>GnuPG remains the reference cultural implementation of WoT. It distinguishes:</p>
+<ul>
+<li><strong>Certificate validity</strong> — whether a public key is believed to belong to an identity.</li>
+<li><strong>Ownertrust</strong> — whether the user trusts that certificate holder to correctly certify others.</li>
+<li><strong>Certification signatures</strong> — signatures over keys / user IDs.</li>
+<li><strong>Trust signatures</strong> — delegated introducer signatures that can propagate trust.</li>
+</ul>
+<p>The classic local policy is often summarized as "one fully trusted introducer or multiple marginal introducers," but actual trust decisions are local and configurable. Modern usage often bypasses full WoT UX in favor of pinned fingerprints, WKD, or TOFU-style workflows.</p>
+<h3 id="keysopenpgporg">keys.openpgp.org</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">keys.openpgp.org FAQ</a></li>
+<li><strong>Type:</strong> abuse-resistant OpenPGP key discovery service</li>
+<li><strong>Status:</strong> production; not decentralized in the old SKS sense.</li>
+</ul>
+<p>keys.openpgp.org is not part of the SKS pool and does not use open federation. Its FAQ explicitly cites reliability, abuse-resistance, privacy, and usability concerns with SKS-style federation. It verifies email addresses, permits only one verified key per email at a time, and does not distribute third-party certifications by default because they allow arbitrary data to be attached to someone else's certificate.</p>
+<p>For a cypherpunk reader, this is a compromise rather than a pure WoT: less decentralized than SKS, but far more survivable against poisoning and spam.</p>
+<h3 id="first-party-approved-openpgp-certifications">First-party approved OpenPGP certifications</h3>
+<ul>
+<li><strong>Primary sources:</strong> <a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">IETF draft-dkg-openpgp-1pa3pc-02</a>, <a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">JISA 2024 certificate-poisoning article</a></li>
+<li><strong>Type:</strong> mitigation for OpenPGP certificate poisoning and certificate bloat</li>
+<li><strong>Status:</strong> protocol design / research; important because it preserves third-party certifications only when approved by the certificate holder.</li>
+</ul>
+<p>This is the most important modern lesson from the OpenPGP lineage: third-party attestations are useful, but arbitrary third parties should not be able to permanently enlarge or mutate someone else's certificate. First-party approved third-party certifications let keyholders explicitly approve which certifications should travel with their certificate, giving relying parties a principled pruning rule. See <a href="/kb/openpgp-web-of-trust/">OpenPGP Web of Trust</a>.</p>
+<h3 id="openpgp-key-replacement-draft-ietf-openpgp-replacementkey">OpenPGP Key Replacement (draft-ietf-openpgp-replacementkey)</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">IETF draft-ietf-openpgp-replacementkey-07</a></li>
+<li><strong>Authors:</strong> Daphne Shaw, Andrew Gallagher</li>
+<li><strong>Status:</strong> Active IETF draft, version 07 (April 2026); expires October 2026</li>
+<li><strong>Type:</strong> protocol extension for key migration signalling</li>
+</ul>
+<p>This IETF draft specifies a mechanism for OpenPGP users to communicate that a new key should replace an expired, revoked, or superseded one. The draft (26 pages plus appendices) defines replacement key signalling — when a user publishes a new primary key, they can include a signed signal pointing to the replacement, and users who receive the old key see a machine-readable hint about where to find the successor.</p>
+<p>The freedom-tech relevance is direct: long-lived OpenPGP identities need key rotation paths, and a replacement signal lets the WoT carry trust forward to a new key without requiring re-verification from all prior certifiers. This is not automatic recovery — it still requires the user to publish the replacement — but it makes the transition legible to clients and reduces the probability that old-key communications silently fail after rotation.</p>
+<h3 id="openpgp-id-u4-and-u5-universal-identifiers">OpenPGP ID: u4 and u5 Universal Identifiers</h3>
+<ul>
+<li><strong>Primary source:</strong> <a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">foopgp.org blog, April 2026</a></li>
+<li><strong>Specification:</strong> draft-foopgp-openpgp-id-00, on <a href="https://codeberg.org/foopgp/foopgp-hugowebsite/src/branch/public/public/documents/en/draft-foopgp-openpgp-id-00.txt" rel="noopener nofollow">Codeberg</a></li>
+<li><strong>Status:</strong> first draft specification; submitted to IETF; production use in Djibian OS</li>
+</ul>
+<p>This specification introduces two privacy-respecting universal identifiers derived from civil-registry-style data:</p>
+<ul>
+<li>
+<p><strong>u4 (human identifier):</strong> derived from last birth surname + first and second given names + date of birth. Processed through MD5 (for compatibility with identifiers generated since 2010) and Base64url encoding, with a geographic coordinates suffix. Produces a 39-character identifier that fits in an OpenPGP UID comment field. Pseudonymous — without the exact input data, the individual cannot be identified, but the identifier is permanent (does not change on marriage, name change, or naturalisation).</p>
+</li>
+<li>
+<p><strong>u5 (universal identifier for anything):</strong> Unix timestamp + geographic coordinates, identifying any entity by its moment and place of origin. Used for associations, software components, AI agents, or humans who prefer not to disclose civil data.</p>
+</li>
+</ul>
+<p>The spec's privacy argument is specific: producing two individuals with the same surname, given name, and date of birth is described as "beyond the reach of any computer — even the most powerful." The WoT certification fabric provides the real barrier: a u4 has value only when at least one certified human has physically verified the identity document.</p>
+<p>Practical applications include using u4/u5 as HKP keysserver search keys, Unix user IDs in reserved ranges, YubiKey/NitroKey login-data fields, and POSIX home directory names. The reference implementation is in bash with a <a href="https://codeberg.org/foopgp/bash-libs" rel="noopener nofollow">Codeberg repository</a>.</p>
+<p>For WoT purposes, u4/u5 represents an attempt to build persistent pseudonymous identity on top of OpenPGP certificates without a central registry — the identifier is derived, not issued.</p>
+<h3 id="keyoxide-and-ariadne-proofs">Keyoxide and Ariadne proofs</h3>
+<ul>
+<li><strong>Primary sources:</strong> <a href="https://keyoxide.org/" rel="noopener nofollow">keyoxide.org</a>, <a href="https://docs.keyoxide.org/" rel="noopener nofollow">docs.keyoxide.org</a>, <a href="https://docs.keyoxide.org/service-providers/openpgp/" rel="noopener nofollow">Keyoxide OpenPGP docs</a></li>
+<li><strong>Type:</strong> decentralized online identity proof verification</li>
+<li><strong>Status:</strong> active ecosystem; docs updated through 2024-12 per extracted page.</li>
+</ul>
+<p>Keyoxide links profiles to proofs across platforms using notations and service-specific proof formats. For OpenPGP profiles, proofs can use <code>openpgp4fpr:FINGERPRINT</code> or related identifiers. The important privacy feature is persona separation: Keyoxide can prove that a pseudonymous profile controls several accounts without requiring a state-issued identity.</p>
+<p>This is adjacent to WoT rather than a replacement for it. It answers "does this profile control these accounts?" WoT answers "given my graph and policy, how much should I trust this key / profile / claim?"</p>
+<h3 id="openpgp-libraries-and-clients">OpenPGP libraries and clients</h3>
+<p>|| Project | Link | Role | Maturity |
+|---|---|---|---|
+| GnuPG | <a href="https://www.gnupg.org/" rel="noopener nofollow">gnupg.org</a> | CLI and agent ecosystem; mature local trust model | Mature |
+| OpenPGP.js | <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">github.com/openpgpjs/openpgpjs</a> | JavaScript OpenPGP implementation | Mature / active; 5,945 stars, last pushed 2026-04-09 |
+| Mailvelope | <a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">github.com/mailvelope/mailvelope</a> | Browser extension for OpenPGP in webmail | Mature / active; 1,825 stars, last pushed 2026-01-16 |
+| Sequoia-PGP | <a href="https://sequoia-pgp.org/" rel="noopener nofollow">sequoia-pgp.org</a> | Rust OpenPGP implementation and tooling | Mature / active ecosystem |
+| PGPainless | <a href="https://pgpainless.org/" rel="noopener nofollow">pgpainless.org</a> | Java OpenPGP library; NLnet-funded WoT implementation in progress | Active; WoT module at <a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless-wot</a> |
+| Sequoia WoT | <a href="https://sequoia-pgp.gitlab.io/sequoia-wot/" rel="noopener nofollow">sequoia-wot.gitlab.io</a> | Formal WoT specification and Rust reference implementation | Mature / reference spec; ABNF grammar, OpenPGP concepts, path-finding algorithms |</p>
+<h2 id="how-trust-is-computed">How trust is computed</h2>
+<h3 id="1-path-distance">1. Path distance</h3>
+<p>The simplest Nostr WoT query is hop distance:</p>
+<pre><code class="language-text">me → follow → Alice → follow → Bob
+</code></pre>
+<p>Bob is two hops away. A client might show Bob's replies by default while hiding accounts beyond three hops. This works well for spam reduction because low-cost Sybil accounts usually start outside the user's social graph.</p>
+<p>Strengths:</p>
+<ul>
+<li>Easy to explain.</li>
+<li>Personalized.</li>
+<li>Works with existing Nostr follow events.</li>
+</ul>
+<p>Limitations:</p>
+<ul>
+<li>A follow is not always endorsement.</li>
+<li>Popular bridge accounts can shorten paths too much.</li>
+<li>Communities with different norms may not want the same path threshold.</li>
+</ul>
+<h3 id="2-weighted-edges">2. Weighted edges</h3>
+<p>Edges can be weighted by type:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Edge type</th>
+<th>Possible meaning</th>
+<th>Suggested weight caution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Follow</td>
+<td>I want to see this account</td>
+<td>Weak endorsement; can include curiosity follows</td>
+</tr>
+<tr>
+<td>List membership</td>
+<td>I curated this account into a set</td>
+<td>Stronger if list purpose is explicit</td>
+</tr>
+<tr>
+<td>Mute / block</td>
+<td>I do not want this account</td>
+<td>Strong negative only if you trust the muter</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>I allege abuse / spam</td>
+<td>Needs rate limits and context</td>
+</tr>
+<tr>
+<td>Zap</td>
+<td>I sent value to this account</td>
+<td>Costly signal; can still be gamed</td>
+</tr>
+<tr>
+<td>OpenPGP certification</td>
+<td>I verified this user ID / key binding</td>
+<td>Identity-specific, not universal reputation</td>
+</tr>
+<tr>
+<td>Keyoxide proof</td>
+<td>This profile controls another account</td>
+<td>Control proof, not character proof</td>
+</tr>
+</tbody>
+</table></div>
+<p>The core safety rule: <strong>never collapse all edge types into one undifferentiated "trust" scalar without preserving provenance.</strong></p>
+<h3 id="3-pagerank-eigenvector-scoring">3. PageRank / eigenvector scoring</h3>
+<p>PageRank-like algorithms rank nodes by endorsements from other ranked nodes. They are attractive for global discovery and marketplace reputation, and wot-scoring explicitly uses PageRank-style scoring for Nostr.</p>
+<p>Strengths:</p>
+<ul>
+<li>Produces a sortable score.</li>
+<li>Captures recursive endorsement.</li>
+<li>Useful for default ranking when users have small graphs.</li>
+</ul>
+<p>Limitations:</p>
+<ul>
+<li>Can centralize around high-degree accounts.</li>
+<li>Harder to explain to users.</li>
+<li>Vulnerable to collusive clusters unless combined with local trust anchors.</li>
+</ul>
+<h3 id="4-threshold-validity">4. Threshold validity</h3>
+<p>Classic OpenPGP asks whether a certificate is valid, not whether it has a global rank. The policy can be threshold-based:</p>
+<ul>
+<li>One fully trusted introducer signs the key.</li>
+<li>Or several marginally trusted introducers sign the key.</li>
+<li>Or a local direct signature pins it.</li>
+</ul>
+<p>This is useful for binary decisions like "should I encrypt to this key?" It is less useful for social ranking, where a continuous score and context matter.</p>
+<h3 id="5-trusted-assertions">5. Trusted assertions</h3>
+<p>NIP-85 turns computed trust into signed data. A provider can publish a <code>rank</code> tag for a pubkey, event, addressable event, or external identifier. Users choose trusted providers with kind <code>10040</code>.</p>
+<p>This pattern is powerful because it creates a market for reputation algorithms. One provider can optimize for spam filtering; another for merchant reliability; another for research credibility; another for a private community. The danger is that clients may quietly ship one default provider and recreate platform moderation under a new name.</p>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="spam-filtering-in-decentralized-social">Spam filtering in decentralized social</h3>
+<p>Nostr needs spam filtering without a single platform operator. WoT gives several levers:</p>
+<ul>
+<li>Hide replies from accounts outside the user's graph.</li>
+<li>Require relay AUTH and a minimum graph score for writes.</li>
+<li>Use NIP-51 mute lists and NIP-85 ranks as local inputs.</li>
+<li>Prefer event recommendations from people or services the user already trusts.</li>
+</ul>
+<p>This pairs naturally with proof-of-work and paid relays. PoW raises cost for unknown accounts; WoT reduces friction for accounts near the user's graph.</p>
+<h3 id="merchant-and-marketplace-reputation">Merchant and marketplace reputation</h3>
+<p>The <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot</a> repository lists Mapping Bitcoin as a project using WoT-based trust filtering. Merchant directories, freelancer markets, and local exchange boards need reputation, but a centralized Yelp-like score is both censorable and gameable. A WoT merchant view can ask: "who in my graph has interacted with this merchant?"</p>
+<h3 id="software-maintainer-verification">Software maintainer verification</h3>
+<p>Open-source ecosystems already use identity graphs informally: maintainers sign releases, projects list maintainers, Linux distributions pin keys, and users inherit trust from package maintainers. OpenPGP WoT can still help in high-assurance contexts, but modern practice often prefers reproducible builds, Sigstore-style transparency, maintainers' signing keys, and direct fingerprint verification.</p>
+<p>WoT remains relevant when the question is not just "is this artifact signed?" but "do I know a path to the person or group controlling this key?"</p>
+<h3 id="community-moderation">Community moderation</h3>
+<p>NIP-72 communities, relay policies, and NIP-51 lists create the raw material for community-specific trust. A community can trust moderators, curated author lists, or report providers without forcing that policy on the whole network.</p>
+<p>The freedom-tech requirement is exit: users must be able to change relays, change clients, change assertion providers, or fork the policy.</p>
+<h3 id="pseudonymous-identity-and-proof-bundles">Pseudonymous identity and proof bundles</h3>
+<p>A pseudonym may want reputation without doxxing. Keyoxide-style proofs, Nostr event history, zaps, signed statements, and WoT edges can form a reputation bundle. This supports <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>: long-lived pseudonyms can accumulate trust while retaining separation from legal identity.</p>
+<h3 id="key-transition-and-recovery">Key transition and recovery</h3>
+<p>WoT can help a community accept key rotation. If an old key signs a new key, and trusted peers also attest to the migration, clients can treat the new key as a likely continuation. This is not automatic account recovery; it is social evidence around a key transition.</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<p>|| System / project | Primary source | Maturity | Active development | What it proves |
+|---|---|---|---|---|
+| GnuPG / OpenPGP WoT | <a href="https://www.gnupg.org/" rel="noopener nofollow">gnupg.org</a>, <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a> | Mature | Active; GitHub mirror pushed 2026-04-28 | Long-running local trust database and certification model |
+| RFC 9580 OpenPGP | <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC Editor</a> | Standard | Published July 2024 | Current OpenPGP format, v6 keys, modern algorithms |
+| OpenPGP Key Replacement | <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-07</a> | Active IETF draft | Version 07, April 2026 | Machine-readable key migration signalling for WoT continuity |
+| OpenPGP ID (u4/u5) | <a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">foopgp.org spec</a> | Early / in production (Djibian) | Spec submitted to IETF 2026 | Privacy-respecting pseudonymous identifiers derived from civil registry data |
+| keys.openpgp.org | <a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">FAQ</a> | Production | Active service | Abuse-resistant key discovery; intentionally limits third-party cert distribution |
+| First-party approved certifications | <a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">IETF draft</a>, <a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">JISA 2024</a> | Research / draft protocol | Active as design lineage | Consentful mitigation for SKS-style certificate poisoning |
+| Keyoxide | <a href="https://keyoxide.org/" rel="noopener nofollow">keyoxide.org</a>, <a href="https://docs.keyoxide.org/" rel="noopener nofollow">docs</a> | Production / community | Active docs and ecosystem | Decentralized account-control proofs for pseudonymous profiles |
+| Nostr NIP-51 Lists | <a href="https://nips.nostr.com/51" rel="noopener nofollow">nips.nostr.com/51</a> | Draft optional | Used by clients | Follow, mute, relay, community, and curation lists as graph inputs |
+| Nostr NIP-85 Trusted Assertions | <a href="https://nips.nostr.com/85" rel="noopener nofollow">nips.nostr.com/85</a> | Draft optional | Recent / evolving | Signed provider-computed ranks and metrics |
+| nostr-wot toolkit | <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">github.com/nostr-wot/nostr-wot</a> | Experimental | Last pushed 2026-04-29 | Self-hostable graph distance / oracle infrastructure |
+| nostr-wot oracle | <a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">github.com/nostr-wot/nostr-wot-oracle</a> | Emerging | Part of nostr-wot org | Shared global follow-graph indexer answering pairwise distance queries |
+| nostr-wot extension | <a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">github.com/nostr-wot/nostr-wot-extension</a> | Experimental | Last pushed 2026-04-26 | Browser-level identity + wallet + trust API |
+| wot-relay | <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">github.com/barrydeen/wot-relay</a> | Emerging | 85 stars, pushed 2026-04-22 | Relay-side archiving / filtering by user's graph |
+| wot-scoring | <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">github.com/joelklabo/wot-scoring</a> | Experimental | Last pushed 2026-02-11 | PageRank-style WoT metrics published as NIP-85 events; live at wot.klabo.world |
+| Chronicle | <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">github.com/dtonon/chronicle</a> | Active; v0.5.0 May 2026 | 32 stars, pushed 2026-04-30 | Personal relay with owner-participation rules, second-degree WoT spam protection, Blossom media built in |
+| Brainstorm WoT relay | <a href="https://github.com/Pretty-Good-Freedom-Tech/brainstorm" rel="noopener nofollow">github.com/Pretty-Good-Freedom-Tech/brainstorm</a> | Paused | 5 stars, pushed 2026-02-28 | Personalized WoT relay; self-signed NIP-85 kind 30382 events; kind 10040 provider declaration |
+| PGPainless WoT | <a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">github.com/pgpainless/pgpainless-wot</a> | In development | NLnet/NGI Assure funded | Java/Kotlin OpenPGP WoT path computation; test vectors from Sequoia |
+| rust-nostr SDK | <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">github.com/nbd-wtf/nostr-tools</a> | Mature | 843 stars, pushed 2026-05-19 | Dominant Rust implementation; shipped 21-PR architecture overhaul May 2026 |</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li><strong>No universal root authority.</strong> Trust starts from the user or community, not a CA or platform.</li>
+<li><strong>Local autonomy.</strong> Different users can apply different trust policies to the same public graph.</li>
+<li><strong>Sybil friction.</strong> Fake identities are cheap, but infiltrating many independent trust graphs is harder.</li>
+<li><strong>Composability.</strong> WoT can combine with <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>, <a href="/kb/encrypted-messaging/">Overview - Encrypted Messaging</a>, <a href="/kb/nostr-identity/">Nostr</a>, <a href="/kb/pubky/">Pubky</a>, <a href="/kb/ens-identity/">ENS as Identity</a>, and <a href="/kb/remote-signing/">Remote Signing</a>.</li>
+<li><strong>Pseudonym-friendly.</strong> Reputation can attach to keys and behavior rather than passports.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Cold start.</strong> New users have no graph. Defaults become powerful.</li>
+<li><strong>Ambiguous edges.</strong> A follow, signature, zap, report, and mute mean different things.</li>
+<li><strong>UI complexity.</strong> Users rarely want to manage trust paths manually.</li>
+<li><strong>Graph leakage.</strong> Publishing follows and endorsements reveals social structure.</li>
+<li><strong>Staleness.</strong> Old certifications and follows may outlive the relationship they represent.</li>
+<li><strong>Capture risk.</strong> A default oracle or extension can become a de facto central authority.</li>
+</ul>
+<h3 id="attack-surface">Attack surface</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Description</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sybil cluster</td>
+<td>Attacker creates many identities that trust each other</td>
+<td>Anchor scores in the user's local graph; cap benefit from tightly connected new clusters</td>
+</tr>
+<tr>
+<td>Trust farming</td>
+<td>Attacker gains follows from many users through benign behavior, then abuses trust</td>
+<td>Freshness, behavior windows, negative signals, manual override</td>
+</tr>
+<tr>
+<td>Bridge-node capture</td>
+<td>Compromise or manipulate a highly connected introducer</td>
+<td>Limit path length; diversify paths; expose why a score is high</td>
+</tr>
+<tr>
+<td>Key poisoning</td>
+<td>Attach malicious data/signatures to a target certificate</td>
+<td>First-party attestation, consentful keyservers, WKD, local pinning</td>
+</tr>
+<tr>
+<td>Oracle capture</td>
+<td>A scoring provider becomes the hidden arbiter</td>
+<td>Multiple providers, self-hosting, signed methodology, visible provider key</td>
+</tr>
+<tr>
+<td>Social graph deanonymization</td>
+<td>Trust edges reveal relationships</td>
+<td>Private lists, NIP-44 encrypted list entries, per-context pseudonyms</td>
+</tr>
+<tr>
+<td>Stale trust</td>
+<td>Old signatures or follows remain after compromise or relationship change</td>
+<td>Expiring edges, revocations, periodic review, time decay</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="design-rules-for-freedom-tech-wot">Design rules for freedom-tech WoT</h2>
+<ol>
+<li><strong>Start local.</strong> The user's own trust anchors should matter more than global popularity.</li>
+<li><strong>Preserve edge semantics.</strong> Do not treat follows, payments, reports, and certifications as the same signal.</li>
+<li><strong>Make provenance visible.</strong> A score should explain which provider, algorithm, graph snapshot, and edge types produced it.</li>
+<li><strong>Support exit.</strong> Users must be able to change clients, relays, assertion providers, and trust policies.</li>
+<li><strong>Prefer consentful identity mutation.</strong> Do not let third parties permanently attach arbitrary data to someone else's identity object.</li>
+<li><strong>Assume Sybils.</strong> A trust graph is not magic; combine it with cost signals, manual curation, and rate limits.</li>
+<li><strong>Separate identity from reputation.</strong> "Controls this key" and "is trustworthy in this context" are different claims.</li>
+<li><strong>Plan for key rotation.</strong> Long-lived pseudonyms need migration paths, signed transition events, and community attestation.</li>
+</ol>
+<h2 id="june-11-2026-update-openpgp-schism-and-gnupg-2520">June 11, 2026 Update — OpenPGP Schism and GnuPG 2.5.20</h2>
+<h3 id="the-openpgp-split-librepgp-v5-vs-rfc-9580">The OpenPGP Split: LibrePGP v5 vs RFC 9580</h3>
+<p>The most significant development since the May 28 snapshot is the full crystallization of the OpenPGP standard split. This is not merely a technical disagreement — it represents a governance fracture with direct consequences for WoT interoperability.</p>
+<p><strong>Two competing visions:</strong></p>
+<ol>
+<li>
+<p><strong>RFC 9580 (IETF "v6" OpenPGP)</strong> — the official IETF proposed standard, produced through a multi-year multi-stakeholder process. Supported by Sequoia-PGP, OpenPGP.js v6 (November 2024), and Proton Mail. RFC 9580 became a draft standard in March 2025 when two independent interoperable implementations (Sequoia-PGP v2 + OpenPGP.js v6) confirmed implementations. This version obsoletes RFC 4880/5581/6637, introduces v6 keys, AEAD containers, Argon2 S2K, and mandatory Ed25519/X25519.</p>
+</li>
+<li>
+<p><strong>LibrePGP (GnuPG "v5")</strong> — GnuPG maintainer Werner Koch's competing proposal, described by critics as a fork from a pre-RFC9580 draft. GnuPG's own home page (as of 2026) still describes itself as implementing "RFC 4880," deliberately avoiding RFC 9580. The IETF OpenPGP Working Group did not adopt LibrePGP.</p>
+</li>
+</ol>
+<p><strong>GnuPG 2.5.20 (May 13, 2026)</strong> is the key event: Werner Koch's release announcement explicitly introduces Kyber/ML-KEM (FIPS 203) as a post-quantum encryption algorithm in the 2.5 series, adds GCM encryption to <code>gpgsm</code>, and warns that the 2.4 series approaches end-of-life. Critically, GnuPG 2.5.20 implements LibrePGP v5 features, not RFC 9580 v6. The release notes do not mention RFC 9580 compatibility. This means GnuPG — the dominant OpenPGP implementation in GNU/Linux distributions, package managers, and server tooling — is diverging from the IETF standard.</p>
+<p><strong>Why this matters for WoT:</strong> The OpenPGP WoT depends on shared certificate formats and signature semantics. If GnuPG and Sequoia/OpenPGP.js can no longer process each other's certificates, cross-signing between the two camps becomes impossible. Key validation paths break. The trust graph literally cannot connect keys from the two ecosystems. For freedom-tech deployments relying on OpenPGP certifications for <a href="/kb/openpgp-web-of-trust/">OpenPGP Web of Trust</a>, this is a critical fragmentation risk.</p>
+<p><strong>Nuance:</strong> The schism is partly about what constitutes a "clean break" vs backward compatibility. RFC 9580 intentionally drops legacy features; LibrePGP attempts to preserve them. But the practical interoperability issue is real — the IETF has one standard, GnuPG implements another.</p>
+<h3 id="two-new-gallagher-ietf-drafts-june-2026">Two New Gallagher IETF Drafts (June 2026)</h3>
+<p>Andrew Gallagher has published two complementary OpenPGP maintenance drafts that update and clarify RFC 9580:</p>
+<ol>
+<li>
+<p><strong><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-signatures/" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a></strong> (June 2026, expires December 2026) — "OpenPGP Signatures." Clarifies grammar and semantics for signature packets, third-party signatures, notary signatures (Type 40), and certification signatures. The abstract notes: "This document specifies several updates and clarifications to the grammar and semantics of OpenPGP signatures." This is maintenance of RFC 9580 rather than a new direction.</p>
+</li>
+<li>
+<p><strong><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a></strong> (June 2026, expires December 2026) — "OpenPGP Message Grammar." Companion document clarifying OpenPGP message formats, One-Pass Signature packet semantics, and message structure. The abstract: "This document specifies several updates and clarifications to the grammar and semantics of OpenPGP messages."</p>
+</li>
+<li>
+<p><strong>OpenPGP HTTP Keyserver Protocol</strong> (draft-gallagher-openpgp-hkp-andrewgdotcom) — defines how keyservers should handle v6 certificates (v6 keys must NOT be returned for legacy machine-readable requests, but MAY be returned for human-readable). Also specifies v2 lookup using <code>by-keyid</code> and <code>by-vfingerprint</code> categories.</p>
+</li>
+</ol>
+<p>These drafts represent continued IETF-side maintenance of the RFC 9580 ecosystem and are independent of the GnuPG/LibrePGP split.</p>
+<h3 id="openpgp-key-replacement-draft-07-april-2026">OpenPGP Key Replacement Draft-07 (April 2026)</h3>
+<p><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-07</a> reached version 07 in April 2026, expiring October 2026. The draft specifies machine-readable key replacement signalling — when a user rotates to a new primary key, they publish a signed replacement event that clients can interpret to automatically migrate trust paths. This directly benefits long-lived <a href="/kb/openpgp-web-of-trust/">OpenPGP Web of Trust</a> identities: a replacement signal lets prior certifications carry forward to a new key without requiring all certifiers to re-sign.</p>
+<h3 id="wotnostrnet-new-production-public-wot-relay-bitvora-june-2026">wot.nostr.net — New Production Public WoT Relay (Bitvora, June 2026)</h3>
+<p>A new public WoT relay appeared at <code>wss://wot.nostr.net</code> in June 2026, built by Bitvora using the Khatru relay framework. Unlike self-hosted personal relays (Chronicle, wot-relay), this is a public relay with WoT filtering as a first-class feature — it serves content from accounts within a user's declared follow graph, reducing spam and noise. Source: <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">github.com/bitvora/wot-relay</a>. This represents the first production public WoT relay from an established Nostr infrastructure provider, complementing the self-hosted patterns established by Chronicle and barrydeen's wot-relay.</p>
+<h3 id="updated-github-activity-june-11-2026">Updated GitHub Activity (June 11, 2026)</h3>
+<p>||| Project | Stars | Last push | Notes ||
+|||---------|------:|-----------|-------|
+||| <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a> | 938 | 2026-05-26 | GnuPG 2.5.20 (May 13) introduces ML-KEM but follows LibrePGP v5, not RFC 9580 |
+||| <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a> | 5,948 | 2026-05-26 | RFC 9580 v6 support since November 2024 |
+||| <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a> | 85 | 2026-04-22 | Stable personal WoT relay |
+||| <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a> | — | 2026-06 | New public WoT relay from Bitvora; Khatru framework |
+||| <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a> | 32 | 2026-04-30 | Personal relay; v0.5.0 May 2026 |
+||| <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a> | 6 | 2026-04-29 | Extension + SDK; stable |
+||| <a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a> | 314 | 2026-05-30 | Dominant Nostr signer app |
+||| <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a> | 843 | 2026-05-19 | May 2026 architecture overhaul shipped |</p>
+<p><strong>Key observations:</strong> The OpenPGP ecosystem now has a clear fork. GnuPG 2.5.20 (May 13, 2026) follows LibrePGP v5 rather than RFC 9580. This means the dominant CLI/tooling implementation is technically non-standard relative to the IETF. Sequoia-PGP, OpenPGP.js, and Proton remain on RFC 9580. For WoT, this creates two certificate universes that cannot cross-certify — a serious fragmentation with no resolution in sight.</p>
+<h3 id="brainstorm-wot-relay-corrected-status">Brainstorm WoT Relay: Corrected Status</h3>
+<p>The Brainstorm WoT relay from Pretty-Good-Freedom-Tech was described as "Active" in the Nostr WoT file but marked "Paused" in the Overview. Confirmed status: <strong>Paused</strong>. Last non-documentation commit was February 2026. The project's MIT license and self-hosted WoT relay architecture remain valuable as a reference design, but active development has stalled.</p>
+<h2 id="late-may-2026-developments">Late-May 2026 Developments</h2>
+<h3 id="cross-client-wot-trust-score-display-q1-2026">Cross-Client WoT Trust Score Display (Q1 2026)</h3>
+<p>Multiple independent Nostr clients began displaying WoT-based trust scores in their UI during Q1 2026. Amethyst (Android), Primal, and Coracle all surface trust scores on user profiles. Amethyst's changelog notes that "by connecting to a WoT provider, you can see trust scores and verified follower counts directly on user pictures. This helps filter signal from noise." Coracle displays a trust indicator with the message: "If you can't tell the difference between me and a scammer, use a nostr client with web of trust support."</p>
+<p>This marks WoT transitioning from a developer-facing library feature to a user-visible product feature — significant for mainstream adoption, but raises design questions about presenting trust signals without creating a surveillance-score aesthetic or opaque authority.</p>
+<h3 id="frost-rfc-9591-stable-specification-supports-frostr-maturation">FROST RFC 9591 — Stable Specification Supports Frostr Maturation</h3>
+<p>RFC 9591 (FROST Protocol) was published by the IRTF in June 2024, giving threshold Schnorr signatures a stable normative reference. The Nostr Frostr ecosystem — Bifrost (core TypeScript library), Igloo Server (self-hostable signer), and the Igloo app suite — now has a stable spec to implement against. The RFC covers the signing protocol but explicitly does not standardize distributed key generation; trusted-dealer vs. DKG remains an implementation choice. Nonce reuse is the critical footgun across all FROST deployments: one reused nonce leaks the secret share.</p>
+<h3 id="nip-26-delegation-has-no-revocation-mechanism">NIP-26 Delegation Has No Revocation Mechanism</h3>
+<p>NIP-26 delegated event signing is marked unrecommended in the NIPs README. Historical discussion of revocation does not make it a recommended custody mechanism. NIP-46 remote signing does not require NIP-26.</p>
+<h3 id="openpgp-key-replacement-draft-ietf-openpgp-replacementkey-07-april-2026">OpenPGP Key Replacement Draft-ietf-openpgp-replacementkey-07 (April 2026)</h3>
+<p>The IETF active draft specifies a machine-readable mechanism for OpenPGP users to signal that a new key should replace an expired, revoked, or superseded one. When a user publishes a new primary key, they can include a signed signal pointing to the replacement; users who receive the old key see a machine-readable hint about where to find the successor. For WoT continuity, this matters: long-lived OpenPGP identities need key rotation paths, and the replacement signal lets trust carry forward to a new key without requiring re-verification from all prior certifiers. Draft version 07 was published April 2026 and expires October 2026.</p>
+<h3 id="openpgp-id-u4u5-universal-identifiers-ietf-draft-djibian-os-production">OpenPGP ID u4/u5 Universal Identifiers (IETF Draft, Djibian OS Production)</h3>
+<p>The foopgp.org <a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">draft-foopgp-openpgp-id-00</a> introduces two privacy-respecting identifiers derived from civil-registry-style data:</p>
+<ul>
+<li>
+<p><strong>u4</strong> (human identifier): derived from last birth surname + first and second given names + date of birth, processed through MD5 and Base64url encoding. Produces a 39-character identifier that fits in an OpenPGP UID comment field. Pseudonymous — without the exact input data, re-identification is computationally intractable, but the identifier is permanent across marriage, name change, or naturalisation.</p>
+</li>
+<li>
+<p><strong>u5</strong> (universal identifier for anything): Unix timestamp + geographic coordinates, identifying any entity by its moment and place of origin. Used for AI agents, software components, or humans who prefer not to disclose civil data.</p>
+</li>
+</ul>
+<p>For WoT purposes, u4/u5 represents an attempt to build persistent pseudonymous identity on OpenPGP certificates without a central registry. The spec has been submitted to IETF and is in production use in Djibian OS.</p>
+<h3 id="may-28-update-github-activity-snapshot">May 28 Update — GitHub Activity Snapshot</h3>
+<p>Checked GitHub API May 28, 2026 for key WoT project activity:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th class="ta-r">Forks</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">938</td>
+<td class="ta-r">201</td>
+<td>2026-05-26</td>
+<td>Active GnuPG development continues</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a></td>
+<td class="ta-r">5,948</td>
+<td class="ta-r">821</td>
+<td>2026-05-26</td>
+<td>JavaScript OpenPGP remains actively maintained</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></td>
+<td class="ta-r">84</td>
+<td class="ta-r">28</td>
+<td>2026-04-22</td>
+<td>Personal WoT relay; NIP-11 update merged Apr 22</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></td>
+<td class="ta-r">6</td>
+<td class="ta-r">2</td>
+<td>2026-04-29</td>
+<td>Extension and SDK active; React hook fixes merged</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot-sdk" rel="noopener nofollow">nostr-wot/nostr-wot-sdk</a></td>
+<td class="ta-r">4</td>
+<td class="ta-r">—</td>
+<td>2026-04-29</td>
+<td>SDK monorepo with @nostr-wot/data 0.4.2, React #185 fix</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></td>
+<td class="ta-r">30</td>
+<td class="ta-r">4</td>
+<td>2026-04-30</td>
+<td>Negentropy support restricted to relay owner by default</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">mailvelope/mailvelope</a></td>
+<td class="ta-r">1,824</td>
+<td class="ta-r">222</td>
+<td>2026-05-21</td>
+<td>Active maintenance; stable browser extension ecosystem</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations:</strong> The Nostr WoT ecosystem remains in the experimental-to-emerging band. GnuPG and OpenPGP.js show steady production maintenance. The PGPainless WoT module's last commits were September 2025 (Gradle 8.8 upgrade), suggesting the funded development phase may be concluding. The Brainstorm freedom-tech WoT relay project has not had commits since February 2026 (minor documentation edits). The overall ecosystem is functional and maintained but not rapidly growing in contributor count.</p>
+<h3 id="late-may-2026-github-freshness-snapshot">Late-May 2026 GitHub Freshness Snapshot</h3>
+<p>As of May 28–31, 2026, fresh GitHub API data for key WoT-related repositories:</p>
+<p>|| Project | Stars | Last push | Notes ||
+||---------|------:|-----------|-------|
+|| <a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a> | 2,978 | 2026-05-31 | Protocol spec repo — active maintenance confirms ongoing NIP refinement |
+|| <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a> | 843 | 2026-05-19 | Dominant Rust Nostr SDK; shipped 21-PR architecture overhaul May 2026 |
+|| <a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a> | 314 | 2026-05-30 | Highest-starred dedicated Nostr signer; NIP-07 + NIP-46 on Android |
+|| <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a> | 5,948 | 2026-05-26 | Steady production maintenance; 821 forks |
+|| <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a> | 85 | 2026-04-22 | +1 star since May 28; NIP-11 relay info update merged Apr 22 |
+|| <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a> | 32 | 2026-04-30 | +2 stars since May 28; personal relay with second-degree WoT filtering |
+|| <a href="https://github.com/pubky/pubky-core" rel="noopener nofollow">pubky/pubky-core</a> | 77 | 2026-05-29 | +1 star since last check; Ed25519 + PKARR identity stack |
+|| <a href="https://github.com/FROSTR-ORG/igloo-server" rel="noopener nofollow">FROSTR-ORG/igloo-server</a> | 8 | 2026-05-28 | +0 stars; self-hostable Frostr server with NIP-46-compatible interface |
+|| <a href="https://github.com/FROSTR-ORG/bifrost" rel="noopener nofollow">FROSTR-ORG/bifrost</a> | 10 | 2026-02-16 | +0 stars; likely in spec/design phase for v2 direction |
+|| <a href="https://github.com/nostrcg/did-nostr" rel="noopener nofollow">nostrcg/did-nostr</a> | 9 | 2026-01-11 | W3C CG draft; secp256k1 as DID identifier; no update/delete ops |</p>
+<p><strong>Key observations:</strong> The Nostr WoT ecosystem is stable rather than rapidly expanding. Amber (314 stars) is the clear leader among dedicated signer apps. The NIPs repo's push on 2026-05-31 confirms the protocol layer is still actively maintained. The gap in Bifrost commits (Feb–May 2026) aligns with the Igloo v2 architectural direction — likely a spec/design phase rather than abandonment. OpenPGP.js (5,948 stars) continues steady maintenance as the reference JavaScript implementation.</p>
+<h3 id="early-june-2026-developments">Early-June 2026 Developments</h3>
+<h4 id="wotnostrnet-new-public-wot-relay-by-bitvora">wot.nostr.net — New Public WoT Relay by Bitvora</h4>
+<p>A new public WoT relay appeared at <code>wot.nostr.net</code> (WebSocket: <code>wss://wot.nostr.net</code>), built and maintained by Bitvora and powered by the Khatru relay framework. The relay implements a web-of-trust filtering model: it serves content from accounts within a user's follow graph, dramatically reducing noise and spam compared to open public relays. Source code is available at <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">github.com/bitvora/wot-relay</a>. This represents the first production public WoT relay from a known Nostr infrastructure provider, and serves as a notable counterpart to the self-hosted <code>wot-relay</code> by barrydeen and the personal relay pattern established by Chronicle.</p>
+<h4 id="vertex-lab-why-they-dont-use-nip-85">Vertex Lab: Why They Don't Use NIP-85</h4>
+<p>A technical critique from Vertex Lab (vertexlab.io) argues that NIP-85 trusted assertions fundamentally conflict with WoT's discovery function. Their core objection: NIP-85 requires users to already know the pubkeys of people they're looking for, which inverts the purpose of a trust graph — WoT should help discover unknown accounts, not just rank known ones. The Vertex position is worth tracking because it articulates a real tension: provider-computed assertions help clients that already have graph context, but they don't help new users bootstrap or help existing users discover outside their bubble. This connects to the cold-start and oracle capture issues already noted in the Trade-offs section.</p>
+<h4 id="nip-26-delegation-revocation-issue-654-active">NIP-26 Delegation Revocation: Issue #654 Active</h4>
+<p>NIP-26 remains an unrecommended proposal. Use the current NIPs README for its status rather than treating a historical revocation discussion as an endorsement of delegation.</p>
+<h4 id="github-activity-early-june-2026">GitHub Activity — Early June 2026</h4>
+<p>||| Project | Stars | Last push | Notes ||
+|||---------|------:|-----------|-------|
+||| <a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a> | ~90+ | 2026-06-01 | New Bitvora fork; powers wot.nostr.net; active ||
+||| <a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a> | 6 | 2026-04-29 | SDK/extension/org toolkit — no significant change ||
+||| <a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a> | 85 | 2026-04-22 | Original wot-relay; NIP-11 update merged Apr 22 ||
+||| <a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a> | 32 | 2026-04-30 | Personal relay; second-degree WoT + PoW fallback ||
+||| <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a> | 938+ | 2026-06-02 | Active GnuPG; steady maintenance ||
+||| <a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a> | 843+ | 2026-06-03 | Dominant Rust SDK; architecture overhaul complete May 2026 ||</p>
+<p><strong>Key observations:</strong> The Bitvora wot-relay fork is the most significant new development — it brings a production-grade public relay online with WoT filtering as a first-class feature. The NIPs repo continues active maintenance through early June 2026. The overall WoT tooling ecosystem is stable, with no major new projects appearing but existing projects receiving consistent maintenance.</p>
+<h4 id="nip-85-deployment-summary">NIP-85 Deployment Summary</h4>
+<p>By early June 2026, NIP-85 trusted assertions have reached a notable milestone: they are now implemented across independently developed clients (Amethyst, Primal, Coracle), served by multiple relay types (personal relays, public WoT relays, and dedicated scoring oracles), and generating signed events that ordinary users encounter as trust scores in their feeds. This cross-client, multi-provider deployment confirms that NIP-85 has transitioned from a draft proposal to load-bearing infrastructure in the Nostr WoT stack.</p>
+<p>The architectural implication remains unchanged: clients that cannot crawl and compute the graph locally now depend on signed assertions from declared provider keys. This makes the provider declaration mechanism (kind <code>10040</code>) a critical trust anchor — its security and transparency properties directly determine whether the WoT remains user-sovereign or drifts toward centralized oracle dominance.</p>
+<h2 id="open-questions">Open questions</h2>
+<ul>
+<li>Can Nostr clients converge on interoperable WoT APIs without blessing a single scoring provider?</li>
+<li>Should follows be treated as endorsements, subscriptions, or simply routing preferences?</li>
+<li>What is the right privacy model for graph-based spam filtering when social graphs are sensitive?</li>
+<li>Can NIP-85 providers publish enough methodology for users to audit bias and capture?</li>
+<li>How should WoT handle key compromise, death, coercion, and long-term inactivity?</li>
+<li>Can reputation be portable across Nostr, Pubky, ENS, OpenPGP, and DID systems without creating a universal surveillance identifier?</li>
+<li>Does NIP-85's provider model help discovery or does it require users to already know providers they trust, defeating the discovery use case? (See Vertex Lab critique above.)</li>
+</ul>
+<h2 id="june-18-2026-update-contextvm-wot-stack-openpgp-pqc-rfc-fourteenth-wave-grants">June 18, 2026 Update — ContextVM WoT Stack, OpenPGP PQC RFC, Fourteenth Wave Grants</h2>
+<h3 id="contextvm-relatr-new-personalized-trust-scoring-service">ContextVM / Relatr — New Personalized Trust Scoring Service</h3>
+<p>The most significant new development this week is the emergence of <a href="https://opensats.org/projects/contextvm" rel="noopener nofollow">ContextVM</a> and its companion WoT service <strong>Relatr</strong>. ContextVM is a protocol for exposing and calling <strong>Model Context Protocol (MCP)</strong> servers over Nostr — replacing domain names, API keys, and open ports with public-key identity and relay transport. The motivation is directly WoT-relevant: if AI agents and MCP services can find each other through cryptographic keys over Nostr, then the WoT becomes the natural trust layer for autonomous agents.</p>
+<p>OpenSats funded ContextVM in the <strong>fifteenth wave of Nostr grants</strong> to support protocol work, SDK improvements, and shared relay infrastructure. The roadmap includes payment support (extending CEP-8 to a wider toolset), TypeScript/Rust SDK parity, one-click deployments, and tighter integration with open-source developer tooling.</p>
+<p><strong>Relatr</strong> (<a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">github.com/ContextVM/relatr</a>) is the WoT-specific component of the ContextVM stack. Per its README:</p>
+<blockquote>
+<p>"Relatr is a decentralized web of trust metric service for Nostr that computes personalized trust scores by combining social graph distances with profile validation metrics."</p>
+</blockquote>
+<p>Technical specifications:</p>
+<ul>
+<li><strong>Runtime:</strong> Bun (Node.js-compatible)</li>
+<li><strong>Database:</strong> DuckDB (in-memory columnar store, social graph fits well)</li>
+<li><strong>Components:</strong> <code>nostr-social-duck</code> core, <code>relo</code>/<code>elo</code> modules, web config UI via process-pastry</li>
+<li><strong>Plugin system:</strong> official plugins + community plugins + <code>skills/relatr-elo-plugin-author</code> for AI-assisted plugin creation</li>
+<li><strong>MCP server support:</strong> runs as an MCP server itself, so AI agents can ask Relatr for trust scores via the standard MCP protocol — a self-referential architecture where the WoT infrastructure is reachable by the agents it is meant to assess</li>
+<li><strong>Tunable parameters:</strong> <code>NUMBER_OF_HOPS</code> (graph traversal depth), <code>DECAY_FACTOR</code> (trust decay over distance), <code>CACHE_TTL_HOURS</code>, <code>DEFAULT_SOURCE_PUBKEY</code> (personalized root), and <code>TA_ENABLED</code> (Trusted Assertions support)</li>
+<li><strong>178 commits</strong> as of mid-June 2026, <strong>11 stars</strong>, last pushed 2026-05-26; production deployment via Docker Compose</li>
+</ul>
+<p>The architecture is important because it generalizes the Oracle pattern: instead of every client crawling the follow graph, clients (or AI agents) query a Relatr instance with their source pubkey and get back a personalized score. The user picks the Relatr server, the Relatr server picks the algorithm, and the result is signed and cacheable — the same trust boundaries as NIP-85 providers, but accessible to AI agents through MCP.</p>
+<p>A complementary repo, <a href="https://github.com/ContextVM/wotrlay" rel="noopener nofollow">ContextVM/wotrlay</a> (tags: <code>contextvm</code>, <code>mcp</code>, <code>nostr</code>, <code>web-of-trust</code>, <code>wot</code>), is a WoT-aware relay that filters events through the social graph before serving them. Topics metadata confirms the WoT-first design intent.</p>
+<h3 id="wot-scoring-maturation-community-detection-composite-providers">wot-scoring Maturation — Community Detection + Composite Providers</h3>
+<p>The <a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a> repository (still small at 1 star, last push 2026-02-11, but algorithmically influential) has accumulated several capabilities that materially change what "WoT scoring" means in practice:</p>
+<ul>
+<li><strong>Consumes kind <code>10040</code></strong> (provider authorization declarations) — verifies which providers the user has explicitly trusted</li>
+<li><strong>Consumes kind <code>10000</code></strong> (mute lists from NIP-51) — uses mute lists as community-moderation signal inputs</li>
+<li><strong>Enriches relay data from trustedrelays.xyz</strong> with social reputation metadata — couples relay quality to WoT</li>
+<li><strong>Detects trust communities via label propagation</strong> — algorithmic clustering of follow-graph components; useful for finding sub-communities and Sybil clusters</li>
+<li><strong>Composes trust scores from external NIP-85 providers</strong> — when one provider is missing or stale, the system can fall back to a second declared provider</li>
+</ul>
+<p>The composite-provider design directly addresses the "oracle capture" risk already flagged in the trade-offs section above: instead of binding to a single provider, clients can require N-of-M provider agreement and treat divergence as a signal to investigate. The label-propagation community detection is the first Nostr WoT algorithm I have seen that explicitly tries to identify Sybil clusters rather than just filter them out.</p>
+<h3 id="opensats-fourteenth-wave-of-nostr-grants-june-2026">OpenSats Fourteenth Wave of Nostr Grants (June 2026)</h3>
+<p>The <a href="https://opensats.org/blog/fourteenth-wave-of-nostr-grants" rel="noopener nofollow">Fourteenth Wave of Nostr Grants</a> includes three WoT-relevant projects:</p>
+<p><strong>1. YakiHonne (first-time grant)</strong> — multi-platform Nostr client (web, iOS, Android, Zapstore). Already implements outbox-style relay publishing and Web-of-Trust mechanisms. Planned work under grant: offline-first publishing with queued delivery, NsecBunker integration, Cashu and Nutzap support (NIP-60/NIP-61), and exploration of relay-level paid feeds. The repository is split across <a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a> (21 stars, last push 2026-05-17) and <a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">YakiHonne/mobile-app</a> (27 stars, last push 2026-05-14). YakiHonne matters because it is one of the few full-featured clients that ships WoT as a first-class user-visible feature rather than an experimental toggle.</p>
+<p><strong>2. Quartz (first-time grant)</strong> — Kotlin Multiplatform library implementing Nostr functionality for reuse across projects. Developed alongside <a href="https://github.com/KotlinGeekDev/amethyst" rel="noopener nofollow">Amethyst</a> and already used in production. The planned work is a refactor to move Android-specific code into shared multiplatform modules and build a first <strong>iOS version of Amethyst</strong> that can read and post on Nostr. The Quartz repository (<a href="https://github.com/KotlinGeekDev/quartz" rel="noopener nofollow">github.com/KotlinGeekDev/quartz</a>) is currently a directory inside the Amethyst monorepo. KMP Nostr libraries matter for WoT because client diversity is the only structural defense against any single client becoming the de facto trust UI; bringing Amethyst's WoT-aware UI to iOS is a significant cross-platform extension.</p>
+<p><strong>3. Nostr Feedz (first-time grant)</strong> — web app letting users follow traditional RSS feeds alongside Nostr long-form content (NIP-23), with a public guide/directory for discovering writers. Maintained by PlebOne (<a href="https://github.com/PlebOne/Nostr-Feedz" rel="noopener nofollow">github.com/PlebOne/Nostr-Feedz</a>). The companion relay at <a href="https://relay.pleb.one/" rel="noopener nofollow">relay.pleb.one</a> uses <strong>invite-only Web-of-Trust access</strong> with an admin dashboard for invite management — similar to fiatjaf's <a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">pyramid</a> and utxo's WoT Relay. This is the third invite-only-WoT-access relay pattern after pyramid and wot-relay, indicating that "WoT-gated relay access" is becoming a recognized deployment pattern, not a one-off experiment.</p>
+<p>The broader themes of the wave are offline-first architecture, payment interoperability (Cashu, Nutzaps), RSS ↔ Nostr bridging, and paid relay feeds with cross-client compatibility — all of which interact with WoT in different ways (paid feeds imply reputation, offline-first publishing implies relay-side trust filtering).</p>
+<h3 id="openpgp-pqc-rfc-9980-almost-published">OpenPGP PQC RFC 9980 — Almost Published</h3>
+<p>The most consequential OpenPGP development of 2026 for long-term WoT continuity is now nearly published as an RFC. The IETF datatracker history for <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc/history" rel="noopener nofollow">draft-ietf-openpgp-pqc</a> shows:</p>
+<blockquote>
+<p>2026-01-06: RFC Editor state changed to EDIT.
+2026-01-06: IESG state changed to RFC Ed Queue from Approved-announcement sent.</p>
+</blockquote>
+<p>This is draft version 17, expires 17 July 2026, currently in <strong>RFC-Ed-ACK</strong> state per <a href="https://www.iana.org/performance/ietf-draft-status/2026" rel="noopener nofollow">IANA's 2026 IETF draft status</a>. The <a href="https://www.openpgp.org/about/standard" rel="noopener nofollow">OpenPGP standards page</a> now lists <strong>RFC 9980: Post-Quantum Cryptography in OpenPGP</strong> alongside RFC 9580 — RFC 9980 is the official RFC number assigned to the PQC extension. This is the first new RFC number on the page since 2024.</p>
+<p><strong>Why this matters for WoT:</strong> The OpenPGP certification graph is composed of signed certificates whose validity spans years or decades. A WoT certificate signed today must continue to verify in a post-quantum world. The PQC RFC gives the OpenPGP ecosystem a defined path to ML-KEM (Kyber) key encapsulation and ML-DSA / SLH-DSA signatures inside the certificate format itself. Until RFC 9980 (or its eventual v5/v6 successor) is widely deployed, certifiers are signing with classical algorithms whose long-term verifiability is uncertain; once it is deployed, the WoT can carry forward trust across algorithm transitions rather than starting over.</p>
+<p><strong>Important caveat — LibrePGP vs RFC 9980:</strong> GnuPG 2.5.20 (May 13, 2026) introduced Kyber/ML-KEM as part of LibrePGP v5, <strong>not</strong> RFC 9980. RFC 9980 uses the IETF's chosen algorithm profile, which may differ in parameter selection or additional algorithm requirements. The same WoT-validity fragmentation risk flagged in the June 11 update applies: cross-signing between the LibrePGP and RFC 9580/9980 universes may not be possible.</p>
+<h3 id="additional-openpgp-maintenance-drafts-june-2026">Additional OpenPGP Maintenance Drafts (June 2026)</h3>
+<p>The IETF OpenPGP working group <a href="https://datatracker.ietf.org/wg/openpgp" rel="noopener nofollow">active drafts listing</a> shows a cluster of new and updated drafts in late May / early June 2026:</p>
+<ul>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-08</a></strong> — updated May 29, 2026 (one month after version -07 covered in the June 11 update). The replacement-key mechanism is approaching IETF last call; this is the draft that lets long-lived OpenPGP identities signal key rotation without losing prior certifications.</li>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-hkp/" rel="noopener nofollow">draft-ietf-openpgp-hkp-01</a></strong> — "OpenPGP HTTP Keyserver Protocol," dated 2026-06-05, 51 pages. Defines how keyservers should handle v6 certificates — v6 keys must NOT be returned for legacy machine-readable requests but MAY be returned for human-readable requests. Also specifies v2 lookup using <code>by-keyid</code> and <code>by-vfingerprint</code> categories. This is the first IETF-standardized HTTP keyserver protocol since the SKS-era HKP, and it codifies the lessons from keys.openpgp.org about consentful certification distribution.</li>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-nist-bp-comp/" rel="noopener nofollow">draft-ietf-openpgp-nist-bp-comp-03</a></strong> — PQ/T Composite Schemes for OpenPGP using NIST and Brainpool elliptic curve domain parameters, dated 2026-01-08, 93 pages. Composite signatures combining classical (Brainpool) and post-quantum algorithms give certifiers a migration path that does not break verifiers still on classical algorithms.</li>
+<li><strong>Three new Andrew Gallagher drafts, all dated 2026-06-04:</strong></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-certificates/" rel="noopener nofollow">draft-gallagher-openpgp-certificates-00</a> (25 pages) — OpenPGP Certificate Grammar</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> (9 pages) — OpenPGP Message Grammar</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-signatures/" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> (25 pages) — OpenPGP Signatures (now at v03)</li>
+</ul>
+<p>The cluster represents an unusually active week for the OpenPGP working group. The semantics of the certificate and signature grammars are the substrate the WoT walks; clarifying them is foundational maintenance that reduces the ambiguity that has historically allowed certificate poisoning to succeed.</p>
+<h3 id="haven-v120-bitvora-personal-relay-now-multi-npub-wot-improvements">HAVEN v1.2.0 — Bitvora Personal Relay Now Multi-Npub + WoT Improvements</h3>
+<p><a href="https://github.com/bitvora/haven" rel="noopener nofollow">Bitvora's HAVEN</a> ("High Availability Vault for Events on Nostr") reached <strong>v1.2.0</strong> with substantial WoT improvements, per the <a href="https://github.com/bitvora/haven/releases" rel="noopener nofollow">release notes</a> and coverage in <a href="https://buttondown.com/nostrcompass/archive/nostr-compass-11" rel="noopener nofollow">Nostr Compass #11</a>:</p>
+<ul>
+<li><strong>Multi-npub support</strong> with whitelisting and blacklisting</li>
+<li><strong>Rewritten backup system</strong> using portable JSONL format with <code>haven restore</code> command</li>
+<li><strong>Cloud integration</strong> via <code>--to-cloud</code>/<code>--from-cloud</code> flags</li>
+<li><strong>Web of Trust improvements:</strong> configurable depth levels, 24-hour auto-refresh, lockless optimization for higher throughput</li>
+<li><strong>Data export</strong> to compressed JSONL</li>
+</ul>
+<p>HAVEN is the most sovereignty-oriented personal relay in the Nostr stack: full data export, multi-npub whitelist/blacklist, and WoT filtering at configurable graph depth. The 24-hour auto-refresh means the relay stays current with the user's evolving social graph without manual reconfiguration.</p>
+<h3 id="fiatjafpyramid-still-active-66-stars-pushed-june-17">fiatjaf/pyramid — Still Active, 66 Stars, Pushed June 17</h3>
+<p><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a> — the canonical invite-only-WoT-access relay pattern — remains active with <strong>66 stars</strong> and was last pushed <strong>2026-06-17</strong> (today). It is the original WoT-gated relay that the Bitvora wot-relay and PlebOne relay.pleb.one both follow as architectural references. The continued activity confirms that the pyramid pattern is stable infrastructure rather than a one-off experiment.</p>
+<h3 id="bitcoin-2026-conference-wot-curation-discussion-may-15-2026">Bitcoin 2026 Conference — WoT Curation Discussion (May 15, 2026)</h3>
+<p>The Bitcoin 2026 Conference panel <a href="https://www.youtube.com/watch?v=wrlE0DMoTSc" rel="noopener nofollow">"Protocol vs Platform: Nostr's Utility Beyond Social Media"</a> explicitly covered Web-of-Trust curation. From the chapter list:</p>
+<blockquote>
+<p>14:00 — NosFabrica's Brainstorm And The Web Of Trust Reputation Layer
+17:00 — How AI Agents Are Integrating With Nostr Natively
+22:30 — Nostr Marketplaces, Identity And The Open Internet Stack</p>
+</blockquote>
+<p>David Strayhorn of NosFabrica (the Brainstorm WoT relay project lead) presented the WoT reputation layer to a Bitcoin-native audience. This is the first major Bitcoin-industry stage presentation specifically on Nostr WoT reputation, suggesting the WoT layer is now recognized as part of the broader Bitcoin / freedom-tech stack rather than a niche Nostr experiment.</p>
+<h3 id="updated-github-activity-june-18-2026-snapshot">Updated GitHub Activity — June 18, 2026 Snapshot</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">949</td>
+<td>2026-06-17</td>
+<td>Active GnuPG; 2.5.20 stable, 2.4 EOL warning posted</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a></td>
+<td class="ta-r">5,956</td>
+<td>2026-06-17</td>
+<td>RFC 9580 v6 production</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">nostr-protocol/nips</a></td>
+<td class="ta-r">2,997</td>
+<td>2026-06-16</td>
+<td>NIP refinement continues</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nbd-wtf/nostr-tools" rel="noopener nofollow">nbd-wtf/nostr-tools</a></td>
+<td class="ta-r">846</td>
+<td>2026-06-15</td>
+<td>Rust SDK steady</td>
+</tr>
+<tr>
+<td><a href="https://github.com/greenart7c3/Amber" rel="noopener nofollow">greenart7c3/Amber</a></td>
+<td class="ta-r">321</td>
+<td>2026-06-17</td>
+<td>Dominant Nostr signer</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fiatjaf/pyramid" rel="noopener nofollow">fiatjaf/pyramid</a></td>
+<td class="ta-r">66</td>
+<td>2026-06-17</td>
+<td>Invite-only WoT relay, active</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hzrd149/blossom" rel="noopener nofollow">hzrd149/blossom</a></td>
+<td class="ta-r">281</td>
+<td>2026-06-15</td>
+<td>Personal Blossom server</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/sdk" rel="noopener nofollow">ContextVM/sdk</a></td>
+<td class="ta-r">10</td>
+<td>2026-06-17</td>
+<td>MCP-over-Nostr SDK, new</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">ContextVM/relatr</a></td>
+<td class="ta-r">11</td>
+<td>2026-05-26</td>
+<td>Personalized WoT scoring with MCP server</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/wotrlay" rel="noopener nofollow">ContextVM/wotrlay</a></td>
+<td class="ta-r">2</td>
+<td>2026-01-11</td>
+<td>WoT-aware relay (early)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ContextVM/contextvm-docs" rel="noopener nofollow">ContextVM/contextvm-docs</a></td>
+<td class="ta-r">1</td>
+<td>2026-06-16</td>
+<td>Documentation repo, new</td>
+</tr>
+<tr>
+<td><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a></td>
+<td class="ta-r">84</td>
+<td>2026-04-22</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitvora/wot-relay" rel="noopener nofollow">bitvora/wot-relay</a></td>
+<td class="ta-r">84</td>
+<td>2026-04-22</td>
+<td>Powers wot.nostr.net</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitvora/haven" rel="noopener nofollow">bitvora/haven</a></td>
+<td class="ta-r">n/a</td>
+<td>2026-Q2</td>
+<td>HAVEN v1.2.0 WoT improvements shipped</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a></td>
+<td class="ta-r">35</td>
+<td>2026-04-30</td>
+<td>Personal relay v0.5.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a></td>
+<td class="ta-r">7</td>
+<td>2026-06-02</td>
+<td>Toolkit +1 star since June 11</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless/pgpainless-wot</a></td>
+<td class="ta-r">0</td>
+<td>2026-04-28</td>
+<td>Still no new commits since April</td>
+</tr>
+<tr>
+<td><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a></td>
+<td class="ta-r">1</td>
+<td>2026-02-11</td>
+<td>Algorithmically influential, low repo activity</td>
+</tr>
+<tr>
+<td><a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a></td>
+<td class="ta-r">21</td>
+<td>2026-05-17</td>
+<td>YakiHonne client (web)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">YakiHonne/mobile-app</a></td>
+<td class="ta-r">27</td>
+<td>2026-05-14</td>
+<td>YakiHonne client (mobile)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observations:</strong></p>
+<ol>
+<li>
+<p><strong>ContextVM / Relatr is the new WoT story of the month.</strong> A WoT scoring service that runs as an MCP server is structurally important because it makes WoT callable from any AI agent that supports MCP — and 2026 is the year MCP is being adopted broadly. The 178-commit Relatr repo, MCP-server integration, and OpenSats funding combine into a real production path from "AI agent" to "ask the WoT who is trustworthy" without bespoke protocol work.</p>
+</li>
+<li>
+<p><strong>OpenPGP PQC RFC 9980 is almost published.</strong> Six months after draft-17 entered the RFC Editor queue (January 6, 2026), the official RFC number has been assigned. This is the structural answer to "what happens to the OpenPGP WoT when RSA and Ed25519 fall to quantum attack?" — and the LibrePGP v5 / RFC 9980 split remains unresolved.</p>
+</li>
+<li>
+<p><strong>The NIPs repository is still active (June 16, 2026 push)</strong> — protocol-level WoT refinement continues.</p>
+</li>
+<li>
+<p><strong>Invite-only-WoT-access relays are a real pattern.</strong> fiatjaf/pyramid, Bitvora wot-relay, and PlebOne relay.pleb.one all implement the same architectural idea through independent implementations.</p>
+</li>
+<li>
+<p><strong>The activity gap between Rust/Python SDKs and the experimental WoT projects is widening.</strong> The protocol-layer projects (GnuPG, OpenPGP.js, rust-nostr, nips, Amber, ContextVM SDK) are pushed within the last 48 hours; the WoT-specific tooling (Chronicle, wot-relay, wot-scoring, nostr-wot) is at April-May activity. This is consistent with the WoT layer being stable infrastructure rather than actively evolving primitives.</p>
+</li>
+</ol>
+<h3 id="june-18-openpgp-schism-status">June 18 OpenPGP Schism Status</h3>
+<p>The LibrePGP v5 vs RFC 9580 split flagged in the June 11 update has not progressed toward resolution. No new GnuPG 2.5.x release has appeared between May 13 and June 18, 2026. The <a href="https://www.gnupg.org" rel="noopener nofollow">gnupg.org home page</a> still describes GnuPG as implementing "RFC 4880," and the LWN article <a href="https://lwn.net/Articles/1055053" rel="noopener nofollow">Fedora and GPG 2.5</a> (covering the distribution packaging debate) confirms that <strong>GnuPG 2.4 reaches end-of-life in June 2026</strong> — meaning distributions must move to GnuPG 2.5 (LibrePGP v5, not RFC 9580) or fork. The practical implications for the OpenPGP WoT are unchanged from the June 11 update: two certificate universes, no resolution path visible.</p>
+<h3 id="updated-references">Updated References</h3>
+<p>New primary sources added this week:</p>
+<ul>
+<li><a href="https://opensats.org/projects/contextvm" rel="noopener nofollow">ContextVM</a> — OpenSats project page for MCP-over-Nostr protocol</li>
+<li><a href="https://github.com/ContextVM/relatr" rel="noopener nofollow">ContextVM/relatr</a> — personalized trust scoring service</li>
+<li><a href="https://github.com/ContextVM/wotrlay" rel="noopener nofollow">ContextVM/wotrlay</a> — WoT-aware relay</li>
+<li><a href="https://github.com/ContextVM/sdk" rel="noopener nofollow">ContextVM/sdk</a> — TypeScript/Rust MCP-over-Nostr SDKs</li>
+<li><a href="https://opensats.org/blog/fourteenth-wave-of-nostr-grants" rel="noopener nofollow">OpenSats Fourteenth Wave of Nostr Grants</a> — YakiHonne, Quartz, Nostr Feedz</li>
+<li><a href="https://github.com/YakiHonne/web-app" rel="noopener nofollow">YakiHonne/web-app</a> and <a href="https://github.com/YakiHonne/mobile-app" rel="noopener nofollow">YakiHonne/mobile-app</a> — client repos</li>
+<li><a href="https://github.com/PlebOne/Nostr-Feedz" rel="noopener nofollow">PlebOne/Nostr-Feedz</a> — RSS+Nostr feed app with WoT-gated relay</li>
+<li><a href="https://github.com/PlebOne/relay.pleb.one" rel="noopener nofollow">PlebOne/relay.pleb.one</a> — invite-only WoT relay</li>
+<li><a href="https://github.com/KotlinGeekDev/quartz" rel="noopener nofollow">KotlinGeekDev/quartz</a> — KMP Nostr library, Amethyst parent</li>
+<li><a href="https://github.com/bitvora/haven" rel="noopener nofollow">bitvora/haven</a> — personal relay, multi-npub WoT in v1.2.0</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-08</a> — OpenPGP key replacement draft, May 29, 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-hkp/" rel="noopener nofollow">draft-ietf-openpgp-hkp-01</a> — OpenPGP HTTP Keyserver Protocol, June 5, 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-nist-bp-comp/" rel="noopener nofollow">draft-ietf-openpgp-nist-bp-comp-03</a> — composite NIST+Brainpool PQ/T schemes, January 8, 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-certificates/" rel="noopener nofollow">draft-gallagher-openpgp-certificates-00</a> — OpenPGP Certificate Grammar, June 4, 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> — OpenPGP Message Grammar, June 4, 2026</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-signatures/" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> — OpenPGP Signatures v03, June 4, 2026</li>
+<li><a href="https://www.openpgp.org/about/standard" rel="noopener nofollow">OpenPGP Standard page</a> — confirms RFC 9580 + RFC 9980</li>
+<li><a href="https://www.iana.org/performance/ietf-draft-status/2026" rel="noopener nofollow">IANA 2026 IETF Draft Status</a> — confirms RFC-Ed-ACK state</li>
+<li><a href="https://www.youtube.com/watch?v=wrlE0DMoTSc" rel="noopener nofollow">Bitcoin 2026 Protocol vs Platform panel</a> — WoT reputation coverage</li>
+<li><a href="https://lwn.net/Articles/1055053" rel="noopener nofollow">LWN: Fedora and GPG 2.5</a> — distribution packaging implications</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs README: NIP-26 status</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/46.md" rel="noopener nofollow">NIP-46 remote signing</a></li>
+</ul>
+<h3 id="standards-and-specs">Standards and specs</h3>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580 — OpenPGP</a> — current OpenPGP standard, July 2024.</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">OpenPGP Key Replacement — draft-ietf-openpgp-replacementkey-07</a> — IETF draft for machine-readable key migration signalling.</li>
+<li><a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">First-Party Approved Third-Party Certifications in OpenPGP</a> — IETF draft for consentful third-party certification distribution.</li>
+<li><a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">A Protocol for Solving Certificate Poisoning for the OpenPGP Keyserver Network</a> — 2024 JISA article on first-party attested third-party certification.</li>
+<li><a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">OpenPGP ID Specification (u4/u5)</a> — foopgp.org draft for universal privacy-respecting identifiers.</li>
+<li><a href="https://nips.nostr.com/51" rel="noopener nofollow">NIP-51 — Lists</a> — Nostr follow, mute, relay, bookmark, community, and curation lists.</li>
+<li><a href="https://nips.nostr.com/85" rel="noopener nofollow">NIP-85 — Trusted Assertions</a> — signed computed metrics and trust assertions for users, events, addresses, and identifiers.</li>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">Nostr Protocol NIPs</a> — canonical Nostr improvement proposals.</li>
+</ul>
+<h3 id="projects-and-implementations">Projects and implementations</h3>
+<ul>
+<li><a href="https://github.com/nostr-wot/nostr-wot" rel="noopener nofollow">nostr-wot/nostr-wot</a> — Nostr Web of Trust toolkit, SDK, oracle, and docs.</li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-oracle" rel="noopener nofollow">nostr-wot/nostr-wot-oracle</a> — global follow-graph indexer for pairwise distance queries.</li>
+<li><a href="https://github.com/nostr-wot/nostr-wot-extension" rel="noopener nofollow">nostr-wot/nostr-wot-extension</a> — browser extension for Nostr signing, wallet, and WoT queries.</li>
+<li><a href="https://github.com/barrydeen/wot-relay" rel="noopener nofollow">barrydeen/wot-relay</a> — relay that archives notes from a user's web of trust.</li>
+<li><a href="https://github.com/joelklabo/wot-scoring" rel="noopener nofollow">joelklabo/wot-scoring</a> — PageRank-based Nostr scoring with NIP-85 event publication; live at wot.klabo.world.</li>
+<li><a href="https://github.com/CodyTseng/nostr-relay-plugin" rel="noopener nofollow">CodyTseng/nostr-relay-plugin</a> — relay plugin monorepo including WoT Guard concepts.</li>
+<li><a href="https://github.com/dtonon/chronicle" rel="noopener nofollow">dtonon/chronicle</a> — personal relay with Outbox model and WoT spam protection.</li>
+<li><a href="https://www.gnupg.org/" rel="noopener nofollow">GnuPG</a> / <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg mirror</a> — GNU Privacy Guard.</li>
+<li><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">OpenPGP.js</a> — JavaScript OpenPGP implementation.</li>
+<li><a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">Mailvelope</a> — OpenPGP browser extension for webmail.</li>
+<li><a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia-PGP</a> — Rust OpenPGP implementation.</li>
+<li><a href="https://sequoia-pgp.gitlab.io/sequoia-wot/" rel="noopener nofollow">Sequoia WoT specification</a> — formal OpenPGP WoT specification and Rust reference implementation.</li>
+<li><a href="https://pgpainless.org/" rel="noopener nofollow">PGPainless</a> / <a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless-wot</a> — Java/Kotlin OpenPGP library with NLnet-funded WoT implementation.</li>
+<li><a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">keys.openpgp.org FAQ</a> — modern abuse-resistant keyserver design notes.</li>
+<li><a href="https://keyoxide.org/" rel="noopener nofollow">Keyoxide</a> and <a href="https://docs.keyoxide.org/" rel="noopener nofollow">Keyoxide docs</a> — decentralized identity proof verification.</li>
+</ul>
+<h3 id="background-reading">Background reading</h3>
+<ul>
+<li><a href="https://www.mit.edu/~prz/docs/Beautiful_Security%20Chap7.pdf" rel="noopener nofollow">The Evolution of PGP's Web of Trust</a> — historical account by Phil Zimmermann and PGP context.</li>
+<li><a href="https://www.linuxfoundation.org/blog/blog/pgp-web-of-trust-delegated-trust-and-keyservers" rel="noopener nofollow">Linux Foundation: PGP Web of Trust, delegated trust and keyservers</a> — practical explanation of trust signatures and delegation.</li>
+<li><a href="https://www.nortonlifelock.com/content/dam/nortonlifelock/pdfs/research-papers/2020-research-papers/webs-of-trust-choosing-who-to-trust-on-the-internet.pdf" rel="noopener nofollow">Webs of Trust: Choosing Who to Trust on the Internet</a> — survey-style discussion of reputation, decentralization, privacy, and scalability trade-offs.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/remote-signing/">
+  <span class="nm">Remote Signing (NIP-46 and Friends)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/openpgp-web-of-trust/">
+  <span class="nm">The OpenPGP Web of Trust</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/ens-identity/">
+  <span class="nm">ENS as Identity</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Webs%20of%20Trust%3A%20The%20Long%20Survey" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A Web of Trust (WoT) is a decentralized answer to the question: &#34;which public keys, accounts, relays, merchants, or claims should I treat as credible?&#34; Instead of a certificate authority, government registry, platform moderation team, or KYC provider deciding for everyone, each participant starts with local trust anchors and extends outward through signed attestations, follow relationships, endorsements, mutes, reports, zaps, or other graph edges.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Reference</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>75</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

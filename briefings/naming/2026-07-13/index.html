@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decentralized DNS Monday — July 13 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-07-13: PKARR v6.0.1 + pkdns production readiness (May–July 2026): Stable Rust crate, Pubky Core SDK updates, Iroh.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/naming/2026-07-13/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Decentralized DNS Monday — July 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-07-13: PKARR v6.0.1 + pkdns production readiness (May–July 2026): Stable Rust crate, Pubky Core SDK updates, Iroh.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/naming/2026-07-13/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Decentralized DNS Monday — July 13 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decentralized DNS Monday — July 13 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-07-13: PKARR v6.0.1 + pkdns production readiness (May–July 2026): Stable Rust crate, Pubky Core SDK updates, Iroh.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Decentralized DNS Monday — July 13 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-07-13: PKARR v6.0.1 + pkdns production readiness (May–July 2026): Stable Rust crate, Pubky Core SDK updates, Iroh.", "datePublished": "2026-07-13", "dateModified": "2026-07-13", "url": "https://ungovernable.tech/briefings/naming/2026-07-13/", "mainEntityOfPage": "https://ungovernable.tech/briefings/naming/2026-07-13/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Decentralized DNS Monday", "item": "https://ungovernable.tech/briefings/naming/"}, {"@type": "ListItem", "position": 4, "name": "2026-07-13", "item": "https://ungovernable.tech/briefings/naming/2026-07-13/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/naming/">Decentralized DNS Monday</a><span aria-hidden="true">/</span><span class="here">2026-07-13</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Decentralized DNS Monday</p>
+  <h1>Decentralized DNS Monday — July 13 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-07-13</b></span>
+    <span><b>4</b> min read</span>
+    <span><a href="/pillars/naming/">Sovereign Naming</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-07-13 // may be outdated</p>
+  <p>This page reflects what was known on 2026-07-13. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>PKARR v6.0.1 + pkdns production readiness</strong> (May–July 2026): Stable Rust crate, Pubky Core SDK updates, Iroh integration for endpoint discovery. pkdns.net public instances and self-host guides widely available. Fast DHT resolution (~30ms) with long-term caching.</li>
+<li><strong>Handshake network events</strong>: Namebase full shutdown (June 2); ViaBTC HNS pool closure (June 1, ~50% hashrate impact); 2nd halving ~July 22 2026 (block reward 2000 → 1000 HNS). Community views as decentralization opportunity.</li>
+<li><strong>ENS momentum</strong>: Ongoing v2 tooling (Sepolia alphas, role-based permissions May 2026); official Turkish government adoption (cbiletisim.eth); continued L1 scaling focus post-Namechain abandonment.</li>
+<li><strong>Cardano DNS / cDNSd integrations</strong>: Multiple Catalyst proposals for trustless Handshake ↔ Cardano bridging and decentralized DNS marketplaces.</li>
+<li><strong>New research</strong>: Phicoin-based DDNS paper (arXiv Dec 2024, updates 2026) highlighting ultra-low cost/high performance alternatives; broader surveys on blockchain DNS (MDPI 2026).</li>
+<li><strong>Freedom-tech takeaway</strong>: Prioritize PKARR for pseudonymous/self-sovereign naming in mesh/P2P stacks (Reticulum, Iroh, Nostr). Monitor HNS halving and ENS DAO governance for sustainable alternatives to ICANN. Hybrid resolution (traditional DNS + PKARR fallback) is the pragmatic path for 2026–2030.</li>
+</ul>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-pkarr-pkdns-ecosystem-maturation-primary-active-development">1. PKARR / pkdns Ecosystem Maturation (Primary Active Development)</h3>
+<p>PKARR (Public Key Addressable Resource Records) and its DNS bridge pkdns remain the most dynamic area in decentralized naming.</p>
+<ul>
+<li><strong>pkarr crate v6.0.1</strong> (May 27, 2026): Latest stable with Mainline DHT publishing/resolution. Used by Pubky, Iroh, and emerging Nostr tools.</li>
+<li>GitHub: <a href="https://github.com/pubky/pkarr" rel="noopener nofollow">https://github.com/pubky/pkarr</a></li>
+<li>crates.io: <a href="https://crates.io/crates/pkarr" rel="noopener nofollow">https://crates.io/crates/pkarr</a></li>
+<li><strong>pkdns</strong>: Production DNS server resolving PKARR records from DHT. Public instances at pkdns.net; guides for system-wide adoption (macOS, etc.). Caching model provides excellent resilience.</li>
+<li>GitHub: <a href="https://github.com/pubky/pkdns" rel="noopener nofollow">https://github.com/pubky/pkdns</a></li>
+<li>Docs: <a href="https://pubky.org/explore/technologies/pkdns/" rel="noopener nofollow">https://pubky.org/explore/technologies/pkdns/</a></li>
+<li><strong>Integrations</strong>:</li>
+<li>Iroh (n0-computer): Uses PKARR as primary endpoint-ID discovery alongside DNS/mDNS/DHT. QUIC-based connections. FOSDEM 2026 coverage and ongoing crates (iroh-mainline-address-lookup May 2026).</li>
+<li>Pubky Core: Semantic social graph, homeserver discovery; recent SDK grants and validation updates.</li>
+<li>Awesome-pubky list: <a href="https://github.com/aljazceru/awesome-pubky" rel="noopener nofollow">https://github.com/aljazceru/awesome-pubky</a> tracks tools, relays, vanity generators.</li>
+<li><strong>Censorship resistance note</strong>: Records distributed across millions of DHT nodes; long cache TTLs mitigate transient attacks.</li>
+</ul>
+<p><strong>Relevance to Ungovernable.tech</strong>: This is the closest to "sovereign domain = your keypair" ideal. Ideal for <a href="/kb/mesh-naming/">Mesh &amp; Off-Grid Naming</a>, Nostr identity, and P2P overlays. Run your own pkdns resolver for full sovereignty.</p>
+<h3 id="2-handshake-hns-network-health-decentralization-pressures">2. Handshake (HNS) — Network Health &amp; Decentralization Pressures</h3>
+<ul>
+<li><strong>Major operator exits</strong> (early June 2026):</li>
+<li>Namebase (dominant registrar/marketplace) fully wound down operations June 2; assets returned to users.</li>
+<li>ViaBTC HNS mining pool closed June 1 (represented ~half hashrate).</li>
+<li><strong>Upcoming halving</strong>: ~July 22 2026 (block 340,000). Reward drops 2000 → 1000 HNS. Expected supply pressure and miner dynamics.</li>
+<li><strong>Ongoing work</strong>: cDNSd (blinklabs-io) Cardano integration proposals via Project Catalyst for trustless Handshake DNS proofs in Cardano services. Multiple F13 proposals active.</li>
+<li><strong>Maturity</strong>: Mainnet stable since 2020; TLD auctions and root-zone replacement model. Reduced centralization post-Namebase seen positively by some.</li>
+</ul>
+<p>GitHub / resources remain active for resolvers and tools.</p>
+<p><strong>Freedom-tech note</strong>: Strong on paper for replacing ICANN root, but economic centralization around pools/registrars remains a risk. Monitor post-halving hashrate distribution.</p>
+<h3 id="3-ens-ethereum-name-service-l1-focus-institutional-adoption">3. ENS (Ethereum Name Service) — L1 Focus &amp; Institutional Adoption</h3>
+<ul>
+<li><strong>2026 developments</strong> (from Overview baseline):</li>
+<li>ENSv2 App + Explorer alpha on Sepolia (May 2026).</li>
+<li>Role-based permissions for .eth names (granular wallet separation).</li>
+<li>Contract updates for multicall safety and off-chain resolvers.</li>
+<li><strong>Real-world adoption</strong>: Republic of Türkiye Directorate of Communications registered cbiletisim.eth as official decentralized identity for AI/blockchain initiatives (June 2026).</li>
+<li><strong>Strategy</strong>: Abandoned Namechain L2 plans; doubling down on L1 scaling and gas optimizations. Exploring .brand gTLDs and ICANN-adjacent paths (D3 Protocol).</li>
+</ul>
+<p><strong>Relevance</strong>: Excellent for Ethereum ecosystem interoperability and discoverability. Less seizure-resistant than pure DHT systems due to chain governance and registrar dependencies.</p>
+<h3 id="4-cross-chain-emerging-systems-cardano-dns-nomen-mesh">4. Cross-Chain &amp; Emerging Systems (Cardano DNS, Nomen, Mesh)</h3>
+<ul>
+<li><strong>Cardano DNS (blinklabs-io/cdnsd, DNNS)</strong>: Active Catalyst proposals for Handshake integration and decentralized DNS marketplaces. DNNS positioned as programmable on-chain identity/routing for Web4. cDNSd Docker/maintenance updates ongoing.</li>
+<li><strong>Nomen</strong>: Still tracked as experimental Bitcoin + Nostr naming model. Low visible activity in 2026.</li>
+<li><strong>Mesh/Off-grid naming</strong>: PKARR + Iroh + Reticulum combinations gaining traction for local-first and disconnected environments. No major new mesh-specific protocols reported this period.</li>
+</ul>
+<h3 id="5-academic-broader-landscape">5. Academic &amp; Broader Landscape</h3>
+<ul>
+<li><strong>Phicoin DDNS paper</strong> (arXiv 2412.01959 updates): Proposes PoW + IPFS hybrid with claims of superior cost ($0.00025/domain) and performance vs ENS/Namecoin/Handshake.</li>
+<li><strong>Surveys</strong>: MDPI "A Survey on Traditional DNS and Blockchain-Based DNS" (2026) and CEUR-WS blockchain DNS papers emphasize hybrid resolution and CA alternatives.</li>
+<li><strong>ICANN contrast</strong>: Traditional DNSSEC KSK rollover scheduled Oct 2026 — reminder of centralized trust anchor fragility.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Maturity (2026)</th>
+<th>Active Dev</th>
+<th>Seizure Resistance</th>
+<th>Discoverability</th>
+<th>Primary Use Case</th>
+<th>Key Links</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PKARR/pkdns</strong></td>
+<td>Production (v6.0.1)</td>
+<td>High</td>
+<td>Excellent (DHT)</td>
+<td>Good (resolvers)</td>
+<td>Sovereign P2P identity, mesh</td>
+<td>GitHub pubky/pkarr, pkdns.net</td>
+</tr>
+<tr>
+<td><strong>Handshake</strong></td>
+<td>Mature mainnet</td>
+<td>Medium</td>
+<td>High (blockchain)</td>
+<td>High (TLD root)</td>
+<td>Alternative root zone</td>
+<td>handshake.org, Catalyst proposals</td>
+</tr>
+<tr>
+<td><strong>ENS</strong></td>
+<td>Mature + v2 tooling</td>
+<td>High</td>
+<td>Medium-High</td>
+<td>High (ecosystem)</td>
+<td>.eth + wallet/DID</td>
+<td>ens.domains</td>
+</tr>
+<tr>
+<td><strong>Cardano DNS</strong></td>
+<td>Experimental/bridge</td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>Cross-chain dDNS</td>
+<td>blinklabs-io/cdnsd, Catalyst</td>
+</tr>
+<tr>
+<td><strong>Nomen</strong></td>
+<td>Experimental</td>
+<td>Low</td>
+<td>High</td>
+<td>Low</td>
+<td>Bitcoin/Nostr naming</td>
+<td>Overview references</td>
+</tr>
+</tbody>
+</table></div>
+    <nav class="pn" aria-label="Series navigation">
+      <span></span>
+      <a class="pn-hub" href="/briefings/naming/"><span class="label">Series</span><span class="pn-t">All Decentralized DNS Monday briefings</span></a>
+      <a href="/briefings/naming/2026-07-27/"><span class="label">Next</span><span class="pn-t">Decentralized DNS Monday — July 27 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

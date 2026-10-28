@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Implementations and Libraries — ungovernable.tech</title>
+<meta name="description" content="A tracker of private information retrieval implementations and libraries: single-server and multi-server schemes, performance and maturity.">
+<link rel="canonical" href="https://ungovernable.tech/kb/pir-implementations/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Implementations and Libraries — ungovernable.tech">
+<meta property="og:description" content="A tracker of private information retrieval implementations and libraries: single-server and multi-server schemes, performance and maturity.">
+<meta property="og:url" content="https://ungovernable.tech/kb/pir-implementations/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Implementations and Libraries — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Implementations and Libraries — ungovernable.tech">
+<meta name="twitter:description" content="A tracker of private information retrieval implementations and libraries: single-server and multi-server schemes, performance and maturity.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PIR Implementations and Libraries", "description": "A tracker of private information retrieval implementations and libraries: single-server and multi-server schemes, performance and maturity.", "dateModified": "2026-10-14", "datePublished": "2026-08-05", "url": "https://ungovernable.tech/kb/pir-implementations/", "mainEntityOfPage": "https://ungovernable.tech/kb/pir-implementations/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "PIR Implementations and Libraries", "item": "https://ungovernable.tech/kb/pir-implementations/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">PIR Implementations and Libraries</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ REFERENCE ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>PIR Implementations and Libraries</h1>
+  <p class="aka">Also PIR Tracker, PIR Libraries.</p>
+  <p class="dek">Comprehensive tracker of all known PIR implementations, libraries, and codebases. Organized by era, maturity, and access method.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-14</b></span>
+    <span><b>13</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#foundational-implementations-pre-2023">Foundational Implementations (Pre-2023)</a><a href="#the-simplepir-family-20232026">The SimplePIR Family (2023–2026)</a><a href="#hintless-stateless-pir">Hintless / Stateless PIR</a><a href="#20252026-frontier-implementations">2025–2026 Frontier Implementations</a><a href="#information-theoretic-foundational-20252026">Information-Theoretic &amp;amp; Foundational (2025–2026)</a><a href="#multi-server-specialized">Multi-Server / Specialized</a><a href="#survey-and-reference-resources">Survey and Reference Resources</a><a href="#repo-watch-snapshot-verified-2026-10-14">Repo Watch Snapshot (verified 2026-10-14)</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="foundational-implementations-pre-2023">Foundational Implementations (Pre-2023)</h2>
+<h3 id="sealpir">SealPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Microsoft Research</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2018</td>
+</tr>
+<tr>
+<td><strong>Paper</strong></td>
+<td>Angel, Chen, Laine, Setty, "PIR with Compressed Queries and Amortized Query Processing," IEEE S&amp;P 2018</td>
+</tr>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2017/1142.pdf" rel="noopener nofollow">https://eprint.iacr.org/2017/1142.pdf</a></td>
+</tr>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/microsoft/SealPIR" rel="noopener nofollow">https://github.com/microsoft/SealPIR</a></td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>C++ (using Microsoft SEAL)</td>
+</tr>
+<tr>
+<td><strong>License</strong></td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>RLWE-based CPIR</td>
+</tr>
+<tr>
+<td><strong>Key feature</strong></td>
+<td>Compressed queries + amortized server work</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>~MB/s range</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>Research library; widely referenced, not production</td>
+</tr>
+</tbody>
+</table></div>
+<p>SealPIR was the first practical PIR library that researchers could reasonably experiment with. It compresses client queries to reduce communication and amortizes server-side computation across multiple database entries. While superseded in throughput by SimplePIR-class schemes, it remains important for understanding the FHE-based PIR approach.</p>
+<h3 id="xpir">XPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Academic (Aguilar Melchor et al.)</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2014/2016</td>
+</tr>
+<tr>
+<td><strong>Paper</strong></td>
+<td>"XPIR: Private Information Retrieval for Everyone," PETS 2016</td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>Lattice-based CPIR</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>Historical; superseded</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="fastpir-2021">FastPIR (2021)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Year</strong></td>
+<td>2021</td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>RLWE-based</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Improved SealPIR-class performance</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="spiral-2022">Spiral (2022)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Stanford (Menon &amp; Wu)</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2022</td>
+</tr>
+<tr>
+<td><strong>Paper</strong></td>
+<td>"Spiral: Fast, High-Rate Single-Server PIR via FHE Composition," IEEE S&amp;P 2022</td>
+</tr>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2022/368" rel="noopener nofollow">https://eprint.iacr.org/2022/368</a></td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>FHE composition</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Reduced latency but still limited by expensive online homomorphic operations</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-simplepir-family-20232026">The SimplePIR Family (2023–2026)</h2>
+<h3 id="simplepir-doublepir">SimplePIR / DoublePIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">https://github.com/ahenzinger/simplepir</a></td>
+</tr>
+<tr>
+<td><strong>Stars</strong></td>
+<td>100</td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>Go (~1,400 LOC)</td>
+</tr>
+<tr>
+<td><strong>License</strong></td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>SimplePIR: 10 GB/s/core; DoublePIR: 7.4 GB/s/core</td>
+</tr>
+<tr>
+<td><strong>Paper</strong></td>
+<td>USENIX Security 2023</td>
+</tr>
+<tr>
+<td><strong>Deep dive</strong></td>
+<td><a href="/kb/simplepir-doublepir/">SimplePIR and DoublePIR</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ypir">YPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Blyss / UT Austin (Menon &amp; Wu)</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>USENIX Security 2024</td>
+</tr>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2024/270" rel="noopener nofollow">https://eprint.iacr.org/2024/270</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Silent preprocessing — eliminates hint download entirely</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>12 GB/s/core (83% of memory bandwidth)</td>
+</tr>
+<tr>
+<td><strong>Preprocessing speedup</strong></td>
+<td>10–15× faster than SimplePIR family</td>
+</tr>
+<tr>
+<td><strong>CT log auditing</strong></td>
+<td>48× cost reduction vs prior art</td>
+</tr>
+<tr>
+<td><strong>Repos</strong></td>
+<td><a href="https://github.com/ahenzinger/tiptoe" rel="noopener nofollow">https://github.com/ahenzinger/tiptoe</a> (Tiptoe uses YPIR concepts)</td>
+</tr>
+</tbody>
+</table></div>
+<p>YPIR is the current throughput champion. By removing the hint requirement through silent preprocessing, it removes the primary deployment barrier of the SimplePIR family while maintaining or exceeding throughput. The 48× cost reduction for CT log auditing makes private CT auditing economically viable for the first time.</p>
+<h3 id="thorpir">ThorPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Yale (Fisch, Lazzaretti, Liu, Papamanthou)</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>CCS 2024</td>
+</tr>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2024/482" rel="noopener nofollow">https://eprint.iacr.org/2024/482</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Sublinear server time AND sublinear offline communication via homomorphic Thorp shuffles</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Addresses the "impractical homomorphic computation" problem of prior CP-PIR schemes</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="whispir">WhisPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>de Castro, Lewi, Suh</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2024/266" rel="noopener nofollow">https://eprint.iacr.org/2024/266</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Fully stateless PIR — ephemeral clients, no stored state</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Low per-query</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>~1 GB/s (1 GB DB), ~1.15 GB/s (8 GB DB)</td>
+</tr>
+<tr>
+<td><strong>Implementation</strong></td>
+<td>Not publicly available</td>
+</tr>
+<tr>
+<td><strong>Citations</strong></td>
+<td>17</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="verisimplepir">VeriSimplePIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>de Castro et al.</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>USENIX Security 2024</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Verifiability at no online cost — guarantees consistency with a fixed database</td>
+</tr>
+<tr>
+<td><strong>Client storage</strong></td>
+<td>&gt;1 GiB for 8 GB DB (addressed by follow-up)</td>
+</tr>
+<tr>
+<td><strong>Follow-up</strong></td>
+<td>"Verifiable PIR with Small Client Storage" (IEEE S&amp;P 2026) — reduces client state by orders of magnitude; introduces covert vPIR for stateless clients</td>
+</tr>
+<tr>
+<td><strong>Citations</strong></td>
+<td>27</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="respire">Respire</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Burton, Menon, Wu</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>CCS 2024</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Optimized for databases with small records (~256 bytes)</td>
+</tr>
+<tr>
+<td><strong>Relevance</strong></td>
+<td>Blockchain Merkle tree leaf queries</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="hintless-stateless-pir">Hintless / Stateless PIR</h2>
+<h3 id="hintless_pir-google">hintless_pir (Google)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/google/hintless_pir" rel="noopener nofollow">https://github.com/google/hintless_pir</a></td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>C++</td>
+</tr>
+<tr>
+<td><strong>Build</strong></td>
+<td>Bazel</td>
+</tr>
+<tr>
+<td><strong>Paper</strong></td>
+<td>Li, Micciancio, Raykova, Schultz-Wu, "Hintless Single-Server PIR," CRYPTO 2024</td>
+</tr>
+<tr>
+<td><strong>Components</strong></td>
+<td><code>hintless_simplepir</code>, <code>linpir</code>, <code>lwe</code>, <code>private_inference</code></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>No client hints, no client-dependent server state, no interactive setup</td>
+</tr>
+<tr>
+<td><strong>DB update</strong></td>
+<td>Client doesn't need to be involved in processing DB updates</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is Google's implementation of the hintless PIR paradigm. The <code>private_inference</code> directory suggests applications in privacy-preserving ML inference.</p>
+<h3 id="frodopir-brave">FrodoPIR (Brave)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/brave-experiments/frodo-pir" rel="noopener nofollow">https://github.com/brave-experiments/frodo-pir</a></td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>Brave Browser experiments</td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>Stateful single-server with offline phase</td>
+</tr>
+<tr>
+<td><strong>Features</strong></td>
+<td>Highly configurable; suitable for experimentation</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="onionpir-onionpirv2">OnionPIR / OnionPIRv2</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo (v2)</strong></td>
+<td><a href="https://github.com/chenyue42/OnionPIRv2" rel="noopener nofollow">https://github.com/chenyue42/OnionPIRv2</a></td>
+</tr>
+<tr>
+<td><strong>Paper (v2)</strong></td>
+<td><a href="https://eprint.iacr.org/2025/1142" rel="noopener nofollow">https://eprint.iacr.org/2025/1142</a></td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>SHE-based single-server PIR</td>
+</tr>
+<tr>
+<td><strong>Key innovation (v2)</strong></td>
+<td>Optimized implementation incorporating standard orthogonal techniques and engineering improvements</td>
+</tr>
+<tr>
+<td><strong>Citations</strong></td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="20252026-frontier-implementations">2025–2026 Frontier Implementations</h2>
+<h3 id="keyword-pir">Keyword PIR</h3>
+<h4 id="chalametpir">ChalametPIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2024/092" rel="noopener nofollow">https://eprint.iacr.org/2024/092</a></td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>Rust</td>
+</tr>
+<tr>
+<td><strong>Scheme</strong></td>
+<td>Keyword PIR</td>
+</tr>
+<tr>
+<td><strong>WASM</strong></td>
+<td>Browser-compatible client available</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="kpir-usenix-security-2025">KPIR (USENIX Security 2025)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Paper</strong></td>
+<td>"Practical Keyword Private Information Retrieval from Key-to-Index Mappings"</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>USENIX Security 2025</td>
+</tr>
+<tr>
+<td><strong>PDF</strong></td>
+<td><a href="https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-1224-hao.pdf" rel="noopener nofollow">https://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-1224-hao.pdf</a></td>
+</tr>
+<tr>
+<td><strong>Variants</strong></td>
+<td>KPIRkvs (sparse KVS), KPIRhash (hash-based), KPIRindex (index-based)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Generic transformation from keyword PIR to any standard (index) PIR using sparse key-value stores</td>
+</tr>
+<tr>
+<td><strong>Comparison</strong></td>
+<td>Outperforms ChalametPIR for 2^20 entries with 32-byte records</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="conflux-hpca-2026">Conflux (HPCA 2026)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Shandong University (Chen et al.)</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>HPCA 2026</td>
+</tr>
+<tr>
+<td><strong>URL</strong></td>
+<td><a href="https://2026.hpca-conf.org/details/hpca-2026-main-conference/28/" rel="noopener nofollow">https://2026.hpca-conf.org/details/hpca-2026-main-conference/28/</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Keyword PIR for dynamic datasets via protocol-architecture co-design with computational storage devices (CSDs)</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Reducing data movement through specialized hardware support</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="piracle-ieee-tc-2026">PIRacle (IEEE TC 2026)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Shandong University (Chen et al.)</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>IEEE Transactions on Computers, 2026</td>
+</tr>
+<tr>
+<td><strong>URL</strong></td>
+<td><a href="https://www.computer.org/csdl/journal/tc/2026/04/11359596/2dsHojHBHUs" rel="noopener nofollow">https://www.computer.org/csdl/journal/tc/2026/04/11359596/2dsHojHBHUs</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>High-performance PIR for key-value stores</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="hardware-accelerated-pir">Hardware-Accelerated PIR</h3>
+<blockquote>
+<p><strong>Aug 19 2026 update</strong>: the new published GPU ceiling is the TCHES 2026(3) DPF-PIR paper (Tan, Zeng, Feng, Peng, Wang, He — Wuhan/Shandong): 8.20–9.39× throughput over Lam et al. (ASPLOS 2024) on RTX 4090 for 2^19–2^24 databases; pipelined variant 1.14–1.87× with up to 99% lower memory; ≥2.27× over preprocessing-PIR baselines. Techniques: GPU-oriented DPF tree expansion, distribution-aware access with thread-level coalescing, CUDA reduction primitives. DOI: 10.46586/tches.v2026.i3.933-957. See <a href="/briefings/pir/2026-08-19/">PIR Wednesday — August 19 2026 Weekly Update</a>.</p>
+</blockquote>
+<h4 id="gpir-gpu">GPIR (GPU)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>arXiv 2604.04696</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>GPU-accelerated PIR, up to 305× throughput over prior GPU implementations</td>
+</tr>
+<tr>
+<td><strong>Compatibility</strong></td>
+<td>Applicable to SimplePIR-family, Spiral, OnionPIRv2, and others with minimal modification</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="smartpir-micro-2025">SmartPIR (MICRO 2025)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Shandong University (Chen et al.)</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>MICRO 2025 (CCF-A)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>PIR on computational storage devices (CSDs) — processing data near storage</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Reducing data movement bottleneck</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="im-pir-processing-in-memory">IM-PIR (Processing-in-Memory)</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>arXiv 2509.06514</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>PIR using processing-in-memory (PIM) via DPUs</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Eliminating processor-memory data transfer bottleneck</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="communication-optimized-pir">Communication-Optimized PIR</h3>
+<h4 id="flashpir">FlashPIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>Cybersecurity journal (Springer Nature)</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2026 (published May 21, 2026)</td>
+</tr>
+<tr>
+<td><strong>DOI</strong></td>
+<td>10.1186/s42400-026-00601-7</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Dai, Xiang, Qin, Deng, Zhang</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Low-latency FHE-based PIR with low client overhead; 2.6× over WhisPIR for 1 GB DB, 3.0× for 8 GB</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="zippir">ZipPIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>arXiv 2603.09190 (March 2026)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>High-throughput without client storage AND without per-client server state</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Addresses the resource constraints of limited client devices</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="via">VIA</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2025/2074" rel="noopener nofollow">https://eprint.iacr.org/2025/2074</a></td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>To appear in IEEE S&amp;P 2026</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Liu, Wang, Zhang</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Communication-efficient single-server PIR</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="inspire">InsPIRe</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2025/1352" rel="noopener nofollow">https://eprint.iacr.org/2025/1352</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Mahdavi, Patel, Seo, Yeo</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Server-side preprocessing for communication-efficient PIR</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="pirouette">Pirouette</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Venue</strong></td>
+<td>FHE.org Conference 2026 (poster)</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Kang, Schild (COSIC, KU Leuven)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Novel alternative to transciphering for reducing client-to-server communication</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="improved-tensorpir">Improved TensorPIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/912" rel="noopener nofollow">https://eprint.iacr.org/2026/912</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Lv, Pan, Wang</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>45.5% communication reduction over original TensorPIR</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="preprocessing-optimized-pir">Preprocessing-Optimized PIR</h3>
+<h4 id="rotpir">RotPIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1336" rel="noopener nofollow">https://eprint.iacr.org/2026/1336</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Zhang, Bian, Guan, Persiano</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>1000× preprocessing speedup via oblivious homomorphic rotation</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Addresses the preprocessing bottleneck of CP-PIR (preprocessing PIR) schemes</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="isimplepir">iSimplePIR</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/030" rel="noopener nofollow">https://eprint.iacr.org/2026/030</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Lu, Xu, Li, Wang, Cui</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First formal definition of single-server incremental PIR</td>
+</tr>
+<tr>
+<td><strong>Variants</strong></td>
+<td>Entry-level (real-time individual entry updates) and Row-level</td>
+</tr>
+<tr>
+<td><strong>Use case</strong></td>
+<td>Password breach detection with frequently updated databases</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="pircor-recpir">PIRCOR / RECPIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2025/756" rel="noopener nofollow">https://eprint.iacr.org/2025/756</a></td>
+</tr>
+<tr>
+<td><strong>Title</strong></td>
+<td>"RECPIR: Communication-Optimal Hintless Single-Server PIR via Homomorphic Rotation"</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Rotation-optimized query expansion; highly parallel operation</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="information-theoretic-foundational-20252026">Information-Theoretic &amp; Foundational (2025–2026)</h2>
+<h3 id="henzinger-ragavan-two-server-it-pir-eurocrypt-2026">Henzinger &amp; Ragavan Two-Server IT-PIR (EUROCRYPT 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2025/2008" rel="noopener nofollow">https://eprint.iacr.org/2025/2008</a></td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>EUROCRYPT 2026 (DOI: 10.1007/978-3-032-25330-9_3)</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Alexandra Henzinger, Seyoon Ragavan (MIT)</td>
+</tr>
+<tr>
+<td><strong>Servers</strong></td>
+<td>2 (non-colluding)</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Information-theoretic (no crypto assumptions)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First IT-PIR with quasilinear storage n^{1+o(1)} AND polynomially sublinear server time n^{1-Ω(1)}</td>
+</tr>
+<tr>
+<td><strong>Server storage</strong></td>
+<td>1.5·√(log₂ n)·n bits</td>
+</tr>
+<tr>
+<td><strong>Server time</strong></td>
+<td>12·n^0.82 bits probed per query</td>
+</tr>
+<tr>
+<td><strong>Improvement</strong></td>
+<td>4,500,000× smaller data structure than prior IT-PIR (BIM 2000)</td>
+</tr>
+<tr>
+<td><strong>Memory accesses</strong></td>
+<td>2,560× fewer than linear-time PIR</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>4.4 MB on 11 GB DB (reducible to n^0.31·poly(λ) with LHE)</td>
+</tr>
+<tr>
+<td><strong>DB tested</strong></td>
+<td>11 GB with 1-byte records</td>
+</tr>
+<tr>
+<td><strong>Technique</strong></td>
+<td>Compact data structure for multivariate polynomial evaluation + Hasse derivatives via finite differences</td>
+</tr>
+<tr>
+<td><strong>Extends</strong></td>
+<td>Also improves 3+ server PIR (building on Ghoshal et al. TCC 2025)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="bitansky-mazor-secret-key-pir-from-owfs">Bitansky &amp; Mazor Secret-Key PIR from OWFs</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/865" rel="noopener nofollow">https://eprint.iacr.org/2026/865</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Nir Bitansky, Noam Mazor (NYU)</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>Foundations</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>SK-PIR with Õ(√N) online communication from one-way functions alone</td>
+</tr>
+<tr>
+<td><strong>Assumption</strong></td>
+<td>One-way functions (minimal)</td>
+</tr>
+<tr>
+<td><strong>Trade-off</strong></td>
+<td>Client comm. Õ(N_c) × Server comm. Õ(N_s) where N_c · N_s ≥ N</td>
+</tr>
+<tr>
+<td><strong>Construction</strong></td>
+<td>Garbled circuits with uncorrelated input encoding</td>
+</tr>
+<tr>
+<td><strong>Significance</strong></td>
+<td>SK-PIR is fundamentally easier than public-key PIR — does not require lattice/DDH</td>
+</tr>
+<tr>
+<td><strong>Related</strong></td>
+<td>Chen, Ishai, Mour, Rosen (STOC 2026) — SK-PIR from high-noise LPN with N^ε communication</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="dottling-minicrypt-batch-pir">Döttling Minicrypt Batch PIR</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2025/1406" rel="noopener nofollow">https://eprint.iacr.org/2025/1406</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Nils Döttling</td>
+</tr>
+<tr>
+<td><strong>Servers</strong></td>
+<td>2 (non-colluding)</td>
+</tr>
+<tr>
+<td><strong>Setting</strong></td>
+<td>Offline/online batch retrieval</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Two-server batch PIR from Minicrypt assumptions (no public-key crypto)</td>
+</tr>
+<tr>
+<td><strong>Citations</strong></td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="doubly-efficient-secret-key-pir-with-low-storage-overhead-aug-2026">Doubly-Efficient Secret-Key PIR with Low Storage Overhead (Aug 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1480" rel="noopener nofollow">https://eprint.iacr.org/2026/1480</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Caicai Chen (Bocconi/Bending Spoons), Yuval Ishai (Technion/AWS), Aayush Jain (CMU), Tamer Mour (IIAI), Alon Rosen (Bocconi), Chaoping Xing (SJTU)</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>Single server, secret-key preprocessing (stateless alternative to ORAM; SSE without access-pattern leakage)</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First doubly-efficient SK-PIR with constant storage overhead (asymptotically →1×); k^{o(1)} communication and online server work</td>
+</tr>
+<tr>
+<td><strong>Technique</strong></td>
+<td>Permuted-code blueprint (BIPW/CHR TCC 2017) instantiated with new t-smooth LDCs — concatenated-curve Reed–Muller local decoder + curve-lifted codes</td>
+</tr>
+<tr>
+<td><strong>Benchmark</strong></td>
+<td>37 GB DB of 18-bit records at 4.2× storage overhead; server reads &lt;600 KB per query</td>
+</tr>
+<tr>
+<td><strong>Significance</strong></td>
+<td>First SK-PIR with concrete benchmarks; moves the SK-PIR line (Bitansky–Mazor 2026/865, Chen et al. STOC'26) from existence proof to engineering artifact</td>
+</tr>
+<tr>
+<td><strong>Deployment angle</strong></td>
+<td>SK-PIR model maps onto wallet ↔ RPC-provider relationships (one-time preprocessing, then private queries)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="skrrtpir-doubly-stateless-batch-pir-oct-2026">SkrrtPIR — Doubly-Stateless Batch PIR (Oct 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/2385" rel="noopener nofollow">https://eprint.iacr.org/2026/2385</a></td>
+</tr>
+<tr>
+<td><strong>IACR news</strong></td>
+<td><a href="https://iacr.org/news/item/30019" rel="noopener nofollow">https://iacr.org/news/item/30019</a> (Oct 8)</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Keewoo Lee (Ethereum Foundation) + Yongha Son (Sungshin Women's University)</td>
+</tr>
+<tr>
+<td><strong>History</strong></td>
+<td>2026-10-08 approved, 2026-10-06 received</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>Cryptographic protocols</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>Doubly-stateless Batch PIR — server stores no per-client state, client maintains no DB-dependent hint</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First doubly-stateless Batch PIR (prior concretely-efficient schemes required per-client server state, making queries linkable across sessions). <strong>Core technical ingredient: single-key RLWE unpacking</strong> that replaces the traditional tree-based approach (which requires logarithmically many Galois keys) with a <strong>linear walk over a cyclic Galois subgroup requiring only a single Galois key</strong></td>
+</tr>
+<tr>
+<td><strong>Comparison point</strong></td>
+<td>Natural baseline of "send fresh evaluation keys with each batch query" (the pre-SkrrtPIR status quo)</td>
+</tr>
+<tr>
+<td><strong>Significance</strong></td>
+<td>The Ethereum Foundation PIR research line is now publishing at one paper per week (2026/1959 Sep 13 → 2026/2412 Oct 8 → 2026/2385 Oct 6). Composes with RisePIR's incremental-keyword-PIR (2026/2082 Sep 18) for stateless-batch-private Ethereum RPC. Maps directly to wallet-deployment constraints (no per-client server state, no client-side DB hint)</td>
+</tr>
+<tr>
+<td><strong>Code</strong></td>
+<td>None published as of Oct 14</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="barely-sublinear-ram-fhe-from-plain-lwe-oct-2026">Barely Sublinear RAM-FHE from Plain LWE (Oct 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/2412" rel="noopener nofollow">https://eprint.iacr.org/2026/2412</a></td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Keewoo Lee (Ethereum Foundation) — sole author</td>
+</tr>
+<tr>
+<td><strong>History</strong></td>
+<td>2026-10-11 approved, 2026-10-08 received</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>Foundations</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First RAM-FHE from <strong>plain (unstructured) LWE</strong>; per-step o(N/log N) time. Prior Lin–Mook–Wichs STOC 2023 used Ring-LWE. Built by extending a DEPIR-from-plain-LWE-in-the-standard-model — the 4th DEPIR (after YPIR USENIX Sec'24, LMW STOC'23, Lee's CRYPTO 2026). The CRS-removal is the primary technical contribution</td>
+</tr>
+<tr>
+<td><strong>Significance</strong></td>
+<td>Plain LWE is the conservative post-quantum assumption (Ring-LWE has a known history of subfield attacks; plain LWE has held up to the longest sustained cryptanalytic effort). A RAM-FHE from plain LWE is the most conservatively post-quantum-secure RAM-FHE to date. <strong>The DEPIR-from-plain-LWE in the standard model may be of independent interest</strong></td>
+</tr>
+<tr>
+<td><strong>Code</strong></td>
+<td>None published as of Oct 14</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="arithmetic-pir-why-code-based-pir-usually-fails-crypto-2026">Arithmetic PIR: Why Code-Based PIR (Usually) Fails — CRYPTO 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1224" rel="noopener nofollow">https://eprint.iacr.org/2026/1224</a></td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>CRYPTO 2026 (Santa Barbara, Aug 17–20 2026); presented by Shahar Shechter</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Benny Applebaum (TAU), Yuval Ishai (Technion/AWS), Shahar Shechter (TAU)</td>
+</tr>
+<tr>
+<td><strong>Main result</strong></td>
+<td>Negative: no single-server arithmetic PIR (APIR) achieves non-trivial download &lt; n field elements</td>
+</tr>
+<tr>
+<td><strong>Attack</strong></td>
+<td>Breaks Holzbaur et al. (ISIT'20) and Verma–Hollanti (ISIT'24) code-based PIR "within a few minutes on a standard workstation" for all suggested parameters</td>
+</tr>
+<tr>
+<td><strong>Positive results</strong></td>
+<td>Two-server APIR from DPF arithmetization (Boyle et al. CCS'16); SK-preprocessing APIR via Chen et al. STOC'26; IT two-server APIR at O(n^{1/3}) communication</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Closes the code-based single-server PIR direction; PQ-friendly PIR must go lattice-CPIR or DPF-arithmetized</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc-secure-verifiable-updatable-pir-aug-2026">UC-Secure Verifiable &amp; Updatable PIR (Aug 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1651" rel="noopener nofollow">https://eprint.iacr.org/2026/1651</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>First universally composable definition of single-server verifiable PIR (ideal VPIR functionality); proves game-based VPIR fails under composition</td>
+</tr>
+<tr>
+<td><strong>UVPIR</strong></td>
+<td>Updatable VPIR: updates authorized by permissioned clients; responses bound to a specific database version; black-box from any VPIR</td>
+</tr>
+<tr>
+<td><strong>Realizations</strong></td>
+<td>Trivial PIR and VeriSimplePIR (de Castro &amp; Lee, USENIX Security 2024)</td>
+</tr>
+<tr>
+<td><strong>Significance</strong></td>
+<td>Merges verifiability + updates + composable security — the formalism needed to embed PIR in wallets/agent stacks as a building block</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="updatable-okvs-pir-multi-key-searchable-encryption-aug-2026">Updatable OKVS + PIR Multi-Key Searchable Encryption (Aug 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1590" rel="noopener nofollow">https://eprint.iacr.org/2026/1590</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>UOKVS: updatable oblivious key-value store with fine-grained access control; first oblivious-insertion analysis for Cuckoo hashing</td>
+</tr>
+<tr>
+<td><strong>Application</strong></td>
+<td>Multi-key searchable encryption without data replication across users — 0.6 s WAN queries (100-doc keywords) on 24M-entry Enron dataset at 3.1× storage</td>
+</tr>
+<tr>
+<td><strong>PIR backend</strong></td>
+<td>FrodoPIR — rare production-oriented benchmark of Brave's deployment-oriented scheme</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="mceliece-distinguisher-from-failed-pir-research-aug-2026">McEliece Distinguisher from Failed PIR Research (Aug 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1630" rel="noopener nofollow">https://eprint.iacr.org/2026/1630</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Ashrujit Ghoshal (IIT Madras), Yuval Ishai, Aayush Jain (CMU), Nuozhou Sun (CMU)</td>
+</tr>
+<tr>
+<td><strong>Result</strong></td>
+<td>Classical quasipolynomial (n^{O(log n)}) distinguisher for Goppa–McEliece public keys; applies to all Classic McEliece NIST parameter sets; extends heuristically to message recovery</td>
+</tr>
+<tr>
+<td><strong>PIR connection</strong></td>
+<td>Attack originated from a failed attempt to build doubly-efficient PIR from algebraic locally decodable codes; "can be intuitively explained from the PIR perspective"</td>
+</tr>
+<tr>
+<td><strong>Cross-links</strong></td>
+<td><a href="/kb/hqc/">HQC</a>, PQC migration files — code-based PQC inherits the scrutiny</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="fewer-server-pir-quantum-ceiling-jul-2026">Fewer-Server PIR &amp; Quantum Ceiling (Jul 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1515" rel="noopener nofollow">https://eprint.iacr.org/2026/1515</a> (Gupta et al.) — s-server PIR with exp(O((log n)^{1/s} (log log n)^{1-1/s})) communication using only s servers (was 2^{O(s)}); unconditional for s ≤ 15; main result discovered in a GPT-5.5 Pro conversation</td>
+</tr>
+<tr>
+<td><strong>QPIR</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1524" rel="noopener nofollow">https://eprint.iacr.org/2026/1524</a> (Ananth et al.) — single-server quantum PIR with polylog communication from post-quantum one-way functions (Kerenidis–Wolf ⨯ Gilboa–Ishai DPF)</td>
+</tr>
+<tr>
+<td><strong>SoK</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1544" rel="noopener nofollow">https://eprint.iacr.org/2026/1544</a> — first systematization of confidential transformer inference + RAG covering the retrieval layer; no family dominates; private graph-RAG least served</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uiuc-pir-survey">UIUC PIR Survey</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ePrint</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1135" rel="noopener nofollow">https://eprint.iacr.org/2026/1135</a></td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Pranav Shriram Arunachalaramanan, Yue Chen, Ling Ren (UIUC)</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>Tutorial and survey</td>
+</tr>
+<tr>
+<td><strong>Coverage</strong></td>
+<td>IT-PIR, CPIR, preprocessing, stateful, keyword PIR, batch PIR, concrete efficiency, paradigm selection</td>
+</tr>
+<tr>
+<td><strong>Value</strong></td>
+<td>Best newcomer entry point as of August 2026</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ive-custom-pir-accelerator-kim-et-al-2026">IVE Custom PIR Accelerator (Kim et al. 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Kim et al.</td>
+</tr>
+<tr>
+<td><strong>Year</strong></td>
+<td>2026</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Custom accelerator architecture for single-server HE-based PIR with multi-client batching</td>
+</tr>
+<tr>
+<td><strong>Features</strong></td>
+<td>Large on-chip scratchpads, tightly scheduled execution</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Referenced in GPIR paper as baseline. Implementation not publicly available.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="dynamic-mkfhe-pir-mdpi-electronics-2025">Dynamic MKFHE PIR (MDPI Electronics 2025)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Journal</strong></td>
+<td>Electronics (MDPI), 2025</td>
+</tr>
+<tr>
+<td><strong>URL</strong></td>
+<td><a href="https://www.mdpi.com/2079-9292/14/17/3441" rel="noopener nofollow">https://www.mdpi.com/2079-9292/14/17/3441</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>PIR via Multi-Key FHE (MKFHE) supporting multiple data owners</td>
+</tr>
+<tr>
+<td><strong>Features</strong></td>
+<td>Dynamic database updates; polynomial ring encoding with automorphism transforms</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Collaborative multi-party computation scenarios</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="multi-server-specialized">Multi-Server / Specialized</h2>
+<h3 id="mpc4j-alibaba">mpc4j (Alibaba)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/alibaba-edu/mpc4j" rel="noopener nofollow">https://github.com/alibaba-edu/mpc4j</a></td>
+</tr>
+<tr>
+<td><strong>Contents</strong></td>
+<td>Incremental/offline-online PIR, MPC primitives</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Comprehensive MPC library with PIR components</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="hybridpir">hybridpir</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/KoffeinFlummi/hybridpir" rel="noopener nofollow">https://github.com/KoffeinFlummi/hybridpir</a></td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Combines multi-server IT-PIR (CIP-PIR) with single-server CPIR (SealPIR)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="piano">Piano</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Venue</strong></td>
+<td>IEEE S&amp;P 2024</td>
+</tr>
+<tr>
+<td><strong>Authors</strong></td>
+<td>Zhou, Park, Shi, Zheng</td>
+</tr>
+<tr>
+<td><strong>Key innovation</strong></td>
+<td>Extremely simple single-server PIR with sublinear server computation</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Requires streaming entire database to client during preprocessing</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="tiptoe">Tiptoe</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repo</strong></td>
+<td><a href="https://github.com/ahenzinger/tiptoe" rel="noopener nofollow">https://github.com/ahenzinger/tiptoe</a></td>
+</tr>
+<tr>
+<td><strong>Stars</strong></td>
+<td>56</td>
+</tr>
+<tr>
+<td><strong>Venue</strong></td>
+<td>SOSP 2023</td>
+</tr>
+<tr>
+<td><strong>Application</strong></td>
+<td>Private web search using PIR</td>
+</tr>
+<tr>
+<td><strong>Architecture</strong></td>
+<td>Two non-colluding servers (ranking + URL services)</td>
+</tr>
+<tr>
+<td><strong>Client state</strong></td>
+<td>~57 MiB</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="survey-and-reference-resources">Survey and Reference Resources</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UIUC PIR Tutorial and Survey</strong> (NEW Aug 2026)</td>
+<td><a href="https://eprint.iacr.org/2026/1135" rel="noopener nofollow">https://eprint.iacr.org/2026/1135</a></td>
+</tr>
+<tr>
+<td>Stanford PIR Library</td>
+<td><a href="https://crypto.stanford.edu/pir-library/" rel="noopener nofollow">https://crypto.stanford.edu/pir-library/</a></td>
+</tr>
+<tr>
+<td>UT Austin PIR Tutorial (Wu 2024)</td>
+<td><a href="https://www.cs.utexas.edu/~dwu4/talks/PIRGeneral0624.pdf" rel="noopener nofollow">https://www.cs.utexas.edu/~dwu4/talks/PIRGeneral0624.pdf</a></td>
+</tr>
+<tr>
+<td>IACR ePrint PIR category</td>
+<td><a href="https://eprint.iacr.org/complete/" rel="noopener nofollow">https://eprint.iacr.org/complete/</a> (filter "private information retrieval")</td>
+</tr>
+<tr>
+<td>PSE Ethereum PIR project</td>
+<td><a href="https://pse.dev/blog/ethereum-privacy-pir" rel="noopener nofollow">https://pse.dev/blog/ethereum-privacy-pir</a></td>
+</tr>
+<tr>
+<td>Sharded PIR for Ethereum (ethresear.ch)</td>
+<td><a href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552" rel="noopener nofollow">https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552</a></td>
+</tr>
+<tr>
+<td>Kohaku roadmap</td>
+<td><a href="https://notes.ethereum.org/@niard/KohakuRoadmap" rel="noopener nofollow">https://notes.ethereum.org/@niard/KohakuRoadmap</a></td>
+</tr>
+<tr>
+<td>EF Q1 2026 Allocations</td>
+<td><a href="https://blog.ethereum.org/2026/04/29/allocation-q1-26" rel="noopener nofollow">https://blog.ethereum.org/2026/04/29/allocation-q1-26</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="repo-watch-snapshot-verified-2026-10-14">Repo Watch Snapshot (verified 2026-10-14)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repo</th>
+<th class="ta-r">Stars</th>
+<th>Last Push</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ethereum/kohaku</td>
+<td class="ta-r">402</td>
+<td>2026-10-07</td>
+<td>W42 cycle: only new PR is <strong>#316 (Oct 7) "feat(privacy-pools): account history"</strong>; open PRs: #316 + #312 (Oct 3 zipcoin deployment) + #258 (Sep 17 PP v2 SDK); 7 PRs/commits in W42 window, none PIR-tagged</td>
+</tr>
+<tr>
+<td>apple/swift-homomorphic-encryption</td>
+<td class="ta-r">655+</td>
+<td>2026-10-12</td>
+<td><strong>5-PR merge cluster on main Sep 25 → Oct 12 (largest of 2026)</strong>: #332 Sep 25 + #335 + #337 + #333 Oct 7 + #334 + #336 Oct 12. All 4 substantive W41 PRs by <code>@deadcaf3</code> (Karl Tarbe, GPG <code>9AAD1BD8BE87E79A</code> = same engineer as <code>@karulont</code>). <strong>No v1.0.8 release tag yet (day 133 since v1.0.7 Jun 3)</strong></td>
+</tr>
+<tr>
+<td>google/hintless_pir</td>
+<td class="ta-r">23</td>
+<td>2026-07-23</td>
+<td>steady maintenance</td>
+</tr>
+<tr>
+<td>menonsamir/spiral-rs</td>
+<td class="ta-r">18</td>
+<td>2026-03-19</td>
+<td>dormant since March</td>
+</tr>
+<tr>
+<td>itzmeanjan/ChalametPIR</td>
+<td class="ta-r">16</td>
+<td>2025-07-11</td>
+<td>dormant 13+ months</td>
+</tr>
+<tr>
+<td>brave-experiments/frodo-pir</td>
+<td class="ta-r">78</td>
+<td>2024-01-10</td>
+<td>deployment reference, frozen</td>
+</tr>
+<tr>
+<td>ahenzinger/simplepir</td>
+<td class="ta-r">101</td>
+<td>2023-01-13</td>
+<td>research reference</td>
+</tr>
+<tr>
+<td>ahenzinger/finite-diffs-pir</td>
+<td class="ta-r">0</td>
+<td>2026-05-01</td>
+<td>EUROCRYPT 2026 IT-PIR reference</td>
+</tr>
+<tr>
+<td>a16z/helios</td>
+<td class="ta-r">2,175+</td>
+<td>2026-06-26</td>
+<td>Kohaku reference wallet's verified-reads client</td>
+</tr>
+<tr>
+<td><strong>orochi-network/orochimaru</strong></td>
+<td class="ta-r">80</td>
+<td><strong>2026-07-10</strong></td>
+<td><strong>95 days silent</strong> as of Oct 14; last commit <code>95f95bd</code> "constraints/permutation_circuit.rs: PermutationCircuit::new_with_seeds" by <code>bao-ninh-orochi</code> + <code>on-unknown-fish</code>; <strong>RisePIR source code still not publicly auditable</strong> (the orochimaru release that Sep 23 / Sep 30 / Oct 7 sweeps predicted has not materialized)</td>
+</tr>
+<tr>
+<td><strong>orochi-network/cuckoo-filter-rs</strong></td>
+<td class="ta-r">—</td>
+<td>—</td>
+<td><strong>404 (no public repo)</strong> as of Oct 14 — the RisePIR paper's primary artifact</td>
+</tr>
+<tr>
+<td><strong>sidsabh/sandwichpir</strong></td>
+<td class="ta-r">2</td>
+<td>2026-08-28</td>
+<td><strong>47 days silent since reference implementation</strong>; 2 stars / 0 forks / 0 issues / 0 PRs; v0.1.0 tag Aug 25 the only release; hardware moat (CUDA 12.4 + L40S + CUTLASS 3.5.1 + saturating-int8 patch) unchanged</td>
+</tr>
+</tbody>
+</table></div>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/simplepir-doublepir/">
+  <span class="nm">SimplePIR and DoublePIR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/hqc/">
+  <span class="nm">HQC</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-14</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=PIR%20Implementations%20and%20Libraries" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Comprehensive tracker of all known PIR implementations, libraries, and codebases. Organized by era, maturity, and access method.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Reference</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-14</dd>
+        <dt>Sources linked</dt><dd>47</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

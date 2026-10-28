@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lightning Network — ungovernable.tech</title>
+<meta name="description" content="The Lightning Network makes Bitcoin payments instant and cheap through payment channels and onion-routed HTLCs: how it works and what it reveals.">
+<link rel="canonical" href="https://ungovernable.tech/kb/lightning-network/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Lightning Network — ungovernable.tech">
+<meta property="og:description" content="The Lightning Network makes Bitcoin payments instant and cheap through payment channels and onion-routed HTLCs: how it works and what it reveals.">
+<meta property="og:url" content="https://ungovernable.tech/kb/lightning-network/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lightning Network — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lightning Network — ungovernable.tech">
+<meta name="twitter:description" content="The Lightning Network makes Bitcoin payments instant and cheap through payment channels and onion-routed HTLCs: how it works and what it reveals.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lightning Network", "description": "The Lightning Network makes Bitcoin payments instant and cheap through payment channels and onion-routed HTLCs: how it works and what it reveals.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/lightning-network/", "mainEntityOfPage": "https://ungovernable.tech/kb/lightning-network/", "image": "https://ungovernable.tech/assets/og/pillar-money.png", "about": [{"@type": "Thing", "name": "Financial Sovereignty"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Financial Sovereignty", "item": "https://ungovernable.tech/pillars/money/"}, {"@type": "ListItem", "position": 3, "name": "Lightning Network", "item": "https://ungovernable.tech/kb/lightning-network/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/money/">Financial Sovereignty</a><span aria-hidden="true">/</span><span class="here">Lightning Network</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ FINANCIAL SOVEREIGNTY ]</span></p>
+  <h1>Lightning Network</h1>
+  <p class="aka">Also Lightning, LN, BOLT.</p>
+  <p class="dek">Bitcoin&#39;s instant, low-fee, censorship-resistant payment layer. Built from bidirectional payment channels, HTLCs, and onion routing.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-lightning-matters">Why Lightning matters</a><a href="#core-mechanics">Core mechanics</a><a href="#bolt-specifications">BOLT specifications</a><a href="#implementations">Implementations</a><a href="#privacy-properties">Privacy properties</a><a href="#liquidity-markets">Liquidity markets</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-lightning-matters">Why Lightning matters</h2>
+<p>Bitcoin base-layer transactions are <em>settlement</em>, not <em>payments</em>. Block intervals (~10 min) and per-byte fees price out micropayments and high-frequency commerce. Lightning solves this without a custodian or a separate token: peers open a 2-of-2 multisig channel, exchange off-chain state updates, and settle on-chain only when they close. While the channel is open, payments are atomic, route through a network of intermediaries, and clear in seconds for sub-cent fees.</p>
+<p>The censorship-resistance story compounds. Payments are onion-routed (Sphinx), so intermediaries see their incoming peer and outgoing hop, and modern features (route blinding, BOLT12 offers, async payments) progressively close the metadata gaps that early Lightning still leaked.</p>
+<h2 id="core-mechanics">Core mechanics</h2>
+<h3 id="payment-channels">Payment channels</h3>
+<p>A channel is a 2-of-2 multisig UTXO with an off-chain ledger maintained by both parties via signed <em>commitment transactions</em>. Each new payment produces a new commitment that supersedes the prior one. If either party broadcasts an old commitment, the counterparty can use a <em>justice transaction</em> to claim the entire channel balance during a dispute window.</p>
+<pre><code>Funding tx (on-chain) → 2-of-2 multisig output
+   │
+   ├── Commitment tx N (off-chain, ratcheted)
+   │      ├── Output: Alice balance
+   │      └── Output: Bob balance + revocation key
+   │
+   └── On close: cooperative or unilateral
+</code></pre>
+<h3 id="htlcs-hash-time-locked-contracts">HTLCs (Hash-Time-Locked Contracts)</h3>
+<p>A multi-hop payment is a chain of <em>HTLCs</em>. Each hop locks funds against a hash preimage <code>R</code> and a timeout. The receiver knows the preimage <code>R</code>; the payment hash is <code>SHA256(R)</code>; revealing <code>R</code> upstream collects the payment. If <code>R</code> isn't revealed before the timeout, funds return.</p>
+<p>This makes routed payments atomic: either the whole route settles or none of it does.</p>
+<pre><code>A → B → C → D    (each hop holds an HTLC)
+              ↓
+              D releases R to claim from C
+              ↓
+A ← B ← C ← D    (preimage propagates back, settling each HTLC)
+</code></pre>
+<h3 id="onion-routing-sphinx">Onion routing (Sphinx)</h3>
+<p>Each payment carries a Sphinx packet: layered encryption such that each hop sees only the previous and next hops, the payment amount at this hop, and the timeout. Constant size at every hop, so no information leaks from packet length.</p>
+<h2 id="bolt-specifications">BOLT specifications</h2>
+<p>The protocol is defined by the BOLT (Basis of Lightning Technology) specs:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>BOLT</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BOLT 1</td>
+<td>Base protocol, message framing</td>
+</tr>
+<tr>
+<td>BOLT 2</td>
+<td>Channel state machine</td>
+</tr>
+<tr>
+<td>BOLT 3</td>
+<td>Transaction format</td>
+</tr>
+<tr>
+<td>BOLT 4</td>
+<td>Onion routing protocol</td>
+</tr>
+<tr>
+<td>BOLT 5</td>
+<td>On-chain transactions</td>
+</tr>
+<tr>
+<td>BOLT 7</td>
+<td>Gossip and channel discovery</td>
+</tr>
+<tr>
+<td>BOLT 11</td>
+<td>Payment requests (legacy invoices)</td>
+</tr>
+<tr>
+<td>BOLT 12</td>
+<td>Offers: reusable payment requests specified in the canonical BOLT 12 document</td>
+</tr>
+</tbody>
+</table></div>
+<p>Onion messages were folded into the existing BOLT 4/7 surface (feature bits 38/39, message type 513) rather than getting a separate BOLT.</p>
+<p><a href="https://github.com/lightning/bolts" rel="noopener nofollow">github.com/lightning/bolts</a></p>
+<h2 id="implementations">Implementations</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Language</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LND (Lightning Labs)</td>
+<td>Go</td>
+<td>Most-deployed; integrates with Loop, Pool</td>
+</tr>
+<tr>
+<td>Core Lightning (CLN)</td>
+<td>C</td>
+<td>Modular plugin architecture; spec-implementing reference</td>
+</tr>
+<tr>
+<td>Eclair (ACINQ)</td>
+<td>Scala</td>
+<td>Powers Phoenix mobile wallet</td>
+</tr>
+<tr>
+<td>LDK (Lightning Dev Kit)</td>
+<td>Rust</td>
+<td>Library for embedding LN in custom apps</td>
+</tr>
+<tr>
+<td>Sensei, Electrum LN</td>
+<td>Various</td>
+<td>Niche / desktop</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="privacy-properties">Privacy properties</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Status (early 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sender privacy</td>
+<td>Reasonable. Onion routing, but timing analysis is still possible at the destination</td>
+</tr>
+<tr>
+<td>Receiver privacy</td>
+<td>Improving. Route blinding (BOLT12), blinded paths, async payments</td>
+</tr>
+<tr>
+<td>Amount privacy</td>
+<td>Visible to each hop; trampoline mitigates partially</td>
+</tr>
+<tr>
+<td>Channel topology</td>
+<td>Public. The gossip layer leaks channel sizes (mitigated by private channels)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Practical patterns:</p>
+<ul>
+<li>Private channels: don't gossip; receiver embeds routing hints in invoices.</li>
+<li>Hold invoices: for refundable or streaming payments without revealing intent up front.</li>
+<li>Trampoline routing: outsource pathfinding to a trusted-but-blind node, hides destination from earlier hops.</li>
+<li>PTLCs (Point-Time-Locked Contracts): Schnorr/Taproot-based replacement for HTLCs that breaks payment correlation across hops. Spec stabilizing.</li>
+</ul>
+<h2 id="liquidity-markets">Liquidity markets</h2>
+<p>Channels need balance on the right side to forward and receive. The 2024-2026 market matured around:</p>
+<ul>
+<li>Lightning Pool (Lightning Labs): non-custodial market for channel leases.</li>
+<li>Magma (Amboss): open marketplace for channel leases and liquidity.</li>
+<li>Liquidity Ads (BOLT12-adjacent): protocol-native channel ads.</li>
+<li>Splicing: re-balance or resize channels on-chain without closing them. Activated mid-2024 across CLN/Eclair, LND landing.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>No custodian. Keys remain with you; channel state is enforceable on-chain.</li>
+<li>Sub-second settlement, and routing failures fail open by returning funds.</li>
+<li>Onion routing built in. Sender privacy by default.</li>
+<li>Bitcoin-native. Uses Bitcoin's security, not a separate token or PoS chain.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Liquidity management. Incoming liquidity is the recurring footgun; running a node well is a side hobby.</li>
+<li>Online requirement. A watchtower is needed if you go offline (otherwise risk of stale-commitment theft).</li>
+<li>Channel jamming. Pathological attackers can lock liquidity in unresolvable HTLCs. Mitigations: anchor outputs, package relay, jamming-resistant fee schedules in flight.</li>
+<li>Routing privacy is partial. Timing correlation, channel-size correlation, and payment-amount inference remain.</li>
+<li>Onboarding cost. Opening a channel is an on-chain tx; mempool spikes price out small users.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Description</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stale-commitment broadcast</td>
+<td>Counterparty publishes old state</td>
+<td>Watchtower, justice tx during dispute window</td>
+</tr>
+<tr>
+<td>Channel jamming</td>
+<td>Attacker locks HTLCs without settling</td>
+<td>Anchor outputs, reputation-based fee tiers, PTLCs</td>
+</tr>
+<tr>
+<td>Eclipse attack</td>
+<td>Isolate node from honest peers</td>
+<td>Multiple gossip peers, Tor circuits</td>
+</tr>
+<tr>
+<td>Route probing</td>
+<td>Send micropayments to map liquidity</td>
+<td>Private channels, route blinding</td>
+</tr>
+<tr>
+<td>Mempool flooding at force-close</td>
+<td>RBF/CPFP exploitation</td>
+<td>Anchor outputs, package relay</td>
+</tr>
+<tr>
+<td>Custodial nodes (Wallet of Satoshi etc.)</td>
+<td>KYC and takedown risk</td>
+<td>Self-custody; check the wallet’s current support and custody model</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>Splicing: resize without closing.</li>
+<li>BOLT12 Offers: reusable invoices, no static metadata leak.</li>
+<li>Async payments: offline receivers buffer payments via a routing peer, end-to-end encrypted.</li>
+<li>PTLC adoption: Schnorr-only Lightning targeting late 2026.</li>
+<li>LSPs (Lightning Service Providers): non-custodial liquidity providers; standardized via LSPS.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://lightning.network/lightning-network-paper.pdf" rel="noopener nofollow">The Bitcoin Lightning Network</a></li>
+<li><a href="https://github.com/lightning/bolts" rel="noopener nofollow">BOLT specifications</a></li>
+<li><a href="https://github.com/lightning/bolts/blob/master/04-onion-routing.md" rel="noopener nofollow">BOLT 4: Onion Routing Protocol</a></li>
+<li><a href="https://github.com/lightning/bolts/blob/master/02-peer-protocol.md" rel="noopener nofollow">BOLT 2: peer protocol and HTLC handling</a></li>
+<li><a href="https://github.com/lightning/bolts/blob/master/12-offer-encoding.md" rel="noopener nofollow">BOLT 12: Offers</a></li>
+<li><a href="https://docs.lightning.engineering/lightning-network-tools/lnd" rel="noopener nofollow">Lightning Labs: LND documentation</a></li>
+<li><a href="https://github.com/ACINQ/eclair" rel="noopener nofollow">ACINQ: Eclair</a></li>
+<li><a href="https://docs.corelightning.org/" rel="noopener nofollow">Core Lightning documentation</a></li>
+<li><a href="https://blog.mutinywallet.com/mutiny-wallet-is-shutting-down/" rel="noopener nofollow">Mutiny Wallet shutdown announcement</a></li>
+</ul>
+<p>For applications of Lightning, see <a href="/kb/fedimint/">Fedimint</a> for federated ecash and gateway contracts, <a href="/kb/robosats/">RoboSats</a> for peer-to-peer acquisition using hold invoices, and <a href="/kb/btcpay-server/">BTCPay Server</a> for accepting payments. Their entries distinguish guardian, coordinator and wallet custody.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/fedimint/">
+  <span class="nm">Fedimint</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/robosats/">
+  <span class="nm">RoboSats</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/btcpay-server/">
+  <span class="nm">BTCPay Server</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cashu-ecash/">
+  <span class="nm">Cashu and Chaumian Ecash</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/bitcoin-self-custody/">
+  <span class="nm">Bitcoin Self-Custody, Step by Step</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/bitvm/">
+  <span class="nm">BitVM</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/hopr/">
+  <span class="nm">HOPR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/snarks/">
+  <span class="nm">SNARKs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/sphinx-packet-format/">
+  <span class="nm">Sphinx Packet Format</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Lightning%20Network" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">Bitcoin&#39;s instant, low-fee, censorship-resistant payment layer. Built from bidirectional payment channels, HTLCs, and onion routing.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Financial Sovereignty</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

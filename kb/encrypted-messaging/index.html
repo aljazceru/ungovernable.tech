@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Encrypted Messaging — ungovernable.tech</title>
+<meta name="description" content="How end-to-end encrypted messaging works, what it protects, and why identifiers, servers and metadata decide how private a messenger really is.">
+<link rel="canonical" href="https://ungovernable.tech/kb/encrypted-messaging/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Encrypted Messaging — ungovernable.tech">
+<meta property="og:description" content="How end-to-end encrypted messaging works, what it protects, and why identifiers, servers and metadata decide how private a messenger really is.">
+<meta property="og:url" content="https://ungovernable.tech/kb/encrypted-messaging/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Encrypted Messaging — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Encrypted Messaging — ungovernable.tech">
+<meta name="twitter:description" content="How end-to-end encrypted messaging works, what it protects, and why identifiers, servers and metadata decide how private a messenger really is.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Encrypted Messaging", "description": "How end-to-end encrypted messaging works, what it protects, and why identifiers, servers and metadata decide how private a messenger really is.", "dateModified": "2026-10-25", "datePublished": "2026-04-15", "url": "https://ungovernable.tech/kb/encrypted-messaging/", "mainEntityOfPage": "https://ungovernable.tech/kb/encrypted-messaging/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Encrypted Messaging", "item": "https://ungovernable.tech/kb/encrypted-messaging/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Encrypted Messaging</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>Encrypted Messaging</h1>
+  <p class="aka">Also End-to-End Encryption, E2EE, Secure Messaging.</p>
+  <p class="dek">Encrypted messaging makes sure only the intended recipients can read your communications.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-this-section-is-about">What this section is about</a><a href="#the-metadata-problem">The metadata problem</a><a href="#key-technologies">Key technologies</a><a href="#network-comparison">Network comparison</a><a href="#clients">Clients</a><a href="#trade-offs">Trade-offs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-this-section-is-about">What this section is about</h2>
+<p>Encrypted messaging makes sure only the intended recipients can read your communications. Not the platform, not your ISP, not anyone intercepting traffic. Modern E2EE goes beyond TLS to provide forward secrecy (compromise of a long-term key does not expose past session keys), post-compromise security (a compromised session heals after subsequent rounds), and varying degrees of metadata protection.</p>
+<p>This section covers:</p>
+<ul>
+<li>Signal Protocol — the reference asynchronous E2EE design (X3DH/PQXDH + Double Ratchet + Sesame).</li>
+<li>Matrix — federated chat with Olm/Megolm; MLS profile in development.</li>
+<li>Nostr — public-key-rooted broadcast protocol; encrypted DMs via NIP-44, gift-wrapped DMs via NIP-17, group E2EE via <a href="/kb/marmot-protocol/">Marmot Protocol</a> (MLS over Nostr).</li>
+<li>Metadata-resistant designs — SimpleX, Session, Cwtch, Briar.</li>
+</ul>
+<blockquote>
+<p>"Every company or individual is one court order away from needing to decide how long they are willing to spend behind bars for not sharing the data with the government." — Ungovernable.tech</p>
+</blockquote>
+<h2 id="the-metadata-problem">The metadata problem</h2>
+<p>Encryption protects content. Metadata often reveals more:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Example</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who</td>
+<td>Alice → Bob</td>
+<td>Social graph</td>
+</tr>
+<tr>
+<td>When</td>
+<td>Timestamp</td>
+<td>Pattern of life</td>
+</tr>
+<tr>
+<td>Where</td>
+<td>IP address</td>
+<td>Location</td>
+</tr>
+<tr>
+<td>How</td>
+<td>Device, client</td>
+<td>Fingerprinting</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Message length</td>
+<td>Traffic analysis</td>
+</tr>
+</tbody>
+</table></div>
+<p>Truly private systems address metadata, not just content.</p>
+<h2 id="key-technologies">Key technologies</h2>
+<h3 id="signal-protocol">Signal Protocol</h3>
+<p>The reference for asynchronous E2EE messaging. Deployed by Signal, WhatsApp (default since April 2016), Google Messages RCS (since 2020), and Meta's Messenger and Instagram DMs (rolled out 2023-2024 using a Signal-Protocol-derived design).</p>
+<p>Core components:</p>
+<ul>
+<li>Double Ratchet — per-message key evolution; forward secrecy plus post-compromise security.</li>
+<li>X3DH (Extended Triple DH) — asynchronous initial key agreement. Replaced in Signal by <strong>PQXDH</strong> (initially X25519 + CRYSTALS-Kyber-1024) in 2023.</li>
+<li>Sesame — session management for multi-device.</li>
+</ul>
+<p>How it works:</p>
+<ol>
+<li>Alice and Bob exchange long-term and one-time prekeys via the server.</li>
+<li>PQXDH/X3DH derives an initial shared secret asynchronously.</li>
+<li>Double Ratchet evolves a fresh key per message; deleted message keys protect past traffic; recovery after compromise requires fresh ratchet contributions that the attacker no longer observes.</li>
+</ol>
+<p>Limitations:</p>
+<ul>
+<li>Signal app itself requires a phone number (metadata).</li>
+<li>Centralized servers (Signal, WhatsApp).</li>
+<li>Sealed sender hides the sender identity inside the envelope; the service still sees the recipient.</li>
+</ul>
+<h3 id="matrix">Matrix</h3>
+<p>A federated chat protocol with E2EE via Olm (1:1) and Megolm (groups).</p>
+<p>Architecture:</p>
+<ul>
+<li>Homeservers store message history; users pick or self-host one.</li>
+<li>Bridges connect to IRC, Slack, Discord, XMPP, etc.</li>
+<li>Element’s predecessor Riot enabled E2EE by default for new private rooms in May 2020. Public rooms remain unencrypted by design.</li>
+<li>MLS profile (RFC 9420) in development to replace Megolm for groups.</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li>Pros: federated, open-source, rich room model, bridging.</li>
+<li>Cons: large per-user state, history-visibility trade-offs, server learns metadata (room membership, timing, device list).</li>
+</ul>
+<h3 id="nostr">Nostr</h3>
+<p>"Notes and Other Stuff Transmitted by Relays" — a public-key-rooted protocol where the user <em>is</em> their secp256k1 keypair (npub/nsec, BIP-340 Schnorr). Public events (kind 1 notes, profile metadata, reactions) are signed but unencrypted by design — they're meant to be public posts. Encrypted communication uses dedicated event kinds.</p>
+<p>Architecture:</p>
+<ul>
+<li>Keys: npub (public) / nsec (private), Schnorr over secp256k1.</li>
+<li>Relays: simple WebSocket message brokers; anyone can run one.</li>
+<li>Clients: any app that knows the protocol; clients verify signatures themselves.</li>
+</ul>
+<p>Encryption layers:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Mechanism</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public posts</td>
+<td>Signed only</td>
+<td>Public broadcast is the design goal</td>
+</tr>
+<tr>
+<td>Direct messages (legacy)</td>
+<td>NIP-04 — ECDH + AES-256-CBC</td>
+<td>Deprecated; metadata leaks recipient</td>
+</tr>
+<tr>
+<td>Direct messages (current)</td>
+<td>NIP-44 v2 — secp256k1 ECDH → ChaCha20 + HMAC-SHA-256</td>
+<td>Versioned format with padding</td>
+</tr>
+<tr>
+<td>Metadata-protected DMs</td>
+<td>NIP-17 + NIP-59 gift-wrap</td>
+<td>Wraps NIP-44 content in a randomly-keyed envelope; relays cannot link sender</td>
+</tr>
+<tr>
+<td>Group messaging</td>
+<td><a href="/kb/marmot-protocol/">Marmot Protocol</a> — MLS (RFC 9420) over Nostr</td>
+<td>Forward secrecy + post-compromise security; KeyPackages kind 30443, gift-wrapped Welcomes kind 1059, encrypted group events kind 445</td>
+</tr>
+</tbody>
+</table></div>
+<p>Trade-offs:</p>
+<ul>
+<li>Pros: censorship-resistant by relay redundancy; key-rooted identity (no phone, no server account); client and relay diversity; composes with Lightning zaps and other key-bound protocols.</li>
+<li>Cons: legacy DMs (NIP-04) leak who-talks-to-whom to relays; NIP-17 hides the sender inside a gift wrap but still exposes its recipient tag; no built-in spam control; relay discovery is application-defined.</li>
+</ul>
+<p>Resources:</p>
+<ul>
+<li><a href="https://github.com/nostr-protocol/nips" rel="noopener nofollow">NIPs</a> — protocol specs (active list)</li>
+<li><a href="https://github.com/aljazceru/awesome-nostr" rel="noopener nofollow">awesome-nostr</a> — curated client/relay list</li>
+<li><a href="/kb/marmot-protocol/">Marmot Protocol</a> — MLS group E2EE over Nostr</li>
+<li><a href="/kb/nostr-protocol/">Nostr Deep Dive</a> — protocol internals</li>
+</ul>
+<h3 id="simplex">SimpleX</h3>
+<p>A messaging protocol designed for metadata resistance. Detailed in <a href="/kb/simplex/">SimpleX</a>.</p>
+<p>Features:</p>
+<ul>
+<li>No global user identifiers — addressable by per-conversation queue addresses on relay servers.</li>
+<li>Onion-routed connections to relays (with optional Tor).</li>
+<li>No address-book correlation; the recipient's invite link is delivered out of band.</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li>Pros: relays cannot link conversations to a single user; no social graph centralized anywhere.</li>
+<li>Cons: still requires out-of-band invite delivery; smaller ecosystem; UX cost of no contact discovery.</li>
+</ul>
+<h3 id="session">Session</h3>
+<p>Session uses public-key identifiers and onion-routed delivery without phone-number registration. Its threat model and protocol differ from Signal’s; consult the <a href="/kb/metadata-resistance/">metadata-resistance comparison</a> for transport trade-offs.</p>
+<h3 id="cwtch">Cwtch</h3>
+<p>Tor v3 onion services as messaging substrate (<a href="/kb/cwtch/">Cwtch</a>). Each user runs an onion service; conversations are direct hidden-service-to-hidden-service. Group servers are untrusted relays — they see encrypted blobs, not content or membership. Built by Open Privacy Research Society with explicit metadata-resistance research grounding.</p>
+<h3 id="wire-mls">Wire (MLS)</h3>
+<p>Wire is a Swiss / German enterprise messenger and the canonical production reference deployment of MLS (RFC 9420), alongside Cisco Webex (<a href="/kb/mls-wire/">Wire MLS</a>). A different group protocol from Signal — Wire's earlier Proteus protocol ran in parallel for a decade before the MLS migration in 2022.</p>
+<h2 id="network-comparison">Network comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Metadata</th>
+<th>Decentralized</th>
+<th>E2EE</th>
+<th>Open source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal</td>
+<td>Poor (phone number)</td>
+<td>No</td>
+<td>Yes (PQXDH + Double Ratchet)</td>
+<td>Yes (clients + server)</td>
+</tr>
+<tr>
+<td>WhatsApp</td>
+<td>Poor (phone number)</td>
+<td>No</td>
+<td>Yes (Signal Protocol since 2016)</td>
+<td>Closed-source clients; protocol documented</td>
+</tr>
+<tr>
+<td>Matrix</td>
+<td>Moderate (server learns metadata)</td>
+<td>Yes (federated)</td>
+<td>Default-on for private rooms (Olm/Megolm)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Nostr</td>
+<td>Mixed — public posts are public; DMs depend on NIP used</td>
+<td>Yes (relay-based)</td>
+<td>Public posts: no (by design). DMs: NIP-44 / NIP-17. Groups: <a href="/kb/marmot-protocol/">Marmot Protocol</a> (MLS)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SimpleX</td>
+<td>Good (no user IDs)</td>
+<td>Partial (relays + clients)</td>
+<td>Yes (Double Ratchet)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>Good (no phone, onion-routed)</td>
+<td>Yes (distributed service nodes)</td>
+<td>Yes; protocol differs from Signal</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Briar</td>
+<td>Good (Tor + LAN + BLE + USB transports)</td>
+<td>Yes (peer-to-peer)</td>
+<td>Yes (BTP, Bramble)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Cwtch</td>
+<td>Good (Tor v3 hidden services)</td>
+<td>Yes (peer-to-peer)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="clients">Clients</h2>
+<h3 id="centralized-e2ee">Centralized E2EE</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Platform</th>
+<th>Protocol</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal</td>
+<td>All</td>
+<td>Signal Protocol</td>
+<td>Reference implementation</td>
+</tr>
+<tr>
+<td>WhatsApp</td>
+<td>All</td>
+<td>Signal Protocol</td>
+<td>Default-on E2EE since 2016</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="federated-decentralized">Federated / decentralized</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Platform</th>
+<th>Protocol</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Element / Element X</td>
+<td>All</td>
+<td>Matrix</td>
+<td>Reference Matrix client; Element X is the current rewrite</td>
+</tr>
+<tr>
+<td>Damus</td>
+<td>iOS, macOS</td>
+<td>Nostr</td>
+<td>Largest iOS Nostr client</td>
+</tr>
+<tr>
+<td>Primal</td>
+<td>iOS, Android, web</td>
+<td>Nostr</td>
+<td>Reads + DMs + zaps; Primal cache server optional</td>
+</tr>
+<tr>
+<td>Amethyst</td>
+<td>Android</td>
+<td>Nostr</td>
+<td>Most full-featured Android client</td>
+</tr>
+<tr>
+<td>Nostur</td>
+<td>iOS</td>
+<td>Nostr</td>
+<td>Long-running iOS Nostr client</td>
+</tr>
+<tr>
+<td>Coracle</td>
+<td>Web</td>
+<td>Nostr</td>
+<td>Web-first; experimental NIPs</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="metadata-resistant">Metadata-resistant</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Platform</th>
+<th>Protocol</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SimpleX Chat</td>
+<td>All</td>
+<td>SimpleX</td>
+<td>No user IDs; per-queue routing</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>All</td>
+<td>Session / Oxen</td>
+<td>Onion-routed; X25519 identity</td>
+</tr>
+<tr>
+<td>Cwtch</td>
+<td>All</td>
+<td>Tor v3 hidden services</td>
+<td>Peer-to-peer over Tor</td>
+</tr>
+<tr>
+<td><a href="/kb/briar/">Briar</a></td>
+<td>Android, desktop (alpha)</td>
+<td>Bramble (BTP/BSP/BQP)</td>
+<td>Tor + Bluetooth + Wi-Fi LAN + USB</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Content privacy — only sender and receiver can read.</li>
+<li>Forward secrecy and post-compromise security in Signal-family designs.</li>
+<li>Censorship resistance via relay redundancy (Nostr) or transport diversity (Briar).</li>
+<li>Self-sovereign identity (Nostr, Pubky, did:key).</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Metadata leaks — most platforms still expose <em>who</em> and <em>when</em> to the server or relay.</li>
+<li>Endpoint compromise — E2EE does not help if the device is malware.</li>
+<li>Identity binding — verifying that a key belongs to the intended human is out-of-band work.</li>
+<li>Jurisdiction — app-store and provider availability varies.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://signal.org/docs/" rel="noopener nofollow">Signal: protocol specifications</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9420.html" rel="noopener nofollow">RFC 9420: Messaging Layer Security</a></li>
+<li><a href="https://matrix.org/docs/matrix-concepts/end-to-end-encryption/" rel="noopener nofollow">Matrix: end-to-end encryption implementation guide</a></li>
+<li><a href="https://github.com/simplex-chat/simplexmq/blob/master/protocol/simplex-messaging.md" rel="noopener nofollow">SimpleX Messaging Protocol</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/17.md" rel="noopener nofollow">Nostr NIP-17: private direct messages</a></li>
+<li><a href="https://github.com/nostr-protocol/nips/blob/master/59.md" rel="noopener nofollow">Nostr NIP-59: gift wrap</a></li>
+<li><a href="https://briarproject.org/how-it-works/" rel="noopener nofollow">Briar: transport and privacy</a></li>
+<li><a href="https://signal.org/blog/pqxdh/" rel="noopener nofollow">Signal: initial PQXDH deployment</a></li>
+<li><a href="https://signal.org/blog/sealed-sender/" rel="noopener nofollow">Signal: sealed sender</a></li>
+<li><a href="https://matrix.org/blog/2020/05/06/cross-signing-and-end-to-end-encryption-by-default-is-here/" rel="noopener nofollow">Matrix: encryption by default in May 2020</a></li>
+<li><a href="https://arxiv.org/abs/2002.04609" rel="noopener nofollow">Session cryptographic design</a></li>
+<li><a href="https://signal.org/docs/specifications/doubleratchet/" rel="noopener nofollow">The Double Ratchet Algorithm</a></li>
+</ul>
+<p>Two newer MLS-based projects on Nostr identities: <a href="/kb/white-noise/">White Noise</a>, a relay-native messenger built on Marmot, and <a href="/kb/cordn/">Cordn</a>, group messaging through a coordinator you can run yourself.</p>
+<p>For a current comparison of identifiers, metadata, encryption defaults and readiness, see <a href="/kb/compare-messengers/">Choosing a private messenger</a>. Additional entries cover <a href="/kb/delta-chat/">Delta Chat</a>, <a href="/kb/xmpp-omemo/">XMPP with OMEMO</a>, <a href="/kb/jami/">Jami</a>, <a href="/kb/tox/">Tox</a>, <a href="/kb/quiet/">Quiet</a> and <a href="/kb/veilid/">Veilid</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/nostr-protocol/">
+  <span class="nm">Nostr: The Protocol</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/simplex/">
+  <span class="nm">SimpleX Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/metadata-resistance/">
+  <span class="nm">Metadata Resistance</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cwtch/">
+  <span class="nm">Cwtch</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/briar/">
+  <span class="nm">Briar</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cordn/">
+  <span class="nm">Cordn</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/delta-chat/">
+  <span class="nm">Delta Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/xmpp-omemo/">
+  <span class="nm">XMPP with OMEMO</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Encrypted%20Messaging" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Encrypted messaging makes sure only the intended recipients can read your communications.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Secure Messaging</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>14</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

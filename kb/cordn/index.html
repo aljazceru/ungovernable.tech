@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cordn — ungovernable.tech</title>
+<meta name="description" content="Cordn is MLS group messaging run through a coordinator you can self-host anywhere, reached over Nostr relays via ContextVM, with Nostr keys as identity.">
+<link rel="canonical" href="https://ungovernable.tech/kb/cordn/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Cordn — ungovernable.tech">
+<meta property="og:description" content="Cordn is MLS group messaging run through a coordinator you can self-host anywhere, reached over Nostr relays via ContextVM, with Nostr keys as identity.">
+<meta property="og:url" content="https://ungovernable.tech/kb/cordn/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cordn — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cordn — ungovernable.tech">
+<meta name="twitter:description" content="Cordn is MLS group messaging run through a coordinator you can self-host anywhere, reached over Nostr relays via ContextVM, with Nostr keys as identity.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cordn", "description": "Cordn is MLS group messaging run through a coordinator you can self-host anywhere, reached over Nostr relays via ContextVM, with Nostr keys as identity.", "dateModified": "2026-10-19", "datePublished": "2026-10-19", "url": "https://ungovernable.tech/kb/cordn/", "mainEntityOfPage": "https://ungovernable.tech/kb/cordn/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "Cordn", "item": "https://ungovernable.tech/kb/cordn/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">Cordn</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SECURE MESSAGING ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Cordn</h1>
+  <p class="aka">Also Cordn messaging.</p>
+  <p class="dek">MLS needs someone to keep the order of events. Cordn keeps that coordinator and makes it something you can run from a laptop behind a firewall and move.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-19</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-design-choice-keep-the-coordinator">The design choice: keep the coordinator</a><a href="#how-it-works">How it works</a><a href="#what-it-protects-against">What it protects against</a><a href="#what-it-trusts-and-the-limits">What it trusts, and the limits</a><a href="#readiness">Readiness</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>Cordn is private group messaging that you can run yourself. It uses <a href="/kb/mls-wire/">MLS (RFC 9420)</a> for end-to-end encryption and Nostr key pairs for identity. A small <strong>coordinator</strong> service keeps each group's messages in order. That service is reached through <em>ContextVM</em>, a protocol for exposing services over Nostr relays, so it needs no domain name, TLS certificate, open port or public server. You can run a coordinator from home, from behind a NAT or firewall, or for a single session and then throw it away. The project includes a TypeScript coordinator, a web and Android client, and a CLI, and is at an early, beta stage.</p>
+<h2 id="the-design-choice-keep-the-coordinator">The design choice: keep the coordinator</h2>
+<p>MLS is not coordination-free. Every member has to converge on the same ordered history of commits and epochs. Most MLS deployments solve this with a central <em>Delivery Service</em>. <a href="/kb/marmot-protocol/">Marmot</a> and <a href="/kb/white-noise/">White Noise</a> take the opposite route: they publish MLS traffic directly to many public Nostr relays and let clients resolve conflicting or out-of-order commits. Cordn deliberately sits between the two. It keeps <strong>one active coordinator per group</strong>, which gives each group a single ordered stream with monotonic, per-group cursors. It also makes that coordinator cheap to run anywhere, so the coordination point does not have to be a conventional, exposed and easily suppressed internet service.</p>
+<h2 id="how-it-works">How it works</h2>
+<ul>
+<li><strong>Identity.</strong> A member's MLS <code>BasicCredential</code> is bound to their Nostr public key. KeyPackages are published to the coordinator inside signed payloads that clients verify independently, so the coordinator cannot forge someone's identity. Stable identity is needed only where impersonation would matter, such as publishing or deleting your own KeyPackages.</li>
+<li><strong>Posting.</strong> Once you are in a group, MLS authenticates messages, so ordinary group posts can be sent under <strong>ephemeral transport keys</strong>. The coordinator does not need to learn who in the group is speaking.</li>
+<li><strong>Opaque payloads.</strong> The coordinator stores and serves each group's stream as opaque bytes, keyed by a delivery id that is not the MLS group id. Clients seal payloads with a per-epoch key from the MLS exporter. The coordinator never parses content and holds no MLS state. All MLS validation happens on the clients. Application messages use a Nostr-shaped envelope inside MLS, and group metadata is carried in an MLS extension (<code>0xC04D</code>).</li>
+<li><strong>Transport.</strong> Coordinators and clients exchange encrypted ContextVM traffic over Nostr relays. A fresh client uses a default public coordinator through the ContextVM relays and relay.primal.net. You can point it at any other coordinator, or start your own with one command (<code>docker run --rm ghcr.io/cordn-msg/cordn:latest</code>). The default storage is in-memory, so a throwaway coordinator leaves nothing behind; SQLite is available for persistent deployments. Cordn messages are not published as public Nostr events.</li>
+<li><strong>Clients.</strong> There is a web app at cordn.net/chat (MIT-licensed, v0.6.0 released October 2026), an Android build distributed through Zapstore and Obtainium, and <code>@cordn/cli</code> for scripted use. All of them build on the <code>ts-mls</code> library.</li>
+</ul>
+<h2 id="what-it-protects-against">What it protects against</h2>
+<ul>
+<li><strong>Content exposure.</strong> The coordinator and the relays carry only MLS-protected, sealed ciphertext.</li>
+<li><strong>Identity capture.</strong> There are no phone numbers, emails or account servers. Identity is a Nostr key you hold.</li>
+<li><strong>Infrastructure suppression.</strong> Because a coordinator needs no public address, it is hard to find, block or seize. If one disappears, you can stand up another from ordinary hardware.</li>
+<li><strong>Public metadata trails.</strong> Group identifiers and traffic are not published network-wide as protocol-specific events. Cordn activity is mixed into general encrypted ContextVM traffic, which makes it less legible to relay operators and outside observers than designs that publish openly to relays.</li>
+<li><strong>Ordering failures.</strong> A single ordered stream per group avoids the forked or stale group state that weakly ordered relay delivery can cause.</li>
+</ul>
+<h2 id="what-it-trusts-and-the-limits">What it trusts, and the limits</h2>
+<ul>
+<li><strong>The coordinator sees the shape of the group.</strong> It can see that a group is active and learn its timing and volume. It can also delay, drop or censor messages, although it cannot read or forge them. A public coordinator is a convenience trade-off. For groups with higher stakes, Cordn's own answer is to self-host a personal, circle-wide or one-session coordinator.</li>
+<li><strong>Availability depends on one coordinator per group.</strong> If that coordinator is down, the group stalls; group state survives on members' devices. Moving a group between coordinators is anticipated in the design (per-group cursors exist partly for that), but the current specification leaves migration out of scope.</li>
+<li><strong>Relays and the network.</strong> ContextVM relays carry the traffic and see connection metadata, including your IP address. To hide that, use a network-level tool such as <a href="/kb/tor/">Tor</a>.</li>
+<li><strong>Young code and draft specs.</strong> All four specification documents are marked <em>Draft</em>. The project dates from April 2026, has a small community, and no independent audit has been published. At the time of writing, the coordinator repository carries no licence file, although the web client is MIT. Check the licence before building on it.</li>
+<li><strong>Your device and your key</strong>, as with any end-to-end encrypted messenger.</li>
+</ul>
+<h2 id="readiness">Readiness</h2>
+<p><strong>Experimental.</strong> The design is clearly reasoned and honest about its trade-offs, and the code runs today. But the specifications are drafts, the software is beta, there has been no audit, and the user base is small. Treat it as a promising way to run sovereign MLS group chat, and as an instructive contrast to relay-native Marmot, rather than as a messenger for high-risk use.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Cordn: <a href="https://cordn.net/" rel="noopener nofollow">https://cordn.net/</a> · Why Cordn: <a href="https://cordn.net/why" rel="noopener nofollow">https://cordn.net/why</a> · Web app: <a href="https://cordn.net/chat" rel="noopener nofollow">https://cordn.net/chat</a></li>
+<li>Coordinator and specification: <a href="https://github.com/Cordn-msg/cordn" rel="noopener nofollow">https://github.com/Cordn-msg/cordn</a> · Spec 00 (coordinator and identity model): <a href="https://github.com/Cordn-msg/cordn/blob/master/spec/00.md" rel="noopener nofollow">https://github.com/Cordn-msg/cordn/blob/master/spec/00.md</a> · Spec 01 (group metadata extension): <a href="https://github.com/Cordn-msg/cordn/blob/master/spec/01.md" rel="noopener nofollow">https://github.com/Cordn-msg/cordn/blob/master/spec/01.md</a> · Spec 02 (application-message envelope): <a href="https://github.com/Cordn-msg/cordn/blob/master/spec/02.md" rel="noopener nofollow">https://github.com/Cordn-msg/cordn/blob/master/spec/02.md</a> · Spec 03 (opaque group payloads): <a href="https://github.com/Cordn-msg/cordn/blob/master/spec/03.md" rel="noopener nofollow">https://github.com/Cordn-msg/cordn/blob/master/spec/03.md</a></li>
+<li>Web client: <a href="https://github.com/Cordn-msg/cordn-web" rel="noopener nofollow">https://github.com/Cordn-msg/cordn-web</a> · Releases: <a href="https://github.com/Cordn-msg/cordn-web/releases" rel="noopener nofollow">https://github.com/Cordn-msg/cordn-web/releases</a></li>
+<li>ContextVM: <a href="https://contextvm.org/" rel="noopener nofollow">https://contextvm.org/</a></li>
+<li>ts-mls: <a href="https://github.com/LukaJCB/ts-mls" rel="noopener nofollow">https://github.com/LukaJCB/ts-mls</a> · MLS: RFC 9420 <a href="https://www.rfc-editor.org/rfc/rfc9420" rel="noopener nofollow">https://www.rfc-editor.org/rfc/rfc9420</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-protocol/">
+  <span class="nm">Nostr: The Protocol</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/metadata-resistance/">
+  <span class="nm">Metadata Resistance</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-19</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Cordn" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">MLS needs someone to keep the order of events. Cordn keeps that coordinator and makes it something you can run from a laptop behind a firewall and move.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Secure Messaging, Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-19</dd>
+        <dt>Sources linked</dt><dd>13</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

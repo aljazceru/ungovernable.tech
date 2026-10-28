@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BitVM — ungovernable.tech</title>
+<meta name="description" content="BitVM lets Bitcoin verify arbitrary computation through fraud proofs, without a soft fork: how it works, what it enables for bridges, and its costs.">
+<link rel="canonical" href="https://ungovernable.tech/kb/bitvm/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="BitVM — ungovernable.tech">
+<meta property="og:description" content="BitVM lets Bitcoin verify arbitrary computation through fraud proofs, without a soft fork: how it works, what it enables for bridges, and its costs.">
+<meta property="og:url" content="https://ungovernable.tech/kb/bitvm/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BitVM — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BitVM — ungovernable.tech">
+<meta name="twitter:description" content="BitVM lets Bitcoin verify arbitrary computation through fraud proofs, without a soft fork: how it works, what it enables for bridges, and its costs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "BitVM", "description": "BitVM lets Bitcoin verify arbitrary computation through fraud proofs, without a soft fork: how it works, what it enables for bridges, and its costs.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/bitvm/", "mainEntityOfPage": "https://ungovernable.tech/kb/bitvm/", "image": "https://ungovernable.tech/assets/og/pillar-zk.png", "about": [{"@type": "Thing", "name": "Zero-Knowledge Proofs"}, {"@type": "Thing", "name": "Financial Sovereignty"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Zero-Knowledge Proofs", "item": "https://ungovernable.tech/pillars/zk/"}, {"@type": "ListItem", "position": 3, "name": "BitVM", "item": "https://ungovernable.tech/kb/bitvm/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/zk/">Zero-Knowledge Proofs</a><span aria-hidden="true">/</span><span class="here">BitVM</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ZERO-KNOWLEDGE PROOFS ]</span><span class="ktag">[ FINANCIAL SOVEREIGNTY ]</span></p>
+  <h1>BitVM</h1>
+  <p class="aka">Also BitVM2, BitVM-X, Bitcoin VM.</p>
+  <p class="dek">A way to express and verify arbitrary computation on Bitcoin without consensus changes. Robin Linus&#39;s October 2023 white paper &#34;BitVM: Compute Anything on Bitcoin&#34; showed that existing Bitcoin Script primitives — bit commitments, hash locks, and the limited operators in Tapscript — are enough to build a fraud-proof game where an off-chain prover and verifier interactively challenge each other and Bitcoin only adjudicates the disputed step. Subsequent designs (BitVM2, BitVM-X, ZK-BitVM) compress the interaction down to single-round dispute and integrate SNARK verifiers, making trust-minimized BTC bridges and expressive smart contracts plausibly buildable on Bitcoin without a soft fork.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#the-problem-bitvm-addresses">The problem BitVM addresses</a><a href="#original-bitvm-october-2023">Original BitVM (October 2023)</a><a href="#bitvm2-2024">BitVM2 (2024)</a><a href="#subsequent-designs">Subsequent designs</a><a href="#applications">Applications</a><a href="#trade-offs">Trade-offs</a><a href="#honest-scope-early-2026">Honest scope (early 2026)</a><a href="#comparison-with-related-approaches">Comparison with related approaches</a><a href="#cross-cutting">Cross-cutting</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="the-problem-bitvm-addresses">The problem BitVM addresses</h2>
+<p>Bitcoin Script is intentionally restricted: no loops, no recursion, no stateful storage, and historically disabled arithmetic operators (<code>OP_MUL</code>, <code>OP_DIV</code>, <code>OP_CAT</code>). Building expressive smart contracts (a SNARK verifier, a state-machine commitment, a bridge contract) requires either:</p>
+<ol>
+<li>A consensus change (a soft fork to add operators) — politically slow, has happened rarely.</li>
+<li>An off-chain construction that uses Bitcoin only for adjudication — the BitVM approach.</li>
+</ol>
+<p>BitVM picks option 2. The insight is that Bitcoin doesn't need to <em>execute</em> the computation — it only needs to be able to <em>punish</em> a party who lies about the result. If you can build a fraud-proof game where the loser's coins are forfeited, you've made off-chain computation enforceable on Bitcoin.</p>
+<h2 id="original-bitvm-october-2023">Original BitVM (October 2023)</h2>
+<p>Robin Linus, "BitVM: Compute Anything on Bitcoin," white paper, October 2023.</p>
+<h3 id="bit-commitments">Bit commitments</h3>
+<p>The primitive: Alice commits to a bit <code>b</code> by publishing two hash preimages <code>P0</code>, <code>P1</code> such that revealing <code>P0</code> claims <code>b=0</code> and revealing <code>P1</code> claims <code>b=1</code>. Revealing both burns Alice's stake (the contract is constructed so that double-revealing means anyone can claim a punishment payout).</p>
+<p>This gives Bitcoin Script <em>committed boolean values</em> — a building block it didn't have natively.</p>
+<h3 id="logic-gates-from-bit-commitments">Logic gates from bit commitments</h3>
+<p>Combining bit commitments with hash-lock conditions, Linus showed how to encode NAND gates (and therefore arbitrary boolean circuits) into Tapscript leaves. A circuit's evaluation becomes a sequence of gate evaluations, each of which can be challenged.</p>
+<h3 id="the-interactive-fraud-proof-game">The interactive fraud-proof game</h3>
+<p>The construction:</p>
+<ol>
+<li><strong>Setup.</strong> Alice (the prover) and Bob (the verifier) co-fund a Taproot output containing many tapscript leaves, each encoding a possible challenge.</li>
+<li><strong>Off-chain assertion.</strong> Alice asserts off-chain: "I executed program <code>P</code> on input <code>x</code>, and got output <code>y</code>."</li>
+<li><strong>Off-chain challenge.</strong> Bob can disagree. The protocol proceeds via a binary search over the execution trace ("disagree at step 0 to N/2 or N/2 to N?") until a single disputed gate is identified.</li>
+<li><strong>On-chain dispute resolution.</strong> Alice spends the relevant tapscript leaf, revealing her bit-commitment preimages for that gate's inputs and output. The script checks the gate's logic. If Alice lied (output is inconsistent with inputs), Bob spends a punishment branch. If Alice told the truth, the dispute resolves in her favor.</li>
+</ol>
+<p>Number of on-chain transactions in the worst case: log of the trace length, plus the final adjudication. Each transaction is small (few hundred bytes); the total is manageable.</p>
+<h3 id="what-original-bitvm-proved">What original BitVM proved</h3>
+<ul>
+<li>It's possible to do fraud-proof-based off-chain computation on Bitcoin today, with no soft fork.</li>
+<li>The construction is impractical for production at the original parameter sizes (Taproot output trees blow up combinatorially with circuit size; setup is heavy; multi-round disputes are slow).</li>
+<li>But it's a proof of concept that the <em>abstract</em> primitive — verifiable off-chain computation — exists on Bitcoin.</li>
+</ul>
+<p>The white paper triggered an explosion of follow-up work in 2024.</p>
+<h2 id="bitvm2-2024">BitVM2 (2024)</h2>
+<p>Linus, Aumayr, Zamyatin, et al., "BitVM2: Bridging Bitcoin to Second Layers," 2024.</p>
+<p>The major improvements:</p>
+<h3 id="single-round-disputes">Single-round disputes</h3>
+<p>Instead of binary-searching over the trace via multiple on-chain rounds, BitVM2 commits to the entire execution trace once (in a Merkle-root-style structure embedded in Taproot leaves) and lets the challenger expose a single disputed step in one transaction. This reduces worst-case dispute latency from <code>O(log n)</code> rounds to a single round.</p>
+<h3 id="permissionless-challenges">Permissionless challenges</h3>
+<p>BitVM2 changes the trust model: in original BitVM, only a designated verifier could challenge. BitVM2 lets <em>any</em> party challenge a faulty assertion (with a bond). This is the property needed for trust-minimized bridges: the bridge operator can be challenged by anyone watching the chain, not just by a pre-committed counterparty.</p>
+<h3 id="snark-verifier-circuits">SNARK verifier circuits</h3>
+<p>BitVM2 expresses a Groth16 verifier as a circuit suitable for the BitVM gate model. With this in place, an off-chain SNARK proof of a complex computation (rollup state transition, ZK light client) can be verified via the BitVM2 game on Bitcoin.</p>
+<p>The proof is generated off-chain by a prover; the BitVM operator asserts "this proof verifies"; if anyone disputes, the BitVM game adjudicates the disputed gate of the SNARK verifier circuit. This is the construction that makes ZK-rollup-style bridges to Bitcoin possible.</p>
+<h2 id="subsequent-designs">Subsequent designs</h2>
+<h3 id="bitvm3-bitvm-x">BitVM3 / BitVM-X</h3>
+<p>Multiple research teams (StarkWare, Citrea, others) have published BitVM-family designs through 2024-2025, optimizing for: smaller setup, fewer Taproot leaves, lower per-dispute cost, more general circuit support, and integration with specific zkVMs (Risc0, SP1, Cairo).</p>
+<p>The naming has been informal — "BitVM3" appears in some materials, "BitVM-X" in others. The space is a moving target.</p>
+<h3 id="zk-bitvm">ZK-BitVM</h3>
+<p>A line of work that fully integrates a SNARK verifier into the BitVM game. The off-chain prover generates a SNARK; the on-chain dispute, if it happens, falls back to verifying a single arithmetic constraint of the SNARK verifier on-chain. Most production BitVM-bridge designs in 2025 are this style.</p>
+<h2 id="applications">Applications</h2>
+<h3 id="trust-minimized-bitcoin-bridged-btc">Trust-minimized Bitcoin-bridged BTC</h3>
+<p>The headline application. A BitVM bridge holds BTC in a multi-sig (or Taproot) output on Bitcoin and mints wrapped BTC on a second layer (a sidechain, an L2, or another chain). Withdrawals from the second layer trigger BitVM-mediated unlock on Bitcoin.</p>
+<p>The bridge operator asserts "this withdrawal is valid per the L2's state"; anyone can challenge; if the operator lies, they're slashed and the bridge state recovers.</p>
+<p>Compared to existing bridge designs:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Bridge type</th>
+<th>Trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-sig federation (e.g. WBTC, RSK federation)</td>
+<td>Trust the federation members</td>
+</tr>
+<tr>
+<td>Optimistic with watchtowers</td>
+<td>Trust at least one watchtower is online</td>
+</tr>
+<tr>
+<td>BitVM</td>
+<td>Trust at least one challenger is online + the off-chain proof system</td>
+</tr>
+<tr>
+<td>Native (with consensus change)</td>
+<td>Trustless</td>
+</tr>
+</tbody>
+</table></div>
+<p>BitVM gets close to native — the trust assumption reduces to "at least one honest party watches the bridge during the challenge window."</p>
+<p>Production projects targeting BitVM bridges include Citrea, BitlayerLabs's BitVM-bridge work, and several others. As of the cutoff, no BitVM bridge is in full production with material BTC volume; demos and testnets exist.</p>
+<h3 id="expressive-smart-contracts-on-bitcoin">Expressive smart contracts on Bitcoin</h3>
+<p>Beyond bridges: any application that can be expressed as a fraud-proof game can run via BitVM. Examples: DLC-style oracles where the oracle's signature is verified via BitVM, complex multi-party state channels, Bitcoin-native rollups.</p>
+<h3 id="bitcoin-native-zk-light-clients">Bitcoin-native ZK light clients</h3>
+<p>A chain (Ethereum, Solana, Cosmos, Bitcoin itself) can have its consensus verified inside a BitVM game on Bitcoin. The output is a Bitcoin contract that releases funds based on another chain's state, without trusting an oracle.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>No consensus change needed. Works on Bitcoin today.</li>
+<li>Trust-minimized in the limit: requires only one honest challenger.</li>
+<li>Composes with mature ZK proof systems (Groth16, STARKs via wrappers — see <a href="/kb/snarks/">SNARKs</a> and <a href="/kb/starks/">STARKs</a>).</li>
+<li>Generalizable: applications beyond bridges are conceivable.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li><strong>Liveness assumption.</strong> The fraud-proof game requires at least one honest challenger to be online during the challenge window. If a faulty assertion goes unchallenged, it stands.</li>
+<li><strong>Challenge windows are long.</strong> Days to weeks, depending on parameters. Withdrawals are slow.</li>
+<li><strong>Setup cost is high.</strong> Each BitVM instance requires a sizable Taproot setup; not amortizable across multiple disputes cheaply.</li>
+<li><strong>Capital efficiency.</strong> Bridge operators must lock collateral for the challenge window; high-volume bridges need a lot of collateral.</li>
+<li><strong>Tooling immaturity.</strong> The compiler stack from circuits to BitVM Taproot leaves is research-grade as of early 2026.</li>
+<li><strong>Bitcoin transaction cost.</strong> A worst-case dispute walk can run several transactions; in a high-fee environment, this is real cost.</li>
+<li><strong>No production deployment with material volume yet.</strong> All deployments at the cutoff are demos, testnets, or early-mainnet with small volume.</li>
+</ul>
+<h2 id="honest-scope-early-2026">Honest scope (early 2026)</h2>
+<ul>
+<li>The cryptographic construction is sound and the demonstrated demos work.</li>
+<li>Engineering work on production-grade BitVM bridges is ongoing across multiple teams.</li>
+<li>Liveness assumptions and challenge windows are real constraints; users withdrawing from a BitVM bridge will wait days, not seconds.</li>
+<li>Capital efficiency for bridge operators is a real economic constraint.</li>
+<li>BitVM is <em>not</em> a generic Bitcoin smart-contract platform that competes with Ethereum. It is an enforcement layer for off-chain computation, with bridges as the dominant near-term application.</li>
+</ul>
+<p>If a production BitVM bridge to Bitcoin ships with material BTC volume during 2026, the trust-minimized cross-chain BTC story changes substantially. Until that happens, it remains a watch-this-space technology.</p>
+<h2 id="comparison-with-related-approaches">Comparison with related approaches</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Bitcoin consensus change?</th>
+<th>Trust model</th>
+<th>Maturity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BitVM family</strong></td>
+<td>None</td>
+<td>One-honest-challenger + ZK proofs</td>
+<td>Demos / early mainnet</td>
+</tr>
+<tr>
+<td><strong>Drivechains (BIP 300/301)</strong></td>
+<td>Soft fork required</td>
+<td>Miner federation</td>
+<td>Proposed; not adopted</td>
+</tr>
+<tr>
+<td><strong>OP_CAT / OP_CTV-based covenants</strong></td>
+<td>Soft fork required</td>
+<td>None (consensus-enforced)</td>
+<td>Proposed; not adopted</td>
+</tr>
+<tr>
+<td><strong>Multi-sig federation bridges</strong></td>
+<td>None</td>
+<td>Trust federation</td>
+<td>Mature (WBTC, etc.)</td>
+</tr>
+<tr>
+<td><strong>Liquid Network sidechain</strong></td>
+<td>None (sidechain)</td>
+<td>Trust Liquid federation</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><strong>Lightning</strong></td>
+<td>None</td>
+<td>Channel partners + watchtowers</td>
+<td>Mature</td>
+</tr>
+</tbody>
+</table></div>
+<p>BitVM uniquely sits in the "no consensus change AND trust-minimized" cell. The trade-off is the liveness assumption and the long challenge window.</p>
+<h2 id="cross-cutting">Cross-cutting</h2>
+<ul>
+<li>BitVM doesn't need a new ZK system; it composes with existing ones (Groth16 verifier circuits expressed as Tapscript leaves).</li>
+<li>The fraud-proof game pattern — interactive dispute over a committed trace — is parallel to optimistic rollups (Arbitrum, Optimism). BitVM is the Bitcoin analogue. See <a href="/kb/zk-rollups/">ZK Rollups</a> for the ZK-side comparison.</li>
+<li>Once a BitVM bridge exists, <a href="/kb/lightning-network/">Lightning Network Deep Dive</a> can be re-thought with BitVM-bridged BTC on faster L2s.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Linus, <em>BitVM: Compute Anything on Bitcoin</em>, white paper, October 2023 — <a href="https://bitvm.org" rel="noopener nofollow">bitvm.org</a>.</li>
+<li>Linus, Aumayr, Zamyatin, et al., <em>BitVM2: Bridging Bitcoin to Second Layers</em>, 2024 — <a href="https://bitvm.org/bitvm2.pdf" rel="noopener nofollow">bitvm.org/bitvm2.pdf</a>.</li>
+<li>BitVM source repositories — <a href="https://github.com/BitVM" rel="noopener nofollow">github.com/BitVM</a>.</li>
+<li>Citrea — <a href="https://citrea.xyz" rel="noopener nofollow">citrea.xyz</a> (Bitcoin rollup using BitVM-style bridge).</li>
+<li>StarkWare BitVM-related research — <a href="https://starkware.co" rel="noopener nofollow">starkware.co</a>.</li>
+<li>Robin Linus blog — <a href="https://robinlinus.com" rel="noopener nofollow">robinlinus.com</a>.</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/snarks/">
+  <span class="nm">SNARKs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/starks/">
+  <span class="nm">STARKs</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/zk-rollups/">
+  <span class="nm">ZK Rollups</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/lightning-network/">
+  <span class="nm">Lightning Network</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/money/">Financial Sovereignty</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=BitVM" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A way to express and verify arbitrary computation on Bitcoin without consensus changes. Robin Linus&#39;s October 2023 white paper &#34;BitVM: Compute Anything on Bitcoin&#34; showed that existing Bitcoin Script primitives — bit commitments, hash locks, and the limited operators in Tapscript — are enough to build a fraud-proof game where an off-chain prover and verifier interactively challenge each other and Bitcoin only adjudicates the disputed step. Subsequent designs (BitVM2, BitVM-X, ZK-BitVM) compress the interaction down to single-round dispute and integrate SNARK verifiers, making trust-minimized BTC bridges and expressive smart contracts plausibly buildable on Bitcoin without a soft fork.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Zero-Knowledge Proofs, Financial Sovereignty</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

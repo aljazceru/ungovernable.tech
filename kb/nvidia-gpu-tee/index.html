@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NVIDIA GPU TEEs — ungovernable.tech</title>
+<meta name="description" content="NVIDIA&#39;s GPU confidential computing on Hopper and Blackwell: how the GPU TEE, encrypted transfers and attestation work, and what remains trusted.">
+<link rel="canonical" href="https://ungovernable.tech/kb/nvidia-gpu-tee/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="NVIDIA GPU TEEs — ungovernable.tech">
+<meta property="og:description" content="NVIDIA&#39;s GPU confidential computing on Hopper and Blackwell: how the GPU TEE, encrypted transfers and attestation work, and what remains trusted.">
+<meta property="og:url" content="https://ungovernable.tech/kb/nvidia-gpu-tee/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="NVIDIA GPU TEEs — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NVIDIA GPU TEEs — ungovernable.tech">
+<meta name="twitter:description" content="NVIDIA&#39;s GPU confidential computing on Hopper and Blackwell: how the GPU TEE, encrypted transfers and attestation work, and what remains trusted.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-confidential.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "NVIDIA GPU TEEs", "description": "NVIDIA's GPU confidential computing on Hopper and Blackwell: how the GPU TEE, encrypted transfers and attestation work, and what remains trusted.", "dateModified": "2026-10-25", "datePublished": "2026-04-17", "url": "https://ungovernable.tech/kb/nvidia-gpu-tee/", "mainEntityOfPage": "https://ungovernable.tech/kb/nvidia-gpu-tee/", "image": "https://ungovernable.tech/assets/og/pillar-confidential.png", "about": [{"@type": "Thing", "name": "Confidential Computing"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Confidential Computing", "item": "https://ungovernable.tech/pillars/confidential/"}, {"@type": "ListItem", "position": 3, "name": "NVIDIA GPU TEEs", "item": "https://ungovernable.tech/kb/nvidia-gpu-tee/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/confidential/">Confidential Computing</a><span aria-hidden="true">/</span><span class="here">NVIDIA GPU TEEs</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ CONFIDENTIAL COMPUTING ]</span></p>
+  <h1>NVIDIA GPU TEEs</h1>
+  <p class="aka">Also NVIDIA Confidential Computing, H100 CC, GPU Confidential Computing.</p>
+  <p class="dek">The only production GPU confidential-computing stack as of 2026. Every &#34;confidential LLM inference on frontier models&#34; deployment is built on it.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-a-gpu-tee-matters">Why a GPU TEE matters</a><a href="#architecture">Architecture</a><a href="#the-attestation-flow-end-to-end">The attestation flow (end to end)</a><a href="#performance-cost">Performance cost</a><a href="#what-nvidia-cc-does-not-protect-against">What NVIDIA CC does not protect against</a><a href="#clouds-that-offer-it">Clouds that offer it</a><a href="#practical-deployment-checklist">Practical deployment checklist</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-a-gpu-tee-matters">Why a GPU TEE matters</h2>
+<p>CPU TEEs (SGX, TDX, SEV-SNP) solved "data in use" for CPU workloads. Modern inference and training are GPU-bound, though, so if the prompt leaves the CPU enclave in plaintext across the PCIe bus to a non-confidential GPU, the whole chain breaks. A malicious hypervisor, a PCIe-snooping cloud operator, or a rogue firmware blob on the GPU can read every token.</p>
+<p>NVIDIA Confidential Computing first shipped on H100 / Hopper in 2023, expanded on H200 in 2024, and on Blackwell B100/B200/GB200 in 2024-2025. It extends the TEE boundary across the PCIe link and into the GPU itself.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code>┌─────────────────────────────────────────────┐
+│           Confidential VM (TDX / SEV-SNP)   │
+│  ┌───────────────────────────────────────┐  │
+│  │  Guest OS + CUDA app (measured)       │  │
+│  └───────────────────────────────────────┘  │
+│             │  encrypted PCIe (SPDM/AES-GCM)│
+│             ▼                               │
+│  ┌───────────────────────────────────────┐  │
+│  │   NVIDIA GPU in CC-On mode            │  │
+│  │  ┌──────────────────────────────┐     │  │
+│  │  │  GPU Secure Processor (GSP)  │     │  │
+│  │  │  - Hardware root of trust    │     │  │
+│  │  │  - Firmware measurement      │     │  │
+│  │  │  - Attestation signing key   │     │  │
+│  │  └──────────────────────────────┘     │  │
+│  │  ┌──────────────────────────────┐     │  │
+│  │  │  Protected GPU memory      │     │  │
+│  │  │  Hopper HBM: unencrypted   │     │  │
+│  │  └──────────────────────────────┘     │  │
+│  └───────────────────────────────────────┘  │
+└─────────────────────────────────────────────┘
+</code></pre>
+<h3 id="components">Components</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GPU Secure Processor (GSP)</strong></td>
+<td>On-die microcontroller; the GPU's root of trust. Measures firmware, holds the per-device ECDSA P-384 attestation key, produces quotes.</td>
+</tr>
+<tr>
+<td><strong>Secure Boot</strong></td>
+<td>GSP verifies signed firmware before CUDA is allowed to run; failure locks the GPU out of CC mode.</td>
+</tr>
+<tr>
+<td><strong>Protected GPU memory</strong></td>
+<td>Hopper HBM is not encrypted. NVIDIA’s threat model relies on on-package memory and access controls; memory protection must not be described as HBM encryption.</td>
+</tr>
+<tr>
+<td><strong>Encrypted CPU–GPU transfers</strong></td>
+<td>The driver inside the CPU TEE stages encrypted data in shared-memory bounce buffers. Command buffers and CUDA kernels are also encrypted before crossing PCIe. This does not imply encryption of every PCIe transaction.</td>
+</tr>
+<tr>
+<td><strong>NVIDIA Remote Attestation Service (NRAS)</strong></td>
+<td>Cloud service that verifies GSP-signed quotes and checks firmware versions against a known-good list; returns a JWT to the relying party. Local verification also supported.</td>
+</tr>
+<tr>
+<td><strong>Confidential Compute Mode</strong></td>
+<td>Boolean state on the GPU. Set by privileged firmware command; once on, non-CC code paths are disabled and attestation becomes required for use.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="modes">Modes</h3>
+<ol>
+<li>CC-Off: regular, non-confidential. Any mode switch wipes HBM.</li>
+<li>CC-On: GPU confidential-computing protections and attestation are enabled. CPU–GPU transfers use encryption; Hopper HBM remains unencrypted.</li>
+<li>CC-On (DevTools): looser mode for debugging. Do not ship production with this.</li>
+<li>Multi-GPU: Hopper protected-PCIe (PPCIe) mode encrypts CPU–GPU traffic, while GPU–GPU traffic over NVLink remains unencrypted. Blackwell multi-GPU CC mode also encrypts NVLink traffic. Assess the supported hardware, firmware and driver configuration for each mode.</li>
+</ol>
+<h2 id="the-attestation-flow-end-to-end">The attestation flow (end to end)</h2>
+<ol>
+<li>The client opens TLS to the relying service and requests attestation evidence before sending the prompt.</li>
+<li>The CPU TEE (TDX/SEV-SNP) generates its quote with a nonce supplied by the client, including the hash of the GPU attestation token it just received.</li>
+<li>The GPU produces its own quote (via GSP) over the same nonce plus the current firmware version and CC mode status, signed by the device-unique attestation key.</li>
+<li>The client (or a verifier the client trusts) checks:
+   - The CPU quote against Intel PCS / AMD KDS collateral.
+   - The GPU quote against NVIDIA's device-certificate chain plus the NRAS revocation list.
+   - Firmware version is at least the policy-defined minimum.
+   - The measurement (MRTD for TDX; measurement of OVMF + kernel + initrd + rootfs) matches the expected value for the published image.</li>
+<li>The client derives a session key bound to both quotes. From this point the prompt is encrypted to the dual-attested TEE and no component in the cloud can decrypt it.</li>
+</ol>
+<p>Replay is prevented by the client nonce. Operator substitution is prevented because the GPU cert chain is rooted in NVIDIA's factory-provisioned keys; the cloud operator cannot forge a quote without a CVE-class break.</p>
+<h2 id="performance-cost">Performance cost</h2>
+<p>Rough numbers (H100 CC, 70B-class dense LLM inference, published and independently measured in 2024-2025):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Overhead vs. non-CC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First-token latency (attestation + key exchange)</td>
+<td>+30–120 ms once per session</td>
+</tr>
+<tr>
+<td>Sustained token throughput</td>
+<td>5–15% lower</td>
+</tr>
+<tr>
+<td>H2D / D2H copy-heavy workloads</td>
+<td>up to 25% lower</td>
+</tr>
+<tr>
+<td>Pure compute (matmul-dominated, data resident in HBM)</td>
+<td>~2–5% lower</td>
+</tr>
+</tbody>
+</table></div>
+<p>Rule of thumb: for steady-state LLM serving, assume around 10% cost. For training or workloads that thrash PCIe, the cost is higher and may be prohibitive until Blackwell's encrypted NVLink is the norm.</p>
+<p>Blackwell multi-GPU CC adds NVLink encryption. That protects a specific interconnect; it is not evidence that every GPU memory region or system link is encrypted.</p>
+<h2 id="what-nvidia-cc-does-not-protect-against">What NVIDIA CC does <em>not</em> protect against</h2>
+<ul>
+<li>Side channels you bring yourself. Timing leaks in your CUDA code, cache-based attacks across SMs for co-tenanted GPUs (not a concern if you own the whole GPU; MIG partitioning in CC mode is restricted).</li>
+<li>Model extraction via the API. The TEE prevents raw weight theft; it does not prevent slow distillation via queries.</li>
+<li>Driver compromise on the host. The host NVIDIA driver is untrusted by design; that is the point. But a buggy guest driver inside your CVM can still leak. Keep the guest-side <code>nvidia-open</code> driver pinned and audited.</li>
+<li>GSP firmware bugs. CVEs in GSP firmware have dropped before (see 2023 advisories). Treat the GSP as part of your TCB and monitor NVIDIA security advisories the same way you track Intel/AMD microcode.</li>
+<li>Covert channels via power or thermal. Co-located TEE workloads can sometimes be distinguished by power draw observable to the cloud operator. Not a confidentiality break for plaintext, but a weak fingerprint channel.</li>
+</ul>
+<h2 id="clouds-that-offer-it">Clouds that offer it</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>SKU</th>
+<th>CPU TEE</th>
+<th>GPU</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Azure</strong></td>
+<td>NCC H100 v5</td>
+<td>AMD SEV-SNP (Genoa)</td>
+<td>H100 CC</td>
+<td>GA; first major cloud with GPU CC</td>
+</tr>
+<tr>
+<td><strong>GCP</strong></td>
+<td>A3 Confidential</td>
+<td>Intel TDX (Sapphire Rapids / EMR)</td>
+<td>H100 CC</td>
+<td>Preview as of late 2025</td>
+</tr>
+<tr>
+<td><strong>Oracle OCI</strong></td>
+<td>BM.GPU.H100.CC</td>
+<td>AMD SEV-SNP</td>
+<td>H100 CC</td>
+<td>GA</td>
+</tr>
+<tr>
+<td><strong>AWS</strong></td>
+<td>(none GA for H100 CC as of early 2026)</td>
+<td>Nitro + SEV-SNP</td>
+<td>H100/H200 non-CC</td>
+<td>Nitro Enclaves <em>do</em> attest but don't extend to GPU; AWS roadmap signals Trainium/Blackwell CC future</td>
+</tr>
+<tr>
+<td><strong>CoreWeave / Lambda / Crusoe</strong></td>
+<td>Various H100/H200/B200</td>
+<td>TDX or SEV-SNP</td>
+<td>CC optional</td>
+<td>Early access / bring-your-own orchestration</td>
+</tr>
+<tr>
+<td><strong>Phala / Marlin / Tinfoil</strong></td>
+<td>Decentralized</td>
+<td>TDX / SEV-SNP</td>
+<td>H100 CC</td>
+<td>On-chain-attested GPU marketplaces</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="practical-deployment-checklist">Practical deployment checklist</h2>
+<ol>
+<li>Enable CC mode on the GPU (<code>nvidia-smi conf-compute -srs 1</code>; sticky across reboots; wipes HBM on transition).</li>
+<li>Pin GSP firmware at or above the minimum version that patches the latest advisory (track <code>nvidia.com/en-us/security/</code>).</li>
+<li>Use the NVIDIA Confidential Computing SDK / NVTrust for attestation collection. Do not roll your own quote parser.</li>
+<li>Verify both quotes, not just the CPU one. Many early deployments verified the TDX quote and assumed the GPU was fine. It wasn't.</li>
+<li>Bind the attestation to your session. The client nonce must appear in both quotes and in the TLS key-export.</li>
+<li>Reject CC-Off GPUs explicitly. Default-closed: if the GPU quote says CC mode = off, drop the connection.</li>
+<li>Rotate on CVE. When a GSP-firmware CVE drops, push a new minimum-firmware policy to your verifier. Old quotes become invalid automatically.</li>
+<li>Don't leak via logs. The confidential guarantee is worthless if the app logs prompts to stdout and a sidecar ships them to the cloud's logging service. Build with <code>nvidia-container-toolkit</code> in no-persistence mode.</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/" rel="noopener nofollow">NVIDIA H100 confidential computing: bounce buffers and unencrypted HBM</a></li>
+<li><a href="https://docs.nvidia.com/confidential-computing/virtual-machines/threat-model" rel="noopener nofollow">NVIDIA confidential VM threat model and interconnect limits</a></li>
+<li><a href="https://docs.nvidia.com/nvidia-secure-ai-with-blackwell-and-hopper-gpus-whitepaper.pdf" rel="noopener nofollow">NVIDIA Hopper and Blackwell confidential-computing whitepaper</a></li>
+<li><a href="https://resources.nvidia.com/en-us-blackwell-architecture" rel="noopener nofollow">NVIDIA Blackwell architecture technical brief</a></li>
+<li><a href="https://github.com/NVIDIA/nvtrust" rel="noopener nofollow">NVIDIA NVTrust</a></li>
+<li><a href="https://docs.nvidia.com/attestation/" rel="noopener nofollow">NVIDIA attestation documentation</a></li>
+<li><a href="https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.2.3.pdf" rel="noopener nofollow">DMTF SPDM 1.2 specification</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/confidential-ai-inference/">
+  <span class="nm">Confidential AI Inference</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/confidential-dvm/">
+  <span class="nm">Confidential Data Vending Machines</span>
+  <span class="ty">Research note</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/private-llm-inference-patterns/">
+  <span class="nm">Private LLM Inference Patterns</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=NVIDIA%20GPU%20TEEs" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">The only production GPU confidential-computing stack as of 2026. Every &#34;confidential LLM inference on frontier models&#34; deployment is built on it.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Confidential Computing</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — September 05 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-05: Pure ML-KEM for TLS 1.3 was approved by the IESG on September 3, 2026.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-09-05/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — September 05 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-05: Pure ML-KEM for TLS 1.3 was approved by the IESG on September 3, 2026.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-09-05/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — September 05 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — September 05 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-05: Pure ML-KEM for TLS 1.3 was approved by the IESG on September 3, 2026.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — September 05 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-05: Pure ML-KEM for TLS 1.3 was approved by the IESG on September 3, 2026.", "datePublished": "2026-09-05", "dateModified": "2026-09-05", "url": "https://ungovernable.tech/briefings/post-quantum/2026-09-05/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-09-05/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-05", "item": "https://ungovernable.tech/briefings/post-quantum/2026-09-05/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-09-05</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — September 05 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-05</b></span>
+    <span><b>15</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-05 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-05. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a>, <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>, <a href="/kb/dihedral-coset-attacks/">The Dihedral Coset Attack Line</a>, algorithm notes (<a href="/kb/ml-kem/">ML-KEM</a>, <a href="/kb/ml-dsa/">ML-DSA</a>, <a href="/kb/slh-dsa/">SLH-DSA</a>, <a href="/kb/hqc/">HQC</a>, <a href="/kb/fn-dsa-falcon/">FN-DSA Falcon</a>), <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a>, <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>, and <a href="/kb/bitcoin-post-quantum-migration/">Bitcoin PQ Migration</a>. This note covers the <strong>two-week window since the <a href="/briefings/post-quantum/2026-08-22/">August 22 update</a></strong> — there was no August 29 run, so the August 23 – September 4 window is covered here in full.</em></p>
+<h2 id="tldr-this-fortnight">TL;DR — This Fortnight</h2>
+<ol>
+<li>
+<p><strong>Pure ML-KEM for TLS 1.3 was approved by the IESG on September 3, 2026.</strong> <code>draft-ietf-tls-mlkem-10</code> went from IESG Evaluation → "Approved-announcement sent" in a single day, the "Approve" ballot was closed, and IANA action moved to <strong>In Progress</strong> (<a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/" rel="noopener nofollow">datatracker history</a>). Deirdre Connolly posted -10 on September 2; Amanda Baber cleared IANA the same day; Tommy Jensen and Gorry Fairhurst recorded No Objection, Christopher Inacio Yes. This is the outcome Bernstein's four-part Last Call filing (75 sourced, non-withdrawn objections) did not prevent — the document publishes as <strong>Informational</strong> with the registry marking <strong>Recommended=N</strong>. Jensen's ballot comment is the tell: he cleared it because the draft now makes plain, in the document body, what Recommended=N actually means, putting it in "documenting real-world practice for interop and central visibility is good even if Recommended=Y isn't true." Éric Vyncke noted for the record that FIPS/NIST are US organizations. The appeal path Bernstein signalled (RFC 2026 complaint) now runs against an approved document rather than a pending one.</p>
+</li>
+<li>
+<p><strong>The inversion nobody predicted: pure ML-KEM cleared while ML-DSA-in-TLS sits frozen under appeal.</strong> <code>draft-ietf-tls-mldsa-05</code> was approved and announced on July 8, 2026 — and then, the same day, Roman Danyliw pulled it back: <em>"The IESG has received an appeal request on the processing of this document. While the IESG reviews this request, the document is being held."</em> IESG state reverted to <strong>Approved-announcement to be sent::AD Followup</strong>, IANA action state to <strong>On Hold</strong>, action holder Deb Cooley, and it has not moved in <strong>59 days</strong> as of this writing. Cloudflare's public timeline expected "RFC for use of ML-DSA in TLS, August 2026." That date has passed. The practical consequence for anyone planning PQ authentication: the key-exchange RFC track is done, and the <em>authentication</em> track is procedurally stuck.</p>
+</li>
+<li>
+<p><strong>Composite ML-DSA is in the RFC Editor queue — the enterprise-PKI path is effectively standardized.</strong> <code>draft-ietf-lamps-pq-composite-sigs-19</code> (Ounsworth, Gray, Pala, Klaußner, Fluhrer) now shows IESG state <strong>RFC Ed Queue</strong>, IANA action state <strong>RFC-Ed-Ack</strong>, expert reviews OK, RFC Editor status <em>In Progress (First Edit)</em>, last touched 2026-08-26. Intended status <strong>Proposed Standard</strong>. Prior vault entries had this at "LAMPS WG Last Call, RFC target Q4 2026" — it beat that target's process milestones. Composite ECDSA+ML-DSA in one X.509 certificate is now the near-term answer for private/enterprise PKI, distinct from <a href="/kb/merkle-tree-certificates/">Merkle Tree Certificates</a> for the public web.</p>
+</li>
+<li>
+<p><strong>A genuine asymptotic lattice result: SVP in 2^0.7314n classical time</strong> (ePrint <a href="https://eprint.iacr.org/2026/1587" rel="noopener nofollow">2026/1587</a>, Gao, Feng, Hu; PDF updated 2026-08-31). Randomized classical algorithm for exact Euclidean SVP on arbitrary full-rank lattices in 2^(0.73134n+o(n)) time and 2^(n/2+o(n)) space. It beats the 2^(n+o(n)) classical bound of Aggarwal–Dadush–Regev–Stephens-Davidowitz (STOC 2015) <strong>and</strong> the best known worst-case <em>quantum</em> bounds of Aggarwal–Chen–Kumar–Shen (2^0.9497n without QRAM, 2^0.8345n with). Technique: build a random prime-index superlattice Γ ⊃ L, run the ADRS discrete Gaussian sampler on Γ above the smoothing threshold, keep the shortest sample that lands back in L. <strong>Deployment impact: none.</strong> Exact-SVP exponents in n are not what determines ML-KEM's security margin (Core-SVP estimates against sieving in the relevant block sizes are), and a constant-factor exponent improvement on worst-case SVP does not translate to Module-LWE parameter breakage. What it <em>does</em> do is make the year's second "the exponents keep dropping" data point — and this one is peer-reviewable mathematics rather than a retracted claim.</p>
+</li>
+<li>
+<p><strong>A cryptanalytic result that does move parameters — but for FHE, not ML-KEM.</strong> Hou &amp; Jiang, "Careful with the Ring: Enhanced Hybrid Decoding Attacks against Module/Ring-LWE" (ePrint <a href="https://eprint.iacr.org/2026/366" rel="noopener nofollow">2026/366</a>, CRYPTO 2026, full version updated 2026-08-30, merged with 2026/279). They exploit the ring structure of Z_q[x]/(x^N+1) — the exact ring family ML-KEM and FHE schemes use — to accelerate the guessing and decoding stages of hybrid decoding, giving a complexity improvement <strong>linear in N</strong> in the sparse-secret setting, 17×–114× faster than the state of the art on known-broken benchmark instances. Applied to sparse Ring-LWE parameter sets from five recent FHE papers, they improve attack complexity by <strong>up to 13 bits</strong>, and <strong>12 of 16 parameter sets fall below their targeted 128-bit security level.</strong> ML-KEM does not use sparse secrets, so it is out of scope — but this is a direct hit on published FHE parameterizations and belongs on the <a href="/kb/fully-homomorphic-encryption/">FHE</a> watch as much as the PQC one. It is also the counterexample to "algebraic structure has never been exploited to speed up attacks."</p>
+</li>
+<li>
+<p><strong>Classic McEliece: the August distinguisher gets a costing companion.</strong> Markku-Juhani Saarinen posted "Bit Operation Cost of <code>`Holdout'' Key-Recovery Attacks Against Classic McEliece" (ePrint [2026/1786](https://eprint.iacr.org/2026/1786), Aug 24) — a self-contained arithmetic model for a prospective key-recovery attack on binary Goppa codes. Modeled totals: 2^172–2^235 gates affine/dense, 2^146–2^208 projective/nested; for</code>mceliece348864` one configuration reaches <strong>2^142.15 modeled gates</strong> but needs 2^61.7 bits of retained state; an exhaustive scan of 19,338 singleton configurations finds a <strong>2^114.35 supplier-complexity floor</strong> that no downstream-only improvement can cross. Saarinen explicitly labels it a <em>living tracking document</em> and states none of the tallies is an established break. Read alongside last fortnight's Ghoshal–Ishai–Jain–Sun quasipolynomial distinguisher (2026/1630): code-based confidence is being re-costed in public, in the open, two papers deep, while HQC standardization is still pending.</p>
+</li>
+<li>
+<p><strong>ML-DSA implementation research shifted from "is it fragile" to "make it fast and quiet."</strong> WeaveTLS (ePrint <a href="https://eprint.iacr.org/2026/1828" rel="noopener nofollow">2026/1828</a>, Liu, Cheng, Zhang, Aug 28) executes ML-DSA authentication <em>across</em> concurrent mutual-TLS connections via a stackless OpenSSL continuation in an nginx worker, batching into 1/4/8-request AVX-512 kernels with rejection-aware slot refill. Result: <strong>2.81–4.31× one-core nginx mTLS throughput</strong> over OpenSSL's default ML-DSA path, ML-DSA-65 signing 1.90× faster than lockstep scheduling — wire-transparent, TLS authentication barrier preserved. Bonus security property: cohort publication <strong>weakens the client-visible rejection-timing signal</strong>, dropping attempt-count/latency correlation to 0.063 at concurrency 16 and 0.008 at 64 (singleton execution retains the signal). Adjacent this fortnight: an <strong>open EM side-channel dataset for ML-KEM</strong> (ePrint 2026/1851, Sep 1) and a rank-ceiling analysis of single-twiddle perturbation faults on the forward NTT in ML-KEM/ML-DSA keygen (ePrint 2026/1188, updated Sep 4).</p>
+</li>
+<li>
+<p><strong>Library plumbing: liboqs main now carries mlkem-native and mldsa-native v2.0.0.</strong> Commits landed Aug 31 (<code>mldsa-native → v2.0.0</code>, #2522) and Sep 3 (<code>mlkem-native → v2.0.0</code>, #2521), plus ML-DSA extmu message-length and stateful-signature test fixes (#2541, #2542). Current release remains <strong>liboqs 0.16.0</strong> (2026-07-09, 3,054 stars, pushed 2026-09-03) — the v2 formally-verified backends are queued for the next release, not shipped yet. mldsa-native v2.0.0 (2026-08-07) is that project's <strong>first stable release</strong>: C90, AArch64 Neon + x86_64 AVX2 backends via the SLOTHY super-optimizer, memory- and type-safety proofs. mlkem-native v1.3 gets LTS bugfixes only, through February 2027 inclusive.</p>
+</li>
+<li>
+<p><strong>OpenSSL shipped a multi-CVE security release on August 25 across every PQ-capable branch:</strong> 4.0.2, 3.6.4, 3.5.8. Most severe is Moderate; the set includes a QUIC server double-free on INITIAL packets (CVE-2026-18798), a <strong>heap buffer overflow in CMS key unwrapping</strong> (CVE-2026-63072), CMP server invalid pointer dereference and format-string issues (CVE-2026-63076, CVE-2026-63073), plus several memory-exhaustion paths in QUIC/DTLS/CMP and an OCSP client leak. None is PQ-algorithm-specific, but 3.5+ is where ML-KEM/ML-DSA/SLH-DSA live — every PQ pilot running OpenSSL needs this patch. Note 4.0.x is <strong>not</strong> an LTS branch.</p>
+</li>
+<li>
+<p><strong>Ethereum abandoned Poseidon for its post-quantum L1 roadmap (August 13).</strong> EF researcher Justin Drake announced the pivot to SHA-2 or BLAKE2s, calling it the end of an eight-year, eight-figure effort; the Poseidon1 Collision Prize (a $992K budget scheduled to run to January 2029) had been <strong>paused twelve days earlier, August 1</strong>. Nobody broke full-round Poseidon. What changed is the other side of the trade: binary-field proof systems (Binius, Diamond–Posen at EUROCRYPT 2025, and the BinarySpartan/Neo line — ePrint 2026/1656, 2026/242) made standard bit-oriented hashes cheap enough to prove that an arithmetization-friendly hash stopped being necessary. The lean-Ethereum design makes the hash the single primitive across consensus (leanXMSS hash-based aggregate signatures, ~3,000 bytes vs 96 for BLS), data availability, and zkVM — with ~898K active validators, roughly 374,000 hash verifications per second, so the hash choice <em>is</em> the roadmap. <strong>The transferable lesson for freedom tech: a primitive chosen to fit the performance constraint of its moment becomes a liability when the constraint moves, and engineering constraints move faster than confidence accumulates around a young design.</strong> Cross-reference <a href="/kb/starks/">STARKs</a> and <a href="/kb/bitcoin-post-quantum-migration/">Bitcoin PQ Migration</a>. Ethereum's 2nd Annual PQ Research Retreat is 9–12 October 2026, Cambridge UK.</p>
+</li>
+<li>
+<p><strong>Blockchain PQ migration research updated: hidden-key assets get a STARK treatment.</strong> ePrint <a href="https://eprint.iacr.org/2026/352" rel="noopener nofollow">2026/352</a> (Kiraz, Kardas, revised Sep 1) separates <em>revealed-key</em> assets (Bitcoin outputs and EOAs whose pubkeys are already on-chain → hybrid classical/PQ authorization) from <em>hidden-key</em> assets (P2PKH/P2WPKH, unused EOAs, pubkey hidden behind a hash → STARK-verifiable ownership relation binding legacy address to a PQ pubkey <strong>without ever publishing the legacy EC public key</strong>), plus one-way migration-registry semantics and an SP1 prototype. They also draw the line that matters: transparent-STARK verification is the post-quantum path; Groth16/PLONK wrapping is only a current-EVM compatibility shim. Directly relevant to <a href="/kb/bitcoin-post-quantum-migration/">Bitcoin PQ Migration</a>.</p>
+</li>
+<li>
+<p><strong>Policy clock: three dates inside four weeks.</strong> <strong>September 16, 2026</strong> — GSA's 2026 Post-Quantum Cryptography Summit (hybrid; .gov/.mil only; 20 F Street + Zoom for Government). <strong>September 21, 2026</strong> — FIPS 140-2 certificates move to <strong>Historical</strong> status; only FIPS 140-3 validated modules qualify for new federal procurement, against a FIPS 140-3 validation backlog averaging 500+ days. <strong>October 22, 2026</strong> — OMB <strong>M-26-15</strong> deadline for every civilian agency to submit its PQC Migration Plan to OMB and ONCD (risk-based prioritization, automated inventory methodology, crypto-agility architecture, third-party coordination, funding estimates, governance roles). M-26-15's five phases run 2026→2035: discovery 2026–27, pilots 2027–28, prioritized key-establishment migration 2028–30, <strong>signature migration 2031</strong>, full migration 2035. National Security Systems stay under CNSA 2.0. The federal signature deadline being a full year behind key establishment now mirrors Google Cloud's roadmap exactly — and mirrors the IETF reality in item 2.</p>
+</li>
+<li>
+<p><strong>DCP epilogue.</strong> The Gupte–Ragavan–Zhandry no-go (ePrint 2026/1693) received a metadata/version update September 1; the Lean 4 refutation repo (<code>sragavan99/lean-ePrint-2026-1591-refutation</code>, last push Aug 13) is quiet. No post-conference statement from Simon. The line is closed; see <a href="/kb/dihedral-coset-attacks/">The Dihedral Coset Attack Line</a>.</p>
+</li>
+</ol>
+<p><em>Freedom-tech implication: for the first time the transport story is finished on paper — hybrid X25519MLKEM768 is RFC 10024 and pure ML-KEM now has IESG approval, so both options exist as citeable documents and the argument moves entirely to which you deploy (still: hybrid). The authentication story is the opposite of finished, and this fortnight shows exactly which parts are stuck and why: composite ML-DSA reached the RFC Editor, ML-DSA-in-TLS is frozen behind an appeal with a 59-day clock, and Merkle Tree Certificates are two months static at WG-document stage while a CA has publicly committed to shipping them next year. Meanwhile the cryptanalysis that actually cost someone security bits this fortnight hit <strong>FHE sparse-secret Ring-LWE parameters</strong>, not ML-KEM — a reminder that structured-lattice risk is not uniform across the schemes that share the ring. And Ethereum retiring an eight-year hash bet because the proof systems moved is the cleanest available argument for crypto-agility as architecture rather than as slogan.</em></p>
+<h2 id="the-fortnight-in-detail">The Fortnight in Detail</h2>
+<h3 id="1-pure-ml-kem-what-actually-happened-in-the-iesg">1. Pure ML-KEM: what actually happened in the IESG</h3>
+<p>The sequence, from the <a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/" rel="noopener nofollow">datatracker history</a>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-07-19</td>
+<td>TLS co-chair Joseph Salowey declares rough consensus, closing the third WGLC (support "roughly 7/10" among established participants)</td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>Draft-09 posted with the two committed changes: RFC 9847's definition of Recommended=N in the IANA section, and new randomness text (Appelbaum's observation that ML-KEM's <code>m</code> exposes raw RNG output to the peer, citing Checkoway et al. on Dual EC in TLS)</td>
+</tr>
+<tr>
+<td>2026-07-28</td>
+<td>Salowey requests publication</td>
+</tr>
+<tr>
+<td>2026-07-30</td>
+<td>IESG issues IETF-wide Last Call; comments due August 13</td>
+</tr>
+<tr>
+<td>2026-08-11</td>
+<td>Bernstein files four-part objection series; 75 sourced non-withdrawn objections; alleges the series was blocked from <code>last-call@ietf.org</code></td>
+</tr>
+<tr>
+<td>2026-09-02</td>
+<td>Connolly posts -10; IANA review → "IANA OK – Actions Needed"; Jensen, Inacio, Vyncke ballot</td>
+</tr>
+<tr>
+<td>2026-09-03</td>
+<td>IESG approves; "Approved-announcement sent"; Approve ballot closed; IANA action <strong>In Progress</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Two things are worth separating. <strong>Procedurally</strong>, the chairs never published the numbers or weighting method behind the rough-consensus call — Salowey's July 20 reply to the European Commission's Fabiana Da Pieve stated the chairs "do not intend to release any further detailed analysis." That is the substance of the pending complaint, and IESG approval does not answer it. <strong>Technically</strong>, nothing changed: pure ML-KEM-512/768/1024 NamedGroups rest confidentiality entirely on FIPS 203, are marked Recommended=N, and ship in an <em>Informational</em> RFC, while the hybrid group is standards-track with Recommended=Y. Sustained technical opposition (Kobeissi on compositional security, Lange, Bernstein) was recorded and overridden rather than resolved.</p>
+<p><strong>Operational guidance is unchanged and unambiguous</strong>: deploy hybrid. The pure groups exist so that procurement regimes mandating a standalone NIST algorithm have a stable reference to point at — not because anyone in the WG argued they are the better engineering choice. See <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a>.</p>
+<h3 id="2-the-ml-dsa-appeal-freeze">2. The ML-DSA appeal freeze</h3>
+<p><code>draft-ietf-tls-mldsa</code> (Hollebeek/DigiCert, Schmieg/Google, Westerbaan/Cloudflare; Informational; shepherd Sean Turner) cleared Tommy Jensen's blocking DISCUSS on July 8 after text revisions and was approved and announced the same day — then held within hours on receipt of an appeal request. Roman Danyliw's note records a procedural detail worth keeping: "Approved Announcement Sent" has no sub-states an AD can use to hold a document, so the document had to be moved <em>backwards</em> into "Approved-announcement to be sent" to be holdable at all. IANA action: <strong>On Hold</strong>. No telechat date. No movement since.</p>
+<p>Note the causal chain in Jensen's September 2 ML-KEM ballot comment: he cleared ML-KEM specifically because it "followed the same kind of edits I requested when I issued a blocking DISCUSS on the ML-DSA document." The two documents' fates are entangled — the editorial fix that unblocked ML-DSA in July is what unblocked ML-KEM in September, while ML-DSA itself remains held on process grounds.</p>
+<p><strong>What this means for planning</strong>: if you are scheduling PQ <em>authentication</em> work off published RFCs, ML-DSA in TLS is not one yet, and the delay is procedural rather than technical. Composite ML-DSA (RFC Ed Queue) will likely publish first. See <a href="/kb/ml-dsa/">ML-DSA</a>.</p>
+<h3 id="3-where-each-pq-authentication-document-actually-stands-september-5-2026">3. Where each PQ authentication document actually stands (September 5, 2026)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>WG</th>
+<th>State (verified 2026-09-05)</th>
+<th>Last revision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>draft-ietf-tls-mlkem</code> (pure ML-KEM KEX)</td>
+<td>TLS</td>
+<td><strong>IESG approved Sep 3; IANA action In Progress</strong> — RFC pending</td>
+<td>-10, 2026-09-02</td>
+</tr>
+<tr>
+<td>RFC 10024 (hybrid ECDHE+ML-KEM)</td>
+<td>TLS</td>
+<td><strong>Published</strong>, Proposed Standard</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>draft-ietf-tls-mldsa</code> (ML-DSA auth in TLS)</td>
+<td>TLS</td>
+<td><strong>Held under appeal</strong> since 2026-07-08; IANA On Hold</td>
+<td>-05, 2026-07-06</td>
+</tr>
+<tr>
+<td><code>draft-ietf-lamps-pq-composite-sigs</code></td>
+<td>LAMPS</td>
+<td><strong>RFC Ed Queue</strong>, RFC-Ed-Ack, First Edit; Proposed Standard</td>
+<td>-19, 2026-08-26</td>
+</tr>
+<tr>
+<td><code>draft-ietf-plants-merkle-tree-certs</code></td>
+<td>PLANTS</td>
+<td><strong>WG Document / I-D Exists</strong> — no shepherd, no AD, no intended status</td>
+<td>-05, 2026-07-06</td>
+</tr>
+<tr>
+<td>RFC 9958 (PQC for Engineers)</td>
+<td>PQUIP</td>
+<td>Published, Informational</td>
+<td>—</td>
+</tr>
+<tr>
+<td>RFC 9980 (OpenPGP PQC)</td>
+<td>OpenPGP</td>
+<td>Published 2026-06-30, hybrid-only</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>The two-month stall on both <code>-tls-mldsa</code> and <code>-plants-merkle-tree-certs</code> is the single most useful fact in this update: <strong>the entire public-web PQ authentication path is currently blocked or early-stage</strong>, while Let's Encrypt has a staging commitment for late 2026. Either the PLANTS document moves fast this autumn or the staging environment ships ahead of its specification's WG process.</p>
+<h3 id="4-reading-the-lattice-results-together">4. Reading the lattice results together</h3>
+<p>Three lattice items landed in this window, and they sit at different distances from anything deployed:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Distance from deployment</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SVP in 2^0.7314n (2026/1587)</td>
+<td><strong>Far</strong></td>
+<td>Worst-case exact SVP, exponential, asymptotic; ML-KEM margins are set by Core-SVP against sieving at practical block sizes. Notable because it beats the best <em>quantum</em> worst-case bounds classically.</td>
+</tr>
+<tr>
+<td>Enhanced hybrid decoding on Module/Ring-LWE (2026/366)</td>
+<td><strong>Close — for FHE</strong></td>
+<td>Exploits the ring structure directly, linear-in-N improvement, sparse secrets; 12/16 published FHE sparse Ring-LWE parameter sets drop below 128-bit. ML-KEM's secrets are not sparse.</td>
+</tr>
+<tr>
+<td>LWE ≡ CLWE + search-to-decision (2026/650, updated Sep 4)</td>
+<td><strong>Far</strong></td>
+<td>Structural equivalence result; transfers results between LWE and continuous LWE. Foundations, not attack.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The pattern this library has been tracking since June holds: <strong>structural and asymptotic results keep arriving; none has moved a deployed ML-KEM/ML-DSA parameter set; the results that do bite land on adjacent schemes that share the algebra but not the parameter regime</strong> (FHE here, HAWK's ring choice in July). That is the empirical case for crypto-agility stated without exaggeration.</p>
+<h3 id="5-implementation-layer-maturity-signals">5. Implementation-layer maturity signals</h3>
+<p>Worth naming as a group, because together they mark a phase change from "does it work" to "does it work at line rate, quietly, with proofs":</p>
+<ul>
+<li><strong>mldsa-native v2.0.0</strong> — first stable release; formal memory/type-safety proofs; SLOTHY-optimized Neon and AVX2 backends; API aligned with mlkem-native v2.</li>
+<li><strong>mlkem-native v2.0.0</strong> — removes SUPERCOP aliases and the legacy config path, splits <code>MLK_ERR_FAIL</code> into specific error codes; v1.3 LTS bugfix-only through February 2027.</li>
+<li><strong>Both now in liboqs main</strong> (Aug 31 / Sep 3) — next liboqs release inherits verified backends.</li>
+<li><strong>WeaveTLS</strong> — 2.81–4.31× nginx mTLS throughput, and a <em>security</em> side effect (rejection-timing correlation collapsing under cohort publication) rather than a security cost.</li>
+<li><strong>Open EM side-channel dataset for ML-KEM</strong> (2026/1851) — public datasets are how side-channel evaluation stops being vendor-private.</li>
+<li><strong>Twiddle-perturbation fault rank ceiling</strong> (2026/1188) — first quantification of how much a <em>single</em> NTT twiddle fault disturbs the secret during keygen, where prior work either zeroed all twiddles (ML-KEM keygen) or hit individual ones (ML-DSA signing).</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Strength</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pure ML-KEM for TLS approved by IESG Sep 3, 2026; IANA action in progress</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/" rel="noopener nofollow">datatracker history</a></td>
+</tr>
+<tr>
+<td>ML-DSA-in-TLS held under appeal since Jul 8, 2026; IANA On Hold</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mldsa/" rel="noopener nofollow">datatracker</a>, <a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mldsa/history/" rel="noopener nofollow">history</a></td>
+</tr>
+<tr>
+<td>Composite ML-DSA in RFC Ed Queue / RFC-Ed-Ack / First Edit</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/" rel="noopener nofollow">datatracker</a></td>
+</tr>
+<tr>
+<td>MTC draft is WG Document / I-D Exists, -05 dated 2026-07-06 (not WGLC)</td>
+<td><strong>Confirmed — primary; corrects prior vault claim</strong></td>
+<td><a href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/" rel="noopener nofollow">datatracker</a></td>
+</tr>
+<tr>
+<td>SVP in 2^(0.73134n+o(n)) classical, 2^(n/2) space; beats ADRS and ACKS bounds</td>
+<td><strong>Preprint, not yet peer-reviewed</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1587" rel="noopener nofollow">ePrint 2026/1587</a> (PDF updated 2026-08-31)</td>
+</tr>
+<tr>
+<td>12/16 published FHE sparse Ring-LWE parameter sets fall below 128-bit under enhanced hybrid decoding</td>
+<td><strong>Peer-reviewed (CRYPTO 2026)</strong></td>
+<td><a href="https://eprint.iacr.org/2026/366" rel="noopener nofollow">ePrint 2026/366</a></td>
+</tr>
+<tr>
+<td>Classic McEliece Holdout attack: 2^114.35 supplier-complexity floor; <strong>not a break</strong></td>
+<td><strong>Preprint; author labels it a living tracking document</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1786" rel="noopener nofollow">ePrint 2026/1786</a></td>
+</tr>
+<tr>
+<td>WeaveTLS: 2.81–4.31× nginx mTLS ML-DSA throughput; rejection-timing correlation → 0.063/0.008</td>
+<td><strong>Preprint with benchmarks (Ryzen 9 9950X3D)</strong></td>
+<td><a href="https://eprint.iacr.org/2026/1828" rel="noopener nofollow">ePrint 2026/1828</a></td>
+</tr>
+<tr>
+<td>liboqs main updated to mlkem-native/mldsa-native v2.0.0; release still 0.16.0</td>
+<td><strong>Confirmed — GitHub API</strong></td>
+<td>liboqs commits #2521 (Sep 3), #2522 (Aug 31)</td>
+</tr>
+<tr>
+<td>OpenSSL 4.0.2 / 3.6.4 / 3.5.8 security release Aug 25, 2026; max severity Moderate</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://github.com/openssl/openssl/releases/tag/openssl-4.0.2" rel="noopener nofollow">openssl release notes</a></td>
+</tr>
+<tr>
+<td>Ethereum L1 drops Poseidon for SHA/BLAKE; prize paused Aug 1, announced Aug 13</td>
+<td><strong>Confirmed — EF researcher statement + prize page</strong></td>
+<td><a href="https://www.poseidon-initiative.info/" rel="noopener nofollow">poseidon-initiative.info</a>, <a href="https://crypto.news/ethereum-l1-drops-poseidon-in-post-quantum-move" rel="noopener nofollow">crypto.news</a></td>
+</tr>
+<tr>
+<td>FIPS 140-2 → Historical Sep 21, 2026; OMB M-26-15 plans due ~Oct 22, 2026; signatures phase 2031</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf" rel="noopener nofollow">M-26-15 PDF</a></td>
+</tr>
+<tr>
+<td>GSA PQC Summit Sep 16, 2026 (hybrid, .gov/.mil only)</td>
+<td><strong>Confirmed — primary</strong></td>
+<td><a href="https://www.gsa.gov/events/2026-postquantum-cryptography-summit-virtual-91626" rel="noopener nofollow">gsa.gov</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="forward-watchlist-next-721-days">Forward watchlist (next 7–21 days)</h2>
+<ol>
+<li><strong>RFC number assignment for <code>draft-ietf-tls-mlkem</code></strong> and whether an RFC 2026 formal complaint is filed against the consensus call after approval.</li>
+<li><strong>Any movement on the ML-DSA-in-TLS appeal</strong> — 59 days held; watch <code>datatracker.ietf.org/doc/draft-ietf-tls-mldsa/history/</code> and the IESG appeals artifacts page.</li>
+<li><strong><code>draft-ietf-plants-merkle-tree-certs-06</code></strong> — a -06 or a WGLC announcement is the signal that Let's Encrypt's late-2026 staging target is on track; continued silence is the signal it isn't.</li>
+<li><strong>liboqs 0.17.0</strong> — first release carrying mlkem-native/mldsa-native v2.0.0 verified backends.</li>
+<li><strong>September 16 GSA PQC Summit</strong> — agenda was unpublished at time of writing; watch for federal marketplace/procurement guidance that extends the July CISA Product Categories.</li>
+<li><strong>September 21 FIPS 140-2 sunset</strong> — watch for vendor scrambles and validation-backlog complaints.</li>
+<li><strong>October 22 OMB M-26-15 plan deadline</strong> — whether any agency plan becomes public.</li>
+<li><strong>FIPS 206 (FN-DSA) final</strong> — still IPD in comment resolution; late 2026 / early 2027 expected. See <a href="/kb/fn-dsa-falcon/">FN-DSA Falcon</a>.</li>
+<li><strong>Responses to 2026/366</strong> — whether any FHE library (OpenFHE, Lattigo, HEaaN, TFHE-rs) reparameterizes its sparse-secret sets.</li>
+<li><strong>Ethereum PQ Research Retreat, October 9–12, Cambridge UK</strong> — hash choice, leanSig/leanXMSS aggregate-signature parameters.</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>IETF datatracker — <a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/" rel="noopener nofollow">draft-ietf-tls-mlkem history</a>, <a href="https://datatracker.ietf.org/doc/draft-ietf-tls-mldsa/" rel="noopener nofollow">draft-ietf-tls-mldsa</a>, <a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/" rel="noopener nofollow">draft-ietf-lamps-pq-composite-sigs</a>, <a href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/" rel="noopener nofollow">draft-ietf-plants-merkle-tree-certs</a></li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/1587" rel="noopener nofollow">2026/1587</a> — SVP in 2^0.7314n via discrete Gaussian sampling on superlattices</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/366" rel="noopener nofollow">2026/366</a> — Careful with the Ring: enhanced hybrid decoding against Module/Ring-LWE (CRYPTO 2026)</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/1786" rel="noopener nofollow">2026/1786</a> — Bit operation cost of Holdout key-recovery attacks against Classic McEliece</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/1828" rel="noopener nofollow">2026/1828</a> — WeaveTLS: cross-connection ML-DSA authentication in mTLS</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/352" rel="noopener nofollow">2026/352</a> — Migrating Bitcoin and Ethereum addresses to the quantum blockchain era</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/1693" rel="noopener nofollow">2026/1693</a> — GRZ: the ePrint 2026/1591 quantum algorithm does not solve DCP</li>
+<li>ePrint <a href="https://eprint.iacr.org/2026/650" rel="noopener nofollow">2026/650</a>, <a href="https://eprint.iacr.org/2026/1188" rel="noopener nofollow">2026/1188</a>, <a href="https://eprint.iacr.org/2026/1851" rel="noopener nofollow">2026/1851</a></li>
+<li><a href="https://github.com/openssl/openssl/releases/tag/openssl-4.0.2" rel="noopener nofollow">OpenSSL 4.0.2 release notes</a></li>
+<li><a href="https://github.com/open-quantum-safe/liboqs" rel="noopener nofollow">liboqs</a>, <a href="https://github.com/pq-code-package/mlkem-native" rel="noopener nofollow">mlkem-native</a>, <a href="https://github.com/pq-code-package/mldsa-native" rel="noopener nofollow">mldsa-native</a></li>
+<li><a href="https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf" rel="noopener nofollow">OMB M-26-15</a>; <a href="https://www.gsa.gov/events/2026-postquantum-cryptography-summit-virtual-91626" rel="noopener nofollow">GSA 2026 PQC Summit</a></li>
+<li><a href="https://ethereum.org/roadmap/security/quantum-resistance" rel="noopener nofollow">Ethereum quantum-resistance roadmap</a>; <a href="https://www.poseidon-initiative.info/" rel="noopener nofollow">Poseidon Initiative</a>; <a href="https://blog.ethereum.org/2025/07/31/lean-ethereum" rel="noopener nofollow">lean Ethereum</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/post-quantum/2026-08-22/"><span class="label">Previous</span><span class="pn-t">Post-Quantum Saturday — August 22 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <a href="/briefings/post-quantum/2026-09-12/"><span class="label">Next</span><span class="pn-t">Post-Quantum Saturday — September 12 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

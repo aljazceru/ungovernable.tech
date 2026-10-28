@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Slashtags — ungovernable.tech</title>
+<meta name="description" content="Slashtags, Synonym&#39;s earlier protocol for key-rooted identity and peer-to-peer data sharing: what it attempted and why it was superseded by Pubky.">
+<link rel="canonical" href="https://ungovernable.tech/kb/slashtags/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Slashtags — ungovernable.tech">
+<meta property="og:description" content="Slashtags, Synonym&#39;s earlier protocol for key-rooted identity and peer-to-peer data sharing: what it attempted and why it was superseded by Pubky.">
+<meta property="og:url" content="https://ungovernable.tech/kb/slashtags/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Slashtags — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Slashtags — ungovernable.tech">
+<meta name="twitter:description" content="Slashtags, Synonym&#39;s earlier protocol for key-rooted identity and peer-to-peer data sharing: what it attempted and why it was superseded by Pubky.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Slashtags", "description": "Slashtags, Synonym's earlier protocol for key-rooted identity and peer-to-peer data sharing: what it attempted and why it was superseded by Pubky.", "dateModified": "2026-10-25", "datePublished": "2026-06-22", "url": "https://ungovernable.tech/kb/slashtags/", "mainEntityOfPage": "https://ungovernable.tech/kb/slashtags/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Slashtags", "item": "https://ungovernable.tech/kb/slashtags/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Slashtags</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>Slashtags</h1>
+  <p class="aka">Also Slashtags Protocol, Hyperdrive, Hyperswarm, Synonym Slashtags.</p>
+  <p class="dek">The original Synonym-dev protocol for key-rooted, peer-to-peer identity, hyperdrive-backed data sharing, and Slashtags-as-DNS-names. Slashtags is the predecessor and conceptual parent of Pubky Core and PKARR — the same engineering team, the same DHT and cryptographic identity pattern, but earlier, narrower in scope, and now formally superseded. Slashtags itself is best understood as a historical artifact that explains why Pubky Core looks the way it does. See PKARR for the modern production stack; Overview - Decentralized DNS for the comparative landscape.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-historical" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>6</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-slashtags-was">What Slashtags was</a><a href="#architecture">Architecture</a><a href="#the-historical-progression-slashtags-pkarr-pubky-core">The historical progression: Slashtags → PKARR → Pubky Core</a><a href="#why-the-slashtags-design-is-still-worth-studying">Why the Slashtags design is still worth studying</a><a href="#slashtags-in-production-bitkit">Slashtags in production: Bitkit</a><a href="#what-was-harder-about-slashtags">What was harder about Slashtags</a><a href="#trade-offs-historical-snapshot">Trade-offs (historical snapshot)</a><a href="#use-cases-then-and-now">Use cases (then and now)</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#recent-developments-20232026">Recent developments (2023–2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-slashtags-was">What Slashtags was</h2>
+<p>Slashtags (2019–2024) was a JavaScript implementation of a key-rooted P2P identity and data layer built on top of <a href="https://github.com/holepunchto/hyperdrive" rel="noopener nofollow">Hyperdrives</a> (personal append-only file drives) and <a href="https://github.com/holepunchto/hyperswarm" rel="noopener nofollow">Hyperswarm</a> (a Kademlia-based DHT with UDP holepunching). The same team (Synonym) later reworked the core idea into PKARR (signed DNS records on the Mainline DHT) and Pubky Core (a production protocol suite with SDKs, homeservers, mobile key custody, and a social graph). The current <a href="https://slashtags.to/" rel="noopener nofollow">Slashtags transition to Pubky Core</a> website now redirects to Pubky Core and states:</p>
+<blockquote>
+<p>"Slashtags is now Pubky Core, which provides infrastructure for decentralized identity management, data routing, and hosting."</p>
+</blockquote>
+<p>So Slashtags as a standalone product is winding down. The historical value of studying it is the <em>design pattern</em>: the same architectural choices that Slashtags made in 2019 — BIP-39 mnemonics, Ed25519 keypair, hyperdrive-backed data, Hyperswarm for discovery — reappear in modern PKARR/Pubky in a more focused, less ambitious form.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="the-slashtag">The Slashtag</h3>
+<p>A Slashtag is an Ed25519 keypair derived from a BIP-39 mnemonic seed (the same as a Bitcoin wallet's seed phrase). The user controls one Slashtag (one identity); within that Slashtag, the user can derive multiple hyperdrives by name (a "drive name" + the master key).</p>
+<h3 id="discovery">Discovery</h3>
+<p>The discovery key is <code>blake2b(public_key)</code>. A Slashtag's discovery key is published into the Hyperswarm DHT, which is a Kademlia-like network with UDP holepunching. Peers interested in the Slashtag (e.g., contacts) listen on the discovery key, get connected to peers that have the data, and exchange.</p>
+<p>This is conceptually similar to <a href="/kb/pkarr/">PKARR</a> — both publish a public-key-derived identifier into a DHT and resolve it to peers — but the underlying DHT is Hyperswarm rather than the Mainline DHT, and the data model is hyperdrives (file drives) rather than signed DNS records.</p>
+<h3 id="hyperdrives">Hyperdrives</h3>
+<p>A hyperdrive is an append-only log of blocks, similar to a content-addressed log. Slashtags uses hyperdrives for:</p>
+<ul>
+<li><strong>Profile data</strong>: name, avatar, contact info, payment preferences.</li>
+<li><strong>Public / private feeds</strong>: social media style.</li>
+<li><strong>Contacts lists</strong>: who the user has added.</li>
+<li><strong>Account metadata</strong>: per-service data for Slashtag-enabled services.</li>
+</ul>
+<p>The hyperdrive is signed: only the Slashtag's private key can add a new block. Other peers need the drive’s public key to open and verify it. A discovery key identifies the swarm but does not by itself grant read access. Sharing means handing over the public key (or its URI form).</p>
+<h3 id="access-control">Access control</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Who can do it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add a block to a drive</td>
+<td>Only the Slashtag's private key holder</td>
+</tr>
+<tr>
+<td>Read a drive</td>
+<td>Anyone with the public key, subject to any application encryption</td>
+</tr>
+<tr>
+<td>Seed a drive</td>
+<td>A replicating peer with the drive key and data</td>
+</tr>
+<tr>
+<td>Discover / find the drive</td>
+<td>Any Hyperswarm peer via the DHT</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is a simple read-public / write-private model. Public writes mean the Slashtag operator's signature is required for any update; any peer can mirror and distribute.</p>
+<h3 id="data-integrity">Data integrity</h3>
+<p>Each block added to a hyperdrive is committed via a Merkle root. The Slashtag owner signs the root; the signature is verified before the block is added. This is the same Merkle-anchored commit pattern that hyperdrives use in their own protocol, and it ensures that a drive's content history is consistent and tamper-evident.</p>
+<h2 id="the-historical-progression-slashtags-pkarr-pubky-core">The historical progression: Slashtags → PKARR → Pubky Core</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Slashtags (2019–2024)</th>
+<th>PKARR (2023–)</th>
+<th>Pubky Core (2025–)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>Ed25519 from BIP-39</td>
+<td>Ed25519</td>
+<td>Ed25519</td>
+</tr>
+<tr>
+<td>DHT</td>
+<td>Hyperswarm (UDP holepunch)</td>
+<td>Mainline DHT (BEP 44)</td>
+<td>Mainline DHT</td>
+</tr>
+<tr>
+<td>Data model</td>
+<td>Hyperdrive (file log)</td>
+<td>Signed DNS records</td>
+<td>Signed DNS records + homeserver key-value data</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>Hyperswarm discovery</td>
+<td><code>pkdns</code> / pkdns bridge</td>
+<td><code>pkdns</code> + Pubky homeserver + Pubky Nexus</td>
+</tr>
+<tr>
+<td>SDKs</td>
+<td>JavaScript only</td>
+<td>Rust, JavaScript</td>
+<td>Rust, JS, Swift, Kotlin</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>Bitkit wallet profiles</td>
+<td>Pubky homeserver</td>
+<td>Pubky Core suite, Pubky.app, Pubky Ring, Pubky Nexus</td>
+</tr>
+<tr>
+<td>Active status (2026)</td>
+<td>Historical, superseded</td>
+<td>Production</td>
+<td>Production</td>
+</tr>
+</tbody>
+</table></div>
+<p>The conceptual through-line is unbroken: <strong>key-rooted identity, signed data, DHT discovery, no registrar, no chain, no fees</strong>. What changed between Slashtags and Pubky Core was the choice of DHT (Hyperswarm → Mainline), the data model (hyperdrive → signed DNS records + homeserver KV), and the platform support (JS only → multi-language SDKs + mobile + social app + indexing).</p>
+<h2 id="why-the-slashtags-design-is-still-worth-studying">Why the Slashtags design is still worth studying</h2>
+<ol>
+<li><strong>BIP-39 mnemonics as identity seed.</strong> A Slashtag's key is derived from the same 12/24-word seed a Bitcoin wallet uses. The user has one mnemonic, multiple Slashtags (different keypairs derived from different BIP-39 derivation paths). This is the same pattern FROST and threshold-custody schemes often use.</li>
+<li><strong>Hyperdrives as a content model.</strong> Append-only logs with Merkle-anchored commits are exactly the structure that social applications need (immutable history, signed by the user, replicated by peers).</li>
+<li><strong>Read-public / write-private.</strong> Slashtags made this default; the same idea persists in Nostr (events are public, signed by the user) and PKARR (records are public, signed by the key).</li>
+<li><strong>No chain, no token, no registrar.</strong> A consistent philosophy across all three generations.</li>
+</ol>
+<h2 id="slashtags-in-production-bitkit">Slashtags in production: Bitkit</h2>
+<p>The primary production use of Slashtags was the <strong>Bitkit</strong> wallet (formerly Synonym's P2P Bitcoin wallet). Bitkit used Slashtags to power:</p>
+<ul>
+<li>User profile (avatar, display name, contact info).</li>
+<li>Contacts list (P2P, no central server).</li>
+<li>Payment preferences (Lightning address book).</li>
+<li>Authentication (signed in to Slashtags-aware services with the wallet key).</li>
+<li>Private / public feeds (encrypted to contacts).</li>
+</ul>
+<p>With the move to Pubky Core, Bitkit is one of the early wallets that will integrate PKARR-based discovery. The conceptual compatibility makes the migration straightforward.</p>
+<h2 id="what-was-harder-about-slashtags">What was harder about Slashtags</h2>
+<ol>
+<li><strong>Limited language support.</strong> JavaScript only at the protocol layer. Rust SDKs came later via PKARR, and even later for full Pubky Core (Rust / JS / Swift / Kotlin).</li>
+<li><strong>Hyperswarm DHT scale.</strong> Hyperswarm is excellent for small-to-medium-scale P2P apps but not as ambient as the Mainline DHT (which has ~10M nodes and 15+ years of uptime).</li>
+<li><strong>Hyperdrive storage overhead.</strong> A hyperdrive is heavier than a signed DNS record; mobile devices and low-resource peers struggled to maintain full hyperdrive replicas.</li>
+<li><strong>DHT reachability in hostile networks.</strong> Both Hyperswarm discovery and the BitTorrent Mainline DHT use UDP. UDP restrictions can affect either network.</li>
+</ol>
+<p>These four issues are the technical reasons for the move to Mainline DHT + signed DNS records in PKARR. The lessons carried forward; the engineering substrate changed.</p>
+<h2 id="trade-offs-historical-snapshot">Trade-offs (historical snapshot)</h2>
+<h3 id="strengths-of-slashtags">Strengths of Slashtags</h3>
+<ul>
+<li>Single mnemonic, multiple Slashtags — clean key-derivation story.</li>
+<li>Hyperdrives gave a familiar file-system-like mental model.</li>
+<li>No chain, no token, no fees.</li>
+<li>Read-public / write-private was a natural privacy model for social apps.</li>
+<li>DHT discovery worked without any server-side infrastructure.</li>
+</ul>
+<h3 id="limitations-of-slashtags-relative-to-modern-pubky-core">Limitations of Slashtags (relative to modern Pubky Core)</h3>
+<ul>
+<li>JS-only SDKs; no first-party mobile or Rust.</li>
+<li>Hyperswarm DHT is less ambient than Mainline.</li>
+<li>Hyperdrives are heavy for mobile and small devices.</li>
+<li>No production homeserver; data lived in P2P networks.</li>
+<li>Limited tooling for indexing / social-graph queries.</li>
+</ul>
+<h2 id="use-cases-then-and-now">Use cases (then and now)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Slashtags era</th>
+<th>Today</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallet profile</td>
+<td>Bitkit</td>
+<td>Bitkit on Pubky</td>
+</tr>
+<tr>
+<td>Contact list</td>
+<td>Bitkit, Slashtags auth demo</td>
+<td>Pubky + Nostr cross-signed contacts</td>
+</tr>
+<tr>
+<td>Service discovery</td>
+<td>Slashtags auth demo</td>
+<td>PKARR + pkdns</td>
+</tr>
+<tr>
+<td>Social feed</td>
+<td>Bitkit public/private feeds</td>
+<td>Pubky.app social PWA</td>
+</tr>
+<tr>
+<td>NIP-05 alias</td>
+<td>N/A at the time</td>
+<td>PKARR-backed NIP-05</td>
+</tr>
+<tr>
+<td>Censorship-resistant website</td>
+<td>Custom hyperdrive hosting</td>
+<td>PKARR + Pubky homeserver</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Evidence</th>
+<th>What it supports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/synonymdev/slashtags" rel="noopener nofollow">Slashtags implementation</a> repo</td>
+<td>568 commits; beta status; documentation still in progress; npm package <code>@synonymdev/slashtag</code></td>
+<td>Real implementation, but explicitly beta and now superseded</td>
+</tr>
+<tr>
+<td><a href="https://slashtags.to/" rel="noopener nofollow">Slashtags transition to Pubky Core</a> website</td>
+<td>"Slashtags is now Pubky Core"</td>
+<td>Official redirection to Pubky Core</td>
+</tr>
+<tr>
+<td><code>synonymdev/slashtags-widget-price-feed</code>, <code>…news-feed</code>, <code>…bitcoin-feed</code></td>
+<td>Public Slashtags widget examples</td>
+<td>Public data publishing pattern that Slashtags pioneered</td>
+</tr>
+<tr>
+<td>Bitkit wallet integration</td>
+<td>Slashtags powers Bitkit profile, contacts, payments</td>
+<td>First and longest-running Slashtag production deployment</td>
+</tr>
+<tr>
+<td>BIP-39 key derivation</td>
+<td><code>specs/slashtags-derivation.md</code> in the Slashtags repo</td>
+<td>Standard mnemonic-based identity</td>
+</tr>
+<tr>
+<td>Hyperswarm DHT</td>
+<td><a href="https://github.com/holepunchto/hyperswarm" rel="noopener nofollow">Hyperswarm implementation</a></td>
+<td>Underlying discovery network</td>
+</tr>
+<tr>
+<td>Hyperdrive file drives</td>
+<td><a href="https://github.com/holepunchto/hyperdrive" rel="noopener nofollow">Hyperdrive implementation</a></td>
+<td>Underlying data model</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recent-developments-20232026">Recent developments (2023–2026)</h2>
+<ul>
+<li><strong>Slashtags → Pubky Core transition (2024–2025)</strong>: Synonym formally redirected Slashtags branding to Pubky Core. The Slashtags npm packages still exist for backwards compatibility, but new work is on Pubky.</li>
+<li><strong>Bitkit wallet integration with Pubky Core (2025)</strong>: Bitkit is one of the early wallets building PKARR-backed identity.</li>
+<li><strong>Community history in PKARR/Pubky docs</strong>: Slashtags is cited as the conceptual predecessor in PKARR's design notes.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://pubky.org/" rel="noopener nofollow">Pubky Core: current project</a></li>
+<li><a href="https://github.com/synonymdev/slashtags" rel="noopener nofollow">Slashtags implementation</a></li>
+<li><a href="https://github.com/synonymdev/slashtags/tree/master/packages/slashtag" rel="noopener nofollow">Slashtag package source</a></li>
+<li><a href="https://github.com/synonymdev/slashtags/blob/master/specs/slashtags-derivation.md" rel="noopener nofollow">Slashtags key derivation specification</a></li>
+<li><a href="https://github.com/synonymdev/bitkit" rel="noopener nofollow">Bitkit source</a></li>
+<li><a href="https://github.com/synonymdev/slashtags-auth-demo" rel="noopener nofollow">Slashtags authentication example</a></li>
+<li><a href="https://github.com/holepunchto/hyperswarm" rel="noopener nofollow">Hyperswarm implementation</a></li>
+<li><a href="https://github.com/holepunchto/hyperdrive" rel="noopener nofollow">Hyperdrive implementation</a></li>
+<li><a href="https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf" rel="noopener nofollow">Maymounkov and Mazières: Kademlia</a></li>
+<li><a href="https://www.bittorrent.org/beps/bep_0005.html" rel="noopener nofollow">BEP 5: BitTorrent DHT over UDP</a></li>
+<li><a href="https://slashtags.to/" rel="noopener nofollow">Slashtags transition to Pubky Core</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Slashtags" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-historical bdg-lg" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span>
+        <span class="m m-historical" role="img" aria-label="Readiness: Historical" title="Historical: discontinued or superseded; kept for the lessons."><i class="hollow"></i><i class="hollow"></i><i class="hollow"></i><i class="hollow"></i><i class="hollow"></i></span>
+        <p>Historical: discontinued or superseded; kept for the lessons.</p>
+      </div>
+      
+      <p class="def">The original Synonym-dev protocol for key-rooted, peer-to-peer identity, hyperdrive-backed data sharing, and Slashtags-as-DNS-names. Slashtags is the predecessor and conceptual parent of Pubky Core and PKARR — the same engineering team, the same DHT and cryptographic identity pattern, but earlier, narrower in scope, and now formally superseded. Slashtags itself is best understood as a historical artifact that explains why Pubky Core looks the way it does. See PKARR for the modern production stack; Overview - Decentralized DNS for the comparative landscape.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming, Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>11</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

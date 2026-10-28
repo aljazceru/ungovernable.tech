@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — August 19 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-19: Applebaum–Ishai–Shechter (CRYPTO 2026) initiate arithmetic PIR (APIR) and prove single-server code-based PIR.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-08-19/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — August 19 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-19: Applebaum–Ishai–Shechter (CRYPTO 2026) initiate arithmetic PIR (APIR) and prove single-server code-based PIR.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-08-19/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — August 19 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — August 19 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-19: Applebaum–Ishai–Shechter (CRYPTO 2026) initiate arithmetic PIR (APIR) and prove single-server code-based PIR.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — August 19 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-19: Applebaum–Ishai–Shechter (CRYPTO 2026) initiate arithmetic PIR (APIR) and prove single-server code-based PIR.", "datePublished": "2026-08-19", "dateModified": "2026-08-19", "url": "https://ungovernable.tech/briefings/pir/2026-08-19/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-08-19/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-19", "item": "https://ungovernable.tech/briefings/pir/2026-08-19/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-08-19</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — August 19 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-19</b></span>
+    <span><b>11</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-19 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-19. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr">TL;DR</h2>
+<ol>
+<li><strong>Applebaum–Ishai–Shechter (CRYPTO 2026)</strong> initiate <em>arithmetic PIR</em> (APIR) and prove single-server code-based PIR <strong>cannot</strong> beat n download cost — then break the two published code-based PIR schemes (ISIT'20, ISIT'24) "within a few minutes on a standard workstation." A field-shaping negative result, presented this week at CRYPTO.</li>
+<li><strong>Ghoshal–Ishai–Jain–Sun (ePrint 2026/1630)</strong> built a quasipolynomial distinguisher for Classic McEliece <em>out of a failed attempt to construct doubly-efficient PIR from locally decodable codes</em>. PIR research is now generating cryptanalysis of a NIST-standardized PQ cryptosystem.</li>
+<li><strong>Chen–Ishai–Jain–Mour–Rosen–Xing (ePrint 2026/1480)</strong> deliver the first <em>benchmarked</em> doubly-efficient secret-key PIR: 4.2× storage overhead on a 37 GB database, &lt;600 KB server reads per query. SK-PIR moves from existence proof to engineering artifact.</li>
+<li><strong>UC-secure Updatable VPIR (ePrint 2026/1651)</strong> — first universally-composable definition of verifiable PIR, plus database updates with access control.</li>
+<li><strong>TCHES 2026 GPU DPF-PIR (Tan et al., Wuhan)</strong> — 8.2–9.4× throughput over prior GPU state-of-the-art on RTX 4090; pipelined variant needs 99% less memory.</li>
+<li><strong>Kohaku SDK is shipping</strong>: <code>ethereum/kohaku</code> (398 stars) released <code>@kohaku-eth/railgun</code>, <code>tornado-cash</code>, and <code>privacy-pools</code> plugin alphas on Aug 8, with operational ERC-4337 mempool relaying. Private <em>writes</em> are going live; private <em>reads</em> (the PIR side) remain the stated next phase.</li>
+</ol>
+<h2 id="lead-story-crypto-2026-arithmetic-pir-and-the-death-of-code-based-single-server-pir">Lead Story — CRYPTO 2026: Arithmetic PIR and the Death of Code-Based Single-Server PIR</h2>
+<p><strong>Paper</strong>: "On Arithmetic Private Information Retrieval: Why Code-Based PIR (Usually) Fails"
+<strong>Authors</strong>: Benny Applebaum (TAU), Yuval Ishai (Technion/AWS), Shahar Shechter (TAU)
+<strong>ePrint</strong>: <a href="https://eprint.iacr.org/2026/1224" rel="noopener nofollow">https://eprint.iacr.org/2026/1224</a> (received June 10 2026; major revision of a CRYPTO 2026 publication)
+<strong>Venue</strong>: CRYPTO 2026, Santa Barbara, August 17–20 2026 — the IACR flagship is running <em>this week</em>; Shechter presented the paper there (the Aug 12 vault update flagged this window; CRYPTO, not EUROCRYPT, is the Santa Barbara conference).</p>
+<p>The paper defines <strong>arithmetic PIR (APIR)</strong>: the database is a vector of field elements and the scheme makes only black-box use of the field — the natural model for MPC/FHE backends where field operations are the native instruction set.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Type</th>
+<th>Statement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-server APIR lower bound</td>
+<td><strong>Negative</strong></td>
+<td>No single-server APIR achieves non-trivial download &lt; n field elements</td>
+</tr>
+<tr>
+<td>Attack on code-based PIR</td>
+<td><strong>Negative</strong></td>
+<td>Holzbaur et al. (ISIT'20) and Verma–Hollanti (ISIT'24) schemes broken "in minutes on a standard workstation" for all suggested parameters — both are arithmetic</td>
+</tr>
+<tr>
+<td>Two-server APIR</td>
+<td>Positive</td>
+<td>Arithmetization of DPF-based PIR (Boyle et al., CCS'16) gives computationally secure APIR from coding assumptions</td>
+</tr>
+<tr>
+<td>SK-preprocessing APIR</td>
+<td>Positive</td>
+<td>Chen et al. (STOC'26) secret-key PIR arithmetizes</td>
+</tr>
+<tr>
+<td>IT two-server APIR</td>
+<td>Positive</td>
+<td>O(n^{1/3}) communication via Chor et al. (FOCS'95); linear-algebraic characterization of IT-APIR existence; optimality open</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Why it matters for this library</strong>: 
+- It removes a tempting shortcut. Code-based PIR was attractive as a PQ-friendly, lattice-free alternative to LWE-based CPIR. That door is now formally closed for single servers — the two realistic PQ paths are lattice CPIR and DPF-style arithmetized constructions.
+- The DPF arithmetization result is the quiet positive story: DPF-based PIR (the substrate of Piano, ChalametPIR, and the GPU-PIR line) survives in richer algebraic settings, including with secret-key preprocessing.
+- It's the second consecutive flagship-conference PIR result (after Henzinger–Ragavan at EUROCRYPT 2026, see <a href="/briefings/pir/2026-08-12/">PIR Wednesday — August 12 2026 Weekly Update</a>) — PIR theory is having its best run since the late 1990s.</p>
+<h2 id="pir-bites-back-the-mceliece-connection">PIR Bites Back: the McEliece Connection</h2>
+<p><strong>Paper</strong>: "Quasipolynomial Cryptanalysis of the McEliece Cryptosystem (or: PIR Meets McEliece)"
+<strong>Authors</strong>: Ashrujit Ghoshal (IIT Madras), Yuval Ishai (Technion/AWS), Aayush Jain (CMU), Nuozhou Sun (CMU)
+<strong>ePrint</strong>: <a href="https://eprint.iacr.org/2026/1630" rel="noopener nofollow">https://eprint.iacr.org/2026/1630</a> (received Aug 7 2026)</p>
+<p>A classical quasipolynomial-time (n^{O(log n)}) distinguisher for Goppa–McEliece public keys in the Classic McEliece regime (m = Θ(log n), t = Θ(n/log n)). It applies to <strong>all Classic McEliece parameter sets considered in the NIST process</strong>, yields improved concrete attack estimates (not yet practical), and extends heuristically to a message-recovery attack.</p>
+<p>The vault-relevant detail is the <em>origin</em>: the attack came from a <strong>failed attempt to construct doubly-efficient PIR from algebraic locally decodable codes</strong>, and "can be intuitively explained from the PIR perspective." The LDC–PIR–McEliece triangle has been productive in both directions — LDC techniques built PIR candidates, and the failure mode of those candidates doubles as a cryptanalytic lens on Goppa codes.</p>
+<p>Cross-link: <a href="/kb/hqc/">HQC</a> (the code-based KEM that succeeded McEliece in the NIST process) and the PQC section's migration files. If the quasipolynomial distinguisher tightens further, the code-based leg of PQC (HQC's security rationale is cousin to McEliece's) inherits the scrutiny. Ishai's authorship on both this and the APIR paper makes him the pivotal researcher of this fortnight.</p>
+<h2 id="secret-key-pir-gets-practical-eprint-20261480">Secret-Key PIR Gets Practical (ePrint 2026/1480)</h2>
+<p><strong>Paper</strong>: "Doubly-Efficient Secret-Key PIR with Low Storage Overhead"
+<strong>Authors</strong>: Caicai Chen (Bocconi/Bending Spoons), Yuval Ishai, Aayush Jain (CMU), Tamer Mour (IIAI), Alon Rosen (Bocconi), Chaoping Xing (SJTU)
+<strong>ePrint</strong>: <a href="https://eprint.iacr.org/2026/1480" rel="noopener nofollow">https://eprint.iacr.org/2026/1480</a> (received Jul 20 2026 — in the gap window before the Aug 12 update, now catalogued)</p>
+<p>The Aug 12 update recorded SK-PIR <em>foundations</em> (Bitansky–Mazor from OWFs; Chen et al. STOC'26 from LPN). This paper is the engineering counterpart:</p>
+<ul>
+<li><strong>First doubly-efficient SK-PIR with constant storage overhead</strong> — asymptotically approaching 1× in natural regimes (best prior: k/polylog(k) server work at constant storage).</li>
+<li>k^{o(1)} communication <strong>and</strong> online server work.</li>
+<li>Built on the permuted-code blueprint (Boyle–Ishai–Pass–Wootters / Canetti–Holmgren–Richelson, TCC 2017), instantiated with new <strong>t-smooth locally decodable codes</strong>: a concatenated-curves local decoder for Reed–Muller, plus curve-lifted codes with attractive concrete efficiency.</li>
+<li><strong>Benchmarked</strong>: a representative instantiation encodes a <strong>37 GB database of 18-bit records with 4.2× storage overhead, server reads &lt;600 KB per query</strong>, with extensive cryptanalysis of the underlying assumptions.</li>
+</ul>
+<p><strong>Deployment reading</strong>: SK-PIR's model (client does one-time preprocessing with a secret key; server answers from an encoded DB) maps naturally onto wallet ↔ RPC-provider relationships — the exact Ethereum private-reads scenario this section tracks. A 4.2× storage overhead is within the range RPC providers already spend on replicas. The remaining barriers are the offline client work and the assumption novelty (permuted-code/LDC assumptions, not yet battle-tested like LWE).</p>
+<h2 id="other-new-papers-aug-519-window">Other New Papers (Aug 5–19 window)</h2>
+<h3 id="single-server-verifiable-pir-with-updates-uc-secure-eprint-20261651-aug-10">Single-Server Verifiable PIR with Updates, UC-Secure (ePrint 2026/1651, Aug 10)</h3>
+<p>First <strong>universally composable</strong> definition of verifiable PIR (ideal VPIR functionality), motivated by showing how game-based VPIR properties <em>fail under sequential and concurrent composition</em> when PIR is a building block in a larger app. Two realizations: trivial PIR and <strong>VeriSimplePIR</strong>. Also introduces <strong>Updatable VPIR (UVPIR)</strong>: database updates authorized by permissioned clients, responses bound to a specific database version — constructed black-box from any VPIR.</p>
+<p>This merges three previously separate frontier threads (verifiability, updates, composable security) into one formalism — directly relevant to using PIR inside wallets and agent stacks rather than as a standalone query box.</p>
+<h3 id="updatable-okvs-pir-for-multi-key-searchable-encryption-eprint-20261590-aug-12">Updatable OKVS + PIR for Multi-Key Searchable Encryption (ePrint 2026/1590, Aug 12)</h3>
+<p>Introduces <strong>UOKVS</strong> (updatable oblivious key-value store with fine-grained access control), including the first oblivious-insertion analysis for Cuckoo hashing. Application: multi-key searchable encryption <strong>without data replication across authorized users</strong> — 0.6 s WAN queries for keywords matching 100 documents on a 24M-entry Enron dataset, using <strong>FrodoPIR</strong> as the backend, at 3.1× storage overhead. Notable as a rare paper that benchmarks against Brave's deployment-oriented FrodoPIR rather than the SimplePIR family.</p>
+<h3 id="single-server-qpir-from-one-way-functions-eprint-20261524-jul-25">Single-Server QPIR from One-Way Functions (ePrint 2026/1524, Jul 25)</h3>
+<p>Ananth et al. observe that <strong>quantum PIR with polylogarithmic communication exists assuming only post-quantum one-way functions</strong> — by compiling Kerenidis–Wolf (STOC'03) quantum PIR with Gilboa–Ishai (EUROCRYPT'14) DPFs. A three-line observation paper, but it sets the quantum ceiling: quantum clients get polylog PIR from Minicrypt, while classical single-server PIR still appears to need public-key assumptions. Quantum networking is distant, but the asymmetry is now on record.</p>
+<h3 id="exponentially-fewer-server-pir-eprint-20261515-jul-24">Exponentially Fewer-Server PIR (ePrint 2026/1515, Jul 24)</h3>
+<p>Gupta et al.: under a plausible number-theoretic conjecture (implied by the generalized repunit conjecture or Schinzel's hypothesis H), <strong>s-server PIR with communication exp(O((log n)^{1/s} (log log n)^{1-1/s}))</strong> — matching prior communication with <em>exponentially fewer servers</em> (2^{O(s)} → s). Resolves a Ghasemi–Kopparty open problem with k+1-nonzero-coefficient S-decoding polynomials (provably minimal sparsity); <strong>unconditional for s ≤ 15</strong>. Footnote of note: the main result "was discovered in a GPT-5.5 Pro conversation prompted by the authors" — an early high-profile instance of LLM-assisted theorem discovery in the PIR literature.</p>
+<h3 id="sok-confidential-transformer-inference-and-rag-eprint-20261544-jul-28">SoK: Confidential Transformer Inference and RAG (ePrint 2026/1544, Jul 28)</h3>
+<p>Systematization of confidential ML inference and — for the first time — the <strong>RAG retrieval layer</strong>, across five mechanism families (MPC, FHE, TEE, obfuscation, DP, hybrids). Findings: no family dominates (each sacrifices one of performance/utility/threat-model fit); private graph-RAG is the least-served setting; <strong>no design yet keeps a pipeline confidential from query to answer</strong>. Positions PIR (alongside SSE/ORAM) as the retrieval-layer ingredient for confidential RAG — the natural continuation of RAGtime-PIANO (ePrint 2026/231) recorded in the June 17 reference snapshot.</p>
+<h2 id="hardware-gpu-accelerated-dpf-pir-at-tches-published-jul-17">Hardware: GPU-Accelerated DPF-PIR at TCHES (Published Jul 17)</h2>
+<p><strong>Paper</strong>: "GPU-Accelerated DPF-Based Private Information Retrieval for Large-Scale Database"
+<strong>Authors</strong>: Qingquan Tan, Chenkai Zeng, Qi Feng, Cong Peng, Weijia Wang, Debiao He (Wuhan University; Shandong University)
+<strong>Venue</strong>: IACR Transactions on Cryptographic Hardware and Embedded Systems (TCHES) 2026(3):933–957, DOI 10.46586/tches.v2026.i3.933-957</p>
+<p>DPF-PIR's server cost is memory-bound; this work attacks both dominant components:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>DB sizes</th>
+<th>Throughput vs Lam et al. (ASPLOS 2024)</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-pipelined</td>
+<td>2^19–2^24</td>
+<td><strong>8.20–9.39× on RTX 4090</strong></td>
+<td>Higher (trades memory for latency)</td>
+</tr>
+<tr>
+<td>Pipelined</td>
+<td>2^19–2^24</td>
+<td>1.14–1.87×</td>
+<td><strong>Up to 99% lower</strong>, larger batches</td>
+</tr>
+</tbody>
+</table></div>
+<p>Also ≥2.27× throughput over high-performance preprocessing PIRs. Techniques: GPU-oriented DPF tree-expansion execution (fewer redundant accesses, less bank conflicts), distribution-aware database access with thread-level coalescing, CUDA reduction primitives, improved cache utilization for batches. Authors note applicability beyond queries: maliciously-secure protocols, secure LUT evaluation, and <strong>private read/write for digital currencies</strong> — the exact Ethereum use case this section tracks. This is the strongest published GPU-PIR number to date and updates the hardware frontier (GPIR, SmartPIR, IM-PIR, IVE — see <a href="/kb/pir-implementations/">PIR Implementations and Libraries</a>).</p>
+<h2 id="deployment-kohaku-sdk-alpha-shipping-pse-rebrands-ethsystems-spins-out">Deployment: Kohaku SDK Alpha Shipping, PSE Rebrands, EthSystems Spins Out</h2>
+<ul>
+<li>Repo: <a href="https://github.com/ethereum/kohaku" rel="noopener nofollow">https://github.com/ethereum/kohaku</a> — <strong>398 stars</strong>, created Aug 1 2025, last push Aug 10 2026, description "Privacy-first tooling for the Ethereum ecosystem."</li>
+<li><strong>Aug 8 2026 release batch</strong> (GitHub Releases API): <code>@kohaku-eth/railgun@0.0.1-alpha.29</code>, <code>@kohaku-eth/tornado-cash@0.0.2-alpha.20</code>, <code>@kohaku-eth/privacy-pools@0.0.2-alpha.15</code>, <code>@kohaku-eth/plugins@0.0.1-alpha.12</code> — all three major shielded-pool protocols now have Kohaku plugin alphas.</li>
+<li>Tornado-cash plugin alone shipped alpha .14→.20 between Jul 7 and Aug 8 — weekly-cadence iteration.</li>
+<li><strong>Railgun integration has operational ERC-4337 mempool relaying</strong> for private transactions (The Defiant); Tornado Cash and Privacy Pools integrations in development. The SDK routes privacy-protocol transactions through the 4337 mempool rather than protocol-specific relayers — removing a centralized-relayer dependency.</li>
+<li>The SDK release was announced May 25 2026 (X post id 2058896518698926103, decoded from snowflake timestamp); The Defiant covered it as "Kohaku Initiative Launches SDK for Wallet-Level Privacy Integration."</li>
+<li>Scope beyond shielded pools: <strong><code>@kohaku-eth/pq-account</code> — a post-quantum ERC-4337 account implementation</strong> — plus multisig and hardware-wallet support.</li>
+<li>Wallet adopters: <strong>Ambire</strong> (production integration underway), a browser-extension experimental wallet with <strong>breadcoop</strong>, and a CLI reference wallet (<code>kassandraoftroy/kohaku-cli</code>). Berlin Blockchain Week showcase planned.</li>
+<li>Commits this window: corpus-core/colibri-stateless v2 peer-range support (Aug 10), Railgun tail-call exposure (Aug 7), legacy-key export removal in dumpState (Aug 7) — active hardening.</li>
+</ul>
+<p><strong>Important scoping note for this section</strong>: the shipping SDK covers <strong>private writes</strong> (shielded pools, 4337 relaying). The <strong>private reads</strong> path — the PIR/ORAM/Oblivious-Labs work tracked here — remains the stated Phase-1-then-endgame architecture: TEE+ORAM oblivious server now, cryptographic PIR later. The Kohaku testnet roadmap (<code>ethereum/wallet-poc</code>, kohaku-testnet-roadmap.md) schedules "v1: Abstraction Core with Privacy by Design" across <strong>January–August 2026</strong> — i.e., the private-reads phase is due <em>now</em>, making H2 2026 the watch window for the first PIR-backed wallet feature.</p>
+<h3 id="pse-rebrand-and-the-ethereumorg-roadmap-language">PSE Rebrand and the Ethereum.org Roadmap Language</h3>
+<ul>
+<li>PSE ("Privacy &amp; Scaling Explorations") rebranded to <strong>"Privacy Stewards of Ethereum"</strong>, with a stated mandate to "methodically study ORAM and PIR state-of-the-art techniques while translating research into practical wallet and browser experiences." The old <code>privacy-scaling-explorations/pir-ethereum-data</code> GitHub repo <strong>no longer resolves (404)</strong> — the PIR-for-Ethereum-data effort now lives under the pse.dev project pages rather than a standalone repo. Watch-list updated accordingly.</li>
+<li><strong>ethereum.org/roadmap/privacy</strong> (page updated Jul 27 2026): "PIR research is progressing with active implementations being tested by infrastructure teams. The Kohaku wallet SDK is under development as an open-source reference" — PIR is now on Ethereum's official public roadmap page, positioned at the <strong>access layer</strong> between wallet software and node providers.</li>
+<li><strong>EthSystems spinout (July 2026)</strong>: the EF's Institutional Privacy Task Force became a for-profit building privacy infrastructure for institutions (ethsystems.org). Institutional demand (confidential EVMs, trading-position privacy) is now institutionally organized — a demand-side pull for PIR/ORAM serving that the Chainstack analysis connects to Oasis Sapphire-style confidential chains.</li>
+</ul>
+<h2 id="updated-evidence-at-a-glance-new-this-window">Updated Evidence at a Glance — New This Window</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper / System</th>
+<th>Venue</th>
+<th>Servers</th>
+<th>Key Innovation</th>
+<th>ePrint / Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Applebaum–Ishai–Shechter, Arithmetic PIR</td>
+<td><strong>CRYPTO 2026</strong></td>
+<td>1/2/SK</td>
+<td>APIR model; single-server code-based PIR impossible; breaks ISIT'20/'24 schemes in minutes</td>
+<td>2026/1224</td>
+</tr>
+<tr>
+<td>Ghoshal–Ishai–Jain–Sun, McEliece cryptanalysis</td>
+<td>Preprint</td>
+<td>—</td>
+<td>Quasipolynomial Goppa distinguisher born from failed PIR-from-LDC attempt</td>
+<td>2026/1630</td>
+</tr>
+<tr>
+<td>Chen–Ishai–Jain–Mour–Rosen–Xing, SK-PIR</td>
+<td>Preprint</td>
+<td>1 (SK)</td>
+<td>First benchmarked doubly-efficient SK-PIR; 4.2× storage, &lt;600 KB reads/query</td>
+<td>2026/1480</td>
+</tr>
+<tr>
+<td>UC VPIR / UVPIR</td>
+<td>Preprint</td>
+<td>1</td>
+<td>First UC-secure verifiable PIR + authorized updates</td>
+<td>2026/1651</td>
+</tr>
+<tr>
+<td>UOKVS + PIR searchable encryption</td>
+<td>Preprint</td>
+<td>1</td>
+<td>Updatable OKVS w/ access control; FrodoPIR backend, 0.6 s WAN</td>
+<td>2026/1590</td>
+</tr>
+<tr>
+<td>QPIR from OWFs</td>
+<td>Preprint</td>
+<td>1 (quantum)</td>
+<td>Polylog quantum PIR from PQ one-way functions</td>
+<td>2026/1524</td>
+</tr>
+<tr>
+<td>Fewer-server PIR</td>
+<td>Preprint</td>
+<td>s</td>
+<td>2^{O(s)} → s servers at same communication; unconditional for s ≤ 15</td>
+<td>2026/1515</td>
+</tr>
+<tr>
+<td>SoK: Confidential inference + RAG</td>
+<td>Preprint</td>
+<td>—</td>
+<td>First systematization covering the RAG retrieval layer</td>
+<td>2026/1544</td>
+</tr>
+<tr>
+<td>GPU DPF-PIR (Tan et al.)</td>
+<td><strong>TCHES 2026(3)</strong></td>
+<td>1</td>
+<td>8.2–9.4× over prior GPU SOTA; 99% memory reduction pipelined</td>
+<td>DOI 10.46586/tches.v2026.i3.933-957</td>
+</tr>
+<tr>
+<td>Kohaku SDK alphas</td>
+<td>Deployment</td>
+<td>—</td>
+<td>Railgun/TC/PP plugins + 4337 relaying; PQ accounts</td>
+<td>github.com/ethereum/kohaku</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="frontier-map-updates">Frontier Map Updates</h2>
+<ol>
+<li><strong>Foundations / negative results (NEW)</strong>: APIR lower bound closes single-server code-based PIR. PIR theory now also <em>exports</em> cryptanalysis (McEliece distinguisher).</li>
+<li><strong>Secret-key PIR</strong>: foundations (Aug 12) → <strong>benchmarked constructions</strong> (2026/1480). Fastest-maturing theoretical thread.</li>
+<li><strong>IT-PIR / multi-server</strong>: fewer-server PIR (2026/1515) extends the Henzinger–Ragavan momentum; IT-APIR O(n^{1/3}) characterization from 2026/1224.</li>
+<li><strong>Verifiability + updates + composition</strong>: UC VPIR/UVPIR (2026/1651) and UOKVS (2026/1590) consolidate three threads into deployable formalisms.</li>
+<li><strong>Hardware acceleration</strong>: TCHES GPU DPF-PIR sets the new published GPU ceiling; quantum-client ceiling set by QPIR note (2026/1524).</li>
+<li><strong>Ethereum integration</strong>: Kohaku private-<em>writes</em> SDK shipping now; private-<em>reads</em> (TEE+ORAM → PIR) due in the Jan–Aug 2026 "Abstraction Core" window — watch H2 2026 for first PIR-backed feature. PSE rebrand + EthSystems spinout add institutional demand-side pull.</li>
+<li><strong>Confidential AI/RAG</strong>: SoK 2026/1544 confirms PIR as retrieval-layer ingredient; private graph-RAG flagged as most under-served.</li>
+</ol>
+<h2 id="watchlist-next-714-days">Watchlist — Next 7–14 Days</h2>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/pir/2026-08-12/"><span class="label">Previous</span><span class="pn-t">PIR Wednesday — August 12 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-08-26/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — August 26 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

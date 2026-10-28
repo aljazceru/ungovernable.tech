@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZK Email — ungovernable.tech</title>
+<meta name="description" content="ZK Email proves facts about emails, such as who sent them, by verifying DKIM signatures inside a zero-knowledge proof without revealing the email.">
+<link rel="canonical" href="https://ungovernable.tech/kb/zkemail/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="ZK Email — ungovernable.tech">
+<meta property="og:description" content="ZK Email proves facts about emails, such as who sent them, by verifying DKIM signatures inside a zero-knowledge proof without revealing the email.">
+<meta property="og:url" content="https://ungovernable.tech/kb/zkemail/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ZK Email — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ZK Email — ungovernable.tech">
+<meta name="twitter:description" content="ZK Email proves facts about emails, such as who sent them, by verifying DKIM signatures inside a zero-knowledge proof without revealing the email.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-zk.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "ZK Email", "description": "ZK Email proves facts about emails, such as who sent them, by verifying DKIM signatures inside a zero-knowledge proof without revealing the email.", "dateModified": "2026-04-26", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/zkemail/", "mainEntityOfPage": "https://ungovernable.tech/kb/zkemail/", "image": "https://ungovernable.tech/assets/og/pillar-zk.png", "about": [{"@type": "Thing", "name": "Zero-Knowledge Proofs"}, {"@type": "Thing", "name": "Identity, Social and Trust"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Zero-Knowledge Proofs", "item": "https://ungovernable.tech/pillars/zk/"}, {"@type": "ListItem", "position": 3, "name": "ZK Email", "item": "https://ungovernable.tech/kb/zkemail/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/zk/">Zero-Knowledge Proofs</a><span aria-hidden="true">/</span><span class="here">ZK Email</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ZERO-KNOWLEDGE PROOFS ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span></p>
+  <h1>ZK Email</h1>
+  <p class="aka">Also ZK Email, DKIM ZKP.</p>
+  <p class="dek">Verifying RSA-2048 DKIM signatures inside a SNARK. The construction lets a user prove &#34;this email landed in my inbox from `sender@domain`, with these specific contents matching this regex,&#34; without revealing the rest of the email or trusting any party other than the SMTP infrastructure that already exists. Originated by Sora Suegami and the zkEmail Project (Privacy &amp; Scaling Explorations, Ethereum Foundation, 2023). Practical applications include account recovery, email-based identity proofs, and peer-to-peer fiat onramps using payment-confirmation emails.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-04-26</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-this-matters">Why this matters</a><a href="#construction">Construction</a><a href="#applications">Applications</a><a href="#trust-assumptions">Trust assumptions</a><a href="#limitations">Limitations</a><a href="#comparison-with-adjacent-primitives">Comparison with adjacent primitives</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-this-matters">Why this matters</h2>
+<p>Email is the closest thing to a universal identity layer. Most online accounts authenticate via email, payment providers send signed receipts to email, and the SMTP infrastructure already cryptographically signs outbound mail via DKIM (DomainKeys Identified Mail, RFC 6376).</p>
+<p>A DKIM signature is an RSA signature over a canonicalized hash of email headers (and optionally body). The signing key's public component is published in DNS as a TXT record at <code>&lt;selector&gt;._domainkey.&lt;domain&gt;</code>. Any receiver can verify a DKIM signature without contacting the sender — the cryptographic chain is sender's domain DNS → public key → signature on email content.</p>
+<p>zkEmail makes the verifier into a SNARK circuit. The user proves to a third party (or an on-chain contract) that they hold an email validly signed by <code>&lt;domain&gt;</code>, satisfying some predicate over its content, <em>without revealing the full email</em>.</p>
+<p>This is potentially powerful: any email-driven workflow becomes a primitive that can be plugged into ZK applications without requiring the email provider's cooperation.</p>
+<h2 id="construction">Construction</h2>
+<p>The circuit verifies, in zero-knowledge:</p>
+<ol>
+<li><strong>RSA signature verification.</strong> Given a domain's public key (typically RSA-2048), verify that the DKIM <code>b=</code> signature is valid for the canonicalized headers (and optionally body hash).</li>
+<li><strong>Email parsing via regex circuits.</strong> Apply a precompiled regex circuit to specific portions of the email (for example: <code>From:</code> line, <code>Subject:</code> line, the body) to extract committed substrings.</li>
+<li><strong>Predicate over extracted substrings.</strong> Check the predicate the application cares about — e.g. "the From header equals <code>payments@venmo.com</code>," "the body contains an amount field matching <code>$\d+\.\d{2}</code>."</li>
+<li><strong>Public outputs.</strong> The proof publishes only the things the application needs: the sender domain, the public key fingerprint, and any predicate outputs (e.g. extracted amount, recipient handle).</li>
+</ol>
+<p>The user's email body, headers, and other fields stay private.</p>
+<h3 id="rsa-2048-in-a-snark">RSA-2048 in a SNARK</h3>
+<p>Verifying a 2048-bit RSA signature inside a SNARK requires implementing big-integer modular exponentiation in the SNARK's native field (typically a 254-bit BN254 field). This is expensive — the original 2023 zkEmail circuit took on the order of minutes to prove on commodity hardware.</p>
+<p>The circuit decomposes the 2048-bit modular exponentiation into chunks (often 121-bit or 64-bit limbs) and uses lookup arguments to accelerate range checks. Much of the engineering work in zkEmail since 2023 has been driving prover times down by a factor of 10x to 100x.</p>
+<p>By 2024-2025, optimizations brought typical proof generation to seconds-to-tens-of-seconds on a laptop, with WASM-based browser proving feasible for many email shapes.</p>
+<h3 id="regex-circuits">Regex circuits</h3>
+<p>The "regex in a SNARK" component is a separate but reusable piece of zkEmail's infrastructure. The team built a compiler from regex patterns to circuit constraints — the compiler outputs a state-transition table for a deterministic finite automaton (DFA) and the circuit proves that running the DFA over the (private) input ends in an accepting state.</p>
+<p>This regex-in-SNARK component is independently useful (used elsewhere for parsing JSON, JWT, etc.).</p>
+<h2 id="applications">Applications</h2>
+<h3 id="email-based-identity-proofs">Email-based identity proofs</h3>
+<p>A user can prove "I received an email from <code>boarding@united.com</code> containing flight reference <code>ABCD12</code>" without revealing the rest of the email. Application: prove participation in an event, prove receipt of a specific service, prove a relationship with a specific company.</p>
+<h3 id="zk-email-account-recovery">ZK email account recovery</h3>
+<p>Email-based account recovery for smart wallets. The pattern:</p>
+<ol>
+<li>The wallet stores a recovery email address committed inside the contract.</li>
+<li>To trigger recovery, the user emails their wallet a message like "I want to recover wallet 0x123 to new address 0x456".</li>
+<li>The SMTP server signs the email with DKIM.</li>
+<li>The user generates a zkEmail proof that the signed email matches the format and originated from the committed address.</li>
+<li>The wallet contract verifies the proof and updates the owner.</li>
+</ol>
+<p>This avoids the user revealing the contents of their email or trusting an oracle. Used by experimental account-abstraction wallets in 2024-2025.</p>
+<h3 id="zkp2p-peer-to-peer-fiat-onramp">ZKP2P — peer-to-peer fiat onramp</h3>
+<p>ZKP2P (zkp2p.xyz, 2023-) uses email-receipt-style proofs from Venmo, PayPal, Revolut, and similar services to allow trustless fiat-to-crypto exchanges:</p>
+<ol>
+<li>Buyer wants to acquire crypto, sends fiat via Venmo to a seller off-chain.</li>
+<li>Buyer receives Venmo confirmation email, signed with DKIM by <code>venmo.com</code>.</li>
+<li>Buyer generates zkEmail proof of "Venmo confirmation, amount X, recipient seller".</li>
+<li>On-chain contract verifies proof and releases seller's locked crypto to buyer.</li>
+</ol>
+<p>The system replaces a traditional escrow's trusted operator with a SNARK over a payment-confirmation email. The seller doesn't have to trust the buyer; the buyer doesn't have to trust an oracle. The trust assumption is <em>DKIM</em> — the seller trusts that Venmo's keys haven't been compromised.</p>
+<p>ZKP2P expanded across multiple payment processors over 2024-2025.</p>
+<h3 id="anonymous-attestation-of-email-events">Anonymous attestation of email events</h3>
+<p>A user can prove "I received an email from a <code>*.gov</code> domain about a public-record event" while hiding the recipient's identity. Application: whistleblowing, public-records reporting, journalism source verification.</p>
+<h3 id="domain-bound-identity">Domain-bound identity</h3>
+<p>Prove "I have an <code>@harvard.edu</code> email" without revealing which one. Composes with <a href="/kb/semaphore/">Semaphore</a>-style group membership: an issuer can issue identity commitments to anyone who proves a <code>@harvard.edu</code> email via zkEmail.</p>
+<h2 id="trust-assumptions">Trust assumptions</h2>
+<h3 id="what-you-trust">What you trust</h3>
+<ol>
+<li><strong>DKIM signing key publication.</strong> You trust that the public key the prover used was correctly resolved from DNS for the relevant domain at the relevant time. Any project verifying a zkEmail proof must check that the key fingerprint matches a known DKIM key for the claimed domain.</li>
+<li><strong>DNS / DNSSEC.</strong> Without DNSSEC, the DNS-published key is itself trust-on-first-use. Most production DKIM deployments don't use DNSSEC, so a domain-takeover attacker who briefly controls DNS could publish a fake key. zkEmail proofs are only as strong as the DNS-key resolution layer.</li>
+<li><strong>DKIM key rotation.</strong> Keys rotate; archived emails carry the key from when they were sent. The verifier needs a registry of historical DKIM keys. Projects use the <code>zk-email-archive</code> (or equivalent) to commit to historical key sets on-chain.</li>
+<li><strong>Sending domain.</strong> You trust that the domain's mail infrastructure isn't compromised — a compromised mail server could sign arbitrary emails.</li>
+</ol>
+<h3 id="what-you-dont-have-to-trust">What you don't have to trust</h3>
+<ul>
+<li>The recipient. The recipient generates the proof; the verifier doesn't trust them.</li>
+<li>An oracle or attestation provider. There's no separate party signing "this email was real."</li>
+<li>The email transport. SMTP can be unencrypted; DKIM is end-to-end.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<h3 id="performance">Performance</h3>
+<p>RSA-2048 in a SNARK is heavy. Despite optimization work, prover times remain measured in seconds on capable hardware and tens of seconds in browser/mobile contexts. This makes zkEmail feel sluggish for casual UX even when it works.</p>
+<h3 id="email-format-brittleness">Email format brittleness</h3>
+<p>Real emails have idiosyncratic formatting. Different senders (and even different versions of the same sender) format their emails differently — Venmo's confirmation email format has changed multiple times over the years. Each format change requires updating the regex circuits.</p>
+<p>Projects maintain registries of supported email formats per provider, with provider-specific circuits. This is operational debt.</p>
+<h3 id="dkim-canonicalization-quirks">DKIM canonicalization quirks</h3>
+<p>DKIM's canonicalization (<code>relaxed</code> vs. <code>simple</code> for headers and body) affects how the signed bytes are constructed. Implementations have to match exactly or signature verification fails. Subtle bugs in canonicalization handling have been a recurring source of zkEmail circuit issues.</p>
+<h3 id="body-hash-size">Body hash size</h3>
+<p>If the predicate is over the email body, the circuit must verify the body hash matches the DKIM body-hash assertion. Long emails make this expensive.</p>
+<h3 id="rsa-2048-vs-ed25519-dkim">RSA-2048 vs. Ed25519 DKIM</h3>
+<p>Newer DKIM deployments support Ed25519 keys (RFC 8463). Ed25519 verification in a SNARK is significantly cheaper than RSA-2048. Migrating off RSA-2048 would speed up proving substantially, but most large mail services still use RSA-2048; circuit support for Ed25519 DKIM is a forward-looking project.</p>
+<h2 id="comparison-with-adjacent-primitives">Comparison with adjacent primitives</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>What it proves</th>
+<th>Trust root</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>zkEmail</strong></td>
+<td>"I have an email signed by <code>&lt;domain&gt;</code> matching pattern"</td>
+<td>DKIM keys via DNS</td>
+</tr>
+<tr>
+<td><strong>TLS Notary / DECO</strong></td>
+<td>"I had a TLS session with <code>&lt;server&gt;</code> returning data"</td>
+<td>TLS server's cert chain</td>
+</tr>
+<tr>
+<td><strong>zkLogin / zkPassport</strong></td>
+<td>"I am a holder of a passport / OAuth identity"</td>
+<td>Government cert chain / OAuth provider</td>
+</tr>
+<tr>
+<td><strong>Web of Trust</strong></td>
+<td>"I am vouched for by these parties"</td>
+<td>Pairwise trust</td>
+</tr>
+</tbody>
+</table></div>
+<p>zkEmail is structurally similar to TLS-Notary-style approaches: extract a cryptographic statement about a real-world transaction and re-prove it in zero knowledge. Email's advantage is that DKIM is widely deployed and the cryptographic envelope is per-message (so archived emails are still verifiable). The disadvantage is heavier proving cost and format brittleness.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>zkEmail Project — <a href="https://zkemail.gitbook.io" rel="noopener nofollow">zkemail.gitbook.io</a> and <a href="https://github.com/zkemail" rel="noopener nofollow">github.com/zkemail</a>.</li>
+<li>Suegami, Tan, Ngn, <em>Demystifying zk-email</em>, PSE blog 2023.</li>
+<li>DKIM specification — Crocker, Hansen, Kucherawy, <em>DomainKeys Identified Mail (DKIM) Signatures</em>, RFC 6376, 2011.</li>
+<li>DKIM Ed25519 — Levine, <em>A New Cryptographic Signature Method for DKIM</em>, RFC 8463, 2018.</li>
+<li>ZKP2P — <a href="https://zkp2p.xyz" rel="noopener nofollow">zkp2p.xyz</a> and <a href="https://github.com/zkp2p" rel="noopener nofollow">github.com/zkp2p</a>.</li>
+<li>PSE — <a href="https://pse.dev" rel="noopener nofollow">pse.dev</a>.</li>
+<li>Regex-circom compiler — <a href="https://github.com/zkemail/zk-regex" rel="noopener nofollow">github.com/zkemail/zk-regex</a>.</li>
+</ul>
+<p>For evidence from web sessions, compare <a href="/kb/tlsnotary/">TLSNotary</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/semaphore/">
+  <span class="nm">Semaphore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/tlsnotary/">
+  <span class="nm">TLSNotary</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/identity/">Identity, Social and Trust</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=ZK%20Email" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">Verifying RSA-2048 DKIM signatures inside a SNARK. The construction lets a user prove &#34;this email landed in my inbox from `sender@domain`, with these specific contents matching this regex,&#34; without revealing the rest of the email or trusting any party other than the SMTP infrastructure that already exists. Originated by Sora Suegami and the zkEmail Project (Privacy &amp; Scaling Explorations, Ethereum Foundation, 2023). Practical applications include account recovery, email-based identity proofs, and peer-to-peer fiat onramps using payment-confirmation emails.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Zero-Knowledge Proofs, Identity, Social and Trust</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-04-26</dd>
+        <dt>Sources linked</dt><dd>6</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

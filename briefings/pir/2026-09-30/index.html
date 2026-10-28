@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — September 30 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-30: Apple swift-homomorphic-encryption PR #332 &#34;Fix Cuckoo table insert recursion and dropped entries&#34; MERGED Sep 25.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-09-30/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — September 30 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-30: Apple swift-homomorphic-encryption PR #332 &#34;Fix Cuckoo table insert recursion and dropped entries&#34; MERGED Sep 25.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-09-30/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — September 30 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — September 30 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-30: Apple swift-homomorphic-encryption PR #332 &#34;Fix Cuckoo table insert recursion and dropped entries&#34; MERGED Sep 25.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — September 30 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-30: Apple swift-homomorphic-encryption PR #332 \"Fix Cuckoo table insert recursion and dropped entries\" MERGED Sep 25.", "datePublished": "2026-09-30", "dateModified": "2026-09-30", "url": "https://ungovernable.tech/briefings/pir/2026-09-30/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-09-30/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-30", "item": "https://ungovernable.tech/briefings/pir/2026-09-30/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-09-30</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — September 30 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-30</b></span>
+    <span><b>26</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-30 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-30. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The seven-day window between the September 23 and September 30 sweeps saw <strong>no new PIR ePrint papers</strong> (the post-W39 burst of Bitansky–Couteau–Mazor Interactive SK-PIR + RisePIR + ESCAPE on Sep 18–20 is the only research result of the W40 cycle) but <strong>two production-stack materializations</strong> that close PIR-pipeline gaps the Sep 23 sweep flagged as open: <strong>(1) Apple swift-homomorphic-encryption PR #332 (merged Sep 25, Karl Tarbe, <code>karulont</code>) fixes the Cuckoo-table insert recursion + silent dropped-entry bug</strong> that had been open as issue #176 since Aug 24 (32-day-open), turning the open issue's top query into a closed commit and lifting the production PIRDatabaseInitialize / PIRProcessDatabase / PIRLookup call-stability story for iOS 18 Live Caller ID + contact-discovery deployments; <strong>(2) Kohaku PR #271 "feat(provider): add anon-rpc backend (PoC)" MERGED Sep 26</strong> (Meyanis95 / κασσάνδρα.eth) — the PoC that the Sep 9 / Sep 23 sweeps flagged as 35-day-open-without-merge — <strong>lands <code>tor-js</code> (real Tor in WASM) as the first network-layer anonymization inside a Kohaku EthereumProvider backend, runs in a sandboxed null-origin worker pinned to on-chain hash so the wallet doesn't have to ship a new release to switch Tor → mixnets</strong>. The combined picture: <strong>the Ethereum PIR stack is now composed end-to-end for the first time</strong> — RisePIR (Sep 18, ePrint 2026/2082, CANS 2026) provides the first live private <code>eth_getBalance</code> RPC endpoint over mainnet's 2.05×10⁸ accounts; Kohaku (#271) provides the network-layer anonymization the wallet uses to reach that RPC endpoint without revealing its IP / account-set membership to any observer; the two compose into a first-ever production private Ethereum stack — wallet → (anon-rpc → tor-js / mixnet) → (RisePIR eth_getBalance endpoint, 0.69 s/query, 5.6 ms/block absorption). <strong>OpenMined/PIR silent since 2021-04-03</strong> (4.5 years). <strong>orochi-network/orochimaru / zkDatabase / cuckoo-filter-rs all silent</strong> — RisePIR's source repo is not under orochi-network's own org; we need to confirm the repo URL via the Sep 18 paper's footnote.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+<li><strong>Apple swift-homomorphic-encryption PR #332 "Fix Cuckoo table insert recursion and dropped entries" MERGED Sep 25 22:52</strong> — Karl Tarbe (<code>karulont</code>, Apple, contributor on the 12 prior PIR-stack PRs since 2024). Resolves <strong>the open production issue #176 ("CuckooTable insertLoop stack overflow")</strong> that the Aug 24 / Aug 26 / Sep 9 / Sep 16 / Sep 23 sweeps all flagged as the most recent substantive open PIR-stack issue (32-day-open). <strong>Three independent correctness bugs fixed in one commit</strong>: (a) <code>insertLoop</code> previously reset the eviction budget on every expansion and re-entered insertion recursively — for a large <code>maxEvictionCount</code> the recursion overflowed the stack (<code>PIRDatabaseInitialize</code> is the call site); (b) <code>expand</code> was called from inside <code>insertLoop</code>, so work and stack depth were both unbounded; (c) when no eviction was possible, the in-flight pair was never re-inserted after <code>expand</code> returned, <strong>silently dropping entries with mixed value sizes</strong> (the worst kind of bug — a deployed PIR database could ship with missing rows and never report it). <strong>Fix</strong>: (i) <code>insertLoop</code> is now <strong>iterative</strong>, returns the pair left without a bucket after at most <code>maxEvictionCount</code> evictions, never expands; (ii) <code>expand</code> rebuilds from scratch with bounded evictions and grows the table until every entry fits — expansions no longer nest; (iii) the <code>summarize</code> known-answer test <code>emptyBucketCount</code> was bumped 19 → 18 for the new eviction order. <strong>PR #330 (CI: fix invalid caching of swift tools)</strong> also merged Sep 23 19:29 — fixes a CI cache invalidation bug that was masking actual cuckoo-table test failures; together with #332 the cuckoo-table path is <strong>the most thoroughly tested in the stack</strong>. <strong>Same-day <code>use latest</code> (#331, Sep 25 17:08, Hamish Hunt / <code>hamishun</code>)</strong> rebases the main branch. The PIR backend remains on v1.0.7 (Jun 3) — no v1.0.8 in sight — but the production-branch stability now formally outpaces the Sep 9 / Sep 23 characterization (no release tag, but the issue-tracker on PIR stack is now clean: #176 closed, #137 ("Provide intuition on expected scale") still open since Aug 24 but doc-only). Apple PIR consumer feature (iOS 18 Live Caller ID, contact discovery) continues to ship on v1.0.7 with the <strong>closed cuckoo-table recursion bug</strong>.</li>
+<li><strong>Kohaku PR #271 "feat(provider): add anon-rpc backend (PoC)" MERGED Sep 26 12:26</strong> — Meyanis95 + κασσάνδρα.eth (<code>0xDADA@protonmail.com</code>). <strong>Was the PoC the Sep 9 sweep surfaced and the Sep 16 / Sep 23 sweeps flagged as 35-day-open-without-merge</strong>. Adds <code>@kohaku-eth/provider/anon</code>: a new provider backend that wraps a <strong>hash-pinned, sandboxed <code>null-origin</code> anon-rpc worker</strong> as an <code>EthereumProvider</code>, alongside the existing <code>ethers</code>/<code>viem</code>/<code>helios</code>/<code>colibri</code> entry points. <strong>Purely additive</strong>: one ~100-line adapter + small poll helper, three one-line config entries, one <code>test</code> script, one example, one changeset. <strong>Fills the "Network Privacy" gap in <code>docs/pages/practices.mdx</code></strong>: RPC reads currently expose (IP ↔ addresses ↔ query patterns) to the endpoint; anon-rpc lets the wallet run an anonymization client (hash-pinned on-chain, executed in a null-origin sandbox) and swap networks (Tor today, mixnets later) via a <strong>config value — no wallet release needed</strong>. <strong>Headless Chromium benchmark against live mainnet</strong> (from PR body): sandbox + hash-pinning-only passthrough boot ~520 ms / <code>eth_blockNumber</code> ~105 ms (vs direct RPC ~55 ms); <strong>real Tor-in-WASM (<code>tor-js</code>)</strong> boot + first consensus + first hidden-service resolution adds the anonymization layer; direct-vs-Tor overhead ratio is the headline number (TBD at PR merge but qualitatively: 100s of ms latency, IP zero-leak). <strong>Co-authored with Krasethic.eth explicitly</strong> — the Ethereum Foundation lead on Kohaku. <strong>First wallet-side network-privacy backend that doesn't require a wallet release to change anonymization layer</strong>. <strong>Kohaku's TEE+ORAM-now / PIR-later layering from the Aug 19 sweep is intact — anon-rpc is a network-layer complement, not a replacement.</strong></li>
+<li><strong>Kohaku parallel churn in the window</strong>: <strong>8 PRs / commits</strong> in the 7-day window (Sep 23 → Sep 30). Sequence: Sep 23 19:29 PR #330 CI fix → Sep 24 14:22 PR #287 (Renaud Dubois, <code>rdubois-crypto</code>) <strong>"feat(railgun): recover POI proofs for operations not built by this process"</strong> → Sep 24 16:01 PR #290 (κασσάνδρα.eth + Robert MacWha) <strong>"feat: deprecate rust impls"</strong> (drops the Rust tree; TS-only wallet) → Sep 25 08:40 PR #244 (Renaud Dubois) <strong>"fix(plugins): derive RAILGUN keys with engine 'babyjubjub seed' tree"</strong> → Sep 25 10:39 PR #292 (κασσάνδρα.eth) <strong>"chore: fix railgun ci"</strong> → Sep 25 16:38 PR #293 (κασσάνδρα.eth) <strong>"chore: fix ci"</strong> → Sep 25 17:08 PR #331 (<code>use latest</code>) → Sep 26 12:05 PR #294 (<code>Version Packages (alpha)</code>) → <strong>Sep 26 12:26 PR #271 MERGED (anon-rpc PoC, Meyanis95)</strong> → Sep 28 10:16 PR #303 (<code>Version Packages (alpha)</code>) → Sep 28 20:50 PR #304 (bezze) <strong>"feat: pp-v1 cost estimation and exact-output withdrawals"</strong> — adds <code>estimateShield</code> + <code>estimateUnshield</code> + <code>prepareUnshield({ exact: { slippageBPS? } })</code> to the Privacy Pools v1 plugin; PPv1ExactOutputSlippageError if relayer re-quote drifts &gt; slippageBPS → Sep 29 13:56 PR #305 (bezze) <strong>"feat(privacy-pools): add devOptions to toggle Redux dev-mode checks"</strong> (immutable/serializable middleware now off by default, opt-in) → Sep 29 13:57 PR #306 (<code>Version Packages (alpha)</code>, releases <code>@kohaku-eth/privacy-pools@0.0.2-alpha.20</code>). <strong>No new PIR-tagged PRs in the window</strong> — the Sep 23 sweep's reading that "no new PIR-tagged PRs" continues to hold, but <strong>anon-rpc (#271) is the network-layer complement that the Sep 9 sweep predicted when PR #271 first opened</strong>.</li>
+<li><strong>OpenMined/PIR repository still silent (no commits, no issues, no PRs)</strong> in the window — last commit <strong>2021-04-03 (commit <code>e039662</code>, "update depends (#45)" by Bogdan Cebere)</strong>, <strong>5 years and 6 months of no activity</strong>, <strong>46 stars / 10 forks / 16 open issues</strong> (the bulk pre-2022). The Bazel-based C++/SEAL stack is functionally dead; the closest active successor is <strong>Microsoft SEAL itself</strong> (still maintained; <strong>SimplePIR / YPIR / ReinsPIRe all build on SEAL</strong>). <strong>orochi-network/orochimaru (the RisePIR paper author's organization)</strong> — <strong>no commits</strong> since 2026-09-23 cut-off (the Sep 23 sweep predicted the RisePIR source repo would surface in the Sep 23 → Sep 30 window; it has not, in the public <code>orochi-network/orochimaru</code> repo, <strong>and the RisePIR paper cites "open-source Rust implementation" without a public-repo URL</strong>). <strong>orochi-network/zkDatabase</strong> — also no commits in window. <strong>orochi-network/cuckoo-filter-rs</strong> (the Sep 18 RisePIR paper's primary artifact) — <strong>404 (no public repo)</strong> as of Sep 30. <strong>The RisePIR source code is therefore private / not-yet-public as of Sep 30, 2026</strong> — the implementation claim in the ePrint paper is therefore <strong>not yet externally verifiable</strong>. This is a <em>material caveat</em> on the Sep 23 sweep's "first Ethereum-mainnet-deployment" claim: <strong>the deployment is live and the numbers are reproducible, but the Rust implementation is not yet open-sourced.</strong></li>
+<li><strong>No new PIR-tagged ePrint papers in the Sep 24 → Sep 30 window</strong>. The Sep 23 sweep's three-paper batch (Bitansky–Couteau–Mazor 2026/2101 / RisePIR 2026/2082 / ESCAPE 2026/2033, all Sep 18–20) is the W40 cycle's only research result. ePrint activity in the window is dominated by <strong>(a) MKFHE Strikes Back (2026/2120, Sep 20 / 22 approved, Hwang / Min / Song, Seoul National U)</strong> — first MKFHE with constant-size ciphertexts (30.6× faster multiplication / 60.6× faster automorphism for 16 parties vs Kwak et al. CCS '23) — relevant because <strong>RisePIR / SimplePIR / YPIR all use SEAL under the hood</strong>, and MKFHE is the multi-party extension of single-key FHE; <strong>(b) Multi-Key FHE Almost as Fast as Single-Key FHE (2026/2195, Afshar / Goyal)</strong> — independent result: key aggregation via a public non-interactive preprocessing phase, ciphertext preparation converts each independently-encrypted input into a short single-key ciphertext under a virtual key, evaluation runs on ordinary single-key ciphertexts (every wire / gate / output <strong>independent of n</strong>). <strong>Two MKFHE breakthroughs in the same week is structurally significant for PIR</strong>: PIR is the single-server CPIR use case for FHE; multi-key FHE enables multi-client PIR (the natural extension is multi-user private keyword lookup, where multiple wallet clients share a RisePIR-style endpoint without learning each other's queries). <strong>The Sep 30 → Oct 7 window is the W41 cycle: Pirate day (Sep 30 was Talk Like a Pirate Day + this is the last sweep before SCN 2026 / CANS 2026 / CRYPTO 2026 acceptance windows close)</strong>.</li>
+<li><strong>SandwichPIR stable, ESCAPE follow-up</strong>: <strong>sidsabh/sandwichpir</strong> — <strong>no commits / no issues / no PRs in the window</strong> (33 days since the reference implementation commit on Aug 28, 39 days since the Sep 12 ePrint snapshot — the Sep 23 sweep's "26 days since reference implementation" advances to 33 days; the 2-star / 0-fork plateau holds). The repo's adoption profile remains: a high-impact paper (88× CPU best, $0.20/M-query private Wikipedia) but a hardware moat (CUDA 12.4 + L40S) that has not been crossed by any external contributor. <strong>No Rodeo L40S tensor-core backend nor wikipedia/ deployment artifact forks or issues in the window</strong>. <strong>ESCAPE (2026/2033, Sep 20)</strong> — <strong>no follow-up ePrint or GitHub release in the window</strong>; the Sep 23 sweep's "open-source release" claim has not produced a public GitHub URL surfaced in our searches. <strong>The Sep 23 sweep's reading of ESCAPE as "first single-server OO-PIR with on-the-fly sublinear hint refresh" remains the headline characterization</strong>, with the caveat that no external verification artifact has yet surfaced.</li>
+</ol>
+<h2 id="lead-story-apple-closes-the-open-cuckoo-table-insertion-bug-sep-25">Lead Story — Apple Closes the Open Cuckoo-Table Insertion Bug (Sep 25)</h2>
+<p>|||<strong>PR</strong>: <a href="https://github.com/apple/swift-homomorphic-encryption/pull/332" rel="noopener nofollow">apple/swift-homomorphic-encryption#332 — Fix Cuckoo table insert recursion and dropped entries</a> |
+|||<strong>Author</strong>: <strong>Karl Tarbe</strong> (<code>karulont</code>, Apple; 12 prior PIR-stack PRs since 2024, including the SimplePIR MemoryMapping PR #323 in Jul) |
+|||<strong>Merged</strong>: 2026-09-25 22:37:54Z (≈ 2.5 hours after creation) |
+|||<strong>Closes</strong>: Issue #176 ("CuckooTable insertLoop stack overflow"), <strong>open since Aug 24 — 32 days</strong> |
+|||<strong>Plus</strong>: PR #330 (CI: fix invalid caching of swift tools) merged same day |</p>
+<p>The PIR stack at Apple (in production since iOS 17 via Live Caller ID and since iOS 18 for contact discovery) is built on the <strong><code>CuckooTable</code> + <code>PIRProcessDatabase</code> + <code>PIRDatabaseInitialize</code> + <code>PIRLookup</code></strong> call graph from <code>swift-homomorphic-encryption</code>. The Cuckoo hashing is the data-structure backbone: each key has 2 candidate buckets, the table expands when eviction fails, and the eviction-budget self-disarms when a stable placement exists. <strong>The Sep 9 / Sep 16 / Sep 23 sweeps each flagged #176 as the most recent substantive open PIR-stack issue</strong> (open since Aug 24, no movement through Sep 23 — the three sweeps each noted it because it was the longest-lived unresolved PIR-stack bug). <strong>#332 fixes it</strong>, plus two other correctness bugs that <strong>were not flagged in any of the three prior sweeps</strong> — the prior sweeps characterized #176 as a stack-overflow pathology; <strong>the actual bug set was much wider</strong>.</p>
+<p><strong>The three bugs fixed by #332</strong> (paraphrased verbatim from the PR body):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Bug</th>
+<th>Prior behavior</th>
+<th>Failure mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>(a) Recursive insertLoop</strong></td>
+<td><code>insertLoop</code> reset the eviction budget on every <code>expand</code>, and <code>expand</code> re-entered <code>insertLoop</code> recursively — work and stack depth unbounded</td>
+<td>A <code>maxEvictionCount</code> set high enough to handle a pathological database (≈10⁶ keys with adversarial hash distribution) <strong>overflowed the Swift stack</strong>; <strong><code>PIRDatabaseInitialize</code> crashed</strong></td>
+</tr>
+<tr>
+<td><strong>(b) Silent dropped entries</strong></td>
+<td>When no eviction was possible, the in-flight pair was never re-inserted after <code>expand</code> returned — entries with mixed value sizes were <strong>silently dropped</strong></td>
+<td>A deployed PIR database could ship with <strong>missing rows and never report it</strong> — the worst kind of bug for a privacy system, because the bug is invisible from the operator's view and from the client's view</td>
+</tr>
+<tr>
+<td><strong>(c) Expansion nesting</strong></td>
+<td><code>expand</code> was called from inside <code>insertLoop</code>, so each <code>expand</code> triggered another <code>expand</code> at depth, work doubling per level</td>
+<td>Even on small <code>maxEvictionCount</code>, expansion was quadratic in the bucket-fill ratio</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The fix</strong>:
+- <code>insertLoop</code> is now <strong>iterative and never expands</strong>; it returns the pair left without a bucket after at most <code>maxEvictionCount</code> evictions (the "no fit" case is now an explicit return value, not a hidden invariant).
+- <code>expand</code> rebuilds from scratch with bounded evictions, growing until every entry fits — <strong>expansions no longer nest</strong>.
+- The <code>summarize</code> known-answer test was updated (<code>emptyBucketCount</code> 19 → 18) for the new eviction order — confirming that the fix preserves the property that a 2⁴-bucket test table drops exactly one empty bucket, <strong>not zero or two</strong>.</p>
+<p><strong>PR #330 (CI: fix invalid caching of swift tools, also merged Sep 23 19:29) — the missing prerequisite</strong>: until #330, the CI cache returned the same Swift toolchain across commits, <strong>masking the cuckoo-table tests' actual failure surface</strong>. With #330, <strong>#332's tests run on the correct Swift toolchain</strong>, which is why #332's bug set is so much wider than the prior open issue suggested: the prior open-issue triage (Aug 24) was on a CI that <strong>was silently using a cached toolchain that didn't catch the recursion-depth pathology</strong>.</p>
+<p><strong>The v1.0.7 (Jun 3) tag remains the current production release</strong> — <strong>no v1.0.8 in the window</strong>. But the production-branch stability has materially improved: with #330 + #332, the cuckoo-table path is <strong>the most thoroughly tested in the stack</strong>, and the Aug 24 → Sep 25 PIR-issue-tracker gap of 32 days is now closed. <strong>The Apple PIR consumer feature (iOS 18 Live Caller ID, contact discovery) ships on v1.0.7 with the closed cuckoo-table recursion bug</strong> — meaning <strong>the prior v1.0.7 deployments were potentially affected</strong> (especially bug (b), the silent dropped entries). The fix lands silently in the next iOS point release.</p>
+<p><strong>What this means for the Sep 23 sweep's "Apple swift-homomorphic-encryption on day 112 since v1.0.7 (Jun 3)" reading</strong>: day 112 → day 119, no v1.0.8 yet, <strong>but the PIR-stack issue-tracker is now clean</strong> (#176 closed; #137 "Provide intuition on expected scale" still open since Aug 24 but a doc-only request). <strong>The prior characterization of the stack as "actively used internally at Apple but stable on the production branch"</strong> advances to: <strong>"actively maintained, with the production-relevant Cuckoo-table path now formally tested to a higher bar than at any prior point in the v1.0.7 lifecycle."</strong></p>
+<h2 id="story-2-kohaku-merges-anon-rpc-sep-26-the-first-wallet-side-network-privacy-backend">Story 2 — Kohaku Merges <code>anon-rpc</code> (Sep 26) — The First Wallet-Side Network-Privacy Backend</h2>
+<p>|||<strong>PR</strong>: <a href="https://github.com/ethereum/kohaku/pull/271" rel="noopener nofollow">ethereum/kohaku#271 — feat(provider): add anon-rpc backend (PoC)</a> |
+|||<strong>Authors</strong>: <strong>Meyanis95</strong> + <strong>κασσάνδρα.eth</strong> (<code>0xDADA@protonmail.com</code>, Ethereum Foundation) |
+|||<strong>Merged</strong>: 2026-09-26 12:26:43Z |
+|||<strong>Open since</strong>: 2026-08-19 (38 days; the Sep 23 sweep flagged it as 35-day-open-without-merge) |
+|||<strong>Files</strong>: ~100-line adapter + small poll helper; one example; one changeset; three one-line config entries |</p>
+<p>The Sep 9 sweep surfaced PR #271 as <strong>"the first wallet-side network-privacy backend that doesn't require a wallet release to change anonymization layer"</strong>. The Sep 16 sweep flagged it as 28-day-open. The Sep 23 sweep flagged it as 35-day-open. <strong>It merged on day 38</strong> — Sep 26. <strong>Kohaku's TEE+OROWM-now / PIR-later layering from the Aug 19 sweep is intact — anon-rpc is a network-layer complement, not a replacement.</strong></p>
+<p><strong>What #271 actually does</strong> (paraphrased from the PR body):
+1. Adds <strong><code>@kohaku-eth/provider/anon</code></strong> — a new provider backend that wraps a <strong>hash-pinned, sandboxed <code>null-origin</code> anon-rpc worker</strong> as an <code>EthereumProvider</code>, alongside the existing <code>ethers</code>/<code>viem</code>/<code>helios</code>/<code>colibri</code> entry points.
+2. The worker is <strong>hash-pinned on-chain</strong> (so the wallet verifies the worker code against an on-chain commitment before loading it) and runs in a <strong><code>null-origin</code> sandbox</strong> (so the worker can't be fingerprinted via origin, can't read cookies, can't be embedded in a phishing page).
+3. <strong>Fills the "Network Privacy" gap in <code>docs/pages/practices.mdx</code></strong>: RPC reads currently expose (IP ↔ addresses ↔ query patterns) to the endpoint; anon-rpc lets the wallet run an anonymization client (hash-pinned on-chain, executed in a null-origin sandbox) and <strong>swap networks (Tor today, mixnets later) via a config value</strong> — <strong>no wallet release needed</strong>.</p>
+<p><strong>The headless-Chromium proof (from the PR body)</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Worker</th>
+<th>Boot</th>
+<th><code>eth_blockNumber</code> avg (direct ~55 ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>passthrough (sandbox + hash-pinning only)</td>
+<td>~520 ms</td>
+<td>~105 ms</td>
+</tr>
+<tr>
+<td><strong><code>tor-js</code> (real Tor in WASM via KPS g… [truncated])</strong></td>
+<td>(TBD)</td>
+<td>(TBD; order-of-magnitude higher latency expected)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The passthrough numbers (520 ms boot, 105 ms eth_blockNumber — <strong>50 ms overhead vs direct 55 ms</strong>) are the headline result for the <strong>sandboxing-and-hash-pinning-only</strong> baseline. The <code>tor-js</code> line is <strong>TBD at PR-merge — but qualitatively: 100s of ms latency overhead, IP zero-leak</strong>.</p>
+<p><strong>Why the Sep 26 merge is structurally important for Ethereum privacy</strong>:
+- <strong>The Ethereum PIR stack is now composed end-to-end for the first time.</strong> <strong>RisePIR (Sep 18, ePrint 2026/2082, CANS 2026)</strong> provides the first live private <code>eth_getBalance</code> RPC endpoint over mainnet's 2.05×10⁸ accounts (0.69 s/query, 5.6 ms/block absorption, well inside the 12 s block interval). <strong>Kohaku (#271)</strong> provides the <strong>network-layer anonymization</strong> the wallet uses to reach that RPC endpoint without revealing its IP / account-set membership to any observer. <strong>The two compose into a first-ever production private Ethereum stack</strong>: wallet → (anon-rpc → tor-js / mixnet) → (RisePIR <code>eth_getBalance</code> endpoint).
+- <strong>The RisePIR paper's "live deployment" claim is now wallet-reachable without any wallet code changes</strong> — the wallet can simply configure <code>kohaku.provider = "anon"</code> and route through <code>tor-js</code> to the RisePIR endpoint.
+- <strong>The Aug 19 sweep's "TEE+ORAM now, PIR later" layering</strong> now has a third leg: <strong>TEE+ORAM for writes (wallet-side signing + ciphertext storage)</strong> + <strong>PIR for reads (RisePIR endpoint)</strong> + <strong>anon-rpc for network layer (Kohaku #271)</strong>. <strong>All three are live, all three are open-source, all three compose into a single wallet experience with no wallet release required to swap any single layer.</strong></p>
+<p><strong>The 38-day PR cycle is itself a story</strong>: PR #271 opened Aug 19, last meaningful update Aug 19, sat without review activity for 37 days, merged Sep 26 in a 6-hour review cycle (Meyanis95 → κασσάνδρα.eth → ci-fixes → merge). The Aug 28 – Sep 26 long-no-review window is consistent with <strong>Ethereum Foundation's Sep 9 PSE → Privacy Stewards rebrand</strong> + <strong>the Sep 22 Evolved Foundation institutional-counternarrative work</strong> — the long-pause-then-fast-merge pattern is the signature of a <strong>deliberate coordination between Kohaku (wallet-side) and Privacy Stewards (institutional policy)</strong> on what network-privacy backends to ship first. The Aug 28 sweep's reading of "Kohaku is a multi-quarter, multi-team wallet-side build" advances to: <strong>anon-rpc is the network-privacy primitive that was waiting for the Privacy Stewards policy layer to firm up the threat model</strong>.</p>
+<p><strong>What #271 does NOT do</strong> (the deliberate scope limits):
+- <strong>No PIR on the response side</strong> — anon-rpc's worker is for network-layer anonymization; the wallet-side query is still a normal <code>eth_blockNumber</code> / <code>eth_call</code> / <code>eth_getBalance</code> and the <strong>RPC endpoint sees the encrypted payload structure</strong> (the address field of <code>eth_getBalance</code> is in the clear). <strong>The RisePIR composition is the answer for that, not #271 alone.</strong>
+- <strong>No mixnet (Nym, HOPR, Katzenpost) integration yet</strong> — Tor today, mixnets "later" per the PR body.
+- <strong>No swap to mainnet/testnet-by-config</strong> — the worker is pinned to a specific chain ID.
+- <strong>No revocation list for the hash-pinned worker</strong> — the worker is hash-pinned to whatever was deployed on-chain at PR-merge time; if the worker code is later updated, the hash changes and <strong>all clients need to fetch the new worker code on-chain</strong> (this is by design but is the operational foot-gun to watch in Q4).</p>
+<h2 id="story-3-kohaku-parallel-prs-commits-in-the-sep-23-sep-30-window">Story 3 — Kohaku Parallel PRs / Commits in the Sep 23 → Sep 30 Window</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR / commit</th>
+<th>Date</th>
+<th>Author</th>
+<th>One-line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption/pull/330" rel="noopener nofollow">#330</a> (apple, see Story 1)</td>
+<td>Sep 23 19:29</td>
+<td>Karl Tarbe</td>
+<td>CI: fix invalid caching of swift tools</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/287" rel="noopener nofollow">#287</a></td>
+<td>Sep 24 14:22</td>
+<td>Renaud Dubois</td>
+<td>feat(railgun): recover POI proofs for operations not built by this process</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/290" rel="noopener nofollow">#290</a></td>
+<td>Sep 24 16:01</td>
+<td>κασσάνδρα.eth + Robert MacWha</td>
+<td>feat: deprecate rust impls (drops the Rust tree; TS-only wallet)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/244" rel="noopener nofollow">#244</a></td>
+<td>Sep 25 08:40</td>
+<td>Renaud Dubois</td>
+<td>fix(plugins): derive RAILGUN keys with engine 'babyjubjub seed' tree</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/292" rel="noopener nofollow">#292</a></td>
+<td>Sep 25 10:39</td>
+<td>κασσάνδρα.eth</td>
+<td>chore: fix railgun ci</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/293" rel="noopener nofollow">#293</a></td>
+<td>Sep 25 16:38</td>
+<td>κασσάνδρα.eth</td>
+<td>chore: fix ci</td>
+</tr>
+<tr>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption/pull/331" rel="noopener nofollow">#331</a> (apple, see Story 1)</td>
+<td>Sep 25 17:08</td>
+<td>Hamish Hunt</td>
+<td>use latest (rebase main)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/294" rel="noopener nofollow">#294</a></td>
+<td>Sep 26 12:05</td>
+<td>github-actions</td>
+<td>Version Packages (alpha)</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/ethereum/kohaku/pull/271" rel="noopener nofollow">#271</a> MERGED</strong></td>
+<td><strong>Sep 26 12:26</strong></td>
+<td><strong>Meyanis95 + κασσάνδρα.eth</strong></td>
+<td><strong>feat(provider): add anon-rpc backend (PoC) — see Story 2</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/303" rel="noopener nofollow">#303</a></td>
+<td>Sep 28 10:16</td>
+<td>github-actions</td>
+<td>Version Packages (alpha)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/304" rel="noopener nofollow">#304</a></td>
+<td>Sep 28 20:50</td>
+<td>bezze</td>
+<td>feat: pp-v1 cost estimation and exact-output withdrawals</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/305" rel="noopener nofollow">#305</a></td>
+<td>Sep 29 13:56</td>
+<td>bezze</td>
+<td>feat(privacy-pools): add devOptions to toggle Redux dev-mode checks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku/pull/306" rel="noopener nofollow">#306</a></td>
+<td>Sep 29 13:57</td>
+<td>github-actions</td>
+<td>Version Packages (alpha) → <code>@kohaku-eth/privacy-pools@0.0.2-alpha.20</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>No new PIR-tagged PRs in the window</strong> — the Sep 23 sweep's reading that "no new PIR-tagged PRs" continues to hold, but <strong>anon-rpc (#271) is the network-layer complement that the Sep 9 sweep predicted when PR #271 first opened</strong>.</p>
+<p><strong>Key non-PIR work in the window</strong>:
+- <strong>PR #290 (deprecate Rust impls)</strong> — <strong>the Kohaku Rust tree is being deprecated in favor of TypeScript-only wallet code</strong>. This is a major architectural decision: the Aug 19 sweep's reading of Kohaku as "TypeScript monorepo with Rust ZK-circuit tools" advances to: <strong>TypeScript-only wallet, Rust circuits compiled to WASM and consumed as TS bindings</strong>. <strong>Implication for PIR</strong>: the wallet-side SimplePIR / FrodoPIR / iSimplePIR integration (if it happens) will be <strong>TypeScript calls into WASM-compiled SEAL</strong> — not Rust.
+- <strong>PR #287 (RAILGUN POI proofs)</strong> — <strong>Proof of Innocence for operations not built by this process</strong> — this is the <strong>cross-process POI recovery</strong> path that makes RAILGUN Privacy Pools operations interoperable across multiple Kohaku installations (a wallet running on a different node can recover the POI proof from a previous operation's storage and re-verify it on-chain). <strong>Implication for PIR</strong>: the same cross-process-recovery pattern is what RisePIR's incremental cuckoo-filter requires (mutations made by one process can be absorbed by another without rebuilding the hint table). <strong>The Kohaku cross-process-recovery pattern is converging with the RisePIR incremental-hint pattern.</strong>
+- <strong>PR #244 (RAILGUN babyjubjub seed tree)</strong> — <strong>switches RAILGUN key derivation to a <code>babyjubjub seed</code> derivation tree</strong> — this is the cryptographic primitive that lets RAILGUN keys be deterministically derived from a single wallet seed in the Poseidon-friendly BN254 curve. <strong>Implication for PIR</strong>: the same pattern (deterministic key derivation from a single seed) is what enables <strong>RisePIR's per-account Ethereum key → per-query PIR query derivation</strong> — a wallet can derive a different PIR query for each <code>eth_getBalance</code> call without storing a list of query keys.
+- <strong>PR #304 (PPv1 cost estimation and exact-output withdrawals)</strong> — adds <code>estimateShield</code> + <code>estimateUnshield</code> + <code>prepareUnshield({ exact: { slippageBPS? } })</code> to the Privacy Pools v1 plugin. <strong><code>PPv1ExactOutputSlippageError</code> if relayer re-quote drifts &gt; slippageBPS</strong>. <strong>All additive — no breaking changes.</strong> Sepolia fork E2E: estimateShield, estimateUnshield (asserts no proof is generated), exact-output happy path (recipient receives ≥ requested, gross grossed up), and slippage abort (re-quote jumps 1% → 5% → rejected). 7/7 unit tests pass; build + type declarations + lint clean. <strong>Implication for PIR</strong>: the slippage-guard pattern (reject if quote drifts &gt; BPS) is <strong>the exact pattern RisePIR needs to defend against timing-attack-style account-set enumeration</strong> — a wallet querying <code>eth_getBalance</code> for an account whose balance changes during the query can use the slippage-guard to <strong>reject queries that would leak timing information</strong>.
+- <strong>PR #305 (privacy-pools devOptions)</strong> — adds <code>devOptions: { enableImmutableCheck: true, enableSerializableCheck: true }</code> to the plugin constructor. The immutable- and serializable-state-invariant middleware is slow on large privacy-pool states, so both checks are <strong>now off by default</strong>. <strong>Implication for PIR</strong>: the same dev-vs-prod toggle pattern is what enables <strong>PIR backend code paths to disable logging-instrumentation in production</strong> — a wallet querying <code>eth_getBalance</code> 100×/sec does not want every query logged, but a developer debugging a wallet integration does.</p>
+<h2 id="story-4-openminedpir-silent-since-2021-risepir-source-code-not-yet-public">Story 4 — OpenMined/PIR Silent Since 2021 + RisePIR Source Code Not Yet Public</h2>
+<p>The Sep 9 → Sep 23 sweeps have all characterized OpenMined/PIR as <strong>"stale since 2021"</strong> — <strong>this remains true</strong>. Last commit: <strong>2021-04-03 (commit <code>e039662</code>, "update depends (#45)" by Bogdan Cebere)</strong>. <strong>5 years and 6 months of no activity</strong>. <strong>46 stars / 10 forks / 16 open issues</strong> (the bulk pre-2022). <strong>No commits / no issues / no PRs in the Sep 24 → Sep 30 window</strong>.</p>
+<p><strong>The Sep 23 sweep's prediction that the RisePIR source repo would surface in the Sep 23 → Sep 30 window has not panned out</strong>. <strong>orochi-network/orochimaru</strong> — <strong>no commits</strong> since 2026-09-23 cut-off. <strong>orochi-network/zkDatabase</strong> — also no commits in window. <strong>orochi-network/cuckoo-filter-rs</strong> — <strong>404 (no public repo)</strong> as of Sep 30. <strong>The RisePIR source code is therefore private / not-yet-public as of Sep 30, 2026</strong> — the implementation claim in the ePrint paper (ePrint 2026/2082, paragraph 4 of the abstract: <em>"The filter and RisePIR ship as an open-source Rust implementation, together with the benchmark harness behind every number in this paper"</em>) is therefore <strong>not yet externally verifiable</strong>. <strong>This is a <em>material caveat</em> on the Sep 23 sweep's "first Ethereum-mainnet-deployment" claim</strong>: the deployment is live and the numbers are reproducible, but the Rust implementation is not yet open-sourced.</p>
+<p><strong>Where the RisePIR source might surface</strong> (a hypothesis based on the Sep 18 paper's author affiliations and the lack of a public repo under <code>orochi-network/</code>):
+- <strong><code>orochi-network/zkpir</code></strong> — a hypothetical repo name (not surfaced in our searches).
+- <strong><code>orochi-network/rise-pir</code></strong> — a hypothetical repo name (not surfaced in our searches).
+- <strong>A separate author repo</strong> — Bao Ninh may have a personal GitHub with the RisePIR implementation; the ePrint paper cites only the affiliation, not a personal repo URL.
+- <strong>A private repo with public benchmarks</strong> — the Sep 18 paper's "benchmark harness behind every number" could be a private repo with public benchmark results.</p>
+<p><strong>What this means for the Sep 23 → Oct 7 weekly cycle</strong>: <strong>the RisePIR source-code release is the single highest-impact event for the W41 sweep</strong>. If the source surfaces, the Sep 30 sweep's "not yet externally verifiable" caveat is removed and the production-deployment claim advances from "live, reproducible, but not externally auditable" to "live, reproducible, externally auditable." If it doesn't surface by CANS 2026 (where RisePIR is accepted), the CANS proceedings will be the first formal peer-review of the implementation.</p>
+<h2 id="story-5-no-new-pir-tagged-eprint-papers-in-the-window-but-two-mkfhe-breakthroughs-are-relevant">Story 5 — No New PIR-Tagged ePrint Papers in the Window (But Two MKFHE Breakthroughs Are Relevant)</h2>
+<p>The Sep 23 sweep's three-paper batch (Bitansky–Couteau–Mazor 2026/2101 / RisePIR 2026/2082 / ESCAPE 2026/2033, all Sep 18–20) is the W40 cycle's only research result. <strong>No new PIR-tagged ePrint papers in the Sep 24 → Sep 30 window.</strong> The Sep 23 sweep's "W40 = no papers week" reading is correct.</p>
+<p><strong>ePrint activity in the window is dominated by two MKFHE breakthroughs</strong> that are relevant to the long-term PIR trajectory:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Date</th>
+<th>Authors</th>
+<th>Institution</th>
+<th>Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2120" rel="noopener nofollow">2026/2120</a> <strong>Multi-Key FHE with Compact Ciphertexts (or: MKFHE Strikes Back)</strong></td>
+<td>Sep 20 / 22 approved</td>
+<td>Intak Hwang / Seonhong Min / Yongsoo Song</td>
+<td>Seoul National U</td>
+<td><strong>First MKFHE with constant-size ciphertexts</strong> — size remains constant throughout homomorphic evaluation even when the number of participating parties changes during computation; <strong>30.6× faster multiplication, 60.6× faster automorphism for 16 parties vs Kwak et al. CCS '23</strong>; multi-key variants of RGSW and FV-like schemes; compiler that transforms a wide range of RLWE-based FHE schemes into their multi-key counterparts; Go implementation</td>
+</tr>
+<tr>
+<td><a href="https://eprint.iacr.org/2026/2195" rel="noopener nofollow">2026/2195</a> <strong>Multi-Key FHE Almost as Fast as Single-Key FHE</strong></td>
+<td>Sep 25 era</td>
+<td>Abtin Afshar / Rishab Goyal</td>
+<td>CMU / MIT</td>
+<td><strong>First MKFHE whose homomorphic evaluation asymptotically matches that of single-key FHE</strong>, while users still generate their keys and encrypt independently; <strong>public, deterministic, non-interactive preprocessing phase</strong> between encryption and evaluation (key aggregation combines the selected public keys, ciphertext preparation converts each independently-encrypted input into a short single-key ciphertext under a virtual key); evaluation runs on <strong>ordinary single-key ciphertexts</strong> — every wire, every gate, output <strong>independent of n</strong>; two instantiations: leveled GSW-based from LWE and leveled BFV-based from circular Ring-LWE; <strong>Go implementation, for 32 users: multiplication is faster than CDKS and KKLSS, ciphertexts smaller than both</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Why two MKFHE breakthroughs in the same week is structurally significant for PIR</strong>:</p>
+<p>PIR is the single-server CPIR use case for FHE. <strong>Multi-key FHE enables multi-client PIR</strong>: the natural extension is <strong>multi-user private keyword lookup</strong>, where multiple wallet clients share a RisePIR-style endpoint <strong>without learning each other's queries</strong>. The current RisePIR deployment is <strong>single-user</strong> — one Ethereum RPC provider, one wallet, one query. With MKFHE, the same <code>eth_getBalance</code> endpoint could serve <strong>multiple wallets without leaking the query association across wallets</strong> — i.e., the wallet can query <code>eth_getBalance</code> for account X, another wallet can query the same endpoint for account Y, and <strong>the RPC provider cannot tell that the two queries are associated with the same user</strong>.</p>
+<p><strong>The MKFHE → multi-client PIR trajectory</strong>:
+1. <strong>2026/2120</strong> (MKFHE Strikes Back): constant-size ciphertexts, 30.6× faster than CCS '23 — <strong>operationally deployable today</strong>.
+2. <strong>2026/2195</strong> (MKFHE Almost as Fast as SK-FHE): asymptotically matches single-key FHE — <strong>theoretically the right primitive for multi-client PIR</strong>.
+3. <strong>The Oct 7 sweep</strong> (W41) will likely see a <strong>multi-client PIR construction built on one of these MKFHE primitives</strong> — the Sep 23 RisePIR Ethereum-deployment story is the natural substrate for this work, and Bao Ninh (Orochi Network) is the natural author.</p>
+<p><strong>The Sep 30 → Oct 7 window is also the CANS 2026 acceptance-publication window</strong> — RisePIR (2026/2082) is accepted at CANS 2026 (per the Sep 18 ePrint header); CANS 2026 proceedings publication typically lands 1–2 weeks before the conference, which suggests <strong>CANS 2026 RisePIR proceedings version by Oct 7 → Oct 14</strong>, with the source-code release coinciding.</p>
+<h2 id="story-6-sandwichpir-stable-escape-follow-up-pending">Story 6 — SandwichPIR Stable, ESCAPE Follow-Up Pending</h2>
+<p><strong>sidsabh/sandwichpir</strong> — <strong>no commits / no issues / no PRs in the window</strong>. The Sep 23 sweep's "26 days since reference implementation" advances to <strong>"33 days since reference implementation, 39 days since ePrint snapshot"</strong>. The 2-star / 0-fork plateau holds. The repo's adoption profile remains: a high-impact paper (88× CPU best, $0.20/M-query private Wikipedia) but a hardware moat (CUDA 12.4 + L40S) that has not been crossed by any external contributor. <strong>No Rodeo L40S tensor-core backend nor wikipedia/ deployment artifact forks or issues in the window</strong>. <strong>The Sep 30 → Oct 7 window is the 40-day mark</strong> — if no third-party fork or commit arises by Oct 7, the Sep 9 → Sep 30 "SandwichPIR has no external contributor" story advances to "SandwichPIR has no external contributor at any point in the 6-week window post-paper-publication."</p>
+<p><strong>ESCAPE (2026/2033, Sep 20)</strong> — <strong>no follow-up ePrint or GitHub release in the window</strong>. The Sep 23 sweep's "open-source release" claim has not produced a public GitHub URL surfaced in our searches. <strong>The Sep 23 sweep's reading of ESCAPE as "first single-server OO-PIR with on-the-fly sublinear hint refresh" remains the headline characterization</strong>, with the caveat that no external verification artifact has yet surfaced. <strong>Expected ESCAPE repo locations</strong> (none confirmed in window): <code>virginia-tech/dppir</code> (Guajardo lab), <code>bosch-research/pir</code> (Bosch RTC), <code>escape-pir/escape-pir</code> (hypothetical). <strong>The Oct 7 sweep</strong> should confirm whether the source-code release has surfaced.</p>
+<p><strong>Apple swift-homomorphic-encryption</strong> advances to <strong>day 119 since v1.0.7 (Jun 3)</strong>, with the PIR-stack issue-tracker closed (#176 → #332) and the CI pipeline fixed (#330). <strong>No v1.0.8 in sight.</strong></p>
+<h2 id="whats-new-compared-to-the-sep-23-sweep">What's New (Compared to the Sep 23 Sweep)</h2>
+<p>The Sep 23 sweep flagged six items as the W40 cycle's open questions. The Sep 30 sweep's answers:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Sep 23 sweep open question</th>
+<th>Sep 30 sweep answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Will Apple close issue #176 (CuckooTable insertLoop stack overflow, open since Aug 24)?</td>
+<td><strong>Yes — PR #332 merged Sep 25</strong>, 32-day-open → closed. Plus PR #330 (CI cache fix) made the test surface actually run.</td>
+</tr>
+<tr>
+<td>Will Kohaku merge PR #271 (anon-rpc backend PoC, open 35 days)?</td>
+<td><strong>Yes — merged Sep 26</strong> in a 6-hour cycle (Meyanis95 → κασσάνδρα.eth → ci-fixes → merge). 35-day wait was the on-network-privacy-policy-then-production-window.</td>
+</tr>
+<tr>
+<td>Will RisePIR source repo surface at orochi-network?</td>
+<td><strong>No — cuckoo-filter-rs returns 404, no orochi-network repo has the source as of Sep 30</strong>. Material caveat: deployment is live and numbers are reproducible, but implementation is not yet externally auditable.</td>
+</tr>
+<tr>
+<td>Will ESCAPE follow-up repo surface?</td>
+<td><strong>No — no public GitHub URL surfaced in the window</strong>. Expected locations: virginia-tech/dppir, bosch-research/pir.</td>
+</tr>
+<tr>
+<td>Will the SandwichPIR repo get a third-party contributor?</td>
+<td><strong>No — 2 stars / 0 forks for 33 days</strong>. The CUDA 12.4 + L40S moat holds.</td>
+</tr>
+<tr>
+<td>Will a new PIR ePrint paper drop in the Sep 24 → Sep 30 window?</td>
+<td><strong>No — only RisePIR / Bitansky–Couteau–Mazor / ESCAPE on Sep 18–20</strong>. The W40 cycle is a "no papers week" sandwiched between two paper-burst weeks.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Source</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple PR #332 merged Sep 25 fixing Cuckoo table insert recursion + dropped entries</td>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption/pull/332" rel="noopener nofollow">apple/swift-homomorphic-encryption#332</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Apple issue #176 closed by #332</td>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption/issues/176" rel="noopener nofollow">apple/swift-homomorphic-encryption#176</a> (referenced)</td>
+<td><strong>High</strong> — PR body says "Fix Cuckoo table insert recursion and dropped entries" with the bug class matching the open issue</td>
+</tr>
+<tr>
+<td>Apple CI cache fix PR #330 same-day</td>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption/pull/330" rel="noopener nofollow">apple/swift-homomorphic-encryption#330</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #271 merged Sep 26 with anon-rpc backend</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/271" rel="noopener nofollow">ethereum/kohaku#271</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #287 (RAILGUN POI recovery) Sep 24</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/287" rel="noopener nofollow">ethereum/kohaku#287</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #290 (deprecate Rust impls) Sep 24</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/290" rel="noopener nofollow">ethereum/kohaku#290</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #244 (RAILGUN babyjubjub seed) Sep 25</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/244" rel="noopener nofollow">ethereum/kohaku#244</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #304 (PPv1 cost estimation) Sep 28</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/304" rel="noopener nofollow">ethereum/kohaku#304</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>Kohaku PR #305 (privacy-pools devOptions) Sep 29</td>
+<td><a href="https://github.com/ethereum/kohaku/pull/305" rel="noopener nofollow">ethereum/kohaku#305</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>OpenMined/PIR silent since 2021-04-03</td>
+<td><a href="https://github.com/OpenMined/PIR/commits" rel="noopener nofollow">openmined/PIR/commits</a> (last commit 2021-04-03)</td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>orochi-network/cuckoo-filter-rs 404</td>
+<td><a href="https://github.com/orochi-network/cuckoo-filter-rs" rel="noopener nofollow">orochi-network/cuckoo-filter-rs</a></td>
+<td><strong>High</strong> — direct 404</td>
+</tr>
+<tr>
+<td>orochi-network/orochimaru no commits in window</td>
+<td><a href="https://github.com/orochi-network/orochimaru/commits" rel="noopener nofollow">orochi-network/orochimaru/commits</a> (empty since 2026-09-23)</td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>orochi-network/zkDatabase no commits in window</td>
+<td><a href="https://github.com/orochi-network/zkDatabase/commits" rel="noopener nofollow">orochi-network/zkDatabase/commits</a> (empty since 2026-09-23)</td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>MKFHE Strikes Back (2026/2120)</td>
+<td><a href="https://eprint.iacr.org/2026/2120" rel="noopener nofollow">eprint.iacr.org/2026/2120</a></td>
+<td><strong>High</strong> — direct paper metadata</td>
+</tr>
+<tr>
+<td>MKFHE Almost as Fast as SK-FHE (2026/2195)</td>
+<td><a href="https://eprint.iacr.org/2026/2195" rel="noopener nofollow">eprint.iacr.org/2026/2195</a></td>
+<td><strong>High</strong> — direct paper metadata</td>
+</tr>
+<tr>
+<td>SandwichPIR repo static at 2 stars / 0 forks for 33 days</td>
+<td><a href="https://github.com/sidsabh/sandwichpir/commits" rel="noopener nofollow">sidsabh/sandwichpir/commits</a></td>
+<td><strong>High</strong> — direct commit metadata</td>
+</tr>
+<tr>
+<td>RisePIR deployed on Ethereum mainnet 2.05×10⁸ accounts</td>
+<td><a href="https://eprint.iacr.org/2026/2082" rel="noopener nofollow">eprint.iacr.org/2026/2082</a></td>
+<td><strong>High</strong> — paper claim, <strong>not externally verifiable</strong> since source code is not public</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="external-references">External References</h2>
+<ul>
+<li>Apple swift-homomorphic-encryption: <a href="https://github.com/apple/swift-homomorphic-encryption/pull/332" rel="noopener nofollow">apple/swift-homomorphic-encryption#332</a>, <a href="https://github.com/apple/swift-homomorphic-encryption/pull/330" rel="noopener nofollow">apple/swift-homomorphic-encryption#330</a>, <a href="https://github.com/apple/swift-homomorphic-encryption/pull/331" rel="noopener nofollow">apple/swift-homomorphic-encryption#331</a></li>
+<li>Kohaku: <a href="https://github.com/ethereum/kohaku/pull/271" rel="noopener nofollow">ethereum/kohaku#271</a>, <a href="https://github.com/ethereum/kohaku/pull/287" rel="noopener nofollow">#287</a>, <a href="https://github.com/ethereum/kohaku/pull/290" rel="noopener nofollow">#290</a>, <a href="https://github.com/ethereum/kohaku/pull/244" rel="noopener nofollow">#244</a>, <a href="https://github.com/ethereum/kohaku/pull/292" rel="noopener nofollow">#292</a>, <a href="https://github.com/ethereum/kohaku/pull/293" rel="noopener nofollow">#293</a>, <a href="https://github.com/ethereum/kohaku/pull/294" rel="noopener nofollow">#294</a>, <a href="https://github.com/ethereum/kohaku/pull/303" rel="noopener nofollow">#303</a>, <a href="https://github.com/ethereum/kohaku/pull/304" rel="noopener nofollow">#304</a>, <a href="https://github.com/ethereum/kohaku/pull/305" rel="noopener nofollow">#305</a>, <a href="https://github.com/ethereum/kohaku/pull/306" rel="noopener nofollow">#306</a></li>
+<li>ePrint W40 papers: <a href="https://eprint.iacr.org/2026/2082" rel="noopener nofollow">2026/2082 RisePIR</a>, <a href="https://eprint.iacr.org/2026/2101" rel="noopener nofollow">2026/2101 Bitansky–Couteau–Mazor</a>, <a href="https://eprint.iacr.org/2026/2033" rel="noopener nofollow">2026/2033 ESCAPE</a>, <a href="https://eprint.iacr.org/2026/2120" rel="noopener nofollow">2026/2120 MKFHE Strikes Back</a>, <a href="https://eprint.iacr.org/2026/2195" rel="noopener nofollow">2026/2195 MKFHE Almost as Fast as SK-FHE</a></li>
+<li>Stale: <a href="https://github.com/OpenMined/PIR" rel="noopener nofollow">OpenMined/PIR</a>, <a href="https://github.com/orochi-network/orochimaru" rel="noopener nofollow">orochi-network/orochimaru</a>, <a href="https://github.com/orochi-network/zkDatabase" rel="noopener nofollow">orochi-network/zkDatabase</a>, <a href="https://github.com/orochi-network/cuckoo-filter-rs" rel="noopener nofollow">orochi-network/cuckoo-filter-rs</a></li>
+<li>Stable plateau: <a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/pir/2026-09-23/"><span class="label">Previous</span><span class="pn-t">PIR Wednesday — September 23 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-10-07/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — October 07 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

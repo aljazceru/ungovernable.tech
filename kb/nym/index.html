@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nym Mixnet — ungovernable.tech</title>
+<meta name="description" content="Nym, a deployed mixnet based on Loopix with cover traffic and incentivised nodes, designed to resist a global passive adversary. Design and status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/nym/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Nym Mixnet — ungovernable.tech">
+<meta property="og:description" content="Nym, a deployed mixnet based on Loopix with cover traffic and incentivised nodes, designed to resist a global passive adversary. Design and status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/nym/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nym Mixnet — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nym Mixnet — ungovernable.tech">
+<meta name="twitter:description" content="Nym, a deployed mixnet based on Loopix with cover traffic and incentivised nodes, designed to resist a global passive adversary. Design and status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Nym Mixnet", "description": "Nym, a deployed mixnet based on Loopix with cover traffic and incentivised nodes, designed to resist a global passive adversary. Design and status.", "dateModified": "2026-09-04", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/nym/", "mainEntityOfPage": "https://ungovernable.tech/kb/nym/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "Nym Mixnet", "item": "https://ungovernable.tech/kb/nym/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">Nym Mixnet</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Nym Mixnet</h1>
+  <p class="aka">Also Nym Mixnet, NYM, NymVPN, Noise Generating Mixnet.</p>
+  <p class="dek">A production Loopix-based mixnet: the first system designed for the strongest threat model (a global passive adversary) actually deployed at scale, with economic incentives via the NYM token. This is this library&#39;s pillar reference — architecture, Nyx blockchain and the Directory Contract evolution, node economics and their documented weaknesses (including the January 2026 Cao &amp; Green reputation-attack paper), the 2026 integration wave, and operational guidance.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-09-04</b></span>
+    <span><b>12</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#definitional">Definitional</a><a href="#architecture">Architecture</a><a href="#node-economics-and-the-documented-attack-surface">Node economics — and the documented attack surface</a><a href="#threat-model">Threat model</a><a href="#attack-surface">Attack surface</a><a href="#what-nym-doesnt-solve">What Nym doesn&#39;t solve</a><a href="#use-cases-and-operational-patterns">Use cases and operational patterns</a><a href="#comparison">Comparison</a><a href="#2026-roadmap-and-integration-wave">2026 roadmap and integration wave</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#open-questions">Open questions</a><a href="#september-04-2026-update-djibouti-release-outfox-removed-lp-data-split">September 04, 2026 Update — Djibouti Release; Outfox Removed; LP-Data Split</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="definitional">Definitional</h2>
+<p>Nym is a decentralized anonymity network that combines:</p>
+<ol>
+<li>A <strong>packet mixnet</strong> descended from <a href="/kb/loopix/">Loopix</a> — stratified layers of mixnodes, Sphinx-format packets (<a href="/kb/sphinx-packet-format/">Sphinx Packet Format</a>), Poisson delays, and continuous cover traffic ("noise") on every link;</li>
+<li>A <strong>layer-1 blockchain (Nyx)</strong> providing node registration, staking, delegation, and mixmining rewards, with CosmWasm smart contracts;</li>
+<li>A <strong>credential system</strong> (coconut-style zk-credentials, "zk-nyms") for anonymous access without identity linkage;</li>
+<li>A consumer product (<strong>NymVPN</strong>) exposing the network as both a WireGuard-style fast VPN and the full five-hop mixnet.</li>
+</ol>
+<p>Primary references:</p>
+<ul>
+<li>Piotrowska, A., Hayes, J., Elahi, T., Meiser, S., Danezis, G. <em>The Loopix Anonymity System</em>. USENIX Security 2017. <a href="https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska" rel="noopener nofollow">https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska</a></li>
+<li>Danezis, G., Hapgood, H., Isaakidis, M., et al. <em>Nym: Next-Generation Digital Infrastructure for Privacy</em> (whitepaper, rev. 2021). <a href="https://nymtech.net/whitepapers/" rel="noopener nofollow">https://nymtech.net/whitepapers/</a></li>
+<li>Sonnino, A., Al-Bassam, M., Bano, S., Meiklejohn, S., Danezis, G. <em>Coconut: Threshold Issuance Selective Disclosure Credentials with Applications to Distributed Ledgers</em>. NDSS 2019 (zk-nym basis).</li>
+<li>Rial, Piotrowska, Halpin. <em>Outfox</em> (PQ packet format). ACM 2025.</li>
+<li>Cao, X.A., Green, M. <em>Analysis and Attacks on the Reputation System of Nym</em>. IACR ePrint 2026/101.</li>
+<li>Nym documentation: <a href="https://nymtech.net/docs/" rel="noopener nofollow">https://nymtech.net/docs/</a> · Blog: <a href="https://nym.com/blog" rel="noopener nofollow">https://nym.com/blog</a></li>
+</ul>
+<p>Project status (Aug 2026): production network + consumer VPN; core repo <code>nymtech/nym</code> (~1.9k stars, Rust, actively pushed); binaries <strong>v2026.16-como</strong> (Aug 19, 2026); NymVPN client v2026.12.1-beta (Aug 20).</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="the-mixnet-anonymous-mode">The mixnet (Anonymous mode)</h3>
+<pre><code> Client ──▶ Gateway ──▶ [ Mix Layer 1 ] ──▶ [ Mix Layer 2 ] ──▶ [ Mix Layer 3 ] ──▶ Exit Gateway ──▶ Internet
+            (entry)        Poisson delay       Poisson delay       Poisson delay      (exit,
+            auth           + cover noise        + cover noise        + cover noise       geo-selectable)
+</code></pre>
+<p>The base design is <strong>Loopix</strong>:</p>
+<ul>
+<li><strong>Continuous-time Poisson mixing.</strong> Each mixnode independently samples an exponential delay per packet; packets arriving close together leave widely separated. Aggregate effect: input/output ordering is statistically decoupled.</li>
+<li><strong>Cover traffic.</strong> Each user generates loop/dummy traffic; each mix generates loop traffic. Every link carries real+dummy flows at near-constant rate, so silence never distinguishes activity.</li>
+<li><strong>Sphinx packet format.</strong> Fixed-size, layered-encrypted packets with no length leakage; SURBs provide anonymous replies.</li>
+<li><strong>Stratified topology.</strong> Three mix layers; every packet traverses one node per layer; the <strong>active set</strong> (nodes carrying traffic) is selected from registered mixnodes by stake and performance score.</li>
+</ul>
+<p><strong>Anonymous vs Fast mode</strong> — the distinction that matters analytically (do not conflate them when evaluating NymVPN claims):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Anonymous mode</th>
+<th>Fast mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixnet</td>
+<td>Yes (Loopix-style, 5-hop)</td>
+<td>No (2-hop WireGuard-like)</td>
+</tr>
+<tr>
+<td>Cover traffic</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Seconds (Poisson mixing)</td>
+<td>~100 ms</td>
+</tr>
+<tr>
+<td>PQ key exchange</td>
+<td>Not yet (roadmap; directionally Outfox)</td>
+<td>Yes — Lewes Protocol (ML-KEM-based)</td>
+</tr>
+<tr>
+<td>Threat model</td>
+<td>Global passive adversary</td>
+<td>Decentralized VPN</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="the-nyx-blockchain-and-directory">The Nyx blockchain and directory</h3>
+<ul>
+<li>Nodes self-register on <strong>Nyx</strong> (Cosmos SDK chain) bonding NYM tokens; delegators stake behind nodes; a mixing reward pool ("mixmining") distributes NYM to the active set by performance.</li>
+<li><strong>Directory Contract (merged Aug 21, 2026)</strong>: node-info distribution moves from per-node HTTP pulls to an <strong>on-chain push model</strong> — each nym-node pushes ed25519-signed configuration (keyed by <code>(node_id, label)</code>) to a CosmWasm contract, with an <strong>incremental on-chain LtHash digest</strong> over all entries making whole-directory retrieval verifiable. The <code>nym-lthash</code> crate (LtHash16, 2 KB BLAKE3-XOF accumulator) shipped in v2026.16-como. The full 8-PR stack merged 2026-08-21: #6933 (contract), #6936 (verifiable retrieval), #6941 (TM Light Client anchor), #6948 (attested anchor), #6949 (nym-api keys + proof-of-possession), #6954 (attestation provider), #7004 (checkpoint bootstrapping), #7013 (node publishing). This is the architectural response to the corporate-gating critique (below) — now shipped, not proposed.</li>
+<li><strong>Credential issuance</strong> (coconut zk-credentials) remains company-operated as of 2026 — the residual centralization point.</li>
+</ul>
+<h3 id="token-economics">Token economics</h3>
+<p>The NYM token (Nyx/Cosmos-based) is used for:</p>
+<ul>
+<li><strong>Stake on mixnodes.</strong> Operators stake to participate; selection probability is proportional to stake (within bounds).</li>
+<li><strong>Slashing</strong> for provable misbehavior (downtime, misconduct detectable from network measurements).</li>
+<li><strong>Bandwidth credentials</strong> paid via NYM, redeemed via zk-nym credentials so spending is unlinkable to the user.</li>
+</ul>
+<p>Tokenomics is a design choice, not a requirement of mixnets — it is how Nym creates a permissionless market for mix capacity rather than relying on volunteers (Tor's altruism model, per Dingledine's DEF CON 34 briefing). The cost: economic gravity concentrates infrastructure and the measurement mechanism becomes an attack target (below).</p>
+<h3 id="censorship-resistance-stack">Censorship resistance stack</h3>
+<p>Per the 2026 censorship-resistance roadmap (and shipped items): AmneziaWG obfuscation for Fast mode, QUIC pluggable transport, Stealth API hardening, Outfox PQ packet-format design; 2026 targets add resilient bootstrapping, context-aware config delivery, and countermeasures against AI-adaptive censorship (the roadmap explicitly acknowledges static defenses are now attacked with near-real-time adaptive blocking).</p>
+<h2 id="node-economics-and-the-documented-attack-surface">Node economics — and the documented attack surface</h2>
+<p>Nym's differentiator versus Tor is <strong>paid infrastructure</strong>: mixnodes stake, get measured, and earn. This buys uptime and capacity but creates a new class of attack: <strong>the measurement and selection mechanism itself becomes the target.</strong></p>
+<h3 id="the-cao-green-reputation-analysis-eprint-2026101-jan-2026">The Cao &amp; Green reputation analysis (ePrint 2026/101, Jan 2026)</h3>
+<p>Xinmu Alexis Cao and Matthew Green (Johns Hopkins) analyzed Nym's reputation mechanism using source-code analysis, mainnet data collection, and a custom simulator:</p>
+<ul>
+<li><strong>Framing attack</strong>: node-performance measurement is manipulable — a small number of <strong>low-stake nodes can damage the score of high-reputation active-set nodes</strong>, because measurement trusts interactions with cheap-to-enter nodes.</li>
+<li><strong>Active-set capture</strong>: a moderately resourced adversary (explicitly not nation-state budget) can thereby capture a <strong>fraction of the active set</strong>, a condition enabling <strong>connection de-anonymization</strong> — defeating the network's core purpose.</li>
+<li><strong>The survivability dilemma</strong>: open entry is required (new operators must join for network survivability) but grants attackers a platform to attack the scoring system itself. Mitigations discussed; the tension is structural.</li>
+</ul>
+<p>Nym continues to modify the scoring subsystem (PR #7073, Aug 2026 — config-score penalty for nodes incapable of sending Nyx transactions), so the measurement layer is under active development <em>and</em> documented active-attack pressure.</p>
+<h3 id="stark-industries-incident-2026">Stark Industries incident (2026)</h3>
+<p>The <strong>Stark Industries</strong> case (see <a href="/briefings/mix-networks/2026-08-07/">Mix Networks Friday — August 07 2026 Weekly Update</a>) documented bulk-hosting concentration: large volumes of mixnode capacity on one commercial host, mirroring Tor's Hetzner problem — economic gravity concentrates infrastructure, eroding jurisdictional diversity.</p>
+<h3 id="privacy-guides-privacy-theater-thread-ongoing-through-aug-2026">Privacy Guides "privacy theater" thread (ongoing through Aug 2026)</h3>
+<p>Community critique: a single corporation (Nym Technologies SA) can gate the entire network via credential issuance; "684+ community-run nodes become useless overnight" if the company is compelled. The Directory Contract is the architectural counter; credential decentralization remains open.</p>
+<h3 id="synthesis-three-failure-modes-three-different-layers">Synthesis: three failure modes, three different layers</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Failure mode</th>
+<th>Layer</th>
+<th>Status (Aug 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corporate gating (directory/credentials)</td>
+<td>Governance/directory</td>
+<td>Being addressed — Directory Contract + LtHash (on-chain, verifiable); credential issuance still company-operated</td>
+</tr>
+<tr>
+<td>Infrastructure concentration (Stark, Hetzner-analog)</td>
+<td>Economics/hosting</td>
+<td>Unresolved — economic gravity; no provider-diversity incentives</td>
+</tr>
+<tr>
+<td>Reputation manipulation (framing attacks)</td>
+<td>Measurement/selection</td>
+<td><strong>Unresolved</strong> — Cao &amp; Green paper; scoring under active modification</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="threat-model">Threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local observer</td>
+<td>Defeated. The local link sees only constant-rate Sphinx packets</td>
+</tr>
+<tr>
+<td>ISP / on-path observer</td>
+<td>Defeated</td>
+</tr>
+<tr>
+<td>Compromised gateway</td>
+<td>Defeated for downstream. The gateway sees only encrypted Sphinx</td>
+</tr>
+<tr>
+<td>Compromised mix node (subset)</td>
+<td>Defeated by 3-layer plus cover traffic</td>
+</tr>
+<tr>
+<td>Global passive observer</td>
+<td>Defeated <strong>under Loopix assumptions</strong>. The headline property</td>
+</tr>
+<tr>
+<td>Global active adversary modifying packets</td>
+<td>Replay protection plus integrity bound; some research-stage attacks exist</td>
+</tr>
+<tr>
+<td>Adversary capturing the active set via reputation manipulation</td>
+<td><strong>Weak point</strong> — Cao &amp; Green framing attacks</td>
+</tr>
+<tr>
+<td>Endpoint malware</td>
+<td>Out of scope</td>
+</tr>
+</tbody>
+</table></div>
+<p>The "defeated under Loopix assumptions" claim rests on: sufficient cover traffic, sufficient honest-mix density, correct implementations, and no covert channels in deployed software. Empirical validation at Nym's real scale is an open research area — and the Cao &amp; Green result shows the <em>incentive layer</em> can undermine the <em>cryptographic layer</em> from below.</p>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix-node Sybil</td>
+<td>Stake-weighted selection bounds influence — but see framing attacks</td>
+</tr>
+<tr>
+<td>Reputation framing (low-stake nodes defaming honest nodes)</td>
+<td><strong>Open problem</strong> (ePrint 2026/101)</td>
+</tr>
+<tr>
+<td>Adversarial cover traffic</td>
+<td>Per-user dummies plus per-mix loops</td>
+</tr>
+<tr>
+<td>Replay</td>
+<td>Sphinx replay tags plus bloom filters per mix</td>
+</tr>
+<tr>
+<td>Long-term flow correlation</td>
+<td>Loopix Poisson-mix breaks per-flow timing</td>
+</tr>
+<tr>
+<td>Token-economic attacks</td>
+<td>Slashing on misbehavior; stake bounds; concentration unmitigated</td>
+</tr>
+<tr>
+<td>Gateway compromise</td>
+<td>Gateway sees only opaque Sphinx</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Out of scope</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-nym-doesnt-solve">What Nym doesn't solve</h2>
+<ul>
+<li><strong>End-to-end encryption.</strong> Use a real protocol (Signal, MLS). Nym anonymizes transport.</li>
+<li><strong>Real-time interactive protocols.</strong> The Anonymous-mode latency budget is too high for most VoIP/video.</li>
+<li><strong>Endpoint compromise.</strong> Same as everywhere.</li>
+<li><strong>Bandwidth-heavy workloads.</strong> Mix bandwidth is metered and substantially less than Tor's already-modest throughput.</li>
+<li><strong>Hidden services.</strong> Unlike Tor (.onion) and I2P (eepsites), Nym has no addressable internal services (Service Providers provide ingress/egress, not an overlay web). Nym is a transit network.</li>
+</ul>
+<p>For interactive use, layer Tor for low-latency anonymity and use Nym for high-stakes or async traffic where seconds-scale latency is acceptable.</p>
+<h2 id="use-cases-and-operational-patterns">Use cases and operational patterns</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Fit</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallet/marketplace metadata privacy</td>
+<td><strong>Strong fit — production</strong></td>
+<td>Edge Wallet (Jul 2026), <strong>Peach Bitcoin (Aug 17, 2026 — first P2P BTC marketplace with native mixnet)</strong>, Zcash Ironwood free tier; async traffic is the mixnet's sweet spot</td>
+</tr>
+<tr>
+<td>Async messaging / dead drops</td>
+<td>Strong fit</td>
+<td>Loop cover traffic + SURB replies match store-and-forward</td>
+</tr>
+<tr>
+<td>Wallet RPC privacy</td>
+<td>Strong fit</td>
+<td>Hides "wallet sends transaction at time T from IP X" from network observers</td>
+</tr>
+<tr>
+<td>Interactive browsing</td>
+<td>Partial</td>
+<td>Anonymous mode adds seconds of latency; Fast mode is a VPN, not a mixnet — do not conflate</td>
+</tr>
+<tr>
+<td>Censorship circumvention (censored markets)</td>
+<td>Growing</td>
+<td>AmneziaWG + QUIC transports; Geo Exclusion (Aug 2026) solves local-app breakage via an external SOCKS5 proxy for excluded regions (China first)</td>
+</tr>
+<tr>
+<td>VoIP / video</td>
+<td>Not viable</td>
+<td>Latency</td>
+</tr>
+<tr>
+<td>Hidden services / internal overlay</td>
+<td>Not supported</td>
+<td>Use Tor or I2P</td>
+</tr>
+</tbody>
+</table></div>
+<p>Operational patterns: apps offer Nym-aware ingress via the Service Provider framework (deployed examples include blockchain RPC gateways and messaging gateways); NymVPN Fast mode serves as an everyday WireGuard replacement with PQ handshakes while Anonymous mode is reserved for metadata-critical sessions.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Tor</th>
+<th>I2P</th>
+<th>Nym</th>
+<th>Katzenpost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixing</td>
+<td>None (low-latency)</td>
+<td>None (variable)</td>
+<td>Continuous-time Poisson</td>
+<td>Continuous-time Poisson</td>
+</tr>
+<tr>
+<td>Cover traffic</td>
+<td>Limited (padding)</td>
+<td>Garlic-natural</td>
+<td>Loops + dummies</td>
+<td>Loops + dummies</td>
+</tr>
+<tr>
+<td>GPA defense</td>
+<td>No</td>
+<td>No</td>
+<td><strong>Yes</strong> (under assumptions)</td>
+<td><strong>Yes</strong> (under assumptions)</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>seconds</td>
+<td>seconds</td>
+<td>seconds (with mixing)</td>
+<td>seconds-tens</td>
+</tr>
+<tr>
+<td>Internal services</td>
+<td>Yes (.onion)</td>
+<td>Yes (eepsites)</td>
+<td>Service Providers (ingress)</td>
+<td>Service Providers</td>
+</tr>
+<tr>
+<td>Decentralization</td>
+<td>9 dirauths</td>
+<td>NetDB (P2P)</td>
+<td>Stake-weighted + on-chain directory</td>
+<td>Federated authorities</td>
+</tr>
+<tr>
+<td>Post-quantum</td>
+<td>Roadmap (CGO era)</td>
+<td>Ratchet-layer PQ default</td>
+<td>Fast-mode PQ shipped; mixnet PQ roadmap</td>
+<td>Built-in (hybrid)</td>
+</tr>
+<tr>
+<td>Incentives</td>
+<td>Altruism</td>
+<td>None (peers)</td>
+<td>Token staking + mixmining</td>
+<td>None (federated)</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium (production + consumer)</td>
+<td>Research-grade</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2026-roadmap-and-integration-wave">2026 roadmap and integration wave</h2>
+<p>Nym's 2026 roadmap frames the year as a shift from technically functional mixnet to consumer-scale privacy product: faster Anonymous mode without dropping the Loopix threat model; NymVPN adoption; <strong>browser and wallet integrations</strong> (the two places metadata privacy produces immediate user value); merged payment flows with zk-credentials; token utility tied to actual usage; decentralization of remaining centralized services.</p>
+<p>The integration wave, in order:</p>
+<ol>
+<li><strong>Edge Wallet</strong> (mid-July 2026) — first major multi-asset wallet with native mixnet routing.</li>
+<li><strong>Zcash</strong> — Ironwood free tier for NymVPN (Jul 27), long-running ecosystem engagement.</li>
+<li><strong>Peach Bitcoin</strong> (Aug 17, 2026) — first P2P Bitcoin marketplace with native mixnet integration; free for all users; verifiable exit country ("Test current country"); user-selectable exit jurisdictions.</li>
+</ol>
+<p>Nym's framing — "plug-and-play Layer 0 anonymity network" — is becoming testable: each integration grows the anonymity set with the integrator's user base, the only sustainable path for cover-traffic economics. The counterweight is the reputation-attack surface: each integration concentrates de-anonymization value in the active set, making node-selection integrity proportionally more critical.</p>
+<p>Recent product signals: NymVPN v2026.11 Mixnet Tuning (user-controlled cover traffic 0.7–2 Mbps, delay 0–200 ms), Server Families, Geo-exclusion beta; v2026.12.1-beta clients (Aug 19–20); core v2026.16-como with Directory Contract components (Aug 18–19).</p>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Evidence</th>
+<th>Date</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core release</td>
+<td>v2026.16-como (nym-lthash, Como v2 endpoints)</td>
+<td>Aug 18–19, 2026</td>
+<td>github.com/nymtech/nym/releases</td>
+</tr>
+<tr>
+<td>Flagship integration</td>
+<td>Peach Bitcoin — first P2P BTC marketplace with native mixnet</td>
+<td>Aug 17, 2026</td>
+<td>nym.com/blog/peach-bitcoin-mixnet-integration</td>
+</tr>
+<tr>
+<td>Directory decentralization</td>
+<td>Directory Contract (LtHash digest, on-chain push)</td>
+<td>Aug 2026 (<strong>merged 08-21</strong>)</td>
+<td>github.com/nymtech/nym/pull/6933</td>
+</tr>
+<tr>
+<td>Reputation attackability</td>
+<td>Cao &amp; Green framing attacks; active-set capture</td>
+<td>Jan 21, 2026</td>
+<td>eprint.iacr.org/2026/101</td>
+</tr>
+<tr>
+<td>Fast-mode PQ shipped</td>
+<td>Lewes Protocol (ML-KEM) in NymVPN Fast mode</td>
+<td>2026</td>
+<td>nym.com/blog/lewes-protocol-post-quantum</td>
+</tr>
+<tr>
+<td>Mixnet tuning</td>
+<td>v2026.11: cover-traffic 0.7–2 Mbps and 0–200 ms delay sliders</td>
+<td>Jul 14, 2026</td>
+<td>nym.com/blog/mixnet-tuning</td>
+</tr>
+<tr>
+<td>Geo Exclusion beta</td>
+<td>External SOCKS5 proxy for excluded regions (China first)</td>
+<td>Aug 19, 2026</td>
+<td>nym.com/blog/geo-exclusion-split-tunneling</td>
+</tr>
+<tr>
+<td>Censorship roadmap</td>
+<td>AmneziaWG, QUIC, Outfox; AI-adaptive adversary acknowledgment</td>
+<td>2026</td>
+<td>nym.com/blog/nym-censorship-resistance-2026</td>
+</tr>
+<tr>
+<td>Community critique</td>
+<td>"privacy theater" thread — corporate gating critique</td>
+<td>ongoing (Aug 8, 2026 update)</td>
+<td>discuss.privacyguides.net/t/38335</td>
+</tr>
+<tr>
+<td>Infrastructure concentration</td>
+<td>Stark Industries bulk-hosting case</td>
+<td>Aug 2026</td>
+<td>Aug 7 weekly update</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-questions">Open questions</h2>
+<ol>
+<li><strong>Can performance measurement be made Sybil-resistant?</strong> The framing attack exploits cheap entry into the measurement protocol; mitigations (stake-weighted measurement, committees, TEE-attested monitors) are open design problems the Cao &amp; Green paper frames but does not close.</li>
+<li><strong>Does on-chain directory + decentralized credentials fully remove corporate gating?</strong> Directory Contract addresses storage/verification; coconut credential issuance remains company-operated.</li>
+<li><strong>Do integrations compound anonymity?</strong> Only if traffic shapes across integrations are similar enough to mix; cross-application mixing effectiveness is publicly unmeasured.</li>
+<li><strong>Can token incentives buy honest mixing without stake concentration?</strong> Long-running tracker question; Stark Industries and delegation concentration are live counterexamples.</li>
+<li><strong>When does Anonymous mode get PQ?</strong> Outfox gives the architectural path; Sphinx geometry changes (PQ KEM ciphertext sizes) risk packet-class distinguishability until fully deployed.</li>
+</ol>
+<h2 id="september-04-2026-update-djibouti-release-outfox-removed-lp-data-split">September 04, 2026 Update — Djibouti Release; Outfox Removed; LP-Data Split</h2>
+<p>Three concrete shifts this week, all in the same release: <strong>Nym Binaries v2026.17-djibouti (Sep 2)</strong> is the first tagged release to ship the full Directory Contract stack that was merged Aug 21 — eight PRs now reach operators as one numbered update. With it comes:</p>
+<ul>
+<li><strong>Outfox packet removal (#7048)</strong> — <em>breaking change</em>. SOCKS5 and WASM clients are now Mix-packet only; Outfox creation/decoding/routing/ACKs return explicit "not supported" errors. Outfox options and public exports removed or deprecated. This is the second PQ-packet-format retirement in the mixnet ecosystem in 2026 (after <a href="/kb/katzenpost/">Katzenpost</a>'s non-PQ Sphinx retirement) and runs without user pushback because Mix packets have been the default for ≥12 months.</li>
+<li><strong>Geolocator service + CosmWasm contract (#7055)</strong> — on-chain attested digests replace the cached <code>geoip</code> JSONB that previously caused "empty country code silently drops a gateway from the dVPN directory." Now any consumer can verify a node's reported geolocation by recomputing the digest against the on-chain state, rather than trusting whoever served the cached value.</li>
+<li><strong>Network Details v2 endpoint type fix (#7051)</strong> — the v2 endpoint was actually serving the v1 struct (since #6901); corrected + minimal validator-client function added.</li>
+<li><strong>Config-score penalty for nodes incapable of sending nyx transactions (#7073)</strong> — operational lever: nodes that can't pay the on-chain tx fee get a downward score adjustment, making the active-set selection more honest about node capability.</li>
+<li><strong>WireGuard startup robustness (#7065)</strong> — don't crash node startup over one corrupted peer record.</li>
+<li><strong>Reject packets to unknown clients (#7061)</strong> — gateway-probe hardening.</li>
+</ul>
+<p>Three post-release follow-ups the same week:</p>
+<ul>
+<li><strong>#7117 (Sep 1)</strong> — <em>directory submission default-on</em>. The operational complement to the Directory Contract: nodes that can submit to the on-chain directory <em>do so by default</em> going forward, accelerating network participation.</li>
+<li><strong>#7112 (Sep 2)</strong> — <strong>LP-Data separation</strong>. Refactor that extracts the LP (Lounge Pass) gateway channel into a new crate <code>nym-lp-gateway-client</code>, leaving only dVPN registration in <code>nym-registration-client</code>. The LP-side dependency list drops to <code>bincode, bytes, rand, thiserror, tokio, tracing, nym-lp, nym-lp-data</code> — verified via <code>cargo tree -p nym-lp-gateway-client --depth 1 -e normal</code>. <strong>Lounge Pass / LP is becoming a real product surface</strong>, not just a marketing label — the new crate exists so third-party clients can take the LP data channel without dragging in Nym's registration machinery.</li>
+<li><strong>re-DKG robustness vols 2–5 (#7082/#7088/#7096/#7107)</strong> — four batches of "make future re-DKG smoother" bugfixes, all merged Sep 3. After four months of incremental work, the re-DKG ceremony is no longer a fragile operation.</li>
+</ul>
+<p><strong>NymVPN v2026.12.4-beta.1 (Sep 3)</strong> — PR <strong>#6272</strong> <em>"Make pinned gateways respect the blacklist"</em> fixes a <strong>pinned-gateway bypass-of-blacklist</strong>: a pinned entry/exit gateway identity was using an unfiltered lookup that skipped <code>NotBlacklisted</code>/<code>MinScore</code>/<code>Residential</code> checks, so a user who pinned a gateway the GFW was actively blackholing retried the same doomed gateway on every connection attempt forever, with no cooldown and no useful error. The fix routes pinned-gateway lookups through the same filter pipeline as random selection. This is the textbook failure mode of user-trust features silently defeating adversary-defence features.</p>
+<p><strong>Evidence at a Glance (Sep 4 update)</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>PR / source</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v2026.17-djibouti release</td>
+<td><code>nym-binaries-v2026.17-djibouti</code> tag</td>
+<td>2026-09-02</td>
+</tr>
+<tr>
+<td>Outfox packet removal</td>
+<td>#7048</td>
+<td>merged 2026-08-11, ships in djibouti</td>
+</tr>
+<tr>
+<td>Geolocator service + contract</td>
+<td>#7055</td>
+<td>merged 2026-08-18</td>
+</tr>
+<tr>
+<td>Network Details v2 endpoint fix</td>
+<td>#7051</td>
+<td>merged 2026-08-12</td>
+</tr>
+<tr>
+<td>Directory submission default-on</td>
+<td>#7117</td>
+<td>merged 2026-09-01</td>
+</tr>
+<tr>
+<td>LP-Data separation</td>
+<td>#7112</td>
+<td>merged 2026-09-02</td>
+</tr>
+<tr>
+<td>re-DKG robustness vol2–5</td>
+<td>#7082/#7088/#7096/#7107</td>
+<td>all merged 2026-09-03</td>
+</tr>
+<tr>
+<td>NymVPN pinned-gateway blacklist fix</td>
+<td>#6272</td>
+<td>merged 2026-09-03</td>
+</tr>
+<tr>
+<td>NymVPN v2026.12.4-beta.1 release</td>
+<td><code>nym-vpn-v2026.12.4-beta.1</code> tag</td>
+<td>2026-09-03</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="/briefings/mix-networks/2026-09-04/">Mix Networks Friday — September 04 2026 Weekly Update</a> for the full weekly delta.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/loopix/">
+  <span class="nm">Loopix</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/sphinx-packet-format/">
+  <span class="nm">Sphinx Packet Format</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/hopr/">
+  <span class="nm">HOPR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/hornet/">
+  <span class="nm">HORNET</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/i2p/">
+  <span class="nm">I2P (Invisible Internet Project)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/mix-networks-tracker/">
+  <span class="nm">Mix Networks Research and Deployment Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/mixminion-and-mixmaster/">
+  <span class="nm">Mixminion and Mixmaster</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-historical" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span>
+</a><a class="row" href="/guides/running-freedom-infrastructure/">
+  <span class="nm">Running Infrastructure for Freedom</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Nym%20Mixnet" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A production Loopix-based mixnet: the first system designed for the strongest threat model (a global passive adversary) actually deployed at scale, with economic incentives via the NYM token. This is this library&#39;s pillar reference — architecture, Nyx blockchain and the Directory Contract evolution, node economics and their documented weaknesses (including the January 2026 Cao &amp; Green reputation-attack paper), the 2026 integration wave, and operational guidance.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-09-04</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

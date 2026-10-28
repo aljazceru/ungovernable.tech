@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Monero — ungovernable.tech</title>
+<meta name="description" content="How Monero hides senders, receivers and amounts by default with ring signatures, stealth addresses and RingCT, where its privacy has limits, and how to use it well.">
+<link rel="canonical" href="https://ungovernable.tech/kb/monero/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Monero — ungovernable.tech">
+<meta property="og:description" content="How Monero hides senders, receivers and amounts by default with ring signatures, stealth addresses and RingCT, where its privacy has limits, and how to use it well.">
+<meta property="og:url" content="https://ungovernable.tech/kb/monero/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Monero — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Monero — ungovernable.tech">
+<meta name="twitter:description" content="How Monero hides senders, receivers and amounts by default with ring signatures, stealth addresses and RingCT, where its privacy has limits, and how to use it well.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-money.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Monero", "description": "How Monero hides senders, receivers and amounts by default with ring signatures, stealth addresses and RingCT, where its privacy has limits, and how to use it well.", "dateModified": "2026-10-17", "datePublished": "2026-10-17", "url": "https://ungovernable.tech/kb/monero/", "mainEntityOfPage": "https://ungovernable.tech/kb/monero/", "image": "https://ungovernable.tech/assets/og/pillar-money.png", "about": [{"@type": "Thing", "name": "Financial Sovereignty"}, {"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Financial Sovereignty", "item": "https://ungovernable.tech/pillars/money/"}, {"@type": "ListItem", "position": 3, "name": "Monero", "item": "https://ungovernable.tech/kb/monero/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/money/">Financial Sovereignty</a><span aria-hidden="true">/</span><span class="here">Monero</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ FINANCIAL SOVEREIGNTY ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>Monero</h1>
+  <p class="aka">Also XMR.</p>
+  <p class="dek">A cryptocurrency where privacy is the default for every transaction, not an option a few users turn on.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-10-17</b></span>
+    <span><b>4</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#how-it-hides-what">How it hides what</a><a href="#where-its-privacy-has-limits">Where its privacy has limits</a><a href="#using-it-well">Using it well</a><a href="#monero-compared-with-other-approaches">Monero compared with other approaches</a><a href="#sources">Sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p>On Bitcoin, every transaction's sender address, receiver address and amount are public forever, and privacy has to be added by careful users. Monero (XMR), launched in 2014, takes the opposite approach: every transaction hides all three by default. Because everyone's transactions look alike, privacy does not depend on a few careful users hiding in a crowd of careless ones.</p>
+<h2 id="how-it-hides-what">How it hides what</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>What is hidden</th>
+<th>Mechanism</th>
+<th>In short</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sender</strong></td>
+<td>Ring signatures (CLSAG)</td>
+<td>Each input is signed on behalf of a "ring" of 16 possible outputs; observers cannot tell which one is really being spent. A <em>key image</em> prevents the same output being spent twice without revealing which it is.</td>
+</tr>
+<tr>
+<td><strong>Receiver</strong></td>
+<td>Stealth (one-time) addresses</td>
+<td>The sender derives a fresh one-time address for every payment from the recipient's public address, so payments to the same person are unlinkable on-chain.</td>
+</tr>
+<tr>
+<td><strong>Amount</strong></td>
+<td>RingCT with Bulletproofs+</td>
+<td>Amounts are hidden in Pedersen commitments; short zero-knowledge range proofs (Bulletproofs+) show they are valid without revealing them.</td>
+</tr>
+<tr>
+<td><strong>Network origin</strong></td>
+<td>Dandelion++</td>
+<td>Transactions are passed along a random path before being broadcast, making it harder to link a transaction to the IP address that first sent it.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Monero uses the <strong>RandomX</strong> proof-of-work algorithm (since 2019), designed to favour general-purpose CPUs over specialised mining hardware. Since mid-2022 a permanent <strong>tail emission</strong> of 0.6 XMR per block funds miners after the main emission ended.</p>
+<p>A planned upgrade, <strong>FCMP++</strong> (full-chain membership proofs), would replace rings of 16 decoys with a zero-knowledge proof that the spent output is one of <em>all</em> outputs on the chain, removing the main statistical weakness described below.</p>
+<h2 id="where-its-privacy-has-limits">Where its privacy has limits</h2>
+<ul>
+<li><strong>Decoy analysis.</strong> With rings of 16, statistical techniques (for example, guessing that the newest output is the real one, or tracing outputs created by a known party) can sometimes raise the probability of identifying the real spend. Researchers have published such attacks against earlier, smaller rings; the protocol has repeatedly increased ring size and improved decoy selection in response.</li>
+<li><strong>Exchange records.</strong> If you buy XMR on an exchange with identity verification, the exchange knows you bought it and where you withdrew it.</li>
+<li><strong>Timing and amounts at the edges.</strong> Converting a precise amount into Monero and out again shortly after can be linked by the services at each end, even if the chain reveals nothing.</li>
+<li><strong>Network metadata.</strong> Connecting to a remote node tells the node operator your IP address and when you transact. Run your own node, or connect over Tor or I2P.</li>
+<li><strong>Legal and market pressure.</strong> Several large exchanges have delisted Monero or restricted it in some jurisdictions. Peer-to-peer markets and atomic swaps fill the gap.</li>
+</ul>
+<h2 id="using-it-well">Using it well</h2>
+<ol>
+<li><strong>Wallets:</strong> the official Monero GUI and CLI wallets (<a href="https://www.getmonero.org/downloads/" rel="noopener nofollow">https://www.getmonero.org/downloads/</a>); Feather Wallet for desktop; Cake Wallet and Monerujo for mobile. Verify downloads.</li>
+<li><strong>Run your own node</strong> if you can, or use a trusted node over Tor. The GUI wallet can run a node for you; a pruned node needs considerably less disk space.</li>
+<li><strong>Back up the 25-word seed</strong> offline, as with Bitcoin (<a href="/guides/bitcoin-self-custody/">Bitcoin Self-Custody</a>).</li>
+<li><strong>Acquire it privately:</strong> peer-to-peer exchanges such as Haveno, in-person trades, or Bitcoin-to-Monero atomic swaps (for example eigenwallet, formerly UnstoppableSwap) avoid exchange KYC records.</li>
+<li><strong>Use subaddresses</strong> to give each counterparty a different receiving address.</li>
+<li><strong>Do not rush round trips.</strong> Moving funds in and out quickly with identical amounts undoes much of the benefit.</li>
+</ol>
+<h2 id="monero-compared-with-other-approaches">Monero compared with other approaches</h2>
+<ul>
+<li><strong>Bitcoin with CoinJoin or Payjoin</strong> gives privacy that is optional, depends on coordination and on other users, and is visible as such on-chain (<a href="/kb/coinjoin/">CoinJoin and Payjoin</a>).</li>
+<li><strong>Zcash</strong> uses zk-SNARKs and offers a larger anonymity set for shielded transactions, but shielding is optional and many transactions remain transparent.</li>
+<li><strong>Ecash</strong> (Cashu, Fedimint) gives strong payment privacy against the mint, but you trust the mint with custody (<a href="/kb/cashu-ecash/">Cashu and Chaumian Ecash</a>).</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>The Monero Project: <a href="https://www.getmonero.org/" rel="noopener nofollow">https://www.getmonero.org/</a>; <em>Moneropedia</em> (ring signatures, stealth addresses, RingCT, Dandelion++, tail emission): <a href="https://www.getmonero.org/resources/moneropedia/" rel="noopener nofollow">https://www.getmonero.org/resources/moneropedia/</a></li>
+<li>Goodell, Noether and RandomRun, <em>Concise Linkable Ring Signatures and Forgery Against Adversarial Keys</em> (CLSAG), IACR ePrint 2019/654: <a href="https://eprint.iacr.org/2019/654" rel="noopener nofollow">https://eprint.iacr.org/2019/654</a></li>
+<li>Chung et al., <em>Bulletproofs+: Shorter Proofs for a Privacy-Enhanced Distributed Ledger</em>, IACR ePrint 2020/735: <a href="https://eprint.iacr.org/2020/735" rel="noopener nofollow">https://eprint.iacr.org/2020/735</a></li>
+<li>Fanti et al., <em>Dandelion++: Lightweight Cryptocurrency Networking with Formal Anonymity Guarantees</em> (2018): <a href="https://arxiv.org/abs/1805.11060" rel="noopener nofollow">https://arxiv.org/abs/1805.11060</a></li>
+<li>Möser et al., <em>An Empirical Analysis of Traceability in the Monero Blockchain</em> (PETS 2018): <a href="https://arxiv.org/abs/1704.04299" rel="noopener nofollow">https://arxiv.org/abs/1704.04299</a></li>
+<li>RandomX: <a href="https://github.com/tevador/RandomX" rel="noopener nofollow">https://github.com/tevador/RandomX</a></li>
+<li>FCMP++ research and development: <a href="https://www.getmonero.org/2024/04/27/fcmps.html" rel="noopener nofollow">https://www.getmonero.org/2024/04/27/fcmps.html</a></li>
+</ul>
+<p>Continue with <a href="/kb/stablecoins-and-sovereignty/">Stablecoins and sovereignty</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/financial-sovereignty/">
+  <span class="nm">Financial Sovereignty</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/guides/bitcoin-self-custody/">
+  <span class="nm">Bitcoin Self-Custody, Step by Step</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/coinjoin/">
+  <span class="nm">CoinJoin and Payjoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/zero-knowledge-proofs/">
+  <span class="nm">Zero-Knowledge Proofs</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/tornado-and-privacy-pools/">
+  <span class="nm">Tornado Cash and Privacy Pools</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a><a class="row" href="/kb/cashu-ecash/">
+  <span class="nm">Cashu and Chaumian Ecash</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/stablecoins-and-sovereignty/">
+  <span class="nm">Stablecoins and sovereignty</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-p2p-bitcoin-acquisition/">
+  <span class="nm">Compare: Peer-to-Peer Bitcoin Acquisition</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/zcash/">
+  <span class="nm">Zcash</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-17</dd>
+        <dt>Origin</dt><dd>Written for ungovernable.tech.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Monero" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">A cryptocurrency where privacy is the default for every transaction, not an option a few users turn on.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Financial Sovereignty, Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-17</dd>
+        <dt>Sources linked</dt><dd>9</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

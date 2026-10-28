@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Use Cases and Deployments — ungovernable.tech</title>
+<meta name="description" content="Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more.">
+<link rel="canonical" href="https://ungovernable.tech/kb/pir-use-cases/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Use Cases and Deployments — ungovernable.tech">
+<meta property="og:description" content="Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more.">
+<meta property="og:url" content="https://ungovernable.tech/kb/pir-use-cases/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Use Cases and Deployments — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Use Cases and Deployments — ungovernable.tech">
+<meta name="twitter:description" content="Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PIR Use Cases and Deployments", "description": "Where private information retrieval is used, tested or planned: private contact discovery, password checks, certificate transparency and more.", "dateModified": "2026-10-25", "datePublished": "2026-08-05", "url": "https://ungovernable.tech/kb/pir-use-cases/", "mainEntityOfPage": "https://ungovernable.tech/kb/pir-use-cases/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "PIR Use Cases and Deployments", "item": "https://ungovernable.tech/kb/pir-use-cases/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">PIR Use Cases and Deployments</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ EXPLAINER ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>PIR Use Cases and Deployments</h1>
+  <p class="aka">Also PIR Use Cases, PIR Deployments.</p>
+  <p class="dek">Where private information retrieval is actually being used, tested, or planned for production. From Certificate Transparency auditing to Ethereum privacy to Apple device features.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>12</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#1-certificate-transparency-ct-log-auditing">1. Certificate Transparency (CT) Log Auditing</a><a href="#2-ethereum-privacy-private-rpc-reads">2. Ethereum Privacy — Private RPC Reads</a><a href="#3-private-web-search-tiptoe">3. Private Web Search — Tiptoe</a><a href="#4-apple-device-features">4. Apple Device Features</a><a href="#5-password-breach-checking">5. Password Breach Checking</a><a href="#6-private-contact-discovery">6. Private Contact Discovery</a><a href="#7-private-dns-lookups">7. Private DNS Lookups</a><a href="#use-case-maturity-matrix">Use Case Maturity Matrix</a><a href="#deployment-architecture-patterns">Deployment Architecture Patterns</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="1-certificate-transparency-ct-log-auditing">1. Certificate Transparency (CT) Log Auditing</h2>
+<h3 id="the-problem">The Problem</h3>
+<p>Certificate Transparency logs record every TLS certificate issued by a CA. Monitoring these logs is essential for detecting misissued certificates. But monitoring also means querying the log for specific domains — which reveals exactly which domains an auditor is watching. A surveillance adversary who observes the queries learns what domains security teams consider sensitive.</p>
+<h3 id="pir-solution">PIR Solution</h3>
+<p>PIR enables querying CT logs without revealing which entries are being checked. The auditor retrieves entries by index/position, and the log server cannot determine which certificate is being audited.</p>
+<h3 id="key-work">Key Work</h3>
+<ul>
+<li><strong>YPIR</strong> (USENIX Security 2024): Specifically demonstrates <strong>48× cost reduction</strong> for private CT log auditing compared to prior schemes. This makes private CT auditing economically viable for the first time. At AWS compute rates, the prior scheme would cost 48× more than YPIR.</li>
+<li><strong>SimplePIR/DoublePIR</strong> (USENIX Security 2023): The original paper demonstrates CT log auditing as a primary application. The hint-based approach works well for CT logs because they are append-only Merkle trees.</li>
+<li><strong>Respire</strong> (CCS 2024): Optimized for small records (~256 bytes), which matches the size of CT log entries (certificate fingerprints, timestamps).</li>
+</ul>
+<h3 id="deployment-status">Deployment Status</h3>
+<p>CT log auditing with PIR is at the <strong>research-to-pilot</strong> stage. The cost reductions from YPIR make it practical, but no public deployment is confirmed. The CT ecosystem (Google, Cloudflare, Apple, DigiCert) is the natural operator, as they already run CT logs and have the infrastructure for non-colluding server setups.</p>
+<h3 id="relevance-to-freedom-tech">Relevance to Freedom Tech</h3>
+<p>Private CT auditing protects organizations that monitor for certificate abuse targeting their infrastructure. Without PIR, an adversary who controls or observes the CT log can learn which domains a privacy-focused organization is protecting, potentially preempting defensive actions.</p>
+<h2 id="2-ethereum-privacy-private-rpc-reads">2. Ethereum Privacy — Private RPC Reads</h2>
+<h3 id="the-problem_1">The Problem</h3>
+<p>When an Ethereum user checks their balance, simulates a transaction, or queries contract state via an RPC provider (Infura, Alchemy, etc.), the provider learns exactly which addresses and contracts the user is interacting with. This enables:</p>
+<ul>
+<li><strong>Identity correlation</strong>: Linking on-chain addresses to off-chain identities (IP address, API key).</li>
+<li><strong>MEV extraction</strong>: Frontrunning transactions based on observed query patterns.</li>
+<li><strong>Surveillance</strong>: Monitoring which dApps, tokens, or contracts a user is interested in.</li>
+</ul>
+<p>Even if transactions themselves are private (via privacy pools, ZK proofs, etc.), the <strong>read path</strong> remains fully observable. This is analogous to making a private phone call where the telecom knows who you called and when.</p>
+<h3 id="key-developments">Key Developments</h3>
+<h4 id="kohaku-privacy-toolkit-20252026">Kohaku Privacy Toolkit (2025–2026)</h4>
+<p>Kohaku is an open-source Ethereum privacy toolkit developed by the Ethereum Foundation's Privacy Cluster (see the public project repository). It consists of:
+- <strong>Kohaku SDK</strong>: Modular plugin system for wallet developers
+- <strong>Kohaku Reference Wallet</strong>: Browser extension forked from Ambire, targeted at power users</p>
+<p>Referenced in Vitalik Buterin's May 2026 privacy roadmap alongside FOCIL (Fork-Choice Inclusion Lists), privacy pools, and account abstraction.</p>
+<p><strong>Private State Reading Architecture</strong> (confirmed August 2026):
+- Kohaku embeds a minimal execution client in the browser for private <code>eth_call</code>
+- <strong>Phase 1 (current)</strong>: Uses an oblivious server combining TEE + ORAM (Oblivious Labs, EF-funded Q1 2026)
+- <strong>Long-term</strong>: Replace with purely cryptographic PIR
+- Privacy-service abstraction is a Phase 1 deliverable</p>
+<p><strong>EF Q1 2026 Allocation</strong> confirms funded grant: "Builds an Oblivious server to handle requests from the Kohaku extension's embedded execution client, enabling private state reading." — First concrete pipeline from PIR/ORAM research to wallet deployment.</p>
+<h4 id="kohaku-sdk-shipping-mayaugust-2026">Kohaku SDK Shipping (May–August 2026)</h4>
+<p>The SDK moved from announcement to shipping alpha artifacts (GitHub-verified Aug 19 2026):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Latest alpha</th>
+<th>Released</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@kohaku-eth/railgun</code></td>
+<td>0.0.1-alpha.30</td>
+<td>Aug 21 2026</td>
+</tr>
+<tr>
+<td><code>@kohaku-eth/tornado-cash</code></td>
+<td>0.0.2-alpha.21</td>
+<td>Aug 21 2026</td>
+</tr>
+<tr>
+<td><code>@kohaku-eth/privacy-pools</code></td>
+<td>0.0.2-alpha.16</td>
+<td>Aug 21 2026</td>
+</tr>
+<tr>
+<td><code>@kohaku-eth/plugins</code></td>
+<td>0.0.1-alpha.13</td>
+<td>Aug 21 2026</td>
+</tr>
+<tr>
+<td><code>@kohaku-eth/provider</code></td>
+<td>0.1.0-alpha.9</td>
+<td>Aug 21 2026 (NEW — wallet↫network abstraction; 0.1.0 major.minor ahead of plugins)</td>
+</tr>
+<tr>
+<td><code>@kohaku-eth/pq-account</code></td>
+<td>listed</td>
+<td>Post-quantum ERC-4337 account implementation</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The Kohaku repository publishes the toolkit’s implementation.</li>
+<li><strong>Scope</strong>: shielded-pool writes (Railgun, Tornado Cash, Privacy Pools) plus post-quantum accounts, multisig, hardware-wallet support. Berlin Blockchain Week showcase planned.</li>
+<li><strong>The private-<em>reads</em> (PIR) side is NOT yet in the SDK</strong> — it remains the Phase-1-then-endgame architecture above. The Kohaku testnet roadmap (<a href="https://github.com/ethereum/wallet-poc" rel="noopener nofollow">Kohaku private-state-reading prototype</a>) schedules "v1: Abstraction Core with Privacy by Design" across January–August 2026, making H2 2026 the watch window for the first PIR-backed wallet feature.</li>
+</ul>
+<h4 id="sharded-pir-design-for-ethereum-state">Sharded PIR Design for Ethereum State</h4>
+<p>Ali Atiia and Keewoo Lee published a comprehensive design for sharding Ethereum state across multiple PIR schemes on ethresear.ch (2025). Key proposals:</p>
+<ul>
+<li><strong>Data sharding</strong>: Split Ethereum state into slices (hot state, receipts, blocks, transactions, archival) and pair each with the optimal PIR scheme for its characteristics.</li>
+<li><strong>Decoy queries</strong>: Users query the PIR engine of interest <strong>but simultaneously submit decoy queries to all other engines</strong>. This is privacy-equivalent to querying one monolithic PIR engine for all Ethereum data.</li>
+<li><strong>Scheme selection decision tree</strong>: Different PIR schemes are optimal for different data types (e.g., SimplePIR for static archival data, FrodoPIR for mutable hot state).</li>
+</ul>
+<p>The design also references <strong>RisePIR</strong>, a keyword-PIR variant optimized for key-value stores (based on Segmented Cuckoo Filters), which maps directly to the <code>(address → balance)</code> lookup pattern for private <code>eth_getBalance</code> calls.</p>
+<h4 id="pse-pir-for-ethereum-data">PSE PIR for Ethereum Data</h4>
+<p>The Privacy &amp; Scaling Explorations (PSE) team at the Ethereum Foundation has an active project: "PIR for Ethereum Data." Published a blog post on June 18 2025 at pse.dev/blog/ethereum-privacy-pir. <strong>August 2026 update</strong>: PSE rebranded to <strong>"Privacy Stewards of Ethereum"</strong> with a mandate to "methodically study ORAM and PIR state-of-the-art techniques while translating research into practical wallet and browser experiences." The old <code>privacy-scaling-explorations/pir-ethereum-data</code> GitHub repo no longer resolves (404) — the effort now lives under pse.dev project pages. ethereum.org's official privacy roadmap page (updated Jul 27 2026) states "PIR research is progressing with active implementations being tested by infrastructure teams," positioning PIR at the access layer between wallet software and node providers. Separately, the EF's Institutional Privacy Task Force spun out as <strong>EthSystems</strong> (for-profit, July 2026) to build institutional privacy infrastructure — adding demand-side pull for PIR/ORAM serving.</p>
+<h4 id="teeoram-alternative">TEE+ORAM Alternative</h4>
+<p>Flashbots and others have explored TEE+ORAM (Trusted Execution Environment + Oblivious RAM) for private blockchain data access. This achieves obliviousness via hardware isolation and access-pattern hiding. TEE+ORAM is orders of magnitude faster than PIR in practice, but relies on trust in hardware (TEE integrity). PIR relies on cryptographic guarantees alone.</p>
+<h3 id="deployment-status_1">Deployment Status</h3>
+<p>Ethereum private reads via PIR are at the <strong>design and prototyping</strong> stage. No production wallet currently uses PIR for RPC reads. However:
+- The Kohaku SDK is shipping (alpha, Aug 2026) for private <em>writes</em>; the private-reads PIR/ORAM phase is scheduled in the Jan–Aug 2026 "Abstraction Core" window.
+- The sharded PIR design provides a concrete architecture.
+- RisePIR demonstrates that key-value PIR can handle the <code>(address → balance)</code> workload at useful throughput (1,500–24,000 ops/s for 32-byte values on a single-threaded, no-SIMD prototype).
+- Vitalik's explicit endorsement makes this the <strong>highest-signal deployment target</strong> for PIR in the freedom-tech space.</p>
+<h3 id="relevance-to-freedom-tech_1">Relevance to Freedom Tech</h3>
+<p>Private RPC reads are a prerequisite for a fully private Ethereum experience. Without them, even users of privacy-preserving transaction layers (Aztec, private pools) leak their interests and activity patterns to RPC providers. This is the most direct path to PIR deployment in a censorship-resistant stack.</p>
+<h2 id="3-private-web-search-tiptoe">3. Private Web Search — Tiptoe</h2>
+<h3 id="the-problem_2">The Problem</h3>
+<p>Search engines (Google, Bing, DuckDuckGo) see every query you make. Even "privacy-focused" engines like DuckDuckGo still receive plaintext queries — they simply promise not to track them. True privacy requires the search provider to <strong>not know what you're searching for</strong>.</p>
+<h3 id="pir-solution-tiptoe-sosp-2023">PIR Solution — Tiptoe (SOSP 2023)</h3>
+<p>Tiptoe is a system for fully private web search built by Alexandra Henzinger et al. (MIT, Google). It was published at SOSP 2023 and demonstrates that private web search is architecturally feasible.</p>
+<p><strong>Architecture</strong>:
+- Separate ranking and URL services, with privacy based on cryptography rather than an assumption that their operators do not collude.
+- Documents are pre-processed: embedded into vectors, clustered, and organized into cryptographic data structures.
+- The client encrypts its query using Regev encryption (LWE).
+- The ranking service computes on encrypted data to find the relevant document cluster.
+- The URL service retrieves the actual URLs without learning which cluster was selected.
+- Client downloads ~57 MiB of state for query encoding.</p>
+<p><strong>Key properties</strong>:
+- The search provider learns nothing about what the user searches for.
+- Supports both keyword and semantic (embedding-based) search.
+- Compatible with transformer embedding models.
+- Query latency is practical on a cluster of tens of machines.</p>
+<p><strong>Implementation</strong>: see the Tiptoe source in the primary-source list.</p>
+<p><strong>Funded by</strong>: Capital One, Facebook, Google, Mozilla, NASDAQ, MIT FinTech@CSAIL, NSF.</p>
+<h3 id="deployment-status_2">Deployment Status</h3>
+<p>Tiptoe is a <strong>research prototype</strong> that demonstrates feasibility. It is not deployed as a product. Its implementation is a research prototype with substantial computation and communication requirements; independent non-colluding operators are not a prerequisite.</p>
+<h3 id="relevance-to-freedom-tech_2">Relevance to Freedom Tech</h3>
+<p>Private search is one of the highest-impact privacy primitives. If search queries are truly hidden, the largest surveillance vector in everyday internet use is closed. Tiptoe’s architecture protects the query without relying on separate organizations refusing to collude.</p>
+<h2 id="4-apple-device-features">4. Apple Device Features</h2>
+<h3 id="live-caller-id-lookup-ios-18">Live Caller ID Lookup (iOS 18+)</h3>
+<p>Apple uses a combination of homomorphic encryption (HE) and PIR for features like:
+- <strong>Live Caller ID</strong>: Looking up caller information without Apple learning who is calling you.
+- <strong>Logo lookup</strong>: Retrieving business logos without revealing which business.
+- <strong>Content filtering</strong>: Checking message/email content against blocklists without revealing the content.</p>
+<p>The system uses a combination of HE for server-side computation on encrypted data and techniques related to PIR for retrieving specific records without revealing which ones.</p>
+<h3 id="deployment-status_3">Deployment Status</h3>
+<p><strong>Production</strong>. These features shipped in iOS 18 (2024) and are live on consumer devices. Apple's deployment is the largest-scale production use of HE+PIR techniques in consumer hardware.</p>
+<h3 id="relevance-to-freedom-tech_3">Relevance to Freedom Tech</h3>
+<p>Apple publishes the Swift Homomorphic Encryption library, including PIR, and a PIR service example. These repositories make the library and example backend available for inspection. The example supports Live Caller ID Lookup and URL filtering; its README explicitly says it should not be run in production. Public example code does not establish that every component of Apple’s deployed services is open source.</p>
+<h2 id="5-password-breach-checking">5. Password Breach Checking</h2>
+<h3 id="the-problem_3">The Problem</h3>
+<p>Checking whether a password has appeared in a known breach requires sending the password (or a hash of it) to a breach database server. Even with k-anonymity (used by Google Password Checkup and HaveIBeenPwned), the server learns partial information about the password being checked.</p>
+<h3 id="pir-solution_1">PIR Solution</h3>
+<p>PIR enables checking a password against a breach database without revealing which password is being checked. The server returns whether the queried entry exists in the breach DB without learning the query.</p>
+<h3 id="key-work_1">Key Work</h3>
+<ul>
+<li><strong>iSimplePIR</strong> (ePrint 2026/030): Explicitly targets password breach detection as a primary use case. The incremental update feature is critical because breach databases are constantly updated with new entries. iSimplePIR's entry-level update support means new breached passwords can be added without re-processing the entire database.</li>
+<li><strong>Hintless PIR</strong> (Google, CRYPTO 2024): The <code>private_inference</code> component of Google's hintless_pir repo suggests applications in private credential checking.</li>
+<li><strong>VeriSimplePIR</strong>: Verifiability ensures the breach-checking server cannot lie about whether a password is in the breach DB.</li>
+</ul>
+<h3 id="deployment-status_4">Deployment Status</h3>
+<p><strong>Research</strong>. No production password-checking service is known to use PIR. Google Password Checkup combines a k-anonymity partition with private set intersection; describing it as only a range query omits its cryptographic protection. iSimplePIR's incremental update support makes PIR-based breach checking more viable for frequently-updated breach databases.</p>
+<h2 id="6-private-contact-discovery">6. Private Contact Discovery</h2>
+<h3 id="the-problem_4">The Problem</h3>
+<p>When a messaging app (Signal, WhatsApp) checks which of your contacts are also on the service, it must send your contact list to the server. The server learns your entire social graph.</p>
+<h3 id="pir-solution_2">PIR Solution</h3>
+<p>PIR enables checking whether each phone number / identifier is registered without revealing which numbers are being checked. The client queries by index, and the server cannot determine which contacts are being looked up.</p>
+<h3 id="key-work_2">Key Work</h3>
+<ul>
+<li>Signal has explored PIR-based contact discovery but has not deployed it. The primary challenge is the database size (billions of registered users) and the query volume (every new user checks their entire contact list).</li>
+<li><strong>Respire</strong> (CCS 2024): Optimized for small records, which matches the contact-discovery workload (each record is a phone number hash + registration flag).</li>
+<li><strong>FrodoPIR</strong>: Brave's experiments include contact-discovery-style workloads.</li>
+</ul>
+<h3 id="deployment-status_5">Deployment Status</h3>
+<p><strong>Research</strong>. Signal currently uses SGX-based trusted hardware for contact discovery (Signal SGX contact discovery service). This is faster than PIR but relies on Intel hardware trust. PIR would eliminate the hardware trust assumption entirely.</p>
+<h2 id="7-private-dns-lookups">7. Private DNS Lookups</h2>
+<h3 id="the-problem_5">The Problem</h3>
+<p>DNS resolvers see every domain a user queries. Even encrypted DNS (DoH, DoT) only encrypts the transport — the resolver still learns the domain name.</p>
+<h3 id="pir-solution_3">PIR Solution</h3>
+<p>PIR can make DNS lookups private: the resolver serves DNS records without learning which domain was queried. This requires the DNS zone to be structured as a PIR-queriable database.</p>
+<h3 id="compositions">Compositions</h3>
+<ul>
+<li>PIR + <a href="/kb/pkarr/">PKARR</a>: PKARR records on the Mainline DHT are already self-authenticating. PIR could make the DHT lookup private.</li>
+<li>PIR + CT: Private CT auditing (described above) ensures domain monitoring privacy.</li>
+<li>PIR + Decentralized DNS: ENS, Handshake, or GNS records could be served via PIR, making resolution fully private.</li>
+</ul>
+<h3 id="deployment-status_6">Deployment Status</h3>
+<p><strong>Research</strong>. No production DNS resolver uses PIR. The database size (hundreds of millions of DNS records) and latency requirements (sub-100ms) are challenging for current PIR schemes. However, DNS-over-PIR is a natural composition that would close the last metadata leak in encrypted DNS.</p>
+<h2 id="use-case-maturity-matrix">Use Case Maturity Matrix</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Status</th>
+<th>Key Scheme</th>
+<th>Barrier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CT Log Auditing</td>
+<td>Research→Pilot</td>
+<td>YPIR (48× cost reduction)</td>
+<td>Operator adoption</td>
+</tr>
+<tr>
+<td>Ethereum Private Reads</td>
+<td>Design→Prototype</td>
+<td>Sharded PIR, Kohaku, RisePIR</td>
+<td>Performance at ETH state size</td>
+</tr>
+<tr>
+<td>Private Web Search</td>
+<td>Prototype</td>
+<td>Tiptoe (cryptographic single-server trust model)</td>
+<td>Computation and communication cost</td>
+</tr>
+<tr>
+<td>Apple Device Features</td>
+<td><strong>Production</strong></td>
+<td>HE+PIR; public Swift library and service example</td>
+<td>Public code can be inspected; example backend is not for production</td>
+</tr>
+<tr>
+<td>Password Breach Check</td>
+<td>Research</td>
+<td>iSimplePIR</td>
+<td>Incremental update performance</td>
+</tr>
+<tr>
+<td>Contact Discovery</td>
+<td>Research</td>
+<td>Respire, FrodoPIR</td>
+<td>DB size (billions of entries)</td>
+</tr>
+<tr>
+<td>Private DNS</td>
+<td>Research</td>
+<td>Various</td>
+<td>Latency (&lt;100ms) + DB size</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="deployment-architecture-patterns">Deployment Architecture Patterns</h2>
+<h3 id="pattern-1-single-server-pir">Pattern 1: Single-Server PIR</h3>
+<ul>
+<li>Client downloads hint → client queries → server computes on encrypted query → client decrypts.</li>
+<li>No non-collusion assumption needed.</li>
+<li>Requires LWE (or similar) hardness assumption.</li>
+<li>Best for: CT auditing, password breach checking, Apple device features.</li>
+</ul>
+<h3 id="pattern-2-two-non-colluding-servers">Pattern 2: Two Non-Colluding Servers</h3>
+<ul>
+<li>Client queries both servers, neither learns the query alone.</li>
+<li>Information-theoretic security possible.</li>
+<li>Best for: Applications explicitly designed for a non-collusion model; Tiptoe does not require that assumption.</li>
+<li>Deployment barrier: Finding two independent operators.</li>
+</ul>
+<h3 id="pattern-3-hardware-assisted-teeoram">Pattern 3: Hardware-Assisted (TEE+ORAM)</h3>
+<ul>
+<li>PIR computation runs inside a TEE (SGX, SEV-SNP, TDX).</li>
+<li>ORAM hides access patterns from the TEE host.</li>
+<li>Orders of magnitude faster than pure PIR.</li>
+<li>Best for: Contact discovery (Signal), latency-sensitive applications.</li>
+<li>Trade-off: Trust in hardware manufacturer.</li>
+</ul>
+<h3 id="pattern-4-sharded-pir-ethereum-design">Pattern 4: Sharded PIR (Ethereum design)</h3>
+<ul>
+<li>Database split into shards by data type.</li>
+<li>Each shard served by the optimal PIR scheme.</li>
+<li>User submits real query to one shard + decoy queries to all others.</li>
+<li>Best for: Complex, multi-type databases (Ethereum state).</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://github.com/apple/swift-homomorphic-encryption" rel="noopener nofollow">Apple Swift Homomorphic Encryption</a></li>
+<li><a href="https://github.com/apple/pir-service-example" rel="noopener nofollow">Apple PIR service example</a></li>
+<li><a href="https://machinelearning.apple.com/research/homomorphic-encryption" rel="noopener nofollow">Apple: Combining Machine Learning and Homomorphic Encryption</a></li>
+<li><a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">SimplePIR and DoublePIR implementation</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity24/presentation/menon" rel="noopener nofollow">YPIR: High-Throughput Single-Server PIR with Silent Preprocessing</a></li>
+<li><a href="https://github.com/ahenzinger/tiptoe" rel="noopener nofollow">Tiptoe private search implementation</a></li>
+<li><a href="https://eprint.iacr.org/2024/1165" rel="noopener nofollow">Respire: High-Rate PIR for Databases with Small Records</a></li>
+<li><a href="https://github.com/ethereum/kohaku" rel="noopener nofollow">Kohaku SDK</a></li>
+<li><a href="https://github.com/ethereum/wallet-poc" rel="noopener nofollow">Kohaku private-state-reading prototype</a></li>
+<li><a href="https://ethereum.org/roadmap/privacy/" rel="noopener nofollow">Ethereum privacy roadmap</a></li>
+<li><a href="https://eprint.iacr.org/2026/030" rel="noopener nofollow">Incremental Single-Server Private Information Retrieval</a></li>
+<li><a href="https://github.com/google/hintless_pir" rel="noopener nofollow">Google hintless PIR</a></li>
+<li><a href="https://security.googleblog.com/2019/06/helping-organizations-do-more-without-collecting-more-data.html" rel="noopener nofollow">Google Password Checkup: private set intersection</a></li>
+<li><a href="https://signal.org/blog/private-contact-discovery/" rel="noopener nofollow">Signal private contact discovery</a></li>
+</ul>
+<p>For separating a request from its network origin, compare <a href="/kb/oblivious-http/">Oblivious HTTP and DNS</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/oblivious-http/">
+  <span class="nm">Oblivious HTTP and DNS</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-private-computation/">
+  <span class="nm">Private computation compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/oblivious-ram/">
+  <span class="nm">Oblivious RAM</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=PIR%20Use%20Cases%20and%20Deployments" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">Where private information retrieval is actually being used, tested, or planned for production. From Certificate Transparency auditing to Ethereum privacy to Apple device features.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Explainer</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>14</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

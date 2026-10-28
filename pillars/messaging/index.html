@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secure Messaging — Pillar — ungovernable.tech</title>
+<meta name="description" content="How do I talk privately, one to one and in groups? End-to-end encryption is now table stakes. The real differences are identifiers, metadata, servers and who can be compelled to hand over what. Protocols, apps and how to choose between them.">
+<link rel="canonical" href="https://ungovernable.tech/pillars/messaging/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Secure Messaging — Pillar — ungovernable.tech">
+<meta property="og:description" content="How do I talk privately, one to one and in groups? End-to-end encryption is now table stakes. The real differences are identifiers, metadata, servers and who can be compelled to hand over what. Protocols, apps and how to choose between them.">
+<meta property="og:url" content="https://ungovernable.tech/pillars/messaging/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Secure Messaging — Pillar — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Secure Messaging — Pillar — ungovernable.tech">
+<meta name="twitter:description" content="How do I talk privately, one to one and in groups? End-to-end encryption is now table stakes. The real differences are identifiers, metadata, servers and who can be compelled to hand over what. Protocols, apps and how to choose between them.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Pillars", "item": "https://ungovernable.tech/pillars/"}, {"@type": "ListItem", "position": 3, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/">Pillars</a><span aria-hidden="true">/</span><span class="here">Secure Messaging</span></nav>
+<header class="page-head ph-band tex">
+  <div class="ph-l">
+    <p class="kicker"><span class="k-idx">0x03 / 0x0e</span>How do I talk privately, one to one and in groups?</p>
+    <h1>Secure Messaging</h1>
+    <p class="dek">End-to-end encryption is now table stakes. The real differences are identifiers, metadata, servers and who can be compelled to hand over what. Protocols, apps and how to choose between them.</p>
+  </div>
+  <div class="ph-r" aria-hidden="true">
+    <span class="p-icon"><svg class="glyph g-messaging" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M3 6.5h13v11H3z"/><path d="m3 8 6.5 4.7L16 8"/><circle cx="19" cy="6.5" r="2.4"/><path d="M19 8.9V16M19 13h2.6"/></svg></span><div class="ident-wrap"><svg class="identicon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="1" y="0" width="1" height="1" opacity="0.55"/><rect x="10" y="0" width="1" height="1" opacity="0.55"/><rect x="4" y="0" width="1" height="1" opacity="0.30"/><rect x="7" y="0" width="1" height="1" opacity="0.30"/><rect x="0" y="1" width="1" height="1" opacity="0.55"/><rect x="11" y="1" width="1" height="1" opacity="0.55"/><rect x="1" y="1" width="1" height="1" opacity="0.90"/><rect x="10" y="1" width="1" height="1" opacity="0.90"/><rect x="2" y="1" width="1" height="1" opacity="0.90"/><rect x="9" y="1" width="1" height="1" opacity="0.90"/><rect x="3" y="1" width="1" height="1" opacity="0.30"/><rect x="8" y="1" width="1" height="1" opacity="0.30"/><rect x="1" y="2" width="1" height="1" opacity="0.90"/><rect x="10" y="2" width="1" height="1" opacity="0.90"/><rect x="2" y="2" width="1" height="1" opacity="0.90"/><rect x="9" y="2" width="1" height="1" opacity="0.90"/><rect x="5" y="2" width="1" height="1" opacity="0.55"/><rect x="6" y="2" width="1" height="1" opacity="0.55"/><rect x="1" y="3" width="1" height="1" opacity="0.55"/><rect x="10" y="3" width="1" height="1" opacity="0.55"/><rect x="2" y="3" width="1" height="1" opacity="0.55"/><rect x="9" y="3" width="1" height="1" opacity="0.55"/><rect x="3" y="3" width="1" height="1" opacity="0.90"/><rect x="8" y="3" width="1" height="1" opacity="0.90"/><rect x="2" y="4" width="1" height="1" opacity="0.55"/><rect x="9" y="4" width="1" height="1" opacity="0.55"/><rect x="4" y="4" width="1" height="1" opacity="0.90"/><rect x="7" y="4" width="1" height="1" opacity="0.90"/><rect x="5" y="4" width="1" height="1" opacity="0.90"/><rect x="6" y="4" width="1" height="1" opacity="0.90"/><rect x="5" y="5" width="1" height="1" opacity="0.90"/><rect x="6" y="5" width="1" height="1" opacity="0.90"/><rect x="0" y="6" width="1" height="1" opacity="0.55"/><rect x="11" y="6" width="1" height="1" opacity="0.55"/><rect x="1" y="6" width="1" height="1" opacity="0.90"/><rect x="10" y="6" width="1" height="1" opacity="0.90"/><rect x="2" y="6" width="1" height="1" opacity="0.90"/><rect x="9" y="6" width="1" height="1" opacity="0.90"/><rect x="3" y="6" width="1" height="1" opacity="0.30"/><rect x="8" y="6" width="1" height="1" opacity="0.30"/><rect x="4" y="6" width="1" height="1" opacity="0.55"/><rect x="7" y="6" width="1" height="1" opacity="0.55"/><rect x="3" y="7" width="1" height="1" opacity="0.55"/><rect x="8" y="7" width="1" height="1" opacity="0.55"/><rect x="4" y="7" width="1" height="1" opacity="0.30"/><rect x="7" y="7" width="1" height="1" opacity="0.30"/><rect x="5" y="7" width="1" height="1" opacity="0.55"/><rect x="6" y="7" width="1" height="1" opacity="0.55"/><rect x="0" y="8" width="1" height="1" opacity="0.30"/><rect x="11" y="8" width="1" height="1" opacity="0.30"/><rect x="1" y="8" width="1" height="1" opacity="0.90"/><rect x="10" y="8" width="1" height="1" opacity="0.90"/><rect x="5" y="8" width="1" height="1" opacity="0.30"/><rect x="6" y="8" width="1" height="1" opacity="0.30"/><rect x="2" y="9" width="1" height="1" opacity="0.90"/><rect x="9" y="9" width="1" height="1" opacity="0.90"/><rect x="3" y="9" width="1" height="1" opacity="0.90"/><rect x="8" y="9" width="1" height="1" opacity="0.90"/><rect x="4" y="9" width="1" height="1" opacity="0.90"/><rect x="7" y="9" width="1" height="1" opacity="0.90"/><rect x="5" y="9" width="1" height="1" opacity="0.30"/><rect x="6" y="9" width="1" height="1" opacity="0.30"/><rect x="0" y="10" width="1" height="1" opacity="0.30"/><rect x="11" y="10" width="1" height="1" opacity="0.30"/><rect x="1" y="10" width="1" height="1" opacity="0.55"/><rect x="10" y="10" width="1" height="1" opacity="0.55"/><rect x="2" y="10" width="1" height="1" opacity="0.55"/><rect x="9" y="10" width="1" height="1" opacity="0.55"/><rect x="5" y="10" width="1" height="1" opacity="0.55"/><rect x="6" y="10" width="1" height="1" opacity="0.55"/><rect x="1" y="11" width="1" height="1" opacity="0.55"/><rect x="10" y="11" width="1" height="1" opacity="0.55"/></svg></div>
+    <p class="hexline">e2 dc c3 4d 45 13 83 81 e6 6a 00 c4 51 ff 96 36</p>
+  </div>
+</header>
+
+<div class="hub">
+
+
+<section>
+  <h2 class="sec-h">Start here</h2>
+  <div class="rows">
+    <a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/metadata-resistance/">
+  <span class="nm">Metadata Resistance</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Guides</h2>
+  <div class="rows">
+    <a class="row" href="/guides/building-a-mesh/">
+  <span class="nm">Building a Local Mesh Network<small class="also">A few cheap radios and a phone app give you a text network that needs no towers, no SIM cards and no internet.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">2 hours</span>
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger<small class="also">Every serious messenger encrypts content. They differ in what they require from you, what their servers learn, and whether they work when the internet does not.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">15 minutes</span>
+</a><a class="row" href="/guides/nostr-getting-started/">
+  <span class="nm">Getting Started on Nostr Safely<small class="also">On Nostr your identity is a key pair, not an account. Nobody can ban you from the protocol, and nobody can recover your key if you lose it.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">30 minutes</span>
+</a><a class="row" href="/guides/internet-shutdown-preparedness/">
+  <span class="nm">Internet Shutdown Preparedness<small class="also">When the network is switched off, the only tools that work are the ones you installed, tested and shared before it happened.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">1-2 hours to prepare</span>
+</a><a class="row" href="/guides/threat-modeling/">
+  <span class="nm">Threat Modeling for Sovereign Individuals<small class="also">Before choosing a single tool, write down what you are protecting, who you are protecting it from, and what failure would cost you.</small></span>
+  <span class="ty">beginner</span>
+  <span class="ty">45 minutes</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Technologies</h2>
+  <div class="rows">
+    <a class="row" href="/kb/briar/">
+  <span class="nm">Briar<small class="also">also in off-grid</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/matrix/">
+  <span class="nm">Matrix and End-to-End Encryption</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/signal-protocol/">
+  <span class="nm">The Signal Protocol</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/activitypub/">
+  <span class="nm">ActivityPub<small class="also">also in identity</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cryptpad/">
+  <span class="nm">CryptPad<small class="also">also in storage</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cwtch/">
+  <span class="nm">Cwtch</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/delta-chat/">
+  <span class="nm">Delta Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/jami/">
+  <span class="nm">Jami</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/session-messenger/">
+  <span class="nm">Session</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/simplex/">
+  <span class="nm">SimpleX Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/xmpp-omemo/">
+  <span class="nm">XMPP with OMEMO</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/bitchat/">
+  <span class="nm">Bitchat<small class="also">also in off-grid</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/concord-protocol/">
+  <span class="nm">Concord Protocol</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cordn/">
+  <span class="nm">Cordn</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/quiet/">
+  <span class="nm">Quiet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/tox/">
+  <span class="nm">Tox</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/veilid/">
+  <span class="nm">Veilid<small class="also">also in anonymity</small></span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/white-noise/">
+  <span class="nm">White Noise</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a>
+  </div>
+</section>
+
+
+
+<section>
+  <h2 class="sec-h">Reference and research</h2>
+  <div class="rows">
+    <a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/compare-off-grid/">
+  <span class="nm">Off-grid communication compared<small class="also">also in off-grid</small></span>
+  <span class="ty">Comparison</span>
+  
+</a>
+  </div>
+</section>
+
+
+
+<section id="directory">
+  <h2 class="sec-h">Directory<span class="count">49 curated links</span></h2>
+  
+  <div class="dsub">
+    <h3>Signal Protocol</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://signal.org/docs/" rel="noopener nofollow">Signal Protocol</a>
+        
+        <span class="ldesc"> — Open protocol providing end-to-end encryption with forward secrecy and post-compromise security</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/signalapp/libsignal" rel="noopener nofollow">libsignal</a>
+        
+        <span class="ldesc"> — Official Signal Protocol library (Java, C, Rust)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://signal.org/docs/specifications/doubleratchet/" rel="noopener nofollow">Double Ratchet Specification</a>
+        
+        <span class="ldesc"> — Signal&#39;s core key derivation and message encryption algorithm</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://signal.org/docs/specifications/x3dh/" rel="noopener nofollow">X3DH Key Agreement</a>
+        
+        <span class="ldesc"> — Extended Triple Diffie-Hellman for establishing shared secrets</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/ekkolon/x3dh-ratchet" rel="noopener nofollow">x3dh-ratchet</a>
+        
+        <span class="ldesc"> — Crypto primitives based on the Signal Protocol for secure async messaging</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/PeculiarVentures/2key-ratchet" rel="noopener nofollow">2key-ratchet</a>
+        
+        <span class="ldesc"> — Double Ratchet and X3DH implementation in JavaScript</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://csrc.nist.gov/csrc/media/events/2025/sixth-pqc-standardization-conference/post-quantum%20ratcheting%20for%20signal.pdf" rel="noopener nofollow">Signal SPQR Post-Quantum Ratchet</a>
+        
+        <span class="ldesc"> — Sparse Post-Quantum Ratchet (SPQR) integrating ML-KEM (2025)</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Matrix Protocol</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/matrix-org/vodozemac" rel="noopener nofollow">vodozemac</a>
+        
+        <span class="ldesc"> — Pure Rust implementation of Matrix Olm and Megolm cryptographic ratchets</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://matrix.org/" rel="noopener nofollow">Matrix.org</a>
+        
+        <span class="ldesc"> — Open protocol for decentralized, federated real-time communication</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://gitlab.matrix.org/matrix-org/olm" rel="noopener nofollow">Olm</a>
+        
+        <span class="ldesc"> — Double Ratchet implementation for 1:1 Matrix encryption</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://gitlab.matrix.org/matrix-org/olm/blob/master/docs/megolm.md" rel="noopener nofollow">Megolm</a>
+        
+        <span class="ldesc"> — Sender-key ratchet for efficient group encryption in Matrix</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://matrix.org/docs/matrix-concepts/end-to-end-encryption/" rel="noopener nofollow">Matrix E2EE Implementation Guide</a>
+        
+        <span class="ldesc"> — Official guide to Matrix&#39;s end-to-end encryption architecture</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://element.io/" rel="noopener nofollow">Element</a>
+        
+        <span class="ldesc"> — Flagship Matrix client for web, desktop, and mobile</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Messaging Layer Security (MLS)</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/openmls/openmls" rel="noopener nofollow">OpenMLS</a>
+        
+        <span class="ldesc"> — Rust implementation of the RFC 9420 Messaging Layer Security protocol</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/wireapp/core-crypto" rel="noopener nofollow">Wire Core Crypto</a>
+        
+        <span class="ldesc"> — MLS-based end-to-end encryption library used by Wire clients</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.rfc-editor.org/rfc/rfc9420" rel="noopener nofollow">RFC 9420: MLS Protocol</a>
+        
+        <span class="ldesc"> — IETF standard for efficient group end-to-end encryption</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://messaginglayersecurity.rocks/mls-architecture/" rel="noopener nofollow">MLS Architecture</a>
+        
+        <span class="ldesc"> — Architecture document for MLS deployment</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://eprint.iacr.org/2025/229.pdf" rel="noopener nofollow">TreeKEM</a>
+        
+        <span class="ldesc"> — External-Operations TreeKEM and the security of MLS in RFC 9420</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://blog.phnx.im/rfc-9420-mls/" rel="noopener nofollow">MLS RFC Overview</a>
+        
+        <span class="ldesc"> — Detailed walkthrough of RFC 9420 design and security properties</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.whitenoise.chat/" rel="noopener nofollow">White Noise</a>
+        
+        <span class="ldesc"> — Open-source messenger using MLS over Nostr relays (Marmot); no phone number or email, beta</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/marmot-protocol/marmot" rel="noopener nofollow">Marmot Protocol</a>
+        
+        <span class="ldesc"> — Specification for MLS group messaging with Nostr identities and relays</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/marmot-protocol/mdk" rel="noopener nofollow">MDK (Marmot Development Kit)</a>
+        
+        <span class="ldesc"> — Rust implementation of Marmot used by White Noise, with bindings</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://cordn.net/" rel="noopener nofollow">Cordn</a>
+        
+        <span class="ldesc"> — MLS group messaging via a self-hostable coordinator reached over Nostr relays (ContextVM); beta</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://contextvm.org/" rel="noopener nofollow">ContextVM</a>
+        
+        <span class="ldesc"> — Transport for exposing services over Nostr relays without domains or open ports; used by Cordn</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Metadata-Resistant Messaging</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/simplex-chat/simplex-chat" rel="noopener nofollow">SimpleX Chat</a>
+        
+        <span class="ldesc"> — First messaging network operating without user identifiers of any kind</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/simplex-chat/simplexmq/blob/stable/protocol/simplex-messaging.md" rel="noopener nofollow">SimpleX Messaging Protocol</a>
+        
+        <span class="ldesc"> — Transport-agnostic protocol for distributed secure unidirectional messaging</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://simplex.chat/blog/" rel="noopener nofollow">SimpleX v6.4.1</a>
+        
+        <span class="ldesc"> — July 2025 release with contact management and group protection features</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://simplex.chat/blog/20241014-simplex-network-v6-1-security-review-better-calls-user-experience.html" rel="noopener nofollow">SimpleX Security Audit</a>
+        
+        <span class="ldesc"> — Trail of Bits cryptographic design review for v6.1</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://docs.cwtch.im/" rel="noopener nofollow">Cwtch</a>
+        
+        <span class="ldesc"> — Decentralized, metadata-resistant messaging over Tor v3 onion services</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://git.openprivacy.ca/cwtch.im/cwtch" rel="noopener nofollow">Cwtch Implementation</a>
+        
+        <span class="ldesc"> — Official peer implementation for asynchronous, metadata-resistant Cwtch applications</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://briarproject.org/" rel="noopener nofollow">Briar</a>
+        
+        <span class="ldesc"> — Peer-to-peer encrypted messaging via Tor, Bluetooth, and WiFi</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://briarproject.org/news/2023-briar-desktop-0.6.0-released/" rel="noopener nofollow">Briar Desktop 0.6.0-beta</a>
+        
+        <span class="ldesc"> — Beta desktop client adding blogs support to secure P2P messaging</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://code.briarproject.org/briar/briar/-/tree/release-1.5.17" rel="noopener nofollow">Briar 1.5.17</a>
+        
+        <span class="ldesc"> — March 2026 Android release with improved connectivity</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/TryQuiet/quiet" rel="noopener nofollow">Quiet</a>
+        
+        <span class="ldesc"> — Experimental team chat synchronised over Tor; unaudited and explicitly unsuitable for critical privacy or security needs</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://getsession.org/" rel="noopener nofollow">Session</a>
+        
+        <span class="ldesc"> — Decentralized private messenger using onion-routed service nodes and account IDs instead of phone numbers</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/session-foundation/session-desktop" rel="noopener nofollow">Session Desktop</a>
+        
+        <span class="ldesc"> — Decentralized onion-routed messenger using service nodes for offline storage and IP protection</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Modern Encryption Tools</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://github.com/FiloSottile/age" rel="noopener nofollow">age</a>
+        
+        <span class="ldesc"> — Simple, modern file encryption tool (Go) — a GPG replacement</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/jedisct1/minisign" rel="noopener nofollow">minisign</a>
+        
+        <span class="ldesc"> — Minimalistic tool for signing files and verifying signatures</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">OpenPGP.js</a>
+        
+        <span class="ldesc"> — OpenPGP implementation in JavaScript (maintained by Proton Mail)</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia PGP</a>
+        
+        <span class="ldesc"> — Modern OpenPGP implementation in Rust</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://github.com/ProtonMail/gopenpgp" rel="noopener nofollow">Gopenpgp</a>
+        
+        <span class="ldesc"> — Go wrapper around GPG for high-performance OpenPGP operations</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Privacy Infrastructure</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Oblivious_HTTP" rel="noopener nofollow">Oblivious HTTP (OHTTP)</a>
+        
+        <span class="ldesc"> — IETF protocol for anonymous HTTP transactions via relay</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://blog.cloudflare.com/oblivious-dns/" rel="noopener nofollow">Oblivious DoH (ODoH)</a>
+        
+        <span class="ldesc"> — DNS resolution via oblivious relay to hide client identity from resolver</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://www.rfc-editor.org/rfc/rfc9458" rel="noopener nofollow">RFC 9458: OHTTP</a>
+        
+        <span class="ldesc"> — IETF standard for Oblivious HTTP</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Federated and Distributed Messengers</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://delta.chat/en/help" rel="noopener nofollow">Delta Chat</a>
+        
+        <span class="ldesc"> — Chat over email transport; default chatmail relays enforce end-to-end encryption, with documented metadata and forward-secrecy limits</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://xmpp.org/extensions/xep-0384.html" rel="noopener nofollow">XMPP with OMEMO</a>
+        
+        <span class="ldesc"> — Double Ratchet encryption for XMPP devices; the specification remains Experimental and excludes metadata protection</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://jami.net/" rel="noopener nofollow">Jami</a>
+        
+        <span class="ldesc"> — Distributed messaging and calls with device-held identities, OpenDHT discovery and swarm conversations</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="dsub">
+    <h3>Experimental Messaging</h3>
+    <ul class="links">
+      
+      <li>
+        <a href="https://tox.chat/faq.html" rel="noopener nofollow">Tox</a>
+        
+        <span class="ldesc"> — Encrypted peer-to-peer messaging with public-key contacts; friends can see each other&#39;s IP addresses</span>
+        
+      </li>
+      
+      <li>
+        <a href="https://veilid.com/" rel="noopener nofollow">Veilid</a>
+        
+        <span class="ldesc"> — Peer-to-peer application framework with encrypted private routing; VeilidChat is a separate beta application</span>
+        
+      </li>
+      
+    </ul>
+  </div>
+  
+  <p class="more-links"><a href="/directory/">Full directory, all pillars →</a></p>
+</section>
+
+
+
+
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

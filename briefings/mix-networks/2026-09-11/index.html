@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — September 11 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-11: Tor 0.4.9.12 (Sep 8) — TROVE-2026 security release.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-09-11/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — September 11 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-11: Tor 0.4.9.12 (Sep 8) — TROVE-2026 security release.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-09-11/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — September 11 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — September 11 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-11: Tor 0.4.9.12 (Sep 8) — TROVE-2026 security release.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — September 11 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-11: Tor 0.4.9.12 (Sep 8) — TROVE-2026 security release.", "datePublished": "2026-09-11", "dateModified": "2026-09-11", "url": "https://ungovernable.tech/briefings/mix-networks/2026-09-11/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-09-11/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-11", "item": "https://ungovernable.tech/briefings/mix-networks/2026-09-11/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-09-11</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — September 11 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-11</b></span>
+    <span><b>29</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-11 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-11. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This week is <strong>shipping-week</strong>: <strong>Tor 0.4.9.12 (Sep 8)</strong> — the TROVE-2026-036/042 security release that bundles two DoS fixes (small <code>VirtualAddrNetwork</code> IPv4 DNS resolution; unbounded consensus diff sizes), a CGO negotiation fix so it works with every CGO-capable hop not just the final hop, and a defense-in-depth block on consensus-instructed congestion-control downgrade (ticket 41361). <strong>Tor Browser 15.0.22 (Sep 9)</strong> bundles 0.4.9.12 plus the new release cadence. <strong>Tor VPN Beta retrospective (Sep 9, by pavel)</strong> confirms Tor VPN is <strong>built on Arti</strong>, uses <strong>per-app circuit isolation</strong>, added WebTunnel bridges (1.4.0 beta), reproducible builds, and F-Droid availability — and explicitly notes <strong>congestion control is not yet available in Arti</strong> (carried over from C-tor). <strong>NymVPN v2026.12.4-beta.4 (Sep 10)</strong> ships three beta.2 → beta.4 in two days with <strong>10 fixes</strong> plus the headline entry-handshake blacklist (#6308) and an Android <code>rustls-platform-verifier</code> panic fix; <strong>crates release 1.22.0 (Sep 7)</strong> plus <strong>Nym SDK feature gating (#7123)</strong> now lets downstream SDK builds strip subsystems they don't need (filesystem storage, SOCKS5, IPR, bandwidth, streams, TCP proxy, client pooling, CLI) — a major surface-area change for embedded and WASM clients. <strong>HOPR feat(session)! #8365</strong> is a <strong>SURB protocol-version boundary</strong> (<code>/hopr/mix/1.2.0</code>): every SURB now carries a generation byte; on every return-path re-plan the SURB creator advances generation, and the replier clears the per-pseudonym SURB buffer for the old generation on first push — the explicit signalling complement to #8368's relayer-diversity diagnostics and #8374's <code>StallGuardSink</code> that prevents the OOMKilled-head-of-line-blocking class of bug that took jura-dev down Aug 27. <strong>Katzenpost</strong> ships a NoOp heartbeat to gateways on idle connections (#1133), kpclientd multi-socket + stale-socket repair (#1115, #1118), the Cbor plugin startup-diagnostics cluster (#1130 plus the convergence cluster Sep 6), and <strong>publishes a public letter to the European Parliament</strong> ahead of Thursday's Chat Control vote ("you are about to outlaw what you paid us to build"). <strong>I2P</strong> ships <strong>i2psnark hardening against haoxucu-reported DoS</strong>: unbounded bdecode recursion (StackOverflowError through <code>catch(Exception)</code> into dispatcher-thread death), i2ptunnel SOCKS 4/4a downgrade bypass of proxy auth, plus i2psnark path-traversal checks (3 commits, Sep 4–8). Tor network relay count at <strong>~9,331 (Sep 8)</strong> — a steady ~9% drop from Sep 1's 10,137, consistent with the 0.4.8 EOL cut continuing to prune; the count is <strong>the lowest since the early-2024 LBTM pruning pass</strong>.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Tor 0.4.9.12 (Sep 8)</strong> — TROVE-2026 security release. Two DoS fixes (TROVE-2026-036: small <code>VirtualAddrNetwork</code> IPv4 resolution; TROVE-2026-042: unbounded consensus diff sizes), CGO negotiation now works with every CGO-capable hop not just the final one, defense-in-depth block on consensus-instructed congestion-control algorithm downgrade (ticket 41361). SRV generation double-entry tie-breaker fix on directory authorities (bug 41356). Regenerated fallback directories Sep 8. GeoIP updated. <strong>Sep 8's 0.4.9.12 is the first 0.4.9.x point release after the 0.4.8 EOL (Sep 1) — and the one Tor Browser 15.0.22 (Sep 9) bundles.</strong></li>
+<li><strong>Tor Browser 15.0.22 (Sep 9, by ma1)</strong> — single line in changelog: "Updated Tor to 0.4.9.12". The 2-week cadence is now in steady-state: 15.0.21 (Sep 1) → 15.0.22 (Sep 9, 8 days). Plus <strong>Tor VPN Beta retrospective (Sep 9, by pavel)</strong> — first long-form writeup of how Tor VPN Beta works, what they've learned, and what's next.</li>
+<li><strong>NymVPN v2026.12.4-beta.4 (Sep 10)</strong> — three beta releases in two days (beta.2 Sep 9, beta.3 Sep 10 14:54, beta.4 Sep 10 18:00). Headline: <strong>PR #6308</strong> "Entry handshake check" — detects a failed entry-gateway WireGuard handshake earlier (via PR #6282 follow-up) and blacklists the entry gateway <strong>before</strong> the user wastes time on it, distinguishing from exit-gateway blame. Plus <strong>#6272</strong> "Make pinned gateways respect the blacklist" (shipped), 8 platform/CLI bugfixes (macOS DNS restore, kill-switch re-apply guard, slow-exit-handshake headroom, zk-nym credential retry, gateway-refresh-storm fix, Windows VPN-service-install wait, daemon-command-loop blocking fix, Android reqwest/rustls-platform-verifier panic fix, Android always-on VPN blocking interface). Bumps embedded <code>nym/vpn/release/2026.14-amsterdam</code> to include LP registration clock-skew stamps (#7150).</li>
+<li><strong>Nym main repo this week</strong> — 12 PRs merged Sep 4–10. <strong>crates release 1.22.0 (#7139, Sep 7)</strong> is the major-version bump; <strong>SDK feature gating (#7123, Sep 8)</strong> lets consumers opt out of subsystems (filesystem storage, SOCKS5, IPR, bandwidth, streams, TCP proxy, client pooling, CLI) — the foundation for lighter WASM/embedded builds. <strong>LP registration clock-skew (#7150, Sep 10)</strong> brings LP request timestamps into line with bandwidth-claim skew correction so devices more than 30 s fast are no longer wrongly rejected. Other items: BandwidthController prune command (#7085), hickory 0.26.2 vuln bump (#7137), nym-bridges cleanup (#7036), snapshot-retrieval best-effort (#7132), <code>has_sufficient_tokens</code> API cache docs (#7144), non-interactive auto-topup fix (#7143), lwd stream patch (#7098), stream keepalive (#7120), openspec archive stream liveness (#7141), nodes top-up program hotfix (#7142).</li>
+<li><strong>HOPR #8365 feat(session)!: generation-tagged SURB consumption (Sep 9)</strong> — <strong>breaking protocol change at the <code>/hopr/mix/1.2.0</code> boundary</strong>. Every SURB batch now carries a generation byte (RFC-1982 serial) in <code>SurbReceiverInfo</code>; the creator advances it on every return-path re-plan; the replying side keeps only the highest generation it has seen, and the first push carrying a newer generation <strong>clears the per-pseudonym SURB buffer wholesale</strong>. SURB wire size grows by 1 byte. Generation tagging is <strong>orthogonal to <code>SurbPopOrder</code></strong> (FIFO default; LIFO still functional). Together with #8368 (relayer-diversity blind-spot diagnostics, which on Aug 28 took the gnosis VPN tunnel down invisibly) and #8374 (<code>StallGuardSink</code> against jura-dev OOMKilled-class egress head-of-line blocking from Aug 27), <strong>HOPR is doing protocol-level return-path robustness work in the same week that Arti/Tor ships the CGO negotiation fix</strong> — both are about <strong>"the return/forward path is alive"</strong> being a first-class concern.</li>
+<li><strong>Katzenpost (Sep 4–8): #1133 NoOp gateway heartbeat</strong> — mirrors the gateway's NoOp heartbeat to us. The idle client's only traffic was a single GetConsensus2 per epoch, which could race the gateway's 2-minute read timeout mid-epoch; now the client mirrors the heartbeat back. <strong>#1132 / #1130</strong> finish the <strong>Cbor plugin startup diagnostics</strong> thread (6+ commits Sep 4–8: stop double-logging startup failures, instrument seven silent drop sites, capture plugin stderr, fail fast with one clean exit path). <strong>#1115 + #1118</strong> add multi-Unix-listener-socket support with stale-socket repair to <code>kpclientd</code> (POSIX; Windows unaffected). <strong>#1129 docker compose port isolation</strong>. <strong>#1127 fix race condition in <code>TestUnmarshalTOML</code></strong>. <strong>#1121 give silent-holder failover test slow-CI budget</strong>. <strong>#1122 retry a transient replication failure during <code>Copy</code></strong>. <strong>#1123 wait longer than worst-case round trip in <code>sendAndWait</code></strong>. <strong>#1124 bound resend wait with optional context</strong>. <strong>#1125 pin latest <code>hpqc</code> for thinclient-diet changes</strong>. <strong>#1126 <code>genconfig</code> flags <code>proxyWorkerCount</code> + <code>proxyRequestTimeout</code></strong>.</li>
+<li><strong>I2P hardening week (Sep 4–10, all reported by haoxucu)</strong> — <strong>i2psnark: Catch unbounded bdecode recursion</strong> (Sep 4): <code>BDecoder</code> applied no recursion limit to untrusted bencode, so a large nested list/map produced <code>StackOverflowError</code> that passed through every <code>catch(Exception)</code> on the receive path and killed the shared I2P session dispatcher thread. <strong>i2ptunnel: Fix SOCKS 4/4a downgrade bypass of proxy auth</strong> (Sep 4): the guard was checking legacy <code>proxyUsername</code>/<code>proxyPassword</code> properties that are no longer used for SOCKS (we now store SHA-256 digest under different properties), so when auth was enabled an unauthenticated SOCKS 4a <code>CONNECT</code> was accepted. <strong>i2psnark: Improve path traversal checks (3 commits Sep 4–8)</strong>. Plus i2psnark request-throttle adjustments (Sep 9), uppercase infohash in magnet names (Sep 8), restore 2-arg <code>getNameAndInfoHash()</code> (Sep 9), susidns CSS tweak + bump -6 (Sep 10), addressbook <code>dest mismatch in action=update</code> (Sep 4), SAM DG2/3 subsessions fix (Sep 4).</li>
+<li><strong>Katzenpost public letter to the European Parliament (Sep 8)</strong> — front-paged on katzenpost.network: <em>"Public letter to the European Parliament. Ahead of Thursday's Chat Control vote: Chat Control, Thursday: you are about to outlaw what you paid us to build."</em> This is the <strong>first time a mix-network project has put a public-policy letter above the fold on its project site</strong>; the message directly equates client-side scanning with outlawing mix networks. The Katzenpost site also explicitly names <strong>Namenlos — "a public Katzenpost mix network anyone may use"</strong> as "coming next" alongside pre-built packages for <code>katzenqt</code> and <code>kpclientd</code>.</li>
+<li><strong>Tor network: ~9,331 relays (Sep 8)</strong> — vs <strong>10,137 (Sep 1)</strong>. The 0.4.8 EOL cut (Sep 1) pruned ~50 relays overnight; the next ~750 relays have drained over Sep 1–8. <strong>9,331 is the lowest relay count since the early-2024 LBTM pruning pass</strong> — likely a combination of continued 0.4.8 un-upgraded exits self-disconnecting, the cumulative Hetzner de-peering effect (Dingledine DEF CON 34: ~20% of network's relay-exit infrastructure), and normal churn. The Hard-Case-Q week on the dirauth/operational side is over; the network absorbed it.</li>
+<li><strong>Privacy Guides Nym analysis (Sep 10 update)</strong> — an independent researcher vs. NymVPN thread ("Analysis of Nym VPN and its 'guaranteed' privacy") is at <strong>update 10/09/26</strong> with multiple critical replies in the comments and the Nym team's silence noted. Not a technical bug, but a recurring brand-trust pattern that mixes into the Nym-ecosystem coverage this week.</li>
+<li><strong>Research scan (Sep 5–11)</strong>: ePrint keyword searches for <code>mixnet</code> / <code>onion routing</code> / <code>anonymous communication</code> returned <strong>no fresh first-line mixnet papers</strong> in the Sep 5–11 window. The active anchor papers remain <strong>DumboMix (2026/1699)</strong>, <strong>De-SyRIS (2026/1723)</strong>, <strong>Proof-of-Uniqueness (2026/1725)</strong>, <strong>Verifiable SelfMix (2026/1617)</strong>, <strong>QuMixnet</strong>, <strong>MOCHA (2025/861)</strong>, <strong>Outfox (SIGCOMM 2025)</strong>, plus the recently-approved <strong>Anonymous Communication on Expander Networks (ePrint 2026/1404, approved 2026-07-13)</strong> — a Tufts/Brown result that gives differentially-private and anonymous protocols in polylog rounds with polylog server load over expander-graph networks. The deep-research month here continues to be driven by <strong>shipping</strong> (Tor 0.4.9.12, HOPR SURB generation, Katzenpost kpclientd, Nym SDK feature gating, I2P i2psnark DoS fixes) rather than new theory.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: The pattern from the last two Fridays — <em>"the field ships the boring part"</em> — has a sharper edge this week. <strong>Tor ships its first post-EOL security release (0.4.9.12)</strong> within one week of cutting off 0.4.8; the count is the lowest since 2024 but the network didn't collapse, just shrank to the operators who upgraded. <strong>HOPR ships a SURB protocol-version boundary</strong> (<code>/hopr/mix/1.2.0</code>) the week after they discovered a return-path blind spot that took down a tunnel invisibly — the answer is <em>explicit signalling in the wire format</em>, not more logging. <strong>Katzenpost puts a public-policy letter above the fold on the project website</strong> for the first time — the threat model is no longer purely cryptographic, it's regulatory. And <strong>I2P ships three haoxucu-reported DoS fixes</strong> in one week against the same shared dispatcher thread that any bug can take down — a reminder that anonymity networks' failure modes include "stack overflow in the receive loop". Three of these four stories have nothing to do with a new privacy primitive; they're about <strong>keeping the primitives running under load and policy pressure</strong>, which is what 2026 Q3 mixnet work looks like.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="tor-04912-first-post-eol-security-release-cgo-negotiation-fix">Tor 0.4.9.12: First Post-EOL Security Release + CGO Negotiation Fix</h3>
+<p>Tor 0.4.9.12 released Sep 8 with the subject line <em>"Fwd: Tor Project Forum: Security Release 0.4.9.12"</em> posted to oss-sec on the same day. The release contains three classes of fix:</p>
+<p><strong>TROVE-class security fixes</strong> (the headline):
+- <strong>TROVE-2026-036</strong>: Limit DNS resolution resource consumption for IP addresses with small <code>VirtualAddrNetwork</code> values. Tor clients with small <code>VirtualAddrNetwork</code> values were especially vulnerable to memory-based DoS. Bugfix on 0.2.1.29 — a <strong>12-year-old bug class</strong> that only recently became exploitable at scale.
+- <strong>TROVE-2026-042</strong>: Limit the size of consensus diffs, in bytes and in lines, to prevent a class of memory-based denial-of-service attacks. Bugfix on 0.3.1.1-alpha — <strong>another long-latent bug class</strong>.
+- <strong>CGO negotiation fix</strong>: Negotiate CGO cryptography with every hop that supports it. Previously we failed to negotiate CGO with hops other than the final hop of a circuit. <strong>This is the follow-through to Arti 2.6.0's "CGO always-on"</strong> (Sep 1, last week's update): Arti clients now get CGO on every CGO-capable hop, not just the last one. The promotion from opt-in to always-on only matters if every hop can actually negotiate it.
+- <strong>Defense-in-depth</strong> (ticket 41361): Tor clients no longer accept consensus instructions to downgrade the congestion control algorithm — a hardening move tied to TROVE-2026-042-style attacks but more general.
+- <strong>SRV generation double-entry fix</strong>: Two SRV records that tied on every field except one previously caused honest authorities to disagree about the resulting SRV. Fixes bug 41356; bugfix on 0.2.9.1-alpha.</p>
+<p><strong>Operational</strong>:
+- Regenerated fallback directories Sep 8.
+- GeoIP files updated to match IPFire Location Database, retrieved 2026/09/08.
+- Seccomp compilation fix with recent glibc (ticket 41317).
+- Controller assert fix.</p>
+<p><strong>The release timing is the story</strong>: 0.4.8 was deprecated <strong>Sep 1, 2026</strong>; 0.4.9.12 was released <strong>Sep 8, 2026</strong> — seven days. Tor Browser 15.0.22 (Sep 9) is the first browser bundle on 0.4.9.12. For relay operators still on 0.4.8 who somehow survived the cut, the only safe action is to upgrade.</p>
+<h3 id="tor-browser-15022-and-the-2-week-cadence">Tor Browser 15.0.22 and the 2-Week Cadence</h3>
+<p>Tor Browser 15.0.22 released <strong>Sep 9, 2026</strong> by ma1 — exactly <strong>8 days</strong> after 15.0.21 (Sep 1). Changelog is a single line:</p>
+<pre><code>All Platforms
++ Updated Tor to 0.4.9.12
+</code></pre>
+<p>The 2-week cadence is now in steady-state. Last week was the inflection (15.0.21 + 16.0a11 in the same week, Tails 7.12 first on the new tempo). This week is the second beat: 15.0.22 eight days later, on time. The cadence is Firefox ESR-aligned: when Firefox ships a security update, Tor Browser ships within ~8 days.</p>
+<h3 id="tor-vpn-beta-retrospective-sep-9-by-pavel">Tor VPN Beta Retrospective (Sep 9, by pavel)</h3>
+<p>The first long-form writeup on how Tor VPN Beta works and what they've learned. The article is <strong>a meta-post</strong> — the product is in beta and this is the report back. Key points:</p>
+<ul>
+<li><strong>Per-app circuit isolation</strong> — each mobile app on the device gets its own Tor circuit, rather than sharing a single tunnel. "This type of app isolation is a design choice heavily inspired by the cross-site tracking protections in Tor Browser."</li>
+<li><strong>Built on Arti</strong> — explicitly stated: <em>"Tor VPN is built on Arti, our next-generation Tor implementation written in Rust. Under the hood, that means a new, solid technical foundation rather than patching around legacy architecture."</em></li>
+<li><strong>What doesn't yet work from C-tor</strong> — <em>"There are still performance features from Tor's C implementation, like congestion control, that are not yet available in Arti. Bringing those capabilities over is part of what comes next."</em> This is a public commitment that <strong>congestion control is on the Arti roadmap</strong> and that it's the main missing piece.</li>
+<li><strong>WebTunnel bridges</strong> — added in 1.4.0 beta: "helps Tor traffic look like regular encrypted web traffic. This makes it harder for censors to detect and block connections."</li>
+<li><strong>Reproducible builds + F-Droid</strong> — "Reproducible builds let anyone verify that the binary you're running matches the published source code, while F-Droid availability gives users a way to install and update the app without relying on Google Play."</li>
+<li><strong>UX lesson from usability testing</strong> — exit selection was the wrong lever for users trying to bypass censorship; users in censorship environments should use bridges, not pick exit locations. The current design <strong>forces connecting to the Tor network first before selecting an exit</strong> to prevent the wrong choice.</li>
+<li><strong>Where it's used</strong> — "strong adoption in highly censored regions, including Iran and Turkmenistan. This stood in contrast to Tor Browser for Android, which tends to skew more toward users in the Global North."</li>
+<li><strong>Future work</strong> — exit selection to be reintroduced "in a way that doesn't create user error in high-risk situations"; more congestion control / perf features from C-tor; broader mobile support.</li>
+</ul>
+<p><strong>The Sept 9 release is the closest thing to a "Tor VPN 1.0 roadmap" the project has published</strong>: Arti-based, per-app circuits, WebTunnel bridges, reproducible, F-Droid available, with congestion control as the named missing piece.</p>
+<h3 id="nymvpn-v2026124-beta4-sep-10-and-the-three-beta-sprint">NymVPN v2026.12.4-beta.4 (Sep 10) and the Three-Beta Sprint</h3>
+<p>The Sep 3 release was .beta.1; the team then shipped <strong>.beta.2 (Sep 9, 18:03), .beta.3 (Sep 10, 14:54), .beta.4 (Sep 10, 18:00)</strong> — three betas in 23 hours. This is an unusually fast iteration cadence for NymVPN (the prior 12.3 → 12.4-beta.1 was a week). What's in beta.4:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>PR</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Respect gateway blacklist for pinned gateways</td>
+<td>#6272</td>
+<td>Pinning a gateway now respects the blacklist — the gateway you pinned no longer silently bypasses <code>NotBlacklisted</code>/<code>MinScore</code>/<code>Residential</code> filters. (Same as beta.1; carried into all four betas.)</td>
+</tr>
+<tr>
+<td>Verify entry handshake and blacklist entry early</td>
+<td>#6308</td>
+<td>Detects a failed WireGuard entry handshake and blacklists the entry <strong>before</strong> the user wastes time on the full connect. Distinguishes entry failures from exit blame. Adds gateway selection variety (top-3 random pick preserving ranking).</td>
+</tr>
+<tr>
+<td>Bump nym <code>vpn/release/2026.14-amsterdam</code> (LP clock-skew)</td>
+<td>#7150</td>
+<td>LP registration timestamps now apply clock-skew stamps; devices &gt;30s fast are no longer wrongly rejected.</td>
+</tr>
+<tr>
+<td>macOS: restore DNS + physical route, no kill-switch re-apply when offline</td>
+<td>#6261</td>
+<td>After disconnect, the kill switch isn't re-applied if already disconnected (preventing "no network at all" lockout).</td>
+</tr>
+<tr>
+<td>Apply kill-switch when Connect pressed while offline</td>
+<td>#6265</td>
+<td>New: kill switch applies before tunnel is up, so no traffic leaks during the bring-up.</td>
+</tr>
+<tr>
+<td>Give slow exit handshakes headroom</td>
+<td>#6237</td>
+<td>New: don't fail connection on a slow first handshake.</td>
+</tr>
+<tr>
+<td>Retry zk-nym credential requests mid-ceremony</td>
+<td>#6258</td>
+<td>If the upstream zk-nym credential endpoint is unavailable mid-issuance, retry rather than fail the whole flow.</td>
+</tr>
+<tr>
+<td>Prevent gateway refresh storm when API unreachable</td>
+<td>#6087</td>
+<td>If the gateway API is down, backoff rather than thrash.</td>
+</tr>
+<tr>
+<td>Windows: wait for VPN service to be running after install</td>
+<td>#6245</td>
+<td>Install edge case: service hadn't finished starting before app reported "running".</td>
+</tr>
+<tr>
+<td>Avoid blocking daemon command loop on recents (network calls)</td>
+<td>#6294</td>
+<td>The daemon's recent-connections list made network calls synchronously and could block.</td>
+</tr>
+<tr>
+<td>Android: avoid <code>reqwest</code> HTTP client to dodge <code>rustls-platform-verifier</code> panic</td>
+<td>#6316</td>
+<td>Specific Android panic; switch to a different HTTP client.</td>
+</tr>
+<tr>
+<td>Android: keep a blocking VPN interface up across connect/reconnect/error/offline/unexpected tunnel-down</td>
+<td>#6213</td>
+<td><strong>The big Android safety fix</strong>: the VPN interface now stays blocking across all error/transition states, so other apps cannot leak to the ISP. The NymVPN app is excluded so gateway registration still works.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pattern</strong>: Of the 12 items, <strong>4 are reliability/anti-leak</strong> (#6261, #6265, #6213, #6245), <strong>3 are connection-resilience</strong> (#6308, #6237, #6087), <strong>3 are correctness</strong> (#6272, #7150, #6294), <strong>1 is credential</strong> (#6258), <strong>1 is platform panic</strong> (#6316). The release is essentially "make NymVPN not drop, leak, or panic on flaky networks". The next stable (12.4) will land when these stabilize.</p>
+<h3 id="nym-main-repo-crates-1220-sdk-feature-gating-lp-clock-skew">Nym Main Repo: crates 1.22.0, SDK Feature Gating, LP Clock-Skew</h3>
+<p>12 PRs merged Sep 4–10 in <code>nymtech/nym</code>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>PR</th>
+<th>Title</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#7150 (Sep 10)</td>
+<td>Apply clock skew to LP registration timestamps</td>
+<td>Devices &gt;30s fast no longer wrongly rejected; same convention as bandwidth-claim skew; nodes and wire format unchanged. Shipped in NymVPN beta.4 same day.</td>
+</tr>
+<tr>
+<td>#7146 (Sep 10)</td>
+<td>nym-api fixes</td>
+<td>Multi-commit fix batch.</td>
+</tr>
+<tr>
+<td>#7144 (Sep 9)</td>
+<td>API <code>has_sufficient_tokens</code> cache docs</td>
+<td>Operator warning about token-cache staleness.</td>
+</tr>
+<tr>
+<td>#7143 (Sep 9)</td>
+<td>Non-interactive mode on client auto-topup</td>
+<td>Bugfix: <code>--non-interactive</code> flag was being ignored in the auto-topup path.</td>
+</tr>
+<tr>
+<td>#7139 (Sep 7)</td>
+<td>crates release: bump version to 1.22.0</td>
+<td><strong>Major workspace version bump</strong> to align with the post-djibouti API changes.</td>
+</tr>
+<tr>
+<td>#7140 (Sep 7)</td>
+<td>Update mainnet swap links and remove deprecated bridges</td>
+<td>Operator docs/maintenance.</td>
+</tr>
+<tr>
+<td>#7085 (Sep 7)</td>
+<td>Add prune command to BandwidthController</td>
+<td>Operational: explicit prune of stale bandwidth entries.</td>
+</tr>
+<tr>
+<td>#7142 (Sep 8)</td>
+<td>Hotfix: Update nodes top-up program name</td>
+<td>Single-line ops fix.</td>
+</tr>
+<tr>
+<td>#7141 (Sep 8)</td>
+<td>openspec archive stream liveness</td>
+<td>Archive stream health monitoring.</td>
+</tr>
+<tr>
+<td>#7140 (Sep 7)</td>
+<td>Update mainnet swap links</td>
+<td>Ops doc fix.</td>
+</tr>
+<tr>
+<td>#7137 (Sep 4)</td>
+<td>Bump hickory crates to <code>0.26.2</code></td>
+<td>DNS resolver security update.</td>
+</tr>
+<tr>
+<td>#7132 (Sep 4)</td>
+<td>Change snapshot retrieval to be best-effort</td>
+<td>Snapshot fetches no longer block the rest of startup if one snapshot is delayed.</td>
+</tr>
+<tr>
+<td>#7123 (Sep 8)</td>
+<td><strong>Max/nym SDK feature gating</strong></td>
+<td><strong>The headline architectural change</strong>. Configurable SDK feature flags for filesystem storage, SOCKS5, IPR, bandwidth, streams, TCP proxying, client pooling, and CLI. Subsystems remain enabled by default; selected features can support lighter builds. Storage and credential functionality require their feature to be enabled. <strong>This is the foundation for stripped WASM/embedded clients</strong> — exactly the path that Nym's WASM SDK will need.</td>
+</tr>
+<tr>
+<td>#7120 (Sep 8)</td>
+<td>Max/stream keepalive</td>
+<td>Stream-level keepalive for long-lived sessions.</td>
+</tr>
+<tr>
+<td>#7098 (Sep 8)</td>
+<td>Max/lwd stream patch</td>
+<td>Light-weight daemon stream-handling fix.</td>
+</tr>
+<tr>
+<td>#7036 (Sep 4)</td>
+<td>Clean up usage of nym-bridges</td>
+<td>Code hygiene.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The two structural items</strong>: #7139 (crates 1.22.0) is the version bump that ties all of this together. #7123 (SDK feature gating) is the architectural move toward <strong>lightweight WASM/embedded clients</strong> that can pick the subsystems they need. Together they tell the same story: <em>the next client shape isn't "full SDK everywhere" — it's "pick the features you need"</em>.</p>
+<h3 id="hopr-8365-surb-protocol-version-boundary">HOPR #8365: SURB Protocol-Version Boundary</h3>
+<p>PR #8365 (<code>feat(session)!: generation-tagged SURB consumption</code>, Sep 9) is the <strong>most consequential protocol change in HOPR since the SURB-ID rework</strong>. From the PR body:</p>
+<blockquote>
+<p>⚠️ <strong>SIGNIFICANT BEHAVIOR DIVERGENCE FROM 4.0</strong></p>
+<p>When a return path dies deep in a 1–3 hop forward or return route, the failure is <strong>invisible to the replying side</strong> — only the SURB creator, seeing which replies never came back, can tell. This change makes the return-path identity <strong>explicit</strong> so the replying side can react precisely rather than by heuristic.</p>
+</blockquote>
+<p>The mechanism:</p>
+<ol>
+<li><strong>Creator stamps every SURB batch with a generation</strong> — a dedicated <code>u8</code> (RFC-1982 serial) in <code>SurbReceiverInfo</code>.</li>
+<li><strong>Creator advances generation on every return-path re-plan</strong>.</li>
+<li><strong>Replier keeps only the highest generation it has seen</strong> — the first push carrying a newer generation <strong>clears the per-pseudonym buffer wholesale</strong>, so SURBs for the superseded (and possibly dead) path are dropped at once and the next reply uses the live path.</li>
+<li><strong>Generation tagging is orthogonal to <code>SurbPopOrder</code></strong> — FIFO is the default; LIFO remains fully functional. The two mechanisms compose: generation tagging handles an <em>explicit</em> re-plan; the pop order chooses consumption order <em>within</em> a generation.</li>
+</ol>
+<p>The cost:</p>
+<blockquote>
+<p>The SURB wire size grows by one byte, so this is a <strong>protocol-version boundary</strong>: nodes across the boundary cannot exchange SURBs. The <code>/hopr/mix/1.2.0</code> bump enforces the boundary in code — mixed-version nodes will not establish the <code>mix</code> protocol — so ship this as a coordinated release.</p>
+</blockquote>
+<p><strong>This is the HOPR equivalent of Tor's CGO wire-format bump</strong>: a small change in the packet structure that breaks compatibility at the protocol boundary. The semantic difference is <strong>return-path liveness becomes part of the wire format</strong>, not just a runtime signal.</p>
+<p>The week's other HOPR items:</p>
+<ul>
+<li><strong>#8393 (Sep 10)</strong> — <code>chore(deps): bump the nix-flake-inputs group with 4 updates</code>. Dependency hygiene.</li>
+<li><strong>#8384 (Sep 9)</strong> — <code>fix(session): capture SURB generation at path resolution, not encode</code>. Companion fix to #8365 — make sure the generation is captured when the path is resolved, not when the SURB is encoded (otherwise path re-resolutions between encode and send would lose the generation).</li>
+<li><strong>#8396 (Sep 8)</strong> — <code>feat(session): PIX fill keeps funded cycles on course when the client is idle</code>. PIX (Payment-In-channel eXchange) supervision continuation: a funded cycle stays funded when the client is idle (no spurious top-up on idle).</li>
+<li><strong>#8385 (Sep 7)</strong> — <code>feat(pix): make the SSA commitment retransmittable</code>. SSA (Session-Source-Account) commitments can now be retransmitted by a session supervisor on behalf of the client.</li>
+<li><strong>#8377 (Sep 3, prior week carry-over)</strong> — <code>feat(session): parameterize PIX admission by Session target</code>. Per-session admission policy.</li>
+<li><strong>#8381 (Sep 3)</strong> — <code>test(transport): make the head-of-line-blocking guard deterministic</code>. Test reliability.</li>
+<li><strong>#8368 (Sep 3)</strong> — <code>feat(transport): surface return-path relayer-diversity blind spots</code>. <strong>The diagnostic that complements #8365</strong>: when the return stream collapses onto a single relayer, the per-relayer degradation detector can't act (no sibling relayer still delivering). Diagnostics added to path selector (<code>WARN</code> when return path resolves to single relayer), path planner (debug-log return-path draw), and SURB telemetry. Companion to <code>hoprnet/edge-client#155</code>.</li>
+<li><strong>#8374 (Sep 1, prior week carry-over)</strong> — <code>fix(transport): time out and evict a stalled write-pump sink to stop egress head-of-line blocking</code>. <strong>The OOMKilled-class fix</strong>: a single stalled peer took jura-dev OOM after 10h of linear memory growth. <code>StallGuardSink&lt;S&gt;</code> wraps the framed writer with an idle timeout. Field signature was <code>hopr_egress_ring_buffer_dropped</code> pinned at exactly 0.50/s for 10+ hours.</li>
+</ul>
+<p><strong>The trio of #8365 + #8368 + #8374</strong> is <strong>HOPR's return-path robustness trilogy</strong>, completed this week: the wire-format signal (#8365), the diagnostic that surfaces when the signal is missing (#8368), the eviction that prevents one stuck peer from OOMing the whole node (#8374).</p>
+<h3 id="katzenpost-noop-heartbeat-kpclientd-hardening-chat-control-letter">Katzenpost: NoOp Heartbeat, kpclientd Hardening, Chat Control Letter</h3>
+<p>The Katzenpost repo shipped <strong>17 merged PRs Sep 4–10</strong> in addition to the network-facing changes already documented in last week's update.</p>
+<p><strong>Network-facing</strong>:
+- <strong>#1133 (Sep 8)</strong>: <code>client: send a NoOp heartbeat to the gateway on idle connections</code>. The idle client's only traffic was one GetConsensus2 per epoch, which could race the gateway's 2-minute read timeout and get disconnected mid-epoch. Mirrors the NoOp heartbeat the gateway already sends. <strong>Operational correctness</strong> — without this, idle connections drop silently every 2 minutes.
+- <strong>#1132 (Sep 7)</strong>: <code>cmd: add version flags to remaining commands</code>. Operator-tooling hygiene.</p>
+<p><strong>Cbor plugin startup diagnostics thread (Sep 4–8, 6+ commits)</strong>:
+- <strong>#1130 (Sep 6)</strong>: <code>Cbor plugin startup diagnostics</code> — the umbrella PR. Fix the various bugs that prevent the cbor plugin startup failure from being reported to the operators in the service node log. <em>"If a given cbor plugin fails to start, then at the very least the service node should print the plugin error to its log. Why? Because service nodes start the plugins so they can receive error text from stderr, and because the error text may help the operator diagnose problems."</em>
+- <strong>bfd52e7 (Sep 6)</strong>: <code>server: stop double-printing the provider-backend startup error</code>.
+- <strong>1fbc8a3 (Sep 6)</strong>: <code>server: log a one-line summary of provider-backend startup failures</code>.
+- <strong>86b7c9d (Sep 6)</strong>: <code>cborplugin: close the test log backend before TempDir cleanup</code>.
+- <strong>93d956e (Sep 6)</strong>: <code>kaetzchen: stop double-logging plugin startup failures</code>.
+- <strong>ab4575e (Sep 6)</strong>: <code>cborplugin: converge plugin init failures on one clean exit path</code>.
+- <strong>e527556 (Sep 6)</strong>: <code>cborplugin: fail fast with captured stderr on plugin startup failure</code>.</p>
+<p>The cluster is <strong>operator-experience work</strong>: when a service node fails to start, the operator needs to see <em>one clean error message</em> in the log, with stderr captured, and not double-printed. This is the same UX thread as last week's silent-packet-drop instrumentation (#1114).</p>
+<p><strong>kpclientd hardening (Sep 7)</strong>:
+- <strong>#1115 (Sep 7)</strong>: <code>kpclientd: fix shutdown hang and connection races</code>. Shutdown hang that was waiting for connections to drain; races between accept loop and shutdown.
+- <strong>#1118 (Sep 7)</strong>: <code>kpclientd: multiple unix listener sockets with stale-socket repair</code>. The big UX win. <code>[Listen.Unix].Addresses</code> lets the daemon bind several unix sockets at once, in any combination of filesystem paths and leading-<code>@</code> abstract names. A single <code>Address</code> behaves exactly as before, so existing configs are unaffected. <strong>A crashed kpclientd leaves its filesystem socket file behind, so the next bind would fail with <code>EADDRINUSE</code>. Each socket is bound through a repair step: on <code>EADDRINUSE</code>, if the path is a socket that no live daemon answers on (a dial is refused), the stale file is removed and rebound once. A socket a live daemon still answers on is left in place, so a second instance cannot evict a running one.</strong> Abstract sockets never outlive their owner, so <code>EADDRINUSE</code> there is a live owner and is passed through.
+- <strong>#1118</strong> also combines the prior multi-socket PR and the stale-socket-repair PR into one change.</p>
+<p><strong>Resilience + tooling (Sep 4–6)</strong>:
+- <strong>#1129 (Sep 6)</strong>: <code>docker: put base port seed in compose project name</code>. The local-dev docker mixnet had colliding ports across services; put the port seed in the compose project name so each deployment has its own port namespace.
+- <strong>#1127 (Sep 4)</strong>: <code>client/config: fix race condition in TestUnmarshalTOML</code>. CI reliability.
+- <strong>#1126 (Sep 4)</strong>: <code>genconfig: add proxyWorkerCount and proxyRequestTimeout flags for replica</code>. Operator-configurable replica scaling.
+- <strong>#1125 (Sep 4)</strong>: <code>pin latest hpqc to get the thinclient-diet changes</code>. The Katzenpost post-quantum crypto library shipped a thin-client-diet that needs to land in <code>katzenpost</code>.
+- <strong>#1124 (Sep 4)</strong>: <code>client/thin: bound the resend wait with an optional context</code>. Resend can be cancelled now.
+- <strong>#1123 (Sep 4)</strong>: <code>client: wait longer than the worst-case round trip in sendAndWait</code>. Don't give up before worst-case.
+- <strong>#1122 (Sep 4)</strong>: <code>courier: retry a transient replication failure during Copy</code>. Replication resilience.
+- <strong>#1121 (Sep 4)</strong>: <code>replica: give the silent-holder failover test a slow-CI budget</code>. CI reliability.</p>
+<p><strong>Plus a project-level event</strong>: <strong>Katzenpost public letter to the European Parliament</strong> is now front-paged on katzenpost.network. The full text opens:</p>
+<blockquote>
+<p>Public letter to the European Parliament. Ahead of Thursday's Chat Control vote: Chat Control, Thursday: you are about to outlaw what you paid us to build.</p>
+</blockquote>
+<p>The site also names <strong>Namenlos — "a public Katzenpost mix network anyone may use"</strong> — as "coming next" alongside pre-built packages for <code>katzenqt</code> and <code>kpclientd</code>. <strong>This is the first time Katzenpost has named a public mixnet as a near-term deliverable</strong>.</p>
+<h3 id="i2p-haoxucu-week-three-dos-class-fixes-path-traversal">I2P: haoxucu Week — Three DoS-Class Fixes + Path Traversal</h3>
+<p>I2P Java I2P shipped <strong>11 i2p.i2p commits Sep 4–10</strong>, all on the security/hardening thread (all reported by <strong>haoxucu</strong>, the same researcher who reported the SOCKS auth bypass and the bdecode recursion):</p>
+<p><strong>CVE-class (security-critical)</strong>:
+- <strong>b6ce258 + b12dfad + 0d801ff (Sep 4 + Sep 8)</strong>: <code>i2psnark: Improve path traversal checks</code> (3 commits). Path traversal hardening in the BitTorrent client's file-handling path.
+- <strong>641f06f (Sep 4)</strong>: <code>i2psnark: Catch unbounded bdecode recursion</code>. <code>BDecoder</code> applied no recursion limit to untrusted bencode, so a large nested list/map produced <code>StackOverflowError</code> that passed through every <code>catch(Exception)</code> on the receive path and killed the shared I2P session dispatcher thread. <strong>Fix by declaring and catching <code>Throwable</code> everywhere</strong>. This is the kind of bug that takes down the whole router on a single peer-supplied torrent.
+- <strong>ff63e0c (Sep 4)</strong>: <code>i2ptunnel: Fix SOCKS 4/4a downgrade bypass of proxy auth</code>. The guard meant to reject SOCKS 4/4a on auth-enabled tunnels checked for legacy <code>proxyUsername</code>/<code>proxyPassword</code> properties that are no longer used for SOCKS (we now store SHA-256 digest under different properties), so when auth was enabled <strong>an unauthenticated SOCKS 4a <code>CONNECT</code> was accepted</strong>. Fix by removing check for legacy properties.</p>
+<p><strong>Operational</strong>:
+- <strong>a884b90 (Sep 4)</strong>: <code>Addressbook: Check for dest mismatch in action=update</code>. Addressbook correctness.
+- <strong>d2392ae (Sep 4)</strong>: <code>SAM: Fix DG2/3 subsessions</code>. SAM bridge protocol fix.</p>
+<p><strong>i2psnark hardening (Sep 8–10)</strong>:
+- <strong>7852931 (Sep 8)</strong>: <code>i2psnark: Use uppercase for infohash in magnet names</code>. Cosmetic but standardizing.
+- <strong>2f0fb93 (Sep 9)</strong>: <code>i2psnark: Request throttle adjustments</code>. Anti-DoS throttling.
+- <strong>3f17761 (Sep 9)</strong>: <code>i2psnark: Restore 2-arg getNameAndInfoHash()</code>. Compatibility fix.</p>
+<p><strong>Misc</strong>:
+- <strong>77f8827 (Sep 10)</strong>: <code>bump -6</code>. Internal version bump.
+- <strong>cff95a3 (Sep 10)</strong>: <code>susidns: CSS tweak</code>. UI polish.</p>
+<p><strong>No I2P core release this week</strong> — I2P 2.13.0 (Jul 24, 2026) remains current. <strong>I2P 2.14.0 with the Hybrid MLKEM SSU2 release</strong> is still targeted for October 2026 per proposal 169.</p>
+<h3 id="tor-network-9331-relays-sep-8-lowest-since-early-2024">Tor Network: ~9,331 Relays (Sep 8) — Lowest Since Early-2024</h3>
+<p>The relay count trajectory over the post-0.4.8-EOL week:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Running</th>
+<th>Exit</th>
+<th>Fast</th>
+<th>Guard</th>
+<th>HSDir</th>
+<th>Stable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 25</td>
+<td>10,146</td>
+<td>3,276</td>
+<td>—</td>
+<td>6,246</td>
+<td>5,512</td>
+<td>9,230</td>
+</tr>
+<tr>
+<td>Aug 31</td>
+<td>10,060</td>
+<td>—</td>
+<td>—</td>
+<td>6,162</td>
+<td>3,254</td>
+<td>9,047</td>
+</tr>
+<tr>
+<td>Sep 1</td>
+<td>10,137</td>
+<td>3,268</td>
+<td>9,987</td>
+<td>6,155</td>
+<td>3,015</td>
+<td>9,059</td>
+</tr>
+<tr>
+<td>Sep 5</td>
+<td>9,436</td>
+<td>3,214</td>
+<td>9,373</td>
+<td>5,855</td>
+<td>3,093</td>
+<td>8,516</td>
+</tr>
+<tr>
+<td>Sep 6</td>
+<td>9,449</td>
+<td>3,208</td>
+<td>9,395</td>
+<td>5,892</td>
+<td>3,658</td>
+<td>8,556</td>
+</tr>
+<tr>
+<td>Sep 7</td>
+<td>9,443</td>
+<td>3,205</td>
+<td>9,388</td>
+<td>5,903</td>
+<td>3,558</td>
+<td>8,558</td>
+</tr>
+<tr>
+<td><strong>Sep 8</strong></td>
+<td><strong>9,331</strong></td>
+<td><strong>3,141</strong></td>
+<td><strong>9,267</strong></td>
+<td><strong>5,806</strong></td>
+<td><strong>3,300</strong></td>
+<td><strong>8,431</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>~9,331 relays (Sep 8) is the lowest count since the early-2024 LBTM pruning pass</strong>. The trajectory since Sep 1 (10,137 → 9,331) is a <strong>~8% drop in 7 days</strong>. The pre-existing <strong>Hetzner de-peering</strong> (Dingledine DEF CON 34: ~20% of network's relay-exit infrastructure) and the 0.4.8 EOL cut-off are the most likely explanations. The network <strong>did not collapse</strong> — it shrank to the operators who upgraded, plus whatever un-upgraded exits self-disconnected over the week.</p>
+<p>The network appears to have stabilized around the ~9.3K range — not back to ~10.5K where it sat in mid-2026, but no longer in free-fall. The 2-week browser cadence + the new Tor VPN Beta Arti build should draw modest new-user attention (and modest new-relay donations in the long run) but no immediate surge.</p>
+<h3 id="research-scan-sep-511">Research Scan: Sep 5–11</h3>
+<p>ePrint keyword searches for <code>mixnet</code>, <code>onion routing</code>, <code>anonymous communication</code> returned <strong>no fresh first-line mixnet papers</strong> in the Sep 5–11 window. The active anchors remain:</p>
+<ul>
+<li><strong>DumboMix</strong> (ePrint 2026/1699, async anonymous broadcast with G.O.D. via Shamir-share MPC, O(1) multiplicative depth)</li>
+<li><strong>De-SyRIS</strong> (ePrint 2026/1723, decentralized Sybil-resistant identity without trusted issuer)</li>
+<li><strong>Proof-of-Uniqueness</strong> (ePrint 2026/1725, threshold-OPRF Sybil-resistant pseudonymous DIDs)</li>
+<li><strong>Cao &amp; Green reputation-framing attacks on Nym</strong> (ePrint 2026/101)</li>
+<li><strong>Verifiable SelfMix</strong> (ePrint 2026/1617)</li>
+<li><strong>QuMixnet</strong> (post-quantum mixnet protocol)</li>
+<li><strong>MOCHA</strong> (ePrint 2025/861, IH&amp;MMSEC 2025, Loopix client-anonymity measurement)</li>
+<li><strong>Outfox</strong> (ACM SIGCOMM 2025, simplified Sphinx for PQ)</li>
+<li><strong>Anonymous Communication on Expander Networks</strong> (ePrint 2026/1404, approved 2026-07-13) — Tufts/Brown result: differentially-private and anonymous protocols in polylog rounds with polylog server load over expander graphs.</li>
+</ul>
+<p>The pattern continues: <strong>measurement + committee-based alternatives + expander-graph anonymous protocols</strong>, while the shipping work consolidates the existing primitives (CGO always-on in Arti; SURB generation in HOPR; kpclientd Unix multi-socket in Katzenpost; SDK feature gating in Nym).</p>
+<h3 id="out-of-scene-but-adjacent">Out-of-Scene but Adjacent</h3>
+<ul>
+<li><strong>Privacy Guides Nym analysis (Sep 10 update)</strong> — the independent researcher vs. NymVPN thread is now at update 10/09/26 with sustained criticism and Nym team silence noted. The thread "Nym Mixnet: privacy theater" (Aug 8) and "NymVPN (Nym)" are also active. Not a technical bug, but a recurring brand-trust pattern.</li>
+<li><strong>EU Chat Control</strong> — the July 2026 EP vote extended Chat Control 1.0 until April 2028; the Council now has ~3 months (until ~October 9) to decide on Chat Control 2.0 amendments. The Katzenpost letter is directly tied to this — the EP civil-liberties committee position rules out mass surveillance and protects encryption, but the Council could weaken it. The Katzenpost letter is <strong>the first time a mix-network project has put a public-policy letter above the fold</strong> on its project site.</li>
+</ul>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tor 0.4.9.12 released Sep 8</td>
+<td>oss-sec fwd: "Tor Project Forum: Security Release 0.4.9.12" dated Tue, 08 Sep 2026</td>
+<td>seclists.org/oss-sec/2026/q3/684</td>
+</tr>
+<tr>
+<td>TROVE-2026-036 VirtualAddrNetwork DoS fix</td>
+<td>"Fixes bug 41319; bugfix on 0.2.1.29. Tracked as TROVE-2026-036"</td>
+<td>Tor 0.4.9.12 changelog</td>
+</tr>
+<tr>
+<td>TROVE-2026-042 consensus diff DoS fix</td>
+<td>"Limit the size of consensus diffs, in bytes and in lines, to prevent a class of memory-based denial-of-service attacks. Fixes bug 41329; bugfix on 0.3.1.1-alpha. This is tracked as TROVE-2026-042"</td>
+<td>Tor 0.4.9.12 changelog</td>
+</tr>
+<tr>
+<td>CGO negotiation with every CGO-capable hop</td>
+<td>"Negotiate CGO cryptography with every hop that supports it. Previously, we failed to negotiate CGO with hops other than the final hop of a circuit"</td>
+<td>Tor 0.4.9.12 changelog</td>
+</tr>
+<tr>
+<td>Consensus-instructed CC downgrade blocked</td>
+<td>"Tor clients no longer accept consensus instructions to downgrade the congestion control algorithm. This is defense-in-depth for issues like 41345. Implements ticket 41361"</td>
+<td>Tor 0.4.9.12 changelog</td>
+</tr>
+<tr>
+<td>Tor Browser 15.0.22 released Sep 9</td>
+<td>"Tor Browser 15.0.22 is now available ... This version includes important security updates to Tor. Full changelog: All Platforms + Updated Tor to 0.4.9.12"</td>
+<td>blog.torproject.org/new-release-tor-browser-15022/</td>
+</tr>
+<tr>
+<td>Tor VPN Beta retrospective Sep 9 (by pavel)</td>
+<td>"Tor VPN Beta: What we've learned building our own VPN for Android from scratch" — per-app circuit isolation, Arti-based, WebTunnel bridges, F-Droid availability, CC not yet in Arti</td>
+<td>blog.torproject.org/tor-vpn-beta/</td>
+</tr>
+<tr>
+<td>NymVPN v2026.12.4-beta.4 released Sep 10 18:00</td>
+<td>Tag <code>nym-vpn-v2026.12.4-beta.4</code> published 2026-09-10T18:00:46Z</td>
+<td>github.com/nymtech/nym-vpn-client/releases/tag/nym-vpn-v2026.12.4-beta.4</td>
+</tr>
+<tr>
+<td>NymVPN pinned-gateway blacklist respect (#6272)</td>
+<td>"Pinned entry and exit gateway selections now consistently respect gateway availability and filtering rules"</td>
+<td>github.com/nymtech/nym-vpn-client/pull/6272</td>
+</tr>
+<tr>
+<td>NymVPN entry-handshake check + early blacklist (#6308)</td>
+<td>"Improved VPN connection reliability by detecting failed entry-gateway handshakes earlier. Automatically excludes unreachable entry gateways"</td>
+<td>github.com/nymtech/nym-vpn-client/pull/6308</td>
+</tr>
+<tr>
+<td>NymVPN Android always-on blocking VPN (#6213)</td>
+<td>"Keep a blocking VPN interface up on connect, reconnect, error, offline, and unexpected tunnel down so other apps cannot leak to the ISP"</td>
+<td>NymVPN 12.4-beta.4 release body</td>
+</tr>
+<tr>
+<td>NymVPN Android <code>rustls-platform-verifier</code> panic (#6316)</td>
+<td>"Don't use reqwest HTTP client to avoid rustls-platform-verifier panic"</td>
+<td>NymVPN 12.4-beta.4 release body</td>
+</tr>
+<tr>
+<td>Nym crates 1.22.0 release</td>
+<td>"crates release: bump version to 1.22.0" merged Sep 7</td>
+<td>github.com/nymtech/nym/pull/7139</td>
+</tr>
+<tr>
+<td>Nym SDK feature gating (#7123)</td>
+<td>"Added configurable SDK feature flags for filesystem storage, SOCKS5, IPR, bandwidth, streams, TCP proxying, client pooling, and CLI functionality. SDK subsystems remain enabled by default"</td>
+<td>github.com/nymtech/nym/pull/7123</td>
+</tr>
+<tr>
+<td>Nym LP registration clock-skew (#7150)</td>
+<td>"Bandwidth claims already subtract cached VPN API skew. LP request stamps still used raw local now, so a device more than 30s fast was rejected as invalid timestamp"</td>
+<td>github.com/nymtech/nym/pull/7150</td>
+</tr>
+<tr>
+<td>Nym hickory 0.26.2 vuln bump (#7137)</td>
+<td>"bump to hickory 0.26.2 to fix vulns"</td>
+<td>github.com/nymtech/nym/pull/7137</td>
+</tr>
+<tr>
+<td>HOPR SURB generation protocol boundary (#8365)</td>
+<td>"feat(session)!: generation-tagged SURB consumption ... protocol-version boundary: nodes across the boundary cannot exchange SURBs. The /hopr/mix/1.2.0 bump enforces the boundary in code"</td>
+<td>github.com/hoprnet/hoprnet/pull/8365</td>
+</tr>
+<tr>
+<td>HOPR SURB generation capture timing (#8384)</td>
+<td>"fix(session): capture SURB generation at path resolution, not encode"</td>
+<td>github.com/hoprnet/hoprnet/pull/8384</td>
+</tr>
+<tr>
+<td>HOPR relayer-diversity blind-spot diagnostics (#8368)</td>
+<td>"When the return stream to an exit collapses onto a single relayer, the per-relayer return-path degradation detector cannot act ... the gnosis VPN tunnel down on 2026-08-28 and was invisible in the logs"</td>
+<td>github.com/hoprnet/hoprnet/pull/8368</td>
+</tr>
+<tr>
+<td>HOPR StallGuardSink anti-OOM (#8374)</td>
+<td>"Both jura-dev nodes OOMKilled on 2026-08-27 after ~10 h of linear memory growth into the 4 GiB limit. A single stalled peer took down the whole node"</td>
+<td>github.com/hoprnet/hoprnet/pull/8374</td>
+</tr>
+<tr>
+<td>HOPR PIX funded-cycle idle behaviour (#8396)</td>
+<td>"PIX fill keeps funded cycles on course when the client is idle"</td>
+<td>github.com/hoprnet/hoprnet/pull/8396</td>
+</tr>
+<tr>
+<td>HOPR SSA commitment retransmittable (#8385)</td>
+<td>"feat(pix): make the SSA commitment retransmittable"</td>
+<td>github.com/hoprnet/hoprnet/pull/8385</td>
+</tr>
+<tr>
+<td>Katzenpost NoOp gateway heartbeat (#1133)</td>
+<td>"An idle client's only traffic was one GetConsensus2 per epoch, which could race the gateway's 2-minute read timeout and get disconnected mid-epoch. Mirrors the NoOp heartbeat the gateway already sends us"</td>
+<td>github.com/katzenpost/katzenpost/pull/1133</td>
+</tr>
+<tr>
+<td>Katzenpost Cbor plugin startup diagnostics (#1130)</td>
+<td>"Fix the various bugs that prevent the cbor plugin startup failure from being reported to the operators in the service node log"</td>
+<td>github.com/katzenpost/katzenpost/pull/1130</td>
+</tr>
+<tr>
+<td>Katzenpost kpclientd multi-socket + stale-socket repair (#1118)</td>
+<td>"Multiple unix listener sockets, and repair of a stale socket left by a crashed daemon ... on EADDRINUSE, if the path is a socket that no live daemon answers on (a dial is refused), the stale file is removed and rebound once"</td>
+<td>github.com/katzenpost/katzenpost/pull/1118</td>
+</tr>
+<tr>
+<td>Katzenpost kpclientd shutdown fix (#1115)</td>
+<td>"kpclientd: fix shutdown hang and connection races"</td>
+<td>github.com/katzenpost/katzenpost/pull/1115</td>
+</tr>
+<tr>
+<td>Katzenpost docker compose port seed (#1129)</td>
+<td>"docker: put base port seed in compose project name"</td>
+<td>github.com/katzenpost/katzenpost/pull/1129</td>
+</tr>
+<tr>
+<td>Katzenpost public letter to EP</td>
+<td>"Public letter to the European Parliament. Ahead of Thursday's Chat Control vote: Chat Control, Thursday: you are about to outlaw what you paid us to build"</td>
+<td>katzenpost.network</td>
+</tr>
+<tr>
+<td>Katzenpost Namenlos "coming next"</td>
+<td>"Namenlos: a public Katzenpost mix network anyone may use" listed under "Coming next"</td>
+<td>katzenpost.network</td>
+</tr>
+<tr>
+<td>I2P i2psnark bdecode DoS fix</td>
+<td>"BDecoder applies no recursion limit to untrusted bencode, so a large nested list or map produces a StackOverflowError that passes through every catch(Exception) guard on the receive path and terminates the shared I2P session dispatcher thread"</td>
+<td>github.com/i2p/i2p.i2p commit 641f06f</td>
+</tr>
+<tr>
+<td>I2P i2ptunnel SOCKS 4/4a auth bypass fix</td>
+<td>"the guard meant to reject SOCKS 4/4a on auth-enabled tunnels checked for legacy proxyUsername/proxyPassword properties that are no longer used for SOCKS, ... so when auth is enabled, an unauthenticated SOCKS 4a CONNECT was accepted"</td>
+<td>github.com/i2p/i2p.i2p commit ff63e0c</td>
+</tr>
+<tr>
+<td>I2P i2psnark path traversal checks (3 commits)</td>
+<td>"i2psnark: Improve path traversal checks" Sep 4 + Sep 8</td>
+<td>github.com/i2p/i2p.i2p commits b6ce258, b12dfad, 0d801ff</td>
+</tr>
+<tr>
+<td>I2P addressbook dest-mismatch fix</td>
+<td>"Addressbook: Check for dest mismatch in action=update" Sep 4</td>
+<td>github.com/i2p/i2p.i2p commit a884b90</td>
+</tr>
+<tr>
+<td>I2P SAM DG2/3 subsessions fix</td>
+<td>"SAM: Fix DG2/3 subsessions" Sep 4</td>
+<td>github.com/i2p/i2p.i2p commit d2392ae</td>
+</tr>
+<tr>
+<td>Tor network 9,331 relays Sep 8</td>
+<td>relayflags.csv 2026-09-08: Running 9331, Exit 3141, Fast 9267, Guard 5806, HSDir 3300, Stable 8431</td>
+<td>metrics.torproject.org/relayflags.csv</td>
+</tr>
+<tr>
+<td>Tor network 10,137 relays Sep 1 (prior week)</td>
+<td>relayflags.csv 2026-09-01</td>
+<td>metrics.torproject.org/relayflags.csv</td>
+</tr>
+<tr>
+<td>Tor network 10,146 relays Aug 25 (prior week)</td>
+<td>relayflags.csv 2026-08-25</td>
+<td>metrics.torproject.org/relayflags.csv</td>
+</tr>
+<tr>
+<td>Privacy Guides Nym analysis updated 10/09/26</td>
+<td>"Report completed - September 10, 2026: Info update"</td>
+<td>discuss.privacyguides.net/t/analysis-of-nym-vpn-and-its-guaranteed-privacy-update-10-09-26/38170</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-09-04/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — September 04 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-09-18/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — September 18 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

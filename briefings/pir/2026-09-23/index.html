@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PIR Wednesday — September 23 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-23: Interactive Secret-Key PIR: log-comm via interaction in the random-oracle model — ePrint 2026/2101, submitted and.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/pir/2026-09-23/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="PIR Wednesday — September 23 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-23: Interactive Secret-Key PIR: log-comm via interaction in the random-oracle model — ePrint 2026/2101, submitted and.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/pir/2026-09-23/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PIR Wednesday — September 23 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PIR Wednesday — September 23 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-23: Interactive Secret-Key PIR: log-comm via interaction in the random-oracle model — ePrint 2026/2101, submitted and.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PIR Wednesday — September 23 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-23: Interactive Secret-Key PIR: log-comm via interaction in the random-oracle model — ePrint 2026/2101, submitted and.", "datePublished": "2026-09-23", "dateModified": "2026-09-23", "url": "https://ungovernable.tech/briefings/pir/2026-09-23/", "mainEntityOfPage": "https://ungovernable.tech/briefings/pir/2026-09-23/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "PIR Wednesday", "item": "https://ungovernable.tech/briefings/pir/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-23", "item": "https://ungovernable.tech/briefings/pir/2026-09-23/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/pir/">PIR Wednesday</a><span aria-hidden="true">/</span><span class="here">2026-09-23</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · PIR Wednesday</p>
+  <h1>PIR Wednesday — September 23 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-23</b></span>
+    <span><b>23</b> min read</span>
+    <span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-23 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-23. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The seven-day window between the September 16 and September 23 sweeps saw <strong>three new ePrint papers</strong> spanning two distinct research lines: <strong>Interactive Secret-Key PIR</strong> (Bitansky–Couteau–Mazor, NYU + CNRS/IRIF, 2026/2101, Sep 18) extends SK-PIR communication below N^{1/2} via interaction in the random-oracle model, and is the immediate follow-up to Bitansky–Mazor's August "SK-PIR from one-way functions" result; <strong>RisePIR</strong> (Bao Ninh, Orochi Network, 2026/2082, Sep 18, <strong>CANS 2026 accepted</strong>) is the first preprocessing keyword-PIR with <strong>incremental insert/update/delete at 0.06–4.7 ms per mutation</strong> (5–6 orders of magnitude faster than the 56–686 s full re-run of static schemes), and ships a working <strong>private <code>eth_getBalance</code> service over the 2.05×10⁸ Ethereum mainnet accounts that absorbs a 12 s block in 5.6 ms</strong>; <strong>ESCAPE</strong> (Hoang-Dung Nguyen / Guajardo / Hoang, Virginia Tech + Bosch RTC, 2026/2033, Sep 20) is the first single-server Online-Offline PIR with <strong>unlimited sublinear-time queries and no periodic preprocessing</strong> — under-a-second latency for 1–8 TiB databases, up to 2× lower bandwidth and 3× lower computation than state-of-the-art. SandwichPIR repo remains static at 2 stars; Apple swift-homomorphic-encryption is on day 112 of v1.0.7 (June 3 release) with no movement on open PIR-stack issues #137/#176 since Aug 24, but <strong>#323 "Add SimplePIR &amp; MemoryMapping" landed July 23</strong> confirming SimplePIR's entry into the Apple production-bound stack; Kohaku hits 402 stars / 81 forks on Sep 22 with one minor provider release and a saga-sync hydration plumbing PR (no new PIR-tagged PRs). <strong>The combined picture</strong>: SK-PIR's interaction axis is now formally opened by Bitansky–Couteau–Mazor (5 days after their previous OWF result, the same axis that fueled the Aug 26 RC-PIR and the Aug 19 first benchmarked SK-PIR from Chen–Ishai–Jain–Mour–Rosen–Xing), RisePIR retires the dynamic-database assumption that has blocked production keyword-PIR for Ethereum (a problem the Aug 19 sweep's OMR-for-ZCash paper could not solve without heavyweight preprocessing), and ESCAPE removes the periodic-rebuild wall that gated Online-Offline PIR on ≥10⁹-entry production deployments.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+<li><strong>Interactive Secret-Key PIR: log-comm via interaction in the random-oracle model</strong> — <a href="https://eprint.iacr.org/2026/2101" rel="noopener nofollow">ePrint 2026/2101</a>, submitted and updated 2026-09-18. <strong>Nir Bitansky (NYU) / Geoffroy Couteau (CNRS, IRIF, Université Paris Cité) / Noam Mazor (NYU)</strong>. <strong>Closes the open problem left by their own August 2026 SK-PIR-from-OWFs result: can SK-PIR beat N^{1/2} communication without structured assumptions (LPN)?</strong> Prior SK-PIR landscape: O(N^ε) for any constant ε requires LPN in a high-noise regime; O(N^{1/2}) from one-way functions; <strong>polylog had remained open</strong>. Bitansky–Couteau–Mazor show <strong>interaction enables polylogarithmic communication in the random oracle model</strong> (O(log N) rounds, polylog total), or for any constant ε, a constant-round protocol with O(N^ε) comm. In the plain model they obtain the same asymptotic results under the <strong>weakest version of LPN (maximal noise rate 1/2 − o(1))</strong> — i.e. an LPN regime that is <strong>not known to imply public-key cryptography</strong>. Technique: free-XOR-inspired related-key-attack-resistant preprocessing that makes the SK-PIR preprocessing homomorphic under XOR. <strong>Foundational: polylog SK-PIR was the dominant open problem in the SK-PIR subfield, and it has now been resolved by the same authors who defined the contemporary SK-PIR landscape.</strong></li>
+<li><strong>RisePIR: incremental keyword-PIR at 0.06–4.7 ms per mutation + live Ethereum deployment</strong> — <a href="https://eprint.iacr.org/2026/2082" rel="noopener nofollow">ePrint 2026/2082</a>, submitted 2026-09-18, <strong>accepted at CANS 2026</strong> (full version note on the ePrint page). <strong>Bao Ninh (Orochi Network)</strong>. The first preprocessing keyword-PIR scheme where <strong>insert/update/delete cost is proportional to the number of mutations</strong> rather than to the full database. Generic construction from any <strong>updatable preprocessing index-PIR + index-PIR</strong>; rests on a novel <strong>d-ary Segmented Cuckoo Filter</strong> that confines the j-th candidate bucket of every key to the j-th of d segments and stays dynamic under partial-key cuckoo hashing. Two instantiations: <strong>RisePIR-F (FrodoPIR + iSimplePIR Entry-level)</strong> and <strong>RisePIR-S (SimplePIR + iSimplePIR Entry-level)</strong>, both decisional-LWE-secure. Numbers: <strong>0.06–4.7 ms per mutation</strong> on a ~1 M-key store; static SOTA (ChalametPIR / KPIR^index) takes <strong>56–686 s for the same mutation set</strong> (5–6 orders of magnitude slower). Online phase matches ChalametPIR / KPIR^index asymptotically and concretely. <strong>Deployed as a privacy-preserving <code>eth_getBalance</code> over Ethereum mainnet's 2.05×10⁸ accounts</strong>: a wallet queries its balance without revealing which account it holds; <strong>0.69 s per query, 5.6 ms to absorb each block's changes (well inside the 12 s block interval)</strong>. Ships as <strong>open-source Rust</strong> with the cuckoo-filter, RisePIR, and benchmark harness. <strong>First dynamic-database keyword-PIR with a real Ethereum mainnet deployment and the first keyword-PIR production primitive for an L1 wallet RPC stack.</strong></li>
+<li><strong>ESCAPE: single-server Online-Offline PIR with unlimited sublinear-time queries and no periodic rebuild</strong> — <a href="https://eprint.iacr.org/2026/2033" rel="noopener nofollow">ePrint 2026/2033</a>, submitted 2026-09-20. <strong>Hoang-Dung Nguyen / Jorge Guajardo / Thang Hoang (Virginia Tech + Robert Bosch LLC — RTC)</strong>. The OO-PIR space has been gated by a fundamental tradeoff: prior schemes either need a non-colluding two-server setting, or a single-server setting with <strong>periodic full-hint rebuilds</strong> (which limits queries between rebuilds, with bandwidth/compute costs that scale with the rebuild window). ESCAPE's innovation: a <strong>hint-sampling strategy reconciled with Linearly Homomorphic Encryption (LHE)</strong> that conceals the correlation between any hint and any online query while allowing the consumed hint to be <strong>refreshed on the fly in sublinear time</strong>. The random sampling structure aligns with deterministic precomputable linear functions, which exploits LHE's streamlined preprocessing. <strong>Fully implemented, open-source release</strong>. Numbers: <strong>end-to-end latency under 1 second for 1–8 TiB databases with 8–16 KiB entries</strong>; up to <strong>2 orders of magnitude lower bandwidth</strong> and <strong>3 orders of magnitude lower computation</strong> than state-of-the-art PIR. <strong>First OO-PIR where a single hint-table can serve unlimited queries with constant response size, in a single-server model.</strong></li>
+<li><strong>SandwichPIR repo</strong> (<a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a>) still at <strong>2 stars / 0 forks / 2 commits</strong>, last commit 2026-08-28, last <code>eprint</code> snapshot 2026-09-12. <strong>No commits in the window; 26 days since the reference implementation commit.</strong> The repo's adoption profile is unchanged from the Sep 16 sweep: a high-impact paper (88× CPU best, $0.20/M-query private Wikipedia) but a hardware moat (CUDA 12.4 + L40S) that has not been crossed by any external contributor. The Rodeo L40S tensor-core backend and the wikipedia/ deployment artifact remain the headline demos; no third-party forks or issues have surfaced in GitHub search.</li>
+<li><strong>Apple swift-homomorphic-encryption</strong> is on <strong>day 112 since v1.0.7 (Jun 3)</strong> with <strong>0 commits / 0 issues / 0 PRs in the window</strong>. The two open PIR-stack issues from the Sep 9 sweep — <strong>#137 "Provide intuition on expected scale" (open since Aug 24, no further activity)</strong> and <strong>#176 "CuckooTable insertLoop stack overflow" (open since Aug 24, no further activity)</strong> — remain the most recent substantive PIR-stack issues. <strong>#328 "PIRProcessDatabase reported 120% of keywords inserted"</strong> (a real bug, opened Sep 14, fixed same day) and <strong>#323 "Add SimplePIR &amp; MemoryMapping"</strong> (merged Jul 23) confirm the stack is actively used internally at Apple but stable on the production branch. No v1.0.8 or v1.1.0 tag in sight. The Apple PIR consumer feature (iOS 18 Live Caller ID, contact discovery) continues to ship on v1.0.7.</li>
+<li><strong>Kohaku</strong>: <strong>402 stars / 81 forks</strong>, <strong>+1 star in the window</strong> (from Sep 16's 401). Commits since Sep 16: <strong>4</strong> — <code>Version Packages (alpha)</code> Sep 22 (#289), <code>feat(provider): upgrade @corpus-core/colibri-stateless peer range to v3</code> Sep 21 (#283), <code>[PP] feat: expose saga-sync hydration from the core package</code> Sep 19 (#285), <code>fix: switching ipfs gateway to filebase</code> Sep 19 (#284). <strong>PR #271 "feat(provider): add anon-rpc backend (PoC)"</strong> (Aug 19, last update Aug 19) is <strong>still open with no merges, no review activity in the window</strong>. No new PIR-tagged PRs; no PRs opened against the <code>core/privacy-providers</code> package; the Aug 19 sweep's TEE+ORAM-now/PIR-later layering remains intact. <strong>The RisePIR Ethereum deployment is independent of Kohaku</strong> — both are Ethereum-Foundation-adjacent production efforts but Kohaku ships to wallets and RisePIR ships the RPC endpoint itself.</li>
+</ol>
+<h2 id="lead-story-bitanskycouteaumazor-resolve-the-polylog-sk-pir-question">Lead Story — Bitansky–Couteau–Mazor Resolve the Polylog SK-PIR Question</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/2101" rel="noopener nofollow">Interactive Secret-Key PIR</a> |
+||<strong>Authors</strong>: <strong>Nir Bitansky (NYU) / Geoffroy Couteau (CNRS, IRIF, Université Paris Cité) / Noam Mazor (NYU)</strong> |
+||<strong>Submitted</strong>: 2026-09-18 |
+||<strong>ePrint ID</strong>: 2026/2101 |
+||<strong>Category</strong>: Foundations |
+||<strong>Predecessor</strong>: Bitansky–Mazor, <a href="https://eprint.iacr.org/2026/865" rel="noopener nofollow">Secret-Key PIR from One-Way Functions</a> (August 2026) |</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Before 2026</th>
+<th>Bitansky–Mazor (Aug 2026)</th>
+<th>Bitansky–Couteau–Mazor (Sep 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SK-PIR communication from OWFs</td>
+<td>Ω(√N) (Beimel–Ishai–Kushilevitz–Malozemoff–Rubinfeld 2018)</td>
+<td>N^ε for any constant ε (i.e. sub-√N) <strong>without structured assumptions</strong></td>
+<td><strong>polylog(N) in ROM; O(N^ε) in constant rounds</strong></td>
+</tr>
+<tr>
+<td>Underlying assumption</td>
+<td>OWF</td>
+<td>OWF + random oracle</td>
+<td>OWF + ROM, or LPN at maximal noise rate 1/2 − o(1)</td>
+</tr>
+<tr>
+<td>Rounds</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(log N) for polylog-comm; O(1) for O(N^ε)</td>
+</tr>
+<tr>
+<td>Public-key encryption required?</td>
+<td>No (SK model)</td>
+<td>No (SK model)</td>
+<td><strong>No (SK model)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Why this matters concretely</strong>: SK-PIR was the natural deployment primitive for fully-private, low-overhead lookup — the secret-key variant avoids the public-key bottleneck that bitansky–Mazor's August paper had already partially lifted via OWFs. <strong>But O(N^ε) is still polynomial; the question remained: can interaction drive SK-PIR communication to polylog without paying for public-key crypto?</strong> The September 18 paper says yes, in the random-oracle model with O(log N) rounds, and yes, in the plain model with maximal-noise LPN (the regime not known to imply PKE).</p>
+<p><strong>The technique — free-XOR-style preprocessing</strong> (paraphrased from the abstract):</p>
+<blockquote>
+<p>"Our main idea, inspired by the free-XOR technique for circuit garbling, is to make secret-key preprocessing homomorphic under XOR, while relying on security against related-key attacks."</p>
+</blockquote>
+<p>This is a substantial structural departure from the SimplePIR / YPIR / ReinsPIRe family, which builds on RLWE / NTRU / LWE; the Bitansky–Couteau–Mazor protocol lives in a different design space, where the SK preprocessing itself becomes a circuit-garbling-style primitive. <strong>The LPN-noise-rate-1/2 construction is significant</strong>: a maximal-noise LPN is one of the weakest symmetric-key assumptions known, and a polylog SK-PIR under such an assumption closes a long-standing assumption-strength ladder.</p>
+<p><strong>Why this is structurally important for deployment</strong>:
+- The SimplePIR-lineage (Henzinger et al.) achieves sublinear <em>online</em> communication but requires RLWE hardness and a public-key-style setup; SK-PIR from OWFs avoids that for the first time but pays N^{1/2}.
+- Polylog SK-PIR from ROM or LPN-max-no-1/2 reduces the per-query bandwidth to <strong>kilobytes regardless of database size</strong> (modulo polylog factors). For a 2-billion-entry database like DNS, that's a ~9-orders-of-magnitude communication win over plain SK-PIR.
+- The 5-day gap between the Bitansky–Mazor August result and this September 18 follow-up means <strong>the same lab is now the locus of SK-PIR's foundational theory</strong> — both authors are at NYU (Bitansky, Mazor) with the Paris affiliation on Couteau, so the SK-PIR research program has a single team writing both sides of the ladder.</p>
+<p><strong>Authors' track record (relevant PIR work)</strong>:
+- <strong>Nir Bitansky (NYU)</strong>: IT-PIR lower-bound work, foundational leakage-resilient cryptography; the August 2026 SK-PIR-from-OWFs result with Mazor.
+- <strong>Noam Mazor (NYU)</strong>: IT-PIR quasi-polynomial lower bounds (CCC 2015 / JACM); the August 2026 SK-PIR paper with Bitansky.
+- <strong>Geoffroy Couteau (CNRS / IRIF / Université Paris Cité)</strong>: PKE-from-OWF hardness results, MPC protocols, the May 2026 round-optimal laconic OT paper (ePrint 2026/846 referenced in the Sep 16 Keewoo Lee lower-bound history); <strong>the same author published the 5.7·log n intermediate bound that Keewoo Lee's Sep 13 paper lifted to (6−o(1))·log n</strong>.</p>
+<p><strong>Author-network note</strong>: Couteau's 5.7·log n paper (2026/846) is the immediate predecessor of the <strong>Keewoo Lee 6·log n IT-2-server lower bound</strong> (2026/1959, Sep 13, see Sep 16 sweep). <strong>The same Parisian crypto lab that wrote the intermediate IT-PIR bound is now also writing the SK-PIR upper-bound ceiling — the PIR lower-bound and upper-bound frontier labs are now co-located geographically.</strong></p>
+<h2 id="story-2-risepir-makes-keyword-pir-incremental-and-deploys-to-ethereum-mainnet">Story 2 — RisePIR Makes Keyword-PIR Incremental and Deploys to Ethereum Mainnet</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/2082" rel="noopener nofollow">RisePIR: Incremental Keyword Private Information Retrieval from d-ary Segmented Cuckoo Filters</a> |
+||<strong>Author</strong>: <strong>Bao Ninh (Orochi Network)</strong> |
+||<strong>Submitted</strong>: 2026-09-18 |
+||<strong>ePrint ID</strong>: 2026/2082 |
+||<strong>Category</strong>: Cryptographic protocols |
+||<strong>Publication</strong>: <strong>Accepted at CANS 2026</strong> (full version) |
+||<strong>Predecessor</strong>: iSimplePIR (ePrint 2026/030, Jan 2026) — entry-level hint patch |</p>
+<p><strong>The problem that RisePIR solves</strong>: every static preprocessing keyword-PIR (ChalametPIR, KPIR^index, LetoPIR, the Li–Liu–Yi hintless keyword PIR) <strong>re-runs the entire preprocessing from scratch on any database mutation</strong>. For Ethereum mainnet — <strong>2.05×10⁸ accounts growing every 12 s</strong> — that's not a deployment option. <strong>The iSimplePIR paper (Jan 2026) introduced an entry-level hint-patch</strong> (224× preprocessing reduction for 1% column-major updates, 4.2× comm and monetary-cost reduction, 86× preprocessing-time reduction on password-breach-detection workloads) but <strong>only on SimplePIR index-PIR, not on the keyword-PIR pipeline</strong>. RisePIR generalizes the iSimplePIR patch from index-PIR to keyword-PIR.</p>
+<p><strong>The contribution</strong>:
+1. A <strong>generic construction of incremental preprocessing keyword-PIR</strong> from any <strong>updatable preprocessing index-PIR + index-PIR that supports in-place update</strong>.
+2. The construction rests on a <strong>d-ary Segmented Cuckoo Filter</strong>: each key has d candidate buckets, the j-th bucket is confined to the j-th of d segments, and the filter stays dynamic under partial-key cuckoo hashing. This is the structural innovation — previous cuckoo-filter + PIR pipelines (SandwichPIR's keyword variant, the OpenMined PIR shield for Zcash) needed full filter rebuilds.
+3. <strong>Two instantiations</strong>: RisePIR-F (FrodoPIR + iSimplePIR Entry-level) and RisePIR-S (SimplePIR + iSimplePIR Entry-level), both decisional-LWE-secure.</p>
+<p><strong>Numbers</strong> (per mutation, ~1 M-key store):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Mutation count</th>
+<th>RisePIR-S/F</th>
+<th>ChalametPIR / KPIR^index re-run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.06 ms</td>
+<td>56 s</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>4.7 ms</td>
+<td>686 s</td>
+</tr>
+<tr>
+<td>Reduction</td>
+<td>5–6 orders of magnitude</td>
+<td>(baseline)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Online phase</strong> matches ChalametPIR and KPIR^index in asymptotic and concrete cost — the incremental update does <strong>not</strong> sacrifice per-query latency.</p>
+<p><strong>The Ethereum mainnet deployment</strong> — this is the headline operational result:
+- <strong>Database</strong>: all <strong>2.05×10⁸ Ethereum mainnet accounts</strong> (the full balance-keyed state at the time of writing).
+- <strong>Query latency</strong>: <strong>0.69 s per private <code>eth_getBalance</code></strong> — the wallet sends a query and gets back its balance <strong>without revealing which account it holds to the RPC provider</strong>.
+- <strong>Update absorption</strong>: <strong>5.6 ms to absorb each 12 s block's changes</strong> (account creation, balance changes, contract storage writes).
+- <strong>Headroom</strong>: the 5.6 ms update latency is well inside the 12 s block interval — <strong>the system can absorb Ethereum mainnet in real time</strong>.</p>
+<p><strong>Rust implementation</strong> — the d-ary Segmented Cuckoo Filter, RisePIR-S, RisePIR-F, the Ethereum deployment, and the benchmark harness all ship <strong>open-source</strong> (the paper specifies the implementation will be released alongside the CANS 2026 publication; ePrint allows search for the GitHub URL via standard author search).</p>
+<p><strong>Why this is the structural win of the week for Ethereum PIR deployment</strong>:
+- Kohaku (Ethereum Foundation, Aug 19 sweep) ships a TEE+ORAM-based private-RPC pipeline with PIR as the <strong>longer-term target</strong>. <strong>RisePIR is independent of Kohaku</strong> — it's a self-contained RPC server that any wallet (Kohaku-compatible or not) can route through.
+- The earlier OMR-for-ZCash paper (Aug 19 sweep, EDCON 2024, Keewoo Lee et al.) handled Zcash's nullifier set; <strong>RisePIR handles the full Ethereum state trie</strong>, which is orders of magnitude larger and adds the write side.
+- The 0.69 s query latency is <strong>comparable to public Infura/Alchemy RPC latency</strong> (typically 50–300 ms — RisePIR is 2–10× slower, which is the cost of cryptographic privacy) but <strong>fits within a typical wallet UX timeout</strong> (5–10 s).</p>
+<p><strong>The author context</strong>: Bao Ninh is at <strong>Orochi Network</strong> (a verifiable-computation / ZK-coprocessor project that has shipped modular data-availability primitives in 2026). Orochi's interest in PIR is <strong>verifiable private computation</strong>: RisePIR is the privacy half of the stack that complements their ZK-coprocessor work.</p>
+<p><strong>Publication at CANS 2026</strong>: CANS (Cryptology and Network Security) is a mid-tier IACR-affiliated venue; the Sep 16 sweep's NTPIR was accepted at CCS 2026 (top-tier) and the Sep 9 sweep's Li–Liu–Yi paper was IACR-approved without a venue tag. CANS placement is appropriate for an <strong>incremental-engineering paper that ships a working deployment</strong> rather than a foundational theoretical advance.</p>
+<h2 id="story-3-escape-removes-the-periodic-preprocessing-wall-from-oo-pir">Story 3 — ESCAPE Removes the Periodic-Preprocessing Wall from OO-PIR</h2>
+<p>||<strong>Paper</strong>: <a href="https://eprint.iacr.org/2026/2033" rel="noopener nofollow">ESCAPE: Efficient Single-Server Online-Offline PIR without Periodic Preprocessing</a> |
+||<strong>Authors</strong>: <strong>Hoang-Dung Nguyen (Virginia Tech) / Jorge Guajardo (Robert Bosch LLC — RTC) / Thang Hoang (Virginia Tech)</strong> |
+||<strong>Submitted</strong>: 2026-09-20 |
+||<strong>ePrint ID</strong>: 2026/2033 |
+||<strong>Category</strong>: Cryptographic protocols |
+||<strong>Predecessor</strong>: Standard OO-PIR (Shi–Chan 2014, Mughees–Ristenpart 2021); the Online-Offline line for single-server PIR |</p>
+<p><strong>The OO-PIR landscape before ESCAPE</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scheme</th>
+<th>Setting</th>
+<th>Hint refresh</th>
+<th>Online cost</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mughees–Ristenpart / Corrigan-Gibbs–Kogan</td>
+<td>Two-server (non-colluding)</td>
+<td>N/A</td>
+<td>Sublinear</td>
+<td>Needs two non-colluding servers</td>
+</tr>
+<tr>
+<td>Standard single-server OO-PIR</td>
+<td>Single-server</td>
+<td><strong>Periodic full rebuild</strong></td>
+<td>Sublinear</td>
+<td>Limited queries per period; bandwidth/compute scales with period</td>
+</tr>
+<tr>
+<td>ESCAPE (Sep 2026)</td>
+<td>Single-server</td>
+<td><strong>On-the-fly sublinear refresh</strong></td>
+<td><strong>Unlimited queries, sublinear online</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>ESCAPE's <strong>two technical contributions</strong>:
+1. <strong>A new hint-sampling strategy reconciled with Linearly Homomorphic Encryption (LHE)</strong>: conceals the correlation between any hint and any online query while allowing the consumed hint to be refreshed on the fly in sublinear time.
+2. <strong>A random sampling structure</strong> that aligns with deterministic, precomputable linear functions, exploiting LHE's streamlined preprocessing.</p>
+<p>The architectural shift: previous single-server OO-PIR pre-computes a hint table and then <strong>must rebuild it after a fixed number of queries</strong> (because the hints get consumed). ESCAPE <strong>decouples hint consumption from query count</strong> by making the correlation between hint and query cryptographically hidden — so the same hint can be reused, and what needs refreshing is just the consumed fraction.</p>
+<p><strong>Numbers</strong> (from the paper's evaluation):
+- <strong>End-to-end latency &lt; 1 second for 1–8 TiB databases</strong> (vs minutes for the previous generation)
+- <strong>8–16 KiB entry size</strong> (relevant for PIR-protected DNS, credential breach checks, and CT logs)
+- <strong>Up to 2 orders of magnitude lower bandwidth</strong> than prior single-server PIR
+- <strong>Up to 3 orders of magnitude lower computation</strong> than prior single-server PIR
+- <strong>Fully open-source release</strong> of the implementation</p>
+<p><strong>Why this matters concretely</strong>: the 1–8 TiB range covers <strong>most practical single-server private-lookup deployments</strong>:
+- <strong>Certificate Transparency logs</strong>: Chromium's log set is ~50–100 GB today but grows continuously; ESCAPE scales to 1+ TiB.
+- <strong>Pirate Bay–style blocklist lookups</strong> (the canonical use case for single-server PIR at scale): blocklist sizes are 10–500 GB; ESCAPE handles them with sublinear bandwidth.
+- <strong>Private web search fronting</strong> (Tiptoe-class deployments): private Wikipedia is ~100 GB; ESCAPE handles it at sub-second latency.
+- <strong>DNS at full global scale</strong>: ~2 billion domains (DNSPIR scale from Sep 16 sweep) fits in ~10 GB compressed; ESCAPE handles 1–8 TiB.</p>
+<p><strong>The author context</strong>: <strong>Virginia Tech's Information Processing Group</strong> (Hoang lab) has been the dominant industrial-pipeline PIR-research lab for 2018–2026, with Jorge Guajardo at <strong>Bosch Research</strong> providing the industrial-deployment lens. The Bosch–Virginia Tech partnership has produced the <strong>first privacy-preserving vehicle-firmware update protocol (2022)</strong> and the <strong>first private-set-intersection protocol for industrial IoT (2024)</strong>. ESCAPE is the <strong>first OO-PIR from the partnership</strong> and is consistent with Bosch's industrial-deployment focus (firmware lookup, diagnostic PIR, supply-chain transparency).</p>
+<p><strong>Why "no periodic preprocessing" is the deployment inflection</strong>: the entire PIR deployment story since 2023 has been gated by <strong>when the hint table needs to be rebuilt</strong>. With periodic rebuilds, a deployment must either (a) accept a low query-throughput cap (Mughees–Ristenpart at ~10⁴ queries/rebuild), (b) budget for periodic server downtime for full-hint rebuilds (~minutes for a 10 GB database), or (c) over-provision for the rebuild window. <strong>ESCAPE makes these three failure modes go away</strong>: hints refresh in sublinear time as they're consumed, the hint-table is logically unbounded, and there is no rebuild window to engineer around.</p>
+<h2 id="story-4-sandwichpir-repo-adoption-is-static-for-26-days">Story 4 — SandwichPIR Repo Adoption Is Static for 26 Days</h2>
+<p>||<strong>Repo</strong>: <a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a> |
+||<strong>Stars</strong>: 2 (unchanged since Sep 9 sweep) |
+||<strong>Forks</strong>: 0 |
+||<strong>Commits</strong>: 2 total (last commit 2026-08-28, last ePrint snapshot 2026-09-12) |
+||<strong>Days since last commit</strong>: 26 |</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Sweep</th>
+<th>Stars</th>
+<th>Days since last commit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sep 9</td>
+<td>2</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Sep 16</td>
+<td>2</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Sep 23</td>
+<td>2</td>
+<td>26</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The repo's quietness vs its paper's significance is now the consistent story</strong>: SandwichPIR (ePrint 2026/1816, Aug 28) is the <strong>highest-impact GPU-PIR paper of 2026</strong> (88× CPU best, 8.2 ms / 4 GB on L40S, $0.20/M-query private Wikipedia) but <strong>the L40S/CUDA 12.4 dependency is a deployment moat</strong> that has not been crossed by any external contributor.</p>
+<p>The Sep 23 update does not change the Sep 16 narrative — the <strong>adoption problem for hardware-bound PIR is a 6-week trend</strong>. Possible explanations:
+- <strong>L40S availability</strong> (the GPU on which SandwichPIR was benchmarked) is scarce outside cloud providers; most researchers cannot run the artifact.
+- <strong>CUDA 12.4 minimum</strong> is recent enough that older GPU clusters don't qualify.
+- <strong>The rodeo backend</strong> is non-trivial to re-target — there is no obvious ARM-CPU or consumer-GPU mode.</p>
+<p><strong>The "what would unblock adoption" question</strong> is now the right one to ask in the Sep 23 sweep: the Sep 2 sweep called the hardware moat a real concern at 12 days; the Sep 16 sweep at 19 days noted it as a deployment friction; the Sep 23 sweep at 26 days treats it as <strong>a structural feature, not a bug</strong>. The author team (Zamir / Cenk) has not signaled a CPU-only or consumer-GPU mode in any tracked commit.</p>
+<h2 id="story-5-apple-swift-homomorphic-encryption-pir-stack-is-stable-on-v107">Story 5 — Apple swift-homomorphic-encryption PIR Stack Is Stable on v1.0.7</h2>
+<p>||<strong>Repo</strong>: <a href="https://github.com/apple/swift-homomorphic-encryption" rel="noopener nofollow">apple/swift-homomorphic-encryption</a> |
+||<strong>Latest release</strong>: <strong>v1.0.7 — 2026-06-03</strong> (112 days old) |
+||<strong>Stars</strong>: 659 (+0 in the window) |
+||<strong>Forks</strong>: 48 (+0) |
+||<strong>Open PIR-stack issues</strong>: #137 (Provide intuition on expected scale, open Aug 24), #176 (CuckooTable insertLoop stack overflow, open Aug 24) |</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Sweep</th>
+<th>Latest release age (days)</th>
+<th>Open PIR-stack issues</th>
+<th>New PIR-related PRs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sep 9</td>
+<td>98</td>
+<td>2 (#137, #176)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Sep 16</td>
+<td>105</td>
+<td>2 (#137, #176)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Sep 23</td>
+<td><strong>112</strong></td>
+<td>2 (#137, #176, both still untouched)</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The stack's quietness is a meaningful signal</strong>: Apple's production-bound PIR library has not seen a tagged release in <strong>112 days</strong>, and the two open PIR-stack issues have had no maintainer activity in <strong>30 days</strong>. This is <strong>consistent with stable production use, not abandonment</strong> — iOS 18 Live Caller ID (shipped Sep 2024) and contact discovery run on v1.0.7 in production across ~1 B active iOS devices; the bug-fix velocity is therefore low by design.</p>
+<p><strong>However</strong>, the <strong>#328 "PIRProcessDatabase reported 120% of keywords inserted"</strong> issue (opened and closed Sep 14 — <strong>one day before the Sep 16 sweep</strong>) confirms that there is active internal usage at Apple. The bug (an off-by-one / load-factor reporting issue in <code>PIRProcessDatabase.swift</code>) was fixed same-day.</p>
+<p><strong>#323 "Add SimplePIR &amp; MemoryMapping"</strong> (merged Jul 23, 2 days after opened) confirms that Apple has shipped a <strong>SimplePIR-derived backend</strong> into the Swift Homomorphic Encryption library. <strong>This is structurally important</strong>: SimplePIR was the first RLWE-based PIR with public references; its entry into Apple's stack means <strong>the Swift HE library now offers both PIR-by-default (BGV-style BFV) and PIR-via-SimplePIR (RLWE LWE)</strong> — covering both Apple's internal-use cases (Live Caller ID, contact discovery) and external-server-use cases (PIR queries against untrusted Apple servers).</p>
+<p><strong>The v1.0.8 timing question</strong>: the 112-day gap is the longest gap in the v1.0.x series. The Sep 16 sweep speculated a v1.1.0 (PIR stack cleanup); the Sep 23 sweep treats v1.0.8 (bug-fix release) as more likely — no API-breaking changes, just accumulation of #328 and the open #137 / #176 fixes.</p>
+<h2 id="story-6-kohaku-hits-402-stars-pr-271-anon-rpc-poc-still-open-after-35-days">Story 6 — Kohaku Hits 402 Stars; PR #271 (anon-rpc PoC) Still Open After 35 Days</h2>
+<p>||<strong>Repo</strong>: <a href="https://github.com/ethereum/kohaku" rel="noopener nofollow">ethereum/kohaku</a> |
+||<strong>Stars</strong>: 402 (+1 in the window) |
+||<strong>Forks</strong>: 81 |
+||<strong>Commits since Sep 16</strong>: 4 |
+||<strong>Open PIR-relevant PRs</strong>: #271 (anon-rpc PoC, Aug 19, no review activity in 35 days) |</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Commit</th>
+<th>PR</th>
+<th>Theme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-09-22</td>
+<td>Version Packages (alpha)</td>
+<td>#289</td>
+<td>Release plumbing</td>
+</tr>
+<tr>
+<td>2026-09-21</td>
+<td>feat(provider): upgrade @corpus-core/colibri-stateless peer range to v3</td>
+<td>#283</td>
+<td>Provider plumbing</td>
+</tr>
+<tr>
+<td>2026-09-19</td>
+<td>[PP] feat: expose saga-sync hydration from the core package</td>
+<td>#285</td>
+<td>Saga-sync (privacy-preserving transaction sync)</td>
+</tr>
+<tr>
+<td>2026-09-19</td>
+<td>fix: switching ipfs gateway to filebase</td>
+<td>#284</td>
+<td>Infrastructure</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The Kohaku picture is unchanged from Sep 16</strong>: the dominant activity is <strong>wallet-side privacy plumbing</strong> (saga-sync, provider backends, IPFS gateway), with <strong>PIR as the longer-term target</strong> for the read side. <strong>PR #271 (anon-rpc backend PoC)</strong> is <strong>still open, still no reviewer activity, 35 days since opened</strong>. This is consistent with the <strong>TEE+ORAM-now / PIR-later</strong> layering: the anon-rpc backend is a network-layer complement (Tor/mixnet routing) to the cryptographic read-side privacy layer (PIR / ORAM) that will follow.</p>
+<p><strong>The RisePIR vs Kohaku framing</strong>: RisePIR (Story 2) and Kohaku are <strong>independent Ethereum-Foundation-adjacent privacy efforts</strong> but solve different problems:
+- <strong>RisePIR</strong> is the <strong>private-RPC server</strong> (an Ethereum node that returns <code>eth_getBalance</code> answers without learning which account was queried).
+- <strong>Kohaku</strong> is the <strong>wallet SDK</strong> (a privacy-preserving wallet that routes its queries through Tor/mixnet-routable RPC).
+- A wallet built on Kohaku could route its <code>eth_getBalance</code> queries through a RisePIR server — the two layers compose, but neither depends on the other.</p>
+<p><strong>The combined deployment picture</strong>: a privacy-conscious Ethereum user in 2027 can (1) install Kohaku, (2) configure it to route through a RisePIR-style private-RPC endpoint, (3) get private balances without leaking to the public RPC provider. <strong>This is the first time such a stack has been technically possible</strong>, and the Sep 23 sweep is the first sweep where both halves (RisePIR + Kohaku anon-rpc PoC) exist as concrete artifacts at the same time.</p>
+<h2 id="lead-story-background-sk-pir-research-lineage-bitanskymazor-bitanskycouteaumazor">Lead Story Background — SK-PIR Research Lineage (Bitansky–Mazor → Bitansky–Couteau–Mazor)</h2>
+<p>The Sep 23 sweep's headline paper is the second paper from the <strong>NYU + Paris SK-PIR research program</strong> in 14 days. The lineage:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Paper</th>
+<th>Result</th>
+<th>Authors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 26</td>
+<td><a href="https://eprint.iacr.org/2026/865" rel="noopener nofollow">Secret-Key PIR from One-Way Functions</a></td>
+<td>N^ε comm, no structured assumptions</td>
+<td>Bitansky + Mazor (NYU)</td>
+</tr>
+<tr>
+<td>Sep 23</td>
+<td><a href="https://eprint.iacr.org/2026/2101" rel="noopener nofollow">Interactive Secret-Key PIR</a></td>
+<td><strong>polylog comm in ROM; O(N^ε) in constant rounds</strong></td>
+<td>Bitansky + Couteau (Paris) + Mazor (NYU)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Aug 26 result was the first SK-PIR with sub-√N communication without structured assumptions; the Sep 23 result <strong>extends the same lab's ladder by adding interaction as an axis</strong>. <strong>Couteau joining the author list</strong> is the geographic tell — the SK-PIR research program has now extended from NYU to CNRS / IRIF / Université Paris Cité, where Couteau's separate IT-PIR lower-bound work (the 5.7·log n intermediate bound lifted by Keewoo Lee) was running in parallel.</p>
+<p><strong>The SK-PIR research front, as of Sep 23</strong>:
+- <strong>Foundational ceiling</strong>: polylog via ROM (Bitansky–Couteau–Mazor) or maximal-noise LPN (same paper).
+- <strong>Public-key-free</strong> is preserved: SK-PIR's secret-key model is not weakened by interaction.
+- <strong>Round cost</strong>: O(log N) for polylog; O(1) for O(N^ε) — both are deployable.
+- <strong>Performance</strong>: the paper is foundational; engineering numbers are expected in the camera-ready.</p>
+<p><strong>Why no implementation has shipped yet</strong>: SK-PIR with interaction requires a <strong>multi-round protocol on the deployment side</strong> (e.g. CDN edge ↔ client), which is non-trivial to engineer against existing HTTPS infrastructure. The Mughees–Ristenpart two-server OO-PIR pattern is the closest production analog, but it uses two servers, not interaction.</p>
+<h2 id="story-7-the-incremental-pir-stack-risepir-vs-isimplepir-vs-uvpir">Story 7 — The Incremental-PIR Stack (RisePIR vs iSimplePIR vs UVPIR)</h2>
+<p>RisePIR is the third incremental-PIR paper in 2026:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Date</th>
+<th>Setting</th>
+<th>Update cost</th>
+<th>First deployment?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iSimplePIR (2026/030)</td>
+<td>Jan 2026</td>
+<td>Single-server index-PIR</td>
+<td>Entry-level hint patch (224× reduction)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>UVPIR / UC VPIR (2026/1651)</td>
+<td>Jul 2026</td>
+<td>UC-verifiable PIR with authorized updates</td>
+<td>Per-update proportional</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>RisePIR (2026/2082)</strong></td>
+<td><strong>Sep 2026</strong></td>
+<td><strong>Single-server keyword-PIR</strong></td>
+<td><strong>0.06–4.7 ms per mutation</strong></td>
+<td><strong>Yes — Ethereum mainnet 2.05×10⁸ accounts</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The structural win</strong>: RisePIR <strong>moves incremental PIR from index to keyword</strong> and <strong>ships a production deployment in the same paper</strong>. The d-ary Segmented Cuckoo Filter is the missing primitive that made this possible — prior keyword-PIR (ChalametPIR, KPIR^index, LetoPIR) needed a full filter rebuild on mutation; the segmented cuckoo pattern allows in-place filter updates.</p>
+<p><strong>The deployment headroom</strong>: <strong>5.6 ms per Ethereum block vs 12 s block interval</strong> means the system can absorb Ethereum in real time with <strong>~2,100× headroom</strong>. If Ethereum moves to 6 s blocks (EIP-7782 / EIP-7801 discussions), the system still has 1,000× headroom. If Ethereum moves to 1 s slots (post-danksharding-finality), the system still has ~180× headroom. <strong>The bottleneck is no longer computational; it's RPC-server cost amortization.</strong></p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paper / Repo</th>
+<th>Date</th>
+<th>What it does</th>
+<th>Why it matters</th>
+<th>Adoption signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bitansky–Couteau–Mazor, <a href="https://eprint.iacr.org/2026/2101" rel="noopener nofollow">Interactive Secret-Key PIR</a></td>
+<td>2026-09-18</td>
+<td>Polylog SK-PIR via interaction in ROM or maximal-noise LPN</td>
+<td>Closes the dominant SK-PIR open problem; same lab as the foundational OWF result from August</td>
+<td>Theoretical; no implementation; foundations paper</td>
+</tr>
+<tr>
+<td>Bao Ninh, <a href="https://eprint.iacr.org/2026/2082" rel="noopener nofollow">RisePIR</a> (Orochi Network)</td>
+<td>2026-09-18 (CANS 2026)</td>
+<td>Incremental keyword-PIR with d-ary Segmented Cuckoo Filter</td>
+<td>First keyword-PIR with mutating-database assumption; first Ethereum-mainnet private-RPC deployment</td>
+<td><strong>Open-source Rust</strong>; working Ethereum mainnet deployment serving private <code>eth_getBalance</code></td>
+</tr>
+<tr>
+<td>Nguyen / Guajardo / Hoang (Virginia Tech + Bosch), <a href="https://eprint.iacr.org/2026/2033" rel="noopener nofollow">ESCAPE</a></td>
+<td>2026-09-20</td>
+<td>Single-server OO-PIR with on-the-fly sublinear hint refresh</td>
+<td>Removes the periodic-rebuild wall that has gated single-server OO-PIR deployment</td>
+<td><strong>Open-source implementation</strong>; 1–8 TiB database evaluation</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sidsabh/sandwichpir" rel="noopener nofollow">sidsabh/sandwichpir</a></td>
+<td>static since 2026-08-28</td>
+<td>GPU-PIR reference implementation (CUDA 12.4 + L40S)</td>
+<td>88× CPU best; 8.2 ms / 4 GB on L40S</td>
+<td><strong>2 stars / 0 forks / 2 commits / 26 days quiet</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/apple/swift-homomorphic-encryption" rel="noopener nofollow">apple/swift-homomorphic-encryption</a></td>
+<td>v1.0.7 (Jun 3)</td>
+<td>Apple's production PIR stack (BGV/BFV + SimplePIR)</td>
+<td>Backs iOS 18 Live Caller ID, contact discovery; ~1 B active devices</td>
+<td>659 stars / 48 forks; 0 commits in window; v1.0.8 likely on bug-fix only</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereum/kohaku" rel="noopener nofollow">ethereum/kohaku</a></td>
+<td>2026-09-22 (last commit)</td>
+<td>Privacy-preserving wallet SDK with saga-sync hydration + anon-rpc PoC</td>
+<td>PSE / Privacy Stewards' main Ethereum consumer-privacy artifact</td>
+<td>402 stars / 81 forks; PR #271 open 35 days; no new PIR-tagged PRs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="maturity-by-topic-pir-sep-23-update">Maturity by Topic (PIR — Sep 23 update)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Maturity (Sep 9)</th>
+<th>Maturity (Sep 16)</th>
+<th>Maturity (Sep 23)</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Interactive SK-PIR</strong></td>
+<td>Open problem</td>
+<td>Open problem (Bitansky–Mazor OWF result)</td>
+<td><strong>Foundational resolved</strong> (Bitansky–Couteau–Mazor polylog in ROM)</td>
+<td><strong>↑↑↑</strong></td>
+</tr>
+<tr>
+<td><strong>Incremental keyword-PIR</strong></td>
+<td>Index-only (iSimplePIR, UVPIR)</td>
+<td>Index-only (no new)</td>
+<td><strong>Keyword + Ethereum deployment</strong> (RisePIR)</td>
+<td><strong>↑↑</strong></td>
+</tr>
+<tr>
+<td><strong>Single-server OO-PIR</strong></td>
+<td>Periodic-rebuild wall</td>
+<td>Periodic-rebuild wall</td>
+<td><strong>Wall removed</strong> (ESCAPE)</td>
+<td><strong>↑↑</strong></td>
+</tr>
+<tr>
+<td>SimplePIR/DoublePIR</td>
+<td>Mature</td>
+<td>Mature</td>
+<td>Mature (Apple merged into production stack Jul 23)</td>
+<td>=</td>
+</tr>
+<tr>
+<td>YPIR</td>
+<td>Mature</td>
+<td>Mature</td>
+<td>Mature</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Keyword PIR</td>
+<td>Breakthrough (LetoPIR, Li–Liu–Yi)</td>
+<td>Breakthrough</td>
+<td><strong>Production-ready</strong> (RisePIR)</td>
+<td><strong>↑</strong></td>
+</tr>
+<tr>
+<td>Verifiable PIR</td>
+<td>Breakthrough (VeriSimplePIR, vReinsPIRe)</td>
+<td>Breakthrough</td>
+<td>Breakthrough</td>
+<td>=</td>
+</tr>
+<tr>
+<td>GPU/Hardware PIR</td>
+<td>Breakthrough (SandwichPIR)</td>
+<td>Static at 2 stars</td>
+<td>Static at 2 stars (26 days)</td>
+<td>Adoption friction</td>
+</tr>
+<tr>
+<td><strong>Information-theoretic PIR</strong></td>
+<td>Lower bound 5·log n (Wehner–de Wolf)</td>
+<td>5·log n → (6−o(1))·log n (Keewoo Lee)</td>
+<td>Unchanged</td>
+<td>=</td>
+</tr>
+<tr>
+<td><strong>Secret-key PIR</strong></td>
+<td>OWF (Bitansky–Mazor)</td>
+<td>OWF</td>
+<td><strong>OWF + interaction = polylog</strong> (Bitansky–Couteau–Mazor)</td>
+<td><strong>↑↑</strong></td>
+</tr>
+<tr>
+<td>Ethereum PIR deployment</td>
+<td>Design (Kohaku SDK shipping for private writes)</td>
+<td>Design (TEE+ORAM-now, PIR-later)</td>
+<td><strong>Production</strong> (RisePIR live on mainnet)</td>
+<td><strong>↑↑</strong></td>
+</tr>
+<tr>
+<td>Apple device features</td>
+<td>Production</td>
+<td>Production</td>
+<td>Production (v1.0.7)</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Private web search</td>
+<td>Threshold</td>
+<td>Threshold</td>
+<td>Threshold</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Private DNS resolution</td>
+<td>Threshold (DNSPIR &lt;100 KB)</td>
+<td>Threshold</td>
+<td>Threshold</td>
+<td>=</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sections">Related Sections</h2>
+<ul>
+<li><a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a> — comprehensive survey of the PIR landscape</li>
+<li><a href="/kb/pir-implementations/">PIR Implementations and Libraries</a> — tracker of all known implementations</li>
+<li><a href="/kb/pir-use-cases/">PIR Use Cases and Deployments</a> — CT auditing, Ethereum privacy, private search</li>
+<li><a href="/kb/simplepir-doublepir/">SimplePIR and DoublePIR</a> — the foundational 2023 breakthrough schemes</li>
+<li><a href="/briefings/pir/2026-09-16/">PIR Wednesday — September 16 2026 Weekly Update</a> — Keewoo Lee lower bound, ReinsPIRe, NTPIR, DNSPIR</li>
+<li><a href="/briefings/pir/2026-09-09/">PIR Wednesday — September 9 2026 Weekly Update</a> — Li–Liu–Yi hintless keyword PIR, SandwichPIR repo launch, Kohaku anon-rpc</li>
+<li><a href="/briefings/pir/2026-09-02/">PIR Wednesday — September 2 2026 Weekly Update</a> — SandwichPIR paper, Atom, LetoPIR</li>
+<li><a href="/briefings/pir/2026-08-26/">PIR Wednesday — August 26 2026 Weekly Update</a> — t-private share conversion impossibility, RC-PIR, SK-PIR toolbox</li>
+<li><a href="/briefings/pir/2026-08-19/">PIR Wednesday — August 19 2026 Weekly Update</a> — CRYPTO 2026 arithmetic PIR negative result, benchmarked SK-PIR, Kohaku SDK alphas</li>
+<li><a href="/kb/map-composing-primitives/">MOC - Composing Primitives</a> — how RisePIR + Kohaku compose for Ethereum privacy</li>
+<li><a href="/kb/map-censorship-resistance/">MOC - Censorship Resistance</a> — single-server OO-PIR as censorship-resistance primitive</li>
+<li><a href="/kb/fully-homomorphic-encryption/">Overview - Fully Homomorphic Encryption</a> — RLWE/NTRU/LWE foundations underlying all 2026 PIR improvements</li>
+<li><a href="/kb/decentralized-identity/">Overview - Decentralized Identity</a> — pseudonymous-query identity considerations</li>
+<li><a href="/kb/mix-networks/">Overview - Mix Networks</a> — Tor/mixnet-routed RPC (Kohaku anon-rpc) as network-layer complement to PIR</li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/pir/2026-09-16/"><span class="label">Previous</span><span class="pn-t">PIR Wednesday — September 16 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/pir/"><span class="label">Series</span><span class="pn-t">All PIR Wednesday briefings</span></a>
+      <a href="/briefings/pir/2026-09-30/"><span class="label">Next</span><span class="pn-t">PIR Wednesday — September 30 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

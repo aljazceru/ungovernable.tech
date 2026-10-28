@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The OpenPGP Web of Trust — ungovernable.tech</title>
+<meta name="description" content="The OpenPGP Web of Trust, the original decentralized trust model: key signing, trust levels, keyservers, and why it struggled at scale.">
+<link rel="canonical" href="https://ungovernable.tech/kb/openpgp-web-of-trust/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="The OpenPGP Web of Trust — ungovernable.tech">
+<meta property="og:description" content="The OpenPGP Web of Trust, the original decentralized trust model: key signing, trust levels, keyservers, and why it struggled at scale.">
+<meta property="og:url" content="https://ungovernable.tech/kb/openpgp-web-of-trust/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The OpenPGP Web of Trust — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The OpenPGP Web of Trust — ungovernable.tech">
+<meta name="twitter:description" content="The OpenPGP Web of Trust, the original decentralized trust model: key signing, trust levels, keyservers, and why it struggled at scale.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-identity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "The OpenPGP Web of Trust", "description": "The OpenPGP Web of Trust, the original decentralized trust model: key signing, trust levels, keyservers, and why it struggled at scale.", "dateModified": "2026-08-06", "datePublished": "2026-05-07", "url": "https://ungovernable.tech/kb/openpgp-web-of-trust/", "mainEntityOfPage": "https://ungovernable.tech/kb/openpgp-web-of-trust/", "image": "https://ungovernable.tech/assets/og/pillar-identity.png", "about": [{"@type": "Thing", "name": "Identity, Social and Trust"}, {"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Identity, Social and Trust", "item": "https://ungovernable.tech/pillars/identity/"}, {"@type": "ListItem", "position": 3, "name": "The OpenPGP Web of Trust", "item": "https://ungovernable.tech/kb/openpgp-web-of-trust/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/identity/">Identity, Social and Trust</a><span aria-hidden="true">/</span><span class="here">The OpenPGP Web of Trust</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ IDENTITY, SOCIAL AND TRUST ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>The OpenPGP Web of Trust</h1>
+  <p class="aka">Also GPG Web of Trust, PGP Web of Trust, OpenPGP WoT.</p>
+  <p class="dek">The OpenPGP Web of Trust is the classic decentralized trust model: instead of accepting a certificate because a browser-vendor root CA says so, a user accepts a public key because it has a path through people they personally trust as introducers.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-08-06</b></span>
+    <span><b>22</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#summary">Summary</a><a href="#late-may-2026-developments">Late-May 2026 Developments</a><a href="#historical-context">Historical context</a><a href="#modern-standards-and-protocols">Modern standards and protocols</a><a href="#implementations-and-ecosystem">Implementations and ecosystem</a><a href="#use-cases">Use cases</a><a href="#trade-offs">Trade-offs</a><a href="#evidence-at-a-glance">Evidence at a glance</a><a href="#june-11-2026-the-openpgp-schism-librepgp-v5-vs-rfc-9580">June 11, 2026 — The OpenPGP Schism: LibrePGP v5 vs RFC 9580</a><a href="#design-lessons-for-newer-wot-systems">Design lessons for newer WoT systems</a><a href="#june-18-2026-update-rfc-9980-pqc-hkp-draft-gnupg-24-eol">June 18, 2026 Update — RFC 9980 PQC, HKP draft, GnuPG 2.4 EOL</a><a href="#august-6-2026-update-rfc-9980-published-gnupg-2521-24-eol-sequoia-sq-140">August 6, 2026 Update — RFC 9980 Published, GnuPG 2.5.21, 2.4 EOL, Sequoia sq 1.4.0</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="summary">Summary</h2>
+<p>The OpenPGP Web of Trust is the classic decentralized trust model: instead of accepting a certificate because a browser-vendor root CA says so, a user accepts a public key because it has a path through people they personally trust as introducers. It is the historical ancestor of many modern freedom-tech reputation systems, including <a href="/kb/nostr-web-of-trust/">Nostr Web of Trust</a>, but it solves a narrower problem: <strong>is this OpenPGP certificate valid for this identity?</strong></p>
+<p>OpenPGP WoT separates three ideas that are often conflated:</p>
+<ol>
+<li><strong>Certificate validity</strong> — does this key belong to the named user ID?</li>
+<li><strong>Ownertrust / introducer trust</strong> — do I trust this certificate holder to certify other people's keys correctly?</li>
+<li><strong>Operational trust</strong> — do I trust this person, project, or organization in a broader social sense?</li>
+</ol>
+<p>Only the first two are part of the traditional OpenPGP trust computation. A signature on a key is evidence about a key/name binding; it is not a universal moral endorsement. This distinction is essential when importing WoT ideas into <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, decentralized marketplaces, and Nostr reputation systems.</p>
+<h2 id="late-may-2026-developments">Late-May 2026 Developments</h2>
+<h3 id="pgpainless-wot-module-nlnetngi-assure-funded">PGPainless WoT Module (NLnet/NGI Assure Funded)</h3>
+<p>The PGPainless project (<a href="https://pgpainless.org/" rel="noopener nofollow">pgpainless.org</a>, <a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">github.com/pgpainless/pgpainless-wot</a>) continues active development of a Java/Kotlin WoT path computation module, funded through NGI Assure / NLnet. The module is based on Sequoia-PGP's published formal WoT specification and includes test vectors from the <a href="https://github.com/pgpainless/pgpainless-wot/tree/main/wot-test-suite" rel="noopener nofollow">wot-test-suite</a>. For the Android email tool ecosystem and server-side Java workflows, this fills a tooling gap that has existed for years — Java OpenPGP libraries have historically omitted WoT path computation entirely.</p>
+<h3 id="openpgp-id-u4u5-specification-ietf-draft-djibian-os-production-use">OpenPGP ID u4/u5 Specification (IETF Draft, Djibian OS Production Use)</h3>
+<p>A new specification from foopgp.org (<a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">blog post April 2026</a>, <a href="https://codeberg.org/foopgp/foopgp-hugowebsite/src/branch/public/public/documents/en/draft-foopgp-openpgp-id-00.txt" rel="noopener nofollow">Codeberg spec</a>) introduces two privacy-respecting universal identifiers derived from civil-registry-style data:</p>
+<ul>
+<li>
+<p><strong>u4 (human identifier):</strong> derived from last birth surname + first and second given names + date of birth, processed through MD5 and Base64url encoding. Produces a 39-character identifier that fits in an OpenPGP UID comment field. Pseudonymous — without the exact input data, the individual cannot be identified, but the identifier is permanent across marriage, name change, or naturalisation.</p>
+</li>
+<li>
+<p><strong>u5 (universal identifier for anything):</strong> Unix timestamp + geographic coordinates, identifying any entity by its moment and place of origin. Used for AI agents, software components, or humans who prefer not to disclose civil data.</p>
+</li>
+</ul>
+<p>For WoT purposes, u4/u5 represents an attempt to build persistent pseudonymous identity on OpenPGP certificates without a central registry. The spec has been submitted to IETF and is in production use in Djibian OS. The privacy argument rests on the collision difficulty of the derived identifier and the WoT certification fabric as the real verification barrier.</p>
+<h3 id="openpgp-key-replacement-draft-ietf-openpgp-replacementkey-07-april-2026">OpenPGP Key Replacement (draft-ietf-openpgp-replacementkey-07, April 2026)</h3>
+<p>The IETF active draft specifies a machine-readable mechanism for OpenPGP users to signal that a new key should replace an expired, revoked, or superseded one. The draft (26 pages plus appendices) defines replacement key signalling — when a user publishes a new primary key, they can include a signed signal pointing to the replacement. Users who receive the old key see a machine-readable hint about where to find the successor.</p>
+<p>For WoT continuity, this matters: long-lived OpenPGP identities need key rotation paths, and a replacement signal lets the WoT carry trust forward to a new key without requiring re-verification from all prior certifiers. This is not automatic recovery — the user must publish the replacement — but it makes the transition legible to clients and reduces the probability that old-key communications silently fail after rotation. The draft expires October 2026 and is being actively developed.</p>
+<h3 id="draft-gallagher-openpgp-signatures-03-june-2026">draft-gallagher-openpgp-signatures-03 (June 2026)</h3>
+<p><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> is an active IETF draft (published June 2026) that specifies several updates and clarifications to the grammar and semantics of OpenPGP signatures. This is a maintenance-level update to RFC 9580, addressing edge cases in signature encoding and semantics that have accumulated since the RFC was published. For WoT implementations, the draft matters because signature validity decisions depend on correct grammar and semantic interpretation — ambiguities in signature processing are exactly the class of bugs that cause valid certifications to be rejected or invalid ones accepted. The draft is in the individual submission track, not yet adopted by a working group.</p>
+<h3 id="openpgp-message-and-hkp-developments">OpenPGP message and HKP developments</h3>
+<p>Two additional IETF drafts deserve tracking:</p>
+<ul>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> — updates and clarifications to OpenPGP message grammar, complementary to the signatures draft above.</li>
+<li>A new draft on the OpenPGP HTTP Keyserver Protocol (HKP) addressing v6 certificate handling, v2 key lookup, and content-type requirements for ASCII-armored certificate bundles. These HKP changes affect how WoT-compatible key discovery works at the transport layer.</li>
+</ul>
+<p>These drafts collectively represent active maintenance of the OpenPGP ecosystem beyond the RFC 9580 baseline, which is notable given that OpenPGP development was relatively quiet after 2020.</p>
+<h2 id="historical-context">Historical context</h2>
+<h3 id="pgp-and-decentralized-certification">PGP and decentralized certification</h3>
+<p>Phil Zimmermann released PGP in 1991 as a civil-liberties response to centralized control over strong cryptography. The Web of Trust matched that ethos: each user could verify fingerprints out-of-band, sign keys, and decide which friends were reliable introducers. A certification path might make a key valid if enough trusted introducers signed it.</p>
+<p>This model differed sharply from X.509:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Trust root</th>
+<th>User control</th>
+<th>Failure mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X.509 CA</td>
+<td>Browser/OS root store</td>
+<td>Low; roots are shipped by vendors</td>
+<td>Compromised/misbehaving CA can issue for anyone.</td>
+</tr>
+<tr>
+<td>OpenPGP WoT</td>
+<td>User's local trusted keys</td>
+<td>High; ownertrust is local</td>
+<td>Hard UX, sparse graph, stale signatures.</td>
+</tr>
+<tr>
+<td>TOFU</td>
+<td>First-seen key</td>
+<td>Medium; local pinning</td>
+<td>First contact can be intercepted.</td>
+</tr>
+<tr>
+<td>WKD / domain discovery</td>
+<td>Domain control</td>
+<td>Medium; domain admin controls mapping</td>
+<td>Domain/DNS/TLS compromise or central hosting risk.</td>
+</tr>
+</tbody>
+</table></div>
+<p>OpenPGP standardized message and certificate formats. The current standard is <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a>, published in July 2024, replacing RFC 4880 and related older OpenPGP RFCs. RFC 9580 modernizes the format with v6 keys, AEAD containers, Argon2 S2K, and mandatory Ed25519/X25519 support, but it does not make WoT usability magically easy.</p>
+<h3 id="key-signing-parties-and-trust-databases">Key-signing parties and trust databases</h3>
+<p>Classic practice involved key-signing parties: people met physically, checked fingerprints and identity documents or known-person context, and later signed each other's certificates. GnuPG maintained a local trust database. Users marked keys as fully trusted, marginally trusted, never trusted, or unknown as introducers.</p>
+<p>A relying party could accept a target certificate if, for example, it was signed by one fully trusted introducer or several marginal introducers. Exact thresholds are local policy.</p>
+<h3 id="sks-keyserver-collapse-and-certificate-poisoning">SKS keyserver collapse and certificate poisoning</h3>
+<p>The old SKS keyserver pool was append-only and aggressively synchronized. That made key distribution resilient, but it created a fatal abuse surface: anyone could attach arbitrary third-party certifications or identity packets to someone else's certificate, and the network would preserve and redistribute them.</p>
+<p>In 2019, certificate poisoning attacks attached huge numbers of signatures to prominent certificates, making them too large or slow for tools to handle. The lesson is bigger than OpenPGP: <strong>decentralized append-only identity objects need consent and garbage collection</strong>. If third parties can permanently mutate your identity record, adversaries will weaponize that capability.</p>
+<p>Modern OpenPGP discovery therefore shifted toward narrower and more consentful mechanisms:</p>
+<ul>
+<li><strong>Web Key Directory (WKD)</strong> — fetch a key from a domain-controlled <code>.well-known</code> path associated with an email address.</li>
+<li><strong>keys.openpgp.org</strong> — centralized, abuse-resistant key discovery; verifies email addresses and does not distribute third-party certifications by default.</li>
+<li><strong>First-party approved / attested third-party certifications</strong> — distribute third-party certifications only when the certificate holder approves them.</li>
+<li><strong>Keyoxide / Ariadne proofs</strong> — cross-link cryptographic identities and online accounts through bidirectional proofs.</li>
+</ul>
+<h2 id="modern-standards-and-protocols">Modern standards and protocols</h2>
+<h3 id="rfc-9580-openpgp">RFC 9580 — OpenPGP</h3>
+<p><a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a> is the current OpenPGP standard. For WoT purposes, its importance is not that it changes social trust policy, but that it gives modern implementations a cleaner cryptographic substrate: v6 keys, stronger algorithm guidance, AEAD, Argon2, and required modern curves.</p>
+<h3 id="first-party-approved-third-party-certifications">First-party approved third-party certifications</h3>
+<p>The <a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">IETF draft on First-Party Approved Third-Party Certifications</a> addresses the certificate-bloat / poisoning problem directly. It defines a certification-approval mechanism where the certificate owner explicitly approves selected third-party certifications. Relying parties can prune unapproved certifications rather than accepting all arbitrary additions.</p>
+<p>A 2024 Journal of Internet Services and Applications article, <a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">"A Protocol for Solving Certificate Poisoning for the OpenPGP Keyserver Network"</a>, discusses this pattern as a protocol modification that avoids the worst effects of poisoning without requiring all installed clients to be replaced immediately. Search metadata identifies the authors as Gunnar Wolf and Ortega-Arjona and DOI <code>10.5753/jisa.2024.3810</code>.</p>
+<h3 id="keysopenpgporg">keys.openpgp.org</h3>
+<p><a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">keys.openpgp.org</a> is not a pure decentralized keyserver pool. It is a deliberate retreat from SKS-style federation toward abuse resistance:</p>
+<ul>
+<li>email addresses must be verified before they are distributed;</li>
+<li>only one verified key per email address is visible at a time;</li>
+<li>third-party certifications are not distributed by default;</li>
+<li>users can delete their own keys / identities.</li>
+</ul>
+<p>From a cypherpunk perspective, this is a compromise: less decentralized, but dramatically more survivable against hostile certificate mutation.</p>
+<h3 id="web-key-directory-and-dane">Web Key Directory and DANE</h3>
+<p>WKD gives email-like identities a domain-based discovery path. DANE/OpenPGPKEY records (RFC 7929) can bind OpenPGP keys through DNSSEC. These systems lean on <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a> questions: who controls the domain, how robust is DNSSEC, and can censorship-resistant naming systems provide equivalent discovery?</p>
+<h3 id="keyoxide-and-ariadne">Keyoxide and Ariadne</h3>
+<p><a href="https://keyoxide.org/" rel="noopener nofollow">Keyoxide</a> and the <a href="https://ariadne.id/core/0/" rel="noopener nofollow">Ariadne Identity Specification</a> are adjacent to WoT. They do not decide whether someone is trustworthy. They verify that a cryptographic identity and external accounts point to each other.</p>
+<p>Ariadne's draft flow is bidirectional:</p>
+<ol>
+<li>fetch a cryptographically secured profile or OpenPGP key;</li>
+<li>read identity claims such as <code>proof@ariadne.id=https://domain.tld</code>;</li>
+<li>fetch the claimed location;</li>
+<li>verify that the location links back to the cryptographic fingerprint or identifier.</li>
+</ol>
+<p>This supports pseudonymous identity bundles: a user can prove control over a website, GitHub account, Fediverse profile, or other service without relying on Keybase-style central hosting or blockchain identity.</p>
+<h2 id="implementations-and-ecosystem">Implementations and ecosystem</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Role</th>
+<th>Maturity / activity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.gnupg.org/" rel="noopener nofollow">GnuPG</a> / <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg mirror</a></td>
+<td>Reference CLI/agent ecosystem with local trust database</td>
+<td>Mature / active; GitHub mirror 919 stars, pushed 2026-05-06; canonical development is not GitHub PRs</td>
+<td>Cultural reference implementation for ownertrust, certification, trust signatures, and local validity.</td>
+</tr>
+<tr>
+<td><a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia-PGP</a></td>
+<td>Rust OpenPGP implementation/toolkit</td>
+<td>Mature / active ecosystem</td>
+<td>Modern implementation used for tooling and libraries; useful when building new OpenPGP workflows.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">OpenPGP.js</a></td>
+<td>JavaScript OpenPGP library</td>
+<td>Mature / active; 5,949 stars, 821 forks, pushed 2026-05-02</td>
+<td>Browser and Node.js OpenPGP implementation; library-level building block more than full WoT UX.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">Mailvelope</a></td>
+<td>Browser extension for webmail OpenPGP</td>
+<td>Mature / active; 1,825 stars, 222 forks, pushed 2026-05-05</td>
+<td>Practical OpenPGP deployment in webmail; trust UX remains hard for mainstream users.</td>
+</tr>
+<tr>
+<td><a href="https://pgpainless.org/" rel="noopener nofollow">PGPainless</a></td>
+<td>Java OpenPGP library</td>
+<td>Active</td>
+<td>Developer-friendly OpenPGP tooling.</td>
+</tr>
+<tr>
+<td><a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">keys.openpgp.org</a></td>
+<td>Abuse-resistant key discovery</td>
+<td>Production</td>
+<td>Central service designed to avoid SKS poisoning dynamics.</td>
+</tr>
+<tr>
+<td><a href="https://keyoxide.org/" rel="noopener nofollow">Keyoxide</a> / <a href="https://docs.keyoxide.org/" rel="noopener nofollow">docs</a></td>
+<td>Decentralized identity proof verification</td>
+<td>Active community / open source</td>
+<td>Bidirectional account-control proofs; privacy-friendly, non-blockchain.</td>
+</tr>
+<tr>
+<td><a href="https://ariadne.id/core/0/" rel="noopener nofollow">Ariadne Identity</a></td>
+<td>Specification behind Keyoxide-style proofs</td>
+<td>Draft; v0 says not recommended for implementations</td>
+<td>Useful conceptual model: cryptographic profile + identity claims + public proofs.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="encrypting-email-or-files-to-the-right-key">Encrypting email or files to the right key</h3>
+<p>The core OpenPGP problem is binary: should I encrypt this message to this certificate? WoT can help when the target key has a path through trusted introducers. In practice, many users now combine fingerprint pinning, WKD, keys.openpgp.org, and TOFU because full WoT management is too complex.</p>
+<h3 id="software-release-verification">Software release verification</h3>
+<p>Open-source maintainers sign releases. Distributions and users pin maintainer keys. A WoT path can provide additional evidence that a signing key belongs to a maintainer, but it should be combined with reproducible builds, checksums, transparency logs where available, and project-controlled release channels.</p>
+<h3 id="pseudonymous-proof-bundles">Pseudonymous proof bundles</h3>
+<p>Keyoxide/Ariadne-style proofs let a pseudonym prove control over accounts and domains. This is not reputation by itself, but it provides stable identity continuity for <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a> without forcing legal-name verification.</p>
+<h3 id="key-transition-and-continuity">Key transition and continuity</h3>
+<p>If a key is rotated, the old key can sign the new key, trusted peers can certify the transition, and profiles can update cross-links. WoT does not create a universal recovery desk, but it supplies social evidence around continuity.</p>
+<h2 id="trade-offs">Trade-offs</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Strength</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User-chosen roots</td>
+<td>No universal CA decides every trust relationship.</td>
+</tr>
+<tr>
+<td>Offline/social verification</td>
+<td>Fingerprints can be checked in person or out of band.</td>
+</tr>
+<tr>
+<td>Pseudonym-compatible</td>
+<td>Keys and proofs can represent personas without legal identity.</td>
+</tr>
+<tr>
+<td>Durable cultural model</td>
+<td>OpenPGP taught the freedom-tech ecosystem to separate local trust from institutional authority.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UX burden</td>
+<td>Most users do not want to manage ownertrust, certification paths, and revocations manually.</td>
+</tr>
+<tr>
+<td>Sparse graph</td>
+<td>Many users have no meaningful key-signing paths.</td>
+</tr>
+<tr>
+<td>Stale signatures</td>
+<td>Old certifications may outlive relationships or compromises.</td>
+</tr>
+<tr>
+<td>Keyserver abuse</td>
+<td>SKS showed that append-only third-party mutation is dangerous.</td>
+</tr>
+<tr>
+<td>Ambiguous semantics</td>
+<td>A certification means key/name verification, not broad endorsement.</td>
+</tr>
+<tr>
+<td>Discovery centralization</td>
+<td>Modern abuse-resistant discovery often leans on domains or centralized services.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="evidence-at-a-glance">Evidence at a glance</h2>
+<p>|| Evidence | Source | Strength | What it shows ||
+|---|---|---|---|
+| OpenPGP standard | <a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580</a> | Current IETF standard | Modern OpenPGP format and cryptographic baseline. |
+| GnuPG | <a href="https://www.gnupg.org/" rel="noopener nofollow">gnupg.org</a> / <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">GitHub mirror</a> | Mature production software | Local trust database and OpenPGP operational tooling remain active. |
+| Certificate poisoning article | <a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">JISA article</a> | 2024 peer-reviewed/academic source | SKS-style poisoning is a real protocol/ecosystem failure; first-party attestation is a proposed mitigation. |
+| 1PA3PC draft | <a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">IETF archive draft</a> | Protocol draft | Certificate holders can explicitly approve third-party certifications for pruning. |
+| keys.openpgp.org FAQ | <a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">FAQ</a> | Production operator documentation | Modern key discovery chooses abuse resistance over open keyserver federation. |
+| Ariadne spec | <a href="https://ariadne.id/core/0/" rel="noopener nofollow">ariadne.id</a> | Draft specification | Bidirectional cryptographic identity proofs for OpenPGP/minisign profiles. |
+| Keyoxide docs | <a href="https://docs.keyoxide.org/wiki/faq/" rel="noopener nofollow">FAQ</a> | Project documentation | Practical privacy-friendly identity proofs that users can verify manually. |
+| OpenPGP Key Replacement | <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-07</a> | Active IETF draft (April 2026) | Machine-readable key migration signalling for WoT continuity; expires October 2026. |
+| OpenPGP ID (u4/u5) | <a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">foopgp.org spec</a> | Early / in production (Djibian) | Privacy-respecting pseudonymous identifiers derived from civil registry data. |
+| OpenPGP Signatures draft | <a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> | Active IETF draft (June 2026) | Grammar and semantics clarifications for OpenPGP signatures; maintenance of RFC 9580. |
+| OpenPGP Messages draft | <a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> | Early IETF draft | Complementary message grammar updates to RFC 9580. |
+| Hermine threshold signatures | <a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">eprint 2026/419</a>, <a href="https://hermine-th.org" rel="noopener nofollow">hermine-th.org</a> | Research / PQ | Post-quantum FROST-like threshold signatures on standard lattice assumptions; PQ migration path for Frostr. |
+| FROST NIST submission | <a href="https://csrc.nist.gov/csrc/media/Projects/threshold-cryptography/documents/TCall-1/FROST-PW01.pdf" rel="noopener nofollow">MPTS 2026 preview</a> | Active NIST Threshold Call | FROST submitted for NIST standardization; adaptive security results presented at MPTS 2026. |</p>
+<h2 id="june-11-2026-the-openpgp-schism-librepgp-v5-vs-rfc-9580">June 11, 2026 — The OpenPGP Schism: LibrePGP v5 vs RFC 9580</h2>
+<p>The most significant development since the May 24 update is the full crystallization of the OpenPGP standard split. This is not a version-number disagreement — it is a governance fracture that directly fragments the certificate universe on which OpenPGP WoT depends.</p>
+<h3 id="the-two-competing-standards">The Two Competing Standards</h3>
+<p><strong>RFC 9580 (IETF "v6" OpenPGP)</strong> — the official IETF proposed standard, produced through a multi-year IETF OpenPGP Working Group process. Key implementations:
+- Sequoia-PGP v2 (March 2025) — RFC 9580 v6 support
+- OpenPGP.js v6 (November 2024) — RFC 9580 v6 support<br/>
+- Proton Mail — production email integration</p>
+<p>RFC 9580 became a draft standard in March 2025 when two independent interoperable implementations confirmed compliance. It obsoletes RFC 4880/5581/6637, introduces v6 keys, AEAD containers, Argon2 S2K, and mandatory Ed25519/X25519.</p>
+<p><strong>LibrePGP (GnuPG "v5")</strong> — GnuPG maintainer Werner Koch's competing proposal, which critics describe as a fork from a pre-RFC9580 draft. GnuPG's website (as of 2026) still describes itself as implementing "RFC 4880," explicitly avoiding RFC 9580. The IETF OpenPGP Working Group did not adopt LibrePGP.</p>
+<h3 id="gnupg-2520-may-13-2026">GnuPG 2.5.20 (May 13, 2026)</h3>
+<p>Werner Koch's release announcement for GnuPG 2.5.20 is the key event:</p>
+<ul>
+<li>Introduces Kyber/ML-KEM (FIPS 203) as a post-quantum encryption algorithm in the 2.5 series</li>
+<li>Adds GCM encryption to <code>gpgsm</code></li>
+<li>Warns that the 2.4 series approaches end-of-life</li>
+<li><strong>Critically: implements LibrePGP v5 features, not RFC 9580 v6</strong></li>
+</ul>
+<p>The release notes do not mention RFC 9580 compatibility. This matters enormously: GnuPG is the dominant OpenPGP implementation in GNU/Linux distributions, package managers (<code>apt</code>, <code>dpkg</code>, <code>rpm</code>), server-side PGP tooling, and Git commit signing. If GnuPG implements a different standard than Sequoia/OpenPGP.js, the two ecosystems can no longer process each other's certificates.</p>
+<h3 id="why-this-fractures-the-openpgp-wot">Why This Fractures the OpenPGP WoT</h3>
+<p>The OpenPGP Web of Trust requires shared certificate formats and signature semantics. When GnuPG and Sequoia/OpenPGP.js diverge:</p>
+<ol>
+<li><strong>Cross-signing breaks</strong> — certifications made by GnuPG keys may not parse correctly by RFC 9580 implementations, and vice versa</li>
+<li><strong>Key validation paths break</strong> — WoT path-finding depends on being able to read and verify signatures across the graph</li>
+<li><strong>Keyserver responses fragment</strong> — v6 keys returned by keyservers may not be readable by GnuPG</li>
+<li><strong>The trust graph literally cannot connect</strong> — keys from the GnuPG/LibrePGP universe cannot certify keys from the RFC 9580 universe</li>
+</ol>
+<p>The practical freedom-tech risk: if you sign someone's GnuPG key today using your RFC 9580-compatible implementation, that certification may not be readable or interpretable by GnuPG users in a year.</p>
+<h3 id="two-new-gallagher-ietf-drafts-june-2026">Two New Gallagher IETF Drafts (June 2026)</h3>
+<p>Andrew Gallagher published two complementary OpenPGP maintenance drafts in June 2026:</p>
+<ol>
+<li>
+<p><strong><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-signatures/" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a></strong> — "OpenPGP Signatures." Clarifies grammar and semantics for signature packets, third-party signatures, notary signatures (Type 40 — "a signature of a signature, as a notary seal"), and certification signatures. Expires December 2026.</p>
+</li>
+<li>
+<p><strong><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a></strong> — "OpenPGP Message Grammar." Clarifies One-Pass Signature packet semantics and message structure. Expires December 2026.</p>
+</li>
+<li>
+<p><strong>OpenPGP HTTP Keyserver Protocol</strong> (draft-gallagher-openpgp-hkp-andrewgdotcom) — specifies v6 key handling for keyservers: v6 certificates MUST NOT be returned for legacy machine-readable requests, but MAY be returned for human-readable requests. Also specifies v2 lookup using <code>by-keyid</code> and <code>by-vfingerprint</code> categories.</p>
+</li>
+</ol>
+<p>These drafts are IETF-side maintenance of RFC 9580 and independent of the GnuPG/LibrePGP split.</p>
+<h3 id="mitigation-first-party-approved-certifications-become-more-critical">Mitigation: First-Party Approved Certifications Become More Critical</h3>
+<p>The certificate poisoning lesson from SKS keyservers (see ) applies even more now. If cross-signing between LibrePGP and RFC 9580 implementations becomes unreliable, the WoT value of third-party certifications degrades. First-party approved third-party certifications (draft-dkg-openpgp-1pa3pc) become the safe path: only certifications explicitly approved by the certificate holder travel with the certificate, reducing attack surface from both poisoning and cross-standard fragmentation.</p>
+<h3 id="what-this-means-for-freedom-tech-deployments">What This Means for Freedom-Tech Deployments</h3>
+<p>For deployments relying on OpenPGP certifications:</p>
+<ol>
+<li><strong>Be aware of which standard your keys use.</strong> GnuPG 2.5.x generated keys may be LibrePGP v5 format. OpenPGP.js v6 and Sequoia-PGP v2 generate RFC 9580 v6 keys.</li>
+<li><strong>Do not assume cross-compatibility.</strong> Test your certifications against both ecosystems.</li>
+<li><strong>Watch for GnuPG 2.6</strong> — Koch's announcement says 2.6 "will not differ a lot from 2.4" except for PQC support and internal library changes, which may indicate continued LibrePGP direction rather than RFC 9580 adoption.</li>
+<li><strong>The IETF has one standard (RFC 9580). GnuPG implements another (LibrePGP).</strong> This is not a normal version difference — it is a fork with no obvious merge path.</li>
+</ol>
+<h2 id="design-lessons-for-newer-wot-systems">Design lessons for newer WoT systems</h2>
+<ol>
+<li><strong>Do not let third parties permanently mutate identity objects without consent.</strong> SKS poisoning is the canonical failure.</li>
+<li><strong>Separate key validity from social reputation.</strong> A person can verify a key correctly while being untrusted in another context.</li>
+<li><strong>Expose trust paths and local policy.</strong> Hidden defaults become centralized authority.</li>
+<li><strong>Plan revocation and expiry.</strong> Trust edges decay; keys are lost or compromised.</li>
+<li><strong>Prefer consentful distribution.</strong> First-party approved certifications and self-published proofs are safer than arbitrary append-only attachments.</li>
+<li><strong>Keep manual verification possible.</strong> Keyoxide's strongest claim is that it automates something users can inspect themselves.</li>
+</ol>
+<h2 id="june-18-2026-update-rfc-9980-pqc-hkp-draft-gnupg-24-eol">June 18, 2026 Update — RFC 9980 PQC, HKP draft, GnuPG 2.4 EOL</h2>
+<h3 id="rfc-9980-post-quantum-cryptography-in-openpgp-assigned">RFC 9980 — Post-Quantum Cryptography in OpenPGP Assigned</h3>
+<p>The OpenPGP standard page now lists <strong>RFC 9980: Post-Quantum Cryptography in OpenPGP</strong> alongside RFC 9580. This is the first new RFC number on the OpenPGP standards page since 2024, and the structural answer to the question every WoT operator eventually has to face: what happens to certifications signed with classical algorithms when quantum computers become capable of breaking RSA-2048 and Ed25519?</p>
+<p>The IETF datatracker history for <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc/history" rel="noopener nofollow">draft-ietf-openpgp-pqc</a> shows the document entered the RFC Editor queue on <strong>January 6, 2026</strong> (version 17), and per <a href="https://www.iana.org/performance/ietf-draft-status/2026" rel="noopener nofollow">IANA's 2026 IETF draft status</a> is currently in <strong>RFC-Ed-ACK</strong> state. The standard carries forward the existing RFC 9580 format and adds PQ algorithm support — ML-KEM (Kyber, FIPS 203) for encryption, ML-DSA and SLH-DSA for signatures.</p>
+<p><strong>WoT implications:</strong></p>
+<ul>
+<li><strong>Long-term cert verifiability.</strong> Certifications and signatures issued today using Ed25519 or RSA can be migrated forward to ML-DSA without breaking the existing trust graph — assuming both signers and verifiers support RFC 9980.</li>
+<li><strong>Composite signatures during transition.</strong> <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-nist-bp-comp/" rel="noopener nofollow">draft-ietf-openpgp-nist-bp-comp-03</a> (93 pages, January 8, 2026) defines composite signatures combining classical (NIST/Brainpool) and post-quantum algorithms, so certifiers can sign in a way that both classical and PQ verifiers can validate.</li>
+<li><strong>Cross-implementation fracture.</strong> GnuPG 2.5.20 (May 13, 2026) implemented Kyber/ML-KEM as part of LibrePGP v5, <strong>not</strong> RFC 9980. Until GnuPG aligns with the IETF standard, a certifier signing with one tool may produce a signature that the other tool cannot verify — the same WoT fragmentation already flagged in the June 11 update.</li>
+</ul>
+<h3 id="new-and-updated-ietf-drafts-mayjune-2026">New and Updated IETF Drafts (May–June 2026)</h3>
+<p>The OpenPGP working group <a href="https://datatracker.ietf.org/wg/openpgp" rel="noopener nofollow">drafts listing</a> shows unusually heavy activity in the last month:</p>
+<ul>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-08</a></strong> — May 29, 2026, 31 pages. One month after the -07 covered in the June 11 update. Approaching IETF last call. This is the draft that lets long-lived OpenPGP identities signal key rotation without breaking the existing trust graph.</li>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-hkp/" rel="noopener nofollow">draft-ietf-openpgp-hkp-01</a></strong> — June 5, 2026, 51 pages. New IETF working group document codifying how keyservers handle v6 certificates. Defines v1 (legacy HKP) and v2 (with <code>by-keyid</code>, <code>by-vfingerprint</code> categories) lookup endpoints, with explicit guidance: v6 keys must NOT be returned for legacy machine-readable requests but MAY be returned for human-readable requests. This is the first IETF-standardized HTTP keyserver protocol since the SKS era, and it codifies the consentful-certification lessons from keys.openpgp.org.</li>
+<li><strong><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-nist-bp-comp/" rel="noopener nofollow">draft-ietf-openpgp-nist-bp-comp-03</a></strong> — January 8, 2026, 93 pages. Composite NIST + Brainpool PQ/T schemes.</li>
+<li><strong>Three Andrew Gallagher drafts, all dated June 4, 2026:</strong></li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-certificates/" rel="noopener nofollow">draft-gallagher-openpgp-certificates-00</a> — 25 pages, OpenPGP Certificate Grammar</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> — 9 pages, OpenPGP Message Grammar</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-gallagher-openpgp-signatures/" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> — 25 pages, OpenPGP Signatures v03</li>
+</ul>
+<p>The Gallagher cluster represents foundational maintenance of the certificate, signature, and message grammar. The grammars are the substrate the WoT walks; clarifying them reduces the ambiguity that has historically allowed certificate poisoning to succeed.</p>
+<h3 id="gnupg-24-end-of-life-warning-june-2026">GnuPG 2.4 End-of-Life Warning (June 2026)</h3>
+<p>Per the LWN article <a href="https://lwn.net/Articles/1055053" rel="noopener nofollow">Fedora and GPG 2.5</a>, <strong>GnuPG 2.4 reaches end-of-life in June 2026</strong>. This means Linux distributions must move to GnuPG 2.5 (which implements LibrePGP v5, not RFC 9580) or fork the 2.4 series themselves. For the OpenPGP WoT:</p>
+<ul>
+<li>Distributions that adopt GnuPG 2.5 will continue to operate on LibrePGP v5 certificates.</li>
+<li>Distributions that fork 2.4 will retain RFC 9580 interoperability.</li>
+<li>The two camps may diverge further as RFC 9980 ships — GnuPG 2.5 may track LibrePGP rather than RFC 9980, leaving distributions to choose between RFC standardisation and the dominant CLI implementation.</li>
+</ul>
+<p>The gnupg.org home page continues to describe GnuPG as implementing "RFC 4880," which is now two RFCs out of date.</p>
+<h3 id="practical-guidance-for-openpgp-wot-operators-updated">Practical Guidance for OpenPGP WoT Operators (Updated)</h3>
+<p>Given the RFC 9980 publication path and the LibrePGP fracture:</p>
+<ol>
+<li><strong>If you run a high-assurance OpenPGP identity today:</strong> generate keys with classical algorithms (Ed25519/X25519 are fine) but understand that long-term verification will require migration to ML-DSA once GnuPG and Sequoia converge on a unified PQC profile. RFC 9980 + RFC 9580 is the IETF-aligned migration target; LibrePGP v5 is the GnuPG-aligned target.</li>
+<li><strong>If you sign third-party certifications:</strong> sign with classical algorithms for now, but consider also issuing composite signatures (NIST-Brainpool PQ/T) when <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-nist-bp-comp/" rel="noopener nofollow">draft-ietf-openpgp-nist-bp-comp-03</a> stabilises — this gives verifiers on either side of the algorithmic split a usable path.</li>
+<li><strong>If you operate a keyserver:</strong> adopt <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-hkp/" rel="noopener nofollow">draft-ietf-openpgp-hkp-01</a> handling of v6 keys (return only for human-readable requests) and the v2 lookup categories (<code>by-keyid</code>, <code>by-vfingerprint</code>) to prepare for the post-RFC-9980 era.</li>
+<li><strong>If you plan key rotation:</strong> use <a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-08</a> to publish machine-readable replacement signals; clients and keyservers that support the draft can migrate trust paths automatically.</li>
+<li><strong>Track the GnuPG vs Sequoia vs OpenPGP.js split.</strong> RFC 9580 is now nearly two years old (July 2024); the existence of two competing implementations after that long suggests the schism is structural rather than transitional.</li>
+</ol>
+<h3 id="updated-github-activity-june-18-2026">Updated GitHub Activity — June 18, 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">949</td>
+<td>2026-06-17</td>
+<td>GnuPG 2.5.20 stable, 2.4 EOL warning</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a></td>
+<td class="ta-r">5,956</td>
+<td>2026-06-17</td>
+<td>RFC 9580 production</td>
+</tr>
+<tr>
+<td><a href="https://gitlab.com/sequoia-pgp/sequoia" rel="noopener nofollow">sequoia-pgp/sequoia</a></td>
+<td class="ta-r">n/a</td>
+<td>n/a</td>
+<td>Rust OpenPGP, RFC 9580</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless/pgpainless-wot</a></td>
+<td class="ta-r">0</td>
+<td>2026-04-28</td>
+<td>NLnet-funded WoT module, no recent commits</td>
+</tr>
+<tr>
+<td><a href="https://sequoia-pgp.gitlab.io/sequoia-wot/" rel="noopener nofollow">Sequoia WoT spec</a></td>
+<td class="ta-r">n/a</td>
+<td>n/a</td>
+<td>Formal WoT specification</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observation:</strong> PGPainless WoT has not seen new commits since April 28, 2026 — the longest quiet period since the NLnet-funded project began. Worth monitoring; if no further commits appear before July 2026, this may indicate the funded development phase is concluding without a stable 1.0.</p>
+<h2 id="august-6-2026-update-rfc-9980-published-gnupg-2521-24-eol-sequoia-sq-140">August 6, 2026 Update — RFC 9980 Published, GnuPG 2.5.21, 2.4 EOL, Sequoia sq 1.4.0</h2>
+<h3 id="rfc-9980-post-quantum-cryptography-in-openpgp-published-june-2026">RFC 9980 — Post-Quantum Cryptography in OpenPGP (Published June 2026)</h3>
+<p><a href="https://datatracker.ietf.org/doc/rfc9980" rel="noopener nofollow">RFC 9980</a> was published as an IETF Proposed Standard in <strong>June 2026</strong> — the most significant OpenPGP WoT event since RFC 9580. Authors: Stavros Kousidis (BSI), Johannes Roth and Falko Strenzke (MTG AG), Aron Wussler (Proton AG). The draft went through 17 working-group revisions.</p>
+<p><strong>Algorithm table</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Mandatory</th>
+<th>Recommended</th>
+<th>Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encryption</td>
+<td>ML-KEM-768 + X25519 (composite)</td>
+<td>ML-KEM-1024 + X448 (composite)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Signatures</td>
+<td>ML-DSA-65 + Ed25519 (composite)</td>
+<td>ML-DSA-87 + Ed448 (composite)</td>
+<td>SLH-DSA (SHAKE-128s/128f/256s) standalone</td>
+</tr>
+<tr>
+<td>Key format</td>
+<td>v6 required (one exception)</td>
+<td>—</td>
+<td>v4 subkeys for ML-KEM-768+X25519</td>
+</tr>
+<tr>
+<td>Session key</td>
+<td>AES-256 in AEAD</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Critical design decisions</strong>:</p>
+<ol>
+<li>
+<p><strong>AND-construction composites</strong>: every ML-KEM encryption and every ML-DSA signature is composite with a classical counterpart. A message decrypts only if <em>both</em> components succeed. Eliminates downgrade attacks.</p>
+</li>
+<li>
+<p><strong>X-Wing key combiner</strong>: composite encryption binds shared secrets via a KDF modeled on <a href="https://eprint.iacr.org/2024/039" rel="noopener nofollow">X-Wing KEM</a>, preventing cross-message component mixing.</p>
+</li>
+<li>
+<p><strong>SLH-DSA standalone</strong>: hash-based signatures rest on mature assumptions. Signatures &gt;7 KB but appropriate for 20-year trust anchors.</p>
+</li>
+<li>
+<p><strong>No RSA composite</strong>: classical component is always Curve25519/Curve448. RSA keys have no RFC 9980 upgrade path — migration means new key material.</p>
+</li>
+<li>
+<p><strong>v4 carve-out</strong>: ML-KEM-768+X25519 may use v4 encryption subkeys. This is the political compromise letting the GnuPG/LibrePGP installed base participate without v6 migration.</p>
+</li>
+</ol>
+<p><strong>WoT implications</strong>:
+- Certifications signed with Ed25519 can be migrated to ML-DSA composites — assuming both signers and verifiers support RFC 9980.
+- Component verification is a hard requirement (not optional) — verifiers must check every component.
+- <strong>LibrePGP fracture persists</strong>: GnuPG implemented Kyber/ML-KEM in LibrePGP v5, <strong>not</strong> RFC 9980. Cross-ecosystem PQ certifications may be unreadable.</p>
+<p><strong>Analysis source</strong>: <a href="https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980" rel="noopener nofollow">PostQuantum.com — "Post-Quantum OpenPGP Arrives: RFC 9980, the GnuPG Split, and the Signature Gap"</a> (June 30, 2026).</p>
+<h3 id="gnupg-2521-released-july-2-2026-24-declared-end-of-life">GnuPG 2.5.21 Released (July 2, 2026) — 2.4 Declared End-of-Life</h3>
+<p><a href="https://www.gnupg.org" rel="noopener nofollow">GnuPG 2.5.21</a> released <strong>July 2, 2026</strong>. On the same date, <strong>GnuPG 2.4 was officially declared end-of-life</strong> — distributions must adopt 2.5 (LibrePGP) or fork 2.4.</p>
+<p><strong>Release history (2026)</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.5.17</td>
+<td>2026-01-06</td>
+<td>Security fix (2.5.13–2.5.16 severe bug); Debian packages</td>
+</tr>
+<tr>
+<td>— (T8211)</td>
+<td>2026-04-21</td>
+<td>Libgcrypt DoS advisory; 1.12.2/1.11.3/1.10.4</td>
+</tr>
+<tr>
+<td>2.5.19</td>
+<td>2026-04-24</td>
+<td>Feature/bugfix</td>
+</tr>
+<tr>
+<td>2.5.20</td>
+<td>2026-05-13</td>
+<td>Kyber/ML-KEM (LibrePGP v5); GCM in gpgsm; 2.4 EOL warning</td>
+</tr>
+<tr>
+<td><strong>2.5.21</strong></td>
+<td><strong>2026-07-02</strong></td>
+<td><strong>2.4 EOL confirmed</strong>; 2.6 series next</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Blog posts from Koch</strong>:
+- <a href="https://www.gnupg.org/blog/20260320-some-criticism-matter.html" rel="noopener nofollow">Why Some Criticisms Matter More Than Others</a> (March 2026) — addresses RFC 9580/LibrePGP criticism.
+- <a href="https://www.gnupg.org/blog/20251226-cleartext-signatures.html" rel="noopener nofollow">Cleartext Signatures Considered Harmful</a> (December 2025).</p>
+<p><strong>Schism status</strong>: GnuPG 2.5.x implements LibrePGP v5 with ML-KEM, <strong>not</strong> RFC 9580 or RFC 9980. GnuPG 2.6 ("will not differ a lot from 2.4" except PQC) suggests continued LibrePGP direction. gnupg.org still describes itself as "RFC 4880" — two RFCs out of date. The two camps have now coexisted 2+ years post-RFC 9580. The schism is structural, not transitional.</p>
+<h3 id="sequoia-sq-v140-july-6-2026">Sequoia <code>sq</code> v1.4.0 (July 6, 2026)</h3>
+<p><a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia-PGP</a> shipped <code>sq</code> v1.4.0:</p>
+<ul>
+<li><strong><code>--cert-store</code> option</strong>: use an alternate certificate store (OpenPGP certificate directories). Enables isolated WoT testing.</li>
+<li><strong>WKD improvements</strong>: create Web Key Distribution directory structure (May 28, 2026 blog post).</li>
+<li><strong>RFC 9580/9980 alignment</strong>: Sequoia v2 (March 2025) was first with full RFC 9580 v6 support. It is the RFC-aligned reference implementation — the path RFC 9980 PQ certifications will follow.</li>
+<li><strong>WoT engine</strong>: <a href="https://crates.io/crates/sequoia-wot" rel="noopener nofollow">sequoia-wot</a> models WoT as a flow network, authentication as maximum flow. Largely compatible with PGP/GnuPG semantics despite differing from both.</li>
+</ul>
+<h3 id="updated-practical-guidance-august-2026">Updated Practical Guidance (August 2026)</h3>
+<p>Given RFC 9980 publication and permanent LibrePGP fracture:</p>
+<ol>
+<li><strong>PQ migration path is now defined but bifurcated.</strong> RFC 9980 (Sequoia, OpenPGP.js, Proton) vs LibrePGP v5 (GnuPG, Gpg4win, RNP). Choose your camp deliberately.</li>
+<li><strong>Generate new keys with Ed25519/X25519</strong> as the classical baseline. These have a clear composite upgrade path (ML-DSA-65+Ed25519, ML-KEM-768+X25519) under RFC 9980.</li>
+<li><strong>RSA keys have no RFC 9980 upgrade path.</strong> Plan key migration, not algorithm migration, for RSA-dependent WoT nodes.</li>
+<li><strong>Test cross-ecosystem certifications.</strong> If your WoT spans GnuPG and Sequoia/OpenPGP.js users, verify that certifications parse in both ecosystems.</li>
+<li><strong>For long-lived trust anchors (20+ years)</strong>: consider SLH-DSA standalone once implementations stabilize. Hash-based signatures have the most mature security assumptions.</li>
+<li><strong>Track GnuPG 2.6.</strong> If it aligns with neither RFC 9580 nor RFC 9980, the LibrePGP fracture deepens further.</li>
+</ol>
+<h3 id="updated-github-activity-august-6-2026">Updated GitHub Activity — August 6, 2026</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th class="ta-r">Stars</th>
+<th>Last push</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg</a></td>
+<td class="ta-r">~950</td>
+<td>2026-07-02</td>
+<td>2.5.21; 2.4 EOL; LibrePGP v5; ML-KEM</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">openpgpjs/openpgpjs</a></td>
+<td class="ta-r">~5,950</td>
+<td>active</td>
+<td>RFC 9580 v6 production; ~821 forks</td>
+</tr>
+<tr>
+<td><a href="https://sequoia-pgp.org/" rel="noopener nofollow">sequoia-pgp</a></td>
+<td class="ta-r">n/a</td>
+<td>2026-07-06</td>
+<td><code>sq</code> v1.4.0; <code>--cert-store</code>; RFC 9580/9980-aligned</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">pgpainless/pgpainless-wot</a></td>
+<td class="ta-r">0</td>
+<td>2026-04-28</td>
+<td>NLnet-funded; quiet 3+ months</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key observation</strong>: PGPainless WoT has been quiet for 3+ months (last commit April 28). The NLnet-funded development phase may be concluding without a stable 1.0. Meanwhile, Sequoia's WoT engine (<code>sequoia-wot</code>) remains the most actively maintained RFC-aligned WoT implementation.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9580.html" rel="noopener nofollow">RFC 9580 — OpenPGP</a></li>
+<li><a href="https://www.openpgp.org/about/standard/" rel="noopener nofollow">OpenPGP standard overview</a></li>
+<li><a href="https://www.gnupg.org/" rel="noopener nofollow">GnuPG</a> and <a href="https://github.com/gpg/gnupg" rel="noopener nofollow">gpg/gnupg mirror</a></li>
+<li><a href="https://sequoia-pgp.org/" rel="noopener nofollow">Sequoia-PGP</a></li>
+<li><a href="https://github.com/openpgpjs/openpgpjs" rel="noopener nofollow">OpenPGP.js</a></li>
+<li><a href="https://github.com/mailvelope/mailvelope" rel="noopener nofollow">Mailvelope</a></li>
+<li><a href="https://pgpainless.org/" rel="noopener nofollow">PGPainless</a></li>
+<li><a href="https://keys.openpgp.org/about/faq/" rel="noopener nofollow">keys.openpgp.org FAQ</a></li>
+<li><a href="https://www.ietf.org/archive/id/draft-dkg-openpgp-1pa3pc-02.html" rel="noopener nofollow">First-Party Approved Third-Party Certifications in OpenPGP draft</a></li>
+<li><a href="https://journals-sol.sbc.org.br/index.php/jisa/article/view/3810" rel="noopener nofollow">A Protocol for Solving Certificate Poisoning for the OpenPGP Keyserver Network</a></li>
+<li><a href="https://www.mit.edu/~prz/docs/Beautiful_Security%20Chap7.pdf" rel="noopener nofollow">The Evolution of PGP's Web of Trust</a></li>
+<li><a href="https://github.com/pgpainless/pgpainless-wot" rel="noopener nofollow">PGPainless WoT module</a> — NLnet/NGI Assure funded Java/Kotlin WoT path computation</li>
+<li><a href="https://foopgp.org/blog/2026-04-28-openpgp-id-spec/" rel="noopener nofollow">OpenPGP ID u4/u5 spec</a> — foopgp.org draft universal identifiers</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-openpgp-replacementkey/" rel="noopener nofollow">draft-ietf-openpgp-replacementkey-07</a> — IETF OpenPGP key replacement signalling (April 2026, active)</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-signatures-03" rel="noopener nofollow">draft-gallagher-openpgp-signatures-03</a> — OpenPGP signature grammar and semantics updates (June 2026)</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-gallagher-openpgp-messages-00" rel="noopener nofollow">draft-gallagher-openpgp-messages-00</a> — OpenPGP message grammar updates</li>
+<li><a href="https://ariadne.id/core/0/" rel="noopener nofollow">Ariadne Identity Core Specification</a></li>
+<li><a href="https://keyoxide.org/" rel="noopener nofollow">Keyoxide</a> and <a href="https://docs.keyoxide.org/wiki/faq/" rel="noopener nofollow">Keyoxide FAQ</a></li>
+<li><a href="https://hermine-th.org" rel="noopener nofollow">Hermine post-quantum threshold signatures</a> and <a href="https://eprint.iacr.org/2026/419" rel="noopener nofollow">eprint 2026/419</a></li>
+<li><a href="https://datatracker.ietf.org/doc/rfc9980" rel="noopener nofollow">RFC 9980 — Post-Quantum Cryptography in OpenPGP</a> — Published June 2026; composite ML-KEM+X25519, ML-DSA+Ed25519; SLH-DSA standalone</li>
+<li><a href="https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980" rel="noopener nofollow">PostQuantum.com — RFC 9980 analysis</a> — "Post-Quantum OpenPGP Arrives" (June 30, 2026); GnuPG split and signature gap analysis</li>
+<li><a href="https://lists.gnupg.org/pipermail/gnupg-announce/2026q3/000506.html" rel="noopener nofollow">GnuPG 2.5.21 release announcement</a> — July 2, 2026; 2.4 EOL confirmed</li>
+<li><a href="https://www.gnupg.org/blog/20260320-some-criticism-matter.html" rel="noopener nofollow">GnuPG blog: Why Some Criticisms Matter More Than Others</a> — Koch's response to LibrePGP criticism</li>
+<li><a href="https://sequoia-pgp.org" rel="noopener nofollow">Sequoia <code>sq</code> v1.4.0 release</a> — <code>--cert-store</code>; WKD improvements; RFC 9580/9980 alignment</li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-web-of-trust/">
+  <span class="nm">Web of Trust on Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/web-of-trust-survey/">
+  <span class="nm">Webs of Trust: The Long Survey</span>
+  <span class="ty">Reference</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+    <p class="chips">
+      <span class="label">Also in</span>
+      <a class="chip" href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a>
+    </p>
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-08-06</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=The%20OpenPGP%20Web%20of%20Trust" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">The OpenPGP Web of Trust is the classic decentralized trust model: instead of accepting a certificate because a browser-vendor root CA says so, a user accepts a public key because it has a path through people they personally trust as introducers.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Identity, Social and Trust, Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-08-06</dd>
+        <dt>Sources linked</dt><dd>46</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

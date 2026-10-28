@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post-Quantum Saturday — June 20 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-06-20: Bernstein&#39;s &#34;Exploiting ML-DSA bugs&#34; (June 1, 2026) — 59-page paper with two open-source attack demonstrations.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/post-quantum/2026-06-20/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Post-Quantum Saturday — June 20 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-06-20: Bernstein&#39;s &#34;Exploiting ML-DSA bugs&#34; (June 1, 2026) — 59-page paper with two open-source attack demonstrations.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/post-quantum/2026-06-20/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Post-Quantum Saturday — June 20 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Quantum Saturday — June 20 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-06-20: Bernstein&#39;s &#34;Exploiting ML-DSA bugs&#34; (June 1, 2026) — 59-page paper with two open-source attack demonstrations.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-Quantum Saturday — June 20 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-06-20: Bernstein's \"Exploiting ML-DSA bugs\" (June 1, 2026) — 59-page paper with two open-source attack demonstrations.", "datePublished": "2026-06-20", "dateModified": "2026-06-20", "url": "https://ungovernable.tech/briefings/post-quantum/2026-06-20/", "mainEntityOfPage": "https://ungovernable.tech/briefings/post-quantum/2026-06-20/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Post-Quantum Saturday", "item": "https://ungovernable.tech/briefings/post-quantum/"}, {"@type": "ListItem", "position": 4, "name": "2026-06-20", "item": "https://ungovernable.tech/briefings/post-quantum/2026-06-20/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/post-quantum/">Post-Quantum Saturday</a><span aria-hidden="true">/</span><span class="here">2026-06-20</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Post-Quantum Saturday</p>
+  <h1>Post-Quantum Saturday — June 20 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-06-20</b></span>
+    <span><b>22</b> min read</span>
+    <span><a href="/pillars/pqc/">Post-Quantum Cryptography</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-06-20 // may be outdated</p>
+  <p>This page reflects what was known on 2026-06-20. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The week-over-week companion to <a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a> and <a href="/kb/pqc-deployment-tracker/">PQC Deployment and Libraries Tracker</a>. This note covers the seven days since the May/June PQC additions to this library, with a forward look at the next 7-14 days. The big story this week is not a deployment win — it is <strong>Bernstein's June 1 paper "Exploiting ML-DSA bugs"</strong>, a coordinated CVE cluster in liboqs XMSS, the <strong>NIST IR 8610 nine-candidate Round-3 cut</strong> for additional signatures, and the maturation of <a href="https://github.com/pq-code-package/mldsa-native" rel="noopener nofollow">mldsa-native</a> toward v1.0.0. The freedom-tech takeaway: <strong>the PQC standards are real, but the implementations are not yet boring, and the diversity of the standards portfolio is finally catching up to the diversity of the threat</strong>.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Bernstein's "Exploiting ML-DSA bugs" (June 1, 2026)</strong> — 59-page paper with two open-source attack demonstrations against <strong>ML-DSA (FIPS 204) signature implementations</strong>. Both attacks recover the secret key in <strong>under one second on a single laptop core</strong>, then forge arbitrary signatures that pass standard verification. Bernstein projects ~25% of ML-DSA libraries will ship with severe vulnerabilities; <strong>solo ML-DSA produces ~10× more breakable keys than hybrid Ed25519+ML-DSA</strong> for the next five years. This is the single most important PQC-implementation finding of 2026.</li>
+<li><strong>NIST IR 8610 (May 14, 2026)</strong> — NIST announced <strong>9 third-round candidates</strong> for additional post-quantum digital signature schemes, down from 14 second-round: <strong>FAEST, HAWK, MAYO, MQOM, QR-UOV, SDitH, SNOVA, SQIsign, UOV</strong>. Five were eliminated. Round 3 is expected to last ~2 years; the 7th NIST PQC Standardization Conference is targeted for <strong>late spring/early summer 2027</strong>.</li>
+<li><strong>liboqs CVE cluster (May 29, 2026, fixes in 0.16.0)</strong> — Three related advisories for stateful hash-based signatures (XMSS/XMSS^MT): <strong>CVE-2026-44518</strong> (unvalidated caller-supplied <code>signature_len</code> in wrapper layer), <strong>CVE-2026-46344</strong> (OOB read via OID-controlled parameter mismatch in <code>xmss_sign_open</code>), and the original 2025 disclosure. All three fixed in the upcoming v0.16.0 release.</li>
+<li><strong>RustCrypto <code>ml-dsa</code> regression (CVE-2026-24850)</strong> — A signature-malleability vulnerability in the RustCrypto <code>ml-dsa</code> crate was reported by Oren Yomtov (Fireblocks): a non-strict monotonic check (<code>&lt;=</code> instead of <code>&lt;</code>) on hint indices allows duplicate indices in ML-DSA signatures, breaking SUF-CMA. Fixed in v0.1.0-rc.4. The bug is a textbook example of the class of "passes KAT, fails spec" issue Bernstein's paper generalizes.</li>
+<li><strong>OpenSSL 4.0.0 (April 14, 2026) + 4.0.1 (June 9, 2026)</strong> — OpenSSL 4.0 is the <strong>first OpenSSL release with a "TLS only" architecture</strong> and FIPS 140-3 module support. New PQC primitives: <code>curveSM2MLKEM768</code> hybrid KEM, <code>ML-DSA-MU</code> digest algorithm, cSHAKE updates. The 4.0.1 patch (June 9) addresses <strong>17 CVEs</strong> across 4.0.0, 3.6.3, 3.5.7, 3.4.6, and 3.0.21. None of the CVEs are PQ-specific, but the platform is now the reference FIPS 140-3 + PQC stack.</li>
+<li><strong>mldsa-native v1.0.0-beta2 (May 27, 2026)</strong> — Second beta of the PQCA-maintained ML-DSA implementation. C backend is formally verified with CBMC for memory safety; AArch64 and x86_64 backends have growing HOL Light proofs of functional correctness. AWS adopted mldsa-native in production during the past month.</li>
+<li><strong>NIST 6th PQC Conference status</strong> — FN-DSA (FIPS 206) IPD remains in the comment-resolution pipeline. The IETF <code>draft-ietf-cose-falcon-04</code> (March 2026) tracks FIPS 206 alignment for COSE/JOSE. Final FIPS 206 publication still expected late 2026 / early 2027.</li>
+<li><strong>OpenSSH 10.1 / 10.2 cadence</strong> — OpenSSH 10.0 made <code>mlkem768x25519-sha256</code> the default KEX (April 2025). OpenSSH 10.1+ now warns when a non-PQ KEX is negotiated — the warning is appearing in the wild across macOS, NethSecurity, and Rocky Linux deployments.</li>
+<li><strong>Cloudflare PQ traffic holding &gt;65%</strong> — Cloudflare Radar shows PQ-encrypted HTTPS traffic in the <strong>65-70% range</strong> through June 2026 across major countries, with India 70.6%, France 67.1%, Malaysia 62.0%, Saudi Arabia 60.1%. The "iOS 26 inflection point" of late 2025 is now a steady state.</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>the PQC migration of TLS is done. The PQC migration of authentication is the next frontier, and it is harder because implementations are not yet boring.</strong></p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="1-bernsteins-exploiting-ml-dsa-bugs-june-1-2026">1. Bernstein's "Exploiting ML-DSA bugs" — June 1, 2026</h3>
+<p><strong>The single most important PQC-implementation finding of 2026.</strong> Daniel J. Bernstein (cryptographer behind Ed25519, Curve25519, ChaCha20) published a 59-page paper on <strong>2026-06-01</strong> with two open-source exploit demonstrations against <strong>ML-DSA (FIPS 204) signature software</strong>. The paper is on his website (<code>cr.yp.to/papers.html#mldsa</code>) with the attack supplement at <code>cr.yp.to/2026/mldsabugs-20260601.tar.gz</code>.</p>
+<p><strong>The two attacks, both in &lt;1 second on a single laptop core:</strong></p>
+<h4 id="attack-1-the-aabbcc-coefficient-repetition-bug">Attack 1 — The "AABBCC" coefficient-repetition bug</h4>
+<p>The first attack reproduces a 2018 vulnerability in the official Dilithium 1.0 reference implementation, originally announced by Dilithium team member Vadim Lyubashevsky on the NIST PQC forum in 2018. The bug causes consecutive coefficients in the secret polynomial <code>y</code> to repeat in pairs (the "AABBCC" pattern). Lyubashevsky said the bug "can easily be exploited to recover the secret key" — but no working demo existed. <strong>Bernstein supplies one.</strong></p>
+<p>The attack inspects a public key and <strong>two signatures</strong>; solves a system of linear equations over the polynomial ring to recover the four secret polynomials <code>s₀, s₁, s₂, s₃</code>. Bernstein ran the attack successfully on <strong>50 consecutive randomly generated keys</strong>.</p>
+<p>The bug class is <strong>copy-paste-modify with a forgotten index update</strong>. Bernstein's paper identifies similar vulnerable code patterns in <strong>mldsa-native</strong> and <strong>OpenSSL's <code>crypto/ml_dsa</code> directory</strong>, where a single index error produces the exploitable AABBCC pattern. Example: in OpenSSL, accidentally changing one subtraction to a bitwise AND in a chain of bitwise operations would zero out every other polynomial coefficient, producing an A0B0C0 pattern that is <strong>equally exploitable</strong>.</p>
+<h4 id="attack-2-nonce-repetition-the-ps3-disaster-of-ml-dsa">Attack 2 — Nonce repetition (the "PS3 disaster" of ML-DSA)</h4>
+<p>The second attack is the ML-DSA analog of the <strong>2010 Sony PlayStation 3 ECDSA disaster</strong> (27C3 Console Hacking 2010). It triggers when the same secret nonce is reused — can happen via input-length miscalculation, or truncated hash inputs. Bernstein demonstrates the bug class: if a hash is computed over only part of the inputs, <code>y₀, y₁, y₂, y₃</code> can repeat. Simple polynomial division recovers the secret key. <strong>~80% success from two signatures</strong>; additional signatures resolve the remainder.</p>
+<p><strong>Both attacks produce "universal forgeries"</strong> — the attacker can sign any message of their choosing under the victim's public key.</p>
+<h4 id="why-these-bugs-will-ship-in-production">Why these bugs will ship in production</h4>
+<p>Bernstein examines three production codebases: official Dilithium reference, <a href="https://github.com/pq-code-package/mldsa-native" rel="noopener nofollow">mldsa-native</a>, and OpenSSL. Each contains dense, copy-paste-modify code patterns where a single index error produces an exploitable AABBCC pattern. The bugs <strong>pass all standard functionality tests</strong>:</p>
+<ul>
+<li>✅ Valid ML-DSA signatures</li>
+<li>✅ Interoperate with correct verifiers</li>
+<li>✅ Pass known-answer tests (KATs) — <strong>if tests were generated by code with the same bug</strong> (as happened with both official Dilithium 1.0 implementations in 2017)</li>
+<li>✅ Pass cross-library interoperability tests</li>
+</ul>
+<p><strong>The only catching method is cross-implementation checksum comparisons using derandomized RNGs</strong> — applied inconsistently across the ecosystem.</p>
+<h4 id="quantitative-case-section-7-of-the-paper">Quantitative case (Section 7 of the paper)</h4>
+<p>Based on the Blessing/Specter/Weitzner 2021 analysis of 312 CVEs across 8 major cryptographic libraries (2010-2020):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ML-DSA-specific code per library</td>
+<td>2,000-4,000 lines</td>
+</tr>
+<tr>
+<td>Libraries seeing meaningful deployment (next 5 years)</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Aggregate new code</td>
+<td>100,000-200,000 lines</td>
+</tr>
+<tr>
+<td>Vulnerability rate</td>
+<td>0.45-1.19 per 1000 LOC</td>
+</tr>
+<tr>
+<td>Predicted new vulnerabilities</td>
+<td>~100 (~2 per library)</td>
+</tr>
+<tr>
+<td>Severe (signature forgery) fraction</td>
+<td>1/8 (~12.5%)</td>
+</tr>
+<tr>
+<td><strong>Libraries shipping with ≥1 severe vulnerability</strong></td>
+<td><strong>~25%</strong></td>
+</tr>
+<tr>
+<td><strong>2027 ML-DSA keys on vulnerable software</strong></td>
+<td><strong>~18%</strong></td>
+</tr>
+<tr>
+<td><strong>2027 Ed25519 keys on vulnerable software</strong></td>
+<td><strong>~2%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Figure 9.1.1 results (year 2027 breakable-key estimates):</strong></p>
+<ul>
+<li><strong>Ed25519+ML-DSA hybrid</strong>: ~4.09% = 2²⁵·⁴ keys (3.6% via ML-DSA bugs alone, 0.23% via combined, 0.26% via Ed25519 bugs)</li>
+<li><strong>ML-DSA solo</strong>: ~18% = 2²⁷·⁵ keys</li>
+<li><strong>Ed25519 solo</strong>: ~1.6% = 2²⁴ keys</li>
+</ul>
+<p><strong>Main finding:</strong> Solo ML-DSA produces <strong>~order of magnitude more breakable keys</strong> than Ed25519+ML-DSA for first ~10 years after quantum computers arrive.</p>
+<h4 id="implication-for-ungovernable-systems">Implication for ungovernable systems</h4>
+<p>Bernstein directly challenges the April 2026 position of Filippo Valsorda ("hybrid ECC+ML-DSA signatures are unnecessary"). The argument is simple: ML-DSA is <strong>new code in new threat models</strong>, and the new code will have bugs. <strong>For high-value signing keys</strong> — Nostr npubs, ENS names, code-signing keys, certificate authority keys, blockchain validator keys — <strong>hybrid Ed25519+ML-DSA is the only responsible choice until ML-DSA implementations have a multi-year production track record</strong>. The <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> strategy applies to signatures as well as KEMs.</p>
+<p><strong>Reference:</strong> <a href="http://cr.yp.to/papers/mldsa-20260601.pdf" rel="noopener nofollow">Exploiting ML-DSA bugs</a> — Daniel J. Bernstein, 2026-06-01. Companion supplement: <code>cr.yp.to/2026/mldsabugs-20260601.tar.gz</code>. PostQuantum.com summary: <a href="https://postquantum.com/security-pqc/bernstein-exploiting-mldsa-bugs" rel="noopener nofollow">Bernstein Demos ML-DSA Key Recovery in 1 Second</a>.</p>
+<h3 id="2-nist-ir-8610-nine-third-round-pqc-signature-candidates">2. NIST IR 8610 — Nine third-round PQC signature candidates</h3>
+<p>On <strong>May 14, 2026</strong>, NIST released <strong>NIST IR 8610</strong> (full PDF: <code>nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf</code>), announcing that <strong>nine candidate algorithms</strong> advanced to the third round of the Additional Digital Signatures for the NIST PQC Standardization Process. Five second-round candidates were eliminated. Round 3 is expected to last <strong>~2 years</strong>, with the 7th NIST PQC Standardization Conference planned for <strong>late spring/early summer 2027</strong>.</p>
+<p><strong>The nine survivors</strong>, organized by mathematical family:</p>
+<h4 id="mpc-in-the-head-mpcith-3-candidates">MPC-in-the-Head (MPCitH) — 3 candidates</h4>
+<ul>
+<li><strong>FAEST</strong> — AES-based. Signing key IS an AES key; verification key is input-output pair. Most conservative, established security assumptions. Drawback: signatures in kilobytes.</li>
+<li><strong>MQOM</strong> — Best MPCitH performance; smallest combined public-key+signature sizes at all three NIST levels. Security: hardness of solving random multivariate quadratic systems. Caveat: security proofs in ROM and QROM need further maturation.</li>
+<li><strong>SDitH</strong> (Syndrome Decoding in the Head) — Security: syndrome decoding problem for random linear codes (studied since 1970s). Slower than MPCitH peers; competitive sizes when tuned.</li>
+</ul>
+<h4 id="multivariate-uov-family-4-candidates">Multivariate (UOV family) — 4 candidates</h4>
+<p>The most heavily represented category, despite serious second-round damage.</p>
+<ul>
+<li><strong>UOV</strong> — base Unbalanced Oil and Vinegar construction (1999)</li>
+<li><strong>MAYO</strong> — "whipping" algorithm to expand seed key</li>
+<li><strong>QR-UOV</strong> — Quotient ring mathematics</li>
+<li><strong>SNOVA</strong> — MAYO-like whipping + block-ring structure (smallest keys)</li>
+</ul>
+<p><strong>Key advantage</strong>: signatures as small as <strong>96 bytes at category 1</strong>; verification in tens of thousands of CPU cycles. <strong>Key cost</strong>: public keys in hundreds of kilobytes.</p>
+<p><strong>The Wedge Attack (early 2025, Ran)</strong>: Uses exterior products to expose hidden oil subspace in characteristic-2 fields. Three of UOV's four parameter sets fell below security targets; MAYO2 (cat 1) lost ~30 bits; SNOVA hit hardest. <strong>QR-UOV emerged unscathed</strong> (uses odd-characteristic fields, immune).</p>
+<p>NIST's warning: SNOVA has a "concerning history of cryptanalysis"; multivariate candidates "on a shorter leash"; longer expected timeline; may need further round of evaluation.</p>
+<h4 id="isogeny-based-1-candidate">Isogeny-based — 1 candidate</h4>
+<ul>
+<li><strong>SQIsign</strong> — Signature size: <strong>148 bytes at category 1</strong> (fits in single Ethernet frame). <strong>Smallest combined public-key+signature size of any PQC candidate</strong>. Math: supersingular elliptic curves. Different security assumption class from lattices; critical insurance against a lattice-specific breakthrough.</li>
+</ul>
+<h4 id="lattice-based-1-candidate">Lattice-based — 1 candidate</h4>
+<ul>
+<li><strong>HAWK</strong> — A lattice scheme using different hardness assumptions than ML-DSA (Module-LWE/SIS) and FN-DSA (NTRU). Backup lattice signature if the standard assumptions fail.</li>
+</ul>
+<h4 id="total-9-third-round-candidates-across-4-families-lattice-isogeny-multivariate-mpcith-deliberate-diversity">Total: <strong>9 third-round candidates across 4 families</strong> (lattice, isogeny, multivariate, MPCitH) — deliberate diversity.</h4>
+<p><strong>Why NIST needs more signatures:</strong></p>
+<ul>
+<li><strong>Lattice concentration</strong>: 2 of 3 current standards (ML-DSA, FN-DSA) are lattice-based. Single breakthrough could compromise both. Historical precedents: <strong>Rainbow</strong> (multivariate, broken 2022 after reaching third round) and <strong>SIKE</strong> (isogeny KEM, broken over a weekend by Castryck-Decru in mid-2022).</li>
+<li><strong>Signature size constraints</strong> — ECDSA P-256: 64 bytes. ML-DSA-44: 2,420 bytes. FN-DSA-512: 666 bytes. SLH-DSA-128 (small): 7,856 bytes. <strong>SQIsign (cat 1): 148 bytes. UOV (cat 1): 96 bytes.</strong> Constrained use cases that demand compact signatures: 8-bit IoT with 256 KB RAM, DNSSEC (engineered around 512-byte UDP packets), Roughtime, satellite comms, smart cards, TLS certificate chains.</li>
+</ul>
+<p><strong>Funnel:</strong> 50 submissions → 40 screened → 14 second round → <strong>9 third round</strong>.</p>
+<p><strong>Reference</strong>: <a href="https://csrc.nist.gov/News/2026/nist-advances-9-candidates-to-the-3rd-round-of-pqc" rel="noopener nofollow">NIST CSRC: Nine Candidates Advance to the Third Round of the Additional Digital Signatures for the PQC Standardization Process</a>. <a href="https://nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf" rel="noopener nofollow">NIST IR 8610 PDF</a>. PostQuantum.com analysis: <a href="https://postquantum.com/security-pqc/nist-third-round-pqc-signatures" rel="noopener nofollow">NIST Selects 9 Third-Round PQC Signature Candidates</a>.</p>
+<h3 id="3-liboqs-cve-cluster-xmssxmssmt-out-of-bounds-reads">3. liboqs CVE cluster — XMSS/XMSS^MT out-of-bounds reads</h3>
+<p>A <strong>cluster of three related advisories</strong> for stateful hash-based signatures (XMSS and XMSS^MT) was published on <strong>May 29, 2026</strong>, all fixed in the upcoming liboqs v0.16.0 release:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>GHSA</th>
+<th>Issue</th>
+<th>CVSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CVE-2026-44518</strong></td>
+<td>GHSA-wf7v-fhxj-73m2</td>
+<td>Unvalidated caller-supplied <code>signature_len</code> in wrapper layer</td>
+<td>5.3 (Medium)</td>
+</tr>
+<tr>
+<td><strong>CVE-2026-46344</strong></td>
+<td>GHSA-2wxh-55qf-c7wg</td>
+<td>OOB read via OID-controlled parameter mismatch in <code>xmss_sign_open</code></td>
+<td>5.3 (Medium)</td>
+</tr>
+<tr>
+<td>Original 2025 disclosure</td>
+<td>(related)</td>
+<td>Underlying <code>xmss_commons.c:194</code> heap-buffer-overflow</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Technical details (CVE-2026-46344):</strong> When the verification function is called with a correctly-sized signature buffer for the declared algorithm but a <strong>public key whose OID bytes (<code>pk[0..3]</code>) reference a different XMSS parameter set with a larger <code>sig_bytes</code></strong>, the implementation re-parses the OID from the public key inside <code>xmss_sign_open</code> / <code>xmssmt_sign_open</code> and uses the resulting (larger) <code>sig_bytes</code> to index the caller-supplied signature buffer. The downstream function <code>xmssmt_core_sign_open</code> discards the caller-supplied <code>smlen</code> (<code>(void) smlen;</code>) and indexes the signature buffer at offset <code>params-&gt;sig_bytes - prefix_length</code>, reading out of bounds.</p>
+<p><strong>Primary observable effect: process crash (denial of service)</strong> if the OOB read crosses into an unmapped page. <strong>No oracle exists to leak the OOB bytes</strong> — they are consumed only as input to an internal hash computation, and the maintainers have identified no mechanism by which they could influence the verification result.</p>
+<p><strong>Reachable from any caller of <code>OQS_SIG_STFL_verify</code></strong> that accepts a public key from an untrusted or tampered source — <strong>firmware update metadata, TUF metadata, certificate stores</strong>.</p>
+<p><strong>Fix</strong>: per-variant verify wrappers add an OID consistency check that the public key's OID matches the declared algorithm's compile-time OID constant. The CVE-2026-44518 fix (commit <code>ef70dea</code>) is necessary but not sufficient; CVE-2026-46344 closes the remaining vector.</p>
+<p><strong>Operational impact</strong>: any system using liboqs to verify XMSS or XMSS^MT signatures with externally-supplied public keys should <strong>upgrade to liboqs 0.16.0 immediately upon release</strong>. Since v0.16.0 was unreleased as of June 20, 2026, apply the patch on the <code>main</code> branch of the GitHub repo or pin to a vendor-patched fork.</p>
+<p><strong>References</strong>: <a href="https://github.com/open-quantum-safe/liboqs/security/advisories/GHSA-wf7v-fhxj-73m2" rel="noopener nofollow">GHSA-wf7v-fhxj-73m2</a>, <a href="https://github.com/open-quantum-safe/liboqs/security/advisories/GHSA-2wxh-55qf-c7wg" rel="noopener nofollow">GHSA-2wxh-55qf-c7wg</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-46344" rel="noopener nofollow">NVD CVE-2026-46344</a>, <a href="https://nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-44518" rel="noopener nofollow">NVD CVE-2026-44518</a>.</p>
+<h3 id="4-rustcrypto-ml-dsa-signature-malleability-cve-2026-24850">4. RustCrypto <code>ml-dsa</code> signature malleability (CVE-2026-24850)</h3>
+<p><strong>Reporter:</strong> Oren Yomtov (Fireblocks).
+<strong>Affected:</strong> RustCrypto <code>ml-dsa</code> crate v0.1.0-rc.2 and later commits since <code>b01c3b7</code>.
+<strong>Fixed in:</strong> v0.1.0-rc.4.</p>
+<p><strong>Root cause:</strong> A regression bug in the <code>monotonic</code> helper function in <code>ml-dsa/src/hint.rs</code>. Per FIPS 204 / RFC 9881, <strong>hint indices within each polynomial must be strictly increasing</strong>. The original implementation used strict less-than (<code>&lt;</code>); commit <code>b01c3b7</code> ("Make ML-DSA signature decoding follow the spec", fixing issue #894) inadvertently changed it to non-strict (<code>&lt;=</code>), accepting duplicate indices.</p>
+<p><strong>Impact:</strong> Signature malleability — an attacker can take a valid signature and create additional "valid" signatures by duplicating hint indices. This breaks the <strong>SUF-CMA (Strong Unforgeability under Chosen Message Attacks)</strong> property that ML-DSA is designed to provide.</p>
+<p><strong>Affecting all ML-DSA parameter sets.</strong></p>
+<p><strong>The PoC</strong> uses Wycheproof test vectors that specifically test for this invalid encoding (the <code>invalid</code> vectors should be rejected, the <code>valid</code> ones accepted).</p>
+<p><strong>This is the same class of bug Bernstein's paper generalizes</strong>: a one-character code change (<code>&lt;</code> → <code>&lt;=</code>) produces an implementation that <strong>passes all standard tests but violates the spec</strong>. The lesson is that spec compliance is not implementation correctness.</p>
+<p><strong>Operational impact</strong>: any application using RustCrypto <code>ml-dsa</code> should upgrade to v0.1.0-rc.4 or later. The fix is a one-character change: <code>&lt;=</code> → <code>&lt;</code>.</p>
+<p><strong>Reference</strong>: <a href="https://github.com/advisories/GHSA-5x2r-hc65-25f9" rel="noopener nofollow">GHSA-5x2r-hc65-25f9</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-24850" rel="noopener nofollow">NVD CVE-2026-24850</a>.</p>
+<h3 id="5-openssl-400-and-401-major-release-security-patch-day">5. OpenSSL 4.0.0 and 4.0.1 — Major release + security patch day</h3>
+<h4 id="openssl-400-released-april-14-2026">OpenSSL 4.0.0 — Released April 14, 2026</h4>
+<p>The first major-version OpenSSL release since 3.0 (2021) and a <strong>TLS-only architecture milestone</strong>. Breaking changes:</p>
+<ul>
+<li><strong>SSLv2 Client Hello support removed</strong></li>
+<li><strong>SSLv3 support removed</strong> (deprecated since 2015)</li>
+<li><strong>Engine support removed</strong> — <code>no-engine</code> build option and <code>OPENSSL_NO_ENGINE</code> macro always present</li>
+<li><strong><code>ASN1_STRING</code> made opaque</strong></li>
+<li><strong><code>c_rehash</code> script removed</strong> — use <code>openssl rehash</code> instead</li>
+<li><strong><code>BIO_f_reliable()</code> removed</strong> without replacement (broken since 3.0)</li>
+<li><strong>Deprecated custom methods removed</strong> (<code>EVP_CIPHER</code>, <code>EVP_MD</code>, <code>EVP_PKEY</code>, <code>EVP_PKEY_ASN1</code>)</li>
+<li><strong>Hex dump widths standardized</strong>: 24 bytes for signatures, 16 bytes otherwise</li>
+<li><strong>Deprecated TLS EC curves (RFC 8422) disabled by default</strong></li>
+<li><strong>FIPS 140-3 module</strong> support — OpenSSL Corporation's FIPS provider was validated against FIPS 140-3</li>
+<li><strong><code>libcrypto</code> no longer cleans up globally allocated data via <code>atexit()</code></strong> — <code>OPENSSL_cleanup()</code> now runs in global destructor</li>
+</ul>
+<p><strong>New PQC primitives</strong>:
+- <strong><code>curveSM2MLKEM768</code></strong> — hybrid KEM group combining SM2 (China's curve) with ML-KEM-768. Targets Chinese compliance + PQC migration simultaneously.
+- <strong><code>ML-DSA-MU</code></strong> — digest algorithm for ML-DSA with multi-user / multi-tenant contexts
+- <strong>cSHAKE updates</strong> — additional SHAKE256 customization support for KMAC, TupleHash</p>
+<h4 id="openssl-401-released-june-9-2026">OpenSSL 4.0.1 — Released June 9, 2026</h4>
+<p>A coordinated security patch day across <strong>five</strong> OpenSSL branches: 4.0.1, 3.6.3, 3.5.7, 3.4.6, 3.0.21. Total: <strong>17 CVEs</strong> fixed in 4.0.1 alone, with 14 in 3.5.7. The CVEs are not PQ-specific but include:</p>
+<ul>
+<li><strong>CVE-2026-42770</strong> — FFC-DH peer validation uses attacker-supplied <code>q</code> (Bleichenbacher-style)</li>
+<li><strong>CVE-2026-42768</strong> — Multi-<code>RecipientInfo</code> Bleichenbacher Oracle in <code>CMS_decrypt()</code> and <code>PKCS7_decrypt()</code></li>
+<li><strong>CVE-2026-34182</strong> — CMS <code>AuthEnvelopedData</code> accepts forged messages</li>
+<li><strong>CVE-2026-42764</strong> — NULL pointer dereference in QUIC server initial packet handling</li>
+<li><strong>CVE-2026-42765</strong> — NULL dereference in cert verification with OCSP Checking</li>
+<li><strong>CVE-2026-42766</strong> — NULL dereference in password-based CMS decryption</li>
+<li><strong>CVE-2026-45447</strong> — Heap use-after-free in <code>PKCS7_verify()</code></li>
+<li><strong>CVE-2026-45445</strong> — AES-OCB IV ignored on <code>EVP_Cipher()</code> path</li>
+<li><strong>CVE-2026-45446</strong> — Incorrect tag processing for empty messages in AES-GCM-SIV and AES-SIV</li>
+</ul>
+<p>4.0.1 also fixes two 4.0.0 regressions:
+- <code>openssl pkey</code> command crash when encrypting private key with interactive password
+- <code>openssl s_client -adv</code> prematurely terminating session on 16384-byte <code>read()</code> call</p>
+<p><strong>Operational impact</strong>: any production system using OpenSSL 4.0.0 should upgrade to 4.0.1 immediately. 3.5.x users should move to 3.5.7. The 3.0.21 backport addresses the most severe CVEs in the legacy 3.0 branch.</p>
+<p><strong>Reference</strong>: <a href="https://github.com/openssl/openssl/releases" rel="noopener nofollow">OpenSSL Releases on GitHub</a>, <a href="https://www.helpnetsecurity.com/2026/04/14/openssl-4-0-0-released" rel="noopener nofollow">Help Net Security: OpenSSL 4.0.0 release</a>.</p>
+<h3 id="6-mldsa-native-v100-beta2-may-27-2026">6. mldsa-native v1.0.0-beta2 — May 27, 2026</h3>
+<p>The PQCA-maintained, formally verified ML-DSA implementation reached its <strong>second beta</strong> on May 27, 2026. Key properties:</p>
+<ul>
+<li><strong>C backend</strong>: production-ready, <strong>formally verified with CBMC</strong> (C Bounded Model Checker) for memory safety, type safety, and absence of (certain types of) undefined behavior. This is the most stringent formal assurance available for any production ML-DSA implementation.</li>
+<li><strong>AArch64 and x86_64 backends</strong>: growing set of assembly routines carries <strong>HOL Light proofs of functional correctness, memory safety, and secret-independent execution</strong> (constant-time). Coverage is partial but expanding.</li>
+<li><strong>ACVP test vectors</strong>: tested against all official NIST ACVP ML-DSA test vectors.</li>
+<li><strong>Backends</strong>: C (default), AArch64 (Neon), x86-64 (AVX2).</li>
+</ul>
+<p><strong>The <code>MLD_TOTAL_ALLOC_{44,65,87}_{KEYPAIR,SIGN,VERIFY}</code> constants</strong> exposed in <code>mldsa_native.h</code> report the maximum cumulative <code>MLD_ALLOC</code> size for each parameter set and operation.</p>
+<p><strong>AWS adopted mldsa-native in production during the past month</strong> (per Matthias Kannwischer's LinkedIn post). This is significant because AWS's ML-DSA deployment in KMS and Private CA is now backed by a formally verified implementation.</p>
+<p><strong>Path to v1.0.0 stable</strong>: the beta releases are converging on stable. The remaining work is mostly additional assembly coverage and additional CBMC proof scope.</p>
+<p><strong>For ungovernable systems</strong>: mldsa-native is the <strong>strongest open-source ML-DSA implementation by formal-verification coverage</strong> as of June 2026. Any system that signs high-value, long-lived artifacts (Nostr event signatures, certificate authorities, code-signing, firmware updates) should consider using mldsa-native as a reference and aim for integration before the v1.0.0 stable release.</p>
+<p><strong>Reference</strong>: <a href="https://github.com/pq-code-package/mldsa-native" rel="noopener nofollow">pq-code-package/mldsa-native on GitHub</a>, <a href="https://github.com/pq-code-package/mldsa-native/releases" rel="noopener nofollow">Releases</a>.</p>
+<h3 id="7-fn-dsa-fips-206-ipd-in-comment-resolution">7. FN-DSA (FIPS 206) — IPD in comment resolution</h3>
+<p>The FIPS 206 Initial Public Draft remains in the NIST comment-resolution pipeline. The IETF <code>draft-ietf-cose-falcon-04</code> (March 2026, expires September 2026) tracks FIPS 206 alignment for COSE/JOSE integration. Open questions at the <strong>NIST 6th PQC Conference</strong> (September 2025) included:</p>
+<ul>
+<li><strong>SUF-CMA requirements</strong> — should FN-DSA be SUF-CMA like ML-DSA, or remain EUF-CMA (which allows the malleability class of bugs Bernstein's paper highlights)?</li>
+<li><strong>Hedged variants</strong> — should the standard allow hedged (deterministic + randomized) signing?</li>
+<li><strong>Key/message-recovery mode</strong> — should a recovery mode be standardized?</li>
+<li><strong>Fixed-point signing</strong> — how to handle the floating-point dependency in Falcon's Gaussian sampling?</li>
+</ul>
+<p>These are being resolved in the IPD period before final publication. <strong>Final FIPS 206 publication still expected late 2026 / early 2027</strong>.</p>
+<p><strong>HSM vendors</strong> (Utimaco, AWS CloudHSM, YubiHSM) have not yet shipped production FN-DSA support. The likely inflection point is 12-18 months after final FIPS publication.</p>
+<p><strong>For Nostr/ENS/identity systems</strong>: FN-DSA's compact signatures (FN-DSA-512: 666 bytes vs ML-DSA-44: 2,420 bytes) make it attractive for bandwidth-constrained chains. But the delay in finalization means ML-DSA remains the default for at least another 18 months.</p>
+<p><strong>Reference</strong>: <a href="https://www.ietf.org/archive/id/draft-ietf-cose-falcon-04.html" rel="noopener nofollow">draft-ietf-cose-falcon-04</a>.</p>
+<h3 id="8-openssh-100-101-102-cadence">8. OpenSSH 10.0 / 10.1 / 10.2 cadence</h3>
+<ul>
+<li><strong>OpenSSH 10.0</strong> (April 2025) — <code>mlkem768x25519-sha256</code> made the new default KEX.</li>
+<li><strong>OpenSSH 10.1+</strong> — new warning: "WARNING: connection is not using a post-quantum key exchange algorithm" when a non-PQ KEX is negotiated. The two standardized PQ KEXs are <code>mlkem768x25519-sha256</code> and <code>sntrup761x25519-sha512</code>.</li>
+<li><strong>OpenSSH 10.2</strong> (early 2026) — same PQ-default behavior; no breaking PQC changes.</li>
+</ul>
+<p><strong>Operational observation</strong> (from NethServer community and Juniper support portal): the warning is appearing in the wild across macOS, NethSecurity, and Rocky Linux deployments. <strong>This is the user-facing friction point</strong> of PQC migration: the warning is loud enough that end users notice and IT helpdesks field questions. Juniper published a 2026-03 reference advisory specifically addressing the new warning.</p>
+<p><strong>For ungovernable systems</strong>: when configuring SSH servers, the default <code>mlkem768x25519-sha256</code> is fine. If you see the "not using PQ KEX" warning as a <em>client</em>, your server hasn't been upgraded.</p>
+<p><strong>Reference</strong>: <a href="https://www.openssh.com/pq.html" rel="noopener nofollow">OpenSSH Post-Quantum Cryptography</a>, <a href="https://supportportal.juniper.net/s/article/2026-03-Reference-Advisory-OpenSSH-client-new-warning-in-versions-10-1-and-higher-connection-is-not-using-a-post-quantum-key-exchange-algorithm" rel="noopener nofollow">Juniper 2026-03 Reference Advisory</a>.</p>
+<h3 id="9-cloudflare-pq-traffic-the-ios-26-inflection-point-is-now-steady-state">9. Cloudflare PQ traffic: the iOS 26 inflection point is now steady state</h3>
+<p>Cloudflare Radar data through June 2026 shows PQ-encrypted HTTPS traffic holding in the <strong>65-70% range</strong> across major countries, having settled after the <strong>iOS 26 inflection point</strong> of late September 2025 (where a single iOS update moved global share from 29% to 52% in about a week).</p>
+<p><strong>Country-level PQ adoption (Cloudflare Radar, June 2026):</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Country</th>
+<th>PQ-encrypted share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>India</td>
+<td>70.6%</td>
+</tr>
+<tr>
+<td>France</td>
+<td>67.1%</td>
+</tr>
+<tr>
+<td>Malaysia</td>
+<td>62.0%</td>
+</tr>
+<tr>
+<td>Saudi Arabia</td>
+<td>60.1%</td>
+</tr>
+<tr>
+<td>Global average</td>
+<td>~65%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The 2026 target for <strong>full PQ security including authentication</strong> remains Cloudflare's stated 2029 milestone (announced April 7, 2026, joining Google's March 25 announcement).</p>
+<p><strong>Operational implication for ungovernable systems</strong>: hybrid PQ TLS is now the <strong>default, not the exception</strong>. Any system that only supports classical TLS is increasingly the minority, and the "control" mode is becoming "fallback to classical" rather than "negotiate up to PQ".</p>
+<h3 id="10-rust-ecosystem-ml-kemml-dsa-progress">10. Rust ecosystem ML-KEM/ML-DSA progress</h3>
+<p>The RustCrypto organization continues to ship production-ready PQ crates:</p>
+<ul>
+<li><strong><code>ml-kem</code> v0.3.2</strong> — pure Rust FIPS 203 final, ready for production use</li>
+<li><strong><code>ml-dsa</code> v0.1.0-rc.4</strong> — pure Rust FIPS 204 final, with the CVE-2026-24850 fix</li>
+<li><strong><code>slh-dsa</code></strong> — pure Rust FIPS 205 final (Project Eleven analysis notes <code>aws-lc-rs</code> lacks SLH-DSA test vectors; this is improving)</li>
+</ul>
+<p><strong>Paragon Initiative Enterprises</strong> released <code>ext-pqcrypto</code> in April 2026 — a PHP extension in Rust that wraps the RustCrypto PQ KEMs and signature algorithms. Plus <code>pqcrypto_compat</code> (pure-PHP) for systems that can't install the extension. This is the first production PHP ecosystem path to PQC.</p>
+<p><strong>Project Eleven's "The State of Post-Quantum Cryptography in Rust"</strong> (2025) provides the comprehensive ecosystem audit. Key finding: as of August 2024 standardization + 1 year, Rust has <strong>the most complete production-ready PQ ecosystem</strong> of any language, with formal verification paths (mldsa-native, libcrux) leading the way.</p>
+<h3 id="11-state-of-the-standards-portfolio-june-2026-snapshot">11. State of the standards portfolio — June 2026 snapshot</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Algorithm</th>
+<th>Status</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIPS 203</td>
+<td>ML-KEM (Kyber)</td>
+<td>Final 2024</td>
+<td>KEM / key exchange</td>
+</tr>
+<tr>
+<td>FIPS 204</td>
+<td>ML-DSA (Dilithium)</td>
+<td>Final 2024</td>
+<td>Signatures (lattice, general purpose)</td>
+</tr>
+<tr>
+<td>FIPS 205</td>
+<td>SLH-DSA (SPHINCS+)</td>
+<td>Final 2024</td>
+<td>Signatures (hash, conservative backup)</td>
+</tr>
+<tr>
+<td>FIPS 206</td>
+<td>FN-DSA (Falcon)</td>
+<td>IPD → Final expected late 2026/early 2027</td>
+<td>Signatures (size-optimized)</td>
+</tr>
+<tr>
+<td>HQC</td>
+<td>Code-based KEM</td>
+<td>Selected March 2025; FIPS drafting</td>
+<td>Backup KEM (lattice diversification)</td>
+</tr>
+<tr>
+<td>NIST IR 8610 Round 3</td>
+<td>FAEST, HAWK, MAYO, MQOM, QR-UOV, SDitH, SNOVA, SQIsign, UOV</td>
+<td>Round 3 until 2027-2028</td>
+<td>Additional signature algorithms (diversity)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Operational guidance (June 2026):</strong></p>
+<ul>
+<li><strong>TLS key exchange</strong>: hybrid X25519+ML-KEM-768 is the default. OpenSSL 3.5+, OpenSSH 10.0+, Go 1.24+, RustCrypto all support this.</li>
+<li><strong>TLS authentication</strong>: ECDSA / Ed25519 is still the default because ML-DSA certificate chain support is incomplete. Hybrid Ed25519+ML-DSA in certificates is the near-term target.</li>
+<li><strong>Long-lived code signing</strong>: hybrid Ed25519+ML-DSA is the responsible choice per Bernstein's June 1 analysis. SLH-DSA as a conservative backup for ultra-long-archive signatures.</li>
+<li><strong>IoT / constrained</strong>: wait for HAWK, UOV, or SQIsign from the Round 3 cohort — none are deployable in 2026.</li>
+<li><strong>Encrypted archives (multi-decade)</strong>: hybrid ML-KEM-1024 key wrap + AES-256-GCM. The <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> playbook is the reference.</li>
+</ul>
+<h2 id="cross-cutting-observations">Cross-cutting observations</h2>
+<h3 id="the-implementation-maturity-problem-is-the-next-big-risk">The implementation-maturity problem is the next big risk</h3>
+<p>The 2024-2025 narrative was "PQC standards are final, deploy hybrid". The 2026 narrative is shifting: <strong>the standards are fine, the implementations are not yet boring</strong>. Three independent data points in one week:</p>
+<ol>
+<li><strong>Bernstein's paper</strong> — two attack classes, &lt;1 second exploits, ~25% of libraries projected to ship with severe bugs.</li>
+<li><strong>CVE-2026-24850 (RustCrypto ml-dsa)</strong> — a one-character regression (<code>&lt;=</code> → <code>&lt;</code>) in hint-index validation, enabling signature malleability. The bug was introduced in a "fix" commit.</li>
+<li><strong>liboqs CVE cluster (CVE-2026-44518, CVE-2026-46344)</strong> — three related OOB read issues in stateful hash-based signatures, all reachable from external public keys.</li>
+</ol>
+<p><strong>The pattern</strong>: standardized algorithms + new code + new threat model = exploitable bugs. The 2026 lesson: <strong>hybrid is not optional for high-value keys</strong> until ML-DSA implementations have a multi-year production track record.</p>
+<h3 id="lattice-concentration-9-candidates-for-diversity">Lattice concentration: 9 candidates for diversity</h3>
+<p>NIST IR 8610's Round 3 selection deliberately maintains <strong>diversity</strong> across four families: lattice (HAWK), isogeny (SQIsign), multivariate (UOV, MAYO, QR-UOV, SNOVA), MPCitH (FAEST, MQOM, SDitH). Only one of the nine third-round candidates is lattice-based, and HAWK uses different hardness assumptions than ML-DSA and FN-DSA. <strong>This is NIST's hedge</strong> against a single cryptanalytic breakthrough compromising the standard lattice problems.</p>
+<p>For long-lived deployments (10+ year archives), <strong>diversification across families</strong> is a sensible architecture: a primary ML-DSA signature with an SLH-DSA or HQC backup provides a second line of defense.</p>
+<h3 id="the-fn-dsa-finalization-path-is-the-only-remaining-wait">The FN-DSA finalization path is the only remaining "wait"</h3>
+<p>Every other major standard (ML-KEM, ML-DSA, SLH-DSA) is final and deployable. <strong>FN-DSA is the last "wait"</strong> — the IPD is in comment resolution, the COSE/JOSE spec is drafted, and HSM vendors are waiting on the final FIPS publication. Once FIPS 206 is final (late 2026 / early 2027), the HSM-and-PKI supply chain will be the next 12-18 months of work.</p>
+<h3 id="standards-aligned-attack-surface">Standards-aligned attack surface</h3>
+<p>The fact that <strong>NIST-standardized algorithms are now showing up in criminal malware</strong> (Kyber ransomware, active since September 2025) and that <strong>NIST-standardized algorithms are now showing up in academic attack papers</strong> (Bernstein's ML-DSA exploits) is the operationally neutral sign of maturity. The same algorithms are simultaneously the right primitives for defenders, the right primitives for attackers, and the right primitives for academic scrutiny. <strong>That is what "mature cryptography" looks like.</strong></p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Date</th>
+<th>Source</th>
+<th>Type</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bernstein "Exploiting ML-DSA bugs" paper</td>
+<td>2026-06-01</td>
+<td>cr.yp.to</td>
+<td>Academic</td>
+<td>Two &lt;1s key-recovery attacks; ~25% library vuln projection</td>
+</tr>
+<tr>
+<td>NIST IR 8610 (Round 3 PQC signatures)</td>
+<td>2026-05-14</td>
+<td>NIST CSRC</td>
+<td>Standardization</td>
+<td>9 of 14 candidates advance; 5 eliminated</td>
+</tr>
+<tr>
+<td>CVE-2026-24850 (RustCrypto ml-dsa)</td>
+<td>2026-05</td>
+<td>RustCrypto GHSA</td>
+<td>Library vulnerability</td>
+<td>Signature malleability; fixed in v0.1.0-rc.4</td>
+</tr>
+<tr>
+<td>CVE-2026-46344 (liboqs XMSS)</td>
+<td>2026-05-29</td>
+<td>OQS GHSA</td>
+<td>Library vulnerability</td>
+<td>OOB read via OID mismatch; DoS</td>
+</tr>
+<tr>
+<td>CVE-2026-44518 (liboqs XMSS)</td>
+<td>2026-05-29</td>
+<td>OQS GHSA</td>
+<td>Library vulnerability</td>
+<td>OOB read; DoS</td>
+</tr>
+<tr>
+<td>mldsa-native v1.0.0-beta2</td>
+<td>2026-05-27</td>
+<td>PQCP GitHub</td>
+<td>Library release</td>
+<td>Formally verified ML-DSA; AWS production adoption</td>
+</tr>
+<tr>
+<td>OpenSSL 4.0.1 (security patch day)</td>
+<td>2026-06-09</td>
+<td>OpenSSL</td>
+<td>Patch</td>
+<td>17 CVEs fixed across 5 branches</td>
+</tr>
+<tr>
+<td>OpenSSL 4.0.0 (TLS-only, FIPS 140-3)</td>
+<td>2026-04-14</td>
+<td>OpenSSL</td>
+<td>Major release</td>
+<td>First FIPS 140-3 + TLS-only OpenSSL</td>
+</tr>
+<tr>
+<td>Cloudflare PQ 2029 target</td>
+<td>2026-04-07</td>
+<td>Cloudflare blog</td>
+<td>Roadmap</td>
+<td>Full PQ including authentication by 2029</td>
+</tr>
+<tr>
+<td>Apple iOS 26 PQ TLS default</td>
+<td>2025-09-15</td>
+<td>Apple Support</td>
+<td>Deployment</td>
+<td>iOS 26 / macOS Tahoe 26 default PQ TLS</td>
+</tr>
+<tr>
+<td>OpenSSH 10.1 PQ warning</td>
+<td>2026-03</td>
+<td>OpenSSH / Juniper</td>
+<td>UX</td>
+<td>Loud warning on non-PQ KEX</td>
+</tr>
+<tr>
+<td>AWS ML-KEM hybrid TLS default</td>
+<td>2026-04</td>
+<td>AWS</td>
+<td>Deployment</td>
+<td>KMS, Secrets Manager, ACM, S3 hybrid TLS</td>
+</tr>
+<tr>
+<td>Kyber ransomware activity</td>
+<td>2026 ongoing</td>
+<td>Rapid7</td>
+<td>Adversary use</td>
+<td>First criminal ML-KEM-1024 use</td>
+</tr>
+<tr>
+<td>Filipo Valsorda vs Bernstein hybrid debate</td>
+<td>2026-04 / 06</td>
+<td>Multiple</td>
+<td>Academic</td>
+<td>Solohybrid argument; Bernstein rebuts</td>
+</tr>
+<tr>
+<td>Wedge attack on UOV family</td>
+<td>2025 early</td>
+<td>Ran</td>
+<td>Academic</td>
+<td>Breaks 3 of 4 UOV parameter sets</td>
+</tr>
+<tr>
+<td>AWS adopts mldsa-native</td>
+<td>2026-05</td>
+<td>Kannwischer LinkedIn</td>
+<td>Production</td>
+<td>Formally verified ML-DSA in AWS</td>
+</tr>
+<tr>
+<td>Paragon ext-pqcrypto</td>
+<td>2026-04</td>
+<td>Paragonie blog</td>
+<td>Library</td>
+<td>First production PHP PQC stack</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-to-watch-in-the-next-7-14-days">What to Watch in the Next 7-14 Days</h2>
+<ul>
+<li><strong>mldsa-native v1.0.0 stable</strong> — the beta2 (May 27) is the second beta; a v1.0.0 release is plausible within the next 2-4 weeks if the remaining CBMC and HOL Light proofs close.</li>
+<li><strong>liboqs v0.16.0 release</strong> — fixes the XMSS CVE cluster, removes SPHINCS+ in favor of SLH-DSA, drops Dilithium Round 3. Expected within 2-3 weeks of June 20.</li>
+<li><strong>FN-DSA IPD comment-resolution update</strong> — NIST typically publishes resolutions after the IPD comment period closes. Any announcement here would push FIPS 206 closer to final.</li>
+<li><strong>CFRG draft on ML-DSA security considerations</strong> — <code>draft-connolly-cfrg-ml-dsa-security-considerations-02</code> (March 2026) is the IETF's operational hardening guide for ML-DSA deployments. Watch for updates incorporating Bernstein's findings.</li>
+<li><strong>Round 3 signature spec publications</strong> — the 9 third-round candidates will begin publishing updated spec documents and reference implementations. HAWK, MAYO, and SQIsign are the early standouts for production interest.</li>
+<li><strong>Apple WWDC 2026</strong> (typically early June) — any new PQ announcements (e.g., ML-DSA in CryptoKit, FN-DSA previews) would shift the deployment picture.</li>
+<li><strong>ePrint 2026/1200+ cluster</strong> — expect follow-up papers to Bernstein's ML-DSA bugs paper, including additional bug-class analysis and possibly more exploits in other implementations.</li>
+</ul>
+<h2 id="primary-sources">Primary Sources</h2>
+<ul>
+<li>Bernstein, D. J. <em>Exploiting ML-DSA bugs.</em> 2026-06-01. <a href="http://cr.yp.to/papers/mldsa-20260601.pdf" rel="noopener nofollow">http://cr.yp.to/papers/mldsa-20260601.pdf</a></li>
+<li>NIST IR 8610. <em>Status Report on the Second Round of the Additional Digital Signature Schemes for the NIST PQC Standardization Process.</em> May 2026. <a href="https://nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf" rel="noopener nofollow">https://nvlpubs.nist.gov/nistpubs/ir/2026/NIST.IR.8610.pdf</a></li>
+<li>NIST CSRC. <em>Nine Candidates Advance to the Third Round of the Additional Digital Signatures for the PQC Standardization Process.</em> 2026-05-14. <a href="https://csrc.nist.gov/News/2026/nist-advances-9-candidates-to-the-3rd-round-of-pqc" rel="noopener nofollow">https://csrc.nist.gov/News/2026/nist-advances-9-candidates-to-the-3rd-round-of-pqc</a></li>
+<li>OpenSSL Foundation. <em>OpenSSL 4.0.0 / 4.0.1 / 3.6.3 / 3.5.7 / 3.4.6 / 3.0.21 release notes.</em> <a href="https://github.com/openssl/openssl/releases" rel="noopener nofollow">https://github.com/openssl/openssl/releases</a></li>
+<li>Open Quantum Safe. <em>liboqs security advisories GHSA-wf7v-fhxj-73m2 and GHSA-2wxh-55qf-c7wg.</em> <a href="https://github.com/open-quantum-safe/liboqs/security/advisories" rel="noopener nofollow">https://github.com/open-quantum-safe/liboqs/security/advisories</a></li>
+<li>RustCrypto. <em>GHSA-5x2r-hc65-25f9 — ML-DSA signature verification accepts signatures with repeated hint indices.</em> <a href="https://github.com/advisories/GHSA-5x2r-hc65-25f9" rel="noopener nofollow">https://github.com/advisories/GHSA-5x2r-hc65-25f9</a></li>
+<li>PQCP. <em>mldsa-native v1.0.0-beta2 release.</em> <a href="https://github.com/pq-code-package/mldsa-native/releases" rel="noopener nofollow">https://github.com/pq-code-package/mldsa-native/releases</a></li>
+<li>IETF. <em>draft-ietf-cose-falcon-04 — FN-DSA for JOSE and COSE.</em> March 2026. <a href="https://www.ietf.org/archive/id/draft-ietf-cose-falcon-04.html" rel="noopener nofollow">https://www.ietf.org/archive/id/draft-ietf-cose-falcon-04.html</a></li>
+<li>Cloudflare Research. <em>PQC 2029 target announcement.</em> 2026-04-07. <a href="https://blog.cloudflare.com/pqc-2029-target" rel="noopener nofollow">https://blog.cloudflare.com/pqc-2029-target</a></li>
+<li>Apple Support. <em>Prepare your network for quantum-secure encryption in TLS.</em> <a href="https://support.apple.com/en-us/122756" rel="noopener nofollow">https://support.apple.com/en-us/122756</a></li>
+<li>PostQuantum.com. <em>Bernstein Demos ML-DSA Key Recovery in 1 Second.</em> <a href="https://postquantum.com/security-pqc/bernstein-exploiting-mldsa-bugs" rel="noopener nofollow">https://postquantum.com/security-pqc/bernstein-exploiting-mldsa-bugs</a></li>
+<li>OpenSSH Project. <em>Post-Quantum Cryptography.</em> <a href="https://www.openssh.com/pq.html" rel="noopener nofollow">https://www.openssh.com/pq.html</a></li>
+<li>Project Eleven. <em>The State of Post-Quantum Cryptography in Rust: The Belt is Vacant.</em> <a href="https://www.projecteleven.com/blog/the-state-of-post-quantum-cryptography-in-rust" rel="noopener nofollow">https://www.projecteleven.com/blog/the-state-of-post-quantum-cryptography-in-rust</a></li>
+<li>Paragon Initiative Enterprises. <em>Post-Quantum Cryptography for the PHP Community.</em> 2026-04. <a href="https://paragonie.com/blog/2026/04/post-quantum-cryptography-for-php-community" rel="noopener nofollow">https://paragonie.com/blog/2026/04/post-quantum-cryptography-for-php-community</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <span></span>
+      <a class="pn-hub" href="/briefings/post-quantum/"><span class="label">Series</span><span class="pn-t">All Post-Quantum Saturday briefings</span></a>
+      <a href="/briefings/post-quantum/2026-06-27/"><span class="label">Next</span><span class="pn-t">Post-Quantum Saturday — June 27 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

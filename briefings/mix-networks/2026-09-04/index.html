@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mix Networks Friday — September 04 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-09-04: Nym Binaries v2026.17-djibouti (Sep 2) — first release to ship the full Directory Contract stack.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/mix-networks/2026-09-04/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Mix Networks Friday — September 04 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-09-04: Nym Binaries v2026.17-djibouti (Sep 2) — first release to ship the full Directory Contract stack.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/mix-networks/2026-09-04/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mix Networks Friday — September 04 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mix Networks Friday — September 04 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-09-04: Nym Binaries v2026.17-djibouti (Sep 2) — first release to ship the full Directory Contract stack.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mix Networks Friday — September 04 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-09-04: Nym Binaries v2026.17-djibouti (Sep 2) — first release to ship the full Directory Contract stack.", "datePublished": "2026-09-04", "dateModified": "2026-09-04", "url": "https://ungovernable.tech/briefings/mix-networks/2026-09-04/", "mainEntityOfPage": "https://ungovernable.tech/briefings/mix-networks/2026-09-04/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Mix Networks Friday", "item": "https://ungovernable.tech/briefings/mix-networks/"}, {"@type": "ListItem", "position": 4, "name": "2026-09-04", "item": "https://ungovernable.tech/briefings/mix-networks/2026-09-04/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/mix-networks/">Mix Networks Friday</a><span aria-hidden="true">/</span><span class="here">2026-09-04</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Mix Networks Friday</p>
+  <h1>Mix Networks Friday — September 04 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-09-04</b></span>
+    <span><b>23</b> min read</span>
+    <span><a href="/pillars/anonymity/">Anonymity Networks</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-09-04 // may be outdated</p>
+  <p>This page reflects what was known on 2026-09-04. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>Weekly companion to the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> and <a href="/kb/mix-networks/">Overview - Mix Networks</a>. This week is a <strong>release-week</strong>: <strong>Nym Binaries v2026.17-djibouti</strong> (Sep 2) is the first tagged release to ship the eight-PR Directory Contract stack, the new <strong>Geolocator service + contract</strong>, and a <em>breaking</em> <strong><code>chore: removed support for outfox packets</code></strong> — SOCKS5 and WASM clients now use Mix packets exclusively; <strong>Arti 2.6.0</strong> (Sep 1) makes Counter Galois Onion and Congestion Control always-on by default and continues the relay + dirauth build-out; <strong>Tor Browser 15.0.21</strong> (Sep 1, Firefox 140.15.0esr, OpenSSL 3.5.8) lands just before the <strong>Tor 0.4.8 directory-format EOL (Sep 1)</strong> that disconnects un-upgraded relays and onion services from the network; <strong>Tails 7.12</strong> (Sep 3) opens a new <strong>2-week release cadence</strong> synchronized with Firefox upstream; <strong>NymVPN v2026.12.4-beta.1</strong> (Sep 3) ships a pinned-gateway bypass-of-blacklist fix (PR #6272) that was previously pinning users to a known-blocked GFW-blackholed gateway forever. <a href="/kb/katzenpost/">Katzenpost</a> closed out its 7-part replica-proxy epic with PR #1112-#1120 — <strong>ping probabilistic packet loss attribution</strong>, the <strong>websocket listener hardening</strong> series, and the <strong>self-tuning</strong> path now documented as closed. Tor network at <strong>10,137 relays (Sep 1)</strong>, third consecutive weekly drop from the DEF CON 34 baseline; cause likely operational churn from the 0.4.8 cut-off and Hetzner de-peering, not steady-state.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Nym Binaries v2026.17-djibouti (Sep 2)</strong> — first release to ship the full Directory Contract stack (#6933/#6936/#6941/#6948/#6949/#6954/#7004/#7013), the <strong>Geolocator service + CosmWasm contract</strong> (#7055, on-chain attested digests replacing the cached <code>geoip</code> JSONB), <strong>Network Details v2 endpoint type fix</strong> (#7051, completing the v2 rollout started by #6901), the <strong>config-score penalty for nodes incapable of sending nyx transactions</strong> (#7073), and — most consequentially — the <strong>removal of Outfox packet support</strong> (#7048, breaking change: SOCKS5 + WASM clients are now Mix-only).</li>
+<li><strong>Nym release-train follow-ups</strong>: crates bumped to <strong>1.21.6</strong> (#7116), <strong>directory submission enabled by default if possible</strong> (#7117, the operational complement to the Directory Contract), <strong>SOCKS5 Controller Sender no-panic fix</strong> (#7114), and the <strong>nym-api re-DKG robustness vol. 2–5</strong> (#7082/#7088/#7096/#7107) — four batches of "make future re-DKG smoother" bugfixes that close the multi-week re-DKG thread.</li>
+<li><strong>NymVPN v2026.12.4-beta.1 (Sep 3)</strong>: PR #6272 fixes <strong>pinned gateways bypassing the blacklist</strong> — a pinned entry/exit gateway identity was using an unfiltered lookup that skipped <code>NotBlacklisted</code>/<code>MinScore</code>/<code>Residential</code> checks, so a user who pinned a gateway the GFW was blackholing retried it forever with no cooldown. macOS disconnect-DNS fix + lottie→manual CSS animation swap on Win/Linux + iOS/macOS widget removal. Component set: <code>nym-vpnd</code> daemon, <code>nym-vpnc</code> CLI, <code>nym-socks5-proxy</code>, <code>nym-diagnostic</code>, <code>nym-setup</code>. F-Droid APK signing-cert SHA-256 still <code>3c98a01…</code>.</li>
+<li><strong>Arti 2.6.0 (Sep 1)</strong>: <strong>Counter Galois Onion and Congestion Control now always-enabled</strong> in <code>arti</code> (both promoted from opt-in/experimental); focus on <strong>document parsing, directory mirror support, DNS stream handling, and RPC-based configuration</strong> — i.e. the relay + dirauth surface area. Contributors include Andrew Kloet, Steven Masnada, iqdecay, pryty26, steven.</li>
+<li><strong>Tor Browser 15.0.21 (Sep 1)</strong>: rebased onto <strong>Firefox 140.15.0esr</strong>, <strong>OpenSSL 3.5.8</strong>, NoScript 13.6.32.1984, Go 1.25.14, GeckoView 140.15.0esr; backports Firefox 155 security fixes; 32-bit Linux retirement message adjusted. Parent-process <code>TorBrowser</code> redirection fix (tor-browser#45264).</li>
+<li><strong>Tor Browser 16.0a11 (Sep 2)</strong> and <strong>Tails 7.12 (Sep 3)</strong> — Tails adopts <strong>Firefox's new 2-week release cadence</strong>, with Tails 7.12 the first release on the new tempo (Electrum 4.8.1, Tor Browser 15.0.21 inside). Tails, Tor Browser, and Firefox now ship on the same clock.</li>
+<li><strong>Tor 0.4.8 deprecation (Sep 1 cut-off)</strong>: relays, onion services, and Tor-embedded apps running Tor 0.4.8 or earlier <strong>lose connectivity to the network</strong> once the deprecated directory fields are removed. The Tor Project's published guidance is "upgrade to Tor 0.4.9 series or later before September 1, 2026." The week's 10,137-relay count (vs. 10,146 on Aug 25, 10,060 on Aug 31) suggests <strong>the cut-off pruned ~50 relays overnight</strong> — a measurable but not network-shattering deprecation event.</li>
+<li><strong><a href="/kb/katzenpost/">Katzenpost</a> closure of the replica epic (Aug 29 → Sep 3)</strong>: PR #1107 (docker port collision fix, Aug 29), PR #1112 (websocket listener hardening — 6 commits: explicit <code>ws://host:port</code> listen, Origin enforcement, close bound port on Close, <code>InsecureSkipVerify</code> opt-in flag, default loopback host, Accept/Close race + Origin coverage), PR #1099 / #1102 / #1103 / #1113 / #1112 (the 7-part replica-proxy epic merged in order), PR #1114 (<code>server: instrument seven silent packet drop sites</code> — the first step toward <strong>per-node packet-loss attribution</strong>), and PR #1120 (Sep 3: <strong>Ping probabilistic packet loss attribution</strong> with uncertainty stated, attribution maths explained, fix two ways the loss estimate was wrong, attribute loss to nodes, compare service nodes too not only mix layers, and <code>client</code> reports the route a message took to the thin client). Plus PR #1105 (Sep 1, <strong>client: agree on a PKI epoch instead of pinning one</strong>) — a substantive operational improvement over the pinned-epoch design.</li>
+<li><strong><a href="/kb/hopr/">HOPR</a> PIX supervision progress (Aug 27 → Sep 3)</strong>: PR #8362 (per-SSA deposit data sourced from deposit pool, Aug 27), PR #8373 (chore/deps: hopr-chain-connector 0.26.0, Sep 1), PR #8237 (<code>feat: add session PIX supervisor</code>, Sep 2), PR #8336 (test cluster convergence waits scale with timeout, Sep 3), and PR #8377 (<code>feat(session): parameterize PIX admission by Session target</code>, Sep 3) — the <strong>PIX (Payment-In-channel eXchange) supervision track</strong> is moving from deposit plumbing into a parameterized admission-decision surface, with session-target as the new key.</li>
+<li><strong>Tor network at 10,137 (Sep 1)</strong>: vs 10,146 (Aug 25) and 10,060 (Aug 31). <strong>Exit 3,268 / Fast 9,987 / Guard 6,155 / HSDir 3,015 / Stable 9,059</strong>. Aug 31 was the local low (10,060) — likely the 0.4.8 EOL taking its first tranche. Sustained ~10K after the cut-off suggests the network absorbed the deprecation cleanly, with possibly more pruning as un-upgraded exit operators self-disconnect.</li>
+<li><strong>I2P work</strong>: <strong>27 i2p.i2p commits Aug 24 → Sep 2</strong>, mostly <strong>i2psnark BitTorrent client hardening</strong> — magnet-link tracker parsing (clip long magnets, show all trackers, validate UDP URLs without path), audio-playlist HTML5 controls, disk-space checks on torrent add, KRPC DG1 message compression follow-ups, <code>discardMessage()</code> I2CP session API (Aug 26, was new last week), reseed server update (Aug 31), router log-gzipper-finish-after-shutdown (Aug 29). No I2P core release this window; I2P 2.13.0 (Jul 24) remains current; 2.14.0 with SSU2-PQ targeting Oct 2026 per the proposal-169 schedule.</li>
+<li><strong>Research scan (Aug 29 → Sep 4)</strong>: ePrint keyword searches for <code>mixnet</code> / <code>onion routing</code> / <code>anonymous communication</code> returned no fresh first-line mixnet papers this window; the previously-published <strong>DumboMix</strong> (ePrint 2026/1699, async anonymous broadcast with G.O.D.), <strong>De-SyRIS</strong> (2026/1723), <strong>Proof-of-Uniqueness</strong> (2026/1725) papers remain the active anchors. The deep-research month here is being driven by <em>shipping</em>, not by new theory.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: Last week's "boring, load-bearing maturity" pattern now has a clear third instance: <strong>the 0.4.8 deprecation is the first time the Tor network has actually retired an old line of code, and it absorbed the cut without drama</strong> (10,137 relays vs 10,146 a week earlier — a 0.1% move). Nym shipping a breaking change (Outfox removed, SOCKS5/WASM Mix-only) without fanfare in a numbered release is the same instinct: <em>the network survives by upgrading</em>, and the upgrade is the boring part. Arti 2.6.0 closing the gap between relay + dirauth code paths is the more interesting long-term signal — when Arti can run an authority, the C-tor retirement conversation moves from "could" to "when".</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nym-v202617-djibouti-first-release-shipping-the-directory-contract-stack">Nym v2026.17-djibouti: First Release Shipping the Directory Contract Stack</h3>
+<p>The Aug 21 merge event documented last week (eight PRs under the Directory Contract epic) becomes a release on <strong>Sep 2</strong> with tag <code>nym-binaries-v2026.17-djibouti</code>, changelog <code>[2026.17-djibouti] (2026-09-01)</code>. The release body links to a CHANGELOG.md that opens by re-stating all eight Directory Contract PRs in canonical order — confirming these are the items operators get on first install — followed by a heterogeneous set of operational hardening and feature additions.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directory Contract stack (8 PRs)</td>
+<td>Feature</td>
+<td>#6933, #6936, #6941, #6948, #6949, #6954, #7004, #7013 — already merged, now shipped</td>
+</tr>
+<tr>
+<td>Geolocator service + CosmWasm contract (#7055)</td>
+<td>Feature</td>
+<td>Replaces cached <code>geoip</code> JSONB with on-chain attested digests; eliminates the "empty country code silently drops a gateway" failure mode (merged Aug 18, ship in djibouti)</td>
+</tr>
+<tr>
+<td>Network Details v2 endpoint type fix (#7051)</td>
+<td>Bugfix</td>
+<td>Follow-up to #6901 — the v2 endpoint was serving v1 struct; corrected + minimal validator-client function added</td>
+</tr>
+<tr>
+<td>Config-score penalty for nodes incapable of sending nyx transactions (#7073)</td>
+<td>Feature</td>
+<td>Operational lever: nodes that can't pay the on-chain tx fee get a downward score adjustment, making the active-set selection more honest</td>
+</tr>
+<tr>
+<td>WireGuard node startup robustness (#7065)</td>
+<td>Bugfix</td>
+<td>Don't crash node startup over one corrupted peer record</td>
+</tr>
+<tr>
+<td>Reject packets to unknown clients (#7061)</td>
+<td>Bugfix</td>
+<td>Hardens the gateway-probe path; prevents log-explosion from spoofed sources</td>
+</tr>
+<tr>
+<td>Bridge-client params survive <code>--write-changes</code> (#7049)</td>
+<td>Bugfix</td>
+<td>Operator ergonomics — config migrations preserve the bridge client params that were previously silently dropped</td>
+</tr>
+<tr>
+<td>Removed support for Outfox packets (#7048)</td>
+<td><strong>Breaking</strong></td>
+<td>SOCKS5 and WASM clients are now Mix-only; Outfox packet creation/decoding/routing/ACKs return explicit "not supported" errors; Outfox options and public exports removed/deprecated</td>
+</tr>
+<tr>
+<td><code>bugfix/djubouti nym api</code> (#7097)</td>
+<td>Bugfix</td>
+<td>One-line typo in the release branch — the PR title misspells "Djibouti" as "djubouti" — archived in git history</td>
+</tr>
+<tr>
+<td><code>bugfix: don't use hickory within the credential proxy</code> (#7091)</td>
+<td>Bugfix</td>
+<td>Removes a transitive DNS dependency that was complicating the credential proxy</td>
+</tr>
+<tr>
+<td><code>bugfix: dont inline mixnet initialise function</code> (#7090)</td>
+<td>Bugfix</td>
+<td>Refactor — function inlining was causing binary-size regressions on the WASM client</td>
+</tr>
+<tr>
+<td><code>feat: add additional check for signer status in the validator-status-check tool</code> (#7068)</td>
+<td>Feature</td>
+<td>Operator tool: now checks whether the signer is actually able to sign before reporting "validator healthy"</td>
+</tr>
+<tr>
+<td><code>fix(wireguard): don't crash node startup over one corrupted peer record</code> (#7065)</td>
+<td>Bugfix</td>
+<td>(duplicate row, see above)</td>
+</tr>
+<tr>
+<td><code>fix(gateway-probe): CanHandshake must reflect a real WireGuard handshake, not local interface state</code> (#7047)</td>
+<td>Bugfix</td>
+<td>Gateway-probe was reporting success on a healthy local iface even when the remote was down</td>
+</tr>
+<tr>
+<td><code>fix(gateway-probe): bracket IPv6 addresses in the WireGuard endpoint string</code> (#7046)</td>
+<td>Bugfix</td>
+<td>IPv6 WG endpoints were missing brackets; some kernels rejected the string</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The Outfox removal</strong> (#7048, merged Aug 11, shipped djibouti) deserves separate emphasis because it changes the on-wire traffic class: <strong>every client talking to the mixnet — SOCKS5, WASM, native — is now Mix-packet only</strong>. The old Outfox format (a Layered-Encryption-in-the-PQ-era Sphinx variant) was always a <em>secondary</em> packet type; the breaking removal is the formal retirement of a never-default code path that was contributing to traffic-class confusion. For deployment: any client that pinned Outfox for forensic/fingerprinting reasons loses that capability; standard Mix-packet flows are unaffected. <strong>This is the second PQ-packet-format retirement in the mixnet ecosystem in 2026</strong> (after <a href="/kb/katzenpost/">Katzenpost</a>'s deprecation of the legacy non-PQ Sphinx header in the catsov migration), and both retirements are running ahead of user pushback because the alternative format has been the default for ≥12 months.</p>
+<h3 id="nym-post-release-hardening-sep-13">Nym Post-Release Hardening (Sep 1–3)</h3>
+<p>Beyond the release itself, the Nym repo shows the usual post-release flurry:</p>
+<ul>
+<li><strong>PR #7116, Sep 1</strong>: <strong>crates release: bump version to 1.21.6</strong> — internal workspace version bump, on the back of the djibouti release.</li>
+<li><strong>PR #7117, Sep 1</strong>: <strong><code>feat: enable directory submission by default if possible</code></strong> — operationally pairs the djibouti release: nodes that can submit to the on-chain directory <em>do so by default</em> going forward, accelerating network participation.</li>
+<li><strong>PR #7114, Sep 1</strong>: <strong><code>bugfix: don't panic on Socks5 Controller Sender failure</code></strong> — SOCKS5 control-channel resilience.</li>
+<li><strong>PR #7112, Sep 2</strong>: <strong>LP-DATA separation</strong> — refactor that extracts the LP (Lounge Pass) gateway channel into a new crate <code>nym-lp-gateway-client</code>, leaving only dVPN registration in <code>nym-registration-client</code>. The LP-side dependency list drops to <code>bincode, bytes, rand, thiserror, tokio, tracing, nym-lp, nym-lp-data</code> — verified via <code>cargo tree -p nym-lp-gateway-client --depth 1 -e normal</code>. The payoff: a data-plane client can take the channel with none of the registration machinery attached. <strong>Lounge Pass / LP is becoming a real product surface</strong>, not just a marketing label.</li>
+<li><strong>PR #7107, Sep 3</strong>: <strong>bugfix: fix various bugs within nym-api making future re-DKG smoother [vol5]</strong> — the final batch of the multi-week re-DKG thread (#7082 vol2, #7088 vol3, #7096 vol4, #7107 vol5), all merged Sep 3. After four months of incremental robustness work, the re-DKG ceremony is no longer a fragile operation.</li>
+<li><strong>PR #7131, Sep 3</strong>: <strong>docs: add 'what a Nym client is' page and fold in concepts/</strong> — terminology standardization in the docs, often a leading indicator of an SDK or developer-portal refresh.</li>
+<li><strong>PR #7130, Sep 3</strong>: <strong><code>chore: revert manually setting LP AEAD nonce</code></strong> — small but notable: a manual nonce set in the LP path was reverted in favor of the AEAD's automatic nonce derivation. The kind of fix that <em>only</em> happens when the AEAD layer is exercised by real traffic.</li>
+<li><strong>PR #7129, Sep 3</strong>: <strong>Sync master and develop</strong> — release-branch housekeeping.</li>
+</ul>
+<h3 id="nymvpn-v2026124-beta1-pinned-gateway-blacklist-bypass">NymVPN v2026.12.4-beta.1: Pinned Gateway Blacklist Bypass</h3>
+<p>The Sep 3 beta continues the client release tempo (12.3 stable was Aug 27; .4-beta.1 lands six days later). The single substantive fix in this beta is <strong>PR #6272</strong>, titled <em>"Make pinned gateways respect the blacklist."</em> The body makes the bug vivid:</p>
+<blockquote>
+<p>A pinned entry/exit gateway identity bypassed all selection filters (<code>NotBlacklisted</code>, <code>MinScore</code>, <code>Residential</code>, ...) via an unfiltered lookup, so a user who pinned a gateway that was actively being blocked (e.g. GFW UDP blackholing) would retry the same doomed gateway on every connection attempt forever, with no cooldown and no useful error.</p>
+</blockquote>
+<p><strong>This is a textbook example of a user-trust feature (pin a gateway for repeatability) silently defeating an adversary-defence feature (the blacklist)</strong>, and the failure mode is exactly the wrong way around: the user keeps retrying a known-blocked path. The fix routes pinned-gateway lookups through the same filter pipeline as random selection, so a blacklisted pinned gateway is rejected with a clear "filtered from selection" error rather than a silent retry.</p>
+<p>The CodeRabbit summary adds two more affected code paths:
+- Gateway error reporting now identifies invalid entry gateway identities correctly.
+- Selection vs filtering are now distinguishable, with clearer connection-error surfaces for unavailable / filtered / nonexistent gateways.</p>
+<p>Also in this beta:
+- <strong>macOS disconnect</strong>: After disconnect, restore DNS and the physical default route, and <strong>do not re-apply the kill-switch when already disconnected</strong> — a kill-switch re-apply when the tunnel is down was leaving users with no network at all.
+- <strong>Win/Linux animation</strong>: replaced lottie animations with manual CSS animations (smaller binary, less native dependency).
+- <strong>iOS/macOS widget removal</strong>: simplification.
+- Component set unchanged: <code>nym-vpnd</code> (daemon), <code>nym-vpnc</code> (CLI), <code>nym-socks5-proxy</code> (geo-exclusion SOCKS5), <code>nym-diagnostic</code>, <code>nym-setup</code> (macOS helper).
+- F-Droid APK signing-cert SHA-256 still <code>3c98a016aa4f14a3ba185c764ed363415cf7ff3c3d328a87ffff2ff1b140ff06</code> (per <code>apksigner verify</code> instructions in release notes).</p>
+<h3 id="arti-260-cgo-congestion-control-always-on">Arti 2.6.0: CGO + Congestion Control Always-On</h3>
+<p>The Sep 1 Arti release is the second numbered release in 2026 (2.5.0 stable CGO on Jun 30, 2.5.1 experimental CGO on onion circuits on Aug 4, 2.6.0 on Sep 1). Per the official blog:</p>
+<blockquote>
+<p>This release continues our ongoing development towards using Arti as a relay and as a directory authority, with much of the work focusing on document parsing, directory mirror support, and DNS stream handling. Additionally, on the RPC front, we are making steady progress towards RPC-based configuration management. Finally, congestion control and Counter Galois Onion cryptography are both now always enabled in <code>arti</code>.</p>
+</blockquote>
+<p>The two always-on promotions are the headlining moves:</p>
+<ol>
+<li><strong>Counter Galois Onion (CGO)</strong> — the Sphinx successor that uses a counter-mode Galois-field construction for ~half the per-hop processing cost. Was opt-in/experimental since 2.5.0 (Jun 30); <strong>always-on in 2.6.0</strong> is the formal "CGO is the default onion format for Rust Tor clients" milestone.</li>
+<li><strong>Congestion Control (CC)</strong> — the flow-control layer that lets Tor clients back off when cells queue, smoothing burst loss and improving bulk throughput. Was opt-in via feature flag in 2.5.x; <strong>always-on in 2.6.0</strong>.</li>
+</ol>
+<p>Both promotions are the kind that need to land <em>before</em> Arti ships as a default relay: a relay that only understood CGO traffic and a client that only understood pre-CGO traffic would silently drop each other's cells. <strong>Promoting both to always-on in the same release is the prerequisite for the relay-build-out work</strong> (document parsing, directory mirror support, DNS stream handling) that the 2.6.0 changelog foregrounds.</p>
+<p>The relay + dirauth trajectory is the most consequential structural shift in 2026: when Arti can run a relay, the C-tor retirement conversation moves from theoretical to scheduled. The dirauth plugin work documented last week (compute-mds, FlavoredConsensus compile-time refactor) is in the same trajectory.</p>
+<p><strong>Contributors for 2.6.0</strong>: Andrew Kloet, Steven Masnada, iqdecay, pryty26, steven (plus the usual Arti maintainers gabi, dgoulet, nickm).</p>
+<h3 id="tor-browser-15021-160a11-and-the-new-2-week-cadence">Tor Browser 15.0.21, 16.0a11, and the New 2-Week Cadence</h3>
+<p><strong>15.0.21 (Sep 1, by ma1)</strong> rebases Tor Browser stable onto <strong>Firefox 140.15.0esr</strong>, with OpenSSL 3.5.8, NoScript 13.6.32.1984, Go 1.25.14, and a backport of Firefox 155 security fixes via the 140.15.0esr rebase (tor-browser#45259). Other fixes:
+- <code>tor-browser#45253</code>: rebase stable onto 140.15.0esr
+- <code>tor-browser#45264</code>: Use parent process for TorConnect redirections (fixes about:torconnect not showing in non-PBM mode)
+- <code>tor-browser#45223</code>: Backport tor-browser#45220 — about:torconnect visibility fix
+- <code>tor-browser#44996</code>: Change the 32-bit Linux retirement message for the final 15.0 release</p>
+<p><strong>16.0a11 (Sep 2, by ma1)</strong> is the alpha that will become 16.0 stable. With the new cadence, both 15.0.21 and 16.0a11 land in the same week — the 2-week cadence means 15.0.21 → 16.0a11 in seven days rather than the prior ~3-week gap.</p>
+<p><strong>Tails 7.12 (Sep 3)</strong> is the inflection:</p>
+<blockquote>
+<p>Firefox is moving to a 2-week release cadence starting in September, and so Tor Browser and Tails are doing the same. Tails 7.12 is the first release on this new cadence.</p>
+</blockquote>
+<p>Changelog summary: Electrum 4.7.2 → 4.8.1; Tor Browser 15.0.21; firmware package updates (newer hardware support, graphics, Wi-Fi). The implication: <strong>three Tor-adjacent releases (Firefox, Tor Browser, Tails) are now synchronized on the same clock</strong>, so the lag from "Firefox security release" to "Tails users get the patch" is at most ~2 weeks. This is a major operational tempo change for Tails users — the prior cadence was 4–6 weeks.</p>
+<h3 id="tor-048-eol-the-first-c-tor-retirement-cut-off">Tor 0.4.8 EOL — The First C-tor Retirement Cut-Off</h3>
+<p>The 0.4.8 deprecation cut-off is <strong>Sep 1, 2026</strong>, the same day as Arti 2.6.0 and Tor Browser 15.0.21. Per Tor Project guidance:</p>
+<blockquote>
+<p>The Tor Project has announced plans to stop supporting Tor 0.4.8 and earlier releases on September 1, 2026, as it prepares the network for the deployment of Arti, its Rust-based implementation of Tor. [...] Administrators running Tor relays, onion services, or applications that embed Tor should verify which Tor software version they are using and upgrade to the Tor 0.4.9 series or later before September 1, 2026.</p>
+</blockquote>
+<p><strong>Effect</strong>: un-upgraded relays and onion services lose connectivity once the deprecated directory fields are removed. Tor Browser users are not directly affected because current browser bundles already include a supported Tor version — but relay operators were on the clock.</p>
+<p>The week's relay-count trajectory:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Running</th>
+<th>Exit</th>
+<th>Fast</th>
+<th>Guard</th>
+<th>HSDir</th>
+<th>Stable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 25</td>
+<td>10,146</td>
+<td>3,276</td>
+<td>—</td>
+<td>6,246</td>
+<td>5,512</td>
+<td>9,230</td>
+</tr>
+<tr>
+<td>Aug 31</td>
+<td>10,060</td>
+<td>—</td>
+<td>—</td>
+<td>6,162</td>
+<td>3,254</td>
+<td>9,047</td>
+</tr>
+<tr>
+<td>Sep 1</td>
+<td><strong>10,137</strong></td>
+<td>3,268</td>
+<td>9,987</td>
+<td>6,155</td>
+<td>3,015</td>
+<td>9,059</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Aug 31 dip to 10,060 (a 86-relay drop) and the modest Sep 1 recovery to 10,137 suggest the cut-off <strong>did prune some operators</strong> but the network reabsorbed most of them. The pre-existing <strong>Hetzner de-peering</strong> (reported last week by Dingledine at DEF CON 34) accounts for ~20% of the network's relay-exit infrastructure, so the cumulative Hetzner + 0.4.8 effect is the most likely explanation for the 9,000 → 10,100 oscillation pattern rather than steady state around 10,500+.</p>
+<h3 id="katzenpost-replica-epic-closes-ping-loss-attribution-lands">Katzenpost: Replica Epic Closes; Ping Loss Attribution Lands</h3>
+<p>The Aug 28 update documented the 7-part replica-proxy congestion umbrella (#1091) as the operational-maturity work-in-progress. This week, the umbrella <strong>closes</strong>:</p>
+<ul>
+<li><strong>#1107 (Aug 29, merged)</strong>: <code>docker: simplify port architecture and fix collision issues</code> — operator-facing fix; the local-dev docker mixnet had colliding ports across services.</li>
+<li><strong>#1105 (Sep 1, merged)</strong>: <code>client: agree on a PKI epoch instead of pinning one</code> — substantive protocol improvement. Clients previously pinned a single PKI document, which meant a misaligned client clock or a missed round-trip left the client out of sync with the network. Now clients negotiate an <em>epoch</em> with the dirauth, which is more resilient to clock skew and network lag.</li>
+<li><strong>#1099 (Sep 2, merged)</strong>: <code>replica: document the proxy path as self-tuning (7 of 7)</code> — the documentation commit that closes the epic. The replica proxy path is now <em>self-tuning</em> by design: sweep budget is sized to one <code>ProxyRequestTimeout</code>, read-repair is gated on box-not-found, and the proxy responds to load rather than to fixed schedules.</li>
+<li><strong>#1102 (Sep 2, merged)</strong>: <code>replica: gate read-repair on box-not-found and fix shutdown ordering (5 of 7)</code> — order-of-operations correctness in the replica's repair path.</li>
+<li><strong>#1103 (Sep 2, merged)</strong>: <code>replica: size the proxy sweep to one ProxyRequestTimeout (6 of 7)</code> — sweep budget alignment with the per-request timeout, so the proxy never schedules more work than it can drain in one round.</li>
+<li><strong>#1112 (Sep 2, merged)</strong>: <code>client/transport: harden the websocket listener</code> — the 6-commit hardening series:<ul>
+<li><strong>explicit <code>ws://host:port</code> listen address required</strong> (no implicit defaults)</li>
+<li><strong>websocket Origin header enforcement</strong></li>
+<li><strong>close bound port on Close</strong> (no listener leak)</li>
+<li><strong><code>InsecureSkipVerify</code> flag added as opt-in</strong> (default-secure; explicit operator override)</li>
+<li><strong>default missing listen host to loopback</strong> (no public-by-default listener)</li>
+<li><strong>Accept/Close race + Origin coverage</strong> (race-condition correctness)</li>
+</ul>
+</li>
+<li><strong>#1114 (Sep 3, merged)</strong>: <code>server: instrument seven silent packet drop sites</code> — the first step toward <em>attribution</em>: before you can say which node is dropping packets, you have to count the drops per drop-site.</li>
+<li><strong>#1120 (Sep 3, merged)</strong>: <strong>Ping probabilistic packet loss attribution</strong> — the pay-off:<ul>
+<li>Compare service nodes too, not only mix layers (so loss is attributed per node, not per <em>kind</em> of node)</li>
+<li>Fix two ways the loss estimate was wrong (sample-bias and confidence-interval fixes)</li>
+<li>Explain the attribution maths (probabilistic loss-attribution formulas documented)</li>
+<li>Attribute loss to nodes, with the uncertainty stated (each attribution carries a confidence)</li>
+<li>Client reports the route a message took to the thin client (so external observers can correlate observed throughput with the actual path)</li>
+</ul>
+</li>
+</ul>
+<p>The combination of #1114 + #1120 is <strong>a network-wide attribution layer for Katzenpost packet loss</strong>: thin clients now get probabilistic per-node loss estimates with stated uncertainty. This is the kind of measurement primitive mixnets need in order to defend against selective-loss attacks (a node that drops <em>only</em> traffic from a specific sender or to a specific recipient, in order to deanonymize them) — and until now, mixnet operators had to rely on aggregate counts, not per-node attribution.</p>
+<h3 id="hopr-pix-supervision-surfaces-as-the-operational-lever">HOPR: PIX Supervision Surfaces as the Operational Lever</h3>
+<p>HOPR's PIX (Payment-In-channel eXchange) protocol is the payment channel that makes the hop-by-hop mixnet economically viable. The week's commits show PIX supervision graduating from deposit plumbing to admission policy:</p>
+<ul>
+<li><strong>#8362 (Aug 27, merged)</strong>: <code>feat(pix): per-SSA deposit data in SsaRequest, sourced from the deposit pool</code> — the per-Session-Source-Account deposit lookup, prerequisite for parameterized admission decisions.</li>
+<li><strong>#8355 (Aug 22, merged)</strong>: <code>fix(session): stop ERROR-spam on inbound packets to torn-down sessions</code> — operator log hygiene.</li>
+<li><strong>#8359 (Aug 25, merged)</strong>: <code>chore(deps): bump the nix-flake-inputs group with 2 updates</code> — dependency hygiene.</li>
+<li><strong>#8364 (Aug 28, merged)</strong>: <code>chore: bump hopr-types to v4.0.0</code> — major version bump; signals API surface changes.</li>
+<li><strong>#8369 (Aug 31, merged)</strong>: <code>chore(deps): bump the nix-flake-inputs group with 2 updates</code> — more dependency hygiene.</li>
+<li><strong>#8373 (Sep 1, merged)</strong>: <code>chore(deps): unify on hopr-chain-connector 0.26.0</code> — single-version policy across the workspace.</li>
+<li><strong>#8237 (Sep 2, merged)</strong>: <code>feat: add session PIX supervisor</code> — the supervisor that tracks PIX state per session and decides whether to admit new packets.</li>
+<li><strong>#8336 (Sep 3, merged)</strong>: <code>fix(tests): scale cluster convergence waits with the test timeout</code> — CI reliability on long-running integration tests.</li>
+<li><strong>#8377 (Sep 3, merged)</strong>: <code>feat(session): parameterize PIX admission by Session target</code> — the admission policy is now keyed by <em>which session</em> the packet is for, not just by deposit balance. This is a meaningful step toward the "PIX per application / per use-case" model that lets HOPR price different sessions differently.</li>
+</ul>
+<p>The PIX supervision track is now visible in the public commit stream as a coordinated effort: deposit plumbing (#8362) → test reliability (#8336) → supervisor (#8237) → parameterized admission (#8377). Expect a HOPR blog post or release-notes announcement when the supervisor lands in a numbered release.</p>
+<h3 id="i2p-i2psnark-hardening-continues-no-core-release">I2P: i2psnark Hardening Continues, No Core Release</h3>
+<p>I2P Java I2P i2p.i2p repository shows <strong>27 commits Aug 24 → Sep 2</strong>, concentrated in <code>i2psnark</code> (the built-in BitTorrent client) and a small set of I2CP/router-level fixes:</p>
+<ul>
+<li><strong>i2psnark magnet/trackers</strong> (Aug 28–29): UDP-URL-without-path validation, magnet-link tracker parsing (clip long magnets, save and show all trackers, use all trackers in magnet, add length from xl param to magnet name).</li>
+<li><strong>i2psnark disk-space</strong> (Aug 31, Sep 1): Check available space when adding torrent files, stop FetchAndAdd if not enough space, show free disk space on add-torrent form, default tracker type to open on add tracker form.</li>
+<li><strong>i2psnark audio preview</strong> (Sep 2): Increase min completion for audio preview, js audio playlist controls, loading directives for HTML5 elements, build fix from previous checkin.</li>
+<li><strong>i2psnark WIP</strong> (Aug 27, ongoing): <code>i2psnark: v2 WIP part 7</code> — multi-commit refactor of the BitTorrent client internals.</li>
+<li><strong>Router</strong> (Aug 29, 31): <code>Router: Ensure log gzipper finishes after shutdown signal</code> (signal-handler correctness), <code>reseed update</code> (Aug 31), <code>bump -5</code> (Aug 31, version-internal bump).</li>
+<li><strong>I2CP</strong> (Aug 26, 30): <code>I2CP: Add new discardMessage() to session API</code> (Aug 26, was new last week), <code>I2CP: API interface javadoc clarifications</code> (Aug 30).</li>
+<li><strong>i2psnark KRPC</strong> (Aug 26, 31): <code>i2psnark: Compress KRPC DG1 messages</code>, <code>i2psnark: Send sorted dictionaries in extensions as required by spec</code>, <code>i2psnark: Don't NPE on missing map in extension handshake</code> (Aug 31), <code>i2psnark: Compress UDP connect requests</code> (Aug 26 — was new last week).</li>
+</ul>
+<p><strong>No I2P core release this window</strong>; I2P 2.13.0 (Jul 24, 2026) remains current. Per proposal 169, <strong>I2P 2.14.0 is targeted for October 2026 with the Hybrid MLKEM SSU2 release</strong> (PQ handshake for the UDP transport layer). The proposal status table from Apr 9 confirms:
+- <strong>Ratchet</strong>: Complete in Java I2P and i2pd (shipped)
+- <strong>NTCP2</strong>: Beta Q1 2026 → Release Q2 2026 (shipped in 2.12.0)
+- <strong>SSU2</strong>: Beta Q2 2026 → Release Q3 2026 (the missing piece, now 3 months late from the Apr 9 schedule)
+- <strong>MLDSA SigTypes 12-14</strong>: On hold until 2027</p>
+<p>The Oct 2026 2.14.0 target now looks achievable — Aug 26's KRPC/UDP compression, the i2psnark v2 WIP refactor, and the I2CP API additions are the kind of housekeeping that precedes a major protocol-version cut-over.</p>
+<h3 id="research-scan-aug-29-sep-4">Research Scan: Aug 29 → Sep 4</h3>
+<p>Direct ePrint keyword searches for <code>mixnet</code>, <code>onion routing</code>, <code>anonymous communication</code>, and <code>private information retrieval</code> in the window Aug 29 → Sep 4 returned <strong>no fresh first-line mixnet papers</strong> in the search results. The previously-documented papers remain the active anchors:</p>
+<ul>
+<li><strong>DumboMix</strong> (ePrint <strong>2026/1699</strong>, async anonymous broadcast with G.O.D. via Shamir-share MPC, O(1) multiplicative depth)</li>
+<li><strong>De-SyRIS</strong> (ePrint <strong>2026/1723</strong>, decentralized Sybil-resistant identity without trusted issuer)</li>
+<li><strong>Proof-of-Uniqueness</strong> (ePrint <strong>2026/1725</strong>, threshold-OPRF Sybil-resistant pseudonymous DIDs)</li>
+<li><strong>Cao &amp; Green reputation-framing attacks on Nym</strong> (ePrint 2026/101)</li>
+<li><strong>Verifiable SelfMix</strong> (ePrint 2026/1617)</li>
+<li><strong>QuMixnet</strong> (post-quantum mixnet protocol)</li>
+<li><strong>MOCHA</strong> (ePrint 2025/861, IH&amp;MMSEC 2025, Loopix client-anonymity measurement)</li>
+<li><strong>Outfox</strong> (ACM SIGCOMM 2025, simplified Sphinx for PQ)</li>
+</ul>
+<p>The research frontier continues to be <strong>measurement</strong> (MOCHA-style client-anonymity simulation, Katzenpost's per-node loss attribution) and <strong>committee-based alternatives to mixnets</strong> (DumboMix), rather than new mixnet protocols. The pattern: the field is consolidating around the existing primitives (Loopix/Sphinx/<a href="/kb/katzenpost/">Katzenpost</a>-catsov) and shipping them, while exploring committee-based asynchronous broadcast as a substitute for federated-mixnet trust models.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nym v2026.17-djibouti released Sep 2</td>
+<td>Release tag <code>nym-binaries-v2026.17-djibouti</code> published 2026-09-02T12:04:37Z</td>
+<td>github.com/nymtech/nym/releases/tag/nym-binaries-v2026.17-djibouti</td>
+</tr>
+<tr>
+<td>Directory Contract 8 PRs ship in djibouti</td>
+<td>CHANGELOG.md entries #6933/#6936/#6941/#6948/#6949/#6954/#7004/#7013 all under <code>[2026.17-djibouti] (2026-09-01)</code></td>
+<td>github.com/nymtech/nym/blob/nym-binaries-v2026.17-djibouti/CHANGELOG.md</td>
+</tr>
+<tr>
+<td>Outfox packet support removed (#7048)</td>
+<td>Merged Aug 11; PR title <code>chore: removed support for outfox packets</code>; CHANGELOG entry under djibouti release; SOCKS5/WASM clients are now Mix-only</td>
+<td>github.com/nymtech/nym/pull/7048</td>
+</tr>
+<tr>
+<td>Geolocator service + contract (#7055)</td>
+<td>Merged Aug 18; "Records where a nym-node is on chain, committed to a digest, so a consumer can verify the answer rather than trust whoever served it"</td>
+<td>github.com/nymtech/nym/pull/7055</td>
+</tr>
+<tr>
+<td>Directory submission default-on (#7117)</td>
+<td>Merged Sep 1; title <code>feat: enable directory submission by default if possible</code></td>
+<td>github.com/nymtech/nym/pull/7117</td>
+</tr>
+<tr>
+<td>LP-Data separation (#7112)</td>
+<td>Merged Sep 2; new crate <code>nym-lp-gateway-client</code> with dependency list verified via cargo tree</td>
+<td>github.com/nymtech/nym/pull/7112</td>
+</tr>
+<tr>
+<td>re-DKG robustness vol2-5 (#7082/#7088/#7096/#7107)</td>
+<td>All four merged Sep 3; same title template "fix various bugs within nym-api making future re-DKG smoother [volN]"</td>
+<td>github.com/nymtech/nym PRs</td>
+</tr>
+<tr>
+<td>NymVPN v2026.12.4-beta.1 released Sep 3</td>
+<td>Tag <code>nym-vpn-v2026.12.4-beta.1</code> published 2026-09-03T11:48:06Z; all platforms except Android (Google Play)</td>
+<td>github.com/nymtech/nym-vpn-client/releases/tag/nym-vpn-v2026.12.4-beta.1</td>
+</tr>
+<tr>
+<td>Pinned gateway bypass-of-blacklist fix (#6272)</td>
+<td>Merged Sep 3; PR body documents the unfiltered-lookup bypass of <code>NotBlacklisted</code>/<code>MinScore</code>/<code>Residential</code> filters</td>
+<td>github.com/nymtech/nym-vpn-client/pull/6272</td>
+</tr>
+<tr>
+<td>F-Droid APK signing-cert SHA-256</td>
+<td><code>3c98a016aa4f14a3ba185c764ed363415cf7ff3c3d328a87ffff2ff1b140ff06</code> (unchanged from 2026.12.3)</td>
+<td>nym-vpn-client release body for 2026.12.4-beta.1</td>
+</tr>
+<tr>
+<td>Arti 2.6.0 released Sep 1</td>
+<td>Blog "Arti 2.6.0 released" by gabi, Sep 1; CGO and Congestion Control "both now always enabled in arti"</td>
+<td>blog.torproject.org/arti_2_6_0_released/</td>
+</tr>
+<tr>
+<td>Arti 2.6.0 changelog details</td>
+<td>"much of the work focusing on document parsing, directory mirror support, and DNS stream handling... RPC-based configuration management"</td>
+<td>same blog post</td>
+</tr>
+<tr>
+<td>Tor Browser 15.0.21 released Sep 1</td>
+<td>"Tor Browser 15.0.21 is now available"; Firefox 140.15.0esr, OpenSSL 3.5.8, NoScript 13.6.32.1984, Go 1.25.14</td>
+<td>blog.torproject.org/new-release-tor-browser-15021/</td>
+</tr>
+<tr>
+<td>Tor Browser 16.0a11 released Sep 2</td>
+<td>Blog "New Alpha Release: Tor Browser 16.0a11" by ma1</td>
+<td>blog.torproject.org/new-alpha-release-tor-browser-160a11/</td>
+</tr>
+<tr>
+<td>Tails 7.12 first 2-week-cadence release</td>
+<td>"Firefox is moving to a 2-week release cadence starting in September, and so Tor Browser and Tails are doing the same. Tails 7.12 is the first release on this new cadence."</td>
+<td>blog.torproject.org/new-release-tails-7_12/</td>
+</tr>
+<tr>
+<td>Tor 0.4.8 EOL Sep 1</td>
+<td>"stop supporting Tor 0.4.8 and earlier releases on September 1, 2026"; un-upgraded relays lose connectivity</td>
+<td>cyberinsider.com/tor-project-to-disable-support-for-tor-0-4-8-on-september-1</td>
+</tr>
+<tr>
+<td>Tor network 10,137 relays (Sep 1)</td>
+<td>relayflags.csv 2026-09-01: Running 10137, Exit 3268, Fast 9987, Guard 6155, HSDir 3015, Stable 9059</td>
+<td>metrics.torproject.org/relayflags.csv</td>
+</tr>
+<tr>
+<td>Tor network 10,146 relays (Aug 25)</td>
+<td>relayflags.csv 2026-08-25 (carried forward from prior week)</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Tor network 10,060 relays (Aug 31)</td>
+<td>relayflags.csv 2026-08-31 (local low)</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Katzenpost PR #1099 replica self-tuning doc (7 of 7)</td>
+<td>Merged Sep 2; "replica: document the proxy path as self-tuning (7 of 7)"</td>
+<td>github.com/katzenpost/katzenpost/pull/1099</td>
+</tr>
+<tr>
+<td>Katzenpost PR #1105 PKI epoch negotiation</td>
+<td>Merged Sep 1; "client: agree on a PKI epoch instead of pinning one"</td>
+<td>github.com/katzenpost/katzenpost/pull/1105</td>
+</tr>
+<tr>
+<td>Katzenpost PR #1112 websocket listener hardening</td>
+<td>Merged Sep 2; 6-commit series covering Origin enforcement, listen-host requirement, close-on-Close, loopback default, InsecureSkipVerify opt-in</td>
+<td>github.com/katzenpost/katzenpost/pull/1112</td>
+</tr>
+<tr>
+<td>Katzenpost PR #1114 silent drop instrumentation</td>
+<td>Merged Sep 3; "server: instrument seven silent packet drop sites"</td>
+<td>github.com/katzenpost/katzenpost/pull/1114</td>
+</tr>
+<tr>
+<td>Katzenpost PR #1120 Ping loss attribution</td>
+<td>Merged Sep 3; "Ping probabilistic packet loss attribution"; 7 commits incl. "compare service nodes too", "explain the attribution maths", "attribute loss to nodes, with the uncertainty stated", "client: report the route a message took to the thin client"</td>
+<td>github.com/katzenpost/katzenpost/pull/1120</td>
+</tr>
+<tr>
+<td>HOPR PR #8377 PIX admission parameterized by Session target</td>
+<td>Merged Sep 3; "feat(session): parameterize PIX admission by Session target"</td>
+<td>github.com/hoprnet/hoprnet/pull/8377</td>
+</tr>
+<tr>
+<td>HOPR PR #8237 session PIX supervisor</td>
+<td>Merged Sep 2; "feat: add session PIX supervisor"</td>
+<td>github.com/hoprnet/hoprnet/pull/8237</td>
+</tr>
+<tr>
+<td>HOPR PR #8362 per-SSA deposit data</td>
+<td>Merged Aug 27; "feat(pix): per-SSA deposit data in SsaRequest, sourced from the deposit pool"</td>
+<td>github.com/hoprnet/hoprnet/pull/8362</td>
+</tr>
+<tr>
+<td>I2P i2psnark commits 27x Aug 24 → Sep 2</td>
+<td>27 distinct commit messages with <code>i2psnark:</code> prefix</td>
+<td>github.com/i2p/i2p.i2p/commits</td>
+</tr>
+<tr>
+<td>I2P 2.14.0 target Oct 2026 (PQ SSU2)</td>
+<td>Proposal 169 status: "SSU2 Implementation in progress, Beta Q2 2026, release Q3 2026"; i2p.net/en/proposals/169-pq-crypto</td>
+<td>i2p.net/en/proposals/169-pq-crypto</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/mix-networks/2026-08-28/"><span class="label">Previous</span><span class="pn-t">Mix Networks Friday — August 28 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/mix-networks/"><span class="label">Series</span><span class="pn-t">All Mix Networks Friday briefings</span></a>
+      <a href="/briefings/mix-networks/2026-09-11/"><span class="label">Next</span><span class="pn-t">Mix Networks Friday — September 11 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

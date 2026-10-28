@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Map: Threat Models — ungovernable.tech</title>
+<meta name="description" content="A map of the recurring adversaries, trust assumptions and failure modes across this library, from cloud operators to quantum computers.">
+<link rel="canonical" href="https://ungovernable.tech/kb/map-threat-models/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Map: Threat Models — ungovernable.tech">
+<meta property="og:description" content="A map of the recurring adversaries, trust assumptions and failure modes across this library, from cloud operators to quantum computers.">
+<meta property="og:url" content="https://ungovernable.tech/kb/map-threat-models/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Map: Threat Models — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Map: Threat Models — ungovernable.tech">
+<meta name="twitter:description" content="A map of the recurring adversaries, trust assumptions and failure modes across this library, from cloud operators to quantum computers.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-endpoint.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Map: Threat Models", "description": "A map of the recurring adversaries, trust assumptions and failure modes across this library, from cloud operators to quantum computers.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/map-threat-models/", "mainEntityOfPage": "https://ungovernable.tech/kb/map-threat-models/", "image": "https://ungovernable.tech/assets/og/pillar-endpoint.png", "about": [{"@type": "Thing", "name": "Devices and Operational Security"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Devices and Operational Security", "item": "https://ungovernable.tech/pillars/endpoint/"}, {"@type": "ListItem", "position": 3, "name": "Map: Threat Models", "item": "https://ungovernable.tech/kb/map-threat-models/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/endpoint/">Devices and Operational Security</a><span aria-hidden="true">/</span><span class="here">Map: Threat Models</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ MAP ]</span><span class="ktag">[ DEVICES AND OPERATIONAL SECURITY ]</span></p>
+  <h1>Map: Threat Models</h1>
+  
+  <p class="dek">A Map of Content indexing recurring adversaries, trust assumptions, and failure modes across this library.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>3</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#recurring-adversaries">Recurring adversaries</a><a href="#recurring-trust-assumptions">Recurring trust assumptions</a><a href="#recurring-failure-modes">Recurring failure modes</a><a href="#files-with-detailed-threat-models">Files with detailed threat models</a><a href="#new-threat-models">New Threat Models</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <blockquote>
+<p>Threat-modeling rule: name the adversary, name the asset, name the assumption you make about each component. If you cannot write it down, you do not have a threat model. You have hope.</p>
+</blockquote>
+<h2 id="recurring-adversaries">Recurring adversaries</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Capability</th>
+<th>Where it appears</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global passive observer</td>
+<td>Wire taps at IXPs, ISP backbones</td>
+<td><a href="/kb/mix-networks/">Overview - Mix Networks</a>, <a href="/kb/map-metadata-privacy/">MOC - Metadata Privacy</a></td>
+</tr>
+<tr>
+<td>Cloud provider or hypervisor</td>
+<td>Read VM RAM, modify boot, snapshot disk</td>
+<td><a href="/kb/confidential-computing/">Overview - Confidential Computing</a>, <a href="/kb/confidential-cloud-comparison/">Cloud-Provider-Comparison</a></td>
+</tr>
+<tr>
+<td>Compromised relay or node</td>
+<td>Selective forwarding, traffic injection, dropping</td>
+<td><a href="/kb/mix-networks/">Overview - Mix Networks</a>, <a href="/kb/decentralized-compute/">Overview - Decentralized Compute</a></td>
+</tr>
+<tr>
+<td>Compromised hardware vendor</td>
+<td>Sign attestation reports for arbitrary code</td>
+<td><a href="/kb/tee-side-channel-attacks/">TEE-Side-Channel-Attacks</a>, <a href="/kb/remote-attestation/">Attestation-Architecture</a></td>
+</tr>
+<tr>
+<td>Court order or subpoena</td>
+<td>Compel logs, key disclosure, code injection</td>
+<td><a href="/kb/encrypted-messaging/">Overview - Encrypted Messaging</a>, <a href="/kb/map-censorship-resistance/">MOC - Censorship Resistance</a></td>
+</tr>
+<tr>
+<td>Supply chain attacker</td>
+<td>Inject backdoor at build or package time</td>
+<td>reproducible builds, transparency logs</td>
+</tr>
+<tr>
+<td>51% or Sybil attacker</td>
+<td>Outvote consensus, censor blocks</td>
+<td><a href="/kb/financial-sovereignty/">Overview - Financial Sovereignty</a>, <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a></td>
+</tr>
+<tr>
+<td>Malicious user device</td>
+<td>Full read; export keys</td>
+<td><a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, hardware-wallet patterns</td>
+</tr>
+<tr>
+<td>Quantum adversary (future)</td>
+<td>Solve DLog and factoring</td>
+<td><a href="/kb/post-quantum-cryptography/">Overview - Post-Quantum Cryptography</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="recurring-trust-assumptions">Recurring trust assumptions</h2>
+<p>When a system claims a property, ask which of these it requires:</p>
+<ul>
+<li>Trust the CPU vendor: TEEs require Intel, AMD, or NVIDIA not to misissue attestations.</li>
+<li>Trust the CA: TLS without pinning lets any CA mint an MITM cert.</li>
+<li>Trust the registrar or DNS path: can be bypassed by self-authenticating names.</li>
+<li>Tor separates knowledge across relays; it does not protect against an observer who can correlate both ends of a connection merely because one relay is honest.</li>
+<li>Trust the majority of validators: PoS and PoW security models.</li>
+<li>Cryptographic constructions have distinct assumptions: FHE and ZK depend on their schemes, while honest-majority MPC explicitly assumes enough non-colluding participants.</li>
+<li>Trust your own keys and endpoint: true for everything. If your client is compromised, all bets are off.</li>
+</ul>
+<h2 id="recurring-failure-modes">Recurring failure modes</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Failure mode</th>
+<th>Manifests as</th>
+<th>Counter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Side-channel leak</td>
+<td>Cache timing, page faults, EM</td>
+<td>Defense in depth, multi-vendor TEE, oblivious algorithms</td>
+</tr>
+<tr>
+<td>Implementation bug</td>
+<td>Memory safety, parser issues</td>
+<td>Audited primitives, fuzzing, memory-safe languages</td>
+</tr>
+<tr>
+<td>Operational mistake</td>
+<td>Key reuse, absent pinning</td>
+<td>Default-secure tooling, hardware key custody</td>
+</tr>
+<tr>
+<td>Protocol downgrade</td>
+<td>Negotiate weak parameters</td>
+<td>Strict policy in attestation, no fallback</td>
+</tr>
+<tr>
+<td>Metadata leak</td>
+<td>Even with E2EE</td>
+<td>Mixnets, sealed sender, padding</td>
+</tr>
+<tr>
+<td>Vendor coercion</td>
+<td>Court order to ship signed backdoor</td>
+<td>Reproducible builds, transparency logs, multi-signer release</td>
+</tr>
+<tr>
+<td>Lost custody</td>
+<td>Key destroyed or stolen</td>
+<td>Backups, multisig, social recovery</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="files-with-detailed-threat-models">Files with detailed threat models</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Adversary focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/tee-side-channel-attacks/">TEE-Side-Channel-Attacks</a></td>
+<td>Hardware side channels (Foreshadow, CacheWarp, Hertzbleed, ÆPIC)</td>
+</tr>
+<tr>
+<td><a href="/kb/confidential-ai-inference/">Confidential-AI-Inference</a></td>
+<td>Inference-specific leaks, oracle adversaries</td>
+</tr>
+<tr>
+<td><a href="/kb/mix-networks/">Overview - Mix Networks</a></td>
+<td>Global observer, compromised mixes</td>
+</tr>
+<tr>
+<td><a href="/kb/encrypted-messaging/">Overview - Encrypted Messaging</a></td>
+<td>Court order, server compromise, social-graph leak</td>
+</tr>
+<tr>
+<td><a href="/kb/financial-sovereignty/">Overview - Financial Sovereignty</a></td>
+<td>Custodial counterparty, chain analysis</td>
+</tr>
+<tr>
+<td><a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a></td>
+<td>Registrar coercion, DHT poisoning</td>
+</tr>
+<tr>
+<td><a href="/kb/web-of-trust/">Overview - Web of Trust</a></td>
+<td>Sybil, key compromise, signing equivocation</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="new-threat-models">New Threat Models</h2>
+<p>For new threat models, follow the structure of mature security-analysis files in this library and complete every section before adding the note to an index.</p>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.usenix.org/conference/13th-usenix-security-symposium/tor-second-generation-onion-router" rel="noopener nofollow">Tor: The Second-Generation Onion Router</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9334.html" rel="noopener nofollow">RFC 9334: attestation roles and trust</a></li>
+<li><a href="https://csrc.nist.gov/pubs/sp/800/204/d/final" rel="noopener nofollow">NIST SP 800-204D: software supply chain security</a></li>
+<li><a href="https://eprint.iacr.org/2020/300" rel="noopener nofollow">Secure Multiparty Computation (MPC)</a></li>
+<li><a href="https://arxiv.org/abs/quant-ph/9508027" rel="noopener nofollow">Shor: quantum factoring and discrete logarithms</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/map-metadata-privacy/">
+  <span class="nm">Map: Metadata Privacy</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/confidential-computing/">
+  <span class="nm">Confidential Computing</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/confidential-cloud-comparison/">
+  <span class="nm">Confidential Computing Across Cloud Providers</span>
+  <span class="ty">Comparison</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/tee-side-channel-attacks/">
+  <span class="nm">TEE Side-Channel Attacks</span>
+  <span class="ty">Threat model</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a><a class="row" href="/kb/remote-attestation/">
+  <span class="nm">Remote Attestation Architecture</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/map-censorship-resistance/">
+  <span class="nm">Map: Censorship Resistance</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/financial-sovereignty/">
+  <span class="nm">Financial Sovereignty</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/identity-and-pseudonymity/">
+  <span class="nm">Identity and Pseudonymity</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Map%3A%20Threat%20Models" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">A Map of Content indexing recurring adversaries, trust assumptions, and failure modes across this library.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Map</dd>
+        <dt>Pillars</dt><dd>Devices and Operational Security</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>5</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

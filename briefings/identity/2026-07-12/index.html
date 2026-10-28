@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — July 12 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-07-12: Nostr Compass #30 &amp; Protocol Updates: Marmot spec adopted across ecosystem (encrypted groups, external signers).">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-07-12/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — July 12 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-07-12: Nostr Compass #30 &amp; Protocol Updates: Marmot spec adopted across ecosystem (encrypted groups, external signers).">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-07-12/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — July 12 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — July 12 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-07-12: Nostr Compass #30 &amp; Protocol Updates: Marmot spec adopted across ecosystem (encrypted groups, external signers).">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — July 12 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-07-12: Nostr Compass #30 & Protocol Updates: Marmot spec adopted across ecosystem (encrypted groups, external signers).", "datePublished": "2026-07-12", "dateModified": "2026-07-12", "url": "https://ungovernable.tech/briefings/identity/2026-07-12/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-07-12/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-07-12", "item": "https://ungovernable.tech/briefings/identity/2026-07-12/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-07-12</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — July 12 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-07-12</b></span>
+    <span><b>4</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-07-12 // may be outdated</p>
+  <p>This page reflects what was known on 2026-07-12. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>Nostr Compass #30 &amp; Protocol Updates</strong>: Marmot spec adopted across ecosystem (encrypted groups, external signers); Mostro v0.18.0 + Mobile v1.3.0 ships Transport v2 on NIP-44 with anti-spam; Bitchat 1.6.0 adds NIP-13 PoW, opt-in mesh-to-Nostr gateway, prekey bundles.</li>
+<li><strong>Signer &amp; Mobile Ecosystem</strong>: NostrKey Safari extension (multi-profile, encrypted vault, nsecBunker); Bitcoin Safe uses NIP-17 gift-wrapped DMs with random nsec defaults; CustID beta momentum continues with NFC/QR flows.</li>
+<li><strong>Wallet &amp; P2P Integrations</strong>: Satlantis auto-provisions Nostr identities + Lightning; Mostro P2P marketplace uses 12-word seed client-side identities ("No registration. No email. No ID selfie"); BuhoGO derives Nostr ID via NIP-06 for cross-wallet compatibility; Bitcoin payments systems allow bring-your-own Nostr identities.</li>
+<li><strong>NIP &amp; Naming Developments</strong>: NIP-05 DNS verification in use (with some centralization critiques); NIP-SPACES proposed as Bitcoin PoW-anchored sovereign alternative to DNS; NIP-39 profile linking; NIP-17 encrypted DMs prominent in wallets.</li>
+<li><strong>AI Agent &amp; Broader Identity</strong>: Discussions around agentic AI identity (x401 protocol for verifying AI agents); parallel post-quantum (FIPS 204 ML-DSA) explorations for future-proof sovereign DIDs.</li>
+<li><strong>Mesh &amp; Discovery</strong>: FIPS v0.4.0 (from prior week) seeing continued integration; myco P2P nsite sharing over mesh.</li>
+</ul>
+<p><strong>Freedom-tech takeaway</strong>: Nostr's pseudonymous keypair model is embedding deeply into Bitcoin/Lightning ecosystems for self-sovereign payments, marketplaces, and social coordination. Hardware/remote signers, seed-phrase determinism (NIP-06), encrypted DM primitives (NIP-17), and mesh extensions reduce custody risks while enabling compartmentalized, revocable-reputation identities. This week's momentum points to practical, ungovernable deployments where identity is portable, verifiable without central authorities, and resilient to both censorship and future quantum threats.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nostr-compass-30-core-protocol-maturation">Nostr Compass #30 &amp; Core Protocol Maturation</h3>
+<p>Nostr Compass continues weekly tracking of NIP adoption and client/relay hardening. Key highlights from the July 8 newsletter period:</p>
+<ul>
+<li><strong>Marmot spec adoption</strong>: Marked adopted across 42 files. MDK cuts v0.9.0–v0.9.3 with encrypted group avatars, external signer support, MarmotKit iOS/Android bindings. Strengthens group pseudonymity and shared identity contexts.</li>
+<li>
+<p>Ties into <a href="/kb/nostr-identity/">Nostr</a> and group/MLS primitives.</p>
+</li>
+<li>
+<p><strong>Mostro Transport v2</strong>: Ships on NIP-44 direct messages with anti-spam gates and coexistence window in mostrod v0.18.0 and Mobile v1.3.0. P2P Lightning/Nostr marketplace emphasizes client-side 12-word seed identity generation—no central registration.</p>
+</li>
+<li>
+<p><strong>Bitchat 1.6.0</strong>: Adds NIP-13 proof-of-work to geohash channel messages, opt-in mesh-to-Nostr gateway (one phone uplinks a crowd), prekey bundles, transitive verification, creator-managed channels. Extends pseudonymous mesh identity to local/off-grid scenarios.</p>
+</li>
+</ul>
+<p>Additional: Whitenoise Linux desktop Marmot client; protocol proposals for dedicated event kinds.</p>
+<p>NIPs repo activity: Continued discussion and merges around relay management, search (NIP-50), trusted assertions (NIP-85).</p>
+<h3 id="signer-ecosystem-key-custody">Signer Ecosystem &amp; Key Custody</h3>
+<ul>
+<li><strong>NostrKey Web Extension</strong> (App Store): Safari extension for macOS/iOS managing multiple Nostr identities, signing without exposing nsec, encrypted vault, nsecBunker support, auto-lock, per-site permissions. Private keys never leave device unless backed up.</li>
+<li>
+<p><a href="https://apps.apple.com/us/app/nostrkey-web-extension/id6759624317" rel="noopener nofollow">https://apps.apple.com/us/app/nostrkey-web-extension/id6759624317</a></p>
+</li>
+<li>
+<p><strong>Bitcoin Safe</strong>: Defaults to random nsec (separate from social keys) with NIP-17 gift-wrap encrypted DMs; supports custom relays (opt-in). Emphasizes compartmentalized pseudonymity.</p>
+</li>
+<li>
+<p><strong>CustID</strong> momentum from prior week carries forward as hardware-backed NIP-46 signer with NFC challenges.</p>
+</li>
+<li>
+<p>Broader: Emphasis on NIP-06 deterministic derivation from seeds for cross-wallet loading (e.g., BuhoGO).</p>
+</li>
+</ul>
+<p>Key management best practices reiterated across sources: generate locally, immediate backup of nsec, compartmentalization for different personas (main vs. anonymous vs. testing).</p>
+<h3 id="wallet-marketplace-application-integrations">Wallet, Marketplace &amp; Application Integrations</h3>
+<ul>
+<li><strong>Satlantis</strong>: Auto-provisions attendees with Lightning wallet/address + Nostr identity (or bring-your-own), removing setup friction for events/communities.</li>
+<li><strong>Mostro P2P</strong>: "No registration. No email. No ID selfie." Identities fully client-side via seed phrase.</li>
+<li><strong>Bitcoin payments/tollbooth systems</strong>: Users bring own Nostr identities; decouples value from identity; supports multiple/borrowed identities; no KYC friction.</li>
+<li><strong>NIP-05 usage</strong>: Human-readable verification (e.g., sooly@nostrarabia.com) remains popular but faces critique over DNS/ICANN centralization risks.</li>
+<li><strong>NIP-SPACES</strong>: Emerging Bitcoin PoW-anchored naming protocol as more sovereign alternative to NIP-05/DNS for true censorship resistance.</li>
+</ul>
+<p>NIP-39 (Linking Profiles to Other Platforms) and NIP-17 (encrypted DMs) see active implementation in wallets and social tools.</p>
+<h3 id="proof-of-personhood-reputation-agentic-identity">Proof of Personhood, Reputation &amp; Agentic Identity</h3>
+<ul>
+<li>Continued enterprise traction for World ID-style systems alongside academic/social-graph and cryptographic approaches (as covered in overview).</li>
+<li>Emerging <strong>x401 Open Protocol</strong> (Proof): Issuer-neutral verification of human authority behind AI agents; selective disclosure + ZK proofs; submitted to FIDO Alliance agentic auth workgroup. Companion to x402 agent payments. Live MCP server with Claude/ChatGPT.</li>
+<li>Broader agentic AI identity summit discussions (Identiverse 2026 context) highlight shift to non-human/agent identities outnumbering human ones; need for sovereign, on-chain quantum-safe DIDs (tying into FIPS 204 ML-DSA / post-quantum signatures for future-proofing).</li>
+</ul>
+<h3 id="mesh-off-grid-discovery-extensions">Mesh, Off-Grid &amp; Discovery Extensions</h3>
+<p>FIPS v0.4.0 (Nym mixnet transport, mDNS, rekeying) integrates with myco for P2P nsite sharing over BLE/L2CAP. Bitchat mesh gateway provides hybrid local-to-Nostr pseudonymity. Supports offline-first, compartmentalized identity use cases.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Project/Tool</th>
+<th>Key Feature</th>
+<th>Maturity</th>
+<th>Link/Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marmot</td>
+<td>Encrypted groups + external signers</td>
+<td>Adopted (42 files)</td>
+<td>Nostr Compass #30</td>
+</tr>
+<tr>
+<td>Mostro</td>
+<td>Seed-based P2P identities + NIP-44 Transport v2</td>
+<td>v0.18.0 / v1.3.0</td>
+<td>nostrcompass.org</td>
+</tr>
+<tr>
+<td>Bitchat</td>
+<td>NIP-13 PoW + mesh-to-Nostr gateway</td>
+<td>1.6.0</td>
+<td>Nostr Compass</td>
+</tr>
+<tr>
+<td>NostrKey</td>
+<td>Multi-profile Safari signer/extension</td>
+<td>App Store release</td>
+<td>apps.apple.com</td>
+</tr>
+<tr>
+<td>Bitcoin Safe</td>
+<td>NIP-17 DMs + random nsec</td>
+<td>Active</td>
+<td>BitcoinSafeOrg</td>
+</tr>
+<tr>
+<td>Satlantis</td>
+<td>Auto Nostr + Lightning provisioning</td>
+<td>Production</td>
+<td>JoinSatlantis</td>
+</tr>
+<tr>
+<td>Mostro (marketplace)</td>
+<td>No-KYC seed identities</td>
+<td>Production</td>
+<td>MostroP2P</td>
+</tr>
+<tr>
+<td>NIP-SPACES</td>
+<td>Bitcoin PoW naming</td>
+<td>Proposal</td>
+<td>X discussions</td>
+</tr>
+<tr>
+<td>x401 (Proof)</td>
+<td>AI agent human authority verification</td>
+<td>Spec + live MCP</td>
+<td>Proof.com</td>
+</tr>
+</tbody>
+</table></div>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-07-05/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — July 05 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-07-19/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — July 19 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

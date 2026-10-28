@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Defending Against a Global Passive Adversary — ungovernable.tech</title>
+<meta name="description" content="What it takes to defeat an adversary who can watch the whole network: traffic correlation, cover traffic, mixing and the research frontier.">
+<link rel="canonical" href="https://ungovernable.tech/kb/global-passive-adversary/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Defending Against a Global Passive Adversary — ungovernable.tech">
+<meta property="og:description" content="What it takes to defeat an adversary who can watch the whole network: traffic correlation, cover traffic, mixing and the research frontier.">
+<meta property="og:url" content="https://ungovernable.tech/kb/global-passive-adversary/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Defending Against a Global Passive Adversary — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Defending Against a Global Passive Adversary — ungovernable.tech">
+<meta name="twitter:description" content="What it takes to defeat an adversary who can watch the whole network: traffic correlation, cover traffic, mixing and the research frontier.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Defending Against a Global Passive Adversary", "description": "What it takes to defeat an adversary who can watch the whole network: traffic correlation, cover traffic, mixing and the research frontier.", "dateModified": "2026-10-25", "datePublished": "2026-05-22", "url": "https://ungovernable.tech/kb/global-passive-adversary/", "mainEntityOfPage": "https://ungovernable.tech/kb/global-passive-adversary/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "Defending Against a Global Passive Adversary", "item": "https://ungovernable.tech/kb/global-passive-adversary/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">Defending Against a Global Passive Adversary</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ THREAT MODEL ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Defending Against a Global Passive Adversary</h1>
+  <p class="aka">Also Mix Networks Friday Deep Dive, Global Passive Adversary Mixnets, Mixnet Research 2026.</p>
+  <p class="dek">Friday research: Mix networks that defend against a global passive adversary. The systems, the threat model, the research frontier (MOCHA, Outfox, Nox), and where this fits in the freedom-tech stack.</p>
+  <div class="meta">
+    
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>14</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-friday-is-mix-network-day">Why Friday is Mix Network Day</a><a href="#the-threat-model">The Threat Model</a><a href="#the-three-families-of-mix-networks">The Three Families of Mix Networks</a><a href="#the-research-frontier-2026-papers">The Research Frontier: 2026 Papers</a><a href="#how-mix-networks-actually-work">How Mix Networks Actually Work</a><a href="#the-spamsybil-problem-lessons-from-kimwolf">The Spam/Sybil Problem: Lessons from Kimwolf</a><a href="#the-post-quantum-dimension">The Post-Quantum Dimension</a><a href="#integration-points-in-the-vault">Integration Points in the Vault</a><a href="#evidence-at-a-glance">Evidence at a Glance</a><a href="#trade-offs-summary">Trade-offs Summary</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-friday-is-mix-network-day">Why Friday is Mix Network Day</h2>
+<p>Monday covers <a href="/kb/decentralized-dns/">Overview - Decentralized DNS</a>, Tuesday <a href="/kb/decentralized-compute/">Overview - Decentralized Compute</a>, Wednesday <a href="/kb/private-information-retrieval/">Overview - Private Information Retrieval</a>, Thursday <a href="/kb/web-of-trust/">Overview - Web of Trust</a>. Friday falls on the privacy-stack dimension that the others don't cover: <strong>who is talking to whom, when, and how often</strong>.</p>
+<p>Encryption hides content. Mix networks hide the communication pattern itself. This is the metadata layer that no amount of TLS or end-to-end encryption addresses. A global passive adversary — state-level SIGINT, a compromised cloud backbone, an ISP with full traffic visibility — watching only metadata (source IP, destination IP, timing, packet size, volume) can reconstruct social graphs, identify sources, de-anonymize wallets, and track journalists' sources even when every message is individually encrypted.</p>
+<p>The systems that address this are mix networks. Today: what they are, what they defend against, and where the research frontier sits in 2026.</p>
+<h2 id="the-threat-model">The Threat Model</h2>
+<h3 id="what-encryption-doesnt-hide">What encryption doesn't hide</h3>
+<p>TLS protects content. It does not protect:</p>
+<ul>
+<li><strong>Source IP</strong> — your ISP knows who you are when you connect to a server.</li>
+<li><strong>Destination IP</strong> — the server's ISP knows someone from your IP range connected.</li>
+<li><strong>Timing</strong> — when you sent the message, how long the response took.</li>
+<li><strong>Packet sizes</strong> — HTTPS flows have recognizable sizes; voice calls have specific bandwidth patterns.</li>
+<li><strong>Volume</strong> — how many bytes went where over time.</li>
+</ul>
+<p>This metadata is intelligence-valuable even when content is opaque. Roger Dingledine (Tor Project) put it precisely:</p>
+<blockquote>
+<p>"Metadata is often more revealing than content. Who you communicate with, when, and how often reveals more about your intentions than what you say."</p>
+</blockquote>
+<h3 id="the-global-passive-adversary">The global passive adversary</h3>
+<p>A global passive adversary (GPA) is a specific threat model: an entity that can observe <strong>all</strong> links in a network simultaneously — entry, exit, and everything in between. Nation-state intelligence agencies fit this profile. So does a compromised internet exchange point or a cloud provider with backbone visibility.</p>
+<p>Against this adversary, <strong>Tor and I2P are vulnerable by design</strong>. Their low-latency onion routing and garlic routing create timing-correlatable patterns. A GPA watching the entry guard and exit relay of a Tor circuit can correlate the timing of packets entering and leaving and reconstruct the connection with high confidence.</p>
+<p>The systems that claim GPA defense are <strong>packet-mix networks</strong>: <a href="/kb/nym/">Nym</a>, <a href="/kb/katzenpost/">Katzenpost</a>, <a href="/kb/loopix/">Loopix</a>, and the research systems built on their designs. They add:</p>
+<ul>
+<li><strong>Cover traffic</strong> (dummy packets at constant rate so real traffic is indistinguishable from noise).</li>
+<li><strong>Poisson delays</strong> (randomized per-hop delays that break timing correlation).</li>
+<li><strong>Fixed-size Sphinx packets</strong> (all packets look identical on the wire).</li>
+<li><strong>Stratified topology</strong> (packets traverse fixed layers so each hop is independent).</li>
+</ul>
+<h2 id="the-three-families-of-mix-networks">The Three Families of Mix Networks</h2>
+<h3 id="family-1-low-latency-onion-routing-tor-i2p">Family 1: Low-latency onion routing (Tor, I2P)</h3>
+<p>Optimized for usability and interactive traffic. Do <strong>not</strong> defend against GPA. Still essential for censorship resistance, hidden services, and as the default transport layer.</p>
+<p><strong><a href="/kb/tor/">Tor</a></strong> (The Onion Router):
+- ~7,000 volunteer relays, ~2.5M daily users.
+- Three-hop onion-routed circuits with TLS between relays.
+- v3 onion services with Ed25519 — no IP address exposed.
+- Pluggable transports: Snowflake, obfs4, meek for censorship circumvention.
+- Arti (Rust rewrite) moving toward relay/directory mode.
+- Counter Galois Onion (CGO) replacing AES-CTR/SHA-1 relay cell encryption.
+- <strong>2026 emergency releases</strong>: Tor Browser 15.0.11/12/13 within 10 days (May 2026) — rapid response under active attack pressure.</p>
+<p><strong><a href="/kb/i2p/">I2P</a></strong> (The Invisible Internet Project):
+- ~15,000-20,000 peer routers; fully distributed netDB (no directory authorities).
+- Garlic routing: messages bundled (the "garlic bulb"), unidirectional tunnels.
+- Internal-only by design (eepsites, IRC, BitTorrent); outproxies are secondary.
+- ECIES + Curve25519 replacing ElGamal for destinations (completed ~2023).
+- <strong>2026</strong>: I2P 2.11.0 (Feb 2026) with PQ crypto at ratchet layer by default; I2P 2.12.0 (Apr 2026) improved PQ interoperability, SAMv3 bug fixes.
+- <strong>Kimwolf botnet</strong> (Feb 2026): 700,000 hostile nodes in a Sybil attack, a live stress test of open-membership anonymity networks.</p>
+<h3 id="family-2-high-latency-packet-mix-networks-nym-katzenpost-loopix">Family 2: High-latency packet-mix networks (Nym, Katzenpost, Loopix)</h3>
+<p>Designed specifically to defeat a global passive adversary. Seconds-to-minutes latency, cover traffic required, but the only systems in this library that address the GPA threat model.</p>
+<p><strong><a href="/kb/loopix/">Loopix</a></strong> (USENIX Security 2017 — the foundational design):
+- Three-layer stratified topology.
+- Continuous-time Poisson mixing per hop (random exponential delays).
+- Three message classes: real payloads, sender loops (integrity check + cover), drops (pure cover).
+- Per-mix cover traffic generation (mix loops keep every link populated).
+- Formal anonymity bounds under stated assumptions (sufficient cover traffic, honest mix density, correct implementation).
+- <strong>Paper-only</strong>: never deployed as a standalone system. The production descendants are Nym and Katzenpost.</p>
+<p><strong><a href="/kb/nym/">Nym</a></strong> (production since 2022):
+- Loopix-based, stake-weighted node selection.
+- Sphinx packet format, three-layer mixing, cover traffic.
+- NYM token for stake on mixnodes; zk-nym anonymous bandwidth credentials.
+- NymVPN consumer product (mixnet mode vs wireguard mode — different threat models).
+- <strong>2026 roadmap</strong>: PQ key exchange (Lewes Protocol), browser/wallet integrations, decentralized pay-as-you-go credentials.
+- NymVPN v2026.7: split tunneling beta (Windows), optional PQ key exchange in Fast mode, Cure53 audit hardening.
+- <strong>Key distinction</strong>: NymVPN Anonymous mode is the strong mixnet; Fast mode is closer to decentralized VPN. Do not conflate them.</p>
+<p><strong><a href="/kb/katzenpost/">Katzenpost</a></strong> (research/federated, post-quantum from day one):
+- Loopix-derived, federated authority structure.
+- Built-in hybrid post-quantum: X25519 + Kyber/ML-KEM (or CTIDH) in Sphinx packets.
+- Harvest-now-decrypt-later defense: traffic recorded today survives the arrival of a CRQC.
+- <code>dirauth</code> directory authorities, 20-minute consensus epochs, <code>server</code> nodes (mix/gateway/service).
+- Catshadow messenger: Signal-grade E2E encryption over mixnet transport.
+- Reunion: anonymous contact establishment protocol.
+- <strong>Maturity</strong>: research/federated alpha; not consumer-scale but architecturally the most future-proof against quantum adversaries.</p>
+<h3 id="family-3-research-systems-hornet-nox-outfox">Family 3: Research systems (HORNET, Nox, Outfox)</h3>
+<p><strong><a href="/kb/hornet/">HORNET</a></strong> (2015, ACM CCS):
+- Stateless high-speed onion routing at the network layer.
+- Packet-carried forwarding state (no per-circuit relay tables).
+- Designed for path-aware networks (SCION-like), not deployable on today's Internet.
+- Does not solve GPA — same low-latency limitation as Tor.
+- Useful as architecture reference, not a deployment target.</p>
+<p><strong>Nox</strong> (2024-2025, academic):
+- Sphinx mixnet for anonymous blockchain transaction relay.
+- Per-hop processing 58.6µs mean (2.5× faster than Katzenpost's NIKE configuration).
+- 100.1ms median end-to-end latency under Poisson mixing.
+- 372.3 packets per second sustained throughput.
+- FEC recovery curves, Shannon entropy analysis across 5-50 node scaling.
+- <strong>Significance</strong>: real performance numbers on a working Sphinx mixnet implementation; most performant published result.</p>
+<p><strong>Outfox</strong> (ACM SIGCOMM 2025):
+- Post-quantum packet format for layered mixnets.
+- Simplified Sphinx variant for fixed-length routes.
+- Tailored for post-quantum security — FL-based McEliece or similar at the KEM layer.
+- <strong>Significance</strong>: the practical path for PQ mixnet packets without the full CTIDH/Kyber complexity; recognized by best paper consideration.</p>
+<h2 id="the-research-frontier-2026-papers">The Research Frontier: 2026 Papers</h2>
+<h3 id="mocha-eprint-2025861-ihmmsec-2025">MOCHA (ePrint 2025/861, IH&amp;MMSEC 2025)</h3>
+<p><strong>Mixnet Optimization Considering Honest Client Anonymity</strong> — Mahdi Rahimi.</p>
+<p>The paper's key insight: <strong>message anonymity often provides an upper bound and can yield misleading results for mixnet optimization</strong>. The existing standard for evaluating mixnet anonymity uses a discrete-event simulator to measure a target message's indistinguishability among output messages. MOCHA shows that the client (originator of messages) itself must be considered to gauge anonymity accurately.</p>
+<p>Key findings:</p>
+<ul>
+<li>Client anonymity is <strong>significantly compromised</strong> when the number of clients is insufficient.</li>
+<li>Optimizing mixnet parameters for message anonymity alone can lead to configurations where client anonymity is dangerously low.</li>
+<li>MOCHA provides an algorithm (simulator) to simulate client anonymity for Loopix mixnets.</li>
+<li>General Loopix mixnet parameters can be optimized considering <strong>both</strong> message and client anonymity.</li>
+<li>The optimal configuration for message anonymity and client anonymity are different; trade-offs exist.</li>
+</ul>
+<p>For freedom-tech builders: MOCHA tells us that mixnet parameter tuning (Poisson rate μ, cover traffic ratio, layer count) is more nuanced than the Loopix paper implied. Deployments with small user populations relative to cover traffic generation may be giving users a false sense of protection. Nym and Katzenpost operators should pay attention to this analysis when tuning their networks.</p>
+<h3 id="outfox-acm-sigcomm-2025">Outfox (ACM SIGCOMM 2025)</h3>
+<p><strong>A Postquantum Packet Format for Layered Mixnets</strong> — Rial, Piotrowska et al.</p>
+<p>Outfox presents a simplified variant of Sphinx tailored specifically for:</p>
+<ol>
+<li><strong>Fixed-length routes</strong> (layered mixnet topologies with known depth).</li>
+<li><strong>Post-quantum security</strong> — uses a post-quantum KEM at the key encapsulation layer.</li>
+</ol>
+<p>The simplification over Sphinx: removes flexibility for variable-route-length, which allows optimizations that make the format more efficient for the topologies Nym and Katzenpost actually use (3-layer stratified).</p>
+<p>The PQ design: Outfox uses a hash-based signature or FL-based McEliece variant for the per-hop key encapsulation, replacing X25519 DH. The paper shows how to preserve Sphinx's provable security properties (bitwise indistinguishability, per-hop unlinkability, tagging-attack resistance) with PQ primitives.</p>
+<p>For freedom-tech builders: Outfox is the architectural direction Katzenpost's PQ-Sphinx work is already heading, and where Nym's PQ roadmap will eventually land. It's also relevant to any new mixnet design that wants PQ from scratch without carrying the full compatibility burden of the original Sphinx spec.</p>
+<h3 id="nox-a-sphinx-mixnet-for-anonymous-blockchain-transaction-relay">Nox: A Sphinx Mixnet for Anonymous Blockchain Transaction Relay</h3>
+<p>Real performance benchmarking for a working Sphinx mixnet:</p>
+<ul>
+<li><strong>Per-hop processing</strong>: 58.6µs mean (2.5× faster than Katzenpost's NIKE configuration).</li>
+<li><strong>End-to-end latency</strong>: 100.1ms median under Poisson mixing (3-layer).</li>
+<li><strong>Throughput</strong>: 372.3 packets per second sustained.</li>
+<li><strong>Scaling</strong>: evaluated across 5 to 50 nodes.</li>
+<li><strong>FEC recovery curves</strong>: Forward Error Correction for packet loss in mixnet paths.</li>
+<li><strong>Shannon entropy analysis</strong>: confirming traffic looks like uniform random at each link.</li>
+</ul>
+<p>For freedom-tech builders: Nox provides the most concrete performance numbers for Sphinx-based mixnets available. The per-hop processing time (58.6µs) tells you that a 3-hop mix path adds roughly 175µs of processing latency alone — before network transit time. The 100.1ms median end-to-end latency is realistic for Poisson-mixed mixnets under normal load.</p>
+<h2 id="how-mix-networks-actually-work">How Mix Networks Actually Work</h2>
+<h3 id="onion-routing-tor">Onion routing (Tor)</h3>
+<pre><code>Client ── TLS ── Guard ── ─── Middle ── ─── Exit ── ─── Destination
+                  ↑           ↑          ↑
+             knows client   knows nothing  knows destination
+                            of either
+</code></pre>
+<ol>
+<li>Client builds a circuit (3 hops typically).</li>
+<li>Creates layered encryption (the "onion": each layer encrypted under the next hop's public key).</li>
+<li>Each relay peels one layer; only knows predecessor and successor.</li>
+<li>Exit relay decrypts and forwards to destination.</li>
+<li>Response follows the reverse path.</li>
+</ol>
+<p>The limitation: timing correlation. A GPA watching the guard's ingress and the exit's egress sees packets arrive at T and leave at T+δ. Over many packets, the pattern is statistically distinguishable from random.</p>
+<h3 id="garlic-routing-i2p">Garlic routing (I2P)</h3>
+<pre><code>Client Message A → Bundled with Messages B,C,D → Encrypt → Forward
+</code></pre>
+<ul>
+<li>Messages are bundled (the "garlic bulb").</li>
+<li>Each relay decrypts and forwards the bundle.</li>
+<li>Cover traffic is natural: bundles contain dummies.</li>
+<li>Tunnels are unidirectional (separate in/out paths), making cross-traffic correlation harder than in Tor's symmetric circuits.</li>
+</ul>
+<h3 id="sphinx-packet-routing-loopixnymkatzenpost">Sphinx packet routing (Loopix/Nym/Katzenpost)</h3>
+<pre><code>Sender ── Mix1 (verify MAC, decrypt β layer, delay, blind α, forward)
+              ── Mix2 (same)
+                    ── Mix3 (same)
+                          ── Gateway → Recipient
+</code></pre>
+<ul>
+<li><strong>α (alpha)</strong>: a Curve25519 group element. Each hop blinds it using <code>b_i = H(α_i, s_i)</code>, producing <code>α_{i+1} = α_i^{b_i}</code>. This is what makes the group element unlinkable across hops — without knowing the shared secret <code>s_i</code>, no observer can connect <code>α_i</code> to <code>α_{i+1}</code>.</li>
+<li><strong>β (beta)</strong>: the routing header, encrypted in layers. Each mix peels one layer, revealing only the next hop.</li>
+<li><strong>γ (gamma)</strong>: a MAC over <code>β</code> keyed by the per-hop shared secret. Detects active modification (tagging attacks).</li>
+<li><strong>δ (delta)</strong>: the payload body, encrypted in layers.</li>
+</ul>
+<p>The key security properties of Sphinx:</p>
+<ol>
+<li><strong>Bitwise indistinguishability</strong>: all packets on the wire are the same size and format.</li>
+<li><strong>Per-hop unlinkability</strong>: no mix can link its input to its output except the immediate predecessor/successor.</li>
+<li><strong>Replay protection</strong>: each mix maintains a bloom filter of already-seen α values.</li>
+<li><strong>Tagging-attack resistance</strong>: the <code>γ</code> MAC catches any modification of <code>β</code> by an adversary.</li>
+</ol>
+<h3 id="poisson-mixing-loopixnym">Poisson mixing (Loopix/Nym)</h3>
+<p>Each mix applies a random delay drawn from an exponential distribution with parameter μ. At steady state, the order of packets leaving is statistically independent of the order they arrived. A GPA watching packets enter and leave cannot do better than random matching.</p>
+<p>The cover traffic requirement: Poisson mixing only provides anonymity if there are enough packets in flight at each mix. Loopix solves this with three classes of dummy traffic:</p>
+<ul>
+<li><strong>Real</strong>: actual user payload.</li>
+<li><strong>Loop</strong> (sender's loop): routes back to the sender, used as cover traffic + integrity check.</li>
+<li><strong>Drop</strong> (cover traffic): routed to a random destination and discarded.</li>
+</ul>
+<p>Mix nodes also generate <strong>mix loops</strong>: packets that route around the network and return to the originating mix. This keeps every link populated even when end-to-end traffic is sparse.</p>
+<h2 id="the-spamsybil-problem-lessons-from-kimwolf">The Spam/Sybil Problem: Lessons from Kimwolf</h2>
+<p>The February 2026 Kimwolf botnet incident on I2P is the most instructive real-world case study in mixnet Sybil economics:</p>
+<ul>
+<li>~700,000 hostile nodes introduced via a botnet attempting fallback C2 routing through I2P.</li>
+<li>The network degraded significantly during the attack.</li>
+<li>Post-attack, network resilience improved as hostile nodes were identified and filtered.</li>
+</ul>
+<p>The lesson: <strong>open peer-to-peer anonymity networks need continuously evolving Sybil, spam, and resource-accounting defenses</strong>. This is not a solved problem. Tor's directory authority model and Nym's stake-weighted selection are different approaches to the same fundamental issue: how do you prevent an adversary from overwhelming the network with identity?</p>
+<p>For freedom-tech builders: when integrating a mixnet, account for the fact that Sybil is an ongoing operational cost, not a one-time design decision. The Kimwolf incident also illustrates why I2P's current Sybil defenses are weaker than Tor's authority-vetted relay model — and why Nym's token-based stake requirement is a meaningful (if not perfect) defense.</p>
+<h2 id="the-post-quantum-dimension">The Post-Quantum Dimension</h2>
+<p>The harvest-now-decrypt-later threat: an adversary records all mixnet traffic today. When a cryptographically relevant quantum computer (CRQC) arrives, the classical cryptography underlying current mixnets (X25519, Curve25519) falls to Shor's algorithm, and the layered encryption protecting Sphinx packets is retroactively decryptable.</p>
+<p><strong>Katzenpost</strong> addresses this with hybrid X25519 + ML-KEM/CTIDH. The design: combine a classical DH share with a PQ KEM share. Breaking either independently does not compromise the system.</p>
+<p><strong>Nym</strong> has a PQ roadmap: the Lewes Protocol adds optional post-quantum handshakes for client-to-entry-node links and mixnode-to-mixnode links. The Sphinx packet layer (the layered per-hop encryption) is harder to upgrade because any change to packet geometry is visible to the network and could create fingerprinting opportunities.</p>
+<p><strong>Outfox</strong> represents the research direction: a PQ packet format designed from scratch for fixed-route layered mixnets, rather than retrofitted onto Sphinx.</p>
+<p><strong>Practical reality</strong>: the harvest-now-decrypt-later threat is real but distant. The classical cryptography protecting current mixnet traffic would require a CRQC to break, and those don't exist yet. But mixnet traffic has a long shelf life — messages may need to remain private for decades. For journalists, dissidents, and whistleblowers with multi-decade secrecy requirements, Katzenpost's PQ-first design is the right bet today.</p>
+<h2 id="integration-points-in-the-vault">Integration Points in the Vault</h2>
+<h3 id="private-information-retrieval">+ Private Information Retrieval</h3>
+<p>PIR queries are metadata-sensitive. Who asked what database entry reveals intent, interests, and identity. Routing PIR queries through <a href="/kb/nym/">Nym</a> or <a href="/kb/katzenpost/">Katzenpost</a> before they reach the PIR server closes the query-metadata channel that plain Tor doesn't address for a global observer.</p>
+<h3 id="confidential-computing">+ Confidential Computing</h3>
+<p>A TEE-protected LLM endpoint behind attested TLS still leaks who connected and when to any network observer. If the user's identity or query frequency is sensitive, routing the connection over a mixnet closes the remaining metadata channel. <a href="/kb/map-composing-primitives/">MOC - Composing Primitives</a> documents this pattern.</p>
+<h3 id="financial-sovereignty">+ Financial Sovereignty</h3>
+<p>On-chain addresses are pseudonymous, not anonymous. Linking an address to an IP breaks coin-join and shielded-pool privacy. Mixnets (Nym, Tor) in front of RPC nodes and wallet software are essential hygiene. <a href="/kb/financial-sovereignty/">Overview - Financial Sovereignty</a> covers this.</p>
+<h3 id="encrypted-messaging">+ Encrypted Messaging</h3>
+<p>Signal hides content but reveals your phone number to contacts and routes through centralized servers. <a href="/kb/simplex/">SimpleX</a>, <a href="/kb/briar/">Briar</a>, <a href="/kb/session-messenger/">Session</a>, and <a href="/kb/cwtch/">Cwtch</a> layer anonymity-preserving transports to fix this. The messaging layer is where the most active development in metadata-resistant chat is happening.</p>
+<h2 id="evidence-at-a-glance">Evidence at a Glance</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Threat: GPA</th>
+<th>Threat: Quantum Harvest</th>
+<th>Latency</th>
+<th>Cover Traffic</th>
+<th>Status</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/kb/tor/">Tor</a></td>
+<td>Vulnerable</td>
+<td>Vulnerable</td>
+<td>100-500ms</td>
+<td>Limited</td>
+<td>Production</td>
+<td>C (main), Rust (Arti)</td>
+</tr>
+<tr>
+<td><a href="/kb/i2p/">I2P</a></td>
+<td>Vulnerable / limited</td>
+<td>Vulnerable</td>
+<td>200-800ms</td>
+<td>Garlic bundling</td>
+<td>Production</td>
+<td>Java, C++ (i2pd)</td>
+</tr>
+<tr>
+<td><a href="/kb/nym/">Nym</a></td>
+<td><strong>Defeated</strong> (Loopix assumptions)</td>
+<td>Roadmap</td>
+<td>300-800ms</td>
+<td>Loops + dummies</td>
+<td>Production (2022)</td>
+<td>Rust</td>
+</tr>
+<tr>
+<td><a href="/kb/katzenpost/">Katzenpost</a></td>
+<td><strong>Defeated</strong></td>
+<td>Built-in (hybrid)</td>
+<td>Variable</td>
+<td>Loops + dummies</td>
+<td>Federated alpha</td>
+<td>Go</td>
+</tr>
+<tr>
+<td><a href="/kb/loopix/">Loopix</a></td>
+<td><strong>Defeated</strong> (formal bounds)</td>
+<td>No</td>
+<td>200-500ms</td>
+<td>Loops + dummies</td>
+<td>Paper only</td>
+<td>Reference only</td>
+</tr>
+<tr>
+<td>HORNET</td>
+<td>Vulnerable</td>
+<td>Vulnerable</td>
+<td>Low-latency design</td>
+<td>Not central</td>
+<td>Research</td>
+<td>Prototype</td>
+</tr>
+<tr>
+<td>Nox</td>
+<td>Defeated (Sphinx)</td>
+<td>No</td>
+<td>100ms median</td>
+<td>Yes</td>
+<td>Research</td>
+<td>Implementation benchmarked</td>
+</tr>
+<tr>
+<td>Outfox</td>
+<td>Defeated</td>
+<td>Yes (PQ KEM)</td>
+<td>TBD</td>
+<td>Yes</td>
+<td>Research (SIGCOMM 2025)</td>
+<td>PQ packet format</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs-summary">Trade-offs Summary</h2>
+<h3 id="when-to-use-tor">When to use Tor</h3>
+<ul>
+<li>Censorship evasion with bridges + pluggable transports.</li>
+<li>Onion services for server-side anonymity.</li>
+<li>Universal SOCKS proxy for app-level privacy.</li>
+<li>Browser fingerprinting defense (Tor Browser standardization).</li>
+<li>Do not claim GPA defense.</li>
+</ul>
+<h3 id="when-to-use-i2p">When to use I2P</h3>
+<ul>
+<li>Anonymous in-network services (eepsites, IRC, BitTorrent).</li>
+<li>Decentralized network without directory authority dependency.</li>
+<li>When the use case is internal to the overlay.</li>
+<li>Do not claim GPA defense.</li>
+</ul>
+<h3 id="when-to-use-nym">When to use Nym</h3>
+<ul>
+<li>Wallet RPC privacy where GPA is the threat.</li>
+<li>High-stakes browsing where seconds of latency are acceptable.</li>
+<li>When you need a consumer-friendly product (NymVPN).</li>
+<li>Monitor the PQ roadmap; currently no PQ key exchange in the mix layer.</li>
+</ul>
+<h3 id="when-to-use-katzenpost">When to use Katzenpost</h3>
+<ul>
+<li>When the threat model includes harvest-now-decrypt-later by a quantum adversary.</li>
+<li>Federated deployment where operator agreements are appropriate.</li>
+<li>Research/alpha deployments; not consumer-scale.</li>
+<li>The reference architecture for any new PQ mixnet design.</li>
+</ul>
+<h3 id="what-none-of-them-solve">What none of them solve</h3>
+<ul>
+<li>Endpoint compromise (malware on the client).</li>
+<li>Application-layer fingerprinting (identifiers in payloads).</li>
+<li>Long-term intersection attacks (observing who-is-online-when over months).</li>
+<li>A global active adversary who can modify traffic (replay + integrity helps, but not fully).</li>
+<li>Real-time interactive protocols (VoIP, video) at anonymity-safe latency.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></li>
+</ul>
+<h3 id="papers">Papers</h3>
+<ul>
+<li>Chaum, D. "Untraceable Communications." CACM 1981. — foundational mix idea.</li>
+<li>Danezis &amp; Goldberg. "Sphinx: A Compact and Provably Secure Mix Format." IEEE S&amp;P 2009. — packet format.</li>
+<li>Piotrowska et al. "The Loopix Anonymity System." USENIX Security 2017. — Poisson mixing, cover traffic, formal bounds.</li>
+<li>Chen et al. "HORNET: High-speed Onion Routing at the Network Layer." ACM CCS 2015 / arXiv:1507.05724.</li>
+<li>MOCHA: Mahdi Rahimi. "Mixnet Optimization Considering Honest Client Anonymity." ePrint 2025/861 / IH&amp;MMSEC 2025.</li>
+<li>Outfox: Rial, Piotrowska et al. "A Postquantum Packet Format for Layered Mixnets." ACM SIGCOMM 2025.</li>
+<li>Nox: "Nox: A Sphinx Mixnet for Anonymous Blockchain Transaction Relay." 2024-2025.</li>
+<li>Dingledine, Mathewson, Syverson. "Tor: The Second-Generation Onion Router." USENIX Security 2004.</li>
+</ul>
+<h3 id="project-documentation">Project documentation</h3>
+<ul>
+<li>Tor Project: <a href="https://torproject.org" rel="noopener nofollow">https://torproject.org</a></li>
+<li>Arti: <a href="https://gitlab.torproject.org/tpo/core/arti" rel="noopener nofollow">https://gitlab.torproject.org/tpo/core/arti</a></li>
+<li>I2P: <a href="https://geti2p.net" rel="noopener nofollow">https://geti2p.net</a></li>
+<li>Nym: <a href="https://nym.com" rel="noopener nofollow">https://nym.com</a></li>
+<li>Nym whitepaper: <a href="https://nym.com/pages/Nym_whitepaper.pdf" rel="noopener nofollow">https://nym.com/pages/Nym_whitepaper.pdf</a></li>
+<li>Katzenpost: <a href="https://katzenpost.network" rel="noopener nofollow">https://katzenpost.network</a></li>
+<li>Katzenpost threat model: <a href="https://katzenpost.network/docs/Threat_Model.pdf" rel="noopener nofollow">https://katzenpost.network/docs/Threat_Model.pdf</a></li>
+<li>Katzenpost literature overview: <a href="https://katzenpost.network/research/Literature_overview__website_version.pdf" rel="noopener nofollow">https://katzenpost.network/research/Literature_overview__website_version.pdf</a></li>
+<li>HOPR: <a href="https://hoprnet.org" rel="noopener nofollow">https://hoprnet.org</a></li>
+</ul>
+<h3 id="implementations-and-libraries">Implementations and libraries</h3>
+<ul>
+<li>sphinxcrypto (Rust): <a href="https://docs.rs/sphinxcrypto" rel="noopener nofollow">https://docs.rs/sphinxcrypto</a></li>
+<li>sphinx-rs (Rust): <a href="https://crates.io/crates/sphinx-rs" rel="noopener nofollow">https://crates.io/crates/sphinx-rs</a></li>
+<li>applied-mixnetworks/sphinxmixcrypto (Python): <a href="https://github.com/applied-mixnetworks/sphinxmixcrypto" rel="noopener nofollow">https://github.com/applied-mixnetworks/sphinxmixcrypto</a></li>
+<li>google-deepmind/loopix-messaging: <a href="https://github.com/google-deepmind/loopix-messaging" rel="noopener nofollow">https://github.com/google-deepmind/loopix-messaging</a></li>
+<li>Katzenpost hpqc (Go PQ crypto): <a href="https://github.com/katzenpost/katzenpost" rel="noopener nofollow">https://github.com/katzenpost/katzenpost</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/decentralized-compute/">
+  <span class="nm">Decentralized Compute</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/web-of-trust/">
+  <span class="nm">Webs of Trust</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/nym/">
+  <span class="nm">Nym Mixnet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/loopix/">
+  <span class="nm">Loopix</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/tor/">
+  <span class="nm">Tor</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/i2p/">
+  <span class="nm">I2P (Invisible Internet Project)</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+</a><a class="row" href="/kb/hornet/">
+  <span class="nm">HORNET</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/map-composing-primitives/">
+  <span class="nm">Map: Composing Primitives</span>
+  <span class="ty">Map</span>
+  
+</a><a class="row" href="/kb/financial-sovereignty/">
+  <span class="nm">Financial Sovereignty</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Defending%20Against%20a%20Global%20Passive%20Adversary" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <p class="def">Friday research: Mix networks that defend against a global passive adversary. The systems, the threat model, the research frontier (MOCHA, Outfox, Nox), and where this fits in the freedom-tech stack.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Threat model</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>15</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

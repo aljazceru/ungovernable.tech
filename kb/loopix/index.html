@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loopix — ungovernable.tech</title>
+<meta name="description" content="Loopix, the 2017 design that revived mix networks with continuous-time mixing and three kinds of cover traffic, and the basis of Nym and Katzenpost.">
+<link rel="canonical" href="https://ungovernable.tech/kb/loopix/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Loopix — ungovernable.tech">
+<meta property="og:description" content="Loopix, the 2017 design that revived mix networks with continuous-time mixing and three kinds of cover traffic, and the basis of Nym and Katzenpost.">
+<meta property="og:url" content="https://ungovernable.tech/kb/loopix/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Loopix — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Loopix — ungovernable.tech">
+<meta name="twitter:description" content="Loopix, the 2017 design that revived mix networks with continuous-time mixing and three kinds of cover traffic, and the basis of Nym and Katzenpost.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-anonymity.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Loopix", "description": "Loopix, the 2017 design that revived mix networks with continuous-time mixing and three kinds of cover traffic, and the basis of Nym and Katzenpost.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/loopix/", "mainEntityOfPage": "https://ungovernable.tech/kb/loopix/", "image": "https://ungovernable.tech/assets/og/pillar-anonymity.png", "about": [{"@type": "Thing", "name": "Anonymity Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Anonymity Networks", "item": "https://ungovernable.tech/pillars/anonymity/"}, {"@type": "ListItem", "position": 3, "name": "Loopix", "item": "https://ungovernable.tech/kb/loopix/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/anonymity/">Anonymity Networks</a><span aria-hidden="true">/</span><span class="here">Loopix</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ ANONYMITY NETWORKS ]</span></p>
+  <h1>Loopix</h1>
+  <p class="aka">Also Loopix Anonymity System, Poisson Mix.</p>
+  <p class="dek">The 2017 academic design that revived high-latency mix networks. Continuous-time Poisson mixing plus three classes of cover traffic gave the first deployable mixnet with provable bounds against a global passive adversary. Loopix itself never shipped as a production system — its descendants did.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>8</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#definitional">Definitional</a><a href="#architecture">Architecture</a><a href="#anonymity-guarantees">Anonymity guarantees</a><a href="#bandwidth-efficiency-vs-mixmaster">Bandwidth efficiency vs Mixmaster</a><a href="#mocha-client-anonymity-vs-message-anonymity-ihmmsec-2025-eprint-2025861">MOCHA: Client anonymity vs message anonymity (IH&amp;amp;MMSEC 2025 / ePrint 2025/861)</a><a href="#what-loopix-does-not-solve">What Loopix does not solve</a><a href="#influence-and-descendants">Influence and descendants</a><a href="#threat-model">Threat model</a><a href="#trade-offs">Trade-offs</a><a href="#comparison-with-other-mix-designs">Comparison with other mix designs</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="definitional">Definitional</h2>
+<p>Loopix is the anonymity system specified in:</p>
+<blockquote>
+<p>Piotrowska, A., Hayes, J., Elahi, T., Meiser, S., Danezis, G. <em>The Loopix Anonymity System</em>. USENIX Security 2017.</p>
+</blockquote>
+<p>It synthesizes ideas that had circulated in the mixnet research community for decades — Chaum's original mix concept, Stop-and-Go mixes (Kesdogan et al., 1998), <a href="/kb/mixminion-and-mixmaster/">Mixminion and Mixmaster</a>'s pool mixes, <a href="/kb/sphinx-packet-format/">Sphinx Packet Format</a> for indistinguishable packets — into a single design with formal anonymity guarantees and reasonable performance.</p>
+<p>The combination is what made Loopix tractable: each individual technique was known, but the integrated system delivered (a) low-enough latency for messaging-style use cases (seconds, not hours), (b) tractable bandwidth via per-link constant-rate cover traffic, and (c) provable anonymity bounds against an adversary watching every link in the network.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="stratified-topology">Stratified topology</h3>
+<p>Mix nodes are arranged in a fixed number of layers (the paper uses three). Every packet traverses exactly one node from each layer in order:</p>
+<pre><code>   Layer 1            Layer 2            Layer 3
+   ┌──┐ ┌──┐ ┌──┐    ┌──┐ ┌──┐ ┌──┐    ┌──┐ ┌──┐ ┌──┐
+   │M1│ │M2│ │M3│    │M4│ │M5│ │M6│    │M7│ │M8│ │M9│
+   └──┘ └──┘ └──┘    └──┘ └──┘ └──┘    └──┘ └──┘ └──┘
+
+Provider →   any L1   →   any L2   →   any L3   → Provider
+</code></pre>
+<p>Stratification serves two purposes:</p>
+<ol>
+<li><strong>Anonymity-set lower bound</strong>. Each layer contributes its own mixing; even if some layers are partially compromised, the remaining layers preserve anonymity.</li>
+<li><strong>Predictable load</strong>. Routing is balanced across the layer, simplifying capacity planning.</li>
+</ol>
+<p>Edge <strong>provider nodes</strong> terminate connections from senders and recipients, store messages for offline recipients, and inject/eject packets from the mix layers.</p>
+<h3 id="continuous-time-poisson-mixing">Continuous-time Poisson mixing</h3>
+<p>Each mix node, on receiving a Sphinx packet, samples a delay from an exponential distribution with parameter μ and forwards the packet after that delay. This is the <em>Poisson mix</em> (or "stop-and-go" with exponential service times).</p>
+<p>The key property: at steady state, the order of packets entering and leaving a mix is statistically independent of arrival times. A global observer who sees <code>n</code> packets enter and <code>n</code> packets leave cannot do better than uniform random matching, asymptotically.</p>
+<p>Compared to <strong>batched mixes</strong> (Mixmaster), Poisson mixing provides:</p>
+<ul>
+<li>Lower per-packet latency at moderate traffic (no waiting for batch fill).</li>
+<li>Continuous bandwidth, not bursty.</li>
+<li>Simpler analysis under standard queuing-theory tools.</li>
+</ul>
+<p>The trade-off: anonymity bounds depend on having enough simultaneous in-flight packets at each mix. Cover traffic ensures this.</p>
+<h3 id="three-classes-of-message">Three classes of message</h3>
+<p>Loopix introduces a clean taxonomy of packet types:</p>
+<ul>
+<li><strong>Real</strong>. The actual user payload.</li>
+<li><strong>Loop (sender's loop)</strong>. The sender constructs a packet that routes back to themselves. Used both as cover traffic and as an integrity check (the sender notices if loops fail to return, signaling network problems or attacks).</li>
+<li><strong>Drop (cover traffic)</strong>. The sender constructs a packet that routes to a random destination and is discarded there. Pure cover traffic with no functional payload.</li>
+</ul>
+<p>Mix nodes also generate their own <strong>mix loops</strong>: packets that route around the network and return to the originating mix. This keeps every link populated even when end-to-end traffic is sparse.</p>
+<p>The three-message design gives Loopix two properties simultaneously:</p>
+<ul>
+<li><strong>End-to-end indistinguishability</strong>. To an adversary, sender→recipient real traffic looks identical to sender→sender loops or sender→random drops.</li>
+<li><strong>Continuous link entropy</strong>. Every link carries traffic at all times, so timing patterns at the link level reveal nothing.</li>
+</ul>
+<h2 id="anonymity-guarantees">Anonymity guarantees</h2>
+<p>The Loopix paper proves bounds in the <em>anonymity trilemma</em> sense (later formalized by Das et al., 2018):</p>
+<ul>
+<li><strong>Sender anonymity</strong>. Given a target message at the recipient, the adversary's posterior over possible senders is bounded close to uniform over the active sender set, under stated assumptions.</li>
+<li><strong>Recipient anonymity</strong>. Symmetric.</li>
+<li><strong>Sender-recipient unlinkability</strong>. The strongest property: no advantage in linking a known sender to a known recipient.</li>
+</ul>
+<p>Stated assumptions:</p>
+<ul>
+<li>The adversary is global passive (sees all links) but does not control mix nodes.</li>
+<li>The user generates cover traffic at the specified rate.</li>
+<li>Sphinx packets are computationally indistinguishable.</li>
+<li>Mix delays are correctly sampled from the exponential distribution.</li>
+</ul>
+<p>Active adversaries (controlling some mix nodes, dropping packets, etc.) get weaker but still nontrivial bounds, depending on the fraction of corrupt mixes per layer.</p>
+<h2 id="bandwidth-efficiency-vs-mixmaster">Bandwidth efficiency vs Mixmaster</h2>
+<p>Mixmaster batched messages and required minutes-to-hours of latency to accumulate enough cover for meaningful anonymity. The bandwidth cost per delivered message was high (many real-message-equivalents of dummies).</p>
+<p>Loopix's continuous design achieves comparable anonymity at:</p>
+<ul>
+<li><strong>Order-of-seconds end-to-end latency</strong> with three layers and modest μ.</li>
+<li><strong>Constant-rate cover traffic per user</strong> rather than per-message dummy padding.</li>
+<li><strong>No batch synchronization</strong> between users.</li>
+</ul>
+<p>The paper measures bandwidth-anonymity trade-offs empirically; for plausible parameter choices, Loopix delivers messaging-grade latency with bandwidth costs in the kilobits-per-second range per active client. Far higher than VPN, far lower than Mixmaster's effective overhead.</p>
+<h2 id="mocha-client-anonymity-vs-message-anonymity-ihmmsec-2025-eprint-2025861">MOCHA: Client anonymity vs message anonymity (IH&amp;MMSEC 2025 / ePrint 2025/861)</h2>
+<p>The Loopix paper proved anonymity bounds for <em>messages</em> traversing the mixnet. MOCHA (Mixnet Optimization Considering Honest Client Anonymity, IH&amp;MMSEC 2025) revealed that optimizing for message anonymity alone can produce configurations where <em>client</em> anonymity is dangerously low — and the two can diverge significantly.</p>
+<p>The core insight: the Loopix anonymity bound measures whether an observed output message can be linked to its input message. It does not directly bound whether a <em>sender's identity</em> (the human behind the keyboard) can be distinguished from the set of all possible senders. These are different questions. Message anonymity provides an upper bound on client anonymity, not a tight lower bound.</p>
+<p>MOCHA's concrete findings:</p>
+<ul>
+<li><strong>Client anonymity can be much worse than message anonymity suggests.</strong> In simulations with insufficient client populations, MOCHA found client anonymity entropy dramatically lower than the message anonymity metric would predict. The gap is worst when the number of active senders is small relative to the total anonymity set.</li>
+<li><strong>MOCHA proposes a multimixing strategy</strong> to address this: mixing varied traffic types with different mixing characteristics together, so that a client's aggregate output pattern is not trivially distinguishable from the background.</li>
+<li><strong>For Nym and Katzenpost operators</strong>, this means Poisson rate μ, cover traffic ratio, and layer count tuning must jointly optimize for <em>both</em> message and client anonymity. Using message-anonymity simulators alone to set parameters is insufficient and potentially dangerous.</li>
+<li><strong>The implication for parameter design</strong>: Nym's empirical simulator work (see their <a href="https://nym.com/blog/empirical-study-of-privacy" rel="noopener nofollow">empirical privacy study</a>) specifically measures end-to-end entropy and sender-receiver unlinkability — metrics closer to client anonymity than message anonymity alone. MOCHA validates that this approach is correct.</li>
+</ul>
+<p>MOCHA is the reason the <a href="/kb/mix-networks-tracker/">Mix Networks 2026 Research and Deployment Tracker</a> flags parameter tuning as a live research question for production mixnets.</p>
+<p><strong>Primary source</strong>: ePrint 2025/861, "MOCHA: Mixnet Optimization Considering Honest Client Anonymity," IH&amp;MMSEC 2025. <a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">eprint.iacr.org/2025/861</a></p>
+<h2 id="what-loopix-does-not-solve">What Loopix does <em>not</em> solve</h2>
+<ul>
+<li>Endpoint compromise. Out of scope for any anonymous communication system.</li>
+<li>Application-layer fingerprinting. The mixnet anonymizes packets; an app that includes user identifiers in payloads is on its own.</li>
+<li>Long-term intersection attacks. If a sender uses the system from the same identity over months, statistical intersection of who-was-online-when can still narrow the set. Loopix mitigates but does not eliminate this; the cover traffic and continuous nature help substantially.</li>
+<li>Scaling to billions of users. The provable bounds depend on the active sender set; very small populations weaken anonymity regardless of design.</li>
+<li>Latency-sensitive interactive use. Voice, video, or real-time gaming are out of reach.</li>
+</ul>
+<h2 id="influence-and-descendants">Influence and descendants</h2>
+<p>Loopix has not been deployed as a standalone production system. Its design lives on through:</p>
+<ul>
+<li><a href="/kb/nym/">Nym</a> — productized Loopix with stake-weighted node selection and the NYM token. Mainnet since 2022.</li>
+<li><a href="/kb/katzenpost/">Katzenpost</a> — Loopix-derived federation with post-quantum Sphinx and the Catshadow messenger.</li>
+<li><a href="/kb/hopr/">HOPR</a> — Sphinx + cover traffic with a different incentive layer.</li>
+<li>Research follow-ups: HOPR Project's research output, the Mixim simulator for mixnet topology research, and post-Loopix designs like <em>SoK: Anonymous Communication</em> (Shirazi et al., 2018) and Vuvuzela's evolution.</li>
+</ul>
+<p>The paper's lineage is Chaum 1981 → Mixmaster 1995 → Mixminion 2003 → Loopix 2017 → Nym/Katzenpost 2018-2026. The 2017 contribution was making the entire pipeline tractable enough for engineers to build on.</p>
+<h2 id="threat-model">Threat model</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Adversary</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local / ISP observer</td>
+<td>Defeated. Constant-rate Sphinx traffic</td>
+</tr>
+<tr>
+<td>Compromised mix subset</td>
+<td>Defeated up to threshold; bounds degrade gracefully</td>
+</tr>
+<tr>
+<td>Global passive observer</td>
+<td>Defeated under stated parameters. The headline claim</td>
+</tr>
+<tr>
+<td>Global active adversary</td>
+<td>Partial. Replay protection plus integrity; some attacks remain open research</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Out of scope</td>
+</tr>
+<tr>
+<td>Long-term statistical adversary</td>
+<td>Mitigated by cover traffic; not eliminated</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Provable anonymity bounds against a global passive adversary, with explicit parameter dependencies.</li>
+<li>Reasonable latency (seconds, not hours).</li>
+<li>Bandwidth-efficient relative to predecessor designs.</li>
+<li>Modular: the topology, delay distribution, and cover-traffic rates are independent design parameters.</li>
+<li>Specified clearly enough to admit multiple production implementations.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>The Loopix system itself is a research artifact; production users go to Nym or Katzenpost.</li>
+<li>Anonymity depends on cover-traffic discipline (clients must send dummies). A client that fails to do so degrades not only its own anonymity but the network's.</li>
+<li>Provider nodes are trusted to deliver messages and store offline mail. Provider compromise is a meaningful attack surface.</li>
+<li>The Poisson-mixing parameter μ is a privacy/latency knob; tuning it for a deployed network is nontrivial and traffic-dependent.</li>
+</ul>
+<h2 id="comparison-with-other-mix-designs">Comparison with other mix designs</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Mixmaster</th>
+<th>Mixminion</th>
+<th>Loopix</th>
+<th>Nym (production Loopix)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latency</td>
+<td>Minutes-hours</td>
+<td>Minutes</td>
+<td>Seconds</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>Mixing</td>
+<td>Batch (pool)</td>
+<td>Batch</td>
+<td>Continuous (Poisson)</td>
+<td>Continuous (Poisson)</td>
+</tr>
+<tr>
+<td>Cover traffic</td>
+<td>Heavy dummies</td>
+<td>Heavy dummies</td>
+<td>Per-client + per-mix loops</td>
+<td>Per-client + per-mix loops</td>
+</tr>
+<tr>
+<td>GPA defense</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes (with provable bound)</td>
+<td>Yes (under assumptions)</td>
+</tr>
+<tr>
+<td>Reply mechanism</td>
+<td>Type-II reply blocks</td>
+<td>SURBs</td>
+<td>SURBs</td>
+<td>SURBs</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Dead (~2015)</td>
+<td>Dead</td>
+<td>Research only</td>
+<td>Production</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">MOCHA: ePrint 2025/861</a></p>
+</li>
+<li>
+<p>Piotrowska, A., Hayes, J., Elahi, T., Meiser, S., Danezis, G. <em>The Loopix Anonymity System</em>. USENIX Security 2017. <a href="https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska" rel="noopener nofollow">usenix.org/conference/usenixsecurity17/technical-sessions/presentation/piotrowska</a></p>
+</li>
+<li>Danezis, G., Goldberg, I. <em>Sphinx: A Compact and Provably Secure Mix Format</em>. IEEE S&amp;P 2009.</li>
+<li>Kesdogan, D., Egner, J., Büschkes, R. <em>Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System</em>. Information Hiding 1998 (Poisson-mix precursor).</li>
+<li>Das, D., Meiser, S., Mohammadi, E., Kate, A. <em>Anonymity Trilemma: Strong Anonymity, Low Bandwidth Overhead, Low Latency — Choose Two</em>. IEEE S&amp;P 2018.</li>
+<li>Shirazi, F., Simeonovski, M., Asghar, M.R., Backes, M., Diaz, C. <em>A Survey on Routing in Anonymous Communication Protocols</em>. ACM Computing Surveys, 2018.</li>
+<li>ePrint 2025/861, <em>MOCHA: Mixnet Optimization Considering Honest Client Anonymity</em>, IH&amp;MMSEC 2025. <a href="https://eprint.iacr.org/2025/861" rel="noopener nofollow">eprint.iacr.org/2025/861</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/mixminion-and-mixmaster/">
+  <span class="nm">Mixminion and Mixmaster</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-historical" title="Historical: discontinued or superseded; kept for the lessons.">Historical</span>
+</a><a class="row" href="/kb/sphinx-packet-format/">
+  <span class="nm">Sphinx Packet Format</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/mix-networks-tracker/">
+  <span class="nm">Mix Networks Research and Deployment Tracker</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/nym/">
+  <span class="nm">Nym Mixnet</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/katzenpost/">
+  <span class="nm">Katzenpost</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/hopr/">
+  <span class="nm">HOPR</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/cover-traffic/">
+  <span class="nm">Cover Traffic and Constant-Rate Padding</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/hornet/">
+  <span class="nm">HORNET</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+</a><a class="row" href="/kb/mix-networks/">
+  <span class="nm">Mix Networks</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Loopix" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-research bdg-lg" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+        <span class="m m-research" role="img" aria-label="Readiness: Research" title="Research: papers and prototypes; not something to rely on yet."><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <p>Research: papers and prototypes; not something to rely on yet.</p>
+      </div>
+      
+      <p class="def">The 2017 academic design that revived high-latency mix networks. Continuous-time Poisson mixing plus three classes of cover traffic gave the first deployable mixnet with provable bounds against a global passive adversary. Loopix itself never shipped as a production system — its descendants did.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Anonymity Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>3</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

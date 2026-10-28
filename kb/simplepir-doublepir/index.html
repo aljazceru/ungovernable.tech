@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SimplePIR and DoublePIR — ungovernable.tech</title>
+<meta name="description" content="SimplePIR and DoublePIR, single-server private information retrieval schemes that run close to memory bandwidth: how they work and their costs.">
+<link rel="canonical" href="https://ungovernable.tech/kb/simplepir-doublepir/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="SimplePIR and DoublePIR — ungovernable.tech">
+<meta property="og:description" content="SimplePIR and DoublePIR, single-server private information retrieval schemes that run close to memory bandwidth: how they work and their costs.">
+<meta property="og:url" content="https://ungovernable.tech/kb/simplepir-doublepir/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SimplePIR and DoublePIR — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SimplePIR and DoublePIR — ungovernable.tech">
+<meta name="twitter:description" content="SimplePIR and DoublePIR, single-server private information retrieval schemes that run close to memory bandwidth: how they work and their costs.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-cryptography.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SimplePIR and DoublePIR", "description": "SimplePIR and DoublePIR, single-server private information retrieval schemes that run close to memory bandwidth: how they work and their costs.", "dateModified": "2026-10-25", "datePublished": "2026-08-05", "url": "https://ungovernable.tech/kb/simplepir-doublepir/", "mainEntityOfPage": "https://ungovernable.tech/kb/simplepir-doublepir/", "image": "https://ungovernable.tech/assets/og/pillar-cryptography.png", "about": [{"@type": "Thing", "name": "Privacy-Enhancing Cryptography"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Privacy-Enhancing Cryptography", "item": "https://ungovernable.tech/pillars/cryptography/"}, {"@type": "ListItem", "position": 3, "name": "SimplePIR and DoublePIR", "item": "https://ungovernable.tech/kb/simplepir-doublepir/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/cryptography/">Privacy-Enhancing Cryptography</a><span aria-hidden="true">/</span><span class="here">SimplePIR and DoublePIR</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ PRIVACY-ENHANCING CRYPTOGRAPHY ]</span></p>
+  <h1>SimplePIR and DoublePIR</h1>
+  <p class="aka">Also SimplePIR, DoublePIR.</p>
+  <p class="dek">The breakthrough single-server PIR schemes (USENIX Security 2023) that brought server throughput to near-memory-bandwidth limits, establishing the performance baseline that all subsequent PIR research measures against.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-research" title="Research: papers and prototypes; not something to rely on yet.">Research</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#core-idea">Core Idea</a><a href="#how-it-works">How It Works</a><a href="#extensions">Extensions</a><a href="#the-simplepir-family">The SimplePIR Family</a><a href="#performance-context">Performance Context</a><a href="#code-and-reproduction">Code and Reproduction</a><a href="#limitations-and-open-problems">Limitations and Open Problems</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p><strong>Paper</strong>: "One Server for the Price of Two: Simple and Fast Single-Server Private Information Retrieval" — Alexandra Henzinger, Jason Hennessey, Matthew Hong, Yuval Ishai, Eyal Kushilevitz, Robin Li, Ananth Raghunathan, Vinod Vaikuntanathan, Tudor Dimitriou (MIT, Technion, Boston University). USENIX Security 2023.</p>
+<p><strong>ePrint</strong>: <a href="https://eprint.iacr.org/2022/949" rel="noopener nofollow">https://eprint.iacr.org/2022/949</a>
+<strong>Repo</strong>: <a href="https://github.com/ahenzinger/simplepir" rel="noopener nofollow">https://github.com/ahenzinger/simplepir</a> (100 stars, MIT license, Go)
+<strong>Slides</strong>: <a href="https://people.eecs.berkeley.edu/~henrycg/files/academic/pres/simplepir-slides.pdf" rel="noopener nofollow">https://people.eecs.berkeley.edu/~henrycg/files/academic/pres/simplepir-slides.pdf</a></p>
+<h2 id="core-idea">Core Idea</h2>
+<p>SimplePIR and DoublePIR are single-server PIR schemes built on the Learning With Errors (LWE) assumption. They demonstrate that a single server can achieve the throughput of a two-server scheme — hence "one server for the price of two."</p>
+<p>The key insight is that the "square-root" communication PIR scheme of Kushilevitz and Ostrovsky (1997) can be instantiated with Regev encryption (LWE-based), and <strong>99.9% of the server's work</strong> can be moved into a one-time preprocessing phase that produces a database-dependent "hint." The online phase then reduces to a matrix-vector product that runs at memory-bandwidth speed.</p>
+<h3 id="simplepir-high-throughput">SimplePIR: High Throughput</h3>
+<p>On a database of N bytes:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client hint (one-time download)</td>
+<td>4096 · √N bytes</td>
+</tr>
+<tr>
+<td>Per-query communication</td>
+<td>8 · √N bytes</td>
+</tr>
+<tr>
+<td>Server work per query</td>
+<td>2N 32-bit operations</td>
+</tr>
+<tr>
+<td>Server throughput</td>
+<td>~10 GB/s/core</td>
+</tr>
+<tr>
+<td>Security assumption</td>
+<td>LWE</td>
+</tr>
+<tr>
+<td>Max DB tested</td>
+<td>1 GB (extends further)</td>
+</tr>
+</tbody>
+</table></div>
+<p>SimplePIR's hint is proportional to the database size (4096 · √N). For a 1 GB database, the hint is ~128 MB. This is the scheme's main drawback — the client must download and store a large hint.</p>
+<h3 id="doublepir-less-communication">DoublePIR: Less Communication</h3>
+<p>DoublePIR adds a second dimension of processing to shrink the hint to a fixed ~16 MB regardless of database size (for 1-byte records). This comes at a modest throughput cost (7.4 GB/s/core vs SimplePIR's 10 GB/s/core).</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>SimplePIR</th>
+<th>DoublePIR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Throughput</td>
+<td>10 GB/s/core</td>
+<td>7.4 GB/s/core</td>
+</tr>
+<tr>
+<td>Hint size</td>
+<td>~4√N KB (large)</td>
+<td>~16 MB (fixed)</td>
+</tr>
+<tr>
+<td>Query communication</td>
+<td>8√N bytes</td>
+<td>~8√N bytes (slightly larger)</td>
+</tr>
+<tr>
+<td>Matrix dimensions</td>
+<td>√N × √N</td>
+<td>Two-level: √(√N) × √(√N) per level</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Max throughput, small DBs</td>
+<td>Large DBs where hint size matters</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-it-works">How It Works</h2>
+<h3 id="setup-preprocessing">Setup (Preprocessing)</h3>
+<ol>
+<li>The database D is reshaped into a √N × √N matrix over ℤ_q (integers modulo q).</li>
+<li>A random public matrix A ∈ ℤ_q^{√N × √N} is generated.</li>
+<li>The hint H = A · D (mod q) is computed. This is the expensive one-time step.</li>
+<li>The client downloads H and stores it locally.</li>
+</ol>
+<h3 id="online-query">Online Query</h3>
+<ol>
+<li>The client wants record at index i, corresponding to column c of D.</li>
+<li>The client encrypts the query: it generates a Regev ciphertext e = A^T · s + μ · e_c + noise, where s is a secret key, e_c is a column selector vector, μ is a scaling factor, and noise ensures LWE security.</li>
+<li>The server computes the answer: ans = e^T · D (mod q). Due to the structure, ans = s^T · (A · D) + μ · D[c] + noise = s^T · H + μ · D[c] + noise.</li>
+<li>The client subtracts s^T · H (using its stored hint) to recover D[c].</li>
+</ol>
+<p>The server's online computation is just a matrix-vector multiplication: O(√N · √N) = O(N) operations. Since this is memory-bandwidth-bound (streaming D once), throughput approaches the machine's memory bandwidth limit.</p>
+<h3 id="doublepirs-two-level-optimization">DoublePIR's Two-Level Optimization</h3>
+<p>DoublePIR processes the query in two stages:
+1. <strong>First level</strong>: Reduce from N items to √N candidates.
+2. <strong>Second level</strong>: Reduce from √N candidates to 1 item.</p>
+<p>This "square-root of square-root" approach means the hint only needs to cover the second level's matrix, dramatically reducing its size. The first level is computed without a hint because it reduces to a manageable intermediate result.</p>
+<h2 id="extensions">Extensions</h2>
+<h3 id="long-records">Long Records</h3>
+<p>The SimplePIR/DoublePIR paper uses LWE dimension <strong>n = 1024</strong>. This is the lattice security parameter, distinct from database dimensions or record size.</p>
+<h3 id="batch-queries">Batch Queries</h3>
+<p>Both schemes support batch queries — retrieving multiple records simultaneously. Batching amortizes the query setup cost and improves overall throughput. For SimplePIR, batching has minimal effect on throughput (it's already memory-bandwidth-limited). For DoublePIR, batching significantly improves throughput because the first-level computation dominates and can be shared across queries.</p>
+<h2 id="the-simplepir-family">The SimplePIR Family</h2>
+<p>SimplePIR became the foundational scheme that subsequent research extends. The "SimplePIR family" now includes:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Innovation</th>
+<th>Year</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SimplePIR</td>
+<td>Baseline: 10 GB/s/core, LWE-based</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>DoublePIR</td>
+<td>Fixed ~16 MB hint via two-level processing</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>YPIR</td>
+<td>Silent preprocessing (no hint download)</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>VeriSimplePIR</td>
+<td>Verifiability at no online cost</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>ThorPIR</td>
+<td>Sublinear server time via Thorp shuffles</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>iSimplePIR</td>
+<td>Incremental entry-level updates</td>
+<td>2026</td>
+</tr>
+<tr>
+<td>RotPIR</td>
+<td>1000× faster preprocessing via homomorphic rotation</td>
+<td>2026</td>
+</tr>
+<tr>
+<td>ZipPIR</td>
+<td>No client storage, no per-client server state</td>
+<td>2026</td>
+</tr>
+<tr>
+<td>FlashPIR</td>
+<td>Low-latency, 2.6× over WhisPIR</td>
+<td>2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>The iSimplePIR paper (ePrint 2026/030) explicitly constructs entry-level and row-level incremental variants based on SimplePIR, with communication optimization for different update cycles.</p>
+<h2 id="performance-context">Performance Context</h2>
+<p>From the UT Austin PIR tutorial (Wu, June 2024), SimplePIR/DoublePIR sit at the top of the throughput evolution curve:</p>
+<pre><code>Server throughput (GB/s/core) over time:
+
+1999 (KO97): ~0.001
+2016 (XPIR):  ~0.01
+2018 (SealPIR): ~0.1
+2021 (FastPIR): ~1
+2022 (Spiral):  ~5
+2023 (SimplePIR): ~10  ← near memory bandwidth
+2024 (YPIR):    ~12   ← 83% of memory bandwidth
+</code></pre>
+<p>The key takeaway: lattice-based cryptography (specifically LWE) provided the tool that made practical PIR possible. SimplePIR demonstrated that the theoretical "square-root" PIR communication bound is achievable at near-hardware-speed throughput.</p>
+<h2 id="code-and-reproduction">Code and Reproduction</h2>
+<p>The reference implementation is in Go (~1,400 LOC):</p>
+<pre><code class="language-bash"># Clone and test
+git clone https://github.com/ahenzinger/simplepir.git
+cd simplepir
+go test  # ~2.5 minutes for correctness tests
+
+# Benchmark on 1 GB database
+go run main.go -LOG_N=33 -D=1  # ~10 minutes
+</code></pre>
+<p>Key files:
+- <code>pir/pir.go</code>: Core SimplePIR and DoublePIR implementations
+- <code>pir/client.go</code>: Client-side operations
+- <code>pir/server.go</code>: Server-side operations
+- <code>eval/</code>: Benchmark and plotting scripts</p>
+<p>To call from Go code:</p>
+<pre><code class="language-go">import "github.com/ahenzinger/simplepir/pir"
+// See RunPIR and RunPIRCompressed in pir/pir.go
+</code></pre>
+<h2 id="limitations-and-open-problems">Limitations and Open Problems</h2>
+<ol>
+<li>
+<p><strong>Hint size</strong>: SimplePIR's hint (~4√N KB) is impractical for very large databases. DoublePIR mitigates this but doesn't eliminate it. YPIR and WhisPIR address this directly.</p>
+</li>
+<li>
+<p><strong>Static database assumption</strong>: The original schemes assume the database never changes. If D changes, the hint H must be recomputed. iSimplePIR (2026) addresses this with incremental preprocessing.</p>
+</li>
+<li>
+<p><strong>Semi-honest security</strong>: The server is assumed to follow the protocol honestly. VeriSimplePIR adds malicious-server detection.</p>
+</li>
+<li>
+<p><strong>Index-only</strong>: The schemes retrieve by index, not by keyword. KPIR (2025) bridges this gap.</p>
+</li>
+<li>
+<p><strong>Single dimension</strong>: SimplePIR uses a 2D matrix layout. Multi-dimensional approaches (TensorPIR, DoublePIR's two-level scheme) explore different dimensionality trade-offs.</p>
+</li>
+</ol>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://www.usenix.org/system/files/usenixsecurity23-henzinger.pdf" rel="noopener nofollow">Henzinger et al.: One Server for the Price of Two, USENIX Security 2023</a></li>
+</ul>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/pir-implementations/">
+  <span class="nm">PIR Implementations and Libraries</span>
+  <span class="ty">Reference</span>
+  
+</a><a class="row" href="/kb/private-information-retrieval/">
+  <span class="nm">Private Information Retrieval</span>
+  <span class="ty">Explainer</span>
+  
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=SimplePIR%20and%20DoublePIR" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-research bdg-lg" title="Research: papers and prototypes; not something to rely on yet.">Research</span>
+        <span class="m m-research" role="img" aria-label="Readiness: Research" title="Research: papers and prototypes; not something to rely on yet."><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <p>Research: papers and prototypes; not something to rely on yet.</p>
+      </div>
+      
+      <p class="def">The breakthrough single-server PIR schemes (USENIX Security 2023) that brought server throughput to near-memory-bandwidth limits, establishing the performance baseline that all subsequent PIR research measures against.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Privacy-Enhancing Cryptography</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Identity and Pseudonymity Sunday — August 16 2026 Weekly Update — ungovernable.tech</title>
+<meta name="description" content="Weekly briefing for the week of 2026-08-16: nostr-wot-extension v0.4.0: post-quantum identity keys in production (Aug ~11): Accounts created from a 24-word.">
+<link rel="canonical" href="https://ungovernable.tech/briefings/identity/2026-08-16/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Identity and Pseudonymity Sunday — August 16 2026 Weekly Update — ungovernable.tech">
+<meta property="og:description" content="Weekly briefing for the week of 2026-08-16: nostr-wot-extension v0.4.0: post-quantum identity keys in production (Aug ~11): Accounts created from a 24-word.">
+<meta property="og:url" content="https://ungovernable.tech/briefings/identity/2026-08-16/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Identity and Pseudonymity Sunday — August 16 2026 Weekly Update — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Identity and Pseudonymity Sunday — August 16 2026 Weekly Update — ungovernable.tech">
+<meta name="twitter:description" content="Weekly briefing for the week of 2026-08-16: nostr-wot-extension v0.4.0: post-quantum identity keys in production (Aug ~11): Accounts created from a 24-word.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/default.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Identity and Pseudonymity Sunday — August 16 2026 Weekly Update", "description": "Weekly briefing for the week of 2026-08-16: nostr-wot-extension v0.4.0: post-quantum identity keys in production (Aug ~11): Accounts created from a 24-word.", "datePublished": "2026-08-16", "dateModified": "2026-08-16", "url": "https://ungovernable.tech/briefings/identity/2026-08-16/", "mainEntityOfPage": "https://ungovernable.tech/briefings/identity/2026-08-16/", "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Briefings", "item": "https://ungovernable.tech/briefings/"}, {"@type": "ListItem", "position": 3, "name": "Identity and Pseudonymity Sunday", "item": "https://ungovernable.tech/briefings/identity/"}, {"@type": "ListItem", "position": 4, "name": "2026-08-16", "item": "https://ungovernable.tech/briefings/identity/2026-08-16/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/" aria-current="page">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/briefings/">Briefings</a><span aria-hidden="true">/</span><a href="/briefings/identity/">Identity and Pseudonymity Sunday</a><span aria-hidden="true">/</span><span class="here">2026-08-16</span></nav>
+<header class="page-head tex">
+  <p class="kicker">Briefing · Identity and Pseudonymity Sunday</p>
+  <h1>Identity and Pseudonymity Sunday — August 16 2026 Weekly Update</h1>
+  <p class="dek"></p>
+  <div class="meta">
+    <span>published <b>2026-08-16</b></span>
+    <span><b>32</b> min read</span>
+    <span><a href="/pillars/identity/">Identity, Social and Trust</a></span>
+  </div>
+</header>
+<aside class="dated" role="note">
+  <p class="d-line">DATED BRIEFING // 2026-08-16 // may be outdated</p>
+  <p>This page reflects what was known on 2026-08-16. It is kept as a record, not maintained as a reference; current knowledge lives in the pillar entries.</p>
+</aside>
+<div class="mono-grid no-toc">
+  <article class="prose">
+    <p><em>The weekly companion to <a href="/kb/identity-and-pseudonymity/">Overview - Identity &amp; Pseudonymity</a>, covering August 9–16, 2026 (since the <a href="/briefings/identity/2026-08-09/">August 09 weekly update</a>). Two stories dominate. First: <strong>post-quantum identity keys have arrived in production Nostr</strong> — nostr-wot-extension v0.4.0 derives ML-KEM-1024 + ML-DSA-87 keys beside the existing secp256k1 identity from a 24-word seed, publishes a kind 10203 attestation binding all three public keys, and ships opt-in post-quantum direct messages — and the same week NIPs PR #2434 opened to standardize exactly this pattern. The identity layer is now ahead of the transport layer on PQ migration (see <a href="/briefings/post-quantum/2026-08-15/">yesterday's PQC weekly</a> for the TLS side). Second: <strong>identity authority is being formalized everywhere at once</strong> — World ID 4.0 (documented in depth below; this library tracked it only through 3.0) rebuilds proof-of-personhood as abstract on-chain accounts with OPRF-computed one-time nullifiers; the Linux Foundation's Decentralized Trust Graph stack shipped as code (OpenVTC + personhood credentials) with the Linux kernel project as first target; Concord merged CORD-02 control-plane write restrictions; and the Nostr NIP-09/NIP-56 pair codifies who actually holds deletion and reporting authority. Below: the detail, the architecture, and the ungovernable-tech takeaway.</em></p>
+<h2 id="tldr-this-week">TL;DR — This Week</h2>
+<ul>
+<li><strong>nostr-wot-extension v0.4.0: post-quantum identity keys in production (Aug ~11)</strong>: Accounts created from a 24-word seed can now derive <strong>ML-KEM-1024 encryption + ML-DSA-87 signing keys alongside the Nostr secp256k1 key</strong>. A one-click flow publishes a <strong>kind 10203 attestation</strong> binding the Nostr pubkey to both PQ public keys with an ML-DSA proof of possession. Opt-in PQ direct messages combine the ML-KEM shared secret with the NIP-44 conversation key through HKDF, keeping NIP-59 gift-wrap metadata protection. No silent fallback to classical after opt-in. The release explicitly scopes the claim: this protects message confidentiality against later recovery of a present-day Nostr private key — it does <strong>not</strong> replace secp256k1 event signatures (that migration is left for future relay/client coordination). Covered from the WoT angle in <a href="/briefings/web-of-trust/2026-08-13/">Web of Trust Thursday — August 13 2026 Weekly Update</a>; this update covers the identity-architecture angle.</li>
+<li><strong>NIPs PR #2434: post-quantum identity keys proposed as a NIP (this week)</strong>: formalizes the exact nostr-wot-extension pattern — PQ encryption + signing keys derived beside secp256k1 from the NIP-06 mnemonic, bound via kind 10203 attestation, draft explicitly limited to confidentiality-of-earlier-messages claims. The first PQ identity proposal to reach the nips repo.</li>
+<li><strong>NIPs PR #2431: NIP-07 account pinning</strong>: clients would attach the expected pubkey to signer/encryption requests; the signer must use that account or reject. Kills the silent-account-switch class of identity confusion in browser signing.</li>
+<li><strong>NIPs PR #2378 (agent passports) closed without merge</strong>: the agent passport / discovery / marketplace event vocabulary stays out of the NIP set. Combined with the NIP-90 deprecation (Aug 9 update), the message is consistent: <strong>agent identity rides the core NIPs; agent commerce specs keep getting rejected</strong>.</li>
+<li><strong>World ID 4.0 documented in depth (vault catch-up)</strong>: World's "Lift Off" upgrade rebuilds World ID as an <strong>abstract account in an on-chain WorldIDRegistry</strong> — multiple Authenticators, key rotation, delegated Recovery Agents (Orb biometric at launch), credential expiry — while strengthening anonymity: nullifiers are now computed by a <strong>distributed vOPRF network (TACEO:OPRF)</strong> with blinded queries and enforced <strong>one-time use via an Oblivious Nullifier Pool</strong>, plus a new Sessions construct for explicitly pseudonymous re-identification. ~18M verified humans, 160 countries, 450M+ World ID uses; Vercel human-in-the-loop workflow SDK live; AgentKit for verified AI agents; dedicated World ID app in public beta. Specs open on GitHub with an RFC process. The PoP deep dive is updated: <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>.</li>
+<li><strong>LF Decentralized Trust ships the Decentralized Trust Graph as code</strong>: at the 2026 LF Member Summit, three <strong>LFDT Labs</strong> (Rust implementations by Affinidi's Glenn Gore and Geoff Turk) were contributed: the <strong>OpenVTC</strong> stack plus personhood-credential components. The DTG model (DID nodes, verifiable relationship credentials, verifiable trust agents, four node types incl. verifiable trust communities and networks) is the formal-stack answer to scaling the PGP web of trust — and its <strong>first deployment target is the Linux kernel project</strong>, aiming for maintainer review at the Kernel Maintainer Summit October 8 (Prague). The H2H Summit on Human Agency ran the model live: 200 attendees, 650+ human-human connections, 250+ human-agent connections, 30,000+ encrypted messages in one day.</li>
+<li><strong>Concord control plane hardens (CORD-02 merged Aug 6; PRs #16/#17/#18 open)</strong>: community writes restricted to holders of a <code>control_root</code> signing secret (owners/staff) while all members keep derived read/verify keys; open proposals add sharded community lists (kind 33302, removing the 50-member cap), private mention locators, and a pause signal. <strong>Amethyst PR #3888</strong> completes the invite lifecycle: invites survive community refounding, CORD-05 encrypted invite lists, per-link revocation tombstones, ban checks on recovery paths, and full refound/rekey/stranded-member recovery in the <code>amy</code> CLI.</li>
+<li><strong>Amber v6.4.0 (Aug 7)</strong>: last week's watch item resolved — the multi-request screen now has explicit per-request and per-group Approve/Deny controls, denied bunker requests return proper error responses (rejection is now distinguishable from a stalled signer), and 113 more event kinds get localized human-readable labels. The signer UX is now fully decision-explicit.</li>
+<li><strong>Buzz ecosystem accelerates</strong>: seven Buzz Desktop releases in the window (0.5.5 → 0.5.11, Aug 5–12): NIP-AM agent usage tracking, unified agent-creation flows, huddle transcription for agents, channel snapshots and agent-recovery limits, durable community deletion, multi-repo projects. Desktop PRs #3653/#3767 sync each community's theme as an <strong>encrypted NIP-78 record on the community relay</strong> across desktop and mobile. Hosted beta live at buzz.xyz; still no paid plans.</li>
+<li><strong>Mostro hardens identity-adjacent p2p trade</strong>: 0.18.1/0.18.2 update the Nostr dependency for the <strong>NIP-44 DoS fix (RUSTSEC-2026-0216)</strong>, remove private keys from restore-session logs, advertise proof-of-work requirements for first contact, and lay the <strong>Cashu escrow</strong> foundation. Mostro Core 0.14.2 replaces gift-wrapped chat with <strong>kind 14 envelopes using separate conversation-encryption and signing keys derived from the peers' shared secret</strong> — splitting the identity-binding key from the content-encryption key.</li>
+<li><strong>nostr-double-ratchet TS 0.0.166</strong>: invite responses must now prove ownership of their session key — preventing a reusable public invite from binding one Nostr identity to another party's session. A small fix that closes a real identity-binding hole in NIPs PR #1813's draft protocol.</li>
+<li><strong>New agent-identity primitives</strong>: <strong>Bray 2.4.0</strong> (MCP server giving agents and people relay access, identity, publishing, and remote signing — plus a <code>sign_event_compact</code> dialect for constrained signers); <strong>Pact</strong> (signed, mutually-consented agent bonds on a draft NIP-BD transport, private bonds via NIP-59, held by the agents' own keys); <strong>nostr-mill 1.6.0</strong> (per-event signer consent and cross-client key recovery in the browser); MDK 0.9.11 zeroizes imported keys and NIP-49 export intermediates.</li>
+<li><strong>EUDI Wallet countdown: ~4 months to the December 2026 deadline</strong>: all 27 EU member states must provide a certified wallet by end-2026 (Regulation 2024/1183 Art. 5a(1)); relying parties must accept it by end-2027. The July 2026 rollout tracker shows Denmark ahead (national AltID use already live) and Ireland in public pilot — but most states still lack a public relying-party sandbox. The formal stack's biggest forced deployment is behind schedule in testability, on schedule in law.</li>
+<li><strong>Polkadot PoP mainnet target is this quarter</strong>: the published roadmap (People Registry Q3 2025 → Kusama testnet Q4 2025 → DIM1 Q1 2026 → DIM2 Q2 2026) ends with <strong>full PoP deployment on Polkadot in Q3 2026</strong> — watch for it landing within weeks.</li>
+<li><strong>CRYPTO 2026 starts tomorrow (Aug 17–20, Santa Barbara)</strong>: 189/781 papers accepted. Watch for identity-relevant results: anonymous credentials, threshold signatures, OPRF/vOPRF security, and the Simon dihedral-coset claim verdict (see <a href="/briefings/post-quantum/2026-08-15/">Post-Quantum Saturday — August 15 2026 Weekly Update</a>).</li>
+</ul>
+<p>The freedom-tech takeaway: <strong>the identity layer just became the first layer of the Nostr stack to ship production post-quantum cryptography</strong> — not signatures yet, but confidentiality, which is the part with a harvest-now-decrypt-later threat. And on the formal side, both World ID 4.0 and the LFDT trust graph are converging on the same architectural insight the cypherpunk stack had first: <strong>identity is a graph of signed attestations rooted in keys you control — the question is only who holds the keys and who can revoke</strong>.</p>
+<h2 id="the-week-in-detail">The Week in Detail</h2>
+<h3 id="nostr-wot-extension-040-nips-pr-2434-post-quantum-identity-keys-reach-production">nostr-wot-extension 0.4.0 + NIPs PR #2434: post-quantum identity keys reach production</h3>
+<p>The single most important identity development this week is the production arrival of <strong>hybrid post-quantum identity keys</strong> in a shipping Nostr product, paired with a NIP proposal to standardize the pattern.</p>
+<p><strong>What shipped</strong> (<a href="https://github.com/nostr-wot/nostr-wot-extension/releases/tag/v0.4.0" rel="noopener nofollow">nostr-wot-extension v0.4.0</a>):</p>
+<ol>
+<li><strong>PQ key derivation beside the identity key.</strong> Accounts created from a 24-word seed can derive an ML-KEM-1024 encryption keypair and an ML-DSA-87 signing keypair as siblings of the existing Nostr secp256k1 key. The seed is the single recovery root; all three trees hang from it.</li>
+<li><strong>Kind 10203 attestation.</strong> A one-click flow publishes an event binding the Nostr pubkey to both PQ public keys, including an ML-DSA proof of possession — the signature proves the publisher controls the PQ signing key, so the binding is not forgeable by a relay or attacker who controls neither key.</li>
+<li><strong>Opt-in PQ direct messages.</strong> The ML-KEM shared secret is combined with the existing NIP-44 v2 conversation key through HKDF, then the normal NIP-59 gift-wrap layers (metadata hiding, relay delivery) are retained. Encryption never silently falls back after a recipient opts in; decryption picks the right path automatically.</li>
+<li><strong>Honest scoping.</strong> Accounts imported from a 12-word mnemonic, bare nsec, remote signer, or read-only key cannot use the derivation flow (the entropy source differs), and the extension says so in the account view. The release notes state plainly that this protects the new message path against later recovery of a present-day Nostr private key — it does not replace secp256k1 event signatures, and that larger migration "is left for future coordination with relays and clients."</li>
+</ol>
+<p><strong>The standardization</strong> (<a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">NIPs PR #2434</a>, opened this week): formalizes the same construction — PQ encryption and signing keys derived beside secp256k1 from the NIP-06 mnemonic, bound by a kind 10203 attestation — with the draft's claim deliberately limited to protecting the confidentiality of earlier messages if secp256k1 is later broken.</p>
+<p><strong>Why this matters architecturally:</strong></p>
+<p>The Nostr identity model has a known long-term weakness shared by everything secp256k1-rooted: a sufficiently large quantum computer breaks ECDSA/Schnorr key recovery from signatures, and Nostr publishes signatures for every event — the largest public corpus of secp256k1 signatures in existence is precisely the attack surface. ML-KEM-encrypted messages closed the <em>confidentiality</em> half this week (messages can no longer be retroactively decrypted by a future quantum attacker). The <em>authentication</em> half — migrating event signatures themselves — remains open, because it requires coordinated relay/client cutover: every relay verifies signatures, so Nostr cannot soft-migrate signatures the way TLS hybridized key exchange.</p>
+<p>This maps exactly onto the migration sequencing documented in <a href="/guides/hybrid-kem-migration/">Hybrid KEM Migration</a> and <a href="/kb/bitcoin-post-quantum-migration/">Bitcoin PQ Migration</a>: confidentiality first (harvest-now-decrypt-later is the urgent threat), authentication later (the break must be real before signature migration is forced). The difference: Nostr got a production implementation <strong>before</strong> the standard merged, and the NIP proposal cites the implementation as prior art. That is the correct order for permissionless systems — ship, then standardize what shipped.</p>
+<p>For ungovernable system design: <strong>any Nostr-adjacent system holding long-lived encrypted correspondence should adopt the kind 10203 pattern now</strong>. The cost is ~3 KB extra per message (per the Aug 13 WoT measurements); the benefit is that today's DMs are not tomorrow's plaintext. Reference wire-format library: <a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow">@nostr-wot/pq v0.2.0 on npm</a>. Full WoT-track analysis (the extension removed its trust-graph layer in the same release) in <a href="/briefings/web-of-trust/2026-08-13/">Web of Trust Thursday — August 13 2026 Weekly Update</a> and <a href="/kb/nostr-web-of-trust/">Nostr Web of Trust</a>.</p>
+<h3 id="nip-07-account-pinning-pr-2431-and-the-authority-boundary-cleanups">NIP-07 account pinning (PR #2431) and the authority-boundary cleanups</h3>
+<p>Two smaller NIP moves this week tighten identity authority at the browser boundary:</p>
+<p><strong>NIPs PR #2431 (NIP-07 amendment, open):</strong> a client could attach the public key it expects to signing or encryption requests, requiring the signer to use that account or reject the call. Today, if a user switches accounts inside their NIP-07 extension, a page already loaded under the old identity silently continues under the new one — approvals intended for npub A get applied to npub B. Pinning the expected pubkey closes the identity-confusion hole at the most common signing boundary in web Nostr. Pairs naturally with Amber's per-request approval semantics on mobile (see below).</p>
+<p><strong>NIPs PR #2433 (NIP-42 error semantics, closed without merge):</strong> proposed distinguishing <code>auth-required</code> (re-authentication could change the result) from <code>restricted</code> (it could not). Closed — the wording did not enter the spec. The underlying ambiguity (a connection authenticated for one key but missing authorization for another) remains implementation-defined. Worth watching; relay access control (NIP-42/43) is young enough that error semantics will return.</p>
+<p><strong>NIPs PR #2378 (agent passports, closed without merge):</strong> the proposed agent passport, discovery, task, marketplace, invoice, and connection events stay out of the NIP set. Read together with the NIP-90 deprecation, the nips repo's editorial line is now clear: <strong>the identity primitives for agents (keys, events, NIP-34 git, NIP-29 channels) are standardized; the commerce/discovery layers built on top keep being rejected</strong>. Agent identity is core infrastructure; agent marketplaces are application layer. Meanwhile <a href="/kb/buzz/">Buzz</a> and the Hermes connector in MDK 0.9.11 (which can deliver agent-generated image albums into Marmot groups) keep proving the core-primitives approach works in production.</p>
+<h3 id="world-id-40-account-abstraction-and-oprf-nullifiers-vault-deep-dive-catch-up">World ID 4.0: account abstraction and OPRF nullifiers (vault deep-dive catch-up)</h3>
+<p>The library's PoP tracker (<a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a>) previously covered World ID through 3.0. The 4.0 generation — announced at World's "Lift Off" event and specified in an open engineering RFC (<a href="https://world.org/blog/engineering/introducing-world-id-4.0" rel="noopener nofollow">Introducing World ID 4.0</a>) — is a ground-up architectural rethink that deserves full documentation. The updated deep-dive file carries the complete analysis; the essentials:</p>
+<p><strong>The core change: World ID becomes an abstract account.</strong> In ≤3.0, a World ID was a single long-lived secret commitment inside a Semaphore-style Merkle tree. In 4.0, a World ID is <strong>a record in an on-chain public registry (<code>WorldIDRegistry</code>)</strong> that authorizes multiple <strong>Authenticators</strong> (software or hardware agents controlling keypairs), supports key rotation, and can recover access through delegated <strong>Recovery Agents</strong> — at launch, Orb-based biometric verification. This is Ethereum-style account abstraction applied to proof-of-personhood, and it directly addresses the two biggest criticisms of biometric PoP: key compromise is now survivable (rotate), and identity loss is now recoverable (recovery agent) — without re-scanning an iris being the only path.</p>
+<p><strong>Nullifiers without a user secret: the vOPRF network.</strong> Old nullifiers were <code>H(rpId || action || identity_secret_key)</code> — deterministic per user+context because there was a single user secret. With no single secret, determinism must come from somewhere else. World's answer: a distributed network of <strong>OPRF Nodes</strong> running verifiable oblivious PRFs (built on <a href="https://core.taceo.io/articles/taceo-oprf/" rel="noopener nofollow">TACEO:OPRF</a>). A nullifier is <code>n = OPRF(k_rp, DS || leafIndex || rpId || action)</code>. The user queries each node with <strong>blinded inputs</strong> (query <code>Q = β·H(x)</code>, un-blind with β⁻¹), so no node learns which leaf index — i.e., which human — is proving. The entropy lives in the OPRF keys, not the user's device.</p>
+<p><strong>Enforced one-time-use nullifiers.</strong> Deterministic nullifiers were already unlinkable across contexts, but <em>reused</em> nullifiers become stable pseudonyms — an RP seeing the same nullifier twice can thread sessions against the user's will. 4.0 makes nullifiers truly one-time: Authenticators check an <strong>Oblivious Nullifier Pool</strong> (a metadata-free flat list, obliviously queryable) before presenting a proof, and reject reuse. This converts anonymity from a usage-discipline property into a protocol-enforced one.</p>
+<p><strong>Sessions — pseudonymity made explicit.</strong> For cases where an RP legitimately needs continuity (rate limits, progressive trust), 4.0 adds Session Proofs: proof that the same World ID continues, without revealing which. Authenticators must display session requests in a <strong>visually distinct manner</strong> from anonymous proofs — a rare example of a protocol mandating that the UX distinguish anonymous from pseudonymous. This is the correct pattern every credential system should copy: pseudonymity as an explicit, user-visible opt-in, never an accidental leak.</p>
+<p><strong>Decentralization posture.</strong> Three open registries: <code>WorldIDRegistry</code> (identities), <code>RPRegistry</code> (relying parties), <code>CredentialSchemaIssuerRegistry</code> (credential issuers). Specs and contracts are <a href="https://github.com/worldcoin/world-id-protocol/blob/main/docs/world-id-4-specs/README.md" rel="noopener nofollow">public on GitHub</a> with an RFC via GitHub discussions; a testnet was announced as imminent. Building-block status: deduplication ✅, recovery ✅, expiry ✅; authentication (4.1) and revocation still upcoming.</p>
+<p><strong>Scale and traction</strong> (from the Lift Off press cycle): ~18M verified humans, 160 countries, 450M+ cumulative World ID uses, 1,500+ Orbs in 23 countries; partners spanning Zoom, DocuSign, Tinder, Okta, Shopify; <strong>Vercel's Workflow SDK ships a live human-in-the-loop step</strong> (any agent workflow can require a World ID verification, npm-installable); <strong>AgentKit</strong> extends verified identity to AI agents (a verified agent is a distinguishable, accountable actor — the enterprise mirror of Nostr's agent-as-keypair). A dedicated World ID app is in public beta.</p>
+<p><strong>The ungovernable read.</strong> Two honest observations hold from the Aug 9 update: the credential network works at a scale nothing else matches, and the WLD token remains ~97% off peak (this week: a technical bounce off $0.30 support Aug 10, Eightco accumulation Aug 11, "altseason contender" chatter Aug 14 — noise, not signal). World ID 4.0 is nevertheless the most serious privacy-engineering effort in mainstream PoP: blinded OPRF entropy, enforced one-time nullifiers, explicit pseudonymity UX, and an open RFC. The OPRF-node design does concentrate the anonymity set's determinism in a federated service (TACEO) — decentralized in the multi-party sense, not the anyone-can-run-a-node sense. That trust assumption is the thing to watch as 4.0 moves to testnet.</p>
+<h3 id="the-linux-foundation-ships-the-decentralized-trust-graph-openvtc-and-personhood-credentials-as-code">The Linux Foundation ships the Decentralized Trust Graph: OpenVTC and personhood credentials as code</h3>
+<p>The formal-stack counterpart this week is <a href="https://www.lfdecentralizedtrust.org/blog/decentralized-trust-infrastructure-at-lf-a-progress-report" rel="noopener nofollow">LF Decentralized Trust's progress report</a>: the Decentralized Trust Graph (DTG) model from the Trust Over IP Foundation has moved from specification to <strong>code</strong>, and its first deployment target is the Linux kernel project.</p>
+<p><strong>The problem it solves.</strong> The kernel's PGP web of trust (two developer signatures to join, keys maintained in a git repo by hand — see Konstantin Ryabitsev's architecture) stopped two specific failures: the XZ-backdoor pattern of a fictitious maintainer slowly gaining trust. But it doesn't scale (manual key signing, one person maintaining the key repo) and it's public-by-default (key-signing relationships are exposed). The DTG replaces it with:</p>
+<ul>
+<li><strong>DID nodes instead of bare keys</strong> — keys and endpoints rotate for the lifetime of a relationship without changing the identifier</li>
+<li><strong>Verifiable Relationship Credentials (VRCs)</strong> — pairwise signed credentials exchanged between DIDs, optionally private</li>
+<li><strong>Verifiable Trust Agents (VTAs)</strong> — software (optionally AI) agents doing the credential exchange on behalf of principals over DIDComm or the ToIP Trust Spanning Protocol</li>
+<li><strong>Four node types</strong> instead of one: individuals, organizations, <strong>verifiable trust communities (VTCs)</strong> — which can issue verifiable membership credentials (VMCs) — and <strong>verifiable trust networks (VTNs)</strong>, federations of VTCs verified through the Trust Registry Query Protocol</li>
+<li><strong>Personhood credentials (PHCs)</strong> as the special case: VMCs that meet the one-per-unique-person issuer bar from the <a href="https://arxiv.org/abs/2408.07892" rel="noopener nofollow">Personhood Credentials paper</a>, verified with ZK proofs (the zkbricks line of work; the <a href="https://eprint.iacr.org/2026/333" rel="noopener nofollow">IACR 2026/333 framework</a> already in this library)</li>
+</ul>
+<p><strong>What shipped:</strong> at the 2026 LF Member Summit, LFDT announced three <strong>LFDT Labs</strong> — Rust reference implementations contributed by Affinidi (CEO Glenn Gore and DTGWG member Geoff Turk) — including <strong>OpenVTC</strong>, the standing-your-own-trust-community stack. The stated goal: kernel-project instance ready for maintainer review at the <strong>Linux Kernel Maintainer Summit, October 8, Prague</strong>.</p>
+<p><strong>Proof it runs:</strong> the day before the Member Summit, the H2H Summit on Human Agency put the model in production for 200 attendees: Affinidi's H2H Connect app formed 650+ human-human connections, 250+ human-to-agent connections (agents representing Google, FaceTec, LFDT, and the First Person Cooperative), and carried 30,000+ end-to-end encrypted messages in one day. The <strong>First Person Cooperative</strong> (formed October 2025) is building the First Person Network on this stack — a VTN whose purpose is universally interoperable PHCs.</p>
+<p><strong>Why this matters for ungovernable tech.</strong> This is the formal stack converging on the same shape as the cypherpunk stack: signed relationship graphs, root-of-trust in keys the principal controls, personhood as a credential not a database. The differences are real — DIDs/VRCs/DIDComm vs. raw keypairs/events/relays, governance frameworks vs. exit — but the kernel project adopting a privacy-preserving developer-identity graph is the largest mainstream deployment target any trust-graph architecture has landed. When the kernel instance is live, every LF project and thousands of downstream open-source communities are the expansion path. Track OpenVTC the way we track <a href="/kb/keri/">KERI</a> — as the formal-stack neighbor whose primitives (VRCs ≈ NIP-85 attestations, VTCs ≈ Concord communities with issuance, PHCs ≈ <a href="/kb/proof-of-personhood/">PoP credentials</a>) increasingly interoperate in concept if not yet in code.</p>
+<h3 id="concord-control-plane-cord-02-merged-scaling-proposals-open">Concord control plane: CORD-02 merged, scaling proposals open</h3>
+<p>The encrypted-community layer continues its fast maturation (watch item #2 from last week — resolved):</p>
+<ul>
+<li><strong><a href="https://github.com/concord-protocol/concord/pull/15" rel="noopener nofollow">CORD-02 PR #15</a> merged August 6</strong>: writes to a community's control plane are now restricted to holders of a new <code>control_root</code> signing secret (owners and staff). All members retain the derived public key and read key needed to verify and decrypt moderation state. Explicitly framed as a spam barrier layered <em>over</em> the inner actor signatures and roster checks — defense in depth, not a replacement for the signature-based authority model.</li>
+<li><strong>CORD PR #18</strong>: shards encrypted Community Lists across kind 33302 events, removes the 50-membership-per-list limit, and prunes retired entries to stay within relay limits. This is Concord's path from small communities to Discord-scale servers.</li>
+<li><strong>CORD PRs #16/#17 (open)</strong>: private mention locators, and a pause signal that suspends chat without discarding messages — moderation primitives converging on what platform moderators actually need.</li>
+<li><strong>Amethyst PR #3888</strong> completes the invite lifecycle: invite links now survive a community refounding (bundles reissued at the same addressable coordinates), a ban check prevents removed members from riding that recovery path, the encrypted CORD-05 invite list is implemented in both app and <code>amy</code> CLI, per-link revocation tombstones exist, and deleting the last signing key that can retire a link requires relay confirmation. The <code>amy</code> CLI gains control-key delivery, refounding, rekeying, and stranded-member recovery — the full operational toolkit for community identity continuity across epochs.</li>
+</ul>
+<p>The pattern across all of it: <strong>Concord is working through the same problems MLS groups solved (rekeying, membership epochs) but binding every operation to Nostr npubs</strong>, so community state remains portable identity state. Nostria 4.1.67 adds community dissolution and icon/banner administration on the client side — including the end-of-life operation most protocols leave unspecified.</p>
+<h3 id="amber-640-every-signing-decision-is-now-explicit">Amber 6.4.0: every signing decision is now explicit</h3>
+<p>Last week's watch item #4 is resolved. <a href="https://github.com/greenart7c3/Amber/releases/tag/v6.4.0" rel="noopener nofollow">Amber v6.4.0</a> (Aug 7):</p>
+<ul>
+<li>The redesigned multi-request screen gives <strong>per-request and per-group Approve and Deny controls</strong>, replacing the selection-and-confirm flow. In a batch of NIP-46 bunker requests, each request is individually adjudicable.</li>
+<li><strong>Denied requests through the relay-mediated bunker interface now return proper error responses</strong>, so the requesting client can distinguish rejection from a stalled signer. (This closes the exact ambiguity Mostro also fixed on its side this week — see below. The ecosystem is standardizing on "silence is a bug; rejection is a message.")</li>
+<li><strong>Localized, human-readable labels for 113 more event kinds</strong> across every shipped locale — including Concord group events, NIP-51 Git repository bookmarks, NIP-53 room-presence. Users approving a signature now see <em>what kind of thing</em> they are signing in their own language.</li>
+<li>A concurrent-map guard fixes a relay-subscription crash (<code>NegativeArraySizeException</code>).</li>
+</ul>
+<p>With Amber at 6.4, the Android signer stack has: batch approval (6.3), decision-explicit deny (6.4), privacy mode (6.3), NIP-49 standardized backups (0.3.86 of Nostr WoT / adopted broadly), grouped approvals, and localized kind labels. The remaining gap flagged Aug 9 — cross-signer session portability — is still open. Related: <a href="/guides/nostr-key-custody/">Nostr Key Custody and Recovery</a>, <a href="/kb/remote-signing/">Remote Signing</a>.</p>
+<p>A new custody-adjacent tool worth tracking: <strong><a href="https://github.com/trbouma/safebox-acorn" rel="noopener nofollow">Safebox Acorn</a></strong> — a standalone Python component/CLI extracted from the Safebox web app, providing Nostr-backed key, profile, relay, record, Cashu, and Lightning helpers: fresh 256-bit keys, keys-from-supplied-entropy, and checksummed 24-word recovery phrases, with state replicated across a local relay and independent replicas so recovery never depends on one appliance. It is explicit that record-protection encryption is still under design — early, but the household/community custody-recovery model (a "replaceable protocol component inside a household or community Safebox") is a genuinely novel custody topology: social recovery without a blockchain, grounded in Nostr state replication.</p>
+<h3 id="buzz-agent-workspaces-go-daily-driver">Buzz: agent workspaces go daily-driver</h3>
+<p>Watch item #1 (Buzz ecosystem growth) resolved emphatically — <strong>seven desktop releases in seven days</strong> (0.5.5 → 0.5.11, Aug 5–12), plus cross-platform work:</p>
+<ul>
+<li><strong>0.5.5</strong> (Aug 5): entity link previews for repos/PRs/issues, multi-repo projects, desktop reconnection fixes</li>
+<li><strong>0.5.8</strong> (Aug 8): unified agent-creation flows; budget-summarizer reasoning fix so handoff summaries don't starve</li>
+<li><strong>0.5.9</strong> (Aug 10): <strong>NIP-AM agent usage tracking</strong> (per-agent accounting), onboarding polish, private channel invitations restored</li>
+<li><strong>0.5.10/0.5.11</strong> (Aug 12): performance and relay-communication optimization, channel snapshots, <strong>agent recovery limits</strong>, durable community deletion support</li>
+<li><strong>Desktop PR #3653 / mobile PR #3767</strong>: community themes stored as <strong>encrypted NIP-78 records on the community's relay</strong>, shared across desktop and mobile with versioned payloads and identity-scoped caches</li>
+<li>Context (Jul 31, 0.5.3): NIP-49 encrypted local key backup, huddle transcription for agents, hosted community limit raised to five</li>
+</ul>
+<p>And the hosting model is now real: a <strong>hosted beta at buzz.xyz</strong> alongside self-hosting, with no paid plans announced as of August 2026 (per the Superset comparison page). The significance for identity: agent lifecycle management — creation, usage accounting, recovery limits, budgets — is becoming standard workspace functionality, which is exactly what the agent-as-keypair model needs to be operable rather than merely possible. See <a href="/kb/ai-agent-identity-nostr/">AI Agent Identity on Nostr</a> and <a href="/kb/buzz/">Buzz</a>.</p>
+<p>Two more agent-identity primitives landed in the same window:</p>
+<ul>
+<li><strong><a href="https://github.com/forgesworn/bray/releases/tag/v2.4.0" rel="noopener nofollow">Bray 2.4.0</a></strong> — an MCP server exposing relay access, identity, publishing, and remote signing to software agents and people. New: object-form signing requests (not just stringified NIP-46) and <code>sign_event_compact</code>, a minimal-dialect response (id, sig, pubkey, timestamp) for constrained hardware signers. MCP is becoming the agent-side counterpart of NIP-07 — the standardized way an agent reaches a signer.</li>
+<li><strong><a href="https://github.com/bobodread876/pact" rel="noopener nofollow">Pact</a></strong> — a relationship layer for software agents: <strong>signed, mutually consented bonds</strong> held by the agents' own keys, published over Nostr on a draft NIP-BD transport, with private bonds via NIP-59 gift wrap. Ships an MCP server, TypeScript SDK, CLI, self-hostable daemon, and web UI. Early-stage (discovery note, not a new release), but "mutually consented, agent-held relationship credentials" is the same shape as the ToIP VRC — the agent-relationship primitive is appearing independently in both stacks.</li>
+</ul>
+<h3 id="mostro-and-the-splitting-of-identity-keys-from-encryption-keys">Mostro and the splitting of identity keys from encryption keys</h3>
+<p>Two Mostro-track releases carry an identity-architecture lesson beyond p2p trade:</p>
+<p><strong><a href="https://github.com/MostroP2P/mostro-core/releases/tag/v0.14.2" rel="noopener nofollow">Mostro Core 0.14.2</a></strong> replaces gift-wrapped chat with <strong>kind 14 envelopes that use separate conversation-encryption and signing keys, both derived from the peers' shared secret</strong>. The reader now validates author, signature, recipient, timestamp, and content size. Legacy gift-wrap helpers remain so clients can read both formats during migration. The design point: the key that <em>binds the message to the identity</em> is separated from the key that <em>encrypts the content</em> — the same separation nostr-wot-extension achieves with PQ keys and World ID 4.0 achieves with Authenticators vs. nullifier entropy. Splitting binding from confidentiality is this quarter's recurring identity pattern.</p>
+<p><strong><a href="https://github.com/MostroP2P/mostro/releases/tag/v0.18.1" rel="noopener nofollow">Mostro 0.18.1</a> / 0.18.2</strong>: updates the Nostr dependency for the NIP-44 DoS fix (RUSTSEC-2026-0216 — see the Aug 9 update; the patch is propagating through dependent daemons now), <strong>removes private keys from restore-session logs</strong>, rejects unauthorized cooperative-cancels, hardens LNURL fetches against SSRF, validates payout invoices — and advertises <strong>proof-of-work requirements for first contact</strong> in its replaceable info event. PoW-as-identity-gate for first contact is the same anti-Sybil pattern Bitchat shipped for mesh channels (NIP-13 on geohash channels): cheap for one honest peer, expensive for a swarm of fakes. The Cashu-escrow foundation (config, DB helpers, mint integration, first lock action) also landed — escrow identity (who locked, who released) will run on Nostr keys.</p>
+<p>Also in key-hygiene: <strong>MDK 0.9.11</strong> (Marmot track) securely deletes pruned SQLite projections, <strong>zeroizes imported private keys, NIP-49 encrypted-key export intermediates, and OpenMLS serialization buffers</strong>, and redacts group image keys from debug output. Key material lifecycle (not just storage) is finally being treated as a security boundary in the messaging SDKs.</p>
+<h3 id="nostr-double-ratchet-00166-closing-an-identity-binding-hole-in-invites">nostr-double-ratchet 0.0.166: closing an identity-binding hole in invites</h3>
+<p><a href="https://github.com/irislib/nostr-double-ratchet/releases/tag/nostr-double-ratchet-ts-v0.0.166" rel="noopener nofollow">nostr-double-ratchet TS 0.0.166</a> requires an <strong>invite response to prove ownership of its session key</strong>. Before: a reusable public invite could bind one Nostr identity to <em>another party's</em> session — the inviting side would believe it had a channel with npub A when the responder controlled neither A nor the session. Now the inviter rejects proofless responses. Existing sessions continue; updated inviters refuse old invitees. Small diff, real hole closed: <strong>invitation protocols must bind the response to possession of the session key, not just to a claimed identity</strong>. Relevant to NIPs PR #1813 (double-ratchet, still open after substantive work this window) and to every Concord/Marmot invite flow.</p>
+<p>Related signer/UX releases: <strong>nostr-mill 1.6.0</strong> (Aug 5, from Compass #34) puts <strong>per-event signer consent and cross-client key recovery in the browser</strong>; <strong>ClipRelay 0.1.3</strong> syncs clipboards between devices encrypted with NIP-44 to the same identity, with NIP-46 signer-call timeouts that rebuild the connection pool; <strong>LaWallet NWC 2.3.0</strong> publishes received/forwarded notifications as Nostr events with optional NIP-44 encryption and signs kind 9735 zap receipts; <strong>cln-nip47 0.2.0</strong> deduplicates request events by ID and bounds transaction-list responses (relay-side identity abuse controls).</p>
+<h3 id="nip-09-vs-nip-56-the-authority-boundary-of-deletion-and-reporting">NIP-09 vs. NIP-56: the authority boundary of deletion and reporting</h3>
+<p>Compass #35's deep dives codified a question this library cares about deeply: <strong>who has authority over an identity's data?</strong> The Nostr answer is a clean split:</p>
+<ul>
+<li><strong>NIP-09 (kind 5 deletion)</strong> expresses <em>the original author's intent</em>, valid only against that author's own events. It confers no authority over anyone else's content, and relays may still keep the event (deletion on Nostr is a request, not a guarantee).</li>
+<li><strong>NIP-56 (kind 1984 reporting)</strong> is merely <em>an allegation by one key</em>. The reported content does not become false, illegal, or removable because a valid kind 1984 exists. An open relay cannot safely count anonymous reports as votes — the spec explicitly advises against automatic moderation because reports are trivially gameable; administrators may act only on reports from moderators they already trust. A client can weight reports through the user's social graph (blur after several trusted contacts flag the same account) — WoT as the report-weighting function.</li>
+</ul>
+<p>Implementations expose the choice: Divine PR #6591 corrects report delivery; Conduit PR #250 reads reports as bounded marketplace context; nostrord ships a full NIP-56 module; Amethyst lists NIP-56 support. For ungovernable system design, this is the reference pattern for <strong>authority-scoped moderation</strong>: author authority (delete own), reporter influence (none by default, mediated by the verifier's own trust graph), moderator authority (locally delegated, never global). It is the anti-censorship mirror of platform trust-and-safety: the same mechanics, but authority never pools into one party.</p>
+<h3 id="eudi-wallet-four-months-to-the-legal-deadline">EUDI Wallet: four months to the legal deadline</h3>
+<p>The formal stack's largest forced deployment is now in its final stretch, and the fit is rough:</p>
+<ul>
+<li><strong>The law</strong>: all 27 EU member states must provide at least one certified EUDI Wallet to citizens and businesses by <strong>December 2026</strong> (Regulation 2024/1183, Art. 5a(1)); large online platforms and regulated-sector organizations must <strong>accept</strong> the wallet by end-2027. EEA states get one extra year.</li>
+<li><strong>The reality</strong> (<a href="https://www.eideasy.com/blog/eu-digital-identity-wallets-july-2026" rel="noopener nofollow">July 2026 member-state tracker</a>): <strong>Denmark</strong> is furthest ahead — practical wallet rollout with national AltID use already live (though its AltID Relying Party Registry is not yet an eIDAS 2.0 RP registry). <strong>Ireland</strong> runs a public pilot but has no relying-party sandbox. Most states sit in "announced project, no public sandbox." The tracker's key distinction is the right one: <em>a citizen pilot proves users can try the wallet; an RP sandbox proves organizations can test verification</em> — and it's the RP side that's missing.</li>
+<li><strong>The ecosystem</strong>: large-scale-pilot programmes continue (the Commission added a dedicated mDL-wallet pilot call to push issuance over the line); certification bodies are gearing up; e-signature providers face the December deadline with incomplete technical guidance.</li>
+</ul>
+<p>For ungovernable tech, EUDI matters in two directions: as <strong>the compliance surface</strong> where SD-JWT selective disclosure (<a href="/kb/verifiable-credentials/">Verifiable Credentials</a>) will meet hundreds of millions of citizens, and as <strong>the cautionary tale</strong> — a mandated identity infrastructure can be legally on schedule while practically untestable. The window to watch: Q4 2026 certification decisions will determine whether December produces 27 wallets or 27 extensions.</p>
+<h3 id="polkadot-pop-mainnet-target-is-this-quarter">Polkadot PoP: mainnet target is this quarter</h3>
+<p>The <a href="https://www.proofofpersonhood.how" rel="noopener nofollow">Polkadot PoP roadmap</a> — People Registry (Q3 2025) → Kusama testnet (Q4 2025) → DIM1 basic proofs (Q1 2026) → DIM2 verifiable-credential attestations (Q2 2026) — ends with <strong>full PoP deployment on Polkadot mainnet in Q3 2026</strong>, i.e., by September 30. The design: ZK verification of multiple PoP methods (biometric, social, government-ID), anonymous aliases within verification rings that break the link to the original identity, one-person-one-voice governance as the flagship use case, DIM2 adding verifiable-credential attestations for treasury disbursements and critical votes. If it lands on schedule it becomes the first L1-native, multi-method, privacy-preserving PoP system in production — the deployment matrix in <a href="/kb/proof-of-personhood/">Proof of Personhood and Sybil Resistance</a> will need a new row. Watch the pallet announcements through September.</p>
+<h2 id="cross-cutting-themes">Cross-cutting themes</h2>
+<h3 id="1-post-quantum-identity-has-shipped-ahead-of-the-transport-layer">1. Post-quantum identity has shipped — ahead of the transport layer</h3>
+<p>As of this week, a Nostr user can hold ML-KEM-1024 + ML-DSA-87 keys bound to their npub, with PQ-encrypted DMs, in a shipping browser extension — while the PQC world is still arguing about pure-vs-hybrid ML-KEM in TLS (Last Call closed Aug 13, IESG decision pending; see <a href="/briefings/post-quantum/2026-08-15/">Post-Quantum Saturday — August 15 2026 Weekly Update</a>). The identity layer inverted the usual order because its threat model is sharper: Nostr DMs are the perfect harvest-now-decrypt-later target (public relays, permanent storage, adversarial operators), and the fix (PQ key agreement beside the existing key) doesn't require touching signature verification anywhere. The lesson generalizes: <strong>migrate the confidentiality paths first, where the retrofit is local; the authentication paths last, where the retrofit is global</strong>. Watch whether kind 10203 attestations spread beyond nostr-wot-extension (Amber? Clave? Iris/fips-ts?) — adoption by a second independent signer would make the pattern a de facto standard before PR #2434 merges.</p>
+<h3 id="2-identity-authority-is-being-formalized-in-four-independent-stacks-at-once">2. Identity authority is being formalized — in four independent stacks at once</h3>
+<p>This week's developments share one shape: <strong>precise, cryptographic answers to "who may do what"</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Authority formalized</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>World ID 4.0</td>
+<td>Who may act for an identity (Authenticators), who may restore it (Recovery Agents), when a pseudonym is created (Sessions, one-time nullifiers)</td>
+</tr>
+<tr>
+<td>LFDT Trust Graph</td>
+<td>Who vouches for whom (VRCs), which communities issue personhood (VTCs → VMCs → PHCs), which federations verify (VTNs, TRQP)</td>
+</tr>
+<tr>
+<td>Concord CORD-02</td>
+<td>Who writes to a community's control plane (<code>control_root</code>) vs. who verifies and reads (everyone)</td>
+</tr>
+<tr>
+<td>NIP-09/56 split</td>
+<td>Who may delete (author only), what a report is worth (an allegation, weighted by the verifier's own trust graph)</td>
+</tr>
+</tbody>
+</table></div>
+<p>None of these is a platformTerms-of-Service claim about authority — each is a keyholding. That is the common cypherpunk denominator: authority as possession, scope as derivation, revocation as rekeying.</p>
+<h3 id="3-binding-keys-and-confidentiality-keys-are-separating-everywhere">3. Binding keys and confidentiality keys are separating everywhere</h3>
+<p>Mostro Core 0.14.2 (separate conversation-encryption and signing keys from one shared secret), nostr-wot-extension 0.4.0 (PQ encryption keys beside the identity signature key), World ID 4.0 (OPRF-node entropy separate from user device keys), Buzz community themes (encrypted NIP-78 records keyed to community identity). Monolithic single-key identities are dissolving into <strong>key families with roles</strong> — which is also why key lifecycle tooling (zeroization in MDK 0.9.11, NIP-49 backups in Buzz 0.5.3, Amber's explicit approvals, Safebox Acorn's replication-based recovery) is suddenly the active frontier. The next custody problem is not "protect one key" but "keep a family of role-scoped keys coherent across rotation, recovery, and (soon) PQ migration."</p>
+<h2 id="evidence-at-a-glance-august-916-2026">Evidence at a Glance (August 9–16, 2026)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>This-period signal</th>
+<th>Threat model</th>
+<th>Development signal</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>nostr-wot-extension 0.4.0</strong></td>
+<td>ML-KEM-1024 + ML-DSA-87 beside secp256k1; kind 10203 attestation; opt-in PQ DMs</td>
+<td>Harvest-now-decrypt-later on Nostr DMs</td>
+<td>First production PQ identity binding in Nostr</td>
+<td>Long-lived encrypted correspondence starting now</td>
+</tr>
+<tr>
+<td><strong>NIPs PR #2434</strong></td>
+<td>PQ identity keys proposed; claims scoped to message confidentiality</td>
+<td>PQ signature break (future)</td>
+<td>Standardization following shipped code</td>
+<td>The canonical PQ-migration pattern for keypair identity</td>
+</tr>
+<tr>
+<td><strong>NIPs PR #2431</strong></td>
+<td>NIP-07 expected-pubkey pinning</td>
+<td>Silent account switch in browser signers</td>
+<td>Open; kills a real identity-confusion class</td>
+<td>All web Nostr clients</td>
+</tr>
+<tr>
+<td><strong>World ID 4.0</strong></td>
+<td>WorldIDRegistry accounts, vOPRF nullifiers (TACEO), Oblivious Nullifier Pool, Sessions, Recovery Agents; ~18M humans, 450M+ uses; open RFC</td>
+<td>Key compromise, forced pseudonymity, linkability</td>
+<td>Biggest PoP architecture rethink to date; testnet soon</td>
+<td>Enterprise PoP with explicit pseudonymity; Vercel human-in-loop</td>
+</tr>
+<tr>
+<td><strong>LFDT OpenVTC / DTG labs</strong></td>
+<td>Three Rust labs (Affinidi) released at LF Member Summit; kernel project targeted for Oct 8 Maintainer Summit; H2H ran it live (650+ connections, 30K msgs)</td>
+<td>Scaling the PGP WoT without biometric databases</td>
+<td>First code for PHC/VRC/DTG stack; kernel as first deployable</td>
+<td>Open-source developer identity; interoperable personhood</td>
+</tr>
+<tr>
+<td><strong>Amber 6.4.0</strong></td>
+<td>Per-request/per-group Approve-Deny; denied bunker requests error properly; 113 localized kind labels</td>
+<td>Signing fatigue → rubber-stamping</td>
+<td>Watch item resolved; fully decision-explicit signer</td>
+<td>Android signer daily driver</td>
+</tr>
+<tr>
+<td><strong>Concord CORD-02 + PRs</strong></td>
+<td>Control-plane writes restricted (<code>control_root</code>); sharding (kind 33302) proposed; Amethyst completes invite lifecycle (PR #3888)</td>
+<td>Control-plane spam; invite hijack</td>
+<td>Community authority model hardening week over week</td>
+<td>Encrypted communities beyond 50 members</td>
+</tr>
+<tr>
+<td><strong>Buzz 0.5.5–0.5.11</strong></td>
+<td>Seven releases; NIP-AM agent usage tracking; agent recovery limits; encrypted NIP-78 community themes; buzz.xyz hosted beta</td>
+<td>Agent sprawl and accountability</td>
+<td>Agent lifecycle management becoming standard</td>
+<td>Production human+agent workspaces</td>
+</tr>
+<tr>
+<td><strong>Mostro 0.18.1/.2 + Core 0.14.2</strong></td>
+<td>NIP-44 DoS patch propagated; keys out of logs; PoW first-contact; kind 14 envelopes split binding from encryption keys</td>
+<td>Impersonation in p2p trade; log leakage</td>
+<td>Cashu escrow foundation laid</td>
+<td>Key-separation pattern reference</td>
+</tr>
+<tr>
+<td><strong>nostr-double-ratchet 0.0.166</strong></td>
+<td>Invite responses must prove session-key ownership</td>
+<td>Identity binding via stolen invite</td>
+<td>Closes a real hole in PR #1813's draft</td>
+<td>All invite-based session setup</td>
+</tr>
+<tr>
+<td><strong>Bray 2.4.0 / Pact</strong></td>
+<td>MCP server for agent identity + signing; mutually-consented agent bonds (NIP-BD draft)</td>
+<td>Agent identity sprawl; bond forgery</td>
+<td>MCP emerging as the agent-side NIP-07</td>
+<td>Agent-to-signer and agent-to-agent trust</td>
+</tr>
+<tr>
+<td><strong>EUDI Wallet</strong></td>
+<td>Dec 2026 deadline 4 months out; Denmark ahead, Ireland piloting, most states lack RP sandboxes</td>
+<td>Mandated-but-untestable infrastructure</td>
+<td>Certification decisions land Q4</td>
+<td>The formal stack's mass deployment to watch</td>
+</tr>
+<tr>
+<td><strong>Polkadot PoP</strong></td>
+<td>Roadmap ends Q3 2026: full mainnet deployment due by Sep 30</td>
+<td>Sybil-resistant governance at L1 scale</td>
+<td>DIM1+DIM2 live; mainnet imminent</td>
+<td>First L1-native multi-method PoP</td>
+</tr>
+<tr>
+<td><strong>CRYPTO 2026</strong></td>
+<td>Starts Aug 17, Santa Barbara; 189/781 papers</td>
+<td>Simon DCP claim verdict; anonymous-credential advances</td>
+<td>Identity-relevant results expected</td>
+<td>Watch OPRF/threshold/AC sessions</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="open-research-questions-updated">Open research questions (updated)</h2>
+<ol>
+<li><strong>Will kind 10203 PQ attestations get a second independent implementation?</strong> The pattern is production-proven in nostr-wot-extension and proposed in PR #2434, but one implementation is a product feature; two is a standard. Amber (Android) and fips-ts (browser transport) are the natural adopters.</li>
+<li><strong>Can Nostr migrate event signatures without a hard fork?</strong> PQ encryption shipped this week precisely because it's additive. Signature migration requires every verifying relay to accept new signatures — the open question is whether a kind-10203-style dual-signature transition period can be made backward-compatible enough to avoid ecosystem fragmentation.</li>
+<li><strong>Is the TACEO OPRF federation the right trust root for World ID 4.0's nullifier determinism?</strong> Blinded queries protect users from nodes, but the nodes collectively hold the entropy. What's the path from "federated service" to "permissionless node set," and does it matter for the anonymity guarantee?</li>
+<li><strong>Will the Linux kernel actually adopt OpenVTC at the Oct 8 Maintainer Summit?</strong> The kernel's existing PGP WoT works and has institutional inertia. If the DTG instance is merely reviewed rather than adopted, LFDT's flagship deployment slips a year.</li>
+<li><strong>Can Concord's sharded community lists (PR #18) hold relay limits at Discord scale?</strong> Removing the 50-member cap via kind 33302 sharding is elegant on paper; relay pagination behavior under thousands of shards is the empirical question.</li>
+<li><strong>Does NIP-07 pubkey pinning (PR #2431) conflict with signer-side account switching UX?</strong> The proposal protects clients from silent switches, but the signer's own multi-account flows need to degrade gracefully rather than error-spam.</li>
+<li><strong>What does Pact's mutually-consented agent bond add over NIP-85-style attestations?</strong> Both are signed relationship claims. The differentiator — mutual consent and agent-held keys — matters only if bonds become machine-checkable inputs to agent authorization logic. Watch whether any MCP consumer actually verifies bonds.</li>
+</ol>
+<h2 id="what-to-watch-in-the-next-714-days">What to watch in the next 7–14 days</h2>
+<ol>
+<li><strong>CRYPTO 2026 (Aug 17–20)</strong>: the Simon DCP claim gets its verdict-in-the-hallways moment (see <a href="/briefings/post-quantum/2026-08-15/">Post-Quantum Saturday — August 15 2026 Weekly Update</a>); identity-relevant sessions to scan: anonymous credentials, threshold signatures, OPRF security, group signatures.</li>
+<li><strong>NIPs PR #2434 discussion</strong>: whether the PQ-identity-keys draft picks up relay/client commentary or stalls like PR #1813 (double-ratchet, still open after months of substantive work).</li>
+<li><strong>Polkadot PoP mainnet announcement</strong>: Q3 ends September 30; the pallet-level rollout news could drop any week.</li>
+<li><strong>World ID 4.0 testnet</strong>: announced as "launching soon" in the RFC post — if it opens, watch whether independent RPs can register against <code>RPRegistry</code> without Tools for Humanity intermediation.</li>
+<li><strong>Concord PR #18 (sharded community lists)</strong>: merge would unlock the &gt;50-member path; watch Amethyst/Armada for follow-up implementation PRs.</li>
+<li><strong>EUDI September checkpoints</strong>: any member state moving from "no public sandbox" to a live RP sandbox is a leading indicator for the December deadline.</li>
+<li><strong>Buzz 0.5.12+</strong>: NIP-AM agent usage tracking (0.5.9) is the foundation — the next step would be usage-based budgets or quotas enforced at the signer, which would make agent identity economically accountable.</li>
+</ol>
+<h2 id="primary-sources-this-period">Primary sources (this period)</h2>
+<h3 id="post-quantum-identity">Post-quantum identity</h3>
+<ul>
+<li><a href="https://github.com/nostr-wot/nostr-wot-extension/releases/tag/v0.4.0" rel="noopener nofollow">nostr-wot-extension v0.4.0 release</a> — ML-KEM-1024 + ML-DSA-87 derivation, kind 10203 attestation, opt-in PQ DMs</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2434" rel="noopener nofollow">NIPs PR #2434 — post-quantum identity keys</a> — the standardization of the shipped pattern</li>
+<li><a href="https://github.com/nostr-protocol/nips/pull/2431" rel="noopener nofollow">NIPs PR #2431 — NIP-07 expected-pubkey pinning</a></li>
+<li><a href="https://www.npmjs.com/package/@nostr-wot/pq" rel="noopener nofollow">@nostr-wot/pq v0.2.0 (npm)</a> — reference PQ wire-format library</li>
+<li>Cross-reference: <a href="/briefings/web-of-trust/2026-08-13/">Web of Trust Thursday — August 13 2026 Weekly Update</a> — the WoT-track analysis of the same release</li>
+</ul>
+<h3 id="world-id-40">World ID 4.0</h3>
+<ul>
+<li><a href="https://world.org/blog/engineering/introducing-world-id-4.0" rel="noopener nofollow">Introducing World ID 4.0 — Request for Comments (engineering)</a> — the full protocol RFC post</li>
+<li><a href="https://world.org/blog/announcements/world-id-full-stack-proof-of-human" rel="noopener nofollow">Introducing the new World ID: full-stack proof of human (announcement)</a></li>
+<li><a href="https://github.com/worldcoin/world-id-protocol/blob/main/docs/world-id-4-specs/README.md" rel="noopener nofollow">World ID 4.0 specs (GitHub, worldcoin/world-id-protocol)</a> — open specs + RFC discussions</li>
+<li><a href="https://core.taceo.io/articles/taceo-oprf/" rel="noopener nofollow">TACEO:OPRF Service</a> — the vOPRF node network</li>
+<li><a href="https://via.tt.se/pressmeddelande/4348411/" rel="noopener nofollow">Business Wire — The New World ID (Lift Off press release)</a> — 450M+ uses, partnership list</li>
+<li><a href="https://hackernoon.com/how-world-ids-biggest-upgrade-replaces-device-trust-with-human-continuity" rel="noopener nofollow">Hackernoon — How World ID's Biggest Upgrade Replaces Device Trust</a></li>
+<li><a href="https://coinmarketcap.com/cmc-ai/worldcoin-org/latest-updates" rel="noopener nofollow">CoinMarketCap WLD updates (Aug 10–14, 2026)</a> — $0.30 rebound, Eightco accumulation</li>
+</ul>
+<h3 id="lf-decentralized-trust-dtg">LF Decentralized Trust / DTG</h3>
+<ul>
+<li><a href="https://www.lfdecentralizedtrust.org/blog/decentralized-trust-infrastructure-at-lf-a-progress-report" rel="noopener nofollow">Decentralized Trust Infrastructure at LF: A Progress Report</a> — OpenVTC, the three LFDT Labs, kernel target, H2H Summit data</li>
+<li><a href="https://arxiv.org/abs/2408.07892" rel="noopener nofollow">Personhood Credentials (arXiv 2408.07892)</a> — the PHC foundation paper</li>
+<li><a href="https://eprint.iacr.org/2026/333" rel="noopener nofollow">A Cryptographic Framework for Proof of Personhood (eprint 2026/333)</a> — zkbricks/framework line</li>
+<li><a href="https://www.firstperson.network/white-paper" rel="noopener nofollow">First Person Network white paper</a> — the first VTN for interoperable PHCs</li>
+<li><a href="https://zkbricks.com/blogposts/proofs-of-personhood.html" rel="noopener nofollow">Proving Personhood Without Handing Over the Keys (zkbricks)</a></li>
+</ul>
+<h3 id="nostr-ecosystem-aug-916">Nostr ecosystem (Aug 9–16)</h3>
+<ul>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-08-12-newsletter/" rel="noopener nofollow">Nostr Compass #35 (Aug 12)</a> — nostr-wot 0.4.0, Amber 6.4.0, MDK 0.9.11, Nostria 4.1.67, NIP PRs #2431/#2434/#2435, CORD merges, NIP-09/56 deep dives</li>
+<li><a href="https://nostrcompass.org/en/newsletters/2026-08-05-newsletter/" rel="noopener nofollow">Nostr Compass #34 (Aug 5)</a> — nostr-mill 1.6.0, Sandstr, nostrord expansion</li>
+<li><a href="https://freedom.tech/nostr" rel="noopener nofollow">Freedom.Tech Nostr release tracker</a> — Buzz Desktop 0.5.5–0.5.11, Mostro 0.18.1/.2, Amber 6.4.0, Vector 0.4.2, cln-nip47 0.2.0, Lightning.Pub series</li>
+<li><a href="https://github.com/greenart7c3/Amber/releases/tag/v6.4.0" rel="noopener nofollow">Amber v6.4.0 release</a></li>
+<li><a href="https://github.com/vitorpamplona/amethyst/pull/3888" rel="noopener nofollow">Amethyst PR #3888 — Concord invite lifecycle</a></li>
+<li><a href="https://github.com/concord-protocol/concord/pull/15" rel="noopener nofollow">CORD-02 PR #15 (merged Aug 6)</a>, <a href="https://github.com/concord-protocol/concord/pull/18" rel="noopener nofollow">CORD PR #18 — sharded community lists</a>, <a href="https://github.com/concord-protocol/concord/pull/16" rel="noopener nofollow">PR #16</a>, <a href="https://github.com/concord-protocol/concord/pull/17" rel="noopener nofollow">PR #17</a></li>
+<li><a href="https://github.com/MostroP2P/mostro-core/releases/tag/v0.14.2" rel="noopener nofollow">Mostro Core 0.14.2</a>, <a href="https://github.com/MostroP2P/mostro/releases/tag/v0.18.1" rel="noopener nofollow">Mostro 0.18.1</a></li>
+<li><a href="https://github.com/irislib/nostr-double-ratchet/releases/tag/nostr-double-ratchet-ts-v0.0.166" rel="noopener nofollow">nostr-double-ratchet TS 0.0.166</a></li>
+<li><a href="https://github.com/forgesworn/bray/releases/tag/v2.4.0" rel="noopener nofollow">Bray 2.4.0</a> — MCP identity/signing server</li>
+<li><a href="https://github.com/bobodread876/pact" rel="noopener nofollow">Pact — agent bonds</a></li>
+<li><a href="https://github.com/trbouma/safebox-acorn" rel="noopener nofollow">Safebox Acorn</a> + <a href="https://trbouma.github.io/safebox-acorn/recovery-and-continuity/" rel="noopener nofollow">recovery and continuity guide</a></li>
+<li><a href="https://github.com/marmot-protocol/mdk/releases/tag/v0.9.11" rel="noopener nofollow">MDK 0.9.11</a></li>
+<li><a href="https://superset.sh/compare/superset-vs-buzz" rel="noopener nofollow">Superset vs Buzz comparison</a> — buzz.xyz hosted beta, no paid plans as of August 2026</li>
+</ul>
+<h3 id="formal-identity-regulation">Formal identity / regulation</h3>
+<ul>
+<li><a href="https://www.eideasy.com/blog/eu-digital-identity-wallets-july-2026" rel="noopener nofollow">EUDI Wallet rollout status by member state (July 2026)</a> — Denmark/Ireland detail, RP-sandbox gap</li>
+<li><a href="https://youtrust.com/blog/eidas-2-0-digital-identity-wallet-compliance-requirements" rel="noopener nofollow">eIDAS 2.0 compliance timeline</a> — Dec 2026 deadline, Art. 5a(1)</li>
+<li><a href="https://www.signicat.com/blog/eudi-wallets-only-one-year-to-launch" rel="noopener nofollow">Signicat — EUDI Wallets: One Year to Launch</a> — member-state readiness detail</li>
+<li><a href="https://www.proofofpersonhood.how" rel="noopener nofollow">Polkadot Proof-of-Personhood roadmap</a> — Q3 2026 mainnet target</li>
+<li><a href="https://crypto.iacr.org/2026/program.php" rel="noopener nofollow">Crypto 2026 program (Aug 17–20, Santa Barbara)</a></li>
+</ul>
+    <nav class="pn" aria-label="Series navigation">
+      <a href="/briefings/identity/2026-08-09/"><span class="label">Previous</span><span class="pn-t">Identity and Pseudonymity Sunday — August 09 2026 Weekly Update</span></a>
+      <a class="pn-hub" href="/briefings/identity/"><span class="label">Series</span><span class="pn-t">All Identity and Pseudonymity Sunday briefings</span></a>
+      <a href="/briefings/identity/2026-08-23/"><span class="label">Next</span><span class="pn-t">Identity and Pseudonymity Sunday — August 23 2026 Weekly Update</span></a>
+    </nav>
+  </article>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

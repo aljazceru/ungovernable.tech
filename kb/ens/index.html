@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ethereum Name Service (ENS) — ungovernable.tech</title>
+<meta name="description" content="The Ethereum Name Service, the largest deployed blockchain naming system: how registration and resolution work, and how it bridges to ordinary DNS.">
+<link rel="canonical" href="https://ungovernable.tech/kb/ens/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="Ethereum Name Service (ENS) — ungovernable.tech">
+<meta property="og:description" content="The Ethereum Name Service, the largest deployed blockchain naming system: how registration and resolution work, and how it bridges to ordinary DNS.">
+<meta property="og:url" content="https://ungovernable.tech/kb/ens/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethereum Name Service (ENS) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ethereum Name Service (ENS) — ungovernable.tech">
+<meta name="twitter:description" content="The Ethereum Name Service, the largest deployed blockchain naming system: how registration and resolution work, and how it bridges to ordinary DNS.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-naming.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Ethereum Name Service (ENS)", "description": "The Ethereum Name Service, the largest deployed blockchain naming system: how registration and resolution work, and how it bridges to ordinary DNS.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/ens/", "mainEntityOfPage": "https://ungovernable.tech/kb/ens/", "image": "https://ungovernable.tech/assets/og/pillar-naming.png", "about": [{"@type": "Thing", "name": "Sovereign Naming"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Sovereign Naming", "item": "https://ungovernable.tech/pillars/naming/"}, {"@type": "ListItem", "position": 3, "name": "Ethereum Name Service (ENS)", "item": "https://ungovernable.tech/kb/ens/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/naming/">Sovereign Naming</a><span aria-hidden="true">/</span><span class="here">Ethereum Name Service (ENS)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SOVEREIGN NAMING ]</span></p>
+  <h1>Ethereum Name Service (ENS)</h1>
+  <p class="aka">Also Ethereum Name Service, .eth.</p>
+  <p class="dek">The largest deployed decentralized naming system.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>10</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-ens-provides">What ENS provides</a><a href="#architecture">Architecture</a><a href="#ccip-read-eip-3668">CCIP-Read (EIP-3668)</a><a href="#ensv2-and-namechain">ENSv2 and Namechain</a><a href="#dnssec-integration">DNSSEC integration</a><a href="#icann-engagement-20252026">ICANN engagement (2025–2026)</a><a href="#ens-as-identity">ENS as identity</a><a href="#comparison">Comparison</a><a href="#trade-offs">Trade-offs</a><a href="#attack-surface">Attack surface</a><a href="#operational-patterns">Operational patterns</a><a href="#recent-developments-2024-2026">Recent developments (2024-2026)</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <p><em>The largest deployed decentralized naming system. <code>.eth</code> names registered on Ethereum, used as wallet aliases, IPFS content hashes, decentralized website domains, DIDs, and the spine of crypto-native identity. On August 9, 2026, the "Next Era of ENS DAO" executive proposal <strong>passed on-chain</strong> (1.27M For / 480.69K Against) — the ENS Foundation is now an operating entity with a five-seat board (Nick Johnson, Alexander Urbelis as Executive Director, Kartik Talwar, Brett Sun, Anthony Leutenegger). The DAO retains its 54.6M ENS tokens and $16M operational wallet; the Foundation administers the ~$65M Endowment and receives 1M ENS for employee compensation (multi-year vesting). Protocol governance stays with tokenholders. The ICANN <code>.ens</code> gTLD application was submitted before the August 12 window close. ENS's transition from DAO experiment to institutional infrastructure is complete.</em></p>
+<h2 id="what-ens-provides">What ENS provides</h2>
+<p>A <code>.eth</code> name like <code>alice.eth</code> resolves to:</p>
+<ul>
+<li>An Ethereum address (canonical use).</li>
+<li>An IPFS or Arweave content hash (decentralized website).</li>
+<li>Email, social media, avatar, and other free-form text records.</li>
+<li>A list of supported coin types (multi-chain wallet alias).</li>
+<li>Service endpoints (Nostr relays, MX records, Lightning addresses).</li>
+</ul>
+<p>The name is owned by the holder of the underlying NFT (since 2020, ERC-721) on Ethereum L1. Transfers are on-chain. Records are read through the Resolver contract pattern.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code>ENS Registry (singleton contract)
+  ├─ owner(node)        ─► account that controls this name
+  └─ resolver(node)     ─► contract that returns records
+
+Resolver
+  ├─ addr(node)         ─► Ethereum address
+  ├─ contenthash(node)  ─► IPFS / Swarm / Arweave URI
+  ├─ text(node, key)    ─► arbitrary key-value records
+  └─ name(node)         ─► reverse resolution
+
+Names form a hierarchy (alice.eth → alice.charity.eth → ...).
+</code></pre>
+<p>The Registry stores ownership; Resolvers store data. Anyone can write a custom Resolver contract — many do — to expose richer record types or off-chain backing.</p>
+<h2 id="ccip-read-eip-3668">CCIP-Read (EIP-3668)</h2>
+<p>The single most consequential ENS development for scaling. CCIP-Read lets a Resolver redirect record lookups to an off-chain HTTPS endpoint with cryptographic proof:</p>
+<pre><code>client.resolve("vitalik.eth", "addr") ──► on-chain Resolver
+                                     ──► returns OffchainLookup error with URL
+                                     ──► client fetches URL
+                                     ──► server returns signed answer
+                                     ──► client verifies signature on-chain
+</code></pre>
+<p>Effects:</p>
+<ul>
+<li>Subdomains scale to millions without on-chain gas. Each subdomain is a database row plus a signature, not a transaction.</li>
+<li>Off-chain backed names (Coinbase Wallet's <code>cb.id</code>, Uniswap's <code>uni.eth</code>, Linea's <code>linea.eth</code>) hand out subdomains for free.</li>
+<li>Trust model: the client trusts the off-chain server's signing key, registered on-chain by the parent name's owner.</li>
+</ul>
+<p>CCIP-Read became the dominant ENS pattern in 2024-2025.</p>
+<h2 id="ensv2-and-namechain">ENSv2 and Namechain</h2>
+<p>ENS’s 17 November 2025 post described a plan to build Namechain on Nethermind’s Surge. On 6 February 2026, ENS announced that ENSv2 would deploy exclusively on Ethereum L1 and that Namechain development would cease. ENSv2 itself remained on the roadmap.</p>
+<p>The November Surge proposal predates the February decision. It is not evidence that Namechain was revived in August or September 2026.</p>
+<h2 id="dnssec-integration">DNSSEC integration</h2>
+<p>Owners of regular DNS names like <code>example.com</code> can claim their name on ENS using a DNSSEC proof. The DNS owner publishes a TXT record signed by their DNSSEC chain; an Ethereum smart contract verifies the chain back to the IANA root and grants control of the matching ENS subtree.</p>
+<p>Use cases: bridging legacy DNS holdings into ENS-resolvable form, gradual migration paths.</p>
+<h2 id="icann-engagement-20252026">ICANN engagement (2025–2026)</h2>
+<p>ENS has been actively engaging with ICANN as the organization prepares for its gTLD expansion program:</p>
+<p><strong>ICANN gTLD timeline:</strong>
+- Application round opens: <strong>April 2026</strong>
+- Earliest possible TLD delegation: <strong>2028</strong></p>
+<p><strong>Key developments:</strong>
+- Alex Urbelis (General Counsel) spoke at WIPO 25th Anniversary UDRP event (April 2025, Geneva).
+- Presented at DNS-OARC on "Web2 Woes / Web3 Warfare" (October 2025, Stockholm).
+- Presented at ICANN's Registry Operator's Workshop on DNS/ENS integration (October 2025).</p>
+<p><strong>D3 Protocol partnership (announced ICANN 84):</strong>
+- Allows domain owners to tokenize domains with control represented by transferable tokens.
+- Goal: bring liquidity, distribution, and monetization of Web3 to the domain ecosystem.
+- Early integrations: <code>.box</code>, <code>.art</code>, <code>.locker</code> (Orange Domains).
+- Registry operators can contact ENS Labs to add ENS functionality.</p>
+<p><strong>ENS .brand gTLD application:</strong>
+- ENS Labs is considering applying for a <code>.ens</code> gTLD as a <strong>closed .brand</strong> TLD (not open to public registrations initially).
+- Could support names like <code>wallet.ens</code>, <code>dapp.ens</code>.
+- Earliest delegation: 2028 if pursued.
+- Door left open to transition to an open TLD in the future.</p>
+<p>This engagement positions ENS as a bridge between DNS and blockchain naming, pursuing both integration with existing registries and potential direct participation in the ICANN gTLD program.</p>
+<h2 id="ens-as-identity">ENS as identity</h2>
+<p>Beyond wallet aliases, ENS underpins:</p>
+<ul>
+<li>Sign-In with Ethereum (EIP-4361 / SIWE), where proof of <code>alice.eth</code> substitutes for OAuth or email.</li>
+<li>DIDs (<code>did:ens</code>), a W3C DID method anchored on ENS records.</li>
+<li>Lensh and Farcaster social identifiers, which can bind to ENS.</li>
+<li>NIP-05 over ENS for Nostr identifiers resolved through ENS records.</li>
+<li>Lightning Address records on ENS for receiving payments.</li>
+<li>Avatar, banner, and location records that form a portable profile. A user's ENS name carries their cross-platform identity.</li>
+</ul>
+<p>The threat model is Ethereum's: as long as Ethereum mainnet is live and the private key isn't compromised, the name resolves and records are signed by the owner.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>ENS</th>
+<th>Handshake</th>
+<th>PKARR</th>
+<th>DNS + CA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chain / substrate</td>
+<td>Ethereum L1</td>
+<td>Handshake L1</td>
+<td>Mainline DHT</td>
+<td>DNS hierarchy</td>
+</tr>
+<tr>
+<td>TLD</td>
+<td><code>.eth</code> only</td>
+<td>Any (you own root)</td>
+<td>None / custom</td>
+<td>Existing TLDs</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Annual ETH-priced rent</td>
+<td>One-time auction</td>
+<td>Free</td>
+<td>Annual registrar</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>On-chain or CCIP-Read</td>
+<td>Custom resolver</td>
+<td>DHT lookup</td>
+<td>DNS recursion + DNSSEC</td>
+</tr>
+<tr>
+<td>Censorship surface</td>
+<td>Ethereum L1 finality</td>
+<td>Handshake hashrate</td>
+<td>DHT availability</td>
+<td>Registrar + CA + ICANN</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>High (2017+)</td>
+<td>Niche</td>
+<td>Emerging</td>
+<td>Universal</td>
+</tr>
+<tr>
+<td>Browser support</td>
+<td>Plugins, MetaMask, Brave</td>
+<td>Limited</td>
+<td>Limited</td>
+<td>Native</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Real, large user base (~3M+ names registered, daily resolutions in the millions).</li>
+<li>L1 anchoring gives the strongest finality of any decentralized name.</li>
+<li>Composable with EVM apps, DIDs, and social protocols.</li>
+<li>DNSSEC bridging preserves legacy holdings.</li>
+<li>CCIP-Read scales subdomains to millions in practice.</li>
+<li>The 2026 stay-on-L1 decision removes L2 fragmentation risk.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Ethereum-coupled. ENS goes down if Ethereum does (functionally a non-issue, conceptually a coupling).</li>
+<li>Cost. Even with cheaper L1, premium <code>.eth</code> names rent in the hundreds-to-thousands USD per year. CCIP-Read subdomains help for app deployments but not for user-owned vanity names.</li>
+<li>TLD limitation. <code>.eth</code> only at the top; can't compete with Handshake-style namespaces.</li>
+<li>Reverse resolution gaps. Not every wallet sets the reverse record correctly; primary-name UX is uneven.</li>
+<li>CA-equivalent risk in CCIP-Read. If the off-chain server's key is compromised, that subname's records are forgeable for users that don't verify.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Private key theft</td>
+<td>Hardware wallet, multisig ownership of the name</td>
+</tr>
+<tr>
+<td>Frontend phishing (homoglyph)</td>
+<td>Browser warnings; petname systems</td>
+</tr>
+<tr>
+<td>CCIP-Read server compromise</td>
+<td>Periodic key rotation; users can fall back to on-chain</td>
+</tr>
+<tr>
+<td>Resolver contract bug</td>
+<td>Audited resolver patterns; default to PublicResolver</td>
+</tr>
+<tr>
+<td>Smart-contract upgrade hijack</td>
+<td>ENS DAO has timelocked governance</td>
+</tr>
+<tr>
+<td>DNSSEC chain compromise</td>
+<td>Same as DNSSEC threat model — narrowly scoped</td>
+</tr>
+<tr>
+<td>Long-range Ethereum reorg</td>
+<td>Wait for sufficient confirmations on registrar txs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="operational-patterns">Operational patterns</h2>
+<h3 id="personal-identity-stack">Personal identity stack</h3>
+<pre><code>Hardware-wallet-controlled .eth name
+  ├─ addr ─► self-custodied Ethereum address
+  ├─ contenthash ─► IPFS site (or Arweave for permanence)
+  ├─ avatar ─► IPFS image
+  ├─ text "url" ─► website
+  ├─ text "com.github" ─► GitHub username
+  ├─ text "com.twitter" / "social.nostr.npub" ─► social
+  └─ text "lud16" ─► Lightning Address
+</code></pre>
+<p>A single <code>.eth</code> name as the root of online presence — the role email plus DNS plus a CA used to play.</p>
+<h3 id="app-subdomain-deployment">App subdomain deployment</h3>
+<p><code>yourapp.eth</code> buys a <code>.eth</code> and uses CCIP-Read to issue <code>&lt;user&gt;.yourapp.eth</code> for each signup. Users get an ENS-resolvable subdomain at zero on-chain cost; the app keeps the parent name and the signing key.</p>
+<h3 id="dnssec-migration">DNSSEC migration</h3>
+<p>A <code>.com</code> holder uses DNSSEC to claim the matching ENS namespace, then migrates services without losing legacy users.</p>
+<h2 id="recent-developments-2024-2026">Recent developments (2024-2026)</h2>
+<ul>
+<li>CCIP-Read went mainstream; major wallets and dApps integrate it.</li>
+<li>ENS DAO governance matured and the treasury is well-managed.</li>
+<li>ENS Labs spun off as a non-profit.</li>
+<li>Stay-on-Ethereum-L1 decision (Feb 2026); Namechain L2 abandoned.</li>
+<li>ENS gas costs dropped ~99% over 2025 (Dencun → Pectra → Fusaka).</li>
+<li>Fusaka (Dec 2025): gas limit raised to 60 million (2x from early 2025).</li>
+<li>2026 roadmap targets 200 million gas limit (3x current), before ZK upgrades.</li>
+<li>DNSSEC oracle improvements; more TLDs supported.</li>
+<li>Lightning Address records standardized as an ENS text key.</li>
+<li>Storage scaling via blobs reduces effective registration cost.</li>
+<li>ENS app and ENS Explorer overhauled in 2026.</li>
+<li>ENSv2 protocol revision (ground-up rewrite) advancing on L1.</li>
+<li><strong>ENSv2 App + Explorer Alpha (May 11, 2026)</strong> — New ENS App and ENS Explorer deployed on Sepolia testnet for community feedback ahead of mainnet.</li>
+<li><strong>ENSv2 Role-Based Permissions (May 19, 2026)</strong> — Granular per-role access control for .eth names launches, replacing the all-or-nothing single-owner model. Supports separate wallets for record updates, resolver management, and administrative settings — enabling corporate treasuries, team accounts, and shared wallets without transferring full ownership.</li>
+<li><strong>ICANN 84 (2026)</strong> — Active engagement; D3 Protocol partnership announced; .brand gTLD application under consideration for earliest 2028 delegation.</li>
+<li><strong>Institutional adoption signal (June 2026)</strong> — The Republic of Türkiye Directorate of Communications registered <code>cbiletisim.eth</code> as its official decentralized identity, featured in Ankara at Türkiye's AI and blockchain initiative. First major government adoption of ENS.</li>
+<li><strong>ENS Labs × Immunefi $70K audit competition (Aug 18–Sep 14, 2026)</strong> — 4-week audit competition for the new ENS Manager + ENS Explorer + supporting app infrastructure (Workers, Transaction-manager, Smart-account). 137,845 LOC, 306 reports submitted, 20 confirmed valid, 56 under review (Aug 31 snapshot). <strong>Closed Sep 14 11:00 UTC on schedule</strong> (vault TVL $69,981.17 Sep 21, declined $8 from Sep 14 close). Sep 20 ENS deadline to resolve all reports; Sep 28 results frozen; Sep 29 final 48-hour dispute window closes; <strong>Oct 26 payment + public results publication</strong>. Gating step before ENSv2 mainnet deployment.</li>
+<li><strong>"Next Era of ENS DAO" Foundation proposal PASSED Aug 9</strong> (1.27M For / 480.69K Against) — ENS Foundation is now an operating entity with a five-seat board (Nick Johnson, Alexander Urbelis as Executive Director, Kartik Talwar, Brett Sun, Anthony Leutenegger); Foundation administers the ~$65M Endowment + 1M ENS for compensation; DAO keeps 54.6M ENS + $16M wallet.</li>
+<li><strong>Namechain status</strong> — the Surge architecture post is dated 17 November 2025. ENS’s 6 February 2026 announcement supersedes it: ENSv2 on Ethereum L1, with Namechain development ceased.</li>
+<li><strong>ENS DAO Newsletter #120 (Sep 15, 2026)</strong> — most DAO-content-rich newsletter of Q3:</li>
+<li><strong>ENS token-transparency filing</strong> (Blockworks report) — investors told <code>$ENS</code> holders can delegate votes but have <strong>no dividend or revenue-distribution rights</strong>.</li>
+<li><strong>ENS as Registry Layer for Tokenized Assets</strong> (ENS Labs blog) — pitches ENSv2 hierarchical registries to the tokenized-asset issuer ecosystem.</li>
+<li><strong>One-Click Registration</strong> (production in ENS App) — choose name, payment, profile in one flow.</li>
+<li><strong>Name Activity Notifications</strong> (ENS App beta) — addresses the user-research finding "people are afraid of losing control of their names"; same feature adds proactive expiry notifications.</li>
+<li><strong>ensjs PR #377</strong> — points Sepolia at the clean hackathon testnet deployment (ENSv1 + ENSv2).</li>
+<li><strong>ens-contracts PR #572 (adraffy)</strong> — <strong>DNSSEC ancestor inceptions stored onchain</strong> per <code>(node, type)</code> with new <code>getInception(name, type)</code> getter + <code>InceptionChanged</code> event (backwards-compat fallback to <code>inceptions(node)</code>). The change Sepolia has been waiting for to make DNSSEC import trust-anchored.</li>
+<li><strong>ens-contracts PR #573 (hiddentao)</strong> — <code>.eth</code> resolver deploy-bug fix; routes resolver-setting through <code>RegistrarSecurityController</code> when it owns the registrar, making the deploy order-independent.</li>
+<li><strong>docs PR #589 (schmidsi)</strong> — adds <code>.locker</code> to the custom-TLD implementations table (block 25925109 ownership verified).</li>
+<li><strong>Endowment NAV $93M</strong>, <strong>3.08% blended APY</strong> (Steakhouse August slides), August strategy earnings <strong>$223K</strong>. Rebalancing ETH toward stablecoins; custody of endowment Safe moved to <strong>Foundation</strong>.</li>
+<li><strong>Premium sales $113K in August</strong> (Blockful + anticapture analysis) — 3-month rising trend, offsetting declining new-registration revenue.</li>
+<li><strong>Blockful September delegation-incentive pool 8K ENS</strong> — final month.</li>
+<li><strong>SafeNotes shutting down</strong> (Meta-Governance declines continued support).</li>
+<li><strong>ENSIP-31: Payment Preferences (Sep 17, 2026)</strong> — Unruggable Labs / nxt3d. Standardizes <strong>recipient-side chain routing</strong> at the protocol layer via ENSIP-24 data records with key <code>payment-preference[&lt;multichainTokenHash&gt;]</code>. Recipients publish an ordered, token-specific list of preferred chains; wallets read before resolving the receiving address. <strong>Open question</strong> — how to fingerprint a multichain token (symbols aren't canonical; addresses are per-chain; ENSIP-31 currently hashes an immutable snapshot of chain-specific token representations). Draft PR <a href="https://github.com/ensdomains/ensips/pull/87" rel="noopener nofollow">ensdomains/ensips#87</a>. Forum: <a href="https://discuss.ens.domains/t/ensip-31-payment-preferences/22431" rel="noopener nofollow">discuss.ens.domains/t/ensip-31-payment-preferences/22431</a>. This is the <strong>first ENSIP of 2026 to standardize recipient-side routing intent at the protocol layer</strong>.</li>
+<li><strong>ENSv2 plugin for MetaMask Agent Wallet v0.8.0 (Sep 15, 2026)</strong> — package <code>@estmcmxci/mm-plugin-ensv2</code> adds Sepolia ENSv2 resolution, registration, records, primary names, and <strong>ERC-8004 agent identity</strong> to the MetaMask Agent Wallet CLI. First ENSv2 SDK path through the MetaMask Agent Wallet surface. <strong>Sepolia only — mainnet blocked on audit close + ENS Labs + DAO go/no-go from Oct 26 onwards.</strong></li>
+<li><strong>Earlier Surge proposal</strong> — the official ENS post describes a proposed rollup architecture in November 2025, before the February 2026 decision to stop Namechain development.</li>
+<li><strong>ICANN TSG on gTLD Integrations with Alternative Naming Systems — public comment Aug 10–Sep 21, 2026</strong> — the only formal ICANN venue open in Q3 2026 specifically addressing whether a gTLD can be integrated with the same domain name in an alternative naming system (blockchain, mesh, DHT-based). Closes TODAY Sep 21. This is the single highest-signal ICANN policy event for the decentralized-DNS stack in Q3 2026.</li>
+<li><strong>Root KSK rollover — Oct 11, 2026 hard cutover; T-20 days as of Sep 21</strong>; old-key retirement Jan 2027. Only scheduled global DNS event in 2026.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://ens.domains/blog/post/ens-staying-on-ethereum" rel="noopener nofollow">ENS is staying on Ethereum, 6 February 2026</a></li>
+<li>
+<p><a href="https://ens.domains/blog/post/namechain-nethermind-surge" rel="noopener nofollow">Earlier Namechain/Surge proposal, 17 November 2025</a></p>
+</li>
+<li>
+<p>ENS docs — <a href="https://docs.ens.domains" rel="noopener nofollow">docs.ens.domains</a>.</p>
+</li>
+<li>ENS protocol — <a href="https://ens.domains" rel="noopener nofollow">ens.domains</a>.</li>
+<li>EIP-3668 (CCIP-Read) — <a href="https://eips.ethereum.org/EIPS/eip-3668" rel="noopener nofollow">eips.ethereum.org/EIPS/eip-3668</a>.</li>
+<li>EIP-4361 (Sign-In with Ethereum) — <a href="https://eips.ethereum.org/EIPS/eip-4361" rel="noopener nofollow">eips.ethereum.org/EIPS/eip-4361</a>.</li>
+<li>Nick Johnson, <em>ENS Staying on Ethereum</em>, blog post Feb 6, 2026.</li>
+<li>ENS DAO governance forum — <a href="https://discuss.ens.domains" rel="noopener nofollow">discuss.ens.domains</a>.</li>
+<li>Source — <a href="https://github.com/ensdomains" rel="noopener nofollow">github.com/ensdomains</a>.</li>
+</ul>
+<p>Continue with <a href="/kb/sovereign-name-lifecycle/">Sovereign name lifecycle</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/sovereign-name-lifecycle/">
+  <span class="nm">Sovereign name lifecycle</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/cardano-dns/">
+  <span class="nm">Cardano DNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/compare-naming-systems/">
+  <span class="nm">Naming systems compared</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/kb/decentralized-dns/">
+  <span class="nm">Decentralized DNS and Sovereign Naming</span>
+  <span class="ty">Explainer</span>
+  
+</a><a class="row" href="/kb/dnns/">
+  <span class="nm">DNNS</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/handshake/">
+  <span class="nm">Handshake</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/mesh-naming/">
+  <span class="nm">Naming on Mesh and Off-Grid Networks</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/namecoin/">
+  <span class="nm">Namecoin</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/nomen/">
+  <span class="nm">Nomen</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/guides/uncensorable-website/">
+  <span class="nm">Publishing an Uncensorable Website</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/unstoppable-domains/">
+  <span class="nm">Unstoppable Domains</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-cautionary" title="Cautionary: works, but its trust model, governance or legal exposure undermines what it claims."><i aria-hidden="true">! </i>Cautionary</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=Ethereum%20Name%20Service%20%28ENS%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-battle-tested bdg-lg" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i aria-hidden="true">✓ </i>Battle-tested</span>
+        <span class="m m-battle-tested" role="img" aria-label="Readiness: Battle-tested" title="Battle-tested: years of production use by people with real adversaries; audited and well understood."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+        <p>Battle-tested: years of production use by people with real adversaries; audited and well understood.</p>
+      </div>
+      
+      <p class="def">The largest deployed decentralized naming system.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Sovereign Naming</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>10</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

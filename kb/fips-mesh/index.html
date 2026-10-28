@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FIPS (Free Internetworking Peering System) — ungovernable.tech</title>
+<meta name="description" content="FIPS, a Rust mesh routing protocol that uses Nostr key pairs as node identities: how it routes, what it encrypts, and its experimental status.">
+<link rel="canonical" href="https://ungovernable.tech/kb/fips-mesh/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="FIPS (Free Internetworking Peering System) — ungovernable.tech">
+<meta property="og:description" content="FIPS, a Rust mesh routing protocol that uses Nostr key pairs as node identities: how it routes, what it encrypts, and its experimental status.">
+<meta property="og:url" content="https://ungovernable.tech/kb/fips-mesh/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FIPS (Free Internetworking Peering System) — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FIPS (Free Internetworking Peering System) — ungovernable.tech">
+<meta name="twitter:description" content="FIPS, a Rust mesh routing protocol that uses Nostr key pairs as node identities: how it routes, what it encrypts, and its experimental status.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-mesh.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "FIPS (Free Internetworking Peering System)", "description": "FIPS, a Rust mesh routing protocol that uses Nostr key pairs as node identities: how it routes, what it encrypts, and its experimental status.", "dateModified": "2026-10-25", "datePublished": "2026-04-25", "url": "https://ungovernable.tech/kb/fips-mesh/", "mainEntityOfPage": "https://ungovernable.tech/kb/fips-mesh/", "image": "https://ungovernable.tech/assets/og/pillar-mesh.png", "about": [{"@type": "Thing", "name": "Off-Grid and Mesh Networks"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Off-Grid and Mesh Networks", "item": "https://ungovernable.tech/pillars/mesh/"}, {"@type": "ListItem", "position": 3, "name": "FIPS (Free Internetworking Peering System)", "item": "https://ungovernable.tech/kb/fips-mesh/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/mesh/">Off-Grid and Mesh Networks</a><span aria-hidden="true">/</span><span class="here">FIPS (Free Internetworking Peering System)</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ OFF-GRID AND MESH NETWORKS ]</span></p>
+  <h1>FIPS (Free Internetworking Peering System)</h1>
+  <p class="aka">Also Free Internetworking Peering System, FIPS Mesh.</p>
+  <p class="dek">A Rust mesh routing protocol that uses Nostr keypairs as native node identities. Multi-transport (UDP / TCP / Ethernet / Tor / BLE), Noise-encrypted hop-to-hop and end-to-end, with an IPv6 TUN adapter that lets unmodified TCP/IP applications speak across the mesh.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>5</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#why-fips-is-interesting">Why FIPS is interesting</a><a href="#identity-model">Identity model</a><a href="#routing">Routing</a><a href="#transports">Transports</a><a href="#encryption">Encryption</a><a href="#ipv6-adaptation">IPv6 adaptation</a><a href="#native-fips-aware-apps">Native FIPS-aware apps</a><a href="#composition">Composition</a><a href="#trade-offs">Trade-offs</a><a href="#comparison">Comparison</a><a href="#use-cases">Use cases</a><a href="#recent-developments-2026">Recent developments (2026)</a><a href="#attack-surface">Attack surface</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="why-fips-is-interesting">Why FIPS is interesting</h2>
+<p>FIPS bridges two things this library already covers separately: mesh routing (Reticulum, Yggdrasil, Meshtastic) and Nostr identity (<a href="/kb/nostr-identity/">Nostr</a>, <a href="/kb/pubky/">Pubky</a>). Instead of a new address space, FIPS uses Nostr <code>npub</code>s as node identities. The same keypair signs your social posts and routes packets to your laptop. This collapses identity layers across the stack.</p>
+<p>It is also a fairly bold engineering bet: spanning-tree plus bloom-filter routing in Rust, transports including BLE L2CAP, and IPv6 adaptation so legacy software just works.</p>
+<h2 id="identity-model">Identity model</h2>
+<p>Every FIPS node has a Nostr secp256k1 / Schnorr keypair. The <code>npub</code> (bech32-encoded x-only public key) is the node's address. Two consequences:</p>
+<ol>
+<li>The same keypair you'd use for Nostr social or messaging works as a network address.</li>
+<li>There is no enrollment, no registry, no DNS. Generate a key and you have a routable identity.</li>
+</ol>
+<p>Within FIPS the npub is mapped deterministically to a 128-bit IPv6 address in the <code>fd00::/8</code> range so legacy IP applications can address it like any other host. A TUN adapter on the host converts between the two.</p>
+<h2 id="routing">Routing</h2>
+<p>FIPS does not flood. It builds a <em>spanning tree</em> across the mesh, with greedy coordinate routing on top, similar in spirit to Yggdrasil but with bloom-filter-guided discovery for finding nodes outside the tree.</p>
+<ul>
+<li>Spanning tree: every node has tree coordinates after convergence; routing follows tree-distance.</li>
+<li>Bloom filter discovery: nodes advertise compact summaries of which neighborhoods they know about; queries probe single-path with retry rather than flooding.</li>
+<li>No global routing tables. Local state only.</li>
+</ul>
+<p>Convergence is fast on small and medium meshes. On hundreds of nodes the discovery overhead grows but stays below flooding levels.</p>
+<h2 id="transports">Transports</h2>
+<p>FIPS runs over heterogeneous links; the routing layer is indifferent.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Transport</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UDP</strong></td>
+<td>Standard internet overlay</td>
+</tr>
+<tr>
+<td><strong>TCP</strong></td>
+<td>Strict NAT environments where UDP is blocked</td>
+</tr>
+<tr>
+<td><strong>Ethernet (raw)</strong></td>
+<td>LAN-scale mesh, no IP needed</td>
+</tr>
+<tr>
+<td><strong>Tor</strong></td>
+<td>Anonymized backbone</td>
+</tr>
+<tr>
+<td><strong>BLE L2CAP</strong></td>
+<td>Phone-to-phone short-range, no infrastructure</td>
+</tr>
+</tbody>
+</table></div>
+<p>Per-link MTU is negotiated; the protocol fragments above and reassembles below. The roadmap targets serial and radio (LoRa-style) transports.</p>
+<p>This makes FIPS a fit for hybrid deployments: a city-scale BLE mesh on phones bridged to a continent-scale Tor backbone, with Ethernet links connecting machines in a single room, all in one address space.</p>
+<h2 id="encryption">Encryption</h2>
+<p>Two cryptographic layers:</p>
+<ol>
+<li>Hop-to-hop: Noise IK between adjacent nodes. Authenticated, encrypted, replay-resistant. Periodic rekey.</li>
+<li>End-to-end: Noise XK between FIPS endpoints, independent of any intermediate node. Periodic rekey for forward secrecy.</li>
+</ol>
+<p>The combination resembles Tor's onion routing for confidentiality, but without the anonymity goal: the <em>content</em> is end-to-end encrypted, but the <em>path</em> is observable to participating nodes.</p>
+<h2 id="ipv6-adaptation">IPv6 adaptation</h2>
+<p>The TUN adapter does three useful things:</p>
+<ul>
+<li>Maps <code>npub</code> → IPv6 (<code>fd00::/8</code>). Pings, SSH, HTTP, anything that takes an IPv6 address can address a FIPS node.</li>
+<li>Resolves <code>.fips</code> DNS. A built-in local resolver answers <code>.fips</code> lookups against the mesh.</li>
+<li>Static hostname mapping. <code>/etc/fips/hosts</code> maps human-readable names to mesh addresses, auto-reloading.</li>
+</ul>
+<p>The effect is that legacy TCP/IP software just works. SSH to a friend's <code>npub</code>-derived hostname; serve HTTP on a node; mount NFS over the mesh. None of those apps need to know FIPS exists.</p>
+<h2 id="native-fips-aware-apps">Native FIPS-aware apps</h2>
+<p>Applications that opt in can address each other directly with <code>npub:port</code> semantics, avoiding the IPv6 translation layer. This is more efficient and exposes the cryptographic identity directly to the application, which is useful for end-to-end signing, attestation, and protocol-aware features.</p>
+<p>The first canonical use case in the FIPS examples: a Nostr relay (strfry) reachable only over the FIPS mesh, sharing a sidecar's network namespace.</p>
+<h2 id="composition">Composition</h2>
+<p>FIPS plays well with the rest of this library's primitives:</p>
+<ul>
+<li>Nostr social and Nostr-as-network. One keypair across both planes.</li>
+<li>Tor as a transport. Run FIPS over Tor; Tor anonymizes the underlying IP, FIPS gives mesh routing semantics on top.</li>
+<li>Reticulum interop. Both use cryptographic identities; gateways bridging FIPS and Reticulum are plausible.</li>
+<li>Mix networks layered above. FIPS is not anonymous on its own; combine with Nym or Katzenpost for metadata privacy.</li>
+<li>Confidential AI inference. A FIPS-only LLM endpoint pinned to a Nostr identity, behind attested TLS, reachable across heterogeneous transports.</li>
+</ul>
+<h2 id="trade-offs">Trade-offs</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Nostr-native identity. Single keypair across the social and network layers.</li>
+<li>Multi-transport without rework. The same node speaks UDP, BLE, and Tor; the protocol picks the best.</li>
+<li>Encrypted by default, hop-to-hop and end-to-end.</li>
+<li>Legacy-compatible via IPv6 TUN. TCP/IP apps just work.</li>
+<li>Rust implementation, memory-safe and modern.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Early-stage (v0.2.0 released; <code>0.3.0-dev</code> on master in April 2026). Wire format still changing; APIs not stable.</li>
+<li>Smaller community than Yggdrasil or Reticulum. Fewer nodes, fewer integrations.</li>
+<li>Not anonymous. Like Yggdrasil, not a Tor replacement.</li>
+<li>No security audit yet (in roadmap).</li>
+<li>No published mobile binaries yet.</li>
+</ul>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Identity</th>
+<th>Routing</th>
+<th>Encryption</th>
+<th>Anonymity</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FIPS</strong></td>
+<td>Nostr secp256k1 = npub</td>
+<td>Spanning tree + bloom</td>
+<td>Noise IK + XK</td>
+<td>No</td>
+<td>v0.2.0, active</td>
+</tr>
+<tr>
+<td><strong>Yggdrasil</strong></td>
+<td>Ed25519 = IPv6</td>
+<td>Greedy on spanning tree</td>
+<td>Noise + ChaCha20</td>
+<td>No</td>
+<td>Experimental (alpha)</td>
+</tr>
+<tr>
+<td><strong>Reticulum</strong></td>
+<td>Curve25519 destinations</td>
+<td>Path announce + transports</td>
+<td>AES-256 + Curve25519</td>
+<td>No</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><strong>cjdns</strong></td>
+<td>Curve25519 = IPv6</td>
+<td>DHT + path-vector</td>
+<td>Curve25519</td>
+<td>No</td>
+<td>Maintained</td>
+</tr>
+<tr>
+<td><strong>Tor</strong></td>
+<td>TLS to relays</td>
+<td>Three-hop circuits</td>
+<td>Layered AES</td>
+<td>Yes</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><strong>Meshtastic</strong></td>
+<td>Hardware ID + key</td>
+<td>Managed flood</td>
+<td>AES-256-CTR per channel</td>
+<td>No</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="use-cases">Use cases</h2>
+<h3 id="single-keypair-operator">Single-keypair operator</h3>
+<p>Generate one Nostr keypair. Use it to:</p>
+<ul>
+<li>Post on Nostr.</li>
+<li>Sign Lightning zaps.</li>
+<li>Address a FIPS node, your laptop, accessible from your phone over Tor or BLE.</li>
+<li>Bind a confidential AI endpoint to it via attested TLS.</li>
+</ul>
+<p>The cognitive overhead of N identities collapses to one.</p>
+<h3 id="hybrid-hostile-environment-mesh">Hybrid hostile-environment mesh</h3>
+<pre><code>[FIPS over BLE] — phones in a building
+   ↕
+[FIPS over Ethernet] — wired router fleet
+   ↕
+[FIPS over Tor] — to a remote office or cloud node
+</code></pre>
+<p>Same address space, same encryption, same identity. When one transport fails, the others carry traffic.</p>
+<h3 id="sidecar-deployment">Sidecar deployment</h3>
+<p>K8s sidecar pattern: FIPS runs alongside an existing service, presenting <code>fips0</code> in the pod's network namespace. Other containers in the pod get mesh access transparently.</p>
+<h2 id="recent-developments-2026">Recent developments (2026)</h2>
+<ul>
+<li>v0.2.0: Tor and BLE L2CAP transports, ECN congestion signaling, improved discovery, IPv6 TUN with multi-backend DNS auto-config.</li>
+<li>Master after v0.2.0: Nostr-mediated discovery and STUN-assisted UDP hole punching behind the <code>nostr-discovery</code> feature; Windows/macOS packaging; outbound LAN gateway.</li>
+<li>Roadmap: broader relay-based bootstrap, native API hardening for FIPS-aware apps, security audit.</li>
+<li>Linux, macOS, and Windows packaging in place.</li>
+</ul>
+<h2 id="attack-surface">Attack surface</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active path interception</td>
+<td>Hop-to-hop Noise IK + end-to-end Noise XK</td>
+</tr>
+<tr>
+<td>Sybil node flooding</td>
+<td>Bloom-filter discovery limits scope; pair with explicit peer admission for hostile deployments</td>
+</tr>
+<tr>
+<td>Key compromise</td>
+<td>Per-session forward secrecy via rekey</td>
+</tr>
+<tr>
+<td>Route hijack</td>
+<td>Cryptographically-signed routing announcements</td>
+</tr>
+<tr>
+<td>Quantum (future)</td>
+<td>Curve25519/Schnorr today; isolate long-lived secrets and track PQ transport/signature migration</td>
+</tr>
+<tr>
+<td>Endpoint compromise</td>
+<td>Standard hygiene; not different from any mesh</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://yggdrasil-network.github.io/" rel="noopener nofollow">Yggdrasil project status</a></p>
+</li>
+<li>
+<p>FIPS — <a href="https://github.com/jmcorgan/fips" rel="noopener nofollow">github.com/jmcorgan/fips</a></p>
+</li>
+<li>Protocol design — <code>docs/design/</code> in the FIPS repository.</li>
+<li><em>fips-intro.md</em> — top-level overview.</li>
+<li>Noise Protocol Framework — <a href="https://noiseprotocol.org/" rel="noopener nofollow">noiseprotocol.org</a>.</li>
+<li>Nostr Protocol — <a href="https://github.com/nostr-protocol/nostr" rel="noopener nofollow">github.com/nostr-protocol/nostr</a>.</li>
+</ul>
+<p>Beside <a href="/kb/meshtastic/">Meshtastic</a> in the table above belongs its sibling <a href="/kb/meshcore/">MeshCore</a>: Ed25519 node keys, flood-then-learned-path routing through dedicated repeaters, AES-128 with a 2-byte MAC, no forward secrecy, active development.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/nostr-identity/">
+  <span class="nm">Nostr as an Identity Layer</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/pubky/">
+  <span class="nm">Pubky</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/meshtastic/">
+  <span class="nm">Meshtastic</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/meshcore/">
+  <span class="nm">MeshCore</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/marmot-protocol/">
+  <span class="nm">Marmot: MLS over Nostr</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/nostr-vpn/">
+  <span class="nm">Nostr VPN</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+</a><a class="row" href="/kb/pkarr/">
+  <span class="nm">PKARR: Public-Key Addressable Resource Records</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=FIPS%20%28Free%20Internetworking%20Peering%20System%29" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-experimental bdg-lg" title="Experimental: working software, but early: small user base, unaudited or changing fast.">Experimental</span>
+        <span class="m m-experimental" role="img" aria-label="Readiness: Experimental" title="Experimental: working software, but early: small user base, unaudited or changing fast."><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <p>Experimental: working software, but early: small user base, unaudited or changing fast.</p>
+      </div>
+      
+      <p class="def">A Rust mesh routing protocol that uses Nostr keypairs as native node identities. Multi-transport (UDP / TCP / Ethernet / Tor / BLE), Noise-encrypted hop-to-hop and end-to-end, with an IPv6 TUN adapter that lets unmodified TCP/IP applications speak across the mesh.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Off-Grid and Mesh Networks</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>4</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>

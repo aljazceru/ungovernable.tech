@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'sha256-hsKZhPgnOETVWjPVp/hqaU73hJ5OHYhvZPBHzCI9tns='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SimpleX Chat — ungovernable.tech</title>
+<meta name="description" content="SimpleX Chat, a messenger with no user identifiers at all: one-way message queues on relays you can choose or run, and what that hides.">
+<link rel="canonical" href="https://ungovernable.tech/kb/simplex/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0d0b">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ungovernable.tech">
+<meta property="og:title" content="SimpleX Chat — ungovernable.tech">
+<meta property="og:description" content="SimpleX Chat, a messenger with no user identifiers at all: one-way message queues on relays you can choose or run, and what that hides.">
+<meta property="og:url" content="https://ungovernable.tech/kb/simplex/">
+<meta property="og:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SimpleX Chat — ungovernable.tech">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SimpleX Chat — ungovernable.tech">
+<meta name="twitter:description" content="SimpleX Chat, a messenger with no user identifiers at all: one-way message queues on relays you can choose or run, and what that hides.">
+<meta name="twitter:image" content="https://ungovernable.tech/assets/og/pillar-messaging.png">
+<link rel="preload" href="/assets/fonts/archivo-w66-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-serif-4-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/site.css?v=0fd2fa5e">
+<link rel="alternate" type="application/atom+xml" title="ungovernable.tech" href="/feed.xml">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SimpleX Chat", "description": "SimpleX Chat, a messenger with no user identifiers at all: one-way message queues on relays you can choose or run, and what that hides.", "dateModified": "2026-10-25", "datePublished": "2026-04-26", "url": "https://ungovernable.tech/kb/simplex/", "mainEntityOfPage": "https://ungovernable.tech/kb/simplex/", "image": "https://ungovernable.tech/assets/og/pillar-messaging.png", "about": [{"@type": "Thing", "name": "Secure Messaging"}], "isPartOf": {"@type": "WebSite", "name": "ungovernable.tech", "url": "https://ungovernable.tech"}, "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ungovernable.tech/"}, {"@type": "ListItem", "position": 2, "name": "Secure Messaging", "item": "https://ungovernable.tech/pillars/messaging/"}, {"@type": "ListItem", "position": 3, "name": "SimpleX Chat", "item": "https://ungovernable.tech/kb/simplex/"}]}</script>
+
+<script>(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+</head>
+<body class="on-entry">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr gut">
+  <div class="wrap in">
+    <a class="wordmark" href="/">
+      <svg class="mark" viewBox="0 0 7 7" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+      <span class="wm">ungovernable<small>.tech</small></span>
+      <span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/pillars/" aria-current="page">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+    </nav>
+    <div class="tools">
+      <a class="sbtn" href="/directory/" id="open-search"><span class="pr" aria-hidden="true">&gt;</span>search 245 entries<kbd>/</kbd><kbd class="k2">ctrl k</kbd></a>
+      <button class="ibtn" id="open-search-m" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="ibtn" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="open-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menusheet">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<div class="gut"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">~/home</a><span aria-hidden="true">/</span><a href="/pillars/messaging/">Secure Messaging</a><span aria-hidden="true">/</span><span class="here">SimpleX Chat</span></nav>
+<header class="ahead tex">
+  <p class="kind"><span class="ktag">[ DEEP DIVE ]</span><span class="ktag">[ SECURE MESSAGING ]</span></p>
+  <h1>SimpleX Chat</h1>
+  <p class="aka">Also SimpleX Chat, SimpleX Network, SMP, XFTP.</p>
+  <p class="dek">A messenger built on a bet that the user-identifier is the wrong primitive: instead of &#34;user has a phone number / npub / pubkey, contacts route to that,&#34; each conversation gets its own pair of unidirectional queue addresses on relay servers, and a user has no global identifier at all. Relays cannot link conversations to a single user. Double Ratchet still encrypts content; the architectural innovation is what&#39;s removed, not what&#39;s added.</p>
+  <div class="meta">
+    <span class="meta-r"><span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span></span>
+    <span>updated <b>2026-10-25</b></span>
+    <span><b>7</b> min read</span>
+    
+    
+  </div>
+</header>
+
+<div class="mono-grid">
+  
+  <details class="toc" id="toc" open>
+    <summary>Contents</summary>
+    <div class="toc-l">
+    <a href="#what-simplex-is-doing-differently">What SimpleX is doing differently</a><a href="#architecture">Architecture</a><a href="#cryptography">Cryptography</a><a href="#connection-establishment">Connection establishment</a><a href="#relays-and-decentralization">Relays and decentralization</a><a href="#comparison">Comparison</a><a href="#threat-model">Threat model</a><a href="#audits-and-provenance">Audits and provenance</a><a href="#deployment">Deployment</a><a href="#operational-notes">Operational notes</a><a href="#primary-sources">Primary sources</a>
+    </div>
+  </details>
+  
+
+  <article class="prose">
+    <h2 id="what-simplex-is-doing-differently">What SimpleX is doing differently</h2>
+<p>Most messengers — Signal, WhatsApp, Matrix, Session, even Nostr — give every user a single identifier (phone number, account, public key, npub) that all their contacts route to. The server / relay sees inbound traffic concentrated at that identifier and can build a social graph from connection patterns even if it can't read content.</p>
+<p>SimpleX rejects that primitive. There is no "@alice" or <code>npub1...alice...</code>. Instead:</p>
+<ul>
+<li>Alice and Bob each run a client.</li>
+<li>For each contact pair, they create <strong>two unidirectional queues</strong> on SMP relays.</li>
+<li>Each queue is a per-conversation address (a long random string) hosted on some relay.</li>
+<li>Messages from Alice to Bob land in one queue; messages from Bob to Alice in another.</li>
+<li>Different conversations use different queues, often on different relays.</li>
+</ul>
+<p>A relay watching its queues sees: "queue ABC123 received a 487-byte ciphertext at 12:33:14." It does not see "Alice sent this," and it cannot link queue ABC123 to queue DEF456 (Alice's other conversation) because Alice has no identifier the relay knows.</p>
+<p>The protocol that talks to relays is <strong>SMP</strong> (Simplex Messaging Protocol). File transfers use <strong>XFTP</strong> (XFTP, "X File Transfer Protocol"), a similar queue-oriented transfer protocol with chunking and rotating addresses.</p>
+<p>This is a strong threat model claim, and a real architectural commitment: there is no user database, ever, on any relay.</p>
+<h2 id="architecture">Architecture</h2>
+<pre><code>┌──────────────┐                                 ┌──────────────┐
+│ Alice client │                                 │  Bob client  │
+└──────┬───────┘                                 └──────┬───────┘
+       │                                                │
+       │   Send to Bob's queue on relay R1              │
+       ├───────────────────────────────────────────────►│
+       │                                                │
+       │             Receive from Alice's queue on R2   │
+       │◄───────────────────────────────────────────────┤
+       │                                                │
+       │  (each queue lives on whichever relay was      │
+       │   chosen at conversation-creation time)        │
+</code></pre>
+<p>Components:</p>
+<ul>
+<li><strong>Client.</strong> Holds long-term identity keys <em>that are never published to any server</em>. Holds Double Ratchet state per conversation. Holds the list of queues for each contact.</li>
+<li><strong>SMP relay</strong> (server). Stores per-queue messages, accepts subscriptions, expires old data. Stateless about users.</li>
+<li><strong>XFTP server.</strong> Same model for file blobs.</li>
+</ul>
+<p>There are no accounts to register. Installing a fresh client and creating a fresh contact link is the entire onboarding. Identity is per-device until the user explicitly migrates it.</p>
+<h2 id="cryptography">Cryptography</h2>
+<ul>
+<li><strong>Double Ratchet</strong> for content (the same X3DH-then-Symmetric-Ratchet + DH-Ratchet design as Signal, with SimpleX-specific key agreement at session setup).</li>
+<li><strong>Curve25519</strong> for long-term identity and ephemeral keys.</li>
+<li><strong>NaCl crypto_box</strong> primitives for queue authorization (each queue has a signing key for the recipient).</li>
+<li><strong>Post-quantum</strong> key agreement: SimpleX added a hybrid Kyber-based handshake in late 2023 / early 2024. As of 2026 SimpleX is one of the few production messengers with a PQ option enabled by default for new conversations. (Signal added PQXDH in 2023 for direct messages; SimpleX is in similar territory.)</li>
+</ul>
+<p>What SimpleX does <em>not</em> do cryptographically novel: the content encryption is conventional Signal-Protocol-style. The novelty is in identity and routing, not in the ratchet itself.</p>
+<h2 id="connection-establishment">Connection establishment</h2>
+<p>SimpleX has no directory. Two users connect by exchanging a one-time <strong>invitation link</strong> out-of-band. The invitation contains:</p>
+<ul>
+<li>A queue address on a chosen SMP relay.</li>
+<li>An ephemeral key.</li>
+<li>Optional metadata (display name suggestion, etc.).</li>
+</ul>
+<p>The mechanics:</p>
+<ol>
+<li>Alice creates an invitation. Her client sets up an empty queue on a relay.</li>
+<li>Alice gives Bob the link (via QR code, signal flare, scrap of paper, another messenger, etc.).</li>
+<li>Bob's client connects to the queue, sends its own queue address back, and the two clients run a handshake to derive Double Ratchet root keys.</li>
+<li>From that point on, Alice and Bob have a paired conversation with two queues; the original invitation queue is discarded.</li>
+</ol>
+<p>This is the threat-model honesty point: <strong>invitation-link delivery is out of SimpleX's threat model</strong>. If you send your invite link via WhatsApp, the WhatsApp servers know you and Bob are about to be connected. SimpleX protects everything <em>after</em> invitation delivery; the invitation itself needs a separate trust path (in person, over a different secure channel, printed and hand-delivered).</p>
+<p>For ongoing relationships you can also use <strong>contact addresses</strong> — long-lived, multi-use addresses you publish (e.g. on a website) so anyone can request to connect. The cost: a slightly weaker unlinkability story for that specific address.</p>
+<h2 id="relays-and-decentralization">Relays and decentralization</h2>
+<p>SimpleX maintains preset relays (operated by SimpleX Chat Ltd.) that new clients use by default. Self-hosting is straightforward: the <a href="https://github.com/simplex-chat/simplexmq" rel="noopener nofollow">github.com/simplex-chat/simplexmq</a> server is a single Haskell binary, runs on a $5 VPS, and clients can be configured to use arbitrary relay sets.</p>
+<p>In practice users tend to keep a mix: some preset relays, some self-hosted, distributed across jurisdictions and operators. A queue lives on whichever relay was chosen when the conversation was created; nothing forces all of a user's queues onto the same relay.</p>
+<p>This gives SimpleX a federation-by-disposition story rather than a federation-by-protocol-design story like Matrix. There's no consensus, no homeserver federation, just relays a client happens to use.</p>
+<h2 id="comparison">Comparison</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Signal</th>
+<th>Session</th>
+<th>SimpleX</th>
+<th>Briar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User identifier</td>
+<td>Phone number (or username, 2024+)</td>
+<td>Curve25519 pubkey</td>
+<td>None (per-conversation queues)</td>
+<td>TLS pubkey + Tor onion</td>
+</tr>
+<tr>
+<td>Server can build social graph</td>
+<td>Limited (sealed sender helps)</td>
+<td>No (onion routing)</td>
+<td>No (no user identifier)</td>
+<td>No (peer-to-peer over Tor / BLE)</td>
+</tr>
+<tr>
+<td>Online presence</td>
+<td>Asynchronous via servers</td>
+<td>Asynchronous via storage relays</td>
+<td>Asynchronous via SMP queues</td>
+<td>Both peers must be online (or via Tor mailbox)</td>
+</tr>
+<tr>
+<td>Bootstrap</td>
+<td>Phone-number contact discovery</td>
+<td>QR / Session ID</td>
+<td>Out-of-band invitation link</td>
+<td>Pairing in person or via mailbox</td>
+</tr>
+<tr>
+<td>Forward secrecy</td>
+<td>Yes (Double Ratchet)</td>
+<td>Yes (Double Ratchet)</td>
+<td>Yes (Double Ratchet)</td>
+<td>Yes (BTP)</td>
+</tr>
+<tr>
+<td>PQ key exchange</td>
+<td>PQXDH (2023+)</td>
+<td>No public deployment</td>
+<td>Hybrid Kyber (2023+)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Self-hostable</td>
+<td>No (Signal-server is open but the network is closed)</td>
+<td>Service-node operators</td>
+<td>Yes (relays)</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Phone number</td>
+<td>Required (or username for handles)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+<p>The honest comparison: SimpleX and Session both target the metadata problem more aggressively than Signal. They differ in mechanism — Session uses onion routing and a global user-pubkey identifier; SimpleX uses queue-based routing and no user identifier. Briar is a different beast (peer-to-peer over Tor, presence-aware) for a different threat model.</p>
+<p>For metadata resistance with mainstream usability and a usable iOS client, SimpleX in 2026 is the strongest practical option in this group.</p>
+<h2 id="threat-model">Threat model</h2>
+<h3 id="what-simplex-prevents">What SimpleX prevents</h3>
+<ul>
+<li><strong>Server-side social graph reconstruction.</strong> Even a malicious or compromised relay sees disconnected per-conversation queues, no user-pinning, no inter-conversation linkability.</li>
+<li><strong>User enumeration.</strong> No global directory, no phone-number lookup, no Sybil-easy account harvesting.</li>
+<li><strong>Plaintext in transit.</strong> Standard E2EE on every message.</li>
+<li><strong>Persistence of message content on relays.</strong> Messages are deleted on delivery (or after a configurable TTL); no message archive.</li>
+</ul>
+<h3 id="what-it-doesnt-prevent">What it doesn't prevent</h3>
+<ul>
+<li><strong>Endpoint compromise.</strong> Same as everywhere — the device holds plaintext.</li>
+<li><strong>Network-level traffic analysis.</strong> A passive observer between Alice and a relay sees Alice's IP. Use a VPN or Tor (SimpleX has built-in SOCKS support) to hide IPs.</li>
+<li><strong>Compromise of the invitation channel.</strong> If an adversary intercepts the invite link, they can connect <em>as Bob</em>. This is why out-of-band delivery matters.</li>
+<li><strong>Simultaneous multi-relay observers.</strong> A coordinated adversary running every SMP relay Alice uses could correlate traffic to Alice's IPs across queues if she does not Tor-route. SimpleX recommends Tor for this case.</li>
+</ul>
+<p>The team has been honest in their published threat model documentation about the invitation-link issue and the IP-observability issue. Treat SimpleX as: strong protection of social graph against operator, weaker protection against a network-position adversary unless combined with Tor.</p>
+<h2 id="audits-and-provenance">Audits and provenance</h2>
+<ul>
+<li><strong>Trail of Bits — 2022 audit</strong> of the SimpleX Chat clients and SimpleX Messaging Protocol implementation. Findings published; fixes shipped. (<a href="https://simplex.chat/blog/20221108-simplex-chat-v4.2-security-audit-by-trail-of-bits.html" rel="noopener nofollow">report</a>)</li>
+<li><strong>Trail of Bits — 2024 audit</strong> of the cryptographic protocols including the post-quantum handshake. Limited findings; addressed in releases.</li>
+<li>Independent cryptographic review of the post-quantum design has appeared in 2024 reports; ongoing.</li>
+</ul>
+<p>The audit cadence is real and the company publishes results. That puts SimpleX above most niche messengers in transparency, though Signal still has a longer audit history.</p>
+<h2 id="deployment">Deployment</h2>
+<ul>
+<li><strong>Clients</strong>: SimpleX Chat for iOS, Android, macOS, Linux, Windows. Reproducible builds for desktop. F-Droid for Android.</li>
+<li><strong>License</strong>: AGPL-3.0 for the network components, MPL-2.0 for clients.</li>
+<li><strong>Funding</strong>: SimpleX Chat Ltd. (UK), partly grant-funded (NLnet / NGI Zero), partly venture funding (2023 round).</li>
+<li><strong>Users</strong>: hard to pin since there is no account database. Public statements and download counts suggest <strong>on the order of 200K-500K active users in 2025-2026</strong>. Treat that range as "small but growing, far below Signal."</li>
+</ul>
+<h2 id="operational-notes">Operational notes</h2>
+<ul>
+<li>Use the built-in Tor support if your network adversary worries you. SimpleX runs over SOCKS to a local Tor instance; queues remain reachable.</li>
+<li>Self-host an SMP relay if you want a stable, jurisdiction-controlled queue host. Make sure clients configure it as part of their preset list.</li>
+<li>Rotate contact addresses for high-risk public connect points; per-conversation queues already rotate.</li>
+<li><strong>Groups</strong> are fully decentralized: each client stores the group profile and its pairwise connections to other members. An inviting member introduces a newcomer to existing members and forwards messages while their connections are established. Relays carry the connections’ queues; the protocol does not define a relay-owned group membership list or a shared sender-key group.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>
+<p><a href="https://simplex.chat/docs/protocol/simplex-chat.html" rel="noopener nofollow">SimpleX Chat protocol: decentralized group design</a></p>
+</li>
+<li>
+<p>SimpleX whitepaper — <a href="https://simplex.chat/docs/protocol/simplex-chat.html" rel="noopener nofollow">simplex.chat/docs/protocol/simplex-chat.html</a>.</p>
+</li>
+<li>SimpleX Messaging Protocol (SMP) — <a href="https://simplex.chat/docs/protocol/simplex-messaging.html" rel="noopener nofollow">simplex.chat/docs/protocol/simplex-messaging.html</a>.</li>
+<li>XFTP — <a href="https://simplex.chat/docs/protocol/xftp.html" rel="noopener nofollow">simplex.chat/docs/protocol/xftp.html</a>.</li>
+<li>Source repositories — <a href="https://github.com/simplex-chat" rel="noopener nofollow">github.com/simplex-chat</a>.</li>
+<li>Trail of Bits audit (2022) — <a href="https://simplex.chat/blog/20221108-simplex-chat-v4.2-security-audit-by-trail-of-bits.html" rel="noopener nofollow">simplex.chat/blog/20221108-simplex-chat-v4.2-security-audit-by-trail-of-bits.html</a>.</li>
+<li>Trail of Bits audit (2024) — published in SimpleX blog, 2024 release notes.</li>
+<li>SimpleX threat model — <a href="https://simplex.chat/docs/glossary.html" rel="noopener nofollow">simplex.chat/docs/glossary.html</a> and protocol documents.</li>
+<li>Marlinspike &amp; Perrin, "The Double Ratchet Algorithm" (2016) — the underlying content-encryption primitive.</li>
+</ul>
+<p>Compare this approach with <a href="/kb/delta-chat/">Delta Chat</a>, <a href="/kb/xmpp-omemo/">XMPP with OMEMO</a> and <a href="/kb/jami/">Jami</a> in <a href="/kb/compare-messengers/">Choosing a private messenger</a>.</p>
+
+    
+    <section class="related-sec" id="related">
+      <h2 class="nx">Related</h2>
+      <div class="rows">
+        <a class="row" href="/kb/delta-chat/">
+  <span class="nm">Delta Chat</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/xmpp-omemo/">
+  <span class="nm">XMPP with OMEMO</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/jami/">
+  <span class="nm">Jami</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/compare-messengers/">
+  <span class="nm">Choosing a private messenger</span>
+  <span class="ty">Comparison</span>
+  
+</a><a class="row" href="/guides/choosing-a-secure-messenger/">
+  <span class="nm">Choosing a Secure Messenger</span>
+  <span class="ty">Guide</span>
+  
+</a><a class="row" href="/kb/encrypted-messaging/">
+  <span class="nm">Encrypted Messaging</span>
+  <span class="ty">Explainer</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a><a class="row" href="/kb/global-passive-adversary/">
+  <span class="nm">Defending Against a Global Passive Adversary</span>
+  <span class="ty">Threat model</span>
+  
+</a><a class="row" href="/kb/mls-wire/">
+  <span class="nm">MLS (RFC 9420) and Wire</span>
+  <span class="ty">Deep dive</span>
+  <span class="bdg bdg-usable" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+</a>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="history" id="history">
+      <h2 class="nx">Page history</h2>
+      <dl class="dl">
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Origin</dt><dd>Compiled from the ungovernable.tech research notes.</dd>
+        <dt>Improve this page</dt><dd><a href="https://github.com/aljazceru/ungovernable.tech/issues/new?title=SimpleX%20Chat" rel="noopener">Suggest an edit</a> — issues and pull requests are welcome.</dd>
+      </dl>
+    </section>
+  </article>
+
+  <aside class="glance" aria-label="At a glance">
+    <div class="glance-in">
+      <div class="g-bar"><span class="g-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="g-t">$ cat glance.txt</span></div>
+      <div class="g-body">
+      
+      <div class="grade">
+        <span class="bdg bdg-usable bdg-lg" title="Usable: in production and usable today, but younger, smaller or with known caveats.">Usable</span>
+        <span class="m m-usable" role="img" aria-label="Readiness: Usable" title="Usable: in production and usable today, but younger, smaller or with known caveats."><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <p>Usable: in production and usable today, but younger, smaller or with known caveats.</p>
+      </div>
+      
+      <p class="def">A messenger built on a bet that the user-identifier is the wrong primitive: instead of &#34;user has a phone number / npub / pubkey, contacts route to that,&#34; each conversation gets its own pair of unidirectional queue addresses on relay servers, and a user has no global identifier at all. Relays cannot link conversations to a single user. Double Ratchet still encrypts content; the architectural innovation is what&#39;s removed, not what&#39;s added.</p>
+      <dl class="dl">
+        <dt>Type</dt><dd>Deep dive</dd>
+        <dt>Pillars</dt><dd>Secure Messaging</dd>
+        
+        
+        <dt>Updated</dt><dd>2026-10-25</dd>
+        <dt>Sources linked</dt><dd>7</dd>
+      </dl>
+      </div>
+    </div>
+  </aside>
+</div>
+</div></div>
+
+</main>
+<footer class="foot gut">
+  <div class="wrap">
+    <div class="closing">
+      <p class="closing-t">Cypherpunks write code.</p>
+      <p class="closing-by">— Eric Hughes, <a href="https://www.activism.net/cypherpunk/manifesto.html" rel="noopener">A Cypherpunk's Manifesto</a>, 1993</p>
+    </div>
+    <div class="in">
+      <div class="mission">
+        <a class="wordmark" href="/">
+          <svg class="mark" viewBox="0 0 7 7" width="18" height="18" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="7" height="7" fill="var(--bg)"/><g fill="var(--signal)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/></g></svg>
+          <span class="wm">ungovernable<small>.tech</small></span>
+        </a>
+        <p>An independent library of the technologies people use to free themselves: anonymity networks, censorship circumvention, sovereign money and naming, private computation and the cryptography underneath. Every entry says what it protects against, what it trusts, and how ready it is.</p>
+      </div>
+      <div>
+        <span class="label">// Pillars</span>
+        <ul><li><a href="/pillars/anonymity/">Anonymity</a></li><li><a href="/pillars/circumvention/">Circumvention</a></li><li><a href="/pillars/messaging/">Messaging</a></li><li><a href="/pillars/mesh/">Off-grid</a></li><li><a href="/pillars/naming/">Naming</a></li><li><a href="/pillars/identity/">Identity</a></li><li><a href="/pillars/money/">Money</a></li><li><a href="/pillars/storage/">Storage</a></li><li><a href="/pillars/compute/">Compute</a></li><li><a href="/pillars/confidential/">Confidential computing</a></li><li><a href="/pillars/cryptography/">Cryptography</a></li><li><a href="/pillars/zk/">Zero-knowledge</a></li><li><a href="/pillars/pqc/">Post-quantum</a></li><li><a href="/pillars/endpoint/">OpSec</a></li></ul>
+      </div>
+      <div>
+        <span class="label">// Learn</span>
+        <ul>
+          <li><a href="/possible/">What&#39;s possible</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/paths/">Paths</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
+          <li><a href="/briefings/">Briefings</a></li>
+          <li><a href="/directory/">Directory</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">// About</span>
+        <ul>
+          <li><a href="/method/">Method</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+          <li><a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span class="trackers"><i aria-hidden="true"></i>No trackers. No cookies. No third-party requests.</span>
+      <span class="fp"><span class="fp-l">build</span>9A15 9F03 89FD 9018 662E 1493 B26D 7252</span>
+      <span>Suggestions: <a href="https://github.com/aljazceru/ungovernable.tech" rel="noopener">open an issue or PR on GitHub</a>, or reach <a href="https://nostr.at/aljaz@nostr.si" rel="noopener nofollow">aljaz@nostr.si</a> over Nostr.</span>
+    </div>
+  </div>
+</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="sp-in">
+      <span class="sp-p" aria-hidden="true">&gt;</span>
+      <label class="off-label" for="q">Search</label>
+      <input id="q" type="search" placeholder="search entries, guides, briefings…" autocomplete="off">
+    </div>
+    <div class="res" id="res"></div>
+    <div class="hint"><span>↑↓ move · ↵ open · esc close</span><span id="res-n"></span></div>
+  </div>
+</div>
+<div class="sheet" id="menusheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+    <nav class="mnav" aria-label="Menu">
+      <a href="/pillars/">Pillars</a>
+      <a href="/possible/">Possible</a>
+      <a href="/guides/">Guides</a>
+      <a href="/paths/">Paths</a>
+      <a href="/directory/">Directory</a>
+      <a href="/briefings/">Briefings</a>
+      <a href="/glossary/">Glossary</a>
+      <a href="/method/">Method</a>
+      <a href="/about/">About</a>
+      <a href="/sources/">Sources</a>
+    </nav>
+  </div>
+</div>
+<script src="/assets/js/site.js?v=0fd2fa5e" defer></script>
+</body>
+</html>
