@@ -25,6 +25,8 @@ import yaml
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from csp import INLINE_SCRIPT, csp_policy, script_hash  # noqa: F401 (re-exported)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC = os.path.join(ROOT, 'public')
 SITE = os.environ.get('SITE_URL', 'https://ungovernable.tech')
@@ -67,10 +69,8 @@ READINESS_ORDER = ['battle-tested', 'usable', 'experimental', 'research',
 MD_EXTS = ['tables', 'fenced_code', 'toc', 'attr_list', 'footnotes',
            'sane_lists', 'def_list']
 
-INLINE_SCRIPT = ('(function(){try{var t=localStorage.getItem("theme");'
-                 'document.documentElement.setAttribute("data-theme",'
-                 't==="light"?"light":"dark")}catch(e){'
-                 'document.documentElement.setAttribute("data-theme","dark")}})();')
+# The inline theme script and the CSP live in scripts/csp.py so that
+# build.py (meta tag) and serve.py (header) share one definition.
 
 BUILTIN_METHOD = '''The library exists to answer practical questions under pressure: how to talk, move, publish and compute when someone is watching or interfering. Every entry is written the same way: what it does, what it protects against, what it trusts, and how ready it is. Nothing here is advice; everything here is meant to be checkable.
 
@@ -545,6 +545,7 @@ def make_env(data):
                         for s in d['sections'])
     ctx = {
         'site': SITE, 'v': v, 'nav': None,
+        'csp': csp_policy(script_hash()),
         'pillars': data['pillars'],
         'readiness': READINESS, 'readiness_order': READINESS_ORDER,
         'type_labels': TYPE_LABELS,
@@ -740,6 +741,7 @@ STUB = '''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="{csp}">
 <title>Moved — ungovernable.tech</title>
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url={target}">
@@ -752,6 +754,13 @@ STUB = '''<!DOCTYPE html>
 '''
 
 
+def stub_html(target):
+    """Legacy redirect stub: meta refresh + visible link, noindex, CSP.
+    The exact <meta http-equiv="refresh"> form is load-bearing — serve.py
+    turns stubs into 301s by matching it (REFRESH regex)."""
+    return STUB.format(site=SITE, target=target, csp=csp_policy(script_hash()))
+
+
 def main():
     if os.path.exists(PUBLIC):
         shutil.rmtree(PUBLIC)
@@ -762,6 +771,15 @@ def main():
     if os.path.isdir(os.path.join(ROOT, 'files')):
         shutil.copytree(os.path.join(ROOT, 'files'),
                         os.path.join(PUBLIC, 'files'), dirs_exist_ok=True)
+
+    # GitHub Pages: custom domain + skip Jekyll (harmless on the VM's serve.py)
+    cname = os.path.join(ROOT, 'CNAME')
+    if os.path.exists(cname):
+        shutil.copy(cname, os.path.join(PUBLIC, 'CNAME'))
+    else:
+        open(os.path.join(PUBLIC, 'CNAME'), 'w', encoding='utf-8').write(
+            'ungovernable.tech\n')
+    open(os.path.join(PUBLIC, '.nojekyll'), 'w', encoding='utf-8').write('')
 
     data = load_all()
     env, ctx = make_env(data)
@@ -1274,22 +1292,22 @@ def main():
         base = fname[:-3]
         target = '/pillars/%s/#directory' % pillar
         for rel in ('%s.html' % base, '%s/index.html' % base):
-            w(rel, STUB.format(site=SITE, target=target))
+            w(rel, stub_html(target))
     if 'confidential-dvm' in entries:
-        w('ConfidentialDVM.html',
-          STUB.format(site=SITE, target='/kb/confidential-dvm/'))
-        w('ConfidentialDVM/index.html',
-          STUB.format(site=SITE, target='/kb/confidential-dvm/'))
+        w('ConfidentialDVM.html', stub_html('/kb/confidential-dvm/'))
+        w('ConfidentialDVM/index.html', stub_html('/kb/confidential-dvm/'))
     else:
         for rel in ('ConfidentialDVM.html', 'ConfidentialDVM/index.html'):
-            w(rel, STUB.format(site=SITE, target='/pillars/confidential/#directory'))
+            w(rel, stub_html('/pillars/confidential/#directory'))
     for rel in ('README.html', 'README/index.html'):
-        w(rel, STUB.format(site=SITE, target='/'))
+        w(rel, stub_html('/'))
 
     # ---------- icons / og / csp ---------------------------------------------------
     favicons()
     og_images(pillars)
-    w('.csp-hash', hashlib.sha256(INLINE_SCRIPT.encode()).hexdigest())
+    # base64 of the raw sha256 digest — the form CSP 'sha256-...' requires;
+    # serve.py reads this to build its header policy (scripts/csp.py)
+    w('.csp-hash', script_hash())
 
     print('built %d entries, %d guides, %d briefings, %d glossary terms, '
           '%d links' % (len(kb_entries), len(guides),
