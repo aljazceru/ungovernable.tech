@@ -37,6 +37,7 @@ smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si).
       import_vault.py        vault -> content/ (entries, briefings, glossary, sources)
       import_directory.py    legacy link pages (branch main) -> content/directory/
       build.py               renders the whole site into public/
+      csp.py                 the Content-Security-Policy, shared by build.py and serve.py
       serve.py               stdlib production server (gzip, CSP, 301s for stubs)
       site_check.py          crawl public/: broken links, sitemap, head contract
       fonts/                 TTFs used to render the OG images (OFL 1.1)
@@ -139,7 +140,22 @@ path, for briefings and the shared bibliography. Never edit the source vault.
 
 ## Deploy
 
-On the server (see `deploy/ungovernable-site.service`):
+Both hosts serve the same static site from `public/`.
+
+**GitHub Pages** (custom domain `ungovernable.tech`): push to `main` (or
+run the workflow manually) and `.github/workflows/pages.yml` builds the
+site, runs `scripts/site_check.py` and the test suite, and deploys
+`public/` through the Pages Actions. In the repository settings the Pages
+source must be "GitHub Actions" and the custom domain
+`ungovernable.tech` (a DNS record for the apex is required; Pages handles
+TLS). The build writes `public/CNAME` (custom domain) and
+`public/.nojekyll` (skip Jekyll). Pages sends no custom response headers,
+so the Content-Security-Policy rides in a `<meta>` tag on every page —
+built in one place in `scripts/csp.py`, without `frame-ancestors`, which
+the meta form does not support — and `public/404.html`, with root-absolute
+URLs only, covers unknown paths at any depth.
+
+**exe.dev VM** (see `deploy/ungovernable-site.service`):
 
 ```sh
 git -C /home/exedev/ungovernable.tech fetch
@@ -151,7 +167,9 @@ sudo systemctl restart ungovernable-site
 
 or run `deploy/deploy.sh <branch>`. TLS terminates at the edge proxy; the
 server itself is plain HTTP on localhost:8000 with HSTS deliberately
-omitted.
+omitted. `scripts/serve.py` sends the full CSP as a response header —
+including `frame-ancestors`, built from `public/.csp-hash` — plus the
+legacy 301 redirects that Pages implements via the meta-refresh stubs.
 
 ## License
 

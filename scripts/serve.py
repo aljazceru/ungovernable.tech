@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Production static server for ungovernable.tech (stdlib only).
+"""Production static server for ungovernable.tech (stdlib + scripts/csp.py).
 
 Adds what `python3 -m http.server` lacks: gzip, Cache-Control, ETag/304,
 real 301s for the legacy redirect stubs (one hop), correct MIME types,
 a real 404 status with the 404 page, and security headers including a
-Content-Security-Policy whose script hash is computed by build.py
-(public/.csp-hash).
+Content-Security-Policy built by scripts/csp.py from the hash of the
+single inline theme script (public/.csp-hash, written by build.py;
+base64 of the raw sha256 digest).
 
 Usage: python3 serve.py [--port 8000] [--root public]
 """
@@ -20,6 +21,8 @@ import re
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+import csp  # scripts/csp.py — the one place the policy is defined
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TYPES = {'.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
          '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
@@ -33,12 +36,12 @@ CACHE = {}  # path -> (mtime, size, body, gz, etag, redirect)
 
 
 def load_csp(root):
-    """CSP with the sha256 hash of the single inline theme script."""
+    """Header CSP for serve.py: the shared policy plus frame-ancestors
+    (header-only; the meta form in the built pages omits it). The script
+    hash comes from public/.csp-hash so build and serve cannot drift."""
     hp = os.path.join(root, '.csp-hash')
     h = open(hp, encoding='utf-8').read().strip() if os.path.exists(hp) else ''
-    return ("default-src 'self'; img-src 'self' data:; style-src 'self'; "
-            "script-src 'self'%s; base-uri 'none'; form-action 'none'; "
-            "frame-ancestors 'self'" % (" 'sha256-%s'" % h if h else ''))
+    return csp.csp_policy(h or None, frame_ancestors=True)
 
 
 def load(path):

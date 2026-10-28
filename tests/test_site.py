@@ -160,6 +160,88 @@ def test_legacy_redirect_stubs_exist():
         assert is_stub(os.path.join(PUBLIC, rel)), rel
 
 
+def test_stub_contract():
+    """Every stub: meta refresh, absolute canonical, noindex, meta CSP,
+    and a visible plain link to the target (for non-refresh clients)."""
+    for f in html_files():
+        if not is_stub(f):
+            continue
+        rel = os.path.relpath(f, PUBLIC)
+        t = open(f, encoding='utf-8').read()
+        m = re.search(r'<meta http-equiv="refresh" content="0; url=([^"]+)">', t)
+        assert m, rel
+        target = m.group(1)
+        assert ('<link rel="canonical" href="%s%s">' % (SITE, target)) in t, rel
+        assert '<meta name="robots" content="noindex">' in t, rel
+        assert 'http-equiv="Content-Security-Policy"' in t, rel
+        assert ('<a href="%s">%s</a>' % (target, target)) in t, rel
+
+
+def _csp():
+    import sys
+    sys.path.insert(0, sys_path_hack)
+    import csp
+    return csp
+
+
+def test_meta_csp_matches_inline_script():
+    """The home page's meta CSP carries base64(sha256()) of the inline
+    script actually present in the HTML, and precedes that script."""
+    import base64
+    csp = _csp()
+    html = open(os.path.join(PUBLIC, 'index.html'), encoding='utf-8').read()
+    s = BeautifulSoup(html, 'html.parser')
+    meta = s.find('meta', attrs={'http-equiv': 'Content-Security-Policy'})
+    assert meta and meta.get('content'), 'no meta CSP on home page'
+    pol = meta['content']
+    assert pol == csp.csp_policy(csp.script_hash())
+    assert 'frame-ancestors' not in pol  # not supported in meta CSP
+    m = re.search(r"'sha256-([^']+)'", pol)
+    assert m, pol
+    inline = [sc for sc in s.find_all('script')
+              if not sc.get('src') and sc.get('type') != 'application/ld+json']
+    assert len(inline) == 1
+    want = base64.b64encode(
+        hashlib.sha256(inline[0].string.encode()).digest()).decode()
+    assert m.group(1) == want
+    # the hash file serve.py reads must hold the same base64 hash
+    assert open(os.path.join(PUBLIC, '.csp-hash'), encoding='utf-8').read().strip() \
+        == want
+    # meta policy sits before the first (inline) script it allows
+    assert html.index('<meta http-equiv="Content-Security-Policy"') \
+        < html.index('<script>')
+
+
+def test_every_page_has_csp_and_no_stray_inline_scripts():
+    """Every built page (stubs included) carries the meta CSP, and no page
+    contains an inline executable <script> other than the theme script
+    (ld+json blocks are data, not executable)."""
+    csp = _csp()
+    want = csp.csp_policy(csp.script_hash())
+    for f in html_files():
+        rel = os.path.relpath(f, PUBLIC)
+        s = BeautifulSoup(open(f, encoding='utf-8').read(), 'html.parser')
+        meta = s.find('meta', attrs={'http-equiv': 'Content-Security-Policy'})
+        assert meta and meta.get('content') == want, rel
+        for sc in s.find_all('script'):
+            if sc.get('src') or sc.get('type') == 'application/ld+json':
+                continue
+            assert sc.string == csp.INLINE_SCRIPT, rel
+
+
+def test_404_page_urls_are_root_absolute():
+    """GitHub Pages serves /404.html at any depth, so nothing inside it
+    may be a relative URL."""
+    s = BeautifulSoup(open(os.path.join(PUBLIC, '404.html'), encoding='utf-8').read(),
+                      'html.parser')
+    for tag in s.find_all(['a', 'link', 'script', 'img', 'source']):
+        u = tag.get('href') or tag.get('src')
+        if not u:
+            continue
+        assert u.startswith(('/', '#')) or re.match(
+            r'^(https?:|mailto:)', u), '%s=%s' % (tag.name, u)
+
+
 BAD_STRINGS = ('lorem', 'TODO', 'FIXME', '{{', '[[')
 WORD_BOUND = re.compile(r'\b(lorem|todo|fixme)\b', re.I)
 
