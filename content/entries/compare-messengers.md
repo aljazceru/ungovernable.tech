@@ -8,7 +8,7 @@ dek: "Start with who can identify you, who delivers the messages, and whether th
 updated: 2026-10-25
 created: 2026-10-25
 origin: original
-related: [choosing-a-secure-messenger, encrypted-messaging, metadata-resistance, delta-chat, xmpp-omemo, jami, meshtastic, meshcore]
+related: [choosing-a-secure-messenger, encrypted-messaging, metadata-resistance, delta-chat, xmpp-omemo, jami, meshtastic, meshcore, bitchat, white-noise, nymchat]
 ---
 
 ## Summary
@@ -30,6 +30,7 @@ Choose a messenger against a concrete threat model. End-to-end encryption protec
 | [Matrix](/kb/matrix/) | Account at a homeserver; registration requirements vary | Federated homeservers | Participating servers synchronise room events and handle membership and routing. Encrypting message bodies does not hide the room's existence from them. |
 | [White Noise](/kb/white-noise/) | Public-key identity; no phone number or email | Nostr relays; media servers | Relay operators can see connecting IPs; public profiles remain public. Encrypted conversations are a separate layer. |
 | [Bitchat](/kb/bitchat/) | Device keys and nickname; no account registration | Bluetooth peers; Nostr relays for the internet path | Stable mesh IDs and announcements expose local presence; the Nostr envelope exposes the recipient key. |
+| [Nymchat](/kb/nymchat/) | Session keypair and nickname by default; optional Nostr account | Nostr relays, through the developer's Cloudflare proxy on the hosted app; Bluetooth peers | Public channels are plaintext on relays. The hosted backend sees connecting IPs, and relays do too when the app falls back to direct connections; gift wraps with one-time keys reduce what relays learn about private chats. |
 | [Meshtastic](/kb/meshtastic/) | Radio node identity and channel settings | LoRa nodes; optional internet gateways | Packet headers remain visible; the default channel key is public. Radio operation is not an anonymity guarantee. |
 | [MeshCore](/kb/meshcore/) | Radio node key and channel settings | LoRa repeaters; optional room servers | Adverts disclose node keys and optional identity/location data; routing headers remain visible. The default public-channel key is published. |
 
@@ -50,6 +51,7 @@ Choose a messenger against a concrete threat model. End-to-end encryption protec
 | Matrix | Element's documented private-room flow enables encryption; do not assume every room is encrypted | Needs reachable homeservers | Battle-tested; room and client choices matter |
 | White Noise | End-to-end encrypted conversations | Needs reachable relays; no local radio transport documented here | Experimental / beta |
 | Bitchat | Private messages encrypted; public broadcasts are public; stored-mail paths lack forward secrecy | Bluetooth mesh and couriers; Nostr when online | Experimental |
+| Nymchat | NIP-17 private and group chats, hybrid post-quantum between Nymchat users, full strength only with recovery-code keys; channels are public | Bitchat-compatible Bluetooth mesh; Nostr when online | Experimental; unaudited extensions |
 | Meshtastic | Private-key direct messages; channel privacy needs a secret channel key, **not the published default** | LoRa mesh without internet; separate radio hardware | Usable for off-grid text |
 | MeshCore | Encrypted direct/private-channel payloads; **default public channel is readable** | LoRa with dedicated repeaters; separate radio hardware | Usable for off-grid text |
 
@@ -82,4 +84,5 @@ Other choices have narrower roles: [Tox](/kb/tox/) and [Quiet](/kb/quiet/) carry
 - Matrix: [account and provider choice](https://matrix.org/docs/chat_basics/matrix-for-im/), [federated room events](https://matrix.org/docs/matrix-concepts/elements-of-matrix/), [private-room encryption](https://matrix.org/docs/chat_basics/private-group-chat/).
 - White Noise: [identity, relays, encryption and beta status](https://www.whitenoise.chat/faq).
 - Bitchat: [protocol and documented metadata exposure](https://github.com/permissionlesstech/bitchat/blob/main/WHITEPAPER.md).
+- Nymchat: [protocol, backend and build verification](https://github.com/Spl0itable/NYM), [FAQ on channels, IP exposure and Ghost Mode](https://nymchat.app/).
 - [Meshtastic encryption and public channel keys](https://meshtastic.org/docs/overview/encryption/); MeshCore: [roles and public-channel key](https://github.com/meshcore-dev/MeshCore/blob/main/docs/faq.md), [packet headers](https://github.com/meshcore-dev/MeshCore/blob/main/docs/packet_format.md), [node adverts and encrypted payloads](https://github.com/meshcore-dev/MeshCore/blob/main/docs/payloads.md).

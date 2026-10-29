@@ -9,7 +9,7 @@ dek: "The flagship Marmot client. MLS gives it Signal-class group encryption; No
 updated: 2026-10-25
 created: 2026-10-19
 origin: original
-related: [marmot-protocol, mls-wire, cordn, nostr-protocol, nostr-identity, nostr-key-custody, encrypted-messaging, choosing-a-secure-messenger, metadata-resistance, signal-protocol, simplex]
+related: [marmot-protocol, mls-wire, cordn, nostr-protocol, nostr-identity, nostr-key-custody, encrypted-messaging, choosing-a-secure-messenger, metadata-resistance, signal-protocol, simplex, nymchat]
 aliases: ["Whitenoise", "White Noise messenger"]
 tags: ["white-noise", "marmot", "mls", "nostr", "e2ee", "group-messaging", "deep-dive"]
 ---
