@@ -196,6 +196,8 @@ ENTRY_APPEND = {
         'and [Cordn](/kb/cordn/).' + (
         '\n\n'
         'Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).'
+        '\n\n'
+        'Applications can be published on Nostr too: [nsites](/kb/nsite/) are static websites addressed by a pubkey, [napplets](/kb/napplet/) are sandboxed applets that never touch your key, and [Zapstore](/kb/zapstore/) distributes Android apps as signed Nostr releases.'
     ),
     'meshtastic': '**Sibling project: MeshCore.** [MeshCore](/kb/meshcore/) runs '
         'on the same LoRa boards but relays only through dedicated repeaters and '
@@ -252,7 +254,10 @@ ENTRY_APPEND = {
         '[BitTorrent for Archive Distribution](/kb/bittorrent-archives/).',
     'blossom': 'Compare the storage and replication choices in '
         '[Choosing Decentralized Storage](/kb/compare-storage/) and '
-        '[Hypercore and Hyperdrive](/kb/hypercore/).',
+        '[Hypercore and Hyperdrive](/kb/hypercore/).\n\n'
+        'Blossom also hosts the files behind [nsites](/kb/nsite/) and [napplets](/kb/napplet/), which list their blobs by hash in signed Nostr manifests.',
+    'pubky': 'For other ways to build and ship applications without a provider account, see [Sovereign Applications](/kb/sovereign-applications/).',
+    'hyphanet-and-freenet': 'For other ways to distribute applications without a central host, see [Sovereign Applications](/kb/sovereign-applications/) and [Pear](/kb/pear-runtime/).',
     'sia-and-storj': 'For another encrypted storage design, see '
         '[Tahoe-LAFS](/kb/tahoe-lafs/). For a device-based setup, follow '
         '[Private File Sync and Backup](/guides/private-file-sync-and-backup/).',

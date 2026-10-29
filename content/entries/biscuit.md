@@ -9,7 +9,7 @@ dek: "Delegate a smaller set of permissions without contacting the issuer for ev
 updated: 2026-10-25
 created: 2026-10-25
 origin: original
-related: ["decentralized-identity", "verifiable-credentials", "remote-signing"]
+related: ["decentralized-identity", "verifiable-credentials", "remote-signing", "object-capabilities"]
 ---
 
 ## Summary

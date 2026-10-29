@@ -9,7 +9,7 @@ dek: "Replicate verifiable data streams and changing files, while deciding expli
 updated: 2026-10-25
 created: 2026-10-25
 origin: original
-related: [local-first-crdts, syncthing, bittorrent-archives, compare-storage, decentralized-storage]
+related: [local-first-crdts, pear-runtime, syncthing, bittorrent-archives, compare-storage, decentralized-storage]
 tags: [hypercore, hyperdrive, hyperswarm, holepunch, storage]
 ---
 

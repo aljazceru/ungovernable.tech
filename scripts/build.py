@@ -751,8 +751,8 @@ def og_images(pillars):
          '// FIELD MANUAL')
     for i, p in enumerate(pillars, 1):
         card(os.path.join(ogdir, 'pillar-%s.png' % p['key']), p['name'],
-             'Pillar %02d of 14 — %s' % (i, p['question']),
-             '0x%02d / 14' % i)
+             'Pillar %02d of %d — %s' % (i, len(pillars), p['question']),
+             '0x%02d / %d' % (i, len(pillars)))
 
 
 def favicons():
@@ -847,6 +847,7 @@ def main():
     pillar_by_key = data['pillar_by_key']
     for i, p in enumerate(pillars, 1):
         p['idx'] = i
+        p['n_of'] = len(pillars)
         p['identicon'] = identicon(p['key'])
         p['hexline'] = hexline(p['key'])
 
@@ -930,6 +931,7 @@ def main():
                        'mesh radios to zero-knowledge proofs and post-quantum keys.',
            canonical='/', og_type='website',
            pillar_stats=pillar_stats, paths=data['paths'] or [],
+           n_capabilities=len((data.get('possible') or {}).get('scenarios') or []),
            start_guide=start_guide,
            guides_new=[dict(title=g['title'], url=g['url'], dek=g.get('dek'),
                             level=g.get('level'), time=g.get('time'))
@@ -941,10 +943,10 @@ def main():
     # ---------- pillars -------------------------------------------------
     render('pillars.html', 'pillars/index.html',
            title='Pillars', nav='pillars',
-           description='The fourteen pillars of ungovernable.tech: anonymity networks, '
+           description='The fifteen pillars of ungovernable.tech: anonymity networks, '
                        'censorship circumvention, secure messaging, off-grid mesh, '
                        'sovereign naming, identity, money, storage, compute, '
-                       'confidential computing, cryptography, zero-knowledge, '
+                       'sovereign applications, confidential computing, cryptography, zero-knowledge, '
                        'post-quantum and operational security.',
            canonical='/pillars/', pillar_stats=pillar_stats)
 

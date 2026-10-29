@@ -2,14 +2,14 @@
 title: "Local-first Software and CRDTs"
 slug: local-first-crdts
 type: explainer
-pillars: [storage, cryptography]
+pillars: [storage, cryptography, apps]
 readiness: usable
 description: "Local-first software keeps working data on your device; CRDTs merge concurrent edits, while encryption and access control remain separate choices."
 dek: "Local copies make work possible without a server; merge algorithms help those copies converge when they meet again."
 updated: 2026-10-25
 created: 2026-10-25
 origin: original
-related: [syncthing, hypercore, tahoe-lafs, compare-storage, private-file-sync-and-backup]
+related: [syncthing, hypercore, sovereign-applications, pear-runtime, tahoe-lafs, compare-storage, private-file-sync-and-backup]
 tags: [local-first, crdt, automerge, yjs, cryptpad]
 ---
 

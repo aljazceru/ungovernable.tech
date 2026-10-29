@@ -143,3 +143,5 @@ For a robust Nostr media identity:
 - Nostr NIPs — [github.com/nostr-protocol/nips](https://github.com/nostr-protocol/nips)
 
 Compare the storage and replication choices in [Choosing Decentralized Storage](/kb/compare-storage/) and [Hypercore and Hyperdrive](/kb/hypercore/).
+
+Blossom also hosts the files behind [nsites](/kb/nsite/) and [napplets](/kb/napplet/), which list their blobs by hash in signed Nostr manifests.

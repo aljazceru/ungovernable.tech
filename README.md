@@ -3,7 +3,7 @@
 A reference library of the technologies people use to free themselves:
 anonymity networks, censorship circumvention, secure messaging, off-grid
 mesh, sovereign naming, identity, financial sovereignty, decentralized
-storage and compute, confidential computing, privacy-enhancing
+storage and compute, sovereign applications, confidential computing, privacy-enhancing
 cryptography, zero-knowledge, post-quantum keys, and the devices and
 operational security that hold it together.
 
@@ -21,7 +21,7 @@ smoke signals over nostr to [aljaz@nostr.si](https://nostr.at/aljaz@nostr.si).
 ## Layout
 
     content/
-      pillars.yml            the 14 pillars (key, name, question, intro)
+      pillars.yml            the 15 pillars (key, name, question, intro)
       entries/*.md           one file per entry or guide (YAML frontmatter + markdown)
       briefings/<series>/    dated weekly research briefings
       paths.yml              persona learning paths (optional)

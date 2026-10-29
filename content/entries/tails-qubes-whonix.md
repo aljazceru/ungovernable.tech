@@ -10,7 +10,7 @@ created: 2026-10-17
 origin: original
 level: intermediate
 time: "1-3 hours"
-related: [using-tor-safely, threat-modeling, grapheneos, tor, age-encryption]
+related: [using-tor-safely, threat-modeling, grapheneos, tor, age-encryption, object-capabilities]
 ---
 
 Tor Browser protects one application. If your adversary can trick you into opening a malicious document, exploit your operating system, or simply seize your laptop and read what is on it, you need protection at the level of the whole system. Three projects dominate this space. They solve different problems and combine well.
