@@ -21,6 +21,8 @@ import shutil
 import urllib.parse
 
 import markdown
+import markdown.extensions
+import markdown.preprocessors
 import yaml
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -147,8 +149,66 @@ def parse_doc(text):
     return fm, text[m.end():]
 
 
+_LIST_ITEM = re.compile(r'^ {0,3}(?:[-*+]|\d{1,2}[.)]) +\S')
+_QUOTE = re.compile(r'^(?: {0,3}> ?)*')
+_TABLE_SEP = re.compile(r'^[\s|:-]*\|[\s|:-]*$')
+
+
+def loosen_lists(lines):
+    """Python-Markdown only starts a list after a blank line, unlike GitHub
+    and Obsidian, so "Intro:\n- a\n- b" rendered as one paragraph with
+    literal dashes. Insert the blank line before a list that directly
+    follows a paragraph line. Runs as a preprocessor *after* fenced_code
+    and html_block have stashed code blocks and raw HTML (LoosenLists
+    below), so it never sees their contents; tables (including "- | -"
+    separator rows) and open multi-line code spans are left alone here.
+    tests/test_site.py pins each of those cases."""
+    out, prev, span, block = [], '', None, None
+    for line in lines:
+        q = _QUOTE.match(line).group(0)       # same handling inside > quotes
+        body = line[len(q):]
+        pbody = prev[len(q):] if prev.startswith(q) else None
+        if not body.strip():
+            block = None
+        elif block is None:
+            block = 'text'
+        if block == 'text' and _TABLE_SEP.match(body) and pbody and '|' in pbody:
+            block = 'table'
+        if (pbody is not None and _QUOTE.match(prev).group(0) == q
+                and _LIST_ITEM.match(body) and not _TABLE_SEP.match(body)
+                and block == 'text' and pbody.strip() and '|' not in pbody
+                and span is None and not _LIST_ITEM.match(pbody)
+                and not pbody.startswith((' ', '\t', '#', '>'))):
+            out.append(q.rstrip())
+        out.append(line)
+        if not body.strip():
+            span = None
+        for mt in re.finditer(r'`+', body):   # open code span = its delimiter length
+            run = len(mt.group(0))
+            if span is None:
+                esc = len(body[:mt.start()]) - len(body[:mt.start()].rstrip('\\'))
+                if esc % 2:          # \` is a literal backtick, not a delimiter
+                    run -= 1
+                span = run or None
+            elif run == span:
+                span = None
+        prev = line
+    return out
+
+
+class LoosenLists(markdown.preprocessors.Preprocessor):
+    def run(self, lines):
+        return loosen_lists(lines)
+
+
+class LoosenListsExt(markdown.extensions.Extension):
+    def extendMarkdown(self, md):
+        # below fenced_code_block (25) and html_block (20): they stash first
+        md.preprocessors.register(LoosenLists(md), 'loosen_lists', 15)
+
+
 def render_md(text):
-    md = markdown.Markdown(extensions=MD_EXTS)
+    md = markdown.Markdown(extensions=MD_EXTS + [LoosenListsExt()])
     html = md.convert(text)
     return html, [t for t in md.toc_tokens if t['level'] == 2]
 
