@@ -9,7 +9,7 @@ dek: "No accounts, no phone numbers, no servers: nearby phones form a Bluetooth 
 updated: 2026-10-23
 created: 2026-04-25
 origin: original
-related: [briar, meshtastic, meshcore, reticulum, off-grid-messaging, off-grid-networks, internet-shutdown-preparedness, building-a-mesh, nostr-protocol, metadata-resistance, choosing-a-secure-messenger]
+related: [briar, meshtastic, meshcore, reticulum, off-grid-messaging, off-grid-networks, internet-shutdown-preparedness, building-a-mesh, nostr-protocol, nymchat, metadata-resistance, choosing-a-secure-messenger]
 aliases: ["BitChat", "Bitchat Mesh"]
 tags: ["bitchat", "ble-mesh", "bluetooth", "nostr", "off-grid", "messaging", "deep-dive"]
 ---
@@ -65,6 +65,8 @@ The whitepaper is unusually candid that **metadata is the weakest part of the de
 ## Readiness
 
 **Experimental.** It is easy to install, cross-platform, and in very active development, and the cryptography for live chats is sound. But the protocol is young and still changing: in June 2026 a fix broke wire compatibility between old and new versions. The project's own documentation lists serious metadata exposure on the radio layer. Audits have found critical flaws, and some findings are still open on Android. It works well as an outage, festival or protest backup channel among people who expect it. It is not the tool for high-risk conversations near a hostile listener. For those, [Briar](/kb/briar/) has the longer audit record. For kilometres of range, use LoRa ([Meshtastic](/kb/meshtastic/) or [MeshCore](/kb/meshcore/)).
+
+[Nymchat](/kb/nymchat/) is a separate Nostr client that joins the same Bluetooth mesh and geohash location channels, and also runs in the browser.
 
 For the wider comparison of online and off-grid choices, see [Choosing a private messenger](/kb/compare-messengers/).
 

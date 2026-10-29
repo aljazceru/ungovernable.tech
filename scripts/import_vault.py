@@ -198,6 +198,8 @@ ENTRY_APPEND = {
         'Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).'
         '\n\n'
         'Applications can be published on Nostr too: [nsites](/kb/nsite/) are static websites addressed by a pubkey, [napplets](/kb/napplet/) are sandboxed applets that never touch your key, and [Zapstore](/kb/zapstore/) distributes Android apps as signed Nostr releases.'
+        '\n\n'
+        'For pseudonymous public chat, [Nymchat](/kb/nymchat/) runs geohash and topic channels over ephemeral Nostr events, with NIP-17 private and group chats.'
     ),
     'meshtastic': '**Sibling project: MeshCore.** [MeshCore](/kb/meshcore/) runs '
         'on the same LoRa boards but relays only through dedicated repeaters and '
