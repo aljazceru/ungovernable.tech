@@ -331,3 +331,42 @@ def test_all_links_clickable():
             raise AssertionError('%s: bare URL %r' % (
                 os.path.relpath(f, PUBLIC), bare.search(str(node)).group(0)[:50]))
         assert '[[' not in body.get_text(' '), os.path.relpath(f, PUBLIC)
+
+
+def test_narrow_toc_and_glance_are_not_sticky():
+    """The narrow-screen overrides must come after the base sticky rules,
+    or the contents list floats over the text on phones."""
+    css = open(os.path.join(ROOT, 'assets', 'css', 'site.css'), encoding='utf-8').read()
+    for sel, q in (('.toc{position:sticky', '.toc{grid-column:1/-1;position:static'),
+                   ('.glance{position:sticky', '.glance{position:static')):
+        assert css.index(sel) < css.index(q), sel
+
+
+def test_list_right_after_paragraph_renders_as_list():
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import build
+    for src in ('Types:\n- **A**: one\n- B', '> Head\n> - a\n> - b'):
+        html, _ = build.render_md(src)
+        assert '<li>' in html and '- ' not in html, html
+    html, _ = build.render_md('```\nx\n- y\n```')
+    assert '<li>' not in html
+    html, _ = build.render_md('Born in\n2024. Then more')
+    assert '<li>' not in html
+    html, _ = build.render_md('`first\n- literal`')
+    assert '<li>' not in html and '<code>' in html
+    html, _ = build.render_md('``a ` b\n- literal``')
+    assert '<li>' not in html and '<code>' in html
+    html, _ = build.render_md('````\n`````\ntext\n- literal\n````')
+    assert '\n\n- literal' not in html and '<li>' not in html
+    html, _ = build.render_md('a \\` then `code\n- literal`')
+    assert '<li>' not in html and '<code>' in html
+    for src in ('~~~text\n ~~~\nfirst\n- literal\n~~~', 'A | B\n--- | ---\nabc\n- def | ghi',
+                '<pre>\nfirst\n- literal\n</pre>', '<pre>\nfirst\n\nsecond\n- literal\n</pre>',
+                '```inline```\n\n```\nhello\n- literal\n```'):
+        before = __import__('markdown').markdown(src, extensions=build.MD_EXTS)
+        assert build.render_md(src)[0] == before, src
+    html, _ = build.render_md('Name | Value\n- | -\nA | B')
+    assert '<table>' in html and '<li>' not in html
+    html, _ = build.render_md('````\n```\n- y\n```\n````\nIntro:\n- a')
+    assert html.count('<li>') == 1 and '- y' in html

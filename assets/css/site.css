@@ -340,15 +340,6 @@ a{color:var(--ink)}
 .mono-grid{display:grid;grid-template-columns:190px minmax(0,1fr) 300px;gap:2.6rem;
   padding-block:1.8rem}
 .mono-grid.no-toc{grid-template-columns:minmax(0,1fr) 300px}
-@media (max-width:1240px){
-  .mono-grid{grid-template-columns:minmax(0,1fr) 300px}
-  .toc{grid-column:1/-1;position:static;max-height:none;overflow:visible;
-    border-bottom:1px solid var(--line);padding-bottom:.8rem}
-}
-@media (max-width:1000px){
-  .mono-grid,.mono-grid.no-toc{grid-template-columns:minmax(0,1fr)}
-  .glance{position:static;max-height:none}
-}
 /* contents: plain sticky column on wide screens, <details> up top when narrow */
 .toc{position:sticky;top:calc(var(--hdr) + 1.4rem);align-self:start;
   max-height:calc(100vh - var(--hdr) - 2.8rem);overflow-y:auto;scrollbar-width:thin}
@@ -696,3 +687,15 @@ a{color:var(--ink)}
 .possible-cta:hover b{color:var(--signal)}
 .possible-cta p{font:400 1rem/1.55 var(--serif);color:var(--ink-2);max-width:60ch}
 .possible-cta .meta{font:600 .74rem/1.5 var(--mono);color:var(--muted);letter-spacing:.04em}
+
+/* narrow layouts: must stay after the base .toc and .glance rules, or their
+   position:sticky wins on equal specificity and they float over the text */
+@media (max-width:1240px){
+  .mono-grid{grid-template-columns:minmax(0,1fr) 300px}
+  .toc{grid-column:1/-1;position:static;max-height:none;overflow:visible;
+    border-bottom:1px solid var(--line);padding-bottom:.8rem}
+}
+@media (max-width:1000px){
+  .mono-grid,.mono-grid.no-toc{grid-template-columns:minmax(0,1fr)}
+  .glance{position:static;max-height:none}
+}
