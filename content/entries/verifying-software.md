@@ -2,14 +2,14 @@
 title: "Verify software before installing it"
 slug: verifying-software
 type: guide
-pillars: ["endpoint", "cryptography"]
+pillars: ["endpoint", "cryptography", "apps"]
 readiness: usable
 description: "Check downloads with project signing keys, understand what checksums prove, and use reproducible builds without confusing them with a security audit."
 dek: "Confirm who signed the bytes you will run, then ask whether those bytes can be rebuilt from the published source."
 updated: 2026-10-25
 created: 2026-10-25
 origin: original
-related: ["grapheneos", "tails-qubes-whonix", "using-tor-safely", "hardware-supply-chain-trust"]
+related: ["grapheneos", "compare-android-app-stores", "zapstore", "sovereign-applications", "tails-qubes-whonix", "using-tor-safely", "hardware-supply-chain-trust"]
 level: intermediate
 ---
 

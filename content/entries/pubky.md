@@ -226,3 +226,5 @@ The systems are more complementary than competing. Many users hold both keys or 
 - Aiello, Hartshorn et al., *PKARR — Public-Key-Addressable Resource Records*, 2023.
 - Maymounkov & Mazières, *Kademlia: A Peer-to-Peer Information System Based on the XOR Metric*, IPTPS 2002.
 - BEP 44 — *Storing arbitrary data in the DHT* (BitTorrent Enhancement Proposal).
+
+For other ways to build and ship applications without a provider account, see [Sovereign Applications](/kb/sovereign-applications/).

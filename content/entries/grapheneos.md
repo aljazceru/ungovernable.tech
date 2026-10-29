@@ -11,7 +11,7 @@ created: 2026-10-17
 origin: original
 level: intermediate
 time: "1 hour"
-related: [threat-modeling, choosing-a-secure-messenger, apple-secure-enclave, tails-qubes-whonix]
+related: [threat-modeling, choosing-a-secure-messenger, apple-secure-enclave, tails-qubes-whonix, compare-android-app-stores, zapstore]
 ---
 
 GrapheneOS is a free, open-source operating system based on the Android Open Source Project, focused on privacy and security hardening. It removes Google services from the core system, adds exploit mitigations and gives you finer control over what apps can access. For people whose threat model includes commercial spyware, device seizure or pervasive app tracking, it is the most widely recommended phone setup.

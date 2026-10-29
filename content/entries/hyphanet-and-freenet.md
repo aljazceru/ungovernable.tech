@@ -136,3 +136,5 @@ If you read documents written before 2023 referring to "Freenet," they almost ce
 - Roos, Beverly, Strufe, "Provable polylogarithmic-time routing in distributed networks" (2015), formal analysis of small-world routing of the kind Hyphanet uses.
 - Roberts, "Routing in the Dark" — analyses of darknet F2F routing.
 - New Freenet / Locutus (separate project) — [freenet.org](https://freenet.org). Disambiguated from Hyphanet.
+
+For other ways to distribute applications without a central host, see [Sovereign Applications](/kb/sovereign-applications/) and [Pear](/kb/pear-runtime/).

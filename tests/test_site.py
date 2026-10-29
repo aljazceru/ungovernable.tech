@@ -70,18 +70,44 @@ def test_build_is_idempotent():
     assert s1 == snap()
 
 
-def test_circumvention_directory_renders_in_both_locations():
+@pytest.mark.parametrize('pillar', ['circumvention', 'apps'])
+def test_override_only_directory_renders_in_both_locations(pillar):
     """A pillar populated only by overrides must reach both directory views."""
     with open(os.path.join(ROOT, 'content', 'directory', 'overrides.yml')) as f:
-        expected = {item['url'] for item in yaml.safe_load(f)['add']['circumvention']}
+        expected = {item['url'] for item in yaml.safe_load(f)['add'][pillar]}
     assert expected
-    for page, selector in [('pillars/circumvention/index.html', '#directory'),
-                           ('directory/index.html', '#circumvention')]:
+    for page, selector in [('pillars/%s/index.html' % pillar, '#directory'),
+                           ('directory/index.html', '#' + pillar)]:
         with open(os.path.join(PUBLIC, page)) as f:
             section = BeautifulSoup(f.read(), 'html.parser').select_one(selector)
         assert section is not None, page
         links = {a['href'] for a in section.select('a[href^="https://"]')}
         assert links == expected, page
+
+
+def test_pillar_numbering_follows_pillars_yml():
+    """Hub kickers and the pillars index count every pillar in pillars.yml."""
+    with open(os.path.join(ROOT, 'content', 'pillars.yml')) as f:
+        pillars = yaml.safe_load(f)
+    n = len(pillars)
+    for i, p in enumerate(pillars, 1):
+        with open(os.path.join(PUBLIC, 'pillars', p['key'], 'index.html')) as f:
+            soup = BeautifulSoup(f.read(), 'html.parser')
+        assert soup.select_one('.k-idx').get_text() == '0x%02x / 0x%02x' % (i, n), p['key']
+        assert soup.select_one('svg.glyph'), p['key']
+    with open(os.path.join(PUBLIC, 'pillars', 'index.html')) as f:
+        soup = BeautifulSoup(f.read(), 'html.parser')
+    hrefs = {a['href'] for a in soup.select('a[href^="/pillars/"]')}
+    assert {'/pillars/%s/' % p['key'] for p in pillars} <= hrefs
+
+
+def test_every_pillar_has_a_capability_scenario():
+    """Each /possible/ pillar filter must match at least one scenario card."""
+    with open(os.path.join(ROOT, 'content', 'pillars.yml')) as f:
+        keys = {p['key'] for p in yaml.safe_load(f)}
+    with open(os.path.join(ROOT, 'content', 'possible.yml')) as f:
+        used = {k for sc in yaml.safe_load(f)['scenarios'] for k in sc['pillars']}
+    assert keys <= used, sorted(keys - used)
 
 
 def test_entry_pages_head_contract():

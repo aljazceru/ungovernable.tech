@@ -179,3 +179,5 @@ This couples Nostr's identity layer with Bitcoin's payment layer. Nostr is the o
 For end-to-end encrypted group chat built on Nostr keys and relays, see [White Noise](/kb/white-noise/) (the Marmot protocol) and [Cordn](/kb/cordn/).
 
 Continue with [Secure Scuttlebutt](/kb/secure-scuttlebutt/).
+
+Applications can be published on Nostr too: [nsites](/kb/nsite/) are static websites addressed by a pubkey, [napplets](/kb/napplet/) are sandboxed applets that never touch your key, and [Zapstore](/kb/zapstore/) distributes Android apps as signed Nostr releases.
